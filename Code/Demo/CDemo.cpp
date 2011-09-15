@@ -62,11 +62,11 @@ void CDemo::run()
 	if (device->getFileSystem()->existFile("irrlicht.dat"))
 		device->getFileSystem()->addFileArchive("irrlicht.dat");
 	else
-		device->getFileSystem()->addFileArchive("../../media/irrlicht.dat");
+		device->getFileSystem()->addFileArchive("../media/irrlicht.dat");
 	if (device->getFileSystem()->existFile("map-20kdm2.pk3"))
 		device->getFileSystem()->addFileArchive("map-20kdm2.pk3");
 	else
-		device->getFileSystem()->addFileArchive("../../media/map-20kdm2.pk3");
+		device->getFileSystem()->addFileArchive("../media/map-20kdm2.pk3");
 
 	video::IVideoDriver* driver = device->getVideoDriver();
 	scene::ISceneManager* smgr = device->getSceneManager();
@@ -407,13 +407,13 @@ void CDemo::loadSceneData()
 	// load sydney model and create 2 instances
 
 	scene::IAnimatedMesh* mesh = 0;
-	mesh = sm->getMesh("../../media/sydney.md2");
+	mesh = sm->getMesh("../media/sydney.md2");
 	if (mesh)
 	{
 		model1 = sm->addAnimatedMeshSceneNode(mesh);
 		if (model1)
 		{
-			model1->setMaterialTexture(0, driver->getTexture("../../media/spheremap.jpg"));
+			model1->setMaterialTexture(0, driver->getTexture("../media/spheremap.jpg"));
 			model1->setPosition(core::vector3df(100,40,-80));
 			model1->setScale(core::vector3df(2,2,2));
 			model1->setMD2Animation(scene::EMAT_STAND);
@@ -429,7 +429,7 @@ void CDemo::loadSceneData()
 			model2->setPosition(core::vector3df(180,15,-60));
 			model2->setScale(core::vector3df(2,2,2));
 			model2->setMD2Animation(scene::EMAT_RUN);
-			model2->setMaterialTexture(0, device->getVideoDriver()->getTexture("../../media/sydney.bmp"));
+			model2->setMaterialTexture(0, device->getVideoDriver()->getTexture("../media/sydney.bmp"));
 			model2->setMaterialFlag(video::EMF_LIGHTING, true);
 			model1->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
 			model2->addShadowVolumeSceneNode();
@@ -441,12 +441,12 @@ void CDemo::loadSceneData()
 	// create sky box
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
 	skyboxNode = sm->addSkyBoxSceneNode(
-		driver->getTexture("../../media/irrlicht2_up.jpg"),
-		driver->getTexture("../../media/irrlicht2_dn.jpg"),
-		driver->getTexture("../../media/irrlicht2_lf.jpg"),
-		driver->getTexture("../../media/irrlicht2_rt.jpg"),
-		driver->getTexture("../../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../../media/irrlicht2_bk.jpg"));
+		driver->getTexture("../media/irrlicht2_up.jpg"),
+		driver->getTexture("../media/irrlicht2_dn.jpg"),
+		driver->getTexture("../media/irrlicht2_lf.jpg"),
+		driver->getTexture("../media/irrlicht2_rt.jpg"),
+		driver->getTexture("../media/irrlicht2_ft.jpg"),
+		driver->getTexture("../media/irrlicht2_bk.jpg"));
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
 
 	// create walk-between-portals animation
@@ -468,7 +468,7 @@ void CDemo::loadSceneData()
 	core::array<video::ITexture*> textures;
 	for (s32 g=1; g<8; ++g)
 	{
-		core::stringc tmp("../../media/portal");
+		core::stringc tmp("../media/portal");
 		tmp += g;
 		tmp += ".bmp";
 		video::ITexture* t = driver->getTexture( tmp );
@@ -486,7 +486,7 @@ void CDemo::loadSceneData()
 		bill = sm->addBillboardSceneNode(0, core::dimension2d<f32>(100,100),
 			waypoint[r]+ core::vector3df(0,20,0));
 		bill->setMaterialFlag(video::EMF_LIGHTING, false);
-		bill->setMaterialTexture(0, driver->getTexture("../../media/portal1.bmp"));
+		bill->setMaterialTexture(0, driver->getTexture("../media/portal1.bmp"));
 		bill->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
 		bill->addAnimator(anim);
 	}
@@ -509,7 +509,7 @@ void CDemo::loadSceneData()
 	bill = device->getSceneManager()->addBillboardSceneNode(
 		light, core::dimension2d<f32>(40,40));
 	bill->setMaterialFlag(video::EMF_LIGHTING, false);
-	bill->setMaterialTexture(0, driver->getTexture("../../media/particlewhite.bmp"));
+	bill->setMaterialTexture(0, driver->getTexture("../media/particlewhite.bmp"));
 	bill->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
 
 	// create meta triangle selector with all triangles selectors in it.
@@ -538,7 +538,7 @@ void CDemo::loadSceneData()
 
 	campFire->setMaterialFlag(video::EMF_LIGHTING, false);
 	campFire->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
-	campFire->setMaterialTexture(0, driver->getTexture("../../media/fireball.bmp"));
+	campFire->setMaterialTexture(0, driver->getTexture("../media/fireball.bmp"));
 	campFire->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
 
 	// load music
@@ -570,7 +570,7 @@ void CDemo::createLoadingScreen()
 	inOutFader->setColor(backColor,	video::SColor ( 0, 230, 230, 230 ));
 
 	// irrlicht logo
-	device->getGUIEnvironment()->addImage(device->getVideoDriver()->getTexture("../../media/irrlichtlogo2.png"),
+	device->getGUIEnvironment()->addImage(device->getVideoDriver()->getTexture("../media/irrlichtlogo2.png"),
 		core::position2d<s32>(5,5));
 
 	// loading text
@@ -587,7 +587,7 @@ void CDemo::createLoadingScreen()
 	// load bigger font
 
 	device->getGUIEnvironment()->getSkin()->setFont(
-		device->getGUIEnvironment()->getFont("../../media/fonthaettenschweiler.bmp"));
+		device->getGUIEnvironment()->getFont("../media/fonthaettenschweiler.bmp"));
 
 	// set new font color
 
@@ -648,7 +648,7 @@ void CDemo::shoot()
 		core::dimension2d<f32>(25,25), start);
 
 	node->setMaterialFlag(video::EMF_LIGHTING, false);
-	node->setMaterialTexture(0, device->getVideoDriver()->getTexture("../../media/fireball.bmp"));
+	node->setMaterialTexture(0, device->getVideoDriver()->getTexture("../media/fireball.bmp"));
 	node->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
 
 	f32 length = (f32)(end - start).getLength();
@@ -715,7 +715,7 @@ void CDemo::createParticleImpacts()
 
 			pas->setMaterialFlag(video::EMF_LIGHTING, false);
 			pas->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
-			pas->setMaterialTexture(0, device->getVideoDriver()->getTexture("../../media/smoke.bmp"));
+			pas->setMaterialTexture(0, device->getVideoDriver()->getTexture("../media/smoke.bmp"));
 			pas->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
 
 			scene::ISceneNodeAnimator* anim = sm->createDeleteAnimator(2000);
@@ -760,7 +760,7 @@ void CDemo::startIrrKlang()
 
 	// play music
 
-	irrklang::ISound* snd = irrKlang->play2D("../../media/IrrlichtTheme.ogg", true, false, true);
+	irrklang::ISound* snd = irrKlang->play2D("../media/IrrlichtTheme.ogg", true, false, true);
 	if ( !snd )
 		snd = irrKlang->play2D("IrrlichtTheme.ogg", true, false, true);
 
@@ -772,8 +772,8 @@ void CDemo::startIrrKlang()
 
 	// preload both sound effects
 
-	ballSound = irrKlang->getSoundSource("../../media/ball.wav");
-	impactSound = irrKlang->getSoundSource("../../media/impact.wav");
+	ballSound = irrKlang->getSoundSource("../media/ball.wav");
+	impactSound = irrKlang->getSoundSource("../media/impact.wav");
 }
 #endif
 
@@ -790,12 +790,12 @@ void CDemo::startSound()
 	if (Mix_OpenAudio(22050, AUDIO_S16, 2, 128))
 		return;
 
-	stream = Mix_LoadMUS("../../media/IrrlichtTheme.ogg");
+	stream = Mix_LoadMUS("../media/IrrlichtTheme.ogg");
 	if (stream)
 		Mix_PlayMusic(stream, -1);
 
-	ballSound = Mix_LoadWAV("../../media/ball.wav");
-	impactSound = Mix_LoadWAV("../../media/impact.wav");
+	ballSound = Mix_LoadWAV("../media/ball.wav");
+	impactSound = Mix_LoadWAV("../media/impact.wav");
 }
 
 void CDemo::playSound(Mix_Chunk *sample)
