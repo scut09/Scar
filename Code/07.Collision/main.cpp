@@ -12,6 +12,8 @@ following code starts up the engine and loads the level, as per tutorial 2.
 */
 #include <irrlicht.h>
 #include "driverChoice.h"
+#include <cstdio>
+#include <iostream>
 
 using namespace irr;
 
@@ -357,13 +359,22 @@ int main()
 
 	u32 then = device->getTimer()->getTime();
 	const f32 MOVEMENT_SPEED = 60.f;
-
+	const f32 DISTANCE = 10.f;
 	while(device->run())
 		if (device->isWindowActive())
 		{
 			const u32 now = device->getTimer()->getTime();
 			const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
 			then = now;
+			core::vector3df targetVec = node->getRotation();
+			core::vector3df camVec = camera->getRotation();
+			core::vector3df posVec = targetVec - camVec;
+			//posVec.Y = 0;
+			//posVec = posVec.normalize() * DISTANCE;
+
+			printf( "%f %f %f\n", targetVec.X, targetVec.Y, targetVec.Z );
+			printf( "%f %f %f\n", posVec.X, posVec.Y, posVec.Z );
+			//std::cout << targetVec.X << targetVec.Y << targetVec.Z << std::endl;
 
 			node->setRotation( camera->getRotation() );
 			node->setPosition( camera->getPosition() - core::vector3df( 0.f, 60.f, 50.f ) );
