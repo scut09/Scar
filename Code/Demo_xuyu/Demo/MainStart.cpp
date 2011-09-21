@@ -24,13 +24,13 @@ int main()
 	// 初始化显卡设备
 	IrrlichtDevice *device =
 		createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-			false, false, false, &EH);
+		false, false, false, &EH);
 
 	if (!device)
 		return 1;
 
 	device->setWindowCaption(L"Irrlicht Engine Demo");
-	
+
 	//由显卡设备获得场景管理器以及界面管理器的类
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
@@ -76,17 +76,17 @@ int main()
 	}
 
 	//在场景中放置眼睛
-	 smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,5));
+	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,5));
 	//使用第一人称视角控制眼睛的移动
 	smgr->addCameraSceneNodeFPS();
 	p = PlaneNode->getPosition();
 	p.Y += 1;
 	camNode = smgr->addCameraSceneNode(0, p, vector3df(0, 100, 100));
-	
+
 
 	device->getCursorControl()->setVisible(false);
 
-	
+
 	while(device->run())
 	{
 
