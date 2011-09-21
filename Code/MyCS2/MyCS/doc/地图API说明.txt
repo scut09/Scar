@@ -1,0 +1,17 @@
+-- IMap接口：  killNum GetKillNum(index) 即获取指定编号玩家的杀人数
+
+-- 脚本 需实现的函数: getPosition(index) 返回 指定编号的初始位置
+--						IsWin() 返回游戏是否结束， 和四个bool值 其中获胜的设为true
+
+function getPosition(index)
+{
+	
+}
+end
+
+
+function IsWin()
+{
+	
+}
+end
