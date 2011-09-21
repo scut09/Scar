@@ -329,18 +329,18 @@ int main()
 	material.Lighting = false;
 
 
-	sel1 = smgr->createOctreeTriangleSelector(node->getMesh()->getMesh(0), node);
-	node->setTriangleSelector(sel1);
-	anim1 = smgr->createCollisionResponseAnimator(
-		sel1,
-		camera, 
-		core::vector3df(30,50,30),
-		core::vector3df(0,0,0), 
-		core::vector3df(0,30,0)
-		);
-	sel1->drop();
-	camera->addAnimator(anim1);
-	anim1->drop();
+	//sel1 = smgr->createOctreeTriangleSelector(node->getMesh()->getMesh(0), node);
+	//node->setTriangleSelector(sel1);
+	//anim1 = smgr->createCollisionResponseAnimator(
+	//	sel1,
+	//	camera, 
+	//	core::vector3df(30,50,30),
+	//	core::vector3df(0,0,0), 
+	//	core::vector3df(0,30,0)
+	//	);
+	//sel1->drop();
+	//camera->addAnimator(anim1);
+	//anim1->drop();
 
 	// Add a light, so that the unselected nodes aren't completely dark.
 	scene::ILightSceneNode * light = smgr->addLightSceneNode(0, core::vector3df(-60,100,400),
@@ -365,19 +365,21 @@ int main()
 			const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
 			then = now;
 
-			core::vector3df nodePosition = node->getPosition();
+			node->setRotation( camera->getRotation() );
+			node->setPosition( camera->getPosition() - core::vector3df( 0.f, 60.f, 50.f ) );
+			//core::vector3df nodePosition = node->getPosition();
 
-			if(receiver.IsKeyDown(irr::KEY_KEY_W))
-				nodePosition.X += MOVEMENT_SPEED * frameDeltaTime;
-			else if(receiver.IsKeyDown(irr::KEY_KEY_S))
-				nodePosition.X -= MOVEMENT_SPEED * frameDeltaTime;
+			//if(receiver.IsKeyDown(irr::KEY_KEY_W))
+			//	nodePosition.X += MOVEMENT_SPEED * frameDeltaTime;
+			//else if(receiver.IsKeyDown(irr::KEY_KEY_S))
+			//	nodePosition.X -= MOVEMENT_SPEED * frameDeltaTime;
 
-			if(receiver.IsKeyDown(irr::KEY_KEY_A))
-				nodePosition.Z += MOVEMENT_SPEED * frameDeltaTime;
-			else if(receiver.IsKeyDown(irr::KEY_KEY_D))
-				nodePosition.Z -= MOVEMENT_SPEED * frameDeltaTime;
+			//if(receiver.IsKeyDown(irr::KEY_KEY_A))
+			//	nodePosition.Z += MOVEMENT_SPEED * frameDeltaTime;
+			//else if(receiver.IsKeyDown(irr::KEY_KEY_D))
+			//	nodePosition.Z -= MOVEMENT_SPEED * frameDeltaTime;
 
-			node->setPosition(nodePosition);
+			//node->setPosition(nodePosition);
 
 
 
