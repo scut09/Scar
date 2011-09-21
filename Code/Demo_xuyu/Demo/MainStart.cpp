@@ -79,12 +79,12 @@ int main()
 	}
 
 	//在场景中放置眼睛
-	smgr->addCameraSceneNode(0, vector3df(-300,30,-40), vector3df(0,5,5));
+	smgr->addCameraSceneNode(0, vector3df(-300,3000,-400), vector3df(0,5,5));
 	//使用第一人称视角控制眼睛的移动
 	smgr->addCameraSceneNodeFPS();
 	p = PlaneNode->getPosition();
 	p.Y += 1;
-	camNode = smgr->addCameraSceneNode(0, p, vector3df(100, 250, 250));
+	camNode = smgr->addCameraSceneNode(0, p, vector3df(200, 250, 250));
 
 
 	device->getCursorControl()->setVisible(false);
