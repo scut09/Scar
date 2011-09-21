@@ -1,0 +1,21 @@
+在不使用三角形拣选功能时可以用以下两种简单的方法进行物体碰撞检测
+
+1.bool collision(ISceneNode* one, ISceneNode* two, int size) { 
+if(one->getAbsolutePosition().getDistanceFrom(two->getAbsolutePosition()) < size) 
+return true; 
+
+return false; 
+} 
+
+
+2.bool collision(ISceneNode* one, ISceneNode* two) { 
+if(one->getBoundingBox().intersectsWithBox(two->getBoundingBox())) { 
+return true; 
+return false; 
+} 
+
+
+if(collision(cube,sphere,100)) { 
+std::cout<<"Cube hit sphere!"<<std::endl; }
+ 
+
