@@ -40,7 +40,7 @@ int main()
 		rect<s32>(10,10,260,22), true);
 
 	//加载模型
-	IAnimatedMesh* mesh = smgr->getMesh("../../../module/蜻蜓舰载机.3ds");
+	IAnimatedMesh* mesh = smgr->getMesh("mayabottle.obj");
 	if (!mesh)
 	{
 		device->drop();
@@ -52,8 +52,11 @@ int main()
 
 	if (PlaneNode)
 	{
-		PlaneNode->setMaterialFlag(EMF_LIGHTING, false);
-		PlaneNode->setMaterialTexture( 0, driver->getTexture("../../../media/terrain-heightmap.bmp") );
+		//PlaneNode->setMaterialFlag(EMF_LIGHTING, false);
+		//PlaneNode->setMaterialTexture( 0, driver->getTexture("../../../media/terrain-heightmap.bmp") );
+	//	PlaneNode->setMaterialTexture( 0, driver->getTexture("../../../module/caldarifighter.mtl") );
+
+		
 	}
 
 	//解压场景图，放入内存中
@@ -76,15 +79,23 @@ int main()
 	}
 
 	//在场景中放置眼睛
-	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,5));
+	smgr->addCameraSceneNode(0, vector3df(-300,30,-40), vector3df(0,5,5));
 	//使用第一人称视角控制眼睛的移动
 	smgr->addCameraSceneNodeFPS();
 	p = PlaneNode->getPosition();
 	p.Y += 1;
-	camNode = smgr->addCameraSceneNode(0, p, vector3df(0, 100, 100));
+	camNode = smgr->addCameraSceneNode(0, p, vector3df(100, 250, 250));
 
 
 	device->getCursorControl()->setVisible(false);
+
+	// Lights
+	SLight light;
+	light.AmbientColor = SColor( 0, 255, 255, 255 );
+	light.DiffuseColor = SColor( 0, 128, 128, 128 );
+	light.SpecularColor = SColor( 0, 128, 128, 128 );
+	ILightSceneNode * pLight = smgr->addLightSceneNode( 0, vector3df( -10, 200.0f, -100 ) );
+	pLight->getLightData() = light;
 
 
 	while(device->run())
@@ -100,6 +111,18 @@ int main()
 		{
 			p = PlaneNode->getPosition();
 			p.Y -= 2.0;
+			PlaneNode->setPosition(p);
+		}
+		if (EH.IsKeyDown(KEY_KEY_A))
+		{
+			p = PlaneNode->getPosition();
+			p.X -= 2.0;
+			PlaneNode->setPosition(p);
+		}
+		if (EH.IsKeyDown(KEY_KEY_D))
+		{
+			p = PlaneNode->getPosition();
+			p.X -= 2.0;
 			PlaneNode->setPosition(p);
 		}
 		if (EH.IsKeyDown(KEY_RIGHT))
