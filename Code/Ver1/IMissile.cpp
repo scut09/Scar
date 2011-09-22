@@ -13,8 +13,8 @@ scene::ISceneNode* Missile::TestCollision()
 	core::triangle3df hitTriangle;
 
 	scene::ISceneNode * selectedSceneNode =				//Åö×²¼ì²â
-		m_pColMan->getSceneNodeAndCollisionPointFromRay(
-		ray, intersection, hitTriangle, 1, 0); 
+		m_pColMan->getSceneNodeFromRayBB (
+		ray/*, intersection, hitTriangle, 1, 0*/); 
 
 	if ( selectedSceneNode )
 	{
