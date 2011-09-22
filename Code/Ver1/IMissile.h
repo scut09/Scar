@@ -7,6 +7,7 @@
 #pragma once
 
 #include <irrlicht.h>
+#include <iostream>
 
 using namespace irr;
 
@@ -36,6 +37,7 @@ class IFlyBehavior
 public:
 	virtual void SetOwner( IFly* pFly ) = 0;	
 	virtual core::vector3df Fly( const core::vector3df& pos ) = 0;
+	virtual core::vector3df GetDirection() = 0;
 };
 
 /*
@@ -81,6 +83,11 @@ public:
 		core::vector3df newPosition = pos + m_Speed * m_vecDirection;
 		return newPosition;
 	}
+
+	virtual core::vector3df GetDirection()
+	{
+		return m_vecDirection;
+	}
 };
 
 
@@ -105,16 +112,13 @@ public:
 public:
 	Missile() {}
 
-	void SetPostion( const core::vector3df& pos ) {}
+	void SetPostion( const core::vector3df& pos ) 
+	{
+		m_vecPosition = pos;
+	}
 	void SetRotation( const core::vector3df& rot ) {}
 	core::vector3df GetPosition() { return m_vecPosition; }
-	scene::ISceneNode* TestCollision()
-	{
-
-
-
-		return NULL;
-	}
+	scene::ISceneNode* TestCollision();
 
 	void AddBehavior( IFlyBehavior* pBehavior )
 	{
@@ -123,7 +127,11 @@ public:
 
 	void LoadSceneNode( scene::ISceneNode* pNode )
 	{
-		m_pNode = pNode;
+		if ( pNode )
+		{
+			m_pNode = pNode;
+			m_pNode->setPosition( m_vecPosition );
+		}
 	}
 
 	int Move()

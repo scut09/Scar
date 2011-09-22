@@ -48,6 +48,7 @@ int Init()
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
 
+	Missile::m_pColMan = smgr->getSceneCollisionManager();
 
 	SkyBox = smgr->addSkyBoxSceneNode(
 		driver->getTexture("../../media/irrlicht2_up.jpg"),
@@ -228,6 +229,7 @@ void RunMissile()
 	for ( auto iter = g_Mis.begin(); iter != g_Mis.end(); ++iter )
 	{
 		(*iter)->Move();
+		(*iter)->TestCollision();
 	}
 }
 
