@@ -43,12 +43,12 @@ int Init()
 	smgr = device->getSceneManager();
 
 	SkyBox = smgr->addSkyBoxSceneNode(
-		driver->getTexture("../../media/irrlicht2_up.jpg"),
-		driver->getTexture("../../media/irrlicht2_dn.jpg"),
-		driver->getTexture("../../media/irrlicht2_lf.jpg"),
-		driver->getTexture("../../media/irrlicht2_rt.jpg"),
-		driver->getTexture("../../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../../media/irrlicht2_bk.jpg"));
+		driver->getTexture("../../media/stars_up.jpg"),
+		driver->getTexture("../../media/stars_dn.jpg"),
+		driver->getTexture("../../media/stars_lf.jpg"),
+		driver->getTexture("../../media/stars_rt.jpg"),
+		driver->getTexture("../../media/stars_fr.jpg"),
+		driver->getTexture("../../media/stars_bk.jpg"));
 
 	// 初始化照相机
 	camera = smgr->addCameraSceneNodeFPS(0, 100.0f, .3f, -1, 0, 0, false, 3.f);

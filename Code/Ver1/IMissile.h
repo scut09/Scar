@@ -24,22 +24,6 @@ class IFly
 	virtual int Move() = 0;
 };
 
-
-
-/*
-** 名字：IMissile
-** 说明：导弹接口
-**
-*/
-class IMissile : public IFly
-{
-public:
-	virtual void AddBehavior() = 0;
-
-
-};
-
-
 /*
 ** 名字：IFlyBehavior
 ** 说明：飞行的行为
@@ -51,6 +35,20 @@ public:
 	virtual void SetParent() = 0;
 	virtual core::vector3df Fly( const core::vector3df& pos ) = 0;
 };
+
+/*
+** 名字：IMissile
+** 说明：导弹接口
+**
+*/
+class IMissile : public IFly
+{
+public:
+	virtual void AddBehavior( IFlyBehavior* pBehavior ) = 0;
+};
+
+
+
 
 
 /*
@@ -88,11 +86,6 @@ class Missile : public IMissile
 private:
 	core::vector3df m_vecPosition;		// 导弹的位置
 	core::vector3df m_vecTarget;		// 导弹的目标
-
-
-
-
-
 
 public:
 
