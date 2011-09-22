@@ -38,6 +38,8 @@ std::map<ISceneNode*, std::string> g_modelList;
 
 int Init()
 {
+	Missile::m_pModels = &g_modelList;
+
 	// ask user for driver
 	video::E_DRIVER_TYPE driverType = (video::E_DRIVER_TYPE)5;//driverChoiceConsole();
 	if (driverType==video::EDT_COUNT)
@@ -239,13 +241,13 @@ void RunMissile()
 	for ( auto iter = g_Mis.begin(); iter != g_Mis.end(); ++iter )
 	{
 		(*iter)->Move();
-		//if ( ( node = (*iter)->TestCollision() ) && node != aircraftNode )
-		//{
-		//	delList.push_back( *iter );
-		//	//if ( node != aircraftNode )
-		//	//	node->drop();
-		//	(*iter)->Drop();
-		//}
+		if ( ( node = (*iter)->TestCollision() ) && node != aircraftNode )
+		{
+			delList.push_back( *iter );
+			//if ( node != aircraftNode )
+			//	node->drop();
+			//(*iter)->Drop();
+		}
 	}
 
 	for ( auto iter = delList.begin(); iter != delList.end(); ++iter )

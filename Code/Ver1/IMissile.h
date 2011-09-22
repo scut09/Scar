@@ -8,6 +8,8 @@
 
 #include <irrlicht.h>
 #include <iostream>
+#include <map>
+#include <string>
 
 using namespace irr;
 
@@ -108,7 +110,8 @@ private:
 	scene::ISceneNode*	m_pNode;
 
 public:
-	static scene::ISceneCollisionManager* m_pColMan;
+	static scene::ISceneCollisionManager*		m_pColMan;
+	static std::map<scene::ISceneNode*, std::string>*	m_pModels;
 
 public:
 	Missile() {}
