@@ -242,11 +242,11 @@ void RunMissile()
 	{
 		(*iter)->Move();
 		if ( ( node = (*iter)->TestCollision() ) && node != aircraftNode )
-		{
+		{			
 			delList.push_back( *iter );
 			//if ( node != aircraftNode )
 			//	node->drop();
-			//(*iter)->Drop();
+			(*iter)->Drop();
 		}
 	}
 
