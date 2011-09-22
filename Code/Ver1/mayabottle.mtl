@@ -1,0 +1,14 @@
+newmtl bottleMat
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.30 0.30 0.30
+Tf 0.90 0.90 0.90
+map_Kd bottle.bmp
+Ni 1.00
+newmtl corkMat
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd bottle.bmp
+Ni 1.00
