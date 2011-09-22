@@ -6,6 +6,7 @@
 #include "ModuleControl.h"
 #include <map>
 #include <list>
+#include <string>
 
 using namespace irr;
 
@@ -31,6 +32,8 @@ scene::ISceneNode* pNPCNode[npcNum] = {0};
 
 MyEventReceiver receiver;
 ModuleControl* pModule;
+
+std::map<ISceneNode*, std::string> g_modelList;
 
 
 int Init()
@@ -95,6 +98,8 @@ int LoadWomen()
 		node->setMD2Animation(scene::EMAT_STAND);
 		node->setMaterialTexture( 0, driver->getTexture("../../media/sydney.bmp") );
 	}
+
+	g_modelList[ node ] = "sydney";
 }
 
 int LoadAircraft()
@@ -104,6 +109,7 @@ int LoadAircraft()
 
 	aircraftNode->setScale( core::vector3df( 2.f, 2.f, 2.f ) );
 
+	g_modelList[ aircraftNode ] = "aircraftNode";
 
 	//camera->addChild( aircraftNode );
 	pModule->Initialize(camera, aircraftNode);
@@ -132,6 +138,8 @@ int loadNPC()
 		pNPCNode[i] = smgr->addAnimatedMeshSceneNode(pMesh);
 		pNPCNode[i]->addAnimator(anim);
 		anim->drop();
+
+		g_modelList[pNPCNode[i]] = "pNPCNode";
 	}
 	return 0;
 }
@@ -226,10 +234,23 @@ void HitTest()
 
 void RunMissile()
 {
+	std::list<IMissile*> delList;
+	ISceneNode* node = NULL;
 	for ( auto iter = g_Mis.begin(); iter != g_Mis.end(); ++iter )
 	{
 		(*iter)->Move();
-		(*iter)->TestCollision();
+		//if ( ( node = (*iter)->TestCollision() ) && node != aircraftNode )
+		//{
+		//	delList.push_back( *iter );
+		//	//if ( node != aircraftNode )
+		//	//	node->drop();
+		//	(*iter)->Drop();
+		//}
+	}
+
+	for ( auto iter = delList.begin(); iter != delList.end(); ++iter )
+	{
+		g_Mis.remove( *iter );		
 	}
 }
 

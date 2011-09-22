@@ -25,6 +25,7 @@ public:
 	virtual core::vector3df GetPosition() = 0;		// 获取位置
 	virtual scene::ISceneNode* TestCollision() = 0;	// 是否有碰撞
 	virtual int Move() = 0;							// 移动
+	virtual void Drop() = 0;
 };
 
 /*
@@ -141,4 +142,8 @@ public:
 		return 0;
 	}
 
+	void Drop()
+	{
+		m_pNode->drop();
+	}
 };
