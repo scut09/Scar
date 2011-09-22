@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{e43d0b9e-a2f3-4698-acc6-14fd26bc0b0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\RankList">
+      <UniqueIdentifier>{fa4a9328-3e75-40bb-91f5-4d5297e7673c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bullet">
+      <UniqueIdentifier>{5a8b00ce-174b-4cff-acd7-8b5f122384a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hreo">
+      <UniqueIdentifier>{24c159f0-0207-4063-b963-9b952ef65f1a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyEventReceiver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DoGame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InitUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="RankForm.cpp">
+      <Filter>UI\RankList</Filter>
+    </ClCompile>
+    <ClCompile Include="Cbullet.cpp">
+      <Filter>bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Cenemy.cpp">
+      <Filter>hreo</Filter>
+    </ClCompile>
+    <ClCompile Include="Chreo.cpp">
+      <Filter>hreo</Filter>
+    </ClCompile>
+    <ClCompile Include="ChreoEventRecv.cpp">
+      <Filter>hreo</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Helper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyEventReceiver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DoGame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\incldue\IMyUIScene.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InitUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectGame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="RankForm.h">
+      <Filter>UI\RankList</Filter>
+    </ClInclude>
+    <ClInclude Include="Cbullet.h">
+      <Filter>bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="IGlobe.h">
+      <Filter>bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Cenemy.h">
+      <Filter>hreo</Filter>
+    </ClInclude>
+    <ClInclude Include="Chreo.h">
+      <Filter>hreo</Filter>
+    </ClInclude>
+    <ClInclude Include="ChreoEventRecv.h">
+      <Filter>hreo</Filter>
+    </ClInclude>
+    <ClInclude Include="Ihreo.h">
+      <Filter>hreo</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
