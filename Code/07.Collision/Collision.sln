@@ -2,6 +2,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07.Collision", "Collision.vcxproj", "{EB92287F-CBA1-4FF9-801E-89091F0B6D10}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ver1", "..\Ver1\Ver1.vcxproj", "{177D937B-522D-4B9D-8572-598B49B453FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -11,6 +13,10 @@ Global
 		{EB92287F-CBA1-4FF9-801E-89091F0B6D10}.Debug|Win32.ActiveCfg = Debug|Win32
 		{EB92287F-CBA1-4FF9-801E-89091F0B6D10}.Debug|Win32.Build.0 = Debug|Win32
 		{EB92287F-CBA1-4FF9-801E-89091F0B6D10}.Release|Win32.ActiveCfg = Release|Win32
+		{177D937B-522D-4B9D-8572-598B49B453FD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{177D937B-522D-4B9D-8572-598B49B453FD}.Debug|Win32.Build.0 = Debug|Win32
+		{177D937B-522D-4B9D-8572-598B49B453FD}.Release|Win32.ActiveCfg = Release|Win32
+		{177D937B-522D-4B9D-8572-598B49B453FD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
