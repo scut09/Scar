@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include "EventListener.h"
+#include "IMissile.h"
 #include <map>
 #include <list>
 
@@ -62,7 +63,6 @@ int Init()
 
 int LoadWomen()
 {
-
 	IAnimatedMesh* mesh = smgr->getMesh("../../media/sydney.md2");
 	if (!mesh)
 	{
@@ -144,6 +144,11 @@ void shoot()
 	core::vector3df start = camera->getPosition();
 	core::vector3df end = (camera->getTarget() - start);
 	end.normalize();
+
+	FlyStraightBehavior behavior( end, 100.f );
+
+
+
 	start += end * 8.0f;
 	end = start + (end * camera->getFarValue());
 
@@ -156,9 +161,9 @@ void shoot()
 	const f32 speed = 0.6f;
 	u32 time = (u32)(length / speed);
 
-	anim = smgr->createFlyStraightAnimator(start, end, time);
-	pMissileNode->addAnimator(anim);
-	anim->drop();
+	//anim = smgr->createFlyStraightAnimator(start, end, time);
+	//pMissileNode->addAnimator(anim);
+	//anim->drop();
 
 	pMissileNode->grab();
 	g_MissileList.push_back( pMissileNode );

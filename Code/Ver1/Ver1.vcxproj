@@ -80,10 +80,12 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModuleControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="IMissile.h" />
+    <ClInclude Include="ModuleControl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

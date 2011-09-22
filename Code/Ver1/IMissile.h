@@ -17,11 +17,11 @@ using namespace irr;
 */
 class IFly
 {
-	virtual void SetPostion() = 0;
-	virtual void SetRotation() = 0;
-	virtual core::vector3df GetPosition() = 0;
-	virtual scene::ISceneNode* HitTest() = 0;
-	virtual int Move() = 0;
+	virtual void SetPostion( const core::vector3df& pos ) = 0;					// 设置位置
+	virtual void SetRotation( const core::vector3df& rot ) = 0;					// 设置旋转角度，这个待商榷
+	virtual core::vector3df GetPosition() = 0;		// 获取位置
+	virtual scene::ISceneNode* HitCollision() = 0;	// 是否有碰撞
+	virtual int Move() = 0;							// 移动
 };
 
 /*
@@ -32,7 +32,7 @@ class IFly
 class IFlyBehavior
 {
 public:
-	virtual void SetParent() = 0;
+	virtual void SetOwner( IFly* pFly ) = 0;	
 	virtual core::vector3df Fly( const core::vector3df& pos ) = 0;
 };
 
@@ -63,9 +63,15 @@ public:
 	f32		m_Speed;
 	core::vector3df m_vecDirection;
 
-	FlyStraightBehavior( const core::vector3df& direction, f32 speed ) 
+	FlyStraightBehavior( core::vector3df& direction, f32 speed ) 
 		: m_Owner( NULL ), m_vecDirection( direction.normalize() ), m_Speed( speed )
-	{}
+	{
+	}
+
+	void SetOwner( IFly* pFly )
+	{
+		m_Owner = pFly;
+	}
 
 	// 飞行
 	virtual core::vector3df Fly( const core::vector3df& pos )
@@ -87,7 +93,17 @@ private:
 	core::vector3df m_vecPosition;		// 导弹的位置
 	core::vector3df m_vecTarget;		// 导弹的目标
 
+	IFlyBehavior*	m_flyBehavior;
+
 public:
+	Missile() {}
+
+	void AddBehavior( IFlyBehavior* pBehavior )
+	{
+		m_flyBehavior = pBehavior;
+	}
+
+
 
 
 

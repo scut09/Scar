@@ -21,12 +21,18 @@
     <ClCompile Include="Game.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="IMissile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleControl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
