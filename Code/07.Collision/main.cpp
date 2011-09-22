@@ -366,9 +366,14 @@ int main()
 			const u32 now = device->getTimer()->getTime();
 			const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
 			then = now;
-			core::vector3df targetVec = node->getRotation();
-			core::vector3df camVec = camera->getRotation();
+			core::vector3df targetVec = camera->getTarget();
+			core::vector3df camVec = camera->getPosition();
 			core::vector3df posVec = targetVec - camVec;
+			posVec.Y = 0;
+			//posVec.X *= 50.f;
+			posVec = posVec.normalize();
+			posVec *= 50.f;
+			posVec.Y = -60.f;
 			//posVec.Y = 0;
 			//posVec = posVec.normalize() * DISTANCE;
 
@@ -377,7 +382,7 @@ int main()
 			//std::cout << targetVec.X << targetVec.Y << targetVec.Z << std::endl;
 
 			node->setRotation( camera->getRotation() );
-			node->setPosition( camera->getPosition() - core::vector3df( 0.f, 60.f, 50.f ) );
+			node->setPosition( camera->getPosition() + posVec/*core::vector3df( 0.f, 60.f, 50.f )*/ );
 			//core::vector3df nodePosition = node->getPosition();
 
 			//if(receiver.IsKeyDown(irr::KEY_KEY_W))
