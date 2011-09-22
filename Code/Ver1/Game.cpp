@@ -45,13 +45,22 @@ int Init()
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
 
+
 	SkyBox = smgr->addSkyBoxSceneNode(
-		driver->getTexture("../../media/stars_up.jpg"),
-		driver->getTexture("../../media/stars_dn.jpg"),
-		driver->getTexture("../../media/stars_lf.jpg"),
-		driver->getTexture("../../media/stars_rt.jpg"),
-		driver->getTexture("../../media/stars_fr.jpg"),
-		driver->getTexture("../../media/stars_bk.jpg"));
+		driver->getTexture("../../media/irrlicht2_up.jpg"),
+		driver->getTexture("../../media/irrlicht2_dn.jpg"),
+		driver->getTexture("../../media/irrlicht2_lf.jpg"),
+		driver->getTexture("../../media/irrlicht2_rt.jpg"),
+		driver->getTexture("../../media/irrlicht2_ft.jpg"),
+		driver->getTexture("../../media/irrlicht2_bk.jpg"));
+
+	//SkyBox = smgr->addSkyBoxSceneNode(
+	//	driver->getTexture("../../media/stars_up.jpg"),
+	//	driver->getTexture("../../media/stars_dn.jpg"),
+	//	driver->getTexture("../../media/stars_lf.jpg"),
+	//	driver->getTexture("../../media/stars_rt.jpg"),
+	//	driver->getTexture("../../media/stars_fr.jpg"),
+	//	driver->getTexture("../../media/stars_bk.jpg"));
 
 	// 初始化照相机
 	camera = smgr->addCameraSceneNodeFPS(0, 100.0f, .3f, -1, 0, 0, false, 3.f);
@@ -158,7 +167,7 @@ void shoot()
 
 
 	start += end * 8.0f;
-	end = start + (end * camera->getFarValue());
+	end = start + (end * camera->getFarValue() * 1000.f);
 
 	core::line3d<f32> line(start, end);
 
@@ -166,7 +175,7 @@ void shoot()
 
 	// set flight line
 	f32 length = (f32)(end - start).getLength();
-	const f32 speed = 0.6f;
+	const f32 speed = 6.f;
 	u32 time = (u32)(length / speed);
 
 	anim = smgr->createFlyStraightAnimator(start, end, time);
@@ -188,13 +197,16 @@ int KeyDownHandler()
 	else if ( receiver.IsKeyDown( irr::KEY_UP ) )
 	{
 		g_speed += 1.f;
-		pModule->MoveForward( g_speed );
 	}
 	else if ( receiver.IsKeyDown( irr::KEY_DOWN ) )
 	{
 		g_speed -= 1.f;
-		pModule->MoveForward( g_speed );
+		if ( g_speed <= 0.f )
+			g_speed = 0.f;
 	}
+
+	pModule->MoveForward( g_speed );
+
 
 	return 0;
 }
