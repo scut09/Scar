@@ -3,6 +3,7 @@
 #include <iostream>
 #include "EventListener.h"
 #include "IMissile.h"
+#include "ModuleControl.h"
 #include <map>
 #include <list>
 
@@ -26,6 +27,7 @@ scene::ICameraSceneNode* camera;
 scene::ISceneNode* aircraftNode = 0;
 
 MyEventReceiver receiver;
+ModuleControl* pModule;
 
 
 int Init()
@@ -53,8 +55,11 @@ int Init()
 
 	// 初始化照相机
 	camera = smgr->addCameraSceneNodeFPS(0, 100.0f, .3f, -1, 0, 0, false, 3.f);
-	camera->setPosition(core::vector3df(150,50,60));
-	camera->setTarget(core::vector3df(0,0,0));
+	//camera->setPosition(core::vector3df(150,50,60));
+	//camera->setTarget(core::vector3df(0,0,0));
+
+	pModule = new ModuleControl;
+
 
 	device->getCursorControl()->setVisible(false);
 
@@ -90,6 +95,10 @@ int LoadAircraft()
 	camera->addChild( aircraftNode );
 
 	aircraftNode->setPosition(vector3df(0.f, -10.f, 50.f));
+
+	pModule->Initialize(camera, aircraftNode);
+	pModule->setCamaraPos(vector3df(0.f, 0.f, 0.f));
+	pModule->setModuleposRelateToCamara(0.f, 0.f, 0.f);
 
 	return 0;
 }
@@ -178,6 +187,8 @@ int KeyDownHandler()
 		shoot();
 	}
 
+
+
 	return 0;
 }
 
@@ -201,6 +212,7 @@ int main()
 		if (device->isWindowActive())
 		{
 			//CalPos();
+			pModule->MoveForward(2.0f);
 
 			KeyDownHandler();
 
