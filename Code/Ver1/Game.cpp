@@ -167,7 +167,7 @@ void shoot()
 
 
 	start += end * 8.0f;
-	end = start + (end * camera->getFarValue() * 1000.f);
+	end = start + (end * camera->getFarValue() * 10.f);
 
 	core::line3d<f32> line(start, end);
 
