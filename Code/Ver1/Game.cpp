@@ -132,23 +132,10 @@ int LoadLight()
 	return 0;
 }
 
-int CalPos()
-{
-	core::vector3df targetVec = camera->getTarget();
-	core::vector3df camVec = camera->getPosition();
-	core::vector3df posVec = targetVec - camVec;
-	posVec.Y = 0;
-	posVec = posVec.normalize();
-	posVec *= 50.f;
-	posVec.Y = -60.f;
 
-	aircraftNode->setRotation( camera->getRotation() );
-	aircraftNode->setPosition( camera->getPosition() + posVec/*core::vector3df( 0.f, 60.f, 50.f )*/ );
 
-	return 0;
-}
-
-std::list<ISceneNode*> g_MissileList;
+std::list<ISceneNode*>	g_MissileList;
+std::list<IMissile*>	g_Mis;
 
 void shoot()
 {
@@ -162,28 +149,34 @@ void shoot()
 	core::vector3df end = (camera->getTarget() - start);
 	end.normalize();
 
-	FlyStraightBehavior behavior( end, 100.f );
-
-
-
-	start += end * 8.0f;
-	end = start + (end * camera->getFarValue() * 10.f);
-
-	core::line3d<f32> line(start, end);
-
-	scene::ISceneNodeAnimator* anim = 0;
-
-	// set flight line
-	f32 length = (f32)(end - start).getLength();
-	const f32 speed = 6.f;
-	u32 time = (u32)(length / speed);
-
-	anim = smgr->createFlyStraightAnimator(start, end, time);
-	pMissileNode->addAnimator(anim);
-	anim->drop();
+	FlyStraightBehavior* pBehavior = new FlyStraightBehavior( end, 5.f );
+	Missile* missile = new Missile;
+	missile->AddBehavior( pBehavior );
+	missile->SetPostion( camera->getPosition() );
 
 	pMissileNode->grab();
-	g_MissileList.push_back( pMissileNode );
+	missile->LoadSceneNode( pMissileNode );
+
+	g_Mis.push_back( missile );
+
+	//
+
+	//start += end * 8.0f;
+	//end = start + (end * camera->getFarValue() * 10.f);
+	//
+	//scene::ISceneNodeAnimator* anim = 0;
+
+	//// set flight line
+	//f32 length = (f32)(end - start).getLength();
+	//const f32 speed = 6.f;
+	//u32 time = (u32)(length / speed);
+
+	//anim = smgr->createFlyStraightAnimator(start, end, time);
+	//pMissileNode->addAnimator(anim);
+	//anim->drop();
+
+	//pMissileNode->grab();
+	//g_MissileList.push_back( pMissileNode );
 }
 
 
@@ -196,17 +189,14 @@ int KeyDownHandler()
 	}
 	else if ( receiver.IsKeyDown( irr::KEY_UP ) )
 	{
-		g_speed += 1.f;
+		g_speed += 0.01f;
 	}
 	else if ( receiver.IsKeyDown( irr::KEY_DOWN ) )
 	{
-		g_speed -= 1.f;
+		g_speed -= 0.01f;
 		if ( g_speed <= 0.f )
 			g_speed = 0.f;
 	}
-
-	pModule->MoveForward( g_speed );
-
 
 	return 0;
 }
@@ -215,6 +205,14 @@ void HitTest()
 {
 	for ( auto iter = g_MissileList.begin(); iter != g_MissileList.end(); ++iter )
 	{
+	}
+}
+
+void RunMissile()
+{
+	for ( auto iter = g_Mis.begin(); iter != g_Mis.end(); ++iter )
+	{
+		(*iter)->Move();
 	}
 }
 
@@ -230,10 +228,12 @@ int main()
 	{
 		if (device->isWindowActive())
 		{
-			//CalPos();
-
 
 			KeyDownHandler();
+
+			pModule->MoveForward( g_speed );
+
+			RunMissile();
 
 			driver->beginScene(true, true, video::SColor(150,50,50,50));
 

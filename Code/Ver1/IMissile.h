@@ -17,10 +17,12 @@ using namespace irr;
 */
 class IFly
 {
+public:
+	virtual void LoadSceneNode( scene::ISceneNode* pNode ) = 0;
 	virtual void SetPostion( const core::vector3df& pos ) = 0;					// 设置位置
 	virtual void SetRotation( const core::vector3df& rot ) = 0;					// 设置旋转角度，这个待商榷
 	virtual core::vector3df GetPosition() = 0;		// 获取位置
-	virtual scene::ISceneNode* HitCollision() = 0;	// 是否有碰撞
+	virtual scene::ISceneNode* TestCollision() = 0;	// 是否有碰撞
 	virtual int Move() = 0;							// 移动
 };
 
@@ -90,21 +92,39 @@ public:
 class Missile : public IMissile
 {
 private:
-	core::vector3df m_vecPosition;		// 导弹的位置
-	core::vector3df m_vecTarget;		// 导弹的目标
+	core::vector3df		m_vecPosition;		// 导弹的位置
+	core::vector3df		m_vecTarget;		// 导弹的目标
 
-	IFlyBehavior*	m_flyBehavior;
+	IFlyBehavior*		m_flyBehavior;
+
+	scene::ISceneNode*	m_pNode;
 
 public:
 	Missile() {}
+
+	void SetPostion( const core::vector3df& pos ) {}
+	void SetRotation( const core::vector3df& rot ) {}
+	core::vector3df GetPosition() { return m_vecPosition; }
+	scene::ISceneNode* TestCollision()
+	{
+		return NULL;
+	}
 
 	void AddBehavior( IFlyBehavior* pBehavior )
 	{
 		m_flyBehavior = pBehavior;
 	}
 
+	void LoadSceneNode( scene::ISceneNode* pNode )
+	{
+		m_pNode = pNode;
+	}
 
+	int Move()
+	{
+		m_pNode->setPosition( m_flyBehavior->Fly( m_pNode->getPosition() ) );
 
-
+		return 0;
+	}
 
 };
