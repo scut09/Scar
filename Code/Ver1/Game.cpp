@@ -92,13 +92,12 @@ int LoadAircraft()
 	aircraftNode->setScale( core::vector3df( 2.f, 2.f, 2.f ) );
 
 
-	camera->addChild( aircraftNode );
+	//camera->addChild( aircraftNode );
 
-	aircraftNode->setPosition(vector3df(0.f, -10.f, 50.f));
 
 	pModule->Initialize(camera, aircraftNode);
 	pModule->setCamaraPos(vector3df(0.f, 0.f, 0.f));
-	pModule->setModuleposRelateToCamara(0.f, 0.f, 0.f);
+	pModule->setModuleposRelateToCamara(vector3df(0.f, -10.f, 50.f));
 
 	return 0;
 }
@@ -170,24 +169,32 @@ void shoot()
 	const f32 speed = 0.6f;
 	u32 time = (u32)(length / speed);
 
-	//anim = smgr->createFlyStraightAnimator(start, end, time);
-	//pMissileNode->addAnimator(anim);
-	//anim->drop();
+	anim = smgr->createFlyStraightAnimator(start, end, time);
+	pMissileNode->addAnimator(anim);
+	anim->drop();
 
 	pMissileNode->grab();
 	g_MissileList.push_back( pMissileNode );
 }
 
 
-
+f32 g_speed = 0.f;
 int KeyDownHandler()
 {
 	if ( receiver.IsKeyDown( irr::KEY_KEY_F ) )
 	{
 		shoot();
 	}
-
-
+	else if ( receiver.IsKeyDown( irr::KEY_UP ) )
+	{
+		g_speed += 1.f;
+		pModule->MoveForward( g_speed );
+	}
+	else if ( receiver.IsKeyDown( irr::KEY_DOWN ) )
+	{
+		g_speed -= 1.f;
+		pModule->MoveForward( g_speed );
+	}
 
 	return 0;
 }
@@ -212,7 +219,7 @@ int main()
 		if (device->isWindowActive())
 		{
 			//CalPos();
-			pModule->MoveForward(2.0f);
+
 
 			KeyDownHandler();
 
