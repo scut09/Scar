@@ -246,7 +246,10 @@ void RunMissile()
 			delList.push_back( *iter );
 			//if ( node != aircraftNode )
 			//	node->drop();
+			
 			(*iter)->Drop();
+
+			node->remove();
 		}
 	}
 
