@@ -7,6 +7,7 @@
 #include <map>
 #include <list>
 #include <string>
+#include <set>
 
 using namespace irr;
 
@@ -136,12 +137,12 @@ int loadNPC()
 	scene::ISceneNodeAnimator* anim;
 	for (int i = 0; i < npcNum; i++)
 	{
-		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 100, rand() % 100, rand() % 100), rand() % 1000);
-		pNPCNode[i] = smgr->addAnimatedMeshSceneNode(pMesh);
-		pNPCNode[i]->addAnimator(anim);
+		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 100, rand() % 10, rand() % 10), rand() % 10);
+		pNPCNode[ i ] = smgr->addAnimatedMeshSceneNode(pMesh);
+		pNPCNode[ i ]->addAnimator(anim);
 		anim->drop();
 
-		g_modelList[pNPCNode[i]] = "pNPCNode";
+		g_modelList[ pNPCNode[ i ] ] = "pNPCNode";
 	}
 	return 0;
 }
@@ -180,7 +181,6 @@ void shoot()
 	missile->AddBehavior( pBehavior );
 	missile->SetPostion( camera->getPosition() );
 
-	pMissileNode->grab();
 	missile->LoadSceneNode( pMissileNode );
 
 	g_Mis.push_back( missile );
@@ -237,6 +237,7 @@ void HitTest()
 void RunMissile()
 {
 	std::list<IMissile*> delList;
+	std::set<ISceneNode*> nodeList;
 	ISceneNode* node = NULL;
 	for ( auto iter = g_Mis.begin(); iter != g_Mis.end(); ++iter )
 	{
@@ -249,9 +250,15 @@ void RunMissile()
 			
 			(*iter)->Drop();
 
-			node->remove();
+			//nodeList.insert( node );
+			node->setVisible( false );
 		}
 	}
+
+	//for ( auto iter = nodeList.begin(); iter != nodeList.end(); ++iter )
+	//{
+	//	(*iter)->remove();
+	//}
 
 	for ( auto iter = delList.begin(); iter != delList.end(); ++iter )
 	{

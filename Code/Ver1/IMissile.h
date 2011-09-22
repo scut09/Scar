@@ -147,7 +147,7 @@ public:
 
 	void Drop()
 	{
-		m_pNode->drop();
+		//m_pNode->drop();
 		m_pNode->remove();
 
 	}
