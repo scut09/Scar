@@ -19,12 +19,15 @@ using namespace gui;
 #pragma comment(lib, "Irrlicht.lib")
 #endif
 
+const u32 npcNum = 20;
+
 scene::ISceneNode* SkyBox = 0;
 IrrlichtDevice *device;
 video::IVideoDriver* driver;
 scene::ISceneManager* smgr;
 scene::ICameraSceneNode* camera;
 scene::ISceneNode* aircraftNode = 0;
+scene::ISceneNode* pNPCNode[npcNum] = {0}; 
 
 MyEventReceiver receiver;
 ModuleControl* pModule;
@@ -37,7 +40,7 @@ int Init()
 	if (driverType==video::EDT_COUNT)
 		return 1;
 
-	device = createDevice(driverType, core::dimension2d<u32>(640, 480), 16, false, false, false, &receiver );
+	device = createDevice(driverType, core::dimension2d<u32>(1200, 700), 16, false, false, false, &receiver );
 
 	if (device == 0)
 		return 1; // could not create selected driver.
@@ -95,15 +98,13 @@ int LoadWomen()
 
 int LoadAircraft()
 {
-	IAnimatedMesh * pBottleMesh = smgr->getMesh( "1234.obj" );
-	aircraftNode = smgr->addAnimatedMeshSceneNode( pBottleMesh );
+	IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
+	aircraftNode = smgr->addAnimatedMeshSceneNode( pMesh );
 
 	aircraftNode->setScale( core::vector3df( 2.f, 2.f, 2.f ) );
 
 
 	//camera->addChild( aircraftNode );
-
-
 	pModule->Initialize(camera, aircraftNode);
 	pModule->setCamaraPos(vector3df(0.f, 0.f, 0.f));
 	pModule->setModuleposRelateToCamara(vector3df(0.f, -10.f, 50.f));
@@ -117,6 +118,20 @@ int LoadModel()
 
 	LoadAircraft();
 
+	return 0;
+}
+
+int loadNPC()
+{
+	IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
+	scene::ISceneNodeAnimator* anim;
+	for (int i = 0; i < npcNum; i++)
+	{
+		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 100, rand() % 100, rand() % 100), rand() % 1000);
+		pNPCNode[i] = smgr->addAnimatedMeshSceneNode(pMesh);
+		pNPCNode[i]->addAnimator(anim);
+		anim->drop();
+	}
 	return 0;
 }
 
@@ -223,6 +238,8 @@ int main()
 	LoadModel();
 
 	LoadLight();
+
+	loadNPC();
 
 	while(device->run())
 	{
