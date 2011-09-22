@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="IMissile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
   </ItemGroup>

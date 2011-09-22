@@ -100,6 +100,9 @@ private:
 	scene::ISceneNode*	m_pNode;
 
 public:
+	static scene::ISceneCollisionManager* m_pColMan;
+
+public:
 	Missile() {}
 
 	void SetPostion( const core::vector3df& pos ) {}
@@ -107,6 +110,9 @@ public:
 	core::vector3df GetPosition() { return m_vecPosition; }
 	scene::ISceneNode* TestCollision()
 	{
+
+
+
 		return NULL;
 	}
 
