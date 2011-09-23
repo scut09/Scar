@@ -141,10 +141,12 @@ int loadNPC()
 	scene::ISceneNodeAnimator* anim;
 	for (int i = 0; i < npcNum; i++)
 	{
-		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 100, rand() % 100, rand() % 100), rand() % 100);
+		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 10000, rand() % 10000, rand() % 10000), rand() % 100);
 		pNPCNode[ i ] = smgr->addAnimatedMeshSceneNode(pMesh);
 		pNPCNode[ i ]->addAnimator(anim);
 		anim->drop();
+
+		pNPCNode[ i ]->setScale( vector3df( 20.f, 20.f, 20.f ) );
 
 		scene::ITriangleSelector* selector = smgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)pNPCNode[ i ] );
 		pNPCNode[ i ]->setTriangleSelector(selector);
@@ -313,7 +315,7 @@ void RunMissile()
 			//node->setVisible( false );
 
 			IParticleSystemSceneNode* bullet = CreateBullet();
-			bullet->setParent( node );
+			bullet->setParent( (*iter)->GetSceneNode() );
 		}
 	}
 

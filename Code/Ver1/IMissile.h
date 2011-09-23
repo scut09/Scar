@@ -24,6 +24,7 @@ class IFly
 {
 public:
 	virtual void LoadSceneNode( scene::ISceneNode* pNode ) = 0;
+	virtual scene::ISceneNode* GetSceneNode() = 0;
 	virtual void SetPostion( const core::vector3df& pos ) = 0;					// 设置位置
 	virtual void SetRotation( const core::vector3df& rot ) = 0;					// 设置旋转角度，这个待商榷
 	virtual core::vector3df GetPosition() = 0;		// 获取位置
@@ -151,6 +152,10 @@ public:
 	{
 		//m_pNode->drop();
 		m_pNode->remove();
+	}
 
+	scene::ISceneNode* GetSceneNode() 
+	{
+		return m_pNode;
 	}
 };
