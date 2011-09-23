@@ -46,7 +46,7 @@ int Init()
 	if (driverType==video::EDT_COUNT)
 		return 1;
 
-	device = createDevice(driverType, core::dimension2d<u32>(1200, 700), 16, false, false, false, &receiver );
+	device = createDevice(driverType, core::dimension2d<u32>(800, 640), 16, false, false, false, &receiver );
 
 	if (device == 0)
 		return 1; // could not create selected driver.
@@ -103,6 +103,10 @@ int LoadWomen()
 	}
 
 	g_modelList[ node ] = "sydney";
+
+	scene::ITriangleSelector* selector = smgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)node );
+	node->setTriangleSelector(selector);
+	selector->drop();
 }
 
 int LoadAircraft()
@@ -137,10 +141,14 @@ int loadNPC()
 	scene::ISceneNodeAnimator* anim;
 	for (int i = 0; i < npcNum; i++)
 	{
-		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 100, rand() % 10, rand() % 10), rand() % 10);
+		anim = smgr->createFlyCircleAnimator(core::vector3df(rand() % 100, rand() % 100, rand() % 100), rand() % 100);
 		pNPCNode[ i ] = smgr->addAnimatedMeshSceneNode(pMesh);
 		pNPCNode[ i ]->addAnimator(anim);
 		anim->drop();
+
+		scene::ITriangleSelector* selector = smgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)pNPCNode[ i ] );
+		pNPCNode[ i ]->setTriangleSelector(selector);
+		selector->drop();
 
 		g_modelList[ pNPCNode[ i ] ] = "pNPCNode";
 	}
@@ -207,13 +215,21 @@ void shoot()
 
 
 f32 g_speed = 0.f;
+bool bShoot = false;
 int KeyDownHandler()
 {
-	if ( receiver.IsKeyDown( irr::KEY_KEY_F ) )
+	if ( receiver.IsKeyDown( irr::KEY_NUMPAD0 ) )
 	{
+		bShoot = true;
+	}
+
+	if ( bShoot && ! receiver.IsKeyDown( irr::KEY_NUMPAD0 ) )
+	{
+		bShoot = false;
 		shoot();
 	}
-	else if ( receiver.IsKeyDown( irr::KEY_UP ) )
+	
+	if ( receiver.IsKeyDown( irr::KEY_UP ) )
 	{
 		g_speed += 0.01f;
 	}
@@ -248,17 +264,19 @@ void RunMissile()
 			//if ( node != aircraftNode )
 			//	node->drop();
 			
-			(*iter)->Drop();
+			//	(*iter)->Drop();	// É¾³ý×Ô¼º
 
-			//nodeList.insert( node );
-			node->setVisible( false );
+			nodeList.insert( node );
+			//node->setVisible( false );
 		}
 	}
 
-	//for ( auto iter = nodeList.begin(); iter != nodeList.end(); ++iter )
-	//{
-	//	(*iter)->remove();
-	//}
+	for ( auto iter = nodeList.begin(); iter != nodeList.end(); ++iter )
+	{
+		//(*iter)->remove();
+		//(*iter)->setVisible( false );
+		(*iter)->removeAnimators();
+	}
 
 	for ( auto iter = delList.begin(); iter != delList.end(); ++iter )
 	{
@@ -280,7 +298,6 @@ int main()
 	{
 		if (device->isWindowActive())
 		{
-
 			KeyDownHandler();
 
 			pModule->MoveForward( g_speed );

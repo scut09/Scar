@@ -11,6 +11,8 @@
 #include <map>
 #include <string>
 
+#define PRINT_POSITION(pos) std::cout << #pos << ": " << (pos).X << ' ' << (pos).Y << ' ' << (pos).Z << std::endl;
+
 using namespace irr;
 
 /*
