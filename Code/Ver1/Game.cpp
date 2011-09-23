@@ -273,9 +273,10 @@ void RunMissile()
 
 	for ( auto iter = nodeList.begin(); iter != nodeList.end(); ++iter )
 	{
-		//(*iter)->remove();
 		//(*iter)->setVisible( false );
 		(*iter)->removeAnimators();
+		(*iter)->remove();
+
 	}
 
 	for ( auto iter = delList.begin(); iter != delList.end(); ++iter )
