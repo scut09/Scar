@@ -1,0 +1,814 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>8. 格式 &mdash; Google C++ Style Guide</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.133',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Google C++ Style Guide" href="index.html" />
+    <link rel="next" title="9. 规则特例" href="exceptions.html" />
+    <link rel="prev" title="7. 注释" href="comments.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="exceptions.html" title="9. 规则特例"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="comments.html" title="7. 注释"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Google C++ Style Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">8. 格式</a><ul>
+<li><a class="reference external" href="#line-length">8.1. 行长度</a></li>
+<li><a class="reference external" href="#ascii">8.2. 非 ASCII 字符</a></li>
+<li><a class="reference external" href="#id3">8.3. 空格还是制表位</a></li>
+<li><a class="reference external" href="#id4">8.4. 函数声明与定义</a></li>
+<li><a class="reference external" href="#id5">8.5. 函数调用</a></li>
+<li><a class="reference external" href="#id6">8.6. 条件语句</a></li>
+<li><a class="reference external" href="#id7">8.7. 循环和开关选择语句</a></li>
+<li><a class="reference external" href="#id8">8.8. 指针和引用表达式</a></li>
+<li><a class="reference external" href="#id9">8.9. 布尔表达式</a></li>
+<li><a class="reference external" href="#id10">8.10. 函数返回值</a></li>
+<li><a class="reference external" href="#id11">8.11. 变量及数组初始化</a></li>
+<li><a class="reference external" href="#id12">8.12. 预处理指令</a></li>
+<li><a class="reference external" href="#id13">8.13. 类格式</a></li>
+<li><a class="reference external" href="#id14">8.14. 初始化列表</a></li>
+<li><a class="reference external" href="#id15">8.15. 名字空间格式化</a></li>
+<li><a class="reference external" href="#id16">8.16. 水平留白</a></li>
+<li><a class="reference external" href="#id17">8.17. 垂直留白</a></li>
+<li><a class="reference external" href="#yulefox">译者 (YuleFox) 笔记</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="comments.html"
+                                  title="previous chapter">7. 注释</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="exceptions.html"
+                                  title="next chapter">9. 规则特例</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/formatting.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>8. 格式<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>代码风格和格式确实比较随意, 但一个项目中所有人遵循同一风格是非常容易的. 个体未必同意下述每一处格式规则, 但整个项目服从统一的编程风格是很重要的, 只有这样才能让所有人能很轻松的阅读和理解代码.</p>
+<p>另外, 我们写了一个 <a class="reference external" href="http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el">emacs 配置文件</a> 来帮助你正确的格式化代码.</p>
+<div class="section" id="line-length">
+<span id="id2"></span><h2>8.1. 行长度<a class="headerlink" href="#line-length" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">每一行代码字符数不超过 80.</p>
+</div>
+<p>我们也认识到这条规则是有争议的, 但很多已有代码都已经遵照这一规则, 我们感觉一致性更重要.</p>
+<dl class="docutils">
+<dt>优点:</dt>
+<dd>提倡该原则的人主张强迫他们调整编辑器窗口大小很野蛮. 很多人同时并排开几个代码窗口, 根本没有多余空间拉伸窗口. 大家都把窗口最大尺寸加以限定, 并且 80 列宽是传统标准. 为什么要改变呢?</dd>
+<dt>缺点:</dt>
+<dd>反对该原则的人则认为更宽的代码行更易阅读. 80 列的限制是上个世纪 60 年代的大型机的古板缺陷; 现代设备具有更宽的显示屏, 很轻松的可以显示更多代码.</dd>
+<dt>结论:</dt>
+<dd><p class="first">80 个字符是最大值.</p>
+<p>特例:</p>
+<ul class="last simple">
+<li>如果一行注释包含了超过 80 字符的命令或 URL, 出于复制粘贴的方便允许该行超过 80 字符.</li>
+<li>包含长路径的 <tt class="docutils literal"><span class="pre">#include</span></tt> 语句可以超出80列. 但应该尽量避免.</li>
+<li><a class="reference external" href="headers.html#define-guard"><em>头文件保护</em></a> 可以无视该原则.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="ascii">
+<h2>8.2. 非 ASCII 字符<a class="headerlink" href="#ascii" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">尽量不使用非 ASCII 字符, 使用时必须使用 UTF-8 编码.</p>
+</div>
+<p>即使是英文, 也不应将用户界面的文本硬编码到源代码中, 因此非 ASCII 字符要少用. 特殊情况下可以适当包含此类字符. 如, 代码分析外部数据文件时, 可以适当硬编码数据文件中作为分隔符的非 ASCII 字符串; 更常见的是 (不需要本地化的) 单元测试代码可能包含非 ASCII 字符串. 此类情况下, 应使用 UTF-8 编码, 因为很多工具都可以理解和处理 UTF-8 编码. 十六进制编码也可以, 能增强可读性的情况下尤其鼓励 —— 比如 <tt class="docutils literal"><span class="pre">&quot;\xEF\xBB\xBF&quot;</span></tt> 在 Unicode 中是 <em>零宽度 无间断</em> 的间隔符号, 如果不用十六进制直接放在 UTF-8 格式的源文件中, 是看不到的. (yospaly 注: <tt class="docutils literal"><span class="pre">&quot;\xEF\xBB\xBF&quot;</span></tt> 通常用作 UTF-8 with BOM 编码标记)</p>
+</div>
+<div class="section" id="id3">
+<h2>8.3. 空格还是制表位<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">只使用空格, 每次缩进 2 个空格.</p>
+</div>
+<p>我们使用空格缩进. 不要在代码中使用制符表. 你应该设置编辑器将制符表转为空格.</p>
+</div>
+<div class="section" id="id4">
+<h2>8.4. 函数声明与定义<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">返回类型和函数名在同一行, 参数也尽量放在同一行.</p>
+</div>
+<dl class="docutils">
+<dt>函数看上去像这样:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="n">ReturnType</span> <span class="n">ClassName</span><span class="o">::</span><span class="n">FunctionName</span><span class="p">(</span><span class="n">Type</span> <span class="n">par_name1</span><span class="p">,</span> <span class="n">Type</span> <span class="n">par_name2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DoSomething</span><span class="p">();</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果同一行文本太多, 放不下所有参数:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="n">ReturnType</span> <span class="n">ClassName</span><span class="o">::</span><span class="n">ReallyLongFunctionName</span><span class="p">(</span><span class="n">Type</span> <span class="n">par_name1</span><span class="p">,</span>
+                                             <span class="n">Type</span> <span class="n">par_name2</span><span class="p">,</span>
+                                             <span class="n">Type</span> <span class="n">par_name3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DoSomething</span><span class="p">();</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>甚至连第一个参数都放不下:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="n">ReturnType</span> <span class="n">LongClassName</span><span class="o">::</span><span class="n">ReallyReallyReallyLongFunctionName</span><span class="p">(</span>
+        <span class="n">Type</span> <span class="n">par_name1</span><span class="p">,</span>  <span class="c">// 4 space indent</span>
+        <span class="n">Type</span> <span class="n">par_name2</span><span class="p">,</span>
+        <span class="n">Type</span> <span class="n">par_name3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DoSomething</span><span class="p">();</span>  <span class="c">// 2 space indent</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>注意以下几点:</p>
+<blockquote>
+<ul class="simple">
+<li>返回值总是和函数名在同一行;</li>
+<li>左圆括号总是和函数名在同一行;</li>
+<li>函数名和左圆括号间没有空格;</li>
+<li>圆括号与参数间没有空格;</li>
+<li>左大括号总在最后一个参数同一行的末尾处;</li>
+<li>右大括号总是单独位于函数最后一行;</li>
+<li>右圆括号和左大括号间总是有一个空格;</li>
+<li>函数声明和实现处的所有形参名称必须保持一致;</li>
+<li>所有形参应尽可能对齐;</li>
+<li>缺省缩进为 2 个空格;</li>
+<li>换行后的参数保持 4 个空格的缩进;</li>
+</ul>
+</blockquote>
+<dl class="docutils">
+<dt>如果函数声明成 <tt class="docutils literal"><span class="pre">const</span></tt>, 关键字 <tt class="docutils literal"><span class="pre">const</span></tt> 应与最后一个参数位于同一行:=</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="c">// Everything in this function signature fits on a single line</span>
+<span class="n">ReturnType</span> <span class="n">FunctionName</span><span class="p">(</span><span class="n">Type</span> <span class="n">par</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c">// This function signature requires multiple lines, but</span>
+<span class="c">// the const keyword is on the line with the last parameter.</span>
+<span class="n">ReturnType</span> <span class="n">ReallyLongFunctionName</span><span class="p">(</span><span class="n">Type</span> <span class="n">par1</span><span class="p">,</span>
+                                  <span class="n">Type</span> <span class="n">par2</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果有些参数没有用到, 在函数定义处将参数名注释起来:</dt>
+<dd><div class="first highlight-c++"><div class="highlight"><pre><span class="c">// Always have named parameters in interfaces.</span>
+<span class="k">class</span> <span class="nc">Shape</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Rotate</span><span class="p">(</span><span class="kt">double</span> <span class="n">radians</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">// Always have named parameters in the declaration.</span>
+<span class="k">class</span> <span class="nc">Circle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Shape</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Rotate</span><span class="p">(</span><span class="kt">double</span> <span class="n">radians</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c">// Comment out unused named parameters in definitions.</span>
+<span class="kt">void</span> <span class="n">Circle</span><span class="o">::</span><span class="n">Rotate</span><span class="p">(</span><span class="kt">double</span> <span class="c">/*radians*/</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="c">// Bad - if someone wants to implement later, it&#39;s not clear what the</span>
+<span class="c">// variable means.</span>
+<span class="kt">void</span> <span class="n">Circle</span><span class="o">::</span><span class="n">Rotate</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h2>8.5. 函数调用<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">尽量放在同一行, 否则, 将实参封装在圆括号中.</p>
+</div>
+<dl class="docutils">
+<dt>函数调用遵循如下形式:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">DoSomething</span><span class="p">(</span><span class="n">argument1</span><span class="p">,</span> <span class="n">argument2</span><span class="p">,</span> <span class="n">argument3</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果同一行放不下, 可断为多行, 后面每一行都和第一个实参对齐, 左圆括号后和右圆括号前不要留空格:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">DoSomething</span><span class="p">(</span><span class="n">averyveryveryverylongargument1</span><span class="p">,</span>
+                          <span class="n">argument2</span><span class="p">,</span> <span class="n">argument3</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果函数参数很多, 出于可读性的考虑可以在每行只放一个参数:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">DoSomething</span><span class="p">(</span><span class="n">argument1</span><span class="p">,</span>
+                          <span class="n">argument2</span><span class="p">,</span>
+                          <span class="n">argument3</span><span class="p">,</span>
+                          <span class="n">argument4</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果函数名非常长, 以至于超过 <a class="reference internal" href="#line-length"><em>行最大长度</em></a>, 可以将所有参数独立成行:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(...)</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="p">...</span>
+  <span class="k">if</span> <span class="p">(...)</span> <span class="p">{</span>
+    <span class="n">DoSomethingThatRequiresALongFunctionName</span><span class="p">(</span>
+        <span class="n">very_long_argument1</span><span class="p">,</span>  <span class="c">// 4 space indent</span>
+        <span class="n">argument2</span><span class="p">,</span>
+        <span class="n">argument3</span><span class="p">,</span>
+        <span class="n">argument4</span><span class="p">);</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id6">
+<h2>8.6. 条件语句<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">倾向于不在圆括号内使用空格. 关键字 <tt class="docutils literal"><span class="pre">else</span></tt> 另起一行.</p>
+</div>
+<p>对基本条件语句有两种可以接受的格式. 一种在圆括号和条件之间有空格, 另一种没有.</p>
+<dl class="docutils">
+<dt>最常见的是没有空格的格式. 哪种都可以, 但 <em>保持一致性</em>. 如果你是在修改一个文件, 参考当前已有格式. 如果是写新的代码, 参考目录下或项目中其它文件. 还在徘徊的话, 就不要加空格了.</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>  <span class="c">// no spaces inside parentheses</span>
+  <span class="p">...</span>  <span class="c">// 2 space indent.</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  <span class="c">// The else goes on the same line as the closing brace.</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果你更喜欢在圆括号内部加空格:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="n">condition</span> <span class="p">)</span> <span class="p">{</span>  <span class="c">// spaces inside parentheses - rare</span>
+  <span class="p">...</span>  <span class="c">// 2 space indent.</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  <span class="c">// The else goes on the same line as the closing brace.</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>注意所有情况下 <tt class="docutils literal"><span class="pre">if</span></tt> 和左圆括号间都有个空格. 右圆括号和左大括号之间也要有个空格:</dt>
+<dd><div class="first admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>     <span class="c">// Bad - space missing after IF.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">){</span>   <span class="c">// Bad - space missing before {.</span>
+<span class="k">if</span><span class="p">(</span><span class="n">condition</span><span class="p">){</span>    <span class="c">// Doubly bad.</span>
+</pre></div>
+</div>
+</div>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>  <span class="c">// Good - proper space after IF and before {.</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果能增强可读性, 简短的条件语句允许写在同一行. 只有当语句简单并且没有使用 <tt class="docutils literal"><span class="pre">else</span></tt> 子句时使用:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">kFoo</span><span class="p">)</span> <span class="k">return</span> <span class="k">new</span> <span class="n">Foo</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">kBar</span><span class="p">)</span> <span class="k">return</span> <span class="k">new</span> <span class="n">Bar</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+<dt>如果语句有 <tt class="docutils literal"><span class="pre">else</span></tt> 分支则不允许:</dt>
+<dd><div class="first last admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="c">// Not allowed - IF statement on one line when there is an ELSE clause</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">DoThis</span><span class="p">();</span>
+<span class="k">else</span> <span class="n">DoThat</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</dd>
+<dt>通常, 单行语句不需要使用大括号, 如果你喜欢用也没问题; 复杂的条件或循环语句用大括号可读性会更好. 也有一些项目要求 <tt class="docutils literal"><span class="pre">if</span></tt> 必须总是使用大括号:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+  <span class="n">DoSomething</span><span class="p">();</span>  <span class="c">// 2 space indent.</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">DoSomething</span><span class="p">();</span>  <span class="c">// 2 space indent.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>但如果语句中某个 <tt class="docutils literal"><span class="pre">if-else</span></tt> 分支使用了大括号的话, 其它分支也必须使用:</dt>
+<dd><div class="first admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="c">// Not allowed - curly on IF but not ELSE</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span>
+    <span class="n">bar</span><span class="p">;</span>
+
+<span class="c">// Not allowed - curly on ELSE but not IF</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+    <span class="n">foo</span><span class="p">;</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="n">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="c">// Curly braces around both IF and ELSE required because</span>
+<span class="c">// one of the clauses used braces.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">foo</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="n">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h2>8.7. 循环和开关选择语句<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last"><tt class="docutils literal"><span class="pre">switch</span></tt> 语句可以使用大括号分段. 空循环体应使用 <tt class="docutils literal"><span class="pre">{}</span></tt> 或 <tt class="docutils literal"><span class="pre">continue</span></tt>.</p>
+</div>
+<p><tt class="docutils literal"><span class="pre">switch</span></tt> 语句中的 <tt class="docutils literal"><span class="pre">case</span></tt> 块可以使用大括号也可以不用, 取决于你的个人喜好. 如果用的话, 要按照下文所述的方法.</p>
+<dl class="docutils">
+<dt>如果有不满足 <tt class="docutils literal"><span class="pre">case</span></tt> 条件的枚举值, <tt class="docutils literal"><span class="pre">switch</span></tt> 应该总是包含一个 <tt class="docutils literal"><span class="pre">default</span></tt> 匹配 (如果有输入值没有 case 去处理, 编译器将报警). 如果 <tt class="docutils literal"><span class="pre">default</span></tt> 应该永远执行不到, 简单的加条 <tt class="docutils literal"><span class="pre">assert</span></tt>:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">switch</span> <span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="p">{</span>  <span class="c">// 2 space indent</span>
+    <span class="p">...</span>      <span class="c">// 4 space indent</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt>空循环体应使用 <tt class="docutils literal"><span class="pre">{}</span></tt> 或 <tt class="docutils literal"><span class="pre">continue</span></tt>, 而不是一个简单的分号.</dt>
+<dd><div class="first highlight-c++"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Repeat test until it returns false.</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kSomeNumber</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{}</span>  <span class="c">// Good - empty body.</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>  <span class="c">// Good - continue indicates no logic.</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span><span class="n">condition</span><span class="p">);</span>  <span class="c">// Bad - looks like part of do/while loop.</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h2>8.8. 指针和引用表达式<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">句点或箭头前后不要有空格. 指针/地址操作符 (<tt class="docutils literal"><span class="pre">*,</span> <span class="pre">&amp;</span></tt>) 之后不能有空格.</p>
+</div>
+<dl class="docutils">
+<dt>下面是指针和引用表达式的正确使用范例:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt>注意:</dt>
+<dd><ul class="first last simple">
+<li>在访问成员时, 句点或箭头前后没有空格.</li>
+<li>指针操作符 <tt class="docutils literal"><span class="pre">*</span></tt> 或 <tt class="docutils literal"><span class="pre">&amp;</span></tt> 后没有空格.</li>
+</ul>
+</dd>
+<dt>在声明指针变量或参数时, 星号与类型或变量名紧挨都可以:</dt>
+<dd><div class="first highlight-c++"><div class="highlight"><pre><span class="c">// These are fine, space preceding.</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">c</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">;</span>
+
+<span class="c">// These are fine, space following.</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">c</span><span class="p">;</span>    <span class="c">// but remember to do &quot;char* c, *d, *e, ...;&quot;!</span>
+<span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="kt">char</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>  <span class="c">// Bad - spaces on both sides of *</span>
+<span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span> <span class="n">str</span><span class="p">;</span>  <span class="c">// Bad - spaces on both sides of &amp;</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+<p>在单个文件内要保持风格一致, 所以, 如果是修改现有文件, 要遵照该文件的风格.</p>
+</div>
+<div class="section" id="id9">
+<h2>8.9. 布尔表达式<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">如果一个布尔表达式超过 <a class="reference internal" href="#line-length"><em>标准行宽</em></a>, 断行方式要统一一下.</p>
+</div>
+<dl class="docutils">
+<dt>下例中, 逻辑与 (<tt class="docutils literal"><span class="pre">&amp;&amp;</span></tt>) 操作符总位于行尾:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">this_one_thing</span> <span class="o">&gt;</span> <span class="n">this_other_thing</span> <span class="o">&amp;&amp;</span>
+    <span class="n">a_third_thing</span> <span class="o">==</span> <span class="n">a_fourth_thing</span> <span class="o">&amp;&amp;</span>
+    <span class="n">yet_another</span> <span class="o">&amp;</span> <span class="n">last_one</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>注意, 上例的逻辑与 (<tt class="docutils literal"><span class="pre">&amp;&amp;</span></tt>) 操作符均位于行尾. 可以考虑额外插入圆括号, 合理使用的话对增强可读性是很有帮助的.</p>
+</div>
+<div class="section" id="id10">
+<h2>8.10. 函数返回值<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last"><tt class="docutils literal"><span class="pre">return</span></tt> 表达式中不要用圆括号包围.</p>
+</div>
+<dl class="docutils">
+<dt>函数返回时不要使用圆括号:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">return</span> <span class="n">x</span><span class="p">;</span>  <span class="c">// not return(x);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id11">
+<h2>8.11. 变量及数组初始化<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">用 <tt class="docutils literal"><span class="pre">=</span></tt> 或 <tt class="docutils literal"><span class="pre">()</span></tt> 均可.</p>
+</div>
+<dl class="docutils">
+<dt>在二者中做出选择; 下面的方式都是正确的:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">string</span> <span class="n">name</span><span class="p">(</span><span class="s">&quot;Some Name&quot;</span><span class="p">);</span>
+<span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Some Name&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id12">
+<h2>8.12. 预处理指令<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">预处理指令不要缩进, 从行首开始.</p>
+</div>
+<dl class="docutils">
+<dt>即使预处理指令位于缩进代码块中, 指令也应从行首开始.</dt>
+<dd><div class="first highlight-c++"><div class="highlight"><pre><span class="c">// Good - directives at beginning of line</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">lopsided_score</span><span class="p">)</span> <span class="p">{</span>
+<span class="cp">#if DISASTER_PENDING      </span><span class="c">// Correct -- Starts at beginning of line</span>
+    <span class="n">DropEverything</span><span class="p">();</span>
+<span class="cp">#endif</span>
+    <span class="n">BackToNormal</span><span class="p">();</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="c">// Bad - indented directives</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">lopsided_score</span><span class="p">)</span> <span class="p">{</span>
+<span class="cp">    #if DISASTER_PENDING  </span><span class="c">// Wrong!  The &quot;#if&quot; should be at beginning of line</span>
+    <span class="n">DropEverything</span><span class="p">();</span>
+<span class="cp">    #endif                </span><span class="c">// Wrong!  Do not indent &quot;#endif&quot;</span>
+    <span class="n">BackToNormal</span><span class="p">();</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id13">
+<h2>8.13. 类格式<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">访问控制块的声明依次序是 <tt class="docutils literal"><span class="pre">public:</span></tt>, <tt class="docutils literal"><span class="pre">protected:</span></tt>, <tt class="docutils literal"><span class="pre">private:</span></tt>, 每次缩进 1 个空格.</p>
+</div>
+<dl class="docutils">
+<dt>类声明 (对类注释不了解的话, 参考 <a class="reference external" href="comments.html#class-comments"><em>类注释</em></a>) 的基本格式如下:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyClass</span> <span class="o">:</span> <span class="k">public</span> <span class="n">OtherClass</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>      <span class="c">// Note the 1 space indent!</span>
+  <span class="n">MyClass</span><span class="p">();</span>  <span class="c">// Regular 2 space indent.</span>
+  <span class="k">explicit</span> <span class="n">MyClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">);</span>
+  <span class="o">~</span><span class="n">MyClass</span><span class="p">()</span> <span class="p">{}</span>
+
+  <span class="kt">void</span> <span class="n">SomeFunction</span><span class="p">();</span>
+  <span class="kt">void</span> <span class="n">SomeFunctionThatDoesNothing</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">set_some_var</span><span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">)</span> <span class="p">{</span> <span class="n">some_var_</span> <span class="o">=</span> <span class="n">var</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">int</span> <span class="n">some_var</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">some_var_</span><span class="p">;</span> <span class="p">}</span>
+
+ <span class="k">private</span><span class="o">:</span>
+  <span class="kt">bool</span> <span class="n">SomeInternalFunction</span><span class="p">();</span>
+
+  <span class="kt">int</span> <span class="n">some_var_</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">some_other_var_</span><span class="p">;</span>
+  <span class="n">DISALLOW_COPY_AND_ASSIGN</span><span class="p">(</span><span class="n">MyClass</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+<dt>注意事项:</dt>
+<dd><ul class="first last simple">
+<li>所有基类名应在 80 列限制下尽量与子类名放在同一行.</li>
+<li>关键词 <tt class="docutils literal"><span class="pre">public:</span></tt>, <tt class="docutils literal"><span class="pre">protected:</span></tt>, <tt class="docutils literal"><span class="pre">private:</span></tt> 要缩进 1 个空格.</li>
+<li>除第一个关键词 (一般是 <tt class="docutils literal"><span class="pre">public</span></tt>) 外, 其他关键词前要空一行. 如果类比较小的话也可以不空.</li>
+<li>这些关键词后不要保留空行.</li>
+<li><tt class="docutils literal"><span class="pre">public</span></tt> 放在最前面, 然后是 <tt class="docutils literal"><span class="pre">protected</span></tt>, 最后是 <tt class="docutils literal"><span class="pre">private</span></tt>.</li>
+<li>关于声明顺序的规则请参考 <a class="reference external" href="classes.html#declaration-order"><em>声明顺序</em></a> 一节.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id14">
+<h2>8.14. 初始化列表<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">构造函数初始化列表放在同一行或按四格缩进并排几行.</p>
+</div>
+<p>下面两种初始化列表方式都可以接受:</p>
+<blockquote>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c">// When it all fits on one line:</span>
+<span class="n">MyClass</span><span class="o">::</span><span class="n">MyClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">)</span> <span class="o">:</span> <span class="n">some_var_</span><span class="p">(</span><span class="n">var</span><span class="p">),</span> <span class="n">some_other_var_</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>
+</div>
+</blockquote>
+<p>或</p>
+<blockquote>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c">// When it requires multiple lines, indent 4 spaces, putting the colon on</span>
+<span class="c">// the first initializer line:</span>
+<span class="n">MyClass</span><span class="o">::</span><span class="n">MyClass</span><span class="p">(</span><span class="kt">int</span> <span class="n">var</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">some_var_</span><span class="p">(</span><span class="n">var</span><span class="p">),</span>             <span class="c">// 4 space indent</span>
+      <span class="n">some_other_var_</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>  <span class="c">// lined up</span>
+  <span class="p">...</span>
+  <span class="n">DoSomething</span><span class="p">();</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</blockquote>
+</div>
+<div class="section" id="id15">
+<h2>8.15. 名字空间格式化<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">名字空间内容不缩进.</p>
+</div>
+<dl class="docutils">
+<dt><a class="reference external" href="scoping.html#namespaces"><em>名字空间</em></a> 不要增加额外的缩进层次, 例如:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">namespace</span> <span class="p">{</span>
+
+<span class="kt">void</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>  <span class="c">// Correct.  No extra indentation within namespace.</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="p">}</span>  <span class="c">// namespace</span>
+</pre></div>
+</div>
+</dd>
+<dt>不要缩进名字空间:</dt>
+<dd><div class="first last admonition warning">
+<p class="first admonition-title">Warning</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="k">namespace</span> <span class="p">{</span>
+
+  <span class="c">// Wrong.  Indented when it should not be.</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>  <span class="c">// namespace</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id16">
+<h2>8.16. 水平留白<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">水平留白的使用因地制宜. 永远不要在行尾添加没意义的留白.</p>
+</div>
+<dl class="docutils">
+<dt>常规:</dt>
+<dd><div class="first highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="kt">bool</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>  <span class="c">// Open braces should always have a space before them.</span>
+  <span class="p">...</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c">// Semicolons usually have no space before them.</span>
+<span class="kt">int</span> <span class="n">x</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>  <span class="c">// Spaces inside braces for array initialization are</span>
+<span class="kt">int</span> <span class="n">x</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>    <span class="c">// optional.  If you use them, put them on both sides!</span>
+<span class="c">// Spaces around the colon in inheritance and initializer lists.</span>
+<span class="k">class</span> <span class="nc">Foo</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Bar</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="c">// For inline function implementations, put spaces between the braces</span>
+  <span class="c">// and the implementation itself.</span>
+  <span class="n">Foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="o">:</span> <span class="n">Bar</span><span class="p">(),</span> <span class="n">baz_</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{}</span>  <span class="c">// No spaces inside empty braces.</span>
+  <span class="kt">void</span> <span class="n">Reset</span><span class="p">()</span> <span class="p">{</span> <span class="n">baz_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>  <span class="c">// Spaces separating braces from implementation.</span>
+  <span class="p">...</span>
+</pre></div>
+</div>
+<p class="last">添加冗余的留白会给其他人编辑时造成额外负担. 因此, 行尾不要留空格. 如果确定一行代码已经修改完毕, 将多余的空格去掉; 或者在专门清理空格时去掉（确信没有其他人在处理). (yospaly 注: 现在大部分代码编辑器稍加设置后, 都支持自动删除行首/行尾空格, 如果不支持, 考虑换一款编辑器或 IDE)</p>
+</dd>
+<dt>循环和条件语句:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>          <span class="c">// Space after the keyword in conditions and loops.</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>          <span class="c">// Spaces around else.</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">test</span><span class="p">)</span> <span class="p">{}</span>   <span class="c">// There is usually no space inside parentheses.</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">switch</span> <span class="p">(</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>    <span class="c">// Loops and conditions may have spaces inside</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">test</span> <span class="p">)</span> <span class="p">{</span>     <span class="c">// parentheses, but this is rare.  Be consistent.</span>
+<span class="k">for</span> <span class="p">(</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>  <span class="c">// For loops always have a space after the</span>
+  <span class="p">...</span>                   <span class="c">// semicolon, and may have a space before the</span>
+                        <span class="c">// semicolon.</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>         <span class="c">// No space before colon in a switch case.</span>
+    <span class="p">...</span>
+  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="k">break</span><span class="p">;</span>  <span class="c">// Use a space after a colon if there&#39;s code after it.</span>
+</pre></div>
+</div>
+</dd>
+<dt>操作符:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>              <span class="c">// Assignment operators always have spaces around</span>
+                    <span class="c">// them.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>             <span class="c">// No spaces separating unary operators and their</span>
+<span class="o">++</span><span class="n">x</span><span class="p">;</span>                <span class="c">// arguments.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">y</span><span class="p">)</span>
+  <span class="p">...</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">/</span> <span class="n">z</span><span class="p">;</span>  <span class="c">// Binary operators usually have spaces around them,</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">w</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">/</span><span class="n">z</span><span class="p">;</span>      <span class="c">// but it&#39;s okay to remove spaces around factors.</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">z</span><span class="p">);</span>    <span class="c">// Parentheses should have no spaces inside them.</span>
+</pre></div>
+</div>
+</dd>
+<dt>模板和转换:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>           <span class="c">// No spaces inside the angle</span>
+<span class="n">y</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>  <span class="c">// brackets (&lt; and &gt;), before</span>
+                            <span class="c">// &lt;, or between &gt;( in a cast.</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span> <span class="o">*&gt;</span> <span class="n">x</span><span class="p">;</span>           <span class="c">// Spaces between type and pointer are</span>
+                            <span class="c">// okay, but be consistent.</span>
+<span class="n">set</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>       <span class="c">// C++ requires a space in &gt; &gt;.</span>
+<span class="n">set</span><span class="o">&lt;</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>      <span class="c">// You may optionally make use</span>
+                            <span class="c">// symmetric spacing in &lt; &lt;.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id17">
+<h2>8.17. 垂直留白<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">垂直留白越少越好.</p>
+</div>
+<p>这不仅仅是规则而是原则问题了: 不在万不得已, 不要使用空行. 尤其是: 两个函数定义之间的空行不要超过 2 行, 函数体首尾不要留空行, 函数体中也不要随意添加空行.</p>
+<p>基本原则是: 同一屏可以显示的代码越多, 越容易理解程序的控制流. 当然, 过于密集的代码块和过于疏松的代码块同样难看, 取决于你的判断. 但通常是垂直留白越少越好.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>函数首尾不要有空行</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">Function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="c">// Unnecessary blank lines before and after</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>代码块首尾不要有空行</p>
+<div class="last highlight-c++"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Unnecessary blank line after</span>
+
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c">// Unnecessary blank line before</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">if-else</span></tt> 块之间空一行是可以接受的:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c">// Some lines of code too small to move to another function,</span>
+  <span class="c">// followed by a blank line.</span>
+
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="c">// Another block of code</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="yulefox">
+<h2>译者 (YuleFox) 笔记<a class="headerlink" href="#yulefox" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple" start="0">
+<li>对于代码格式, 因人, 系统而异各有优缺点, 但同一个项目中遵循同一标准还是有必要的;</li>
+<li>行宽原则上不超过 80 列, 把 22 寸的显示屏都占完, 怎么也说不过去;</li>
+<li>尽量不使用非 ASCII 字符, 如果使用的话, 参考 UTF-8 格式 (尤其是 UNIX/Linux 下, Windows 下可以考虑宽字符), 尽量不将字符串常量耦合到代码中, 比如独立出资源文件, 这不仅仅是风格问题了;</li>
+<li>UNIX/Linux 下无条件使用空格, MSVC 的话使用 Tab 也无可厚非;</li>
+<li>函数参数, 逻辑条件, 初始化列表: 要么所有参数和函数名放在同一行, 要么所有参数并排分行;</li>
+<li>除函数定义的左大括号可以置于行首外, 包括函数/类/结构体/枚举声明, 各种语句的左大括号置于行尾, 所有右大括号独立成行;</li>
+<li><tt class="docutils literal"><span class="pre">.</span></tt>/<tt class="docutils literal"><span class="pre">-&gt;</span></tt> 操作符前后不留空格, <tt class="docutils literal"><span class="pre">*</span></tt>/<tt class="docutils literal"><span class="pre">&amp;</span></tt> 不要前后都留, 一个就可, 靠左靠右依各人喜好;</li>
+<li>预处理指令/命名空间不使用额外缩进, 类/结构体/枚举/函数/语句使用缩进;</li>
+<li>初始化用 <tt class="docutils literal"><span class="pre">=</span></tt> 还是 <tt class="docutils literal"><span class="pre">()</span></tt> 依个人喜好, 统一就好;</li>
+<li><tt class="docutils literal"><span class="pre">return</span></tt> 不要加 <tt class="docutils literal"><span class="pre">()</span></tt>;</li>
+<li>水平/垂直留白不要滥用, 怎么易读怎么来.</li>
+<li>关于 UNIX/Linux 风格为什么要把左大括号置于行尾 (<tt class="docutils literal"><span class="pre">.cc</span></tt> 文件的函数实现处, 左大括号位于行首), 我的理解是代码看上去比较简约, 想想行首除了函数体被一对大括号封在一起之外, 只有右大括号的代码看上去确实也舒服; Windows 风格将左大括号置于行首的优点是匹配情况一目了然.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="exceptions.html" title="9. 规则特例"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="comments.html" title="7. 注释"
+             >previous</a> |</li>
+        <li><a href="index.html">Google C++ Style Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Google Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

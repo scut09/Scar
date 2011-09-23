@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Google Python 风格指南 - 中文版 &mdash; Google Python Style Guide v0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Google Python Style Guide v0.0.1 documentation" href="#" />
+    <link rel="next" title="Python语言规范" href="python_language_rules.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="python_language_rules.html" title="Python语言规范"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">Google Python Style Guide v0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="google-python">
+<h1>Google Python 风格指南 - 中文版<a class="headerlink" href="#google-python" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">版本:</th><td class="field-body"><p class="first">2.19</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">原作者:</th><td class="field-body"><div class="first line-block">
+<div class="line">Amit Patel</div>
+<div class="line">Antoine Picard</div>
+<div class="line">Eugene Jhong</div>
+<div class="line">Jeremy Hylton</div>
+<div class="line">Matt Smart</div>
+<div class="line">Mike Shields</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">翻译:</th><td class="field-body"><div class="first line-block">
+<div class="line">郭桥 &lt;<a class="reference external" href="mailto:guoqiao&#37;&#52;&#48;gmail&#46;com">guoqiao<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">项目主页:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://google-styleguide.googlecode.com">Google Style Guide</a></li>
+<li><a class="reference external" href="http://code.google.com/p/zh-google-styleguide/">Google 开源项目风格指南 - 中文版</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h2>目录<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_language_rules.html">Python语言规范</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#pychecker">pychecker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id2">导入</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id3">包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id4">异常</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id5">全局变量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id6">嵌套/本地/内部类或函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#list-comprehensions">列表推导(List Comprehensions)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id7">默认迭代器和操作符</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id8">生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#lambda">Lambda函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id9">默认参数值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#properties">属性(properties)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#true-false">True/False的求值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id10">过时的语言特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#scoping-lexical-scoping">静态Scoping(Lexical Scoping)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id11">函数与方法装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id12">线程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_language_rules.html#id13">威力过大的特性</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_style_rules.html">Python风格规范</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id1">分号</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#line-length">行长度</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id3">括号</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#indentation">缩进</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id5">空行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id6">空格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id7">Python解释器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id8">注释</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id9">类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id10">字符串</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#todo">TODO注释</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id11">导入格式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id12">语句</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id13">访问控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#id14">命名</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_style_rules.html#main">Main</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parting_words.html">临别赠言</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Google Python 风格指南 - 中文版</a><ul>
+<li><a class="reference internal" href="#id1">目录</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="python_language_rules.html"
+                        title="next chapter">Python语言规范</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="python_language_rules.html" title="Python语言规范"
+             >next</a> |</li>
+        <li><a href="#">Google Python Style Guide v0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Guo Qiao.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

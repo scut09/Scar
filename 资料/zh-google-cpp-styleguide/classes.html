@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. 类 &mdash; Google C++ Style Guide</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.133',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Google C++ Style Guide" href="index.html" />
+    <link rel="next" title="4. 来自 Google 的奇技" href="magic.html" />
+    <link rel="prev" title="2. 作用域" href="scoping.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="magic.html" title="4. 来自 Google 的奇技"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="scoping.html" title="2. 作用域"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Google C++ Style Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">3. 类</a><ul>
+<li><a class="reference external" href="#id2">3.1. 构造函数的职责</a></li>
+<li><a class="reference external" href="#id4">3.2. 默认构造函数</a></li>
+<li><a class="reference external" href="#id5">3.3. 显式构造函数</a></li>
+<li><a class="reference external" href="#copy-constructors">3.4. 拷贝构造函数</a></li>
+<li><a class="reference external" href="#vs">3.5. 结构体 VS. 类</a></li>
+<li><a class="reference external" href="#inheritance">3.6. 继承</a></li>
+<li><a class="reference external" href="#multiple-inheritance">3.7. 多重继承</a></li>
+<li><a class="reference external" href="#interface">3.8. 接口</a></li>
+<li><a class="reference external" href="#id12">3.9. 运算符重载</a></li>
+<li><a class="reference external" href="#id13">3.10. 存取控制</a></li>
+<li><a class="reference external" href="#declaration-order">3.11. 声明顺序</a></li>
+<li><a class="reference external" href="#id15">3.12. 编写简短函数</a></li>
+<li><a class="reference external" href="#yulefox">译者 (YuleFox) 笔记</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="scoping.html"
+                                  title="previous chapter">2. 作用域</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="magic.html"
+                                  title="next chapter">4. 来自 Google 的奇技</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/classes.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>3. 类<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>类是 C++ 中代码的基本单元. 显然, 它们被广泛使用. 本节列举了在写一个类时的主要注意事项.</p>
+<div class="section" id="id2">
+<h2>3.1. 构造函数的职责<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">构造函数中只进行那些没什么意义的 (trivial, YuleFox 注: 简单初始化对于程序执行没有实际的逻辑意义, 因为成员变量 &#8220;有意义&#8221; 的值大多不在构造函数中确定) 初始化, 可能的话, 使用 <tt class="docutils literal"><span class="pre">Init()</span></tt> 方法集中初始化有意义的 (non-trivial) 数据.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd>在构造函数体中进行初始化操作.</dd>
+<dt>优点:</dt>
+<dd>排版方便, 无需担心类是否已经初始化.</dd>
+<dt>缺点:</dt>
+<dd><p class="first">在构造函数中执行操作引起的问题有:</p>
+<blockquote class="last">
+<ul class="simple">
+<li>构造函数中很难上报错误, <a class="reference external" href="#...">不能使用异常</a>.</li>
+<li>操作失败会造成对象初始化失败，进入不确定状态.</li>
+<li>如果在构造函数内调用了自身的虚函数, 这类调用是不会重定向到子类的虚函数实现. 即使当前没有子类化实现, 将来仍是隐患.</li>
+<li>如果有人创建该类型的全局变量 (虽然违背了上节提到的规则), 构造函数将先 <tt class="docutils literal"><span class="pre">main()</span></tt> 一步被调用, 有可能破坏构造函数中暗含的假设条件. 例如, <a class="reference external" href="http://code.google.com/p/google-gflags/">gflags</a> 尚未初始化.</li>
+</ul>
+</blockquote>
+</dd>
+<dt>结论:</dt>
+<dd>如果对象需要进行有意义的 (non-trivial) 初始化, 考虑使用明确的 <tt class="docutils literal"><span class="pre">Init()</span></tt> 方法并 (或) 增加一个成员标记用于指示对象是否已经初始化成功.</dd>
+</dl>
+</div>
+<div class="section" id="id4">
+<h2>3.2. 默认构造函数<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">如果一个类定义了若干成员变量又没有其它构造函数, 必须定义一个默认构造函数. 否则编译器将自动生产一个很糟糕的默认构造函数.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd><tt class="docutils literal"><span class="pre">new</span></tt> 一个不带参数的类对象时, 会调用这个类的默认构造函数. 用 <tt class="docutils literal"><span class="pre">new[]</span></tt> 创建数组时，默认构造函数则总是被调用.</dd>
+<dt>优点:</dt>
+<dd>默认将结构体初始化为 &#8220;无效&#8221; 值, 使调试更方便.</dd>
+<dt>缺点:</dt>
+<dd>对代码编写者来说, 这是多余的工作.</dd>
+<dt>结论:</dt>
+<dd><p class="first">如果类中定义了成员变量, 而且没有提供其它构造函数, 你必须定义一个 (不带参数的) 默认构造函数. 把对象的内部状态初始化成一致/有效的值无疑是更合理的方式.</p>
+<p>这么做的原因是: 如果你没有提供其它构造函数, 又没有定义默认构造函数, 编译器将为你自动生成一个. 编译器生成的构造函数并不会对对象进行合理的初始化.</p>
+<p class="last">如果你定义的类继承现有类, 而你又没有增加新的成员变量, 则不需要为新类定义默认构造函数.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h2>3.3. 显式构造函数<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">对单个参数的构造函数使用 C++ 关键字 <tt class="docutils literal"><span class="pre">explicit</span></tt>.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd>通常, 如果构造函数只有一个参数, 可看成是一种隐式转换. 打个比方, 如果你定义了 <tt class="docutils literal"><span class="pre">Foo::Foo(string</span> <span class="pre">name)</span></tt>, 接着把一个字符串传给一个以 <tt class="docutils literal"><span class="pre">Foo</span></tt> 对象为参数的函数, 构造函数 <tt class="docutils literal"><span class="pre">Foo::Foo(string</span> <span class="pre">name)</span></tt> 将被调用, 并将该字符串转换为一个 <tt class="docutils literal"><span class="pre">Foo</span></tt> 的临时对象传给调用函数. 看上去很方便, 但如果你并不希望如此通过转换生成一个新对象的话, 麻烦也随之而来. 为避免构造函数被调用造成隐式转换, 可以将其声明为 <tt class="docutils literal"><span class="pre">explicit</span></tt>.</dd>
+<dt>优点:</dt>
+<dd>避免不合时宜的变换.</dd>
+<dt>缺点:</dt>
+<dd>无</dd>
+<dt>结论:</dt>
+<dd><p class="first">所有单参数构造函数都必须是显式的. 在类定义中, 将关键字 <tt class="docutils literal"><span class="pre">explicit</span></tt> 加到单参数构造函数前: <tt class="docutils literal"><span class="pre">explicit</span> <span class="pre">Foo(string</span> <span class="pre">name);</span></tt></p>
+<p class="last">例外: 在极少数情况下, 拷贝构造函数可以不声明成 <tt class="docutils literal"><span class="pre">explicit</span></tt>. 作为其它类的透明包装器的类也是特例之一. 类似的例外情况应在注释中明确说明.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="copy-constructors">
+<span id="id6"></span><h2>3.4. 拷贝构造函数<a class="headerlink" href="#copy-constructors" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">仅在代码中需要拷贝一个类对象的时候使用拷贝构造函数; 大部分情况下都不需要, 此时应使用 <tt class="docutils literal"><span class="pre">DISALLOW_COPY_AND_ASSIGN</span></tt>.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd>拷贝构造函数在复制一个对象到新建对象时被调用 (特别是对象传值时).</dd>
+<dt>优点:</dt>
+<dd>拷贝构造函数使得拷贝对象更加容易. STL 容器要求所有内容可拷贝, 可赋值.</dd>
+<dt>缺点:</dt>
+<dd>C++ 中的隐式对象拷贝是很多性能问题和 bug 的根源. 拷贝构造函数降低了代码可读性, 相比传引用, 跟踪传值的对象更加困难, 对象修改的地方变得难以捉摸.</dd>
+<dt>结论:</dt>
+<dd><p class="first">大部分类并不需要可拷贝, 也不需要一个拷贝构造函数或重载赋值运算符. 不幸的是, 如果你不主动声明它们, 编译器会为你自动生成, 而且是 <tt class="docutils literal"><span class="pre">public</span></tt> 的.</p>
+<dl class="docutils">
+<dt>可以考虑在类的 <tt class="docutils literal"><span class="pre">private:</span></tt> 中添加拷贝构造函数和赋值操作的空实现, 只有声明, 没有定义. 由于这些空函数声明为 <tt class="docutils literal"><span class="pre">private</span></tt>, 当其他代码试图使用它们的时候, 编译器将报错. 方便起见, 我们可以使用 <tt class="docutils literal"><span class="pre">DISALLOW_COPY_AND_ASSIGN</span></tt> 宏:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="c">// 禁止使用拷贝构造函数和 operator= 赋值操作的宏</span>
+<span class="c">// 应该类的 private: 中使用</span>
+
+<span class="cp">#define DISALLOW_COPY_AND_ASSIGN(TypeName) \</span>
+<span class="cp">            TypeName(const TypeName&amp;); \</span>
+<span class="cp">            void operator=(const TypeName&amp;)</span>
+</pre></div>
+</div>
+</dd>
+<dt>在 <tt class="docutils literal"><span class="pre">class</span> <span class="pre">foo:</span></tt> 中:</dt>
+<dd><div class="first last highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">Foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">f</span><span class="p">);</span>
+        <span class="o">~</span><span class="n">Foo</span><span class="p">();</span>
+
+    <span class="k">private</span><span class="o">:</span>
+        <span class="n">DISALLOW_COPY_AND_ASSIGN</span><span class="p">(</span><span class="n">Foo</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p class="last">如上所述, 绝大多数情况下都应使用 <tt class="docutils literal"><span class="pre">DISALLOW_COPY_AND_ASSIGN</span></tt> 宏. 如果类确实需要可拷贝, 应在该类的头文件中说明原由, 并合理的定义拷贝构造函数和赋值操作. 注意在 <tt class="docutils literal"><span class="pre">operator=</span></tt> 中检测自我赋值的情况 (yospaly 注: 即 <tt class="docutils literal"><span class="pre">operator=</span></tt> 接收的参数是该对象本身).</p>
+</dd>
+</dl>
+<p>为了能作为 STL 容器的值, 你可能有使类可拷贝的冲动. 在大多数类似的情况下, 真正该做的是把对象的 <em>指针</em> 放到 STL 容器中. 可以考虑使用 <tt class="docutils literal"><span class="pre">std::tr1::shared_ptr</span></tt>.</p>
+</div>
+<div class="section" id="vs">
+<span id="structs-vs-classes"></span><h2>3.5. 结构体 VS. 类<a class="headerlink" href="#vs" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">仅当只有数据时使用 <tt class="docutils literal"><span class="pre">struct</span></tt>, 其它一概使用 <tt class="docutils literal"><span class="pre">class</span></tt>.</p>
+</div>
+<p>在 C++ 中 <tt class="docutils literal"><span class="pre">struct</span></tt> 和 <tt class="docutils literal"><span class="pre">class</span></tt> 关键字几乎含义一样. 我们为这两个关键字添加我们自己的语义理解, 以便为定义的数据类型选择合适的关键字.</p>
+<p><tt class="docutils literal"><span class="pre">struct</span></tt> 用来定义包含数据的被动式对象, 也可以包含相关的常量, 但除了存取数据成员之外, 没有别的函数功能. 并且存取功能是通过直接访问位域 (field), 而非函数调用. 除了构造函数, 析构函数, <tt class="docutils literal"><span class="pre">Initialize()</span></tt>, <tt class="docutils literal"><span class="pre">Reset()</span></tt>, <tt class="docutils literal"><span class="pre">Validate()</span></tt> 外, 不能提供其它功能的函数.</p>
+<p>如果需要更多的函数功能, <tt class="docutils literal"><span class="pre">class</span></tt> 更适合. 如果拿不准, 就用 <tt class="docutils literal"><span class="pre">class</span></tt>.</p>
+<p>为了和 STL 保持一致, 对于仿函数 (functors) 和特性 (traits) 可以不用 <tt class="docutils literal"><span class="pre">class</span></tt> 而是使用 <tt class="docutils literal"><span class="pre">struct</span></tt>.</p>
+<p>注意: 类和结构体的成员变量使用 <a class="reference external" href="...">不同的命名规则</a>.</p>
+</div>
+<div class="section" id="inheritance">
+<span id="id8"></span><h2>3.6. 继承<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">使用组合 (composition, YuleFox 注: 这一点也是 GoF 在 &lt;&lt;Design Patterns&gt;&gt; 里反复强调的) 常常比使用继承更合理. 如果使用继承的话, 定义为 <tt class="docutils literal"><span class="pre">public</span></tt> 继承.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd>当子类继承基类时, 子类包含了父基类所有数据及操作的定义. C++ 实践中, 继承主要用于两种场合: 实现继承 (implementation inheritance), 子类继承父类的实现代码; 接口继承 (interface inheritance), 子类仅继承父类的方法名称.</dd>
+<dt>优点:</dt>
+<dd>实现继承通过原封不动的复用基类代码减少了代码量. 由于继承是在编译时声明, 程序员和编译器都可以理解相应操作并发现错误. 从编程角度而言, 接口继承是用来强制类输出特定的 API. 在类没有实现 API 中某个必须的方法时, 编译器同样会发现并报告错误.</dd>
+<dt>缺点:</dt>
+<dd>对于实现继承, 由于子类的实现代码散布在父类和子类间之间, 要理解其实现变得更加困难. 子类不能重写父类的非虚函数, 当然也就不能修改其实现. 基类也可能定义了一些数据成员, 还要区分基类的实际布局.</dd>
+<dt>结论:</dt>
+<dd><p class="first">所有继承必须是 <tt class="docutils literal"><span class="pre">public</span></tt> 的. 如果你想使用私有继承, 你应该替换成把基类的实例作为成员对象的方式.</p>
+<p>不要过度使用实现继承. 组合常常更合适一些. 尽量做到只在 &#8220;是一个&#8221; (&#8220;is-a&#8221;, YuleFox 注: 其他 &#8220;has-a&#8221; 情况下请使用组合) 的情况下使用继承: 如果 <tt class="docutils literal"><span class="pre">Bar</span></tt> 的确 &#8220;是一种&#8221; Foo, <tt class="docutils literal"><span class="pre">Bar</span></tt> 才能继承 <tt class="docutils literal"><span class="pre">Foo</span></tt>.</p>
+<p>必要的话, 析构函数声明为 <tt class="docutils literal"><span class="pre">virtual</span></tt>. 如果你的类有虚函数, 则析构函数也应该为虚函数. 注意 <a class="reference external" href="....">数据成员在任何情况下都必须是私有的</a>.</p>
+<p class="last">当重载一个虚函数, 在衍生类中把它明确的声明为 <tt class="docutils literal"><span class="pre">virtual</span></tt>. 理论依据: 如果省略 <tt class="docutils literal"><span class="pre">virtual</span></tt> 关键字, 代码阅读者不得不检查所有父类, 以判断该函数是否是虚函数.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="multiple-inheritance">
+<span id="id10"></span><h2>3.7. 多重继承<a class="headerlink" href="#multiple-inheritance" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">真正需要用到多重实现继承的情况少之又少. 只在以下情况我们才允许多重继承: 最多只有一个基类是非抽象类; 其它基类都是以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 为后缀的 <a class="reference internal" href="#interface"><em>纯接口类</em></a>.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd>多重继承允许子类拥有多个基类. 要将作为 <em>纯接口</em> 的基类和具有 <em>实现</em> 的基类区别开来.</dd>
+<dt>优点:</dt>
+<dd>相比单继承 (见 <a class="reference internal" href="#inheritance"><em>继承</em></a>), 多重实现继承可以复用更多的代码.</dd>
+<dt>缺点:</dt>
+<dd>真正需要用到多重 <em>实现</em> 继承的情况少之又少. 多重实现继承看上去是不错的解决方案, 但你通常也可以找到一个更明确, 更清晰的不同解决方案.</dd>
+<dt>结论:</dt>
+<dd>只有当所有父类除第一个外都是 <a class="reference internal" href="#interface"><em>纯接口类</em></a> 时, 才允许使用多重继承. 为确保它们是纯接口, 这些类必须以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 为后缀.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">关于该规则, Windows 下有个 <a class="reference external" href="exceptions.html#windows-code"><em>特例</em></a>.</p>
+</div>
+</div>
+<div class="section" id="interface">
+<span id="id11"></span><h2>3.8. 接口<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">接口是指满足特定条件的类, 这些类以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 为后缀 (不强制).</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd><p class="first">当一个类满足以下要求时, 称之为纯接口:</p>
+<blockquote>
+<ul class="simple">
+<li>只有纯虚函数 (&#8220;<tt class="docutils literal"><span class="pre">=0</span></tt>&#8220;) 和静态函数 (除了下文提到的析构函数).</li>
+<li>没有非静态数据成员.</li>
+<li>没有定义任何构造函数. 如果有, 也不能带有参数, 并且必须为 <tt class="docutils literal"><span class="pre">protected</span></tt>.</li>
+<li>如果它是一个子类, 也只能从满足上述条件并以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 为后缀的类继承.</li>
+</ul>
+</blockquote>
+<p class="last">接口类不能被直接实例化, 因为它声明了纯虚函数. 为确保接口类的所有实现可被正确销毁, 必须为之声明虚析构函数 (作为上述第 1 条规则的特例, 析构函数不能是纯虚函数). 具体细节可参考 Stroustrup 的 <em>The C++ Programming Language, 3rd edition</em> 第 12.4 节.</p>
+</dd>
+<dt>优点:</dt>
+<dd>以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 为后缀可以提醒其他人不要为该接口类增加函数实现或非静态数据成员. 这一点对于 <a class="reference internal" href="#multiple-inheritance"><em>多重继承</em></a> 尤其重要. 另外, 对于 Java 程序员来说, 接口的概念已是深入人心.</dd>
+<dt>缺点:</dt>
+<dd><tt class="docutils literal"><span class="pre">Interface</span></tt> 后缀增加了类名长度, 为阅读和理解带来不便. 同时，接口特性作为实现细节不应暴露给用户.</dd>
+<dt>结论:</dt>
+<dd>只有在满足上述需要时, 类才以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 结尾, 但反过来, 满足上述需要的类未必一定以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 结尾.</dd>
+</dl>
+</div>
+<div class="section" id="id12">
+<h2>3.9. 运算符重载<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">除少数特定环境外，不要重载运算符.</p>
+</div>
+<dl class="docutils">
+<dt>定义:</dt>
+<dd>一个类可以定义诸如 <tt class="docutils literal"><span class="pre">+</span></tt> 和 <tt class="docutils literal"><span class="pre">/</span></tt> 等运算符, 使其可以像内建类型一样直接操作.</dd>
+<dt>优点:</dt>
+<dd>使代码看上去更加直观, 类表现的和内建类型 (如 <tt class="docutils literal"><span class="pre">int</span></tt>) 行为一致. 重载运算符使 <tt class="docutils literal"><span class="pre">Equals()</span></tt>, <tt class="docutils literal"><span class="pre">Add()</span></tt> 等函数名黯然失色. 为了使一些模板函数正确工作, 你可能必须定义操作符.</dd>
+<dt>缺点:</dt>
+<dd><p class="first">虽然操作符重载令代码更加直观, 但也有一些不足:</p>
+<ul class="simple">
+<li>混淆视听, 让你误以为一些耗时的操作和操作内建类型一样轻巧.</li>
+<li>更难定位重载运算符的调用点, 查找 <tt class="docutils literal"><span class="pre">Equals()</span></tt> 显然比对应的 <tt class="docutils literal"><span class="pre">==</span></tt> 调用点要容易的多.</li>
+<li>有的运算符可以对指针进行操作, 容易导致 bug. <tt class="docutils literal"><span class="pre">Foo</span> <span class="pre">+</span> <span class="pre">4</span></tt> 做的是一件事, 而 <tt class="docutils literal"><span class="pre">&amp;Foo</span> <span class="pre">+</span> <span class="pre">4</span></tt> 可能做的是完全不同的另一件事. 对于二者, 编译器都不会报错, 使其很难调试;</li>
+</ul>
+<p class="last">重载还有令你吃惊的副作用. 比如, 重载了 <tt class="docutils literal"><span class="pre">operator&amp;</span></tt> 的类不能被前置声明.</p>
+</dd>
+<dt>结论:</dt>
+<dd><p class="first">一般不要重载运算符. 尤其是赋值操作 (<tt class="docutils literal"><span class="pre">operator=</span></tt>) 比较诡异, 应避免重载. 如果需要的话, 可以定义类似 <tt class="docutils literal"><span class="pre">Equals()</span></tt>, <tt class="docutils literal"><span class="pre">CopyFrom()</span></tt> 等函数.</p>
+<p>然而, 极少数情况下可能需要重载运算符以便与模板或 &#8220;标准&#8221; C++ 类互操作 (如 <tt class="docutils literal"><span class="pre">operator&lt;&lt;(ostream&amp;,</span> <span class="pre">const</span> <span class="pre">T&amp;)</span></tt>). 只有被证明是完全合理的才能重载, 但你还是要尽可能避免这样做. 尤其是不要仅仅为了在 STL 容器中用作键值就重载 <tt class="docutils literal"><span class="pre">operator==</span></tt> 或 <tt class="docutils literal"><span class="pre">operator&lt;</span></tt>; 相反, 你应该在声明容器的时候, 创建相等判断和大小比较的仿函数类型.</p>
+<p>有些 STL 算法确实需要重载 <tt class="docutils literal"><span class="pre">operator==</span></tt> 时, 你可以这么做, 记得别忘了在文档中说明原因.</p>
+<p class="last">参考 <a class="reference internal" href="#copy-constructors"><em>拷贝构造函数</em></a> 和 <a class="reference external" href="others.html#function-overloading"><em>函数重载</em></a>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id13">
+<h2>3.10. 存取控制<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">将 <em>所有</em> 数据成员声明为 <tt class="docutils literal"><span class="pre">private</span></tt>, 并根据需要提供相应的存取函数. 例如, 某个名为 <tt class="docutils literal"><span class="pre">foo_</span></tt> 的变量, 其取值函数是 <tt class="docutils literal"><span class="pre">foo()</span></tt>. 还可能需要一个赋值函数 <tt class="docutils literal"><span class="pre">set_foo()</span></tt>.</p>
+</div>
+<p>一般在头文件中把存取函数定义成内联函数.</p>
+<p>参考 <a class="reference internal" href="#inheritance"><em>继承</em></a> 和 <a class="reference external" href="naming.html#function-names"><em>函数命名</em></a></p>
+</div>
+<div class="section" id="declaration-order">
+<span id="id14"></span><h2>3.11. 声明顺序<a class="headerlink" href="#declaration-order" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">在类中使用特定的声明顺序: <tt class="docutils literal"><span class="pre">public:</span></tt> 在 <tt class="docutils literal"><span class="pre">private:</span></tt> 之前, 成员函数在数据成员 (变量) 前;</p>
+</div>
+<p>类的访问控制区段的声明顺序依次为: <tt class="docutils literal"><span class="pre">public:</span></tt>, <tt class="docutils literal"><span class="pre">protected:</span></tt>, <tt class="docutils literal"><span class="pre">private:</span></tt>. 如果某区段没内容, 可以不声明.</p>
+<p>每个区段内的声明通常按以下顺序:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">typedefs</span></tt> 和枚举</li>
+<li>常量</li>
+<li>构造函数</li>
+<li>析构函数</li>
+<li>成员函数, 含静态成员函数</li>
+<li>数据成员, 含静态数据成员</li>
+</ul>
+</blockquote>
+<p>宏 <tt class="docutils literal"><span class="pre">DISALLOW_COPY_AND_ASSIGN</span></tt> 的调用放在 <tt class="docutils literal"><span class="pre">private:</span></tt> 区段的末尾. 它通常是类的最后部分. 参考 <a class="reference internal" href="#copy-constructors"><em>拷贝构造函数</em></a>.</p>
+<p><tt class="docutils literal"><span class="pre">.cc</span></tt> 文件中函数的定义应尽可能和声明顺序一致.</p>
+<p>不要在类定义中内联大型函数. 通常, 只有那些没有特别意义或性能要求高, 并且是比较短小的函数才能被定义为内联函数. 更多细节参考 <a class="reference external" href="headers.html#inline-functions"><em>内联函数</em></a>.</p>
+</div>
+<div class="section" id="id15">
+<h2>3.12. 编写简短函数<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">倾向编写简短, 凝练的函数.</p>
+</div>
+<p>我们承认长函数有时是合理的, 因此并不硬性限制函数的长度. 如果函数超过 40 行, 可以思索一下能不能在不影响程序结构的前提下对其进行分割.</p>
+<p>即使一个长函数现在工作的非常好, 一旦有人对其修改, 有可能出现新的问题. 甚至导致难以发现的 bug. 使函数尽量简短, 便于他人阅读和修改代码.</p>
+<p>在处理代码时, 你可能会发现复杂的长函数. 不要害怕修改现有代码: 如果证实这些代码使用 / 调试困难, 或者你需要使用其中的一小段代码, 考虑将其分割为更加简短并易于管理的若干函数.</p>
+</div>
+<div class="section" id="yulefox">
+<h2>译者 (YuleFox) 笔记<a class="headerlink" href="#yulefox" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>不在构造函数中做太多逻辑相关的初始化;</li>
+<li>编译器提供的默认构造函数不会对变量进行初始化, 如果定义了其他构造函数, 编译器不再提供, 需要编码者自行提供默认构造函数;</li>
+<li>为避免隐式转换, 需将单参数构造函数声明为 <tt class="docutils literal"><span class="pre">explicit</span></tt>;</li>
+<li>为避免拷贝构造函数, 赋值操作的滥用和编译器自动生成, 可将其声明为 <tt class="docutils literal"><span class="pre">private</span></tt> 且无需实现;</li>
+<li>仅在作为数据集合时使用 <tt class="docutils literal"><span class="pre">struct</span></tt>;</li>
+<li>组合 &gt; 实现继承 &gt; 接口继承 &gt; 私有继承, 子类重载的虚函数也要声明 <tt class="docutils literal"><span class="pre">virtual</span></tt> 关键字, 虽然编译器允许不这样做;</li>
+<li>避免使用多重继承, 使用时, 除一个基类含有实现外, 其他基类均为纯接口;</li>
+<li>接口类类名以 <tt class="docutils literal"><span class="pre">Interface</span></tt> 为后缀, 除提供带实现的虚析构函数, 静态成员函数外, 其他均为纯虚函数, 不定义非静态数据成员, 不提供构造函数, 提供的话，声明为 <tt class="docutils literal"><span class="pre">protected</span></tt>;</li>
+<li>为降低复杂性, 尽量不重载操作符, 模板, 标准类中使用时提供文档说明;</li>
+<li>存取函数一般内联在头文件中;</li>
+<li>声明次序: <tt class="docutils literal"><span class="pre">public</span></tt> -&gt; <tt class="docutils literal"><span class="pre">protected</span></tt> -&gt; <tt class="docutils literal"><span class="pre">private</span></tt>;</li>
+<li>函数体尽量短小, 紧凑, 功能单一;</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="magic.html" title="4. 来自 Google 的奇技"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="scoping.html" title="2. 作用域"
+             >previous</a> |</li>
+        <li><a href="index.html">Google C++ Style Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Google Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>
