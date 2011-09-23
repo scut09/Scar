@@ -211,6 +211,11 @@ void shoot()
 
 	//pMissileNode->grab();
 	//g_MissileList.push_back( pMissileNode );
+
+
+		
+
+
 }
 
 
@@ -250,6 +255,44 @@ void HitTest()
 	}
 }
 
+scene::IParticleSystemSceneNode* CreateBullet()
+{
+	//初始化粒子系统
+	scene::IParticleSystemSceneNode* m_bullet =
+		smgr->addParticleSystemSceneNode(false);
+
+	// create and set emitter
+	scene::IParticleEmitter* em = m_bullet->createBoxEmitter(
+		core::aabbox3d<f32>(-2,0,-2,2,1,2),
+		core::vector3df(0.0f,0.03f,0.0f),
+		10,50,
+		video::SColor(0,255,255,255), video::SColor(0,255,255,255),
+		400,1100);
+	em->setMinStartSize(core::dimension2d<f32>(30.0f, 40.0f));
+	em->setMaxStartSize(core::dimension2d<f32>(30.0f, 40.0f));
+
+	m_bullet->setEmitter(em);
+	em->drop();
+
+	// create and set affector
+	scene::IParticleAffector* paf = m_bullet->createFadeOutParticleAffector();
+	m_bullet->addAffector(paf);
+	paf->drop();
+
+	// adjust some material settings
+	m_bullet->setMaterialFlag(video::EMF_LIGHTING, false);
+	m_bullet->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
+	m_bullet->setMaterialTexture(0, driver->getTexture("image/fireball.bmp"));
+	m_bullet->setMaterialType(video::EMT_TRANSPARENT_VERTEX_ALPHA);
+
+	m_bullet->setVisible(true);
+
+	scene::ISceneNodeAnimator* anim = smgr->createDeleteAnimator(1000);
+	m_bullet->addAnimator(anim);
+	anim->drop();
+	return m_bullet;
+}
+
 void RunMissile()
 {
 	std::list<IMissile*> delList;
@@ -268,6 +311,9 @@ void RunMissile()
 
 			nodeList.insert( node );
 			//node->setVisible( false );
+
+			IParticleSystemSceneNode* bullet = CreateBullet();
+			bullet->setParent( node );
 		}
 	}
 
@@ -275,8 +321,7 @@ void RunMissile()
 	{
 		//(*iter)->setVisible( false );
 		(*iter)->removeAnimators();
-		(*iter)->remove();
-
+		//(*iter)->remove();
 	}
 
 	for ( auto iter = delList.begin(); iter != delList.end(); ++iter )
