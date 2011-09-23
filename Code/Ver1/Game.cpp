@@ -1,3 +1,8 @@
+/*
+	这只是一个原型，试验场。
+*/
+
+
 #include <irrlicht.h>
 #include <cstdio>
 #include <iostream>
@@ -36,7 +41,11 @@ ModuleControl* pModule;
 
 std::map<ISceneNode*, std::string> g_modelList;
 
-
+/*
+** 名字：Init()
+** 说明：初始化
+**
+*/
 int Init()
 {
 	Missile::m_pModels = &g_modelList;
@@ -46,7 +55,7 @@ int Init()
 	if (driverType==video::EDT_COUNT)
 		return 1;
 
-	device = createDevice(driverType, core::dimension2d<u32>(800, 640), 16, false, false, false, &receiver );
+	device = createDevice(driverType, core::dimension2d<u32>(1000, 640), 16, false, false, false, &receiver );
 
 	if (device == 0)
 		return 1; // could not create selected driver.
@@ -85,6 +94,12 @@ int Init()
 	return 0;
 }
 
+
+/*
+** 名字：LoadWomen()
+** 说明：加载那个女人的模型
+**
+*/
 int LoadWomen()
 {
 	IAnimatedMesh* mesh = smgr->getMesh("../../media/sydney.md2");
@@ -109,6 +124,11 @@ int LoadWomen()
 	selector->drop();
 }
 
+/*
+** 名字：LoadAircraft()
+** 说明：加载自己的飞机
+**
+*/
 int LoadAircraft()
 {
 	IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
@@ -126,15 +146,12 @@ int LoadAircraft()
 	return 0;
 }
 
-int LoadModel()
-{
-	LoadWomen();
 
-	LoadAircraft();
-
-	return 0;
-}
-
+/*
+** 名字：loadNPC()
+** 说明：加载乱飞的飞机
+**
+*/
 int loadNPC()
 {
 	IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
@@ -157,6 +174,12 @@ int loadNPC()
 	return 0;
 }
 
+
+/*
+** 名字：LoadLight()
+** 说明：加载光源
+**
+*/
 int LoadLight()
 {
 	SLight light;
@@ -170,10 +193,36 @@ int LoadLight()
 }
 
 
+/*
+** 名字：LoadModel()
+** 说明：加载所有模型
+**
+*/
+int LoadModel()
+{
+	LoadWomen();
+
+	LoadAircraft();
+
+	LoadLight();
+
+	loadNPC();
+
+	return 0;
+}
+
+
+
 
 std::list<ISceneNode*>	g_MissileList;
 std::list<IMissile*>	g_Mis;
 
+
+/*
+** 名字：shoot()
+** 说明：射击
+**
+*/
 void shoot()
 {
 	vector3df pos = aircraftNode->getPosition();
@@ -195,34 +244,17 @@ void shoot()
 
 	g_Mis.push_back( missile );
 
-	//
-
-	//start += end * 8.0f;
-	//end = start + (end * camera->getFarValue() * 10.f);
-	//
-	//scene::ISceneNodeAnimator* anim = 0;
-
-	//// set flight line
-	//f32 length = (f32)(end - start).getLength();
-	//const f32 speed = 6.f;
-	//u32 time = (u32)(length / speed);
-
-	//anim = smgr->createFlyStraightAnimator(start, end, time);
-	//pMissileNode->addAnimator(anim);
-	//anim->drop();
-
-	//pMissileNode->grab();
-	//g_MissileList.push_back( pMissileNode );
-
-
-		
-
-
 }
 
 
 f32 g_speed = 0.f;
 bool bShoot = false;
+
+/*
+** 名字：KeyDownHandler()
+** 说明：处理按键消息
+**
+*/
 int KeyDownHandler()
 {
 	if ( receiver.IsKeyDown( irr::KEY_NUMPAD0 ) )
@@ -250,13 +282,11 @@ int KeyDownHandler()
 	return 0;
 }
 
-void HitTest()
-{
-	for ( auto iter = g_MissileList.begin(); iter != g_MissileList.end(); ++iter )
-	{
-	}
-}
-
+/*
+** 名字：CreateBullet()
+** 说明：创建一个爆炸的粒子系统
+**
+*/
 scene::IParticleSystemSceneNode* CreateBullet()
 {
 	//初始化粒子系统
@@ -295,6 +325,12 @@ scene::IParticleSystemSceneNode* CreateBullet()
 	return m_bullet;
 }
 
+
+/*
+** 名字：RunMissile()
+** 说明：移动飞弹，计算碰撞
+**
+*/
 void RunMissile()
 {
 	std::list<IMissile*> delList;
@@ -338,9 +374,7 @@ int main()
 
 	LoadModel();
 
-	LoadLight();
 
-	loadNPC();
 
 	while(device->run())
 	{
