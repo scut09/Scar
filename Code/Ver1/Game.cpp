@@ -1,5 +1,5 @@
 /*
-	这只是一个原型，试验场。
+这只是一个原型，试验场。
 */
 
 
@@ -269,7 +269,7 @@ int KeyDownHandler()
 		bShoot = false;
 		shoot();
 	}
-	
+
 	if ( receiver.IsKeyDown( irr::KEY_UP ) )
 	{
 		g_speed += 0.01f;
@@ -346,7 +346,7 @@ void RunMissile()
 			delList.push_back( *iter );
 			//if ( node != aircraftNode )
 			//	node->drop();
-			
+
 			//	(*iter)->Drop();	// 删除自己
 
 			nodeList.insert( node );
@@ -458,81 +458,87 @@ int main()
 
 	using namespace boost::python;
 
-	object main_module = import("__main__");  
-	object main_namespace = main_module.attr("__dict__");  
-	//object run = exec_file( "client.py", main_namespace, main_namespace );
-
-
-	object main = import("client");
-	object id = main.attr("Connect")();
-
-	object Run = main.attr("Run");
-	object Send = main.attr("Send");
-	object SetPos = main.attr("SetPos");
-
-	std::cout << extract<int>(id) << std::endl;
-	g_MyID = extract<int>(id);
-
-	std::size_t user_number = 1;
-
-
-	existedList[ g_MyID ] = 1;
-
-	while(device->run())
+	try
 	{
-		if (device->isWindowActive())
+
+		object main_module = import("__main__");  
+		object main_namespace = main_module.attr("__dict__");  
+		//object run = exec_file( "client.py", main_namespace, main_namespace );
+
+
+		object main = import("client");
+		object id = main.attr("Connect")();
+
+		object Run = main.attr("Run");
+		object Send = main.attr("Send");
+		object SetPos = main.attr("SetPos");
+
+		std::cout << extract<int>(id) << std::endl;
+		g_MyID = extract<int>(id);
+
+		std::size_t user_number = 1;
+
+
+		existedList[ g_MyID ] = 1;
+
+		while(device->run())
 		{
-			// 发送位置
-			vector3df pos = camera->getPosition();
-			float tx, ty, tz;
-			EnterCriticalSection( &lock );
-			tx = pos.X;
-			ty = pos.Y;
-			tz = pos.Z;
-			LeaveCriticalSection( &lock );
-
-			EnterCriticalSection( &userLock );
-
-			for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
+			if (device->isWindowActive())
 			{
-				if ( iter->first != g_MyID && idNodeMap.find( iter->first ) != idNodeMap.end() && idNodeMap[ iter->first ] )
+				// 发送位置
+				vector3df pos = camera->getPosition();
+				float tx, ty, tz;
+				EnterCriticalSection( &lock );
+				tx = pos.X;
+				ty = pos.Y;
+				tz = pos.Z;
+				LeaveCriticalSection( &lock );
+
+				EnterCriticalSection( &userLock );
+
+				for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
 				{
-					idNodeMap[ iter->first ]->setPosition( iter->second );
+					if ( iter->first != g_MyID && idNodeMap.find( iter->first ) != idNodeMap.end() && idNodeMap[ iter->first ] )
+					{
+						idNodeMap[ iter->first ]->setPosition( iter->second );
+					}
 				}
-			}
-			LeaveCriticalSection( &userLock );
+				LeaveCriticalSection( &userLock );
 
-			try
-			{
+
 				SetPos( tx, ty, tz );
 				object info = Run();
 
 				std::cout << "Run() returns\n";
 
 				Send();
+
+
+
+				/////////
+
+				KeyDownHandler();
+
+				pModule->MoveForward( g_speed );
+
+				RunMissile();
+
+				driver->beginScene(true, true, video::SColor(150,50,50,50));
+
+				smgr->drawAll();	
+
+				driver->endScene();
+
 			}
-			catch(...)  
-			{  
-				PyErr_Print();  
-			}  
-
-
-			/////////
-
-			KeyDownHandler();
-
-			pModule->MoveForward( g_speed );
-
-			RunMissile();
-
-			driver->beginScene(true, true, video::SColor(150,50,50,50));
-
-			smgr->drawAll();	
-
-			driver->endScene();
-
 		}
+
 	}
+	catch(...)  
+	{  
+		PyErr_Print();  
+
+		std::cout << "\n\n无法连接服务器，请修改client.py的服务器ip地址\n\n";
+	}  
 
 	device->drop();
 
