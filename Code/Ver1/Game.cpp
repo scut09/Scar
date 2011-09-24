@@ -372,7 +372,8 @@ void RunMissile()
 
 
 
-
+std::map<int, int> existedList;
+std::map<int, ISceneNode*> idNodeMap;
 
 
 float x = rand();
@@ -410,6 +411,24 @@ void update_user( int id, float x, float y, float z )
 	g_changed = true;
 	EnterCriticalSection( &userLock );
 	g_userMap[ id ] = vector3df( x, y, z );
+
+
+	if ( existedList.find( id ) == existedList.end() )
+	{
+		existedList[ id ] = 1;
+
+		IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
+		ISceneNode* node = smgr->addAnimatedMeshSceneNode( pMesh );
+
+		node->setScale( core::vector3df( 2.f, 2.f, 2.f ) );
+
+		g_modelList[ node ] = "aircraftNode";
+
+		idNodeMap[ id ] = node;
+	}
+
+
+
 	LeaveCriticalSection( &userLock );
 }
 
@@ -421,7 +440,6 @@ BOOST_PYTHON_MODULE(emb)
 }  
 
 int g_MyID = -1;
-
 
 int main()
 {
@@ -457,8 +475,7 @@ int main()
 
 	std::size_t user_number = 1;
 
-	std::map<int, int> existedList;
-	std::map<int, ISceneNode*> idNodeMap;
+
 	existedList[ g_MyID ] = 1;
 
 	while(device->run())
@@ -475,26 +492,7 @@ int main()
 			LeaveCriticalSection( &lock );
 
 			EnterCriticalSection( &userLock );
-			if ( user_number != g_userMap.size() )
-			{		
-				user_number = g_userMap.size();
-				for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
-				{
-					if ( existedList.find( iter->first ) != existedList.end() )
-					{
-						existedList[ iter->first ] = 1;
-						
-						IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
-						ISceneNode* node = smgr->addAnimatedMeshSceneNode( pMesh );
 
-						node->setScale( core::vector3df( 2.f, 2.f, 2.f ) );
-
-						g_modelList[ node ] = "aircraftNode";
-
-						idNodeMap[ iter->first ] = node;
-					}
-				}
-			}
 			for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
 			{
 				if ( iter->first != g_MyID && idNodeMap.find( iter->first ) != idNodeMap.end() && idNodeMap[ iter->first ] )
