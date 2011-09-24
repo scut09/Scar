@@ -1,5 +1,7 @@
 import socket
 import thread
+import xml.etree.ElementTree as ET
+import emb
 
 x = 0.0
 y = 0.0
@@ -15,6 +17,25 @@ BUF_SIZE = 1024
 theID = 0
 sock = None
 
+def Parse(document):
+    import xml.dom.minidom
+    from xml.dom.minidom import Node
+    dom = xml.dom.minidom.parseString(document)
+    
+    for name in dom.getElementsByTagName("user"):
+        theID = name.getAttribute('id')
+        children = name.getElementsByTagName("pos")        
+        for child in children:
+            if child.nodeType == Node.ELEMENT_NODE:
+                emb.update_user(
+                    int(theID),
+                    float(child.getAttribute("x")),
+                    float(child.getAttribute("y")),
+                    float(child.getAttribute("z"))
+                    )               
+
+
+
 def SetPos(newx, newy, newz):
     global x, y, z, posLock
     posLock.acquire()
@@ -27,18 +48,19 @@ def Connect():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((host, port))
     theID = sock.recv( BUF_SIZE )
-    return theID
+    return int(theID)
     
 def Run():
     global sock, theID
-    allpos = sock.recv(2048)
-    return allpos
+    allinfo = sock.recv(2048)
+    Parse(str(allinfo))
+    return allinfo
 
 def Send():
     global sock, theID
-    pos = "<user id=" + theID + ">"
+    pos = '<user id="' + theID + '">'
     posLock.acquire()
-    pos += "<pos x=" + str(x) + " y=" + str(y) + " z=" + str(z) + "/>"
+    pos += '<pos x="' + str(x) + '" y="' + str(y) + '" z="'+ str(z) + '"/>'
     posLock.release()
     pos += "</user>"
     sock.send(pos)
@@ -46,7 +68,11 @@ def Send():
     
 
 
-#if __name__=="__main__":
+if __name__=="__main__":
+    Connect()
+    while 1:
+        Run()
+        Send()
 #   locks = []
 #    
 #    lock = thread.allocate_lock()
