@@ -380,6 +380,8 @@ float y = rand();
 float z = rand();
 
 CRITICAL_SECTION lock;
+CRITICAL_SECTION userLock;
+
 
 DWORD WINAPI ThreadFUnc( PVOID param )
 {
@@ -401,9 +403,14 @@ DWORD WINAPI ThreadFUnc( PVOID param )
 std::map<int, vector3df> g_userMap;
 //std::list<std::string> m_users;
 
+bool g_changed = false;
+
 void update_user( int id, float x, float y, float z )
 {
+	g_changed = true;
+	EnterCriticalSection( &userLock );
 	g_userMap[ id ] = vector3df( x, y, z );
+	LeaveCriticalSection( &userLock );
 }
 
 
@@ -413,7 +420,7 @@ BOOST_PYTHON_MODULE(emb)
 	boost::python::def( "update_user", update_user );  
 }  
 
-
+int g_MyID = -1;
 
 
 int main()
@@ -426,6 +433,8 @@ int main()
 	initemb();
 	PyEval_InitThreads(); 
 	InitializeCriticalSection( &lock );
+	InitializeCriticalSection( &userLock );
+
 
 	//initemb();  
 
@@ -443,8 +452,14 @@ int main()
 	object Send = main.attr("Send");
 	object SetPos = main.attr("SetPos");
 
-	std::cout << extract<char*>(id) << std::endl;
+	std::cout << extract<int>(id) << std::endl;
+	g_MyID = extract<int>(id);
 
+	std::size_t user_number = 1;
+
+	std::map<int, int> existedList;
+	std::map<int, ISceneNode*> idNodeMap;
+	existedList[ g_MyID ] = 1;
 
 	while(device->run())
 	{
@@ -459,18 +474,42 @@ int main()
 			tz = pos.Z;
 			LeaveCriticalSection( &lock );
 
+			EnterCriticalSection( &userLock );
+			if ( user_number != g_userMap.size() )
+			{		
+				user_number = g_userMap.size();
+				for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
+				{
+					if ( existedList.find( iter->first ) != existedList.end() )
+					{
+						existedList[ iter->first ] = 1;
+						
+						IAnimatedMesh * pMesh = smgr->getMesh( "1234.obj" );
+						ISceneNode* node = smgr->addAnimatedMeshSceneNode( pMesh );
+
+						node->setScale( core::vector3df( 2.f, 2.f, 2.f ) );
+
+						g_modelList[ node ] = "aircraftNode";
+
+						idNodeMap[ iter->first ] = node;
+					}
+				}
+			}
+			for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
+			{
+				if ( iter->first != g_MyID )
+				{
+					idNodeMap[ iter->first ]->setPosition( iter->second );
+				}
+			}
+			LeaveCriticalSection( &userLock );
+
 			try
 			{
 				SetPos( tx, ty, tz );
 				object info = Run();
-				//std::cout << extract<char*>( info ) << std::endl;
-				std::cout << "Run() returns\n";
-				//for ( int i = 0; i < boost::python::len( info ); i++ )
-				//{
-				//	//std::cout << extract<int>( info[ i ] ) << std::endl;
-				//}
 
-				//boost::python::dict result = boost::python::extract<boost::python::dict>(info.attr("__list__"));
+				std::cout << "Run() returns\n";
 
 				Send();
 			}
