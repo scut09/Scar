@@ -398,6 +398,23 @@ DWORD WINAPI ThreadFUnc( PVOID param )
 }
 
 
+std::map<int, vector3df> g_userMap;
+//std::list<std::string> m_users;
+
+void update_user( int id, float x, float y, float z )
+{
+	g_userMap[ id ] = vector3df( x, y, z );
+}
+
+
+
+BOOST_PYTHON_MODULE(emb)  
+{  
+	boost::python::def( "update_user", update_user );  
+}  
+
+
+
 
 int main()
 {
@@ -406,6 +423,7 @@ int main()
 	LoadModel();
 
 	Py_Initialize();  
+	initemb();
 	PyEval_InitThreads(); 
 	InitializeCriticalSection( &lock );
 
@@ -441,10 +459,26 @@ int main()
 			tz = pos.Z;
 			LeaveCriticalSection( &lock );
 
-			SetPos( tx, ty, tz );
-			object info = Run();
-			std::cout << extract<char*>( info ) << std::endl;
-			Send();
+			try
+			{
+				SetPos( tx, ty, tz );
+				object info = Run();
+				//std::cout << extract<char*>( info ) << std::endl;
+				std::cout << "Run() returns\n";
+				//for ( int i = 0; i < boost::python::len( info ); i++ )
+				//{
+				//	//std::cout << extract<int>( info[ i ] ) << std::endl;
+				//}
+
+				//boost::python::dict result = boost::python::extract<boost::python::dict>(info.attr("__list__"));
+
+				Send();
+			}
+			catch(...)  
+			{  
+				PyErr_Print();  
+			}  
+
 
 			/////////
 
