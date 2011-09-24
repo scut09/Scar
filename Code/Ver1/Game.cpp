@@ -497,7 +497,7 @@ int main()
 			}
 			for ( auto iter = g_userMap.begin(); iter != g_userMap.end(); ++iter )
 			{
-				if ( iter->first != g_MyID )
+				if ( iter->first != g_MyID && idNodeMap.find( iter->first ) != idNodeMap.end() && idNodeMap[ iter->first ] )
 				{
 					idNodeMap[ iter->first ]->setPosition( iter->second );
 				}
