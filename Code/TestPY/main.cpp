@@ -35,9 +35,9 @@ private:
 	PyGILState_STATE state; 
 }; 
 
-int x = rand();
-int y = rand();
-int z = rand();
+float x = rand();
+float y = rand();
+float z = rand();
 
 CRITICAL_SECTION lock;
 
@@ -46,7 +46,7 @@ DWORD WINAPI ThreadFUnc( PVOID param )
 {
 	while ( 1 )
 	{
-		int tx, ty, tz;
+		float tx, ty, tz;
 		std::cin >> tx >> ty >> tz;
 		EnterCriticalSection( &lock );
 		x = tx;
@@ -89,7 +89,7 @@ void Run()
 			//if ( input == "end" )
 			//	break;
 
-			int tx, ty, tz;
+			float tx, ty, tz;
 			EnterCriticalSection( &lock );
 			tx = x;
 			ty = y;

@@ -13,6 +13,8 @@
 #include <list>
 #include <string>
 #include <set>
+#include <boost/python.hpp>  
+#include <Windows.h>
 
 using namespace irr;
 
@@ -368,18 +370,84 @@ void RunMissile()
 	}
 }
 
+
+
+
+
+
+float x = rand();
+float y = rand();
+float z = rand();
+
+CRITICAL_SECTION lock;
+
+DWORD WINAPI ThreadFUnc( PVOID param )
+{
+	while ( 1 )
+	{
+		float tx, ty, tz;
+		std::cin >> tx >> ty >> tz;
+		EnterCriticalSection( &lock );
+		x = tx;
+		y = ty;
+		z = tz;
+		LeaveCriticalSection( &lock );
+	}
+
+	return 0;
+}
+
+
+
 int main()
 {
 	Init();	
 
 	LoadModel();
 
+	Py_Initialize();  
+	PyEval_InitThreads(); 
+	InitializeCriticalSection( &lock );
+
+	//initemb();  
+
+	using namespace boost::python;
+
+	object main_module = import("__main__");  
+	object main_namespace = main_module.attr("__dict__");  
+	//object run = exec_file( "client.py", main_namespace, main_namespace );
+
+
+	object main = import("client");
+	object id = main.attr("Connect")();
+
+	object Run = main.attr("Run");
+	object Send = main.attr("Send");
+	object SetPos = main.attr("SetPos");
+
+	std::cout << extract<char*>(id) << std::endl;
 
 
 	while(device->run())
 	{
 		if (device->isWindowActive())
 		{
+			// ·¢ËÍÎ»ÖÃ
+			vector3df pos = camera->getPosition();
+			float tx, ty, tz;
+			EnterCriticalSection( &lock );
+			tx = pos.X;
+			ty = pos.Y;
+			tz = pos.Z;
+			LeaveCriticalSection( &lock );
+
+			SetPos( tx, ty, tz );
+			object info = Run();
+			std::cout << extract<char*>( info ) << std::endl;
+			Send();
+
+			/////////
+
 			KeyDownHandler();
 
 			pModule->MoveForward( g_speed );

@@ -51,13 +51,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;G:\boost\include\boost-1_47;D:\Python27\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>..\..\bin\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>..\lib\Win32-visualstudio;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\lib\Win32-visualstudio;G:\boost\lib;D:\Python27\libs;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
