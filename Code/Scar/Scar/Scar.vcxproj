@@ -39,6 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -82,15 +83,15 @@
     <ClCompile Include="ModuleControl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="a.py" />
-    <None Include="client.py" />
-    <None Include="WEB.py" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="def.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="IMissile.h" />
     <ClInclude Include="ModuleControl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\bin\a.py" />
+    <None Include="..\..\..\bin\client.py" />
+    <None Include="..\..\..\bin\WEB.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -32,17 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="client.py">
-      <Filter>Python</Filter>
-    </None>
-    <None Include="WEB.py">
-      <Filter>Python</Filter>
-    </None>
-    <None Include="a.py">
-      <Filter>Python</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="EventListener.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -55,5 +44,16 @@
     <ClInclude Include="def.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\bin\a.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\..\..\bin\client.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\..\..\bin\WEB.py">
+      <Filter>Python</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -81,7 +81,7 @@ int main()
 {  
 	Py_Initialize();	//使用python之前，要调用Py_Initialize();这个函数进行初始化  
 
-	PyEval_InitThreads();
+	//PyEval_InitThreads();
 
 
 	boost::python::object main_module = boost::python::import("a");  
