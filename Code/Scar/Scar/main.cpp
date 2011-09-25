@@ -5,18 +5,11 @@
 **
 */
 
-/*
-	编译前请设置boost的include路径和lib路径
-*/
-
 
 #include "def.h"
 
-#define BOOST_PYTHON_STATIC_LIB
-
 #include <iostream>
-#include <Windows.h>
-#include <boost\thread.hpp>
+
 
 boost::mutex g_mutex;
 

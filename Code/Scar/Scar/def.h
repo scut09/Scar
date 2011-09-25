@@ -16,6 +16,11 @@
 
 #include <boost\python.hpp> //前面所做的一切配置都是为了调用这个头文件和相关库  
 
+// 
+// Boost线程库
+//
+#include <boost\thread.hpp>
+
 
 //
 // Irrlicht引擎
