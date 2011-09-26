@@ -16,6 +16,18 @@
     <Filter Include="Python">
       <UniqueIdentifier>{2488ab90-bbab-4cf8-928b-bfdc5004088d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{3c8bef89-c124-4087-934e-604d1fc2c122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{ca3b946c-a23f-4108-8fce-1da982dc9e94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{b8168237-5d23-4925-8bc9-9c8ee5c1659a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{90a42469-8204-419c-81d6-2a44c5e244f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,49 +36,49 @@
     <ClCompile Include="Game.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="IMissile.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="MyIrrlichtEngine.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="ModuleControl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MyIrrlichtEngine.cpp">
-      <Filter>头文件</Filter>
+      <Filter>Control</Filter>
     </ClCompile>
     <ClCompile Include="FlyBehavior.cpp">
-      <Filter>头文件</Filter>
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="IMissile.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EventListener.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="IMissile.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleControl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="def.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MyIrrlichtEngine.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="base.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="IFly.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="EventListener.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="MyIrrlichtEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleControl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="FlyBehavior.h">
-      <Filter>头文件</Filter>
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="IFly.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="IMissile.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
