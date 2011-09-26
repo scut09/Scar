@@ -81,11 +81,13 @@
     <ClCompile Include="IMissile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
+    <ClCompile Include="MyIrrlichtEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="def.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="IMissile.h" />
+    <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
   </ItemGroup>
   <ItemGroup>
