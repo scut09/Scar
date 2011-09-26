@@ -48,3 +48,40 @@ scene::ISceneNode* Missile::TestCollision()
 
 	return NULL;
 }
+
+void Missile::SetPostion( const core::vector3df& pos )
+{
+	m_vecPosition = pos;
+}
+
+scene::ISceneNode* Missile::GetSceneNode()
+{
+	return m_pNode;
+}
+
+int Missile::Move()
+{
+	m_pNode->setPosition( m_flyBehavior->Fly( m_pNode->getPosition() ) );
+
+	return 0;
+}
+
+void Missile::AddBehavior( IFlyBehavior* pBehavior )
+{
+	m_flyBehavior = pBehavior;
+}
+
+void Missile::LoadSceneNode( scene::ISceneNode* pNode )
+{
+	if ( pNode )
+	{
+		m_pNode = pNode;
+		m_pNode->setPosition( m_vecPosition );
+	}
+}
+
+void Missile::Drop()
+{
+	//m_pNode->drop();
+	m_pNode->remove();
+}

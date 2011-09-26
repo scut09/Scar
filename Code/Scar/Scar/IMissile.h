@@ -11,6 +11,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include "FlyBehavior.h"
+
 
 #define PRINT_POSITION(pos) std::cout << #pos << ": " << (pos).X << ' ' << (pos).Y << ' ' << (pos).Z << std::endl;
 
@@ -26,42 +28,6 @@ class IMissile : public IFly
 {
 public:
 	virtual void AddBehavior( IFlyBehavior* pBehavior ) = 0;
-};
-
-
-/*
-** 名字：FlyStraightBehavior
-** 说明：直线飞行的行为
-**
-*/
-class FlyStraightBehavior : public IFlyBehavior
-{
-public:
-	IFly*	m_Owner;		// 行为所有者的指针
-	f32		m_Speed;
-	core::vector3df m_vecDirection;
-
-	FlyStraightBehavior( core::vector3df& direction, f32 speed ) 
-		: m_Owner( NULL ), m_vecDirection( direction.normalize() ), m_Speed( speed )
-	{
-	}
-
-	void SetOwner( IFly* pFly )
-	{
-		m_Owner = pFly;
-	}
-
-	// 飞行
-	virtual core::vector3df Fly( const core::vector3df& pos )
-	{
-		core::vector3df newPosition = pos + m_Speed * m_vecDirection;
-		return newPosition;
-	}
-
-	virtual core::vector3df GetDirection()
-	{
-		return m_vecDirection;
-	}
 };
 
 
@@ -87,45 +53,20 @@ public:
 public:
 	Missile() {}
 
-	void SetPostion( const core::vector3df& pos ) 
-	{
-		m_vecPosition = pos;
-	}
+	void SetPostion( const core::vector3df& pos );
 	void SetRotation( const core::vector3df& rot ) {}
 	core::vector3df GetPosition() { return m_vecPosition; }
 	scene::ISceneNode* TestCollision();
 
-	void AddBehavior( IFlyBehavior* pBehavior )
-	{
-		m_flyBehavior = pBehavior;
-	}
+	void AddBehavior( IFlyBehavior* pBehavior );
 
-	void LoadSceneNode( scene::ISceneNode* pNode )
-	{
-		if ( pNode )
-		{
-			m_pNode = pNode;
-			m_pNode->setPosition( m_vecPosition );
-		}
-	}
+	void LoadSceneNode( scene::ISceneNode* pNode );
 
-	int Move()
-	{
-		m_pNode->setPosition( m_flyBehavior->Fly( m_pNode->getPosition() ) );
+	int Move();
 
-		return 0;
-	}
+	void Drop();
 
-	void Drop()
-	{
-		//m_pNode->drop();
-		m_pNode->remove();
-	}
-
-	scene::ISceneNode* GetSceneNode() 
-	{
-		return m_pNode;
-	}
+	scene::ISceneNode* GetSceneNode();
 };
 
 

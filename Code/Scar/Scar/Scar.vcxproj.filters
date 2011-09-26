@@ -33,6 +33,9 @@
     <ClCompile Include="MyIrrlichtEngine.cpp">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="FlyBehavior.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -60,6 +63,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="IFly.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyBehavior.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
