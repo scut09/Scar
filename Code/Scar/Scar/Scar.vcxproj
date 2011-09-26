@@ -84,9 +84,13 @@
     <ClCompile Include="MyIrrlichtEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="base.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="EventListener.h" />
+    <ClInclude Include="IFly.h" />
     <ClInclude Include="IMissile.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
   </ItemGroup>

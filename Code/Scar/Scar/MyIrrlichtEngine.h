@@ -1,6 +1,6 @@
 /*
 ** 作者：华亮
-** 说明：
+** 说明：引擎的包装
 **
 */
 
@@ -18,12 +18,14 @@ using namespace irr;
 */
 class MyIrrlichtEngine
 {
+private:
 	IrrlichtDevice*					m_pDevice;
 	video::IVideoDriver*			m_pDriver;
 	scene::ISceneManager*			m_pSmgr;
 	scene::ISceneCollisionManager*	m_pColMan;
 	scene::ICameraSceneNode*		m_pCamera;
 
+	// 禁止直接创建实例
 	MyIrrlichtEngine() {}
 
 	static MyIrrlichtEngine*		m_pIrrlichtEngine;	// 单例模式，唯一的引擎
