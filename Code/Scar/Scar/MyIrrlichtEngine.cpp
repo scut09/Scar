@@ -28,7 +28,7 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 	{
 		video::E_DRIVER_TYPE driverType = (video::E_DRIVER_TYPE)video::EDT_OPENGL;
 
-		m_pDevice = createDevice(
+		auto pDevice = irr::createDevice(
 			driverType, 
 			core::dimension2d<u32>( screen_width, screen_height ), 
 			16, 
@@ -38,16 +38,18 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 			pEventReceiver
 			);
 		// 创建设备失败，返回NULL
-		if ( ! m_pDevice ) return NULL;
+		if ( ! pDevice ) return NULL;
 
 		// 隐藏鼠标
-		m_pDevice->getCursorControl()->setVisible( false );
-
-		m_pDriver	= m_pDevice->getVideoDriver();
-		m_pSmgr		= m_pDevice->getSceneManager();
-		m_pColMan	= m_pSmgr->getSceneCollisionManager();
+		pDevice->getCursorControl()->setVisible( false );
 
 		m_pIrrlichtEngine = new MyIrrlichtEngine;
+		m_pIrrlichtEngine->m_pDevice = pDevice;
+		m_pIrrlichtEngine->m_pDriver = pDevice->getVideoDriver();
+		m_pIrrlichtEngine->m_pSmgr = pDevice->getSceneManager();
+		m_pIrrlichtEngine->m_pColMan = m_pIrrlichtEngine->m_pSmgr->getSceneCollisionManager();
+
+		m_pIrrlichtEngine->m_runCallbackFunc = []( void* )->void* { return 0; };
 	}
 
 	return m_pIrrlichtEngine;
@@ -66,4 +68,25 @@ scene::ISceneCollisionManager* MyIrrlichtEngine::GetCollisionManager()
 video::IVideoDriver* MyIrrlichtEngine::GetVideoDriver()
 {
 	return m_pDriver;
+}
+
+void MyIrrlichtEngine::Run()
+{
+	while ( m_pDevice->run() )
+	{
+		if ( ! m_pDevice->isWindowActive() )	continue;
+
+		m_runCallbackFunc( (void*)this );
+
+		m_pDriver->beginScene(true, true, video::SColor(150,50,50,50));
+
+		m_pSmgr->drawAll();	
+
+		m_pDriver->endScene();
+	}
+}
+
+void MyIrrlichtEngine::SetCallbackFunc( EngineRunCallbackFuncType func )
+{
+	m_runCallbackFunc = func;
 }

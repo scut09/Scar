@@ -10,8 +10,14 @@
 #define _MYIRRLICHTENGINE_H_
 
 #include <irrlicht.h>
+#include <functional>
+#include "ModelManager.h"
+#include "IMovable.h"
+#include "AnimationManager.h"
 
 using namespace irr;
+
+typedef std::function< void*( void* ) > EngineRunCallbackFuncType;
 
 /*
 ** 名字：MyIrrlichtEngine
@@ -31,6 +37,7 @@ private:
 	MyIrrlichtEngine() {}
 
 	static MyIrrlichtEngine*		m_pIrrlichtEngine;	// 单例模式，唯一的引擎
+	EngineRunCallbackFuncType		m_runCallbackFunc;  // 每次帧运行时都会调用的回调函数
 
 public:
 	static int						screen_width;
@@ -39,8 +46,9 @@ public:
 	static bool						bFullScreen;
 
 public:
+
 	// 获取引擎指针
-	MyIrrlichtEngine* GetEngine();
+	static MyIrrlichtEngine* GetEngine();
 
 	scene::ISceneManager* GetSceneManager();
 
@@ -48,7 +56,9 @@ public:
 
 	video::IVideoDriver* GetVideoDriver();
 
+	void Run();
 
+	void SetCallbackFunc( EngineRunCallbackFuncType func );
 };
 
 

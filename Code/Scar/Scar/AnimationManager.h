@@ -32,7 +32,7 @@ public:
 	
 	void Run()
 	{
-		std::for_each( m_nodeMovMap.begin(), m_nodeMovMap.end(), []( ModelMap::iterator& iter ) { iter->second->Move(); });
+		//std::for_each( m_nodeMovMap.begin(), m_nodeMovMap.end(), []( ModelMap::iterator& iter ) { iter->second->Move(); });
 	}
 
 	void AddMovableNode( scene::ISceneNode* pNode, IMovable* pMove )
