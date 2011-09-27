@@ -11,8 +11,15 @@
 
 #include "IAircraft.h"
 
+/*
+** 名字：Aircraft
+** 说明：飞行器
+**
+*/
 class Aircraft : public IAircraft
 {
+public:
+
 
 
 

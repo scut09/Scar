@@ -14,8 +14,8 @@
 
 
 /*
-** 名字：
-** 说明：
+** 名字：IAircraft
+** 说明：飞行器接口
 **
 */
 class IAircraft : public IFly

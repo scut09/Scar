@@ -59,14 +59,13 @@ namespace Network
 		//************************************
 		virtual int EnterGameRoom( const std::string& ip ) = 0;
 
-
 		//************************************
 		// 函数名:  IClient::SetOnMsgCallbackFunc
 		// 返回值:  void
 		// 参数:    IClientOnMsgCallbackFuncType func
 		// 函数修饰:
-		// 描述：   设置消息到达时的回调处理函数，每次在客户端消息到达时，客户端都应调用此函数
-		//			来处理消息。
+		// 描述：   设置消息到达时的回调处理函数，每次在客户端消息到达时，客户端都应调用
+		//			此函数设置的回调函数来处理消息。
 		//************************************
 		virtual void SetOnMsgCallbackFunc( IClientOnMsgCallbackFuncType func ) = 0;
 	};
