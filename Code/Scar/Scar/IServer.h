@@ -1,46 +1,60 @@
 /********************************************************************
-	创建时间: 2011-9-27   15:00
-	文件名:   IServer.h
-	作者:     华亮 Cedric Porter [ Stupid ET ]	
-	说明:     
+创建时间: 2011-9-27   15:00
+文件名:   IServer.h
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     
 
 *********************************************************************/
 
 #ifndef _ISERVER_H
 #define _ISERVER_H
 
-
-/*
-** 名字：IServer
-** 说明：服务器接口
-**
-*/
-class IServer
+namespace Network
 {
-public:
 
-	virtual int CreateGameRoom( 
-		int maxPlayerNumber, 
-		const std::string& gameRoomName 
-		) = 0;
 
-	//************************************
-	// 函数名:  IServer::Start
-	// 返回值:  int
-	// 函数修饰:
-	// 描述：   
-	//************************************
-	virtual int Start() = 0;
+	/*
+	** 名字：IServer
+	** 说明：服务器接口
+	**
+	*/
+	class IServer
+	{
+	public:
 
-	//************************************
-	// 函数名:  IServer::Stop
-	// 返回值:  int
-	// 函数修饰:
-	// 描述：   
-	//************************************
-	virtual int Stop() = 0;
+		//************************************
+		// 函数名:  Network::IServer::CreateGameRoom
+		// 返回值:  int
+		// 参数:    int maxPlayerNumber					最大玩家数量
+		// 参数:    const std::string & gameRoomName		游戏房间的名字
+		// 函数修饰:
+		// 描述：   创建游戏房间
+		//************************************
+		virtual int CreateGameRoom( 
+			int maxPlayerNumber, 
+			const std::string& gameRoomName 
+			) = 0;
 
-};
+		//************************************
+		// 函数名:  Network::IServer::Start
+		// 返回值:  int
+		// 函数修饰:
+		// 描述：   启动游戏房间，开始接受客户端连接
+		//************************************
+		virtual int Start() = 0;
+
+		//************************************
+		// 函数名:  Network::IServer::Stop
+		// 返回值:  int
+		// 函数修饰:
+		// 描述：   停止游戏房间
+		//************************************
+		virtual int Stop() = 0;
+
+	};
+
+
+}
 
 
 
