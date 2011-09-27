@@ -27,23 +27,25 @@ typedef std::function< void*( void* ) > EngineRunCallbackFuncType;
 class MyIrrlichtEngine
 {
 private:
-	IrrlichtDevice*					m_pDevice;
-	video::IVideoDriver*			m_pDriver;
-	scene::ISceneManager*			m_pSmgr;
-	scene::ISceneCollisionManager*	m_pColMan;
-	scene::ICameraSceneNode*		m_pCamera;
-
-	// 禁止直接创建实例
-	MyIrrlichtEngine() {}
+	IrrlichtDevice*					m_pDevice;		// 设备
+	video::IVideoDriver*			m_pDriver;		// 驱动
+	scene::ISceneManager*			m_pSmgr;		// 场景管理器
+	scene::ISceneCollisionManager*	m_pColMan;		// 碰撞管理器
+	scene::ICameraSceneNode*		m_pCamera;		// 相机，暂时没用
 
 	static MyIrrlichtEngine*		m_pIrrlichtEngine;	// 单例模式，唯一的引擎
 	EngineRunCallbackFuncType		m_runCallbackFunc;  // 每次帧运行时都会调用的回调函数
 
+	// 禁止直接创建实例
+	MyIrrlichtEngine() {}
+
+
+
 public:
-	static int						screen_width;
-	static int						screen_height;
-	static IEventReceiver*			pEventReceiver;
-	static bool						bFullScreen;
+	static int						screen_width;	// 屏幕宽度
+	static int						screen_height;	// 屏幕高度
+	static IEventReceiver*			pEventReceiver;	// 消息处理者
+	static bool						bFullScreen;	// 是否全屏
 
 public:
 

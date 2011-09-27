@@ -38,8 +38,14 @@ public:
 		return KeyIsDown[keyCode];
 	}
 
-	MyEventReceiver( IEventReceiverCallbackFuncType func ) : m_callbackFunc( func )
+	virtual void SetEventCallbackFunc( IEventReceiverCallbackFuncType func )
 	{
+		m_callbackFunc = func;
+	}
+
+	MyEventReceiver() 
+	{
+		m_callbackFunc = []( const SEvent& event )->void* { return 0; };
 		for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
 			KeyIsDown[i] = false;
 	}
