@@ -18,6 +18,10 @@
 */
 class Aircraft : public IAircraft
 {
+private:
+
+
+
 public:
 
 

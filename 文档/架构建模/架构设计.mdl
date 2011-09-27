@@ -291,7 +291,7 @@
 			    location   	(383, 2104)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	327
+			    max_width  	362
 			    justify    	0
 			    label      	"Programmer")
 			icon       	"Actor"
@@ -591,7 +591,7 @@
 			    location   	(1296, 817)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	327
+			    max_width  	362
 			    justify    	0
 			    label      	"Player")
 			icon       	"Actor"
@@ -1005,6 +1005,16 @@
 				quid       	"4E815665029D"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "Shoot"
+				quid       	"4E8163FA0217"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "SelectWeapon"
+				quid       	"4E81643002A0"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0)))
 		    (object Class "Missile"
 			quid       	"4E808B3D02F9"
@@ -1027,6 +1037,11 @@
 				quid       	"4E8156BF039C"
 				concurrency 	"Sequential"
 				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "Fly"
+				quid       	"4E81644F0002"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
 				uid        	0))
 			class_attributes 	(list class_attribute_list
 			    (object ClassAttribute "parent"
@@ -1039,7 +1054,43 @@
 			    (object Inheritance_Relationship
 				quid       	"4E8152EA0319"
 				supplier   	"Logical View::Flyable::IAircraft"
-				quidu      	"4E808B4601E2"))))
+				quidu      	"4E808B4601E2")))
+		    (object Class "IWeapon"
+			quid       	"4E81636200A5")
+		    (object Class "CollisionCallbackFunc"
+			quid       	"4E81662903CD"
+			operations 	(list Operations
+			    (object Operation "Call"
+				quid       	"4E8166600237"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Association "$UNNAMED$33"
+			quid       	"4E81638D00C3"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$34"
+				quid       	"4E81638D0386"
+				supplier   	"Logical View::Flyable::IWeapon"
+				quidu      	"4E81636200A5"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$35"
+				quid       	"4E81638D0391"
+				supplier   	"Logical View::Flyable::IAircraft"
+				quidu      	"4E808B4601E2")))
+		    (object Association "$UNNAMED$36"
+			quid       	"4E8163EA034D"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$37"
+				quid       	"4E8163EB01C2"
+				supplier   	"Logical View::Flyable::IMissile"
+				quidu      	"4E808ADA021C"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$38"
+				quid       	"4E8163EB01CF"
+				supplier   	"Logical View::Flyable::IWeapon"
+				quidu      	"4E81636200A5"
+				is_navigable 	TRUE
+				is_aggregate 	TRUE))))
 		logical_presentations 	(list unit_reference_list
 		    (object ClassDiagram "Flyable Thing"
 			quid       	"4E808A4F010B"
@@ -1054,7 +1105,7 @@
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(535, 572)
+				location   	(1131, 350)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1066,7 +1117,7 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@47
-				    location   	(282, 482)
+				    location   	(878, 260)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	506
@@ -1078,7 +1129,7 @@
 				quidu      	"4E808A900042"
 				compartment 	(object Compartment
 				    Parent_View 	@47
-				    location   	(282, 549)
+				    location   	(878, 327)
 				    font       	(object Font
 					size       	12
 					face       	"Arial"
@@ -1092,7 +1143,7 @@
 				    fill_color 	16777215
 				    anchor     	2
 				    nlines     	2
-				    max_width  	428)
+				    max_width  	437)
 				width      	524
 				height     	208
 				annotation 	8
@@ -1101,7 +1152,7 @@
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(571, 162)
+				location   	(394, 328)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1113,7 +1164,7 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@48
-				    location   	(258, 44)
+				    location   	(81, 210)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	626
@@ -1125,7 +1176,7 @@
 				quidu      	"4E808AA10300"
 				compartment 	(object Compartment
 				    Parent_View 	@48
-				    location   	(258, 111)
+				    location   	(81, 277)
 				    font       	(object Font
 					size       	12
 					face       	"Arial"
@@ -1139,7 +1190,7 @@
 				    fill_color 	16777215
 				    anchor     	2
 				    nlines     	3
-				    max_width  	531)
+				    max_width  	543)
 				width      	644
 				height     	264
 				annotation 	8
@@ -1148,7 +1199,7 @@
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(1581, 569)
+				location   	(1985, 325)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1160,7 +1211,7 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@49
-				    location   	(1404, 452)
+				    location   	(1808, 179)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	354
@@ -1172,7 +1223,7 @@
 				quidu      	"4E808AB700A6"
 				compartment 	(object Compartment
 				    Parent_View 	@49
-				    location   	(1404, 519)
+				    location   	(1808, 246)
 				    font       	(object Font
 					size       	12
 					face       	"Arial"
@@ -1185,68 +1236,31 @@
 				    icon_style 	"Icon"
 				    fill_color 	16777215
 				    anchor     	2
-				    nlines     	3
+				    nlines     	4
 				    max_width  	297)
 				width      	372
-				height     	262
+				height     	320
 				annotation 	8
 				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::Flyable::IMissile" @50
-				ShowCompartmentStereotypes 	TRUE
-				IncludeAttribute 	TRUE
-				IncludeOperation 	TRUE
-				location   	(253, 1050)
-				font       	(object Font
-				    size       	12
-				    face       	"Arial"
-				    bold       	FALSE
-				    italics    	FALSE
-				    underline  	FALSE
-				    strike     	FALSE
-				    color      	0
-				    default_color 	TRUE)
-				label      	(object ItemLabel
-				    Parent_View 	@50
-				    location   	(133, 993)
-				    fill_color 	13434879
-				    nlines     	1
-				    max_width  	240
-				    justify    	0
-				    label      	"IMissile")
-				icon_style 	"Icon"
-				line_color 	3342489
-				fill_color 	13434879
-				quidu      	"4E808ADA021C"
-				width      	258
-				height     	142
-				annotation 	8
-				autoResize 	TRUE)
-			    (object InheritView "" @51
+			    (object InheritView "" @50
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4E808B2701D5"
 				client     	@47
 				supplier   	@48
 				line_style 	0)
-			    (object InheritView "" @52
-				stereotype 	TRUE
-				line_color 	3342489
-				quidu      	"4E808B2A00CB"
-				client     	@50
-				supplier   	@47
-				line_style 	0)
-			    (object UsesView "" @53
+			    (object UsesView "" @51
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4E808B310397"
 				client     	@47
 				supplier   	@49
 				line_style 	0)
-			    (object ClassView "Class" "Logical View::Flyable::Missile" @54
+			    (object ClassView "Class" "Logical View::Flyable::Missile" @52
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(253, 1581)
+				location   	(669, 1134)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1257,8 +1271,8 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@54
-				    location   	(136, 1524)
+				    Parent_View 	@52
+				    location   	(552, 1077)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	234
@@ -1272,11 +1286,11 @@
 				height     	142
 				annotation 	8
 				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::Flyable::IAircraft" @55
+			    (object ClassView "Class" "Logical View::Flyable::FlyStraightBehavior" @53
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(784, 1109)
+				location   	(2622, 509)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1287,69 +1301,8 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@55
-				    location   	(615, 991)
-				    fill_color 	13434879
-				    nlines     	1
-				    max_width  	338
-				    justify    	0
-				    label      	"IAircraft")
-				icon_style 	"Icon"
-				line_color 	3342489
-				fill_color 	13434879
-				quidu      	"4E808B4601E2"
-				compartment 	(object Compartment
-				    Parent_View 	@55
-				    location   	(615, 1058)
-				    font       	(object Font
-					size       	12
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    icon_style 	"Icon"
-				    fill_color 	16777215
-				    anchor     	2
-				    nlines     	3
-				    max_width  	284)
-				width      	356
-				height     	264
-				annotation 	8
-				autoResize 	TRUE)
-			    (object InheritView "" @56
-				stereotype 	TRUE
-				line_color 	3342489
-				quidu      	"4E808B4F01DC"
-				client     	@54
-				supplier   	@50
-				line_style 	0)
-			    (object InheritView "" @57
-				stereotype 	TRUE
-				line_color 	3342489
-				quidu      	"4E808B52005D"
-				client     	@55
-				supplier   	@47
-				line_style 	0)
-			    (object ClassView "Class" "Logical View::Flyable::FlyStraightBehavior" @58
-				ShowCompartmentStereotypes 	TRUE
-				IncludeAttribute 	TRUE
-				IncludeOperation 	TRUE
-				location   	(1344, 875)
-				font       	(object Font
-				    size       	12
-				    face       	"Arial"
-				    bold       	FALSE
-				    italics    	FALSE
-				    underline  	FALSE
-				    strike     	FALSE
-				    color      	0
-				    default_color 	TRUE)
-				label      	(object ItemLabel
-				    Parent_View 	@58
-				    location   	(1077, 818)
+				    Parent_View 	@53
+				    location   	(2355, 452)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	534
@@ -1363,11 +1316,11 @@
 				height     	142
 				annotation 	8
 				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::Flyable::AutoTrackBehavior" @59
+			    (object ClassView "Class" "Logical View::Flyable::AutoTrackBehavior" @54
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(2034, 884)
+				location   	(2572, 175)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1378,8 +1331,8 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@59
-				    location   	(1774, 827)
+				    Parent_View 	@54
+				    location   	(2312, 118)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	520
@@ -1393,25 +1346,25 @@
 				height     	142
 				annotation 	8
 				autoResize 	TRUE)
-			    (object InheritView "" @60
+			    (object InheritView "" @55
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4E808B97023F"
-				client     	@58
+				client     	@53
 				supplier   	@49
 				line_style 	0)
-			    (object InheritView "" @61
+			    (object InheritView "" @56
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"4E808B990301"
-				client     	@59
+				client     	@54
 				supplier   	@49
 				line_style 	0)
-			    (object ClassView "Class" "Logical View::Flyable::Aircraft" @62
+			    (object ClassView "Class" "Logical View::Flyable::Aircraft" @57
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(778, 1600)
+				location   	(1757, 1337)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1422,8 +1375,8 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@62
-				    location   	(664, 1546)
+				    Parent_View 	@57
+				    location   	(1643, 1280)
 				    fill_color 	13434879
 				    nlines     	1
 				    max_width  	228
@@ -1434,60 +1387,14 @@
 				fill_color 	13434879
 				quidu      	"4E8152E002B3"
 				width      	246
-				height     	136
+				height     	142
 				annotation 	8
 				autoResize 	TRUE)
-			    (object InheritView "" @63
-				stereotype 	TRUE
-				line_color 	3342489
-				quidu      	"4E8152EA0319"
-				client     	@62
-				supplier   	@55
-				line_style 	0)))))
-	    (object Class_Category "Utility"
-		quid       	"4E808C490048"
-		exportControl 	"Public"
-		logical_models 	(list unit_reference_list
-		    (object Class "MyIrrilchtEngine"
-			quid       	"4E808C600245"
-			used_nodes 	(list uses_relationship_list
-			    (object Uses_Relationship
-				quid       	"4E808D830363"
-				supplier   	"Logical View::Utility::MyEventReceiver"
-				quidu      	"4E808C6A01C7")))
-		    (object Class "MyEventReceiver"
-			quid       	"4E808C6A01C7")
-		    (object Class "ModelManager"
-			quid       	"4E808D90010D"
-			used_nodes 	(list uses_relationship_list
-			    (object Uses_Relationship
-				quid       	"4E808DA70149"
-				supplier   	"Logical View::Irrlicht::ISceneNode"
-				quidu      	"4E808D7003B5")))
-		    (object Class "AnimationManager"
-			quid       	"4E808D9802B1"
-			used_nodes 	(list uses_relationship_list
-			    (object Uses_Relationship
-				quid       	"4E808DA50200"
-				supplier   	"Logical View::Irrlicht::ISceneNode"
-				quidu      	"4E808D7003B5")))
-		    (object Class "ControlManager"
-			quid       	"4E809761005A"))
-		logical_presentations 	(list unit_reference_list
-		    (object ClassDiagram "main"
-			quid       	"4E808C5C0140"
-			title      	"main"
-			zoom       	100
-			max_height 	28350
-			max_width  	21600
-			origin_x   	0
-			origin_y   	0
-			items      	(list diagram_item_list
-			    (object ClassView "Class" "Logical View::Utility::MyIrrilchtEngine" @64
+			    (object ClassView "Class" "Logical View::Flyable::IAircraft" @58
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(676, 578)
+				location   	(1760, 781)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1498,26 +1405,120 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@64
-				    location   	(452, 524)
+				    Parent_View 	@58
+				    location   	(1521, 608)
 				    fill_color 	13434879
 				    nlines     	1
-				    max_width  	448
+				    max_width  	478
 				    justify    	0
-				    label      	"MyIrrilchtEngine")
+				    label      	"IAircraft")
 				icon_style 	"Icon"
 				line_color 	3342489
 				fill_color 	13434879
-				quidu      	"4E808C600245"
-				width      	466
-				height     	136
+				quidu      	"4E808B4601E2"
+				compartment 	(object Compartment
+				    Parent_View 	@58
+				    location   	(1521, 675)
+				    font       	(object Font
+					size       	12
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	16777215
+				    anchor     	2
+				    nlines     	5
+				    max_width  	403)
+				width      	496
+				height     	374
 				annotation 	8
 				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::Utility::MyEventReceiver" @65
+			    (object InheritView "" @59
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E808B52005D"
+				client     	@58
+				supplier   	@47
+				line_style 	0)
+			    (object InheritView "" @60
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E8152EA0319"
+				client     	@57
+				supplier   	@58
+				line_style 	0)
+			    (object ClassView "Class" "Logical View::Flyable::IWeapon" @61
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(678, 275)
+				location   	(1172, 784)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@61
+				    location   	(1031, 730)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	282
+				    justify    	0
+				    label      	"IWeapon")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E81636200A5"
+				width      	300
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)
+			    (object AssociationViewNew "$UNNAMED$33" @62
+				location   	(1416, 781)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E81638D00C3"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$34" @63
+					Parent_View 	@62
+					location   	(632, -319)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E81638D0386"
+					client     	@62
+					supplier   	@61
+					line_style 	0)
+				    (object RoleView "$UNNAMED$35" @64
+					Parent_View 	@62
+					location   	(632, -319)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E81638D0391"
+					client     	@62
+					supplier   	@58
+					line_style 	0)))
+			    (object ClassView "Class" "Logical View::Flyable::IMissile" @65
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(713, 787)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1529,62 +1530,72 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@65
-				    location   	(438, 221)
+				    location   	(593, 730)
 				    fill_color 	13434879
 				    nlines     	1
-				    max_width  	480
+				    max_width  	240
 				    justify    	0
-				    label      	"MyEventReceiver")
+				    label      	"IMissile")
 				icon_style 	"Icon"
 				line_color 	3342489
 				fill_color 	13434879
-				quidu      	"4E808C6A01C7"
-				width      	498
-				height     	136
+				quidu      	"4E808ADA021C"
+				width      	258
+				height     	142
 				annotation 	8
 				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::Irrlicht::ISceneNode" @66
-				ShowCompartmentStereotypes 	TRUE
-				IncludeAttribute 	TRUE
-				IncludeOperation 	TRUE
-				location   	(2318, 568)
-				font       	(object Font
-				    size       	12
-				    face       	"Arial"
-				    bold       	FALSE
-				    italics    	FALSE
-				    underline  	FALSE
-				    strike     	FALSE
-				    color      	0
-				    default_color 	TRUE)
-				label      	(object ItemLabel
-				    Parent_View 	@66
-				    location   	(2144, 486)
-				    fill_color 	13434879
-				    nlines     	1
-				    max_width  	348
-				    justify    	0
-				    label      	"ISceneNode")
-				icon_style 	"Icon"
-				line_color 	3342489
-				fill_color 	13434879
-				quidu      	"4E808D7003B5"
-				width      	366
-				height     	192
-				annotation 	8
-				autoResize 	TRUE)
-			    (object UsesView "" @67
+			    (object InheritView "" @66
 				stereotype 	TRUE
 				line_color 	3342489
-				quidu      	"4E808D830363"
-				client     	@64
+				quidu      	"4E808B2A00CB"
+				client     	@65
+				supplier   	@47
+				line_style 	0)
+			    (object InheritView "" @67
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E808B4F01DC"
+				client     	@52
 				supplier   	@65
 				line_style 	0)
-			    (object ClassView "Class" "Logical View::Utility::ModelManager" @68
+			    (object AssociationViewNew "$UNNAMED$36" @68
+				location   	(931, 784)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E8163EA034D"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$37" @69
+					Parent_View 	@68
+					location   	(-222, -6)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E8163EB01C2"
+					client     	@68
+					supplier   	@65
+					line_style 	0)
+				    (object RoleView "$UNNAMED$38" @70
+					Parent_View 	@68
+					location   	(-222, -6)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E8163EB01CF"
+					client     	@68
+					supplier   	@61
+					line_style 	0)))
+			    (object ClassView "Class" "Logical View::Flyable::CollisionCallbackFunc" @71
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(1571, 750)
+				location   	(2559, 1266)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1595,70 +1606,197 @@
 				    color      	0
 				    default_color 	TRUE)
 				label      	(object ItemLabel
-				    Parent_View 	@68
-				    location   	(1358, 696)
+				    Parent_View 	@71
+				    location   	(2251, 1183)
 				    fill_color 	13434879
 				    nlines     	1
-				    max_width  	426
+				    max_width  	616
 				    justify    	0
-				    label      	"ModelManager")
+				    label      	"CollisionCallbackFunc")
 				icon_style 	"Icon"
 				line_color 	3342489
 				fill_color 	13434879
-				quidu      	"4E808D90010D"
-				width      	444
-				height     	136
-				annotation 	8
-				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::Utility::AnimationManager" @69
-				ShowCompartmentStereotypes 	TRUE
-				IncludeAttribute 	TRUE
-				IncludeOperation 	TRUE
-				location   	(1565, 450)
-				font       	(object Font
-				    size       	12
-				    face       	"Arial"
-				    bold       	FALSE
-				    italics    	FALSE
-				    underline  	FALSE
-				    strike     	FALSE
-				    color      	0
-				    default_color 	TRUE)
-				label      	(object ItemLabel
-				    Parent_View 	@69
-				    location   	(1297, 396)
+				quidu      	"4E81662903CD"
+				compartment 	(object Compartment
+				    Parent_View 	@71
+				    location   	(2251, 1250)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
 				    fill_color 	13434879
-				    nlines     	1
-				    max_width  	536
-				    justify    	0
-				    label      	"AnimationManager")
-				icon_style 	"Icon"
-				line_color 	3342489
-				fill_color 	13434879
-				quidu      	"4E808D9802B1"
-				width      	554
-				height     	136
+				    anchor     	2
+				    nlines     	2
+				    max_width  	141)
+				width      	634
+				height     	194
 				annotation 	8
-				autoResize 	TRUE)
-			    (object UsesView "" @70
-				stereotype 	TRUE
-				line_color 	3342489
-				quidu      	"4E808DA50200"
-				client     	@69
-				supplier   	@66
-				line_style 	0)
-			    (object UsesView "" @71
-				stereotype 	TRUE
-				line_color 	3342489
-				quidu      	"4E808DA70149"
-				client     	@68
-				supplier   	@66
-				line_style 	0)
-			    (object ClassView "Class" "Logical View::Utility::ControlManager" @72
+				autoResize 	TRUE)))))
+	    (object Class_Category "Engine"
+		quid       	"4E808C490048"
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class "MyIrrilchtEngine"
+			quid       	"4E808C600245"
+			operations 	(list Operations
+			    (object Operation "GetCollisionManager"
+				quid       	"4E81669002D2"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "GetSceneManager"
+				quid       	"4E81669C01A5"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "GetDriver"
+				quid       	"4E8166A301FD"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "MyEventReceiver"
+			quid       	"4E808C6A01C7")
+		    (object Class "ModelManager"
+			quid       	"4E808D90010D"
+			used_nodes 	(list uses_relationship_list
+			    (object Uses_Relationship
+				quid       	"4E808DA70149"
+				supplier   	"Logical View::Irrlicht::ISceneNode"
+				quidu      	"4E808D7003B5"))
+			operations 	(list Operations
+			    (object Operation "GetModelFromISceneNode"
+				quid       	"4E81690703A1"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "AnimationManager"
+			quid       	"4E808D9802B1"
+			used_nodes 	(list uses_relationship_list
+			    (object Uses_Relationship
+				quid       	"4E808DA50200"
+				supplier   	"Logical View::Irrlicht::ISceneNode"
+				quidu      	"4E808D7003B5"))
+			operations 	(list Operations
+			    (object Operation "Run"
+				quid       	"4E8164C20336"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "ControlManager"
+			quid       	"4E809761005A")
+		    (object Class "Network"
+			quid       	"4E816A99004A")
+		    (object Class "Server"
+			quid       	"4E816AAF00D3"
+			superclasses 	(list inheritance_relationship_list
+			    (object Inheritance_Relationship
+				quid       	"4E816BEF0181"
+				supplier   	"Logical View::Engine::IServer"
+				quidu      	"4E816BDD0019")))
+		    (object Class "Client"
+			quid       	"4E816AB5007C"
+			superclasses 	(list inheritance_relationship_list
+			    (object Inheritance_Relationship
+				quid       	"4E816BEC00F3"
+				supplier   	"Logical View::Engine::IClient"
+				quidu      	"4E816BD7017E")))
+		    (object Class "EventListenerCallbackFunc"
+			quid       	"4E816B8502AE")
+		    (object Class "IClient"
+			quid       	"4E816BD7017E"
+			operations 	(list Operations
+			    (object Operation "SearchGameRoom"
+				quid       	"4E816C090299"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "EnterGameRoom"
+				quid       	"4E816C100376"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "SetOnMsgCallback"
+				quid       	"4E816CD00023"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "IServer"
+			quid       	"4E816BDD0019"
+			operations 	(list Operations
+			    (object Operation "CreateGameRoom"
+				quid       	"4E816C3B02B6"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "Start"
+				quid       	"4E816C3E029E"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "Stop"
+				quid       	"4E816C8B037E"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Association "$UNNAMED$39"
+			quid       	"4E816B9A00D8"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$40"
+				quid       	"4E816B9C0007"
+				supplier   	"Logical View::Engine::EventListenerCallbackFunc"
+				quidu      	"4E816B8502AE"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$41"
+				quid       	"4E816B9C000B"
+				supplier   	"Logical View::Engine::MyEventReceiver"
+				quidu      	"4E808C6A01C7")))
+		    (object Association "$UNNAMED$42"
+			quid       	"4E816B9D037A"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$43"
+				quid       	"4E816B9E01C9"
+				supplier   	"Logical View::Engine::ControlManager"
+				quidu      	"4E809761005A"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$44"
+				quid       	"4E816B9E01CD"
+				supplier   	"Logical View::Engine::EventListenerCallbackFunc"
+				quidu      	"4E816B8502AE")))
+		    (object Association "$UNNAMED$45"
+			quid       	"4E816BCA019A"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$46"
+				quid       	"4E816BCB00CD"
+				supplier   	"Logical View::Engine::MyEventReceiver"
+				quidu      	"4E808C6A01C7"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$47"
+				quid       	"4E816BCB00D3"
+				supplier   	"Logical View::Engine::MyIrrilchtEngine"
+				quidu      	"4E808C600245"
+				is_navigable 	TRUE
+				is_aggregate 	TRUE))))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "main"
+			quid       	"4E808C5C0140"
+			title      	"main"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object ClassView "Class" "Logical View::Irrlicht::ISceneNode" @72
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
-				location   	(578, 1209)
+				location   	(2635, 373)
 				font       	(object Font
 				    size       	12
 				    face       	"Arial"
@@ -1670,35 +1808,707 @@
 				    default_color 	TRUE)
 				label      	(object ItemLabel
 				    Parent_View 	@72
-				    location   	(354, 1155)
+				    location   	(2461, 288)
 				    fill_color 	13434879
 				    nlines     	1
-				    max_width  	448
+				    max_width  	348
+				    justify    	0
+				    label      	"ISceneNode")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E808D7003B5"
+				width      	366
+				height     	198
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::ModelManager" @73
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1693, 803)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@73
+				    location   	(1295, 714)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	796
+				    justify    	0
+				    label      	"ModelManager")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E808D90010D"
+				compartment 	(object Compartment
+				    Parent_View 	@73
+				    location   	(1295, 781)
+				    font       	(object Font
+					size       	12
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	16777215
+				    anchor     	2
+				    nlines     	2
+				    max_width  	679)
+				width      	814
+				height     	206
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::AnimationManager" @74
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1718, 366)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@74
+				    location   	(1450, 277)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	536
+				    justify    	0
+				    label      	"AnimationManager")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E808D9802B1"
+				compartment 	(object Compartment
+				    Parent_View 	@74
+				    location   	(1450, 344)
+				    font       	(object Font
+					size       	12
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	16777215
+				    anchor     	2
+				    nlines     	2
+				    max_width  	166)
+				width      	554
+				height     	206
+				annotation 	8
+				autoResize 	TRUE)
+			    (object UsesView "" @75
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E808DA50200"
+				client     	@74
+				supplier   	@72
+				line_style 	0)
+			    (object ClassView "Class" "Logical View::Engine::Network" @76
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(2677, 1228)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@76
+				    location   	(2555, 1174)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	244
+				    justify    	0
+				    label      	"Network")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E816A99004A"
+				width      	262
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::Client" @77
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1353, 1594)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@77
+				    location   	(1257, 1540)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	192
+				    justify    	0
+				    label      	"Client")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E816AB5007C"
+				width      	210
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::Server" @78
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1993, 1584)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@78
+				    location   	(1883, 1530)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	220
+				    justify    	0
+				    label      	"Server")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E816AAF00D3"
+				width      	238
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)
+			    (object UsesView "" @79
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E808DA70149"
+				client     	@73
+				supplier   	@72
+				vertices   	(list Points
+				    (2100, 805)
+				    (2631, 809)
+				    (2634, 472))
+				line_style 	0)
+			    (object ClassView "Class" "Logical View::Engine::EventListenerCallbackFunc" @80
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(425, 1009)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@80
+				    location   	(53, 955)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	744
+				    justify    	0
+				    label      	"EventListenerCallbackFunc")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E816B8502AE"
+				width      	762
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::ControlManager" @81
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(424, 1362)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@81
+				    location   	(193, 1305)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	462
 				    justify    	0
 				    label      	"ControlManager")
 				icon_style 	"Icon"
 				line_color 	3342489
 				fill_color 	13434879
 				quidu      	"4E809761005A"
-				width      	466
-				height     	136
+				width      	480
+				height     	142
 				annotation 	8
-				autoResize 	TRUE)))))
+				autoResize 	TRUE)
+			    (object AssociationViewNew "$UNNAMED$42" @82
+				location   	(424, 1183)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E816B9D037A"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$43" @83
+					Parent_View 	@82
+					location   	(-38, 196)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E816B9E01C9"
+					client     	@82
+					supplier   	@81
+					line_style 	0)
+				    (object RoleView "$UNNAMED$44" @84
+					Parent_View 	@82
+					location   	(-38, 196)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E816B9E01CD"
+					client     	@82
+					supplier   	@80
+					line_style 	0)))
+			    (object ClassView "Class" "Logical View::Engine::MyIrrilchtEngine" @85
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(426, 278)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@85
+				    location   	(109, 133)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	634
+				    justify    	0
+				    label      	"MyIrrilchtEngine")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E808C600245"
+				compartment 	(object Compartment
+				    Parent_View 	@85
+				    location   	(109, 200)
+				    font       	(object Font
+					size       	12
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	16777215
+				    anchor     	2
+				    nlines     	4
+				    max_width  	544)
+				width      	652
+				height     	318
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::MyEventReceiver" @86
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(425, 653)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@86
+				    location   	(179, 596)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	492
+				    justify    	0
+				    label      	"MyEventReceiver")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E808C6A01C7"
+				width      	510
+				height     	142
+				annotation 	8
+				autoResize 	TRUE)
+			    (object AssociationViewNew "$UNNAMED$39" @87
+				location   	(425, 832)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E816B9A00D8"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$40" @88
+					Parent_View 	@87
+					location   	(0, 179)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E816B9C0007"
+					client     	@87
+					supplier   	@80
+					line_style 	0)
+				    (object RoleView "$UNNAMED$41" @89
+					Parent_View 	@87
+					location   	(0, 179)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E816B9C000B"
+					client     	@87
+					supplier   	@86
+					line_style 	0)))
+			    (object AssociationViewNew "$UNNAMED$45" @90
+				location   	(425, 509)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E816BCA019A"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$46" @91
+					Parent_View 	@90
+					location   	(-1, 231)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E816BCB00CD"
+					client     	@90
+					supplier   	@86
+					line_style 	0)
+				    (object RoleView "$UNNAMED$47" @92
+					Parent_View 	@90
+					location   	(-1, 231)
+					stereotype 	TRUE
+					line_color 	3342489
+					quidu      	"4E816BCB00D3"
+					client     	@90
+					supplier   	@85
+					line_style 	0)))
+			    (object ClassView "Class" "Logical View::Engine::IServer" @93
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1996, 1215)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@93
+				    location   	(1756, 1082)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	480
+				    justify    	0
+				    label      	"IServer")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E816BDD0019"
+				compartment 	(object Compartment
+				    Parent_View 	@93
+				    location   	(1756, 1149)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	13434879
+				    anchor     	2
+				    nlines     	4
+				    max_width  	406)
+				width      	498
+				height     	294
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Engine::IClient" @94
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1340, 1234)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@94
+				    location   	(1090, 1100)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	500
+				    justify    	0
+				    label      	"IClient")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E816BD7017E"
+				compartment 	(object Compartment
+				    Parent_View 	@94
+				    location   	(1090, 1167)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	13434879
+				    anchor     	2
+				    nlines     	4
+				    max_width  	422)
+				width      	518
+				height     	296
+				annotation 	8
+				autoResize 	TRUE)
+			    (object InheritView "" @95
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E816BEC00F3"
+				client     	@77
+				supplier   	@94
+				line_style 	0)
+			    (object InheritView "" @96
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"4E816BEF0181"
+				client     	@78
+				supplier   	@93
+				line_style 	0)))))
 	    (object Class_Category "Irrlicht"
 		quid       	"4E808D6902E5"
 		exportControl 	"Public"
 		logical_models 	(list unit_reference_list
 		    (object Class "ISceneNode"
-			quid       	"4E808D7003B5"))
-		logical_presentations 	(list unit_reference_list))
-	    (object Mechanism @73
+			quid       	"4E808D7003B5")
+		    (object Class "ISceneCollsionManager"
+			quid       	"4E8166C50333"
+			operations 	(list Operations
+			    (object Operation "getSceneNodeAndCollisionPointFromRay"
+				quid       	"4E8167170280"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "ISceneManager"
+			quid       	"4E8166D101E4"))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "main"
+			quid       	"4E81670903B1"
+			title      	"main"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object ClassView "Class" "Logical View::Irrlicht::ISceneNode" @97
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(816, 478)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@97
+				    location   	(642, 424)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	348
+				    justify    	0
+				    label      	"ISceneNode")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E808D7003B5"
+				width      	366
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Irrlicht::ISceneCollsionManager" @98
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(2103, 609)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@98
+				    location   	(1616, 526)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	974
+				    justify    	0
+				    label      	"ISceneCollsionManager")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E8166C50333"
+				compartment 	(object Compartment
+				    Parent_View 	@98
+				    location   	(1616, 593)
+				    font       	(object Font
+					size       	10
+					face       	"Arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    icon_style 	"Icon"
+				    fill_color 	13434879
+				    anchor     	2
+				    nlines     	2
+				    max_width  	828)
+				width      	992
+				height     	194
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Logical View::Irrlicht::ISceneManager" @99
+				ShowCompartmentStereotypes 	TRUE
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1134, 959)
+				font       	(object Font
+				    size       	12
+				    face       	"Arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				label      	(object ItemLabel
+				    Parent_View 	@99
+				    location   	(911, 905)
+				    fill_color 	13434879
+				    nlines     	1
+				    max_width  	446
+				    justify    	0
+				    label      	"ISceneManager")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"4E8166D101E4"
+				width      	464
+				height     	136
+				annotation 	8
+				autoResize 	TRUE)))))
+	    (object Mechanism @100
 		logical_models 	(list unit_reference_list
-		    (object Object "$UNNAMED$33"
+		    (object Object "$UNNAMED$48"
 			quid       	"4E8097450041"
 			collaborators 	(list link_list
 			    (object Link
 				quid       	"4E80978802F9"
-				supplier   	"$UNNAMED$34"
+				supplier   	"$UNNAMED$49"
 				quidu      	"4E80977C00F5"
 				messages   	(list Messages
 				    (object Message "// Shoot Key Down"
@@ -1715,12 +2525,12 @@
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$34"
+		    (object Object "$UNNAMED$49"
 			quid       	"4E80977C00F5"
 			collaborators 	(list link_list
 			    (object Link
 				quid       	"4E8097CD01B3"
-				supplier   	"$UNNAMED$35"
+				supplier   	"$UNNAMED$50"
 				quidu      	"4E8097C40077"
 				messages   	(list Messages
 				    (object Message "CreateMissile( MissileType)"
@@ -1734,7 +2544,7 @@
 					creation   	FALSE)))
 			    (object Link
 				quid       	"4E8097F10197"
-				supplier   	"$UNNAMED$36"
+				supplier   	"$UNNAMED$51"
 				quidu      	"4E8097DB021D"
 				messages   	(list Messages
 				    (object Message "// Create Animation"
@@ -1755,33 +2565,33 @@
 					ordinal    	3
 					quidu      	"000000000000"
 					creation   	FALSE))))
-			class      	"Logical View::Utility::ControlManager"
+			class      	"Logical View::Engine::ControlManager"
 			quidu      	"4E809761005A"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$35"
+		    (object Object "$UNNAMED$50"
 			quid       	"4E8097C40077"
-			class      	"Logical View::Utility::ModelManager"
+			class      	"Logical View::Engine::ModelManager"
 			quidu      	"4E808D90010D"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$36"
+		    (object Object "$UNNAMED$51"
 			quid       	"4E8097DB021D"
-			class      	"Logical View::Utility::AnimationManager"
+			class      	"Logical View::Engine::AnimationManager"
 			quidu      	"4E808D9802B1"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)))
-	    (object Mechanism @74
+	    (object Mechanism @101
 		logical_models 	(list unit_reference_list
-		    (object Object "$UNNAMED$37"
+		    (object Object "$UNNAMED$52"
 			quid       	"4E809CAC009D"
 			collaborators 	(list link_list
 			    (object Link
 				quid       	"4E809CF203AB"
-				supplier   	"$UNNAMED$38"
+				supplier   	"$UNNAMED$53"
 				quidu      	"4E809CBB0254"
 				messages   	(list Messages
 				    (object Message "// Control Key Down"
@@ -1798,28 +2608,28 @@
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$38"
+		    (object Object "$UNNAMED$53"
 			quid       	"4E809CBB0254"
-			class      	"Logical View::Utility::ControlManager"
+			class      	"Logical View::Engine::ControlManager"
 			quidu      	"4E809761005A"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$39"
+		    (object Object "$UNNAMED$54"
 			quid       	"4E81564D01D9"
 			class      	"Logical View::Flyable::IAircraft"
 			quidu      	"4E808B4601E2"
 			persistence 	"Transient"
 			creationObj 	TRUE
 			multi      	FALSE)))
-	    (object Mechanism @75
+	    (object Mechanism @102
 		logical_models 	(list unit_reference_list
-		    (object Object "$UNNAMED$40"
+		    (object Object "$UNNAMED$55"
 			quid       	"4E808E1A017C"
 			collaborators 	(list link_list
 			    (object Link
 				quid       	"4E808FFC01A1"
-				supplier   	"$UNNAMED$41"
+				supplier   	"$UNNAMED$56"
 				quidu      	"4E808FE900A2"
 				messages   	(list Messages
 				    (object Message "// Initialize"
@@ -1836,24 +2646,242 @@
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$42"
+		    (object Object "$UNNAMED$57"
 			quid       	"4E808E410090"
-			class      	"Logical View::Utility::ModelManager"
+			class      	"Logical View::Engine::ModelManager"
 			quidu      	"4E808D90010D"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$43"
+		    (object Object "$UNNAMED$58"
 			quid       	"4E808E4C0160"
-			class      	"Logical View::Utility::AnimationManager"
+			class      	"Logical View::Engine::AnimationManager"
 			quidu      	"4E808D9802B1"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE)
-		    (object Object "$UNNAMED$41"
+		    (object Object "$UNNAMED$56"
 			quid       	"4E808FE900A2"
-			class      	"Logical View::Utility::MyEventReceiver"
+			class      	"Logical View::Engine::MyEventReceiver"
 			quidu      	"4E808C6A01C7"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)))
+	    (object Mechanism @103
+		logical_models 	(list unit_reference_list
+		    (object Object "$UNNAMED$59"
+			quid       	"4E81649700CA"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E8164D50343"
+				supplier   	"$UNNAMED$60"
+				quidu      	"4E81649F0290"
+				messages   	(list Messages
+				    (object Message "Run( )"
+					quid       	"4E8164D50344"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"1"
+					ordinal    	0
+					quidu      	"4E8164C20336"
+					creation   	FALSE))))
+			class      	"Logical View::Main"
+			quidu      	"4E808FD200DB"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$60"
+			quid       	"4E81649F0290"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E8164DD01B7"
+				supplier   	"$UNNAMED$61"
+				quidu      	"4E8164B6039F"
+				messages   	(list Messages
+				    (object Message "Move( )"
+					quid       	"4E8164DD01B8"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"2"
+					ordinal    	1
+					quidu      	"4E81567E0078"
+					creation   	FALSE))))
+			class      	"Logical View::Engine::AnimationManager"
+			quidu      	"4E808D9802B1"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$61"
+			quid       	"4E8164B6039F"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E81651103D9"
+				supplier   	"$UNNAMED$62"
+				quidu      	"4E8164FC01A3"
+				messages   	(list Messages
+				    (object Message "Fly( )"
+					quid       	"4E81651103DA"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"3"
+					ordinal    	2
+					quidu      	"4E81644F0002"
+					creation   	FALSE))))
+			class      	"Logical View::Flyable::IMovable"
+			quidu      	"4E808AA10300"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$62"
+			quid       	"4E8164FC01A3"
+			class      	"Logical View::Flyable::IFlyBehavior"
+			quidu      	"4E808AB700A6"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)))
+	    (object Mechanism @104
+		logical_models 	(list unit_reference_list
+		    (object Object "$UNNAMED$63"
+			quid       	"4E8165EA02BD"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E8165FD0229"
+				supplier   	"$UNNAMED$64"
+				quidu      	"4E8165F301F3"
+				messages   	(list Messages
+				    (object Message "Run( )"
+					quid       	"4E8165FD022A"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"1"
+					ordinal    	0
+					quidu      	"4E8164C20336"
+					creation   	FALSE))))
+			class      	"Logical View::Main"
+			quidu      	"4E808FD200DB"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$64"
+			quid       	"4E8165F301F3"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E81661201A9"
+				supplier   	"$UNNAMED$65"
+				quidu      	"4E81660E0075"
+				messages   	(list Messages
+				    (object Message "Move( )"
+					quid       	"4E81661201AA"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"2"
+					ordinal    	1
+					quidu      	"4E81567E0078"
+					creation   	FALSE))))
+			class      	"Logical View::Engine::AnimationManager"
+			quidu      	"4E808D9802B1"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$65"
+			quid       	"4E81660E0075"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E81666D0044"
+				supplier   	"$UNNAMED$66"
+				quidu      	"4E81663D039F"
+				messages   	(list Messages
+				    (object Message "Call( )"
+					quid       	"4E81666D0045"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"3"
+					ordinal    	2
+					quidu      	"4E8166600237"
+					creation   	FALSE))))
+			class      	"Logical View::Flyable::IMovable"
+			quidu      	"4E808AA10300"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$66"
+			quid       	"4E81663D039F"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E8166B90254"
+				supplier   	"$UNNAMED$67"
+				quidu      	"4E816681029F"
+				messages   	(list Messages
+				    (object Message "GetCollisionManager( )"
+					quid       	"4E8166B90255"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"4"
+					ordinal    	3
+					quidu      	"4E81669002D2"
+					creation   	FALSE))))
+			class      	"Logical View::Flyable::CollisionCallbackFunc"
+			quidu      	"4E81662903CD"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$67"
+			quid       	"4E816681029F"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E81678702B2"
+				supplier   	"$UNNAMED$68"
+				quidu      	"4E816751005C"
+				messages   	(list Messages
+				    (object Message "node = getSceneNodeAndCollisionPointFromRay( )"
+					quid       	"4E81678702B3"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"5"
+					ordinal    	4
+					Operation  	"getSceneNodeAndCollisionPointFromRay( )"
+					quidu      	"4E8167170280"
+					creation   	FALSE))))
+			class      	"Logical View::Engine::MyIrrilchtEngine"
+			quidu      	"4E808C600245"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$68"
+			quid       	"4E816751005C"
+			collaborators 	(list link_list
+			    (object Link
+				quid       	"4E8169B3025F"
+				supplier   	"$UNNAMED$69"
+				quidu      	"4E8169A40037"
+				messages   	(list Messages
+				    (object Message "movalbeObject = GetModelFromISceneNode( node )"
+					quid       	"4E8169B30260"
+					frequency  	"Aperiodic"
+					synchronization 	"Simple"
+					dir        	"FromClientToSupplier"
+					sequence   	"6"
+					ordinal    	5
+					Operation  	"GetModelFromISceneNode( )"
+					quidu      	"4E81690703A1"
+					creation   	FALSE))))
+			class      	"Logical View::Irrlicht::ISceneCollsionManager"
+			quidu      	"4E8166C50333"
+			persistence 	"Transient"
+			creationObj 	FALSE
+			multi      	FALSE)
+		    (object Object "$UNNAMED$69"
+			quid       	"4E8169A40037"
+			class      	"Logical View::Engine::ModelManager"
+			quidu      	"4E808D90010D"
 			persistence 	"Transient"
 			creationObj 	FALSE
 			multi      	FALSE))))
@@ -1867,7 +2895,7 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object CategoryView "Logical View::Flyable" @76
+		    (object CategoryView "Logical View::Flyable" @105
 			location   	(1044, 418)
 			font       	(object Font
 			    size       	12
@@ -1879,7 +2907,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@76
+			    Parent_View 	@105
 			    location   	(900, 334)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1892,7 +2920,7 @@
 			quidu      	"4E808BFC0317"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::Utility" @77
+		    (object CategoryView "Logical View::Engine" @106
 			location   	(1960, 393)
 			font       	(object Font
 			    size       	12
@@ -1904,13 +2932,13 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@77
+			    Parent_View 	@106
 			    location   	(1816, 309)
 			    fill_color 	13434879
 			    nlines     	2
 			    max_width  	288
 			    justify    	0
-			    label      	"Utility")
+			    label      	"Engine")
 			icon_style 	"Icon"
 			line_color 	3342489
 			fill_color 	13434879
@@ -1918,7 +2946,7 @@
 			width      	300
 			height     	180)))
 	    (object InteractionDiagram "Shoot"
-		mechanism_ref 	@73
+		mechanism_ref 	@100
 		quid       	"4E80973803A3"
 		title      	"Shoot"
 		zoom       	100
@@ -1927,7 +2955,7 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object InterObjView "$UNNAMED$33" @78
+		    (object InterObjView "$UNNAMED$48" @107
 			location   	(180, 225)
 			font       	(object Font
 			    size       	12
@@ -1939,7 +2967,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@78
+			    Parent_View 	@107
 			    location   	(180, 253)
 			    anchor_loc 	1
 			    nlines     	2
@@ -1957,14 +2985,14 @@
 			icon_width 	120
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @79
+			Focus_Of_Control 	(object Focus_Of_Control "" @108
 			    location   	(180, 372)
 			    line_color 	3342489
-			    InterObjView 	@78
+			    InterObjView 	@107
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$34" @80
+		    (object InterObjView "$UNNAMED$49" @109
 			location   	(687, 225)
 			font       	(object Font
 			    size       	12
@@ -1976,7 +3004,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@80
+			    Parent_View 	@109
 			    location   	(687, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -1994,35 +3022,35 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @81
+			Focus_Of_Control 	(object Focus_Of_Control "" @110
 			    location   	(687, 372)
 			    line_color 	3342489
-			    InterObjView 	@80
+			    InterObjView 	@109
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @82
+			Focus_Of_Control 	(object Focus_Of_Control "" @111
 			    location   	(687, 477)
 			    line_color 	3342489
-			    InterObjView 	@80
+			    InterObjView 	@109
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @83
+			Focus_Of_Control 	(object Focus_Of_Control "" @112
 			    location   	(687, 712)
 			    line_color 	3342489
-			    InterObjView 	@80
+			    InterObjView 	@109
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @84
+			Focus_Of_Control 	(object Focus_Of_Control "" @113
 			    location   	(687, 916)
 			    line_color 	3342489
-			    InterObjView 	@80
+			    InterObjView 	@109
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$35" @85
+		    (object InterObjView "$UNNAMED$50" @114
 			location   	(1400, 225)
 			font       	(object Font
 			    size       	12
@@ -2034,7 +3062,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@85
+			    Parent_View 	@114
 			    location   	(1400, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2052,14 +3080,14 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @86
+			Focus_Of_Control 	(object Focus_Of_Control "" @115
 			    location   	(1400, 477)
 			    line_color 	3342489
-			    InterObjView 	@85
+			    InterObjView 	@114
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$36" @87
+		    (object InterObjView "$UNNAMED$51" @116
 			location   	(2089, 225)
 			font       	(object Font
 			    size       	12
@@ -2071,7 +3099,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@87
+			    Parent_View 	@116
 			    location   	(2089, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2089,21 +3117,21 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @88
+			Focus_Of_Control 	(object Focus_Of_Control "" @117
 			    location   	(2089, 712)
 			    line_color 	3342489
-			    InterObjView 	@87
+			    InterObjView 	@116
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE)
-			Focus_Of_Control 	(object Focus_Of_Control "" @89
+			Focus_Of_Control 	(object Focus_Of_Control "" @118
 			    location   	(2089, 916)
 			    line_color 	3342489
-			    InterObjView 	@87
+			    InterObjView 	@116
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterMessView "// Shoot Key Down" @90
+		    (object InterMessView "// Shoot Key Down" @119
 			location   	(0, 372)
 			font       	(object Font
 			    size       	12
@@ -2114,8 +3142,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @91
-			    Parent_View 	@90
+			label      	(object SegLabel @120
+			    Parent_View 	@119
 			    location   	(433, 328)
 			    font       	(object Font
 				size       	12
@@ -2136,14 +3164,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@78
-			supplier   	@80
-			Focus_Src  	@79
-			Focus_Entry 	@81
+			client     	@107
+			supplier   	@109
+			Focus_Src  	@108
+			Focus_Entry 	@110
 			origin     	(195, 372)
 			terminus   	(671, 372)
 			ordinal    	0)
-		    (object InterMessView "CreateMissile( MissileType)" @92
+		    (object InterMessView "CreateMissile( MissileType)" @121
 			location   	(0, 477)
 			font       	(object Font
 			    size       	12
@@ -2154,8 +3182,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @93
-			    Parent_View 	@92
+			label      	(object SegLabel @122
+			    Parent_View 	@121
 			    location   	(1043, 433)
 			    font       	(object Font
 				size       	12
@@ -2176,14 +3204,14 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@80
-			supplier   	@85
-			Focus_Src  	@82
-			Focus_Entry 	@86
+			client     	@109
+			supplier   	@114
+			Focus_Src  	@111
+			Focus_Entry 	@115
 			origin     	(702, 477)
 			terminus   	(1384, 477)
 			ordinal    	1)
-		    (object InterMessView "// Create Animation" @94
+		    (object InterMessView "// Create Animation" @123
 			location   	(0, 712)
 			font       	(object Font
 			    size       	12
@@ -2194,8 +3222,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @95
-			    Parent_View 	@94
+			label      	(object SegLabel @124
+			    Parent_View 	@123
 			    location   	(1322, 666)
 			    font       	(object Font
 				size       	12
@@ -2216,14 +3244,14 @@
 			    height     	47
 			    orientation 	0)
 			line_color 	3342489
-			client     	@80
-			supplier   	@87
-			Focus_Src  	@83
-			Focus_Entry 	@88
+			client     	@109
+			supplier   	@116
+			Focus_Src  	@112
+			Focus_Entry 	@117
 			origin     	(702, 712)
 			terminus   	(2073, 712)
 			ordinal    	2)
-		    (object InterMessView "// Add to Animation Manager" @96
+		    (object InterMessView "// Add to Animation Manager" @125
 			location   	(0, 916)
 			font       	(object Font
 			    size       	12
@@ -2234,8 +3262,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @97
-			    Parent_View 	@96
+			label      	(object SegLabel @126
+			    Parent_View 	@125
 			    location   	(1387, 872)
 			    font       	(object Font
 				size       	12
@@ -2256,15 +3284,37 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@80
-			supplier   	@87
-			Focus_Src  	@84
-			Focus_Entry 	@89
+			client     	@109
+			supplier   	@116
+			Focus_Src  	@113
+			Focus_Entry 	@118
 			origin     	(702, 916)
 			terminus   	(2073, 916)
-			ordinal    	3)))
+			ordinal    	3)
+		    (object NoteView @127
+			location   	(503, 1516)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@127
+			    location   	(365, 1456)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	240
+			    label      	"攻击")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	300
+			height     	132)))
 	    (object InteractionDiagram "Control"
-		mechanism_ref 	@74
+		mechanism_ref 	@101
 		quid       	"4E809CA2032B"
 		title      	"Control"
 		zoom       	100
@@ -2273,7 +3323,7 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object InterObjView "$UNNAMED$37" @98
+		    (object InterObjView "$UNNAMED$52" @128
 			location   	(234, 225)
 			font       	(object Font
 			    size       	12
@@ -2285,7 +3335,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@98
+			    Parent_View 	@128
 			    location   	(234, 253)
 			    anchor_loc 	1
 			    nlines     	2
@@ -2303,14 +3353,14 @@
 			icon_width 	120
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @99
+			Focus_Of_Control 	(object Focus_Of_Control "" @129
 			    location   	(234, 394)
 			    line_color 	3342489
-			    InterObjView 	@98
+			    InterObjView 	@128
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$38" @100
+		    (object InterObjView "$UNNAMED$53" @130
 			location   	(791, 225)
 			font       	(object Font
 			    size       	12
@@ -2322,7 +3372,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@100
+			    Parent_View 	@130
 			    location   	(791, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2340,14 +3390,14 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @101
+			Focus_Of_Control 	(object Focus_Of_Control "" @131
 			    location   	(791, 394)
 			    line_color 	3342489
-			    InterObjView 	@100
+			    InterObjView 	@130
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$39" @102
+		    (object InterObjView "$UNNAMED$54" @132
 			location   	(1306, 234)
 			font       	(object Font
 			    size       	12
@@ -2359,7 +3409,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@102
+			    Parent_View 	@132
 			    location   	(1306, 234)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2377,14 +3427,14 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @103
+			Focus_Of_Control 	(object Focus_Of_Control "" @133
 			    location   	(1306, 320)
 			    line_color 	3342489
-			    InterObjView 	@102
+			    InterObjView 	@132
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterMessView "// Control Key Down" @104
+		    (object InterMessView "// Control Key Down" @134
 			location   	(0, 394)
 			font       	(object Font
 			    size       	12
@@ -2395,8 +3445,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @105
-			    Parent_View 	@104
+			label      	(object SegLabel @135
+			    Parent_View 	@134
 			    location   	(512, 350)
 			    font       	(object Font
 				size       	12
@@ -2417,15 +3467,37 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@98
-			supplier   	@100
-			Focus_Src  	@99
-			Focus_Entry 	@101
+			client     	@128
+			supplier   	@130
+			Focus_Src  	@129
+			Focus_Entry 	@131
 			origin     	(249, 394)
 			terminus   	(775, 394)
-			ordinal    	0)))
+			ordinal    	0)
+		    (object NoteView @136
+			location   	(669, 1265)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@136
+			    location   	(531, 1205)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	240
+			    label      	"键鼠控制")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	300
+			height     	132)))
 	    (object InteractionDiagram "Initialize"
-		mechanism_ref 	@75
+		mechanism_ref 	@102
 		quid       	"4E808E0303A2"
 		title      	"Initialize"
 		zoom       	100
@@ -2434,7 +3506,7 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object InterObjView "$UNNAMED$40" @106
+		    (object InterObjView "$UNNAMED$55" @137
 			location   	(305, 225)
 			font       	(object Font
 			    size       	12
@@ -2446,7 +3518,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@106
+			    Parent_View 	@137
 			    location   	(305, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2464,14 +3536,14 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @107
+			Focus_Of_Control 	(object Focus_Of_Control "" @138
 			    location   	(305, 388)
 			    line_color 	3342489
-			    InterObjView 	@106
+			    InterObjView 	@137
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$41" @108
+		    (object InterObjView "$UNNAMED$56" @139
 			location   	(855, 225)
 			font       	(object Font
 			    size       	12
@@ -2483,7 +3555,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@108
+			    Parent_View 	@139
 			    location   	(855, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2501,14 +3573,14 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1
-			Focus_Of_Control 	(object Focus_Of_Control "" @109
+			Focus_Of_Control 	(object Focus_Of_Control "" @140
 			    location   	(855, 388)
 			    line_color 	3342489
-			    InterObjView 	@108
+			    InterObjView 	@139
 			    height     	90
 			    y_coord    	0
 			    Nested     	FALSE))
-		    (object InterObjView "$UNNAMED$42" @110
+		    (object InterObjView "$UNNAMED$57" @141
 			location   	(1346, 225)
 			font       	(object Font
 			    size       	12
@@ -2520,7 +3592,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@110
+			    Parent_View 	@141
 			    location   	(1346, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2538,7 +3610,7 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1)
-		    (object InterObjView "$UNNAMED$43" @111
+		    (object InterObjView "$UNNAMED$58" @142
 			location   	(2049, 225)
 			font       	(object Font
 			    size       	12
@@ -2550,7 +3622,7 @@
 			    color      	0
 			    default_color 	TRUE)
 			label      	(object ItemLabel
-			    Parent_View 	@111
+			    Parent_View 	@142
 			    location   	(2049, 225)
 			    fill_color 	13434879
 			    anchor_loc 	1
@@ -2568,7 +3640,7 @@
 			icon_width 	0
 			icon_y_offset 	0
 			annotation 	1)
-		    (object InterMessView "// Initialize" @112
+		    (object InterMessView "// Initialize" @143
 			location   	(0, 388)
 			font       	(object Font
 			    size       	12
@@ -2579,8 +3651,8 @@
 			    strike     	FALSE
 			    color      	0
 			    default_color 	TRUE)
-			label      	(object SegLabel @113
-			    Parent_View 	@112
+			label      	(object SegLabel @144
+			    Parent_View 	@143
 			    location   	(579, 344)
 			    font       	(object Font
 				size       	12
@@ -2601,13 +3673,915 @@
 			    height     	45
 			    orientation 	0)
 			line_color 	3342489
-			client     	@106
-			supplier   	@108
-			Focus_Src  	@107
-			Focus_Entry 	@109
+			client     	@137
+			supplier   	@139
+			Focus_Src  	@138
+			Focus_Entry 	@140
 			origin     	(320, 388)
 			terminus   	(839, 388)
-			ordinal    	0)))))
+			ordinal    	0)
+		    (object NoteView @145
+			location   	(450, 1200)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@145
+			    location   	(312, 1140)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	240
+			    label      	"初始化")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	300
+			height     	132)))
+	    (object InteractionDiagram "Mainloop"
+		mechanism_ref 	@103
+		quid       	"4E8164780372"
+		title      	"Mainloop"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object InterObjView "$UNNAMED$59" @146
+			location   	(180, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@146
+			    location   	(180, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E81649700CA"
+			width      	300
+			height     	618
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @147
+			    location   	(180, 391)
+			    line_color 	3342489
+			    InterObjView 	@146
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$60" @148
+			location   	(624, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@148
+			    location   	(624, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	451
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E81649F0290"
+			width      	469
+			height     	618
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @149
+			    location   	(624, 391)
+			    line_color 	3342489
+			    InterObjView 	@148
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @150
+			    location   	(624, 553)
+			    line_color 	3342489
+			    InterObjView 	@148
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$61" @151
+			location   	(1097, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@151
+			    location   	(1097, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E8164B6039F"
+			width      	300
+			height     	618
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @152
+			    location   	(1097, 553)
+			    line_color 	3342489
+			    InterObjView 	@151
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @153
+			    location   	(1097, 663)
+			    line_color 	3342489
+			    InterObjView 	@151
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$62" @154
+			location   	(1550, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@154
+			    location   	(1550, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E8164FC01A3"
+			width      	300
+			height     	618
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @155
+			    location   	(1550, 663)
+			    line_color 	3342489
+			    InterObjView 	@154
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterMessView "Run( )" @156
+			location   	(0, 391)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @157
+			    Parent_View 	@156
+			    location   	(401, 347)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E8164D50344"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	194
+			    justify    	0
+			    label      	"Run( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@146
+			supplier   	@148
+			Focus_Src  	@147
+			Focus_Entry 	@149
+			origin     	(195, 391)
+			terminus   	(608, 391)
+			ordinal    	0)
+		    (object InterMessView "Move( )" @158
+			location   	(0, 553)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @159
+			    Parent_View 	@158
+			    location   	(860, 509)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E8164DD01B8"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	229
+			    justify    	0
+			    label      	"Move( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@148
+			supplier   	@151
+			Focus_Src  	@150
+			Focus_Entry 	@152
+			origin     	(639, 553)
+			terminus   	(1081, 553)
+			ordinal    	1)
+		    (object InterMessView "Fly( )" @160
+			location   	(0, 663)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @161
+			    Parent_View 	@160
+			    location   	(1323, 619)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E81651103DA"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	173
+			    justify    	0
+			    label      	"Fly( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@151
+			supplier   	@154
+			Focus_Src  	@153
+			Focus_Entry 	@155
+			origin     	(1112, 663)
+			terminus   	(1534, 663)
+			ordinal    	2)
+		    (object NoteView @162
+			location   	(703, 1056)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@162
+			    location   	(565, 996)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	240
+			    label      	"主循环")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	300
+			height     	132)))
+	    (object InteractionDiagram "Collision"
+		mechanism_ref 	@104
+		quid       	"4E8165E10019"
+		title      	"Collision"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object InterObjView "$UNNAMED$63" @163
+			location   	(180, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@163
+			    location   	(180, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E8165EA02BD"
+			width      	300
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @164
+			    location   	(180, 394)
+			    line_color 	3342489
+			    InterObjView 	@163
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$64" @165
+			location   	(627, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@165
+			    location   	(627, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	457
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E8165F301F3"
+			width      	475
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @166
+			    location   	(627, 394)
+			    line_color 	3342489
+			    InterObjView 	@165
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @167
+			    location   	(627, 516)
+			    line_color 	3342489
+			    InterObjView 	@165
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$65" @168
+			location   	(1093, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@168
+			    location   	(1093, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	282
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E81660E0075"
+			width      	300
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @169
+			    location   	(1093, 516)
+			    line_color 	3342489
+			    InterObjView 	@168
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @170
+			    location   	(1093, 650)
+			    line_color 	3342489
+			    InterObjView 	@168
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$66" @171
+			location   	(1568, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@171
+			    location   	(1568, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	507
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E81663D039F"
+			width      	525
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @172
+			    location   	(1568, 650)
+			    line_color 	3342489
+			    InterObjView 	@171
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @173
+			    location   	(1568, 814)
+			    line_color 	3342489
+			    InterObjView 	@171
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$67" @174
+			location   	(2118, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@174
+			    location   	(2118, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	438
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E816681029F"
+			width      	456
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @175
+			    location   	(2118, 814)
+			    line_color 	3342489
+			    InterObjView 	@174
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @176
+			    location   	(2118, 976)
+			    line_color 	3342489
+			    InterObjView 	@174
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$68" @177
+			location   	(2678, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@177
+			    location   	(2678, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	526
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E816751005C"
+			width      	544
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @178
+			    location   	(2678, 976)
+			    line_color 	3342489
+			    InterObjView 	@177
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE)
+			Focus_Of_Control 	(object Focus_Of_Control "" @179
+			    location   	(2678, 1175)
+			    line_color 	3342489
+			    InterObjView 	@177
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterObjView "$UNNAMED$69" @180
+			location   	(3307, 225)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	TRUE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@180
+			    location   	(3307, 225)
+			    fill_color 	13434879
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	500
+			    justify    	0
+			    label      	"")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"4E8169A40037"
+			width      	518
+			height     	1130
+			icon_height 	0
+			icon_width 	0
+			icon_y_offset 	0
+			annotation 	1
+			Focus_Of_Control 	(object Focus_Of_Control "" @181
+			    location   	(3307, 1175)
+			    line_color 	3342489
+			    InterObjView 	@180
+			    height     	90
+			    y_coord    	0
+			    Nested     	FALSE))
+		    (object InterMessView "Run( )" @182
+			location   	(0, 394)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @183
+			    Parent_View 	@182
+			    location   	(403, 350)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E8165FD022A"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	194
+			    justify    	0
+			    label      	"Run( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@163
+			supplier   	@165
+			Focus_Src  	@164
+			Focus_Entry 	@166
+			origin     	(195, 394)
+			terminus   	(611, 394)
+			ordinal    	0)
+		    (object InterMessView "Move( )" @184
+			location   	(0, 516)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @185
+			    Parent_View 	@184
+			    location   	(859, 472)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E81661201AA"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	229
+			    justify    	0
+			    label      	"Move( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@165
+			supplier   	@168
+			Focus_Src  	@167
+			Focus_Entry 	@169
+			origin     	(642, 516)
+			terminus   	(1077, 516)
+			ordinal    	1)
+		    (object InterMessView "Call( )" @186
+			location   	(0, 650)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @187
+			    Parent_View 	@186
+			    location   	(1330, 606)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E81666D0045"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	188
+			    justify    	0
+			    label      	"Call( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@168
+			supplier   	@171
+			Focus_Src  	@170
+			Focus_Entry 	@172
+			origin     	(1108, 650)
+			terminus   	(1552, 650)
+			ordinal    	2)
+		    (object InterMessView "GetCollisionManager( )" @188
+			location   	(0, 814)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @189
+			    Parent_View 	@188
+			    location   	(1842, 770)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E8166B90255"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	569
+			    justify    	0
+			    label      	"GetCollisionManager( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@171
+			supplier   	@174
+			Focus_Src  	@173
+			Focus_Entry 	@175
+			origin     	(1583, 814)
+			terminus   	(2102, 814)
+			ordinal    	3)
+		    (object InterMessView "node = getSceneNodeAndCollisionPointFromRay( )" @190
+			location   	(0, 976)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @191
+			    Parent_View 	@190
+			    location   	(2397, 932)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E81678702B3"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	1294
+			    justify    	0
+			    label      	"node = getSceneNodeAndCollisionPointFromRay( )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@174
+			supplier   	@177
+			Focus_Src  	@176
+			Focus_Entry 	@178
+			origin     	(2133, 976)
+			terminus   	(2662, 976)
+			ordinal    	4)
+		    (object NoteView @192
+			location   	(897, 1728)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@192
+			    location   	(318, 1540)
+			    fill_color 	13434879
+			    nlines     	6
+			    max_width  	1122
+			    label      	"对于每个IMovable，AnimationManager仅仅调用它的Move()。而其中发生的碰撞事件的触发和处理，则交由注册在其中的回调处理函数处理。")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	1182
+			height     	388)
+		    (object InterMessView "movalbeObject = GetModelFromISceneNode( node )" @193
+			location   	(0, 1175)
+			font       	(object Font
+			    size       	12
+			    face       	"Arial"
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object SegLabel @194
+			    Parent_View 	@193
+			    location   	(2992, 1131)
+			    font       	(object Font
+				size       	12
+				face       	"Arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"4E8169B30260"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	1197
+			    justify    	0
+			    label      	"movalbeObject = GetModelFromISceneNode( node )"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			line_color 	3342489
+			client     	@177
+			supplier   	@180
+			Focus_Src  	@179
+			Focus_Entry 	@181
+			origin     	(2693, 1175)
+			terminus   	(3291, 1175)
+			ordinal    	5)))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"4E808A4C0096"
 	physical_models 	(list unit_reference_list)
