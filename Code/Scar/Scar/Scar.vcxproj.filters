@@ -52,7 +52,7 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="IMissile.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +77,6 @@
     <ClInclude Include="IFly.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="IMissile.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="base.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -94,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="IMovable.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="IAircraft.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Aircraft.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="IMissile.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
