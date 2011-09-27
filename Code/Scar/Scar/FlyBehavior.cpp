@@ -4,7 +4,7 @@
 **
 */
 
-#include "IFly.h"
+#include "FlyBehavior.h"
 
 
 FlyStraightBehavior::FlyStraightBehavior( core::vector3df& direction, f32 speed ) : m_Owner( NULL ), m_vecDirection( direction.normalize() ), m_Speed( speed )

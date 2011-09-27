@@ -39,7 +39,7 @@ scene::ICameraSceneNode* camera;
 scene::ISceneNode* aircraftNode = 0;
 scene::ISceneNode* pNPCNode[npcNum] = {0}; 
 
-MyEventReceiver receiver;
+MyEventReceiver receiver([]( const SEvent& event )->PVOID { return 0; });
 ModuleControl* pModule;
 
 std::map<ISceneNode*, std::string> g_modelList;

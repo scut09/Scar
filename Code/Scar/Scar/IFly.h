@@ -8,6 +8,9 @@
 
 #include <irrlicht.h>
 
+#ifndef _IFLY_H_
+#define _IFLY_H_
+
 using namespace irr;
 
 
@@ -41,3 +44,6 @@ public:
 	virtual core::vector3df Fly( const core::vector3df& pos ) = 0;
 	virtual core::vector3df GetDirection() = 0;
 };
+
+
+#endif
