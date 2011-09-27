@@ -39,6 +39,9 @@ private:
 	// 禁止直接创建实例
 	MyIrrlichtEngine() {}
 
+private:
+	ModelManager					m_ModelManager;
+	AnimationManager				m_AnimationManager;
 
 
 public:

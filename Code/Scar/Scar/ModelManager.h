@@ -22,7 +22,10 @@
 class ModelManager
 {
 public:	
+	ModelManager()
+	{
 
+	}
 
 
 };
