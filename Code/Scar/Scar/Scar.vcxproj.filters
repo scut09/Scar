@@ -92,6 +92,9 @@
     <ClInclude Include="IServer.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="IMovable.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">

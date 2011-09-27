@@ -23,6 +23,7 @@ namespace Network
 	class IServer
 	{
 	public:
+		virtual ~IServer() {}
 
 		//************************************
 		// º¯ÊıÃû:  Network::IServer::CreateGameRoom

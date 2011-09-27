@@ -13,6 +13,12 @@
 #include <map>
 #include <list>
 
+
+/*
+** 名字：ModelManager
+** 说明：模型管理
+**
+*/
 class ModelManager
 {
 public:	

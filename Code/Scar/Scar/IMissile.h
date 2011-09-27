@@ -30,6 +30,7 @@ using namespace irr;
 class IMissile : public IFly
 {
 public:
+	virtual ~IMissile() {}
 	virtual void AddBehavior( IFlyBehavior* pBehavior ) = 0;
 };
 

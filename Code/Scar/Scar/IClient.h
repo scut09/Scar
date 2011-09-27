@@ -40,6 +40,8 @@ namespace Network
 	class IClient
 	{
 	public:
+		virtual ~IClient() {}
+
 		//************************************
 		// 函数名:  IClient::SearchGameRoom
 		// 返回值:  ServerInfoList

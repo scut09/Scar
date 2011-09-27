@@ -93,6 +93,7 @@
     <ClInclude Include="IClient.h" />
     <ClInclude Include="IFly.h" />
     <ClInclude Include="IMissile.h" />
+    <ClInclude Include="IMovable.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
