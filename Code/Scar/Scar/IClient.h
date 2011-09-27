@@ -13,8 +13,17 @@
 #include <string>
 #include <list>
 
+
+struct ServerInfo
+{
+	std::string ip;
+	std::string serverName;
+	int			maxPlayerNumber;
+	int			currentPlayerNumber;
+};
+
 typedef std::function< void*( void* ) > IClientOnMsgCallbackFuncType;
-typedef std::list< std::string > IPList;
+typedef std::list< ServerInfo > IPList;
 
 /*
 ** 名字：IClient
@@ -34,12 +43,12 @@ public:
 
 	//************************************
 	// 函数名:  IClient::EnterGameRoom
-	// 返回值:  void
+	// 返回值:  int
 	// 参数:    const std::string & ip
 	// 函数修饰:
 	// 描述：   加入服务器
 	//************************************
-	virtual void EnterGameRoom( const std::string& ip ) = 0;
+	virtual int EnterGameRoom( const std::string& ip ) = 0;
 
 
 	//************************************
@@ -47,7 +56,8 @@ public:
 	// 返回值:  void
 	// 参数:    IClientOnMsgCallbackFuncType func
 	// 函数修饰:
-	// 描述：   设置消息到达时的回调处理函数
+	// 描述：   设置消息到达时的回调处理函数，每次在客户端消息到达时，客户端都应调用此函数
+	//			来处理消息。
 	//************************************
 	virtual void SetOnMsgCallbackFunc( IClientOnMsgCallbackFuncType func ) = 0;
 };

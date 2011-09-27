@@ -31,6 +31,9 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{1421c65f-486a-4400-97a2-1b5665ae1029}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{50478ed2-dba6-4357-a6a2-64d12e2740d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,11 +86,11 @@
     <ClInclude Include="def.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="IServer.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="IClient.h">
-      <Filter>Engine</Filter>
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="IServer.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
