@@ -24,7 +24,7 @@ namespace Network
 	struct ServerInfo
 	{
 		std::string ip;
-		std::string serverName;
+		std::string roomName;
 		int			maxPlayerNumber;
 		int			currentPlayerNumber;
 	};

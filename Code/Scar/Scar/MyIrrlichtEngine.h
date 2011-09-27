@@ -64,6 +64,13 @@ public:
 	void Run();
 
 	void SetCallbackFunc( EngineRunCallbackFuncType func );
+
+	void LoadModels()
+	{
+		m_ModelManager.LoadModels( m_pSmgr, m_pDriver );
+
+		m_pSmgr->addCameraSceneNodeFPS();
+	}
 };
 
 

@@ -40,6 +40,8 @@ int main()
 		return 0;
 	} );
 
+	pEngine->LoadModels();
+
 	// Æô¶¯ÒýÇæ
 	pEngine->Run();
 
