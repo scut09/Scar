@@ -28,6 +28,9 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{90a42469-8204-419c-81d6-2a44c5e244f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{1421c65f-486a-4400-97a2-1b5665ae1029}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,12 +53,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="def.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="base.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="EventListener.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -79,6 +76,18 @@
     </ClInclude>
     <ClInclude Include="IMissile.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="def.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="IServer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="IClient.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

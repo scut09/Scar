@@ -90,8 +90,10 @@
     <ClInclude Include="def.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="FlyBehavior.h" />
+    <ClInclude Include="IClient.h" />
     <ClInclude Include="IFly.h" />
     <ClInclude Include="IMissile.h" />
+    <ClInclude Include="IServer.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
