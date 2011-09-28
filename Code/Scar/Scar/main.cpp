@@ -13,6 +13,8 @@
 
 int main()
 {
+	Py_Initialize(); 
+
 	// 创建引擎事件接收器
 	MyEventReceiver receiver;
 
@@ -45,5 +47,6 @@ int main()
 	// 启动引擎
 	pEngine->Run();
 
+	Py_Finalize();
 	return 0;
 }

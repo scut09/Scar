@@ -54,6 +54,9 @@
     <ClCompile Include="IMissile.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

@@ -12,6 +12,7 @@
 #include <irrlicht.h>
 #include <map>
 #include <list>
+#include "def.h"
 
 using namespace irr;
 
@@ -22,24 +23,23 @@ using namespace irr;
 */
 class ModelManager
 {
-	scene::ISceneManager*	m_smgr;
-
 public:	
 	ModelManager()
 	{ }
 
-	void LoadModels( scene::ISceneManager* smgr, video::IVideoDriver* driver )
-	{
-		m_smgr = smgr;
+	void LoadModels();
 
-		smgr->addSkyBoxSceneNode(
-			driver->getTexture("../media/irrlicht2_up.jpg"),
-			driver->getTexture("../media/irrlicht2_dn.jpg"),
-			driver->getTexture("../media/irrlicht2_lf.jpg"),
-			driver->getTexture("../media/irrlicht2_rt.jpg"),
-			driver->getTexture("../media/irrlicht2_ft.jpg"),
-			driver->getTexture("../media/irrlicht2_bk.jpg"));
-	}
+};
+
+
+/*
+** 名字：ModelManagerSlaver
+** 说明：Python导出类
+**
+*/
+class ModelManagerSlaver
+{
+public:
 
 };
 
