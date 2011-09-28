@@ -14,6 +14,7 @@
 int main()
 {
 	Py_Initialize(); 
+	if ( ! Py_IsInitialized() )	return -1;
 
 	// 创建引擎事件接收器
 	MyEventReceiver receiver;
