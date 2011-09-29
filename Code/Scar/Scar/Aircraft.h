@@ -10,9 +10,11 @@
 #define Aircraft_h__
 
 #include "IAircraft.h"
+#include <list>
 
 using namespace irr;
 using namespace scene;
+
 /*
 ** 名字：Aircraft
 ** 说明：飞行器
@@ -22,18 +24,52 @@ class Aircraft : public IAircraft
 {
 private:
 	ISceneNode*		m_ptr;
-	IFlyBehavior*	m_behavior;
+	u32				m_HP;
+	core::vector3df m_speed;
+	std::function< LPVOID( LPVOID ) >		m_moveCallback;
+	std::list< shared_ptr<IFlyBehavior> >	m_behaviorList;
 
 
 public:
+	virtual void SetHP( u32 hp )
+	{
+		m_HP = hp;
+	}
+
+	virtual u32 GetHP() 
+	{
+		return m_HP;
+	}
+
+
+	virtual void SetSpeed( const core::vector3df& speed )
+	{
+		m_speed = speed;
+	}
+
+	virtual core::vector3df GetSpeed() 
+	{
+		return m_speed;
+	}
+
+	virtual void AddFlyBehavior( shared_ptr<IFlyBehavior> pBehavior ) 
+	{
+		m_behaviorList.push_back( pBehavior );
+	}
+
+	virtual void RemoveFlyBehavior( shared_ptr<IFlyBehavior> pBehavior ) = 0;
+
 	virtual int Move() 
 	{
 
+		m_moveCallback( reinterpret_cast<LPVOID>( m_ptr ) );
+
+		return 0;
 	}
 
 	virtual void AddCallbackFunc( std::function< LPVOID( LPVOID ) > func )
 	{
-
+		m_moveCallback = func;
 	}
 
 	virtual void LoadSceneNode( scene::ISceneNode* pNode )
@@ -60,11 +96,6 @@ public:
 	{
 		return m_ptr->getPosition();
 	}	
-
-	virtual scene::ISceneNode* TestCollision() 
-	{
-
-	}
 
 	virtual void Drop() = 0;
 

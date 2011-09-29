@@ -21,6 +21,8 @@
 class IAircraft : public IFly
 {
 public:
+	virtual void SetHP( u32 hp ) = 0;
+	virtual u32 GetHP() = 0;
 
 };
 

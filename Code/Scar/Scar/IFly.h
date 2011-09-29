@@ -16,6 +16,8 @@
 
 using namespace irr;
 
+class IFlyBehavior;
+
 /*
 ** 名字：IFly
 ** 说明：可飞行物体的接口
@@ -69,20 +71,48 @@ public:
 	virtual core::vector3df GetPosition() = 0;		// 获取位置
 
 	//************************************
-	// 函数名:  IFly::TestCollision
-	// 返回值:  scene::ISceneNode*
-	// 函数修饰:
-	// 描述：   碰撞检测，历史遗留问题，待删除，改为回调函数处理碰撞问题
-	//************************************
-	virtual scene::ISceneNode* TestCollision() = 0;	// 是否有碰撞
-
-	//************************************
 	// 函数名:  IFly::Drop
 	// 返回值:  void
 	// 函数修饰:
 	// 描述：   删除内部节点
 	//************************************
 	virtual void Drop() = 0;
+
+	//************************************
+	// 函数名:  IFly::SetSpeed
+	// 返回值:  void
+	// 参数:    const core::vector3df & speed
+	// 函数修饰:
+	// 描述：   设置速度，一个方向向量
+	//************************************
+	virtual void SetSpeed( const core::vector3df& speed ) = 0;
+
+	//************************************
+	// 函数名:  IFly::GetSpeed
+	// 返回值:  core::vector3df
+	// 函数修饰:
+	// 描述：   获取速度，一个方向向量
+	//************************************
+	virtual core::vector3df GetSpeed() = 0;
+
+	//************************************
+	// 函数名:  IFly::AddFlyBehavior
+	// 返回值:  void
+	// 参数:    shared_ptr<IFlyBehavior> pBehavior
+	// 函数修饰:
+	// 描述：   添加一个飞行的行为。飞行物在每次飞行时
+	//			会使用所有添加进来的飞行行为来完成一个瞬间的飞行动作
+	//************************************
+	virtual void AddFlyBehavior( shared_ptr<IFlyBehavior> pBehavior ) = 0;
+
+	//************************************
+	// 函数名:  IFly::RemoveFlyBehavior
+	// 返回值:  void
+	// 参数:    shared_ptr<IFlyBehavior> pBehavior
+	// 函数修饰:
+	// 描述：   从飞行行为列表中删除一个飞行行为.
+	//************************************
+	virtual void RemoveFlyBehavior( shared_ptr<IFlyBehavior> pBehavior ) = 0;
 };
 
 
@@ -112,7 +142,7 @@ public:
 	// 函数修饰:
 	// 描述：   
 	//************************************
-	virtual core::vector3df Fly( const core::vector3df& pos ) = 0;
+	virtual core::vector3df Fly( scene::ISceneNode* pNode ) = 0;
 
 	//************************************
 	// 函数名:  IFlyBehavior::GetDirection
@@ -120,7 +150,7 @@ public:
 	// 函数修饰:
 	// 描述：   
 	//************************************
-	virtual core::vector3df GetDirection() = 0;
+	virtual core::vector3df GetDirection() { }
 };
 
 

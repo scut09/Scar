@@ -26,19 +26,17 @@
 #define GIL_LOCK	{ PyGILState_STATE gstate; gstate = PyGILState_Ensure();   
 #define GIL_UNLOCK	PyGILState_Release( gstate ); }
 
-// 
+
 // Boost线程库
-//
 #include <boost\thread.hpp>
 
-//
 // 断言
-//
 #include "boost/assert.hpp"
 
-//
+// 智能指针
+#include <boost/smart_ptr.hpp>
+
 // Irrlicht引擎
-//
 #include <irrlicht.h>
 
 

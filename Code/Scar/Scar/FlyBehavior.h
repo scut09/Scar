@@ -29,7 +29,7 @@ public:
 	void SetOwner( IFly* pFly );
 
 	// ·ÉÐÐ
-	virtual core::vector3df Fly( const core::vector3df& pos );
+	virtual core::vector3df Fly();
 
 	virtual core::vector3df GetDirection();
 };
