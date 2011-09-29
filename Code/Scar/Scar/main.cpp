@@ -9,6 +9,8 @@
 
 #include "EngineHeader.h"
 #include <iostream>
+#include "Aircraft.h"
+#include "FlyBehavior.h"
 
 void InitModels()
 {
@@ -111,7 +113,7 @@ int main()
 	// 注册引擎回调函数
 	pEngine->SetCallbackFunc( [ &control ]( void* engine )->void*
 	{
-		control.MoveForward( 1.0 );
+		//control.MoveForward( 1.0 );
 
 		//std::cout << "1";
 		return 0;
@@ -122,7 +124,7 @@ int main()
 	// 创建并注册receiver的事件处理回调函数
 	receiver.SetEventCallbackFunc( [ pEngine, &control ]( const SEvent& event )->void*
 	{	
-		control.OnEvent( event );
+		//control.OnEvent( event );
 		pEngine;		// 引擎指针
 		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
 		return 0;
@@ -140,7 +142,11 @@ int main()
 
 	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
 
-	node->setPosition( core::vector3df( 1000.0, 200.0, 100.0 ) );
+	//Aircraft bottle;
+	//bottle.LoadSceneNode( node );
+	//FlyStraightBehavior beh;
+	//bottle.AddFlyBehavior( beh );
+
 
 	irr::video::SLight light;
 

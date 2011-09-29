@@ -134,7 +134,7 @@ public:
 	// ∫Ø ˝–ﬁ Œ:
 	// √Ë ˆ£∫   
 	//************************************
-	virtual core::vector3df Fly( IFly* pFlyObject ) = 0;
+	virtual void Fly( IFly* pFlyObject ) = 0;
 
 
 };

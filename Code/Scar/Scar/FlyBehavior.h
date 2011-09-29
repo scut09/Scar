@@ -20,18 +20,8 @@
 class FlyStraightBehavior : public IFlyBehavior
 {
 public:
-	IFly*	m_Owner;		// 行为所有者的指针
-	f32		m_Speed;
-	core::vector3df m_vecDirection;
-
-	FlyStraightBehavior( core::vector3df& direction, f32 speed );
-
-	void SetOwner( IFly* pFly );
-
 	// 飞行
-	virtual core::vector3df Fly();
-
-	virtual core::vector3df GetDirection();
+	virtual void Fly( IFly* pFlyObject );
 };
 
 

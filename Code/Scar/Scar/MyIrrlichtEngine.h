@@ -61,6 +61,8 @@ public:
 
 	video::IVideoDriver* GetVideoDriver();
 
+	IrrlichtDevice*	GetDevice();
+
 	ModelManager* GetModelManager()
 	{
 		return &m_ModelManager;

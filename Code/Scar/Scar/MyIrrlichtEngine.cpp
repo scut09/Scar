@@ -90,3 +90,8 @@ void MyIrrlichtEngine::SetCallbackFunc( EngineRunCallbackFuncType func )
 {
 	m_runCallbackFunc = func;
 }
+
+IrrlichtDevice* MyIrrlichtEngine::GetDevice()
+{
+	return m_pDevice;
+}

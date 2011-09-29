@@ -11,7 +11,7 @@
 
 #include "IAircraft.h"
 #include <list>
-#include <def.h>
+#include "def.h"
 
 using namespace irr;
 using namespace scene;
