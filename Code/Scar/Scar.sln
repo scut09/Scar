@@ -10,13 +10,28 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Release - Fast FPU|Win32 = Release - Fast FPU|Win32
 		Release|Win32 = Release|Win32
+		SDL-Debug|Win32 = SDL-Debug|Win32
+		Static lib - Debug|Win32 = Static lib - Debug|Win32
+		Static lib - Release - Fast FPU|Win32 = Static lib - Release - Fast FPU|Win32
+		Static lib - Release|Win32 = Static lib - Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{15455574-648B-4D2C-9903-236331D4F650}.Debug|Win32.ActiveCfg = Debug|Win32
 		{15455574-648B-4D2C-9903-236331D4F650}.Debug|Win32.Build.0 = Debug|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Release - Fast FPU|Win32.ActiveCfg = Release|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Release - Fast FPU|Win32.Build.0 = Release|Win32
 		{15455574-648B-4D2C-9903-236331D4F650}.Release|Win32.ActiveCfg = Release|Win32
 		{15455574-648B-4D2C-9903-236331D4F650}.Release|Win32.Build.0 = Release|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.SDL-Debug|Win32.ActiveCfg = Debug|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.SDL-Debug|Win32.Build.0 = Debug|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Static lib - Debug|Win32.ActiveCfg = Debug|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Static lib - Debug|Win32.Build.0 = Debug|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Static lib - Release - Fast FPU|Win32.ActiveCfg = Release|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Static lib - Release - Fast FPU|Win32.Build.0 = Release|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Static lib - Release|Win32.ActiveCfg = Release|Win32
+		{15455574-648B-4D2C-9903-236331D4F650}.Static lib - Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,12 @@
 
 #include "EngineHeader.h"
 #include <iostream>
+#include "../Irrlicht/CSceneNodeAnimatorCameraFPS.h"
+
+class foo : public CSceneNodeAnimatorCameraFPS
+{
+
+};
 
 void InitModels()
 {
