@@ -38,7 +38,14 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "y", &PythonVector3df::y )
 		.def_readwrite( "z", &PythonVector3df::z );
 
-	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" );
+	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" )
+		.def( "SetPosition", &PythonSceneNode::SetPosition )
+		.def( "GetPosition", &PythonSceneNode::GetPosition )
+		.def( "SetRotation", &PythonSceneNode::SetRotation )
+		.def( "GetRotation", &PythonSceneNode::GetRotation )
+		.def( "Grab", &PythonSceneNode::Grab )
+		.def( "Drop", &PythonSceneNode::Drop )
+		.def( "Remove", &PythonSceneNode::Remove );
 }
 
 
