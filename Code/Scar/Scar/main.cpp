@@ -50,7 +50,7 @@ int main()
 	// 注册引擎回调函数
 	pEngine->SetCallbackFunc( []( void* engine )->void*
 	{
-		std::cout << "1";
+		//std::cout << "1";
 		return 0;
 	} );
 
@@ -58,7 +58,7 @@ int main()
 	receiver.SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
 	{	
 		pEngine;		// 引擎指针
-		std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
 		return 0;
 	} );
 
@@ -69,10 +69,14 @@ int main()
 	ModelManager* modelMan = pEngine->GetModelManager();
 
 	modelMan->AddSceneNodeFromMesh( "1" );
+	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
+	node->setPosition( core::vector3df( 1000.0, 200.0, 100.0 ) );
+
+	irr::video::SLight light;
 
 	// 启动引擎
 	pEngine->Run();
 
-	Py_Finalize();
+	//Py_Finalize();
 	return 0;
 }

@@ -53,6 +53,7 @@ scene::ISceneNode* ModelManager::AddSceneNodeFromMesh( const std::string& meshID
 
 	if ( ! meshNode.textureFilename.empty() )
 	{
+		node->setMaterialFlag( video::EMF_LIGHTING, false );
 		node->setMaterialTexture( 0, driver->getTexture( meshNode.textureFilename.c_str() ) );
 	}
 
@@ -79,4 +80,37 @@ void ModelManagerSlaver::AddMesh( const std::string& meshID, const std::string& 
 
 	pModelMan->AddMesh( meshID, meshFilename, textureFilename );
 
+}
+
+void ModelManagerSlaver::AddLight( const PythonSLight& light, f32 x, f32 y, f32 z )
+{
+	auto assign = []( video::SColorf& scolor, const PythonSColor& pcolor )
+	{
+		scolor.set( pcolor.alpha, pcolor.red, pcolor.green, pcolor.blue );
+	};
+	auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+
+	scene::ILightSceneNode * pLight = smgr->addLightSceneNode( 0, core::vector3df( x, y, z ) );
+	video::SLight slight;
+	assign( slight.AmbientColor, light.AmbientColor );
+	assign( slight.DiffuseColor, light.DiffuseColor );
+	assign( slight.SpecularColor, light.SpecularColor );
+	pLight->getLightData() = slight;
+
+	auto print = []( const PythonSColor& pcolor )
+	{
+		std::cout << pcolor.alpha << ' ' <<  pcolor.red << ' ' <<  pcolor.green << ' ' <<  pcolor.blue << std::endl;
+	};
+
+	print( light.AmbientColor );
+	print( light.DiffuseColor );
+	print( light.SpecularColor );
+	std::cout << x << ' ' << y << ' ' << z << std::endl;
+}
+
+void ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
+{
+	ModelManager* pModelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
+
+	pModelMan->AddSceneNodeFromMesh( meshID, bTestCollision );
 }
