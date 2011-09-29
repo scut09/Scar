@@ -106,6 +106,9 @@ int main()
 	// 创建引擎，并获取引擎指针
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 
+	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
+
+
 	ModuleControl control;
 
 
@@ -142,11 +145,14 @@ int main()
 
 	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
 
-	//Aircraft bottle;
-	//bottle.LoadSceneNode( node );
-	//FlyStraightBehavior beh;
-	//bottle.AddFlyBehavior( beh );
+	Aircraft bottle;
+	bottle.LoadSceneNode( node );
+	bottle.SetSpeed( vector3df( 0.01, 0.1, 0 ) );
+	shared_ptr<FlyStraightBehavior> beh( new FlyStraightBehavior );
+	bottle.AddFlyBehavior( beh );
 
+	AnimationManager* aniMan = pEngine->GetAnimationManager();
+	aniMan->AddMovableNode( node, &bottle );
 
 	irr::video::SLight light;
 

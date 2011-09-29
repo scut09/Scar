@@ -63,10 +63,9 @@ public:
 
 	IrrlichtDevice*	GetDevice();
 
-	ModelManager* GetModelManager()
-	{
-		return &m_ModelManager;
-	}
+	ModelManager* GetModelManager();
+
+	AnimationManager* GetAnimationManager();
 
 	void Run();
 

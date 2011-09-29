@@ -78,6 +78,8 @@ void MyIrrlichtEngine::Run()
 
 		m_runCallbackFunc( (void*)this );
 
+		m_AnimationManager.Run();
+
 		m_pDriver->beginScene(true, true, video::SColor(150,50,50,50));
 
 		m_pSmgr->drawAll();	
@@ -94,4 +96,14 @@ void MyIrrlichtEngine::SetCallbackFunc( EngineRunCallbackFuncType func )
 IrrlichtDevice* MyIrrlichtEngine::GetDevice()
 {
 	return m_pDevice;
+}
+
+ModelManager* MyIrrlichtEngine::GetModelManager()
+{
+	return &m_ModelManager;
+}
+
+AnimationManager* MyIrrlichtEngine::GetAnimationManager()
+{
+	return &m_AnimationManager;
 }

@@ -66,10 +66,17 @@ public:
 		m_behaviorList.remove( pBehavior );
 	}
 
+	virtual void Drop() 
+	{
+		m_ptr->drop();
+	}
+
+
 	virtual int Move() 
 	{
 		std::for_each( m_behaviorList.begin(), m_behaviorList.end(), [ this ]( shared_ptr<IFlyBehavior> b ) { b->Fly( this ); } );
-		m_moveCallback( reinterpret_cast<LPVOID>( m_ptr ) );
+		
+		if ( ! m_moveCallback._Empty() ) m_moveCallback( reinterpret_cast<LPVOID>( m_ptr ) );
 
 		return 0;
 	}
@@ -103,8 +110,6 @@ public:
 	{
 		return m_ptr->getPosition();
 	}	
-
-	virtual void Drop() = 0;
 
 };
 
