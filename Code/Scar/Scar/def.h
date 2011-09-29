@@ -31,6 +31,10 @@
 //
 #include <boost\thread.hpp>
 
+//
+// ¶ÏÑÔ
+//
+#include "boost/assert.hpp"
 
 //
 // IrrlichtÒıÇæ

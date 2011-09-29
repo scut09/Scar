@@ -108,9 +108,12 @@ void ModelManagerSlaver::AddLight( const PythonSLight& light, f32 x, f32 y, f32 
 	std::cout << x << ' ' << y << ' ' << z << std::endl;
 }
 
-void ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
+PythonSceneNode ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
 {
 	ModelManager* pModelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
-	pModelMan->AddSceneNodeFromMesh( meshID, bTestCollision );
+	PythonSceneNode node;
+	scene::ISceneNode* pNode = pModelMan->AddSceneNodeFromMesh( meshID, bTestCollision );
+	node.ptr = pNode;
+	return node;
 }

@@ -2,7 +2,7 @@
 	创建时间: 2011-9-29   9:59
 	文件名:   PythonModule.h
 	作者:     华亮 Cedric Porter [ Stupid ET ]	
-	说明:     Python模块的一些初始化
+	说明:     将C++的类导出到Python中
 
 *********************************************************************/
 
@@ -12,13 +12,6 @@
 
 #include "ModelManager.h"
 
-//ModelManagerSlaver& CreateModelManagerSlaver()
-//{
-//
-//}
-
-//void AddMesh( const std::string& meshFilename, const std::string& meshID, const std::string& textureFilename );
-// 
 
 BOOST_PYTHON_MODULE( Engine )
 {
@@ -40,6 +33,12 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "DiffuseColor", &PythonSLight::DiffuseColor )
 		.def_readwrite( "SpecularColor", &PythonSLight::SpecularColor );
 
+	class_< PythonVector3df >( "vector3df", "fake vector3df" )
+		.def_readwrite( "x", &PythonVector3df::x )
+		.def_readwrite( "y", &PythonVector3df::y )
+		.def_readwrite( "z", &PythonVector3df::z );
+
+	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" );
 }
 
 
