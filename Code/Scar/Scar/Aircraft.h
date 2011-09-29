@@ -11,9 +11,13 @@
 
 #include "IAircraft.h"
 #include <list>
+#include <def.h>
 
 using namespace irr;
 using namespace scene;
+using boost::shared_ptr;
+
+
 
 /*
 ** Ãû×Ö£ºAircraft
@@ -57,11 +61,14 @@ public:
 		m_behaviorList.push_back( pBehavior );
 	}
 
-	virtual void RemoveFlyBehavior( shared_ptr<IFlyBehavior> pBehavior ) = 0;
+	virtual void RemoveFlyBehavior( shared_ptr<IFlyBehavior> pBehavior ) 
+	{
+		m_behaviorList.remove( pBehavior );
+	}
 
 	virtual int Move() 
 	{
-
+		std::for_each( m_behaviorList.begin(), m_behaviorList.end(), [ this ]( shared_ptr<IFlyBehavior> b ) { b->Fly( this ); } );
 		m_moveCallback( reinterpret_cast<LPVOID>( m_ptr ) );
 
 		return 0;

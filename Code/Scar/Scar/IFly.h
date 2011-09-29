@@ -11,10 +11,11 @@
 
 #include "base.h"
 #include "IMovable.h"
-
+#include "def.h"
 #include <irrlicht.h>
 
 using namespace irr;
+using boost::shared_ptr;
 
 class IFlyBehavior;
 
@@ -127,30 +128,15 @@ public:
 	~IFlyBehavior() {}
 
 	//************************************
-	// 函数名:  IFlyBehavior::SetOwner
-	// 返回值:  void
-	// 参数:    IFly * pFly
-	// 函数修饰:
-	// 描述：   
-	//************************************
-	virtual void SetOwner( IFly* pFly ) = 0;	
-
-	//************************************
 	// 函数名:  IFlyBehavior::Fly
 	// 返回值:  core::vector3df
 	// 参数:    const core::vector3df & pos
 	// 函数修饰:
 	// 描述：   
 	//************************************
-	virtual core::vector3df Fly( scene::ISceneNode* pNode ) = 0;
+	virtual core::vector3df Fly( IFly* pFlyObject ) = 0;
 
-	//************************************
-	// 函数名:  IFlyBehavior::GetDirection
-	// 返回值:  core::vector3df
-	// 函数修饰:
-	// 描述：   
-	//************************************
-	virtual core::vector3df GetDirection() { }
+
 };
 
 

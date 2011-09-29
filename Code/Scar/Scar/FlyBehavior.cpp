@@ -27,7 +27,7 @@ core::vector3df FlyStraightBehavior::Fly()
 {
 	ISceneNode* node = m_Owner->GetSceneNode();
 
-	core::vector3df newPosition = pos + m_Speed * m_vecDirection;
+	core::vector3df newPosition;// = pos + m_Speed * m_vecDirection;
 	return newPosition;
 }
 
