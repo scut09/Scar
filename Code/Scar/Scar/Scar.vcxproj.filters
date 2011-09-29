@@ -104,6 +104,12 @@
     <ClInclude Include="IMissile.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="PythonModule.h">
+      <Filter>Python</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHeader.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">
@@ -113,6 +119,9 @@
       <Filter>Python</Filter>
     </None>
     <None Include="..\..\..\bin\WEB.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\..\..\bin\ModelLoader.py">
       <Filter>Python</Filter>
     </None>
   </ItemGroup>

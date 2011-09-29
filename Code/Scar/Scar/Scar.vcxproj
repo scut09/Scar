@@ -91,6 +91,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="def.h" />
+    <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="FlyBehavior.h" />
     <ClInclude Include="IAircraft.h" />
@@ -102,10 +103,12 @@
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
+    <ClInclude Include="PythonModule.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py" />
     <None Include="..\..\..\bin\client.py" />
+    <None Include="..\..\..\bin\ModelLoader.py" />
     <None Include="..\..\..\bin\WEB.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

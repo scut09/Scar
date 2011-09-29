@@ -12,6 +12,7 @@
 #include <irrlicht.h>
 #include <map>
 #include <list>
+#include <string>
 #include "def.h"
 
 using namespace irr;
@@ -23,12 +24,26 @@ using namespace irr;
 */
 class ModelManager
 {
+private:
+	struct MeshNode
+	{
+		scene::IAnimatedMesh*	mesh;
+		std::string				textureFilename;
+	};
+
+	std::map< std::string, MeshNode > m_meshMap;
+
 public:	
 	ModelManager()
 	{ }
 
 	void LoadModels();
 
+	void AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename );
+
+	scene::ISceneNode* AddSceneNodeFromMesh( const std::string& meshID, bool bTestCollision = false );
+
+	void AddSceneNode( const std::string& meshFilename, const std::string );
 };
 
 
@@ -40,7 +55,12 @@ public:
 class ModelManagerSlaver
 {
 public:
+	void AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename );
+
+
 
 };
+
+
 
 #endif

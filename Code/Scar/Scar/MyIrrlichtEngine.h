@@ -61,6 +61,11 @@ public:
 
 	video::IVideoDriver* GetVideoDriver();
 
+	ModelManager* GetModelManager()
+	{
+		return &m_ModelManager;
+	}
+
 	void Run();
 
 	void SetCallbackFunc( EngineRunCallbackFuncType func );

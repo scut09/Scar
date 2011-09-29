@@ -7,14 +7,33 @@
 *********************************************************************/
 
 
-#include "MyIrrlichtEngine.h"
-#include "EventListener.h"
+#include "EngineHeader.h"
 #include <iostream>
+
+void InitModels()
+{
+	using namespace boost::python;
+
+	try
+	{
+		object modelLoader = import( "ModelLoader" );
+		object Load = modelLoader.attr( "Load" );
+		Load();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
+}
+
 
 int main()
 {
 	Py_Initialize(); 
 	if ( ! Py_IsInitialized() )	return -1;
+
+	// 初始化Python模块
+	initEngine();
 
 	// 创建引擎事件接收器
 	MyEventReceiver receiver;
@@ -44,6 +63,12 @@ int main()
 	} );
 
 	pEngine->LoadModels();
+
+	InitModels();
+
+	ModelManager* modelMan = pEngine->GetModelManager();
+
+	modelMan->AddSceneNodeFromMesh( "1" );
 
 	// 启动引擎
 	pEngine->Run();
