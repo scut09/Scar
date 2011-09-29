@@ -15,6 +15,12 @@ using namespace core;
 using namespace scene;
 
 
+struct MousePos
+{
+	s32 X;
+	s32 Y;
+};
+
 class ModuleControl
 {
 public:
@@ -29,7 +35,7 @@ public:
 	bool setModuleposRelateToCamara(vector3df pos);
 	bool MoveForward(f32 step);
 	void ShutDown(void);
-
+	void GetForwardVector(vector3df& v); 
 	void OnEvent( const SEvent& event );
 
 public:
@@ -37,10 +43,15 @@ public:
 	ISceneNode * pModule;
 	vector3df CamaraPos;
 	vector3df ModuleposRelateToCamaraVector;
+	vector3df m_vCamaraRotation;
+	vector3df m_vModuleRotation;
+	MousePos m_MousePos;
 	bool FlyLeft(f32 speed);
 	int FlyRight(f32 speed);
 	int FlyUp(f32 speed);
 	int FlyDown(f32 speed);
+	void SetModuelRotation(vector3df Rotate);
+	void SetCamaraRotation(vector3df Rotate);
 };
 
 
