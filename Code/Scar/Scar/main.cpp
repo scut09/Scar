@@ -34,41 +34,41 @@ scene::ISceneNode* Test( scene::ISceneNode* node )
 
 	core::line3df pray[ 12 ];
 
-	pray[0].start = pedge[0];
-	pray[0].end = pedge[2];
+	pray[ 0 ].start = pedge[ 0 ];
+	pray[ 0 ].end = pedge[ 2 ];
 
-	pray[1].start = pedge[0];
-	pray[1].end = pedge[1];
+	pray[ 1 ].start = pedge[ 0 ];
+	pray[ 1 ].end = pedge[ 1 ];
 
-	pray[2].start = pedge[2];
-	pray[2].end = pedge[3];
+	pray[ 2 ].start = pedge[ 2 ];
+	pray[ 2 ].end = pedge[ 3 ];
 
-	pray[3].start = pedge[3];
-	pray[3].end = pedge[1];
+	pray[ 3 ].start = pedge[ 3 ];
+	pray[ 3 ].end = pedge[ 1 ];
 
-	pray[4].start = pedge[1];
-	pray[4].end = pedge[5];
+	pray[ 4 ].start = pedge[ 1 ];
+	pray[ 4 ].end = pedge[ 5 ];
 
-	pray[5].start = pedge[0];
-	pray[5].end = pedge[4];
+	pray[ 5 ].start = pedge[ 0 ];
+	pray[ 5 ].end = pedge[ 4 ];
 
-	pray[6].start = pedge[2];
-	pray[6].end = pedge[6];
+	pray[ 6 ].start = pedge[ 2 ];
+	pray[ 6 ].end = pedge[ 6 ];
 
-	pray[7].start = pedge[3];
-	pray[7].end = pedge[7];
+	pray[ 7 ].start = pedge[ 3 ];
+	pray[ 7 ].end = pedge[ 7 ];
 
-	pray[8].start = pedge[5];
-	pray[8].end = pedge[4];
+	pray[ 8 ].start = pedge[ 5 ];
+	pray[ 8 ].end = pedge[ 4 ];
 
-	pray[9].start = pedge[5];
-	pray[9].end = pedge[7];
+	pray[ 9 ].start = pedge[ 5 ];
+	pray[ 9 ].end = pedge[ 7 ];
 
-	pray[10].start = pedge[4];
-	pray[10].end = pedge[6];
+	pray[ 10 ].start = pedge[ 4 ];
+	pray[ 10 ].end = pedge[ 6 ];
 
-	pray[11].start = pedge[6];
-	pray[11].end = pedge[7];
+	pray[ 11 ].start = pedge[ 6 ];
+	pray[ 11 ].end = pedge[ 7 ];
 
 	core::vector3df intersection;
 	core::triangle3df hitTriangle;

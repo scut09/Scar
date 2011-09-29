@@ -38,15 +38,15 @@ void ModelManagerSlaver::AddLight( const PythonSLight& light, f32 x, f32 y, f32 
 	assign( slight.SpecularColor, light.SpecularColor );
 	pLight->getLightData() = slight;
 
-	auto print = []( const PythonSColor& pcolor )
-	{
-		std::cout << pcolor.alpha << ' ' <<  pcolor.red << ' ' <<  pcolor.green << ' ' <<  pcolor.blue << std::endl;
-	};
+	//auto print = []( const PythonSColor& pcolor )
+	//{
+	//	std::cout << pcolor.alpha << ' ' <<  pcolor.red << ' ' <<  pcolor.green << ' ' <<  pcolor.blue << std::endl;
+	//};
 
-	print( light.AmbientColor );
-	print( light.DiffuseColor );
-	print( light.SpecularColor );
-	std::cout << x << ' ' << y << ' ' << z << std::endl;
+	//print( light.AmbientColor );
+	//print( light.DiffuseColor );
+	//print( light.SpecularColor );
+	//std::cout << x << ' ' << y << ' ' << z << std::endl;
 }
 
 PythonSceneNode ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
