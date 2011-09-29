@@ -1,4 +1,5 @@
 #include "ModuleControl.h"
+#include <iostream>
 
 
 ModuleControl::ModuleControl(void)
@@ -73,6 +74,8 @@ bool ModuleControl::MoveForward(f32 step)
 		pCamara->setPosition(CamaraPos + ForwardVector * step);
 		return true;
 	}
+
+	std::cout << "Hi";
 	return false;
 }
 
@@ -99,4 +102,9 @@ bool ModuleControl::FlyLeft(f32 speed)
 		return true;
 	}
 	return false;
+}
+
+void ModuleControl::OnEvent( const SEvent& event )
+{
+	std::cout << "haha0";
 }

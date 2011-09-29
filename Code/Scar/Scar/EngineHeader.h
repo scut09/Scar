@@ -15,6 +15,7 @@
 #include "PythonModule.h"
 #include "MyIrrlichtEngine.h"
 #include "EventListener.h"
+#include "ModuleControl.h"
 
 
 #endif // EngineHeader_h__

@@ -30,6 +30,7 @@ public:
 	bool MoveForward(f32 step);
 	void ShutDown(void);
 
+	void OnEvent( const SEvent& event );
 
 public:
 	ICameraSceneNode* pCamara;

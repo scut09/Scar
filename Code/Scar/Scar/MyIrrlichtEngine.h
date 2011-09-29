@@ -73,8 +73,6 @@ public:
 	void LoadModels()
 	{
 		m_ModelManager.LoadModels();
-
-		m_pSmgr->addCameraSceneNodeFPS();
 	}
 };
 
