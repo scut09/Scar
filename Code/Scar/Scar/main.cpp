@@ -136,7 +136,7 @@ int main()
 
 	ModelManager* modelMan = pEngine->GetModelManager();
 
-	control.Initialize( smgr->addCameraSceneNode(), modelMan->AddSceneNodeFromMesh( "1" ) );
+	control.Initialize( smgr->addCameraSceneNodeFPS(), modelMan->AddSceneNodeFromMesh( "1" ) );
 
 	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
 
