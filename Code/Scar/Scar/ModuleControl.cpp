@@ -12,6 +12,8 @@ ModuleControl::ModuleControl(void)
 	ModuleposRelateToCamaraVector.X = 0.f;
 	ModuleposRelateToCamaraVector.Y = 0.f;
 	ModuleposRelateToCamaraVector.Z = 0.f;
+	m_MousePos.X = 0;
+	m_MousePos.Y = 0;
 }
 
 
@@ -28,6 +30,11 @@ bool ModuleControl::Initialize(ICameraSceneNode* pCamara, ISceneNode * pModule)
 		this->pCamara = pCamara;
 		this->pModule = pModule;
 		this->pCamara->addChild(this->pModule);
+		this->pCamara->setPosition(CamaraPos);
+		this->pModule->setPosition(ModuleposRelateToCamaraVector);
+		m_vCamaraRotation = pCamara->getRotation();
+		m_vModuleRotation = pModule->getRotation();
+		pCamara->bindTargetAndRotation(true);
 		return true;
 	}
 	return false;
@@ -80,6 +87,14 @@ bool ModuleControl::MoveForward(f32 step)
 }
 
 
+void ModuleControl::GetForwardVector(vector3df& v)
+{
+	vector3df CamaraPos = pCamara->getPosition();
+	vector3df LookAtPos = pCamara->getTarget();
+	vector3df ForwardVector = LookAtPos - CamaraPos;
+	v = ForwardVector.normalize();
+}
+
 void ModuleControl::ShutDown(void)
 {
 	if (pCamara)
@@ -106,5 +121,95 @@ bool ModuleControl::FlyLeft(f32 speed)
 
 void ModuleControl::OnEvent( const SEvent& event )
 {
-	std::cout << "haha0";
+	// 鼠标消息处理
+	if (event.EventType == EET_MOUSE_INPUT_EVENT)
+	{
+		 if (event.MouseInput.Wheel == -1)
+		 {
+			 vector3df vForward;
+			 GetForwardVector(vForward);
+			 ModuleposRelateToCamaraVector = ModuleposRelateToCamaraVector*2;
+			 setModuleposRelateToCamara(ModuleposRelateToCamaraVector);
+		 }
+
+		 if (event.MouseInput.Wheel == 1)
+		 {
+			 vector3df vForward;
+			 GetForwardVector(vForward);
+			 ModuleposRelateToCamaraVector = ModuleposRelateToCamaraVector/2;
+			 setModuleposRelateToCamara(ModuleposRelateToCamaraVector);
+		 }
+		 
+
+		 s32 offsety = (event.MouseInput.Y - m_MousePos.Y)%360;
+		 s32 offsetx = (event.MouseInput.X - m_MousePos.X)%360;
+
+		 if ((m_vCamaraRotation.X + offsety) < 90.0 )
+		 {
+			 m_vCamaraRotation += vector3df(offsety, 0.f, 0.f);
+		 } 
+
+		 if ((m_vCamaraRotation.Y + offsetx ) < 90.0)
+		 {
+			 m_vCamaraRotation += vector3df(0.f, offsetx, 0.f);
+		 }
+		 
+
+		 //m_vCamaraRotation.X = (s32)m_vCamaraRotation.X % 90;
+		 //m_vCamaraRotation.Y = (s32)m_vCamaraRotation.Y % 90;
+		 //m_vCamaraRotation.Z = (s32)m_vCamaraRotation.X % 90;
+
+		SetCamaraRotation(m_vCamaraRotation);
+		 
+			
+
+
+		 m_MousePos.X = event.MouseInput.X;
+		 m_MousePos.Y = event.MouseInput.Y;
+		 //std::cout << event.MouseInput.X << '\t' << event.MouseInput.Y << std::endl;
+		// std::cout << offsetx << '\t' << offsety << std::endl;
+		 std::cout << pCamara->getRotation().X << '\t' << pCamara->getRotation().Y <<'\t'<< pCamara->getRotation().Z<< std::endl;
+	}
+
+	// 按键消息处理
+	if (event.EventType == EET_KEY_INPUT_EVENT)
+	{
+		if (event.KeyInput.Key == KEY_KEY_W )
+		{
+
+		}
+
+		if (event.KeyInput.Key == KEY_KEY_S )
+		{
+			//std::cout << "chao!";
+		}
+
+		if (event.KeyInput.Key == KEY_KEY_A )
+		{
+			m_vModuleRotation += vector3df(0.f, 0.f, 5.f);
+			pModule->setRotation(m_vModuleRotation);
+		}
+
+		if (event.KeyInput.Key == KEY_KEY_D )
+		{
+			m_vModuleRotation += vector3df(0.f, 0.f, -5.f);
+			pModule->setRotation(m_vModuleRotation);
+		}
+	}
+		
+	
+}
+
+
+void ModuleControl::SetModuelRotation(vector3df Rotate)
+{
+	m_vModuleRotation = Rotate;
+	pModule->setRotation(m_vModuleRotation);
+}
+
+
+void ModuleControl::SetCamaraRotation(vector3df Rotate)
+{
+	m_vCamaraRotation = Rotate;
+	pCamara->setRotation(m_vCamaraRotation);
 }
