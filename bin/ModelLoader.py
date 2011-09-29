@@ -1,4 +1,5 @@
 ﻿from Engine import *
+import random
 
 def Color( alpha, red, green, blue ):
     color = SColor()
@@ -25,7 +26,17 @@ def Load():
     light.SpecularColor = Color( 0, 128, 128, 128 )
     man.AddLight( light, 1000.0, 200.0, 100.0 )
 
-    man.AddSceneNodeByMeshID( "2", False )
+    for i in range( 100 ):
+        node = man.AddSceneNodeByMeshID( "1", False )
+        node.SetPosition( random.randint(-1000, 1000),
+                          random.randint(-1000, 1000),
+                          random.randint(-1000, 1000) )
+
+    for i in range( 100 ):
+        node = man.AddSceneNodeByMeshID( "bottle", False )
+        node.SetPosition( random.randint(-1000, 1000),
+                          random.randint(-1000, 1000),
+                          random.randint(-1000, 1000) )    
     
 
     

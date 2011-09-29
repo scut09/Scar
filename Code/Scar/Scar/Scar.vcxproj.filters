@@ -60,6 +60,9 @@
     <ClCompile Include="PythonWrapper.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="PythonModule.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
