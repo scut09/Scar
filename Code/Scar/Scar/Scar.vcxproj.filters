@@ -57,6 +57,9 @@
     <ClCompile Include="ModelManager.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="PythonWrapper.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonWrapper.h">
+      <Filter>Python</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

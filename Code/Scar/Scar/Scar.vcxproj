@@ -85,6 +85,7 @@
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
     <ClCompile Include="MyIrrlichtEngine.cpp" />
+    <ClCompile Include="PythonWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h" />
@@ -104,6 +105,7 @@
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
     <ClInclude Include="PythonModule.h" />
+    <ClInclude Include="PythonWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py" />

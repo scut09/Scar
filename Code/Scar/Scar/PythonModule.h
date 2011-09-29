@@ -10,8 +10,7 @@
 #ifndef PythonModule_h__
 #define PythonModule_h__
 
-#include "ModelManager.h"
-
+#include "PythonWrapper.h"
 
 BOOST_PYTHON_MODULE( Engine )
 {
