@@ -12,6 +12,7 @@
 #include "Aircraft.h"
 #include "FlyBehavior.h"
 #include "MultiplayerScene.h"
+#include "StartScene.h"
 
 
 scene::ISceneNode* Test( scene::ISceneNode* node )
@@ -96,8 +97,9 @@ int main()
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 
 	// 创建根场景
-	shared_ptr<GameScene> rootScene( new MultiplayerScene );
+	StartScene* rootScene = new StartScene;
 	MyIrrlichtEngine::currentScene = rootScene;
+	rootScene->multiplayerScene =  new MultiplayerScene;
 
 	// 初始化根场景
 	rootScene->Init();

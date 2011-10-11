@@ -17,7 +17,6 @@
 
 void MultiplayerScene::Run()
 {
-
 }
 
 void MultiplayerScene::Init()

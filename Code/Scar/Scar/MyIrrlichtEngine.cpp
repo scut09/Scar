@@ -16,7 +16,7 @@ int MyIrrlichtEngine::screen_width = 1000;
 int MyIrrlichtEngine::screen_height = 640;
 // 全屏设置，默认为窗口
 bool MyIrrlichtEngine::bFullScreen = false;
-shared_ptr<GameScene> MyIrrlichtEngine::currentScene;
+GameScene* MyIrrlichtEngine::currentScene = NULL;
 
 
 /*
@@ -81,6 +81,8 @@ void MyIrrlichtEngine::Run()
 		m_runCallbackFunc( (void*)this );
 
 		m_AnimationManager.Run();
+
+		currentScene->Run();
 
 		m_pDriver->beginScene(true, true, video::SColor(150,50,50,50));
 

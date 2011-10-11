@@ -11,6 +11,7 @@
 
 #include <irrlicht.h>
 #include <functional>
+#include "def.h"
 #include "ModelManager.h"
 #include "IMovable.h"
 #include "AnimationManager.h"
@@ -50,7 +51,7 @@ public:
 	static int						screen_height;	// 屏幕高度
 	static IEventReceiver*			pEventReceiver;	// 消息处理者
 	static bool						bFullScreen;	// 是否全屏
-	static shared_ptr<GameScene>	currentScene;
+	static GameScene*				currentScene;	// 当前场景
 
 public:
 

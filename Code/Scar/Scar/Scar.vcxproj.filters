@@ -72,6 +72,9 @@
     <ClCompile Include="PythonManager.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="PythonManager.h">
       <Filter>Python</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
