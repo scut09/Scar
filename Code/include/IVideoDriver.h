@@ -391,6 +391,10 @@ namespace video
 		information. */
 		virtual ITexture* addTexture(const io::path& name, IImage* image, void* mipmapData=0) = 0;
 
+		virtual void draw2DImage(const video::ITexture* texture, const core::position2d<s32> corners[4],
+			const core::rect<s32>& sourceRect, const core::rect<s32>* clipRect,
+			const video::SColor* const colors, bool useAlphaChannelOfTexture) {}
+
 		//! Adds a new render target texture to the texture cache.
 		/** \param size Size of the texture, in pixels. Width and
 		height should be a power of two (e.g. 64, 128, 256, 512, ...)
