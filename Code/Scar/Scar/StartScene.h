@@ -2,6 +2,7 @@
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
+#include "UIObject.h"
 
 class StartScene : public GameScene
 {

@@ -15,7 +15,7 @@
 
 using namespace irr;
 using namespace scene;
-using boost::shared_ptr;
+
 
 
 

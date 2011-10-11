@@ -93,7 +93,7 @@ int main()
 
 	// 创建引擎，并获取引擎指针
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-
+	
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 
 	// 创建根场景

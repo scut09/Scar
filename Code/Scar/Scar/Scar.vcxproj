@@ -90,6 +90,7 @@
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="UIObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />
     <ClInclude Include="StartScene.h" />
+    <ClInclude Include="UIObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py" />

@@ -34,7 +34,8 @@
 #include "boost/assert.hpp"
 
 // ÖÇÄÜÖ¸Õë
-#include <boost/smart_ptr.hpp>
+//#include <boost/smart_ptr.hpp>
+using std::shared_ptr;
 
 // IrrlichtÒıÇæ
 #include <irrlicht.h>

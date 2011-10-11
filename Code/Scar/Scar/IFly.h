@@ -15,7 +15,6 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using boost::shared_ptr;
 
 class IFlyBehavior;
 
