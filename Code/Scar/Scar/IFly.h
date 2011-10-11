@@ -127,12 +127,13 @@ class IFlyBehavior
 public:
 	~IFlyBehavior() {}
 
+
 	//************************************
 	// 函数名:  IFlyBehavior::Fly
-	// 返回值:  core::vector3df
-	// 参数:    const core::vector3df & pos
+	// 返回值:  void
+	// 参数:    IFly * pFlyObject
 	// 函数修饰:
-	// 描述：   
+	// 描述：   输入需要运用此行为的飞行物
 	//************************************
 	virtual void Fly( IFly* pFlyObject ) = 0;
 

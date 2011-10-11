@@ -27,7 +27,7 @@ using namespace irr;
 class AnimationManager
 {
 public:
-	typedef std::map<scene::ISceneNode*, IMovable*> ModelMap;
+	typedef std::map<scene::ISceneNode*, shared_ptr<IMovable> > ModelMap;
 	ModelMap m_nodeMovMap;
 	
 	void Run()
@@ -35,15 +35,15 @@ public:
 		std::for_each( 
 			m_nodeMovMap.begin(), 
 			m_nodeMovMap.end(), 
-			[]( std::pair< scene::ISceneNode*, IMovable*> iter ) { iter.second->Move(); });
+			[]( std::pair< scene::ISceneNode*, shared_ptr<IMovable> > iter ) { iter.second->Move(); });
 	}
 
-	void AddMovableNode( scene::ISceneNode* pNode, IMovable* pMove )
+	void AddMovableNode( scene::ISceneNode* pNode, shared_ptr<IMovable> pMove )
 	{
 		m_nodeMovMap[ pNode ] = pMove;
 	}
 
-	void AddFlyableNode( scene::ISceneNode* pNode, IFly* pFly )
+	void AddFlyableNode( scene::ISceneNode* pNode, shared_ptr<IFly> pFly )
 	{
 		m_nodeMovMap[ pNode ] = pFly;
 	}

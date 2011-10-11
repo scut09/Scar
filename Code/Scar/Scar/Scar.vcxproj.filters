@@ -34,6 +34,9 @@
     <Filter Include="Network">
       <UniqueIdentifier>{50478ed2-dba6-4357-a6a2-64d12e2740d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{ec7b65ed-9b89-4807-bd25-ed06a196412a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,6 +64,12 @@
       <Filter>Python</Filter>
     </ClCompile>
     <ClCompile Include="PythonModule.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiplayerScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonManager.cpp">
       <Filter>Python</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,6 +128,15 @@
     <ClInclude Include="PythonWrapper.h">
       <Filter>Python</Filter>
     </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiplayerScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonManager.h">
+      <Filter>Python</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">
@@ -131,6 +149,9 @@
       <Filter>Python</Filter>
     </None>
     <None Include="..\..\..\bin\ModelLoader.py">
+      <Filter>Python</Filter>
+    </None>
+    <None Include="..\..\..\bin\scene.py">
       <Filter>Python</Filter>
     </None>
   </ItemGroup>

@@ -84,7 +84,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
+    <ClCompile Include="MultiplayerScene.cpp" />
     <ClCompile Include="MyIrrlichtEngine.cpp" />
+    <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
   </ItemGroup>
@@ -96,6 +98,7 @@
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="FlyBehavior.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="IAircraft.h" />
     <ClInclude Include="IClient.h" />
     <ClInclude Include="IFly.h" />
@@ -103,8 +106,10 @@
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="MultiplayerScene.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
+    <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />
   </ItemGroup>
@@ -112,6 +117,7 @@
     <None Include="..\..\..\bin\a.py" />
     <None Include="..\..\..\bin\client.py" />
     <None Include="..\..\..\bin\ModelLoader.py" />
+    <None Include="..\..\..\bin\scene.py" />
     <None Include="..\..\..\bin\WEB.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

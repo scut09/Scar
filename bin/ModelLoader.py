@@ -10,7 +10,7 @@ def Color( alpha, red, green, blue ):
     return color
 
 # 为引擎添加模型
-def Load():
+def MultiplayerLoad():
     # 创建和引擎通讯的模型代理
     man = ModelMan()
 

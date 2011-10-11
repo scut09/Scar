@@ -11,6 +11,7 @@
 #include <iostream>
 #include "Aircraft.h"
 #include "FlyBehavior.h"
+#include "MultiplayerScene.h"
 
 void InitModels()
 {
@@ -21,6 +22,23 @@ void InitModels()
 		object modelLoader = import( "ModelLoader" );
 		object Load = modelLoader.attr( "Load" );
 		Load();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
+}
+
+boost::python::object StartScene()
+{
+	using namespace boost::python;
+
+	try
+	{
+		object s = import( "scene" );
+		object GotoScene = s.attr( "GotoScene" );
+		return GotoScene;
+		//GotoScene();
 	}
 	catch ( ... )
 	{
@@ -86,6 +104,7 @@ scene::ISceneNode* Test( scene::ISceneNode* node )
 }
 
 
+
 int main()
 {
 	Py_Initialize(); 
@@ -109,23 +128,23 @@ int main()
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 
 
-	ModuleControl control;
 
+	MultiplayerScene scene;
+	scene.Init();
 
 
 	// 注册引擎回调函数
-	pEngine->SetCallbackFunc( [ &control ]( void* engine )->void*
+	pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
 	{
-		//control.MoveForward( 1.0 );
+		scene.Run();
 
-		//std::cout << "1";
 		return 0;
 	} );
 
 	
 
 	// 创建并注册receiver的事件处理回调函数
-	receiver.SetEventCallbackFunc( [ pEngine, &control ]( const SEvent& event )->void*
+	receiver.SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
 	{	
 		//control.OnEvent( event );
 		pEngine;		// 引擎指针
@@ -135,26 +154,9 @@ int main()
 
 	pEngine->LoadModels();
 
-	InitModels();
 
-	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 
-	ModelManager* modelMan = pEngine->GetModelManager();
 
-	control.Initialize( smgr->addCameraSceneNodeFPS(), modelMan->AddSceneNodeFromMesh( "1" ) );
-
-	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
-
-	Aircraft bottle;
-	bottle.LoadSceneNode( node );
-	bottle.SetSpeed( vector3df( 0.01, 0.1, 0 ) );
-	shared_ptr<FlyStraightBehavior> beh( new FlyStraightBehavior );
-	bottle.AddFlyBehavior( beh );
-
-	AnimationManager* aniMan = pEngine->GetAnimationManager();
-	aniMan->AddMovableNode( node, &bottle );
-
-	irr::video::SLight light;
 
 	// 启动引擎
 	pEngine->Run();
