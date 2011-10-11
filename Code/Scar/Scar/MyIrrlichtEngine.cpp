@@ -16,6 +16,8 @@ int MyIrrlichtEngine::screen_width = 1000;
 int MyIrrlichtEngine::screen_height = 640;
 // 全屏设置，默认为窗口
 bool MyIrrlichtEngine::bFullScreen = false;
+shared_ptr<GameScene> MyIrrlichtEngine::currentScene;
+
 
 /*
 ** 名字：MyIrrlichtEngine::GetEngine()

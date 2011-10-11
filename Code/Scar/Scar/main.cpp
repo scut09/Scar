@@ -13,38 +13,6 @@
 #include "FlyBehavior.h"
 #include "MultiplayerScene.h"
 
-void InitModels()
-{
-	using namespace boost::python;
-
-	try
-	{
-		object modelLoader = import( "ModelLoader" );
-		object Load = modelLoader.attr( "Load" );
-		Load();
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
-}
-
-boost::python::object StartScene()
-{
-	using namespace boost::python;
-
-	try
-	{
-		object s = import( "scene" );
-		object GotoScene = s.attr( "GotoScene" );
-		return GotoScene;
-		//GotoScene();
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
-}
 
 scene::ISceneNode* Test( scene::ISceneNode* node )
 {
@@ -127,36 +95,12 @@ int main()
 
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 
+	// 创建根场景
+	shared_ptr<GameScene> rootScene( new MultiplayerScene );
+	MyIrrlichtEngine::currentScene = rootScene;
 
-
-	MultiplayerScene scene;
-	scene.Init();
-
-
-	// 注册引擎回调函数
-	pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
-	{
-		scene.Run();
-
-		return 0;
-	} );
-
-	
-
-	// 创建并注册receiver的事件处理回调函数
-	receiver.SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
-	{	
-		//control.OnEvent( event );
-		pEngine;		// 引擎指针
-		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
-		return 0;
-	} );
-
-	pEngine->LoadModels();
-
-
-
-
+	// 初始化根场景
+	rootScene->Init();
 
 	// 启动引擎
 	pEngine->Run();

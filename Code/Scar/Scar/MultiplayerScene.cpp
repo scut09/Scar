@@ -51,7 +51,26 @@ void MultiplayerScene::Init()
 	ModuleControl control;
 
 
+	modelMan->LoadModels();
 
+	//// 注册引擎回调函数
+	//pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
+	//{
+	//	scene.Run();
+
+	//	return 0;
+	//} );
+
+
+
+	//// 创建并注册receiver的事件处理回调函数
+	//receiver.SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
+	//{	
+	//	//control.OnEvent( event );
+	//	pEngine;		// 引擎指针
+	//	//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+	//	return 0;
+	//} );
 }
 
 void MultiplayerScene::Release()
