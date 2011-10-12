@@ -30,33 +30,15 @@ public:
 	typedef std::map<scene::ISceneNode*, shared_ptr<IMovable> > ModelMap;
 	ModelMap m_nodeMovMap;
 	
-	void Run()
-	{
-		std::for_each( 
-			m_nodeMovMap.begin(), 
-			m_nodeMovMap.end(), 
-			[]( std::pair< scene::ISceneNode*, shared_ptr<IMovable> > iter ) { iter.second->Move(); });
-	}
+	void Run();
 
-	void AddMovableNode( scene::ISceneNode* pNode, shared_ptr<IMovable> pMove )
-	{
-		m_nodeMovMap[ pNode ] = pMove;
-	}
+	void AddMovableNode( scene::ISceneNode* pNode, shared_ptr<IMovable> pMove );
 
-	void AddFlyableNode( scene::ISceneNode* pNode, shared_ptr<IFly> pFly )
-	{
-		m_nodeMovMap[ pNode ] = pFly;
-	}
+	void AddFlyableNode( scene::ISceneNode* pNode, shared_ptr<IFly> pFly );
 
-	void RemoveNode( scene::ISceneNode* pNode )
-	{
-		auto iter = m_nodeMovMap.find( pNode );
-		if ( iter != m_nodeMovMap.end() )
-		{
-			m_nodeMovMap.erase( iter );
-		}
-	}
+	void RemoveNode( scene::ISceneNode* pNode );
 
+	void RemoveAll();
 
 };
 

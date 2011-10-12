@@ -73,6 +73,19 @@ scene::ISceneNode* Test( scene::ISceneNode* node )
 }
 
 
+shared_ptr<StartScene> InitScene()
+{
+	// 创建根场景
+	shared_ptr<StartScene> rootScene( new StartScene );
+	MyIrrlichtEngine::currentScene = rootScene;
+	rootScene->multiplayerScene =  shared_ptr<MultiplayerScene>( new MultiplayerScene );
+
+	// 初始化根场景
+	rootScene->Init();
+
+	return rootScene;
+}
+
 
 int main()
 {
@@ -96,13 +109,8 @@ int main()
 	
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 
-	// 创建根场景
-	StartScene* rootScene = new StartScene;
-	MyIrrlichtEngine::currentScene = rootScene;
-	rootScene->multiplayerScene =  new MultiplayerScene;
-
-	// 初始化根场景
-	rootScene->Init();
+	// 这里需要保存一个根场景的引用，否则它会被销毁
+	shared_ptr<GameScene> root = InitScene();	// 构造场景跳转图
 
 	// 启动引擎
 	pEngine->Run();

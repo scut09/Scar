@@ -14,7 +14,7 @@ public:
 	StartScene() : count( 0 )
 	{}
 
-	GameScene* multiplayerScene;
+	shared_ptr<GameScene> multiplayerScene;
 
 	virtual void Run() ;
 

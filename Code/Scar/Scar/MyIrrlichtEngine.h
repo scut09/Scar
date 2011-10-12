@@ -51,7 +51,7 @@ public:
 	static int						screen_height;	// 屏幕高度
 	static IEventReceiver*			pEventReceiver;	// 消息处理者
 	static bool						bFullScreen;	// 是否全屏
-	static GameScene*				currentScene;	// 当前场景
+	static shared_ptr<GameScene>	currentScene;	// 当前场景
 
 public:
 

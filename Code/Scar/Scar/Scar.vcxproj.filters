@@ -81,6 +81,9 @@
     <ClCompile Include="UIObject.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

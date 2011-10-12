@@ -3,14 +3,13 @@
 
 void StartScene::Run() 
 {
-	
 
-	/*if ( count++ > 5000 )
+	if ( count++ > 500 )
 	{
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
-	}*/
+	}
 }
 
 void StartScene::Init() 
