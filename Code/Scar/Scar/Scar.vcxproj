@@ -116,6 +116,7 @@
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />
     <ClInclude Include="StartScene.h" />
+    <ClInclude Include="TestAnimator.h" />
     <ClInclude Include="UIObject.h" />
   </ItemGroup>
   <ItemGroup>

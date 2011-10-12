@@ -74,9 +74,14 @@ video::IVideoDriver* MyIrrlichtEngine::GetVideoDriver()
 
 void MyIrrlichtEngine::Run()
 {
+	u32 frameTime = 33;
 	while ( m_pDevice->run() )
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;
+
+		u32 now = m_pDevice->getTimer()->getRealTime();
+
+		if ( now - m_lastUpdateTime < frameTime )	continue;
 
 		// 运行注册的回调函数
 		m_runCallbackFunc( (void*)this );
@@ -93,6 +98,8 @@ void MyIrrlichtEngine::Run()
 		currentScene->Draw();
 
 		m_pDriver->endScene();
+
+		m_lastUpdateTime = now;
 	}
 }
 

@@ -39,11 +39,12 @@ private:
 	EngineRunCallbackFuncType		m_runCallbackFunc;  // 每次帧运行时都会调用的回调函数
 
 	// 禁止直接创建实例
-	MyIrrlichtEngine() {}
+	MyIrrlichtEngine() : m_lastUpdateTime( 0 ) {}
 
 private:
 	ModelManager					m_ModelManager;
 	AnimationManager				m_AnimationManager;
+	u32								m_lastUpdateTime;
 
 
 public:

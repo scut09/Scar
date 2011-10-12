@@ -55,6 +55,7 @@ scene::ISceneNode* ModelManager::AddSceneNodeFromMesh( const std::string& meshID
 	}
 
 	m_ISceneNodeList.push_back( node );
+	node->grab();
 
 	return node;
 }

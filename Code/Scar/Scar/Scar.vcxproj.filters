@@ -155,6 +155,9 @@
     <ClInclude Include="UIObject.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="TestAnimator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">
