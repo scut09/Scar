@@ -26,10 +26,24 @@ def MultiplayerLoad():
     light.SpecularColor = Color( 0, 128, 128, 128 )
     man.AddLight( light, 1000.0, 200.0, 100.0 )
 
+    aniMan = AnimationManager()
+    timer = Timer()
+
     for i in range( 20 ):
         node = man.AddSceneNodeByMeshID( "1", False )
         node.SetPosition( random.randint(-1000, 1000),
                           random.randint(-1000, 1000),
                           random.randint(-1000, 1000) )
+        flyStraightAnim = aniMan.CreateFlyStraightAutoDelAnimator(
+            vector3df( random.randint(-1000, 1000),
+                       random.randint(-1000, 1000),
+                       random.randint(-1000, 1000) ),
+            vector3df( 0, 0, 1000 ),
+            10000,
+            timer.GetTime()
+            )
+        node.AddAnimator( flyStraightAnim )
+
+    flyStraightAnim.Drop()
     
 

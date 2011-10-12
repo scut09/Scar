@@ -13,10 +13,10 @@ BOOST_PYTHON_MODULE( Engine )
 {
 	using namespace boost::python;
 
-	class_< ModelManagerSlaver >( "ModelMan", "Help to load model" )
-		.def( "AddMesh", &ModelManagerSlaver::AddMesh, (arg("meshID"), ("meshFilename"), ("textureFilename")) )
-		.def( "AddSceneNodeByMeshID", &ModelManagerSlaver::AddSceneNodeByMeshID, arg("meshID"), arg("bTestCollision") = false )
-		.def( "AddLight", &ModelManagerSlaver::AddLight, (arg("light"), ("x"), ("y"), ("z")) );
+	class_< ModelManagerWrapper >( "ModelMan", "Help to load model" )
+		.def( "AddMesh", &ModelManagerWrapper::AddMesh, (arg("meshID"), ("meshFilename"), ("textureFilename")) )
+		.def( "AddSceneNodeByMeshID", &ModelManagerWrapper::AddSceneNodeByMeshID, arg("meshID"), arg("bTestCollision") = false )
+		.def( "AddLight", &ModelManagerWrapper::AddLight, (arg("light"), ("x"), ("y"), ("z")) );
 
 	class_< PythonSColor >( "SColor", "fake SColor" )
 		.def_readwrite( "alpha", &PythonSColor::alpha )
@@ -29,7 +29,7 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "DiffuseColor", &PythonSLight::DiffuseColor )
 		.def_readwrite( "SpecularColor", &PythonSLight::SpecularColor );
 
-	class_< PythonVector3df >( "vector3df", "fake vector3df" )
+	class_< PythonVector3df >( "vector3df", "fake vector3df", init< f32, f32, f32 >() )
 		.def_readwrite( "x", &PythonVector3df::x )
 		.def_readwrite( "y", &PythonVector3df::y )
 		.def_readwrite( "z", &PythonVector3df::z );
@@ -39,10 +39,21 @@ BOOST_PYTHON_MODULE( Engine )
 		.def( "GetPosition", &PythonSceneNode::GetPosition )
 		.def( "SetRotation", &PythonSceneNode::SetRotation )
 		.def( "GetRotation", &PythonSceneNode::GetRotation )
+		.def( "AddAnimator", &PythonSceneNode::AddAnimator )
+		.def( "RemoveAnimator", &PythonSceneNode::RemoveAnimator )
 		.def( "Grab", &PythonSceneNode::Grab )
 		.def( "Drop", &PythonSceneNode::Drop )
 		.def( "Remove", &PythonSceneNode::Remove );
 
-	class_< AnimationManager >( "AnimationManager", "Animation" );
+	//class_< AnimationManager >( "AnimationManager", "Animation" );
+
+	class_< AnimatorWrapper >( "Animator", "fake Animator" )
+		.def( "Drop", &AnimatorWrapper::Drop );
+
+	class_< AnimationManagerWrapper >( "AnimationManager", "fake AnimationManager" )
+		.def( "CreateFlyStraightAutoDelAnimator", &AnimationManagerWrapper::CreateFlyStraightAutoDelAnimator );
+
+	class_< TimerWrapper >( "Timer", "fake Timer" )
+		.def( "GetTime", &TimerWrapper::GetTime );
 
 }

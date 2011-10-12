@@ -15,7 +15,7 @@
 //
 // Class ModelManagerSlaver
 // 
-void ModelManagerSlaver::AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename )
+void ModelManagerWrapper::AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename )
 {
 	ModelManager* pModelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
@@ -23,7 +23,7 @@ void ModelManagerSlaver::AddMesh( const std::string& meshID, const std::string& 
 
 }
 
-void ModelManagerSlaver::AddLight( const PythonSLight& light, f32 x, f32 y, f32 z )
+void ModelManagerWrapper::AddLight( const PythonSLight& light, f32 x, f32 y, f32 z )
 {
 	auto assign = []( video::SColorf& scolor, const PythonSColor& pcolor )
 	{
@@ -49,7 +49,7 @@ void ModelManagerSlaver::AddLight( const PythonSLight& light, f32 x, f32 y, f32 
 	//std::cout << x << ' ' << y << ' ' << z << std::endl;
 }
 
-PythonSceneNode ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
+PythonSceneNode ModelManagerWrapper::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
 {
 	ModelManager* pModelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
@@ -58,4 +58,13 @@ PythonSceneNode ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& mes
 	node.ptr = pNode;
 	//pNode->drop();		// ÒýÓÃ¼õÒ»
 	return node;
+}
+
+//////////////////////////////////////////////////////////////////////////
+//
+// Class TimerWrapper
+// 
+u32 TimerWrapper::GetTime()
+{
+	return MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 }

@@ -10,6 +10,7 @@
 #define PythonWrapper_h__
 
 #include <irrlicht.h>
+#include "AllAnimators.h"
 #include "def.h"
 
 using namespace irr;
@@ -51,6 +52,29 @@ struct PythonVector3df
 	f32 z;
 
 	PythonVector3df( f32 xx = 0, f32 yy = 0, f32 zz = 0 ) : x( xx ), y( yy ), z( zz ) {}
+
+	core::vector3df Getvector3df()
+	{
+		return core::vector3df( x, y, z );
+	}
+};
+
+/*
+** 名字：AnimatorWrapper
+** 说明：Python导出类，用于包装Animator 
+**
+*/
+struct AnimatorWrapper
+{
+	AnimatorWrapper() : ptr( 0 ) {}
+	ISceneNodeAnimator* ptr;
+
+	void Drop()
+	{
+		BOOST_ASSERT( ptr );
+
+		ptr->drop();
+	}
 };
 
 /*
@@ -64,6 +88,18 @@ struct PythonSceneNode
 
 	PythonSceneNode() : ptr( NULL )
 	{}
+
+	void AddAnimator( AnimatorWrapper anim )
+	{
+		BOOST_ASSERT( ptr );
+		ptr->addAnimator( anim.ptr );		
+	}
+
+	void RemoveAnimator( AnimatorWrapper anim )
+	{
+		BOOST_ASSERT( ptr );
+		ptr->removeAnimator( anim.ptr );
+	}
 
 	void SetPosition( f32 x, f32 y, f32 z )
 	{
@@ -110,11 +146,11 @@ struct PythonSceneNode
 
 
 /*
-** 名字：ModelManagerSlaver
+** 名字：ModelManagerWrapper
 ** 说明：Python导出类，用于包装ModelMananger
 **
 */
-class ModelManagerSlaver
+class ModelManagerWrapper
 {
 public:
 	void AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename );
@@ -125,6 +161,37 @@ public:
 };
 
 
+
+
+/*
+** 名字：AnimationManagerSlaver
+** 说明：Python导出类，用于创建Animator 
+**
+*/
+class AnimationManagerWrapper
+{
+public:
+	AnimatorWrapper CreateFlyStraightAutoDelAnimator( PythonVector3df start, PythonVector3df end, u32 timeForWay, u32 now )
+	{
+		AnimatorWrapper ani;
+
+		ani.ptr = new CSceneNodeAnimatorSelfDelFlyStraight( start.Getvector3df(), end.Getvector3df(), timeForWay, now );
+
+		return ani;
+	}
+
+};
+
+/*
+** 名字：TimerWrapper
+** 说明：一个提供引擎时间的包装类
+**
+*/
+class TimerWrapper
+{
+public:
+	u32 GetTime();
+};
 
 
 

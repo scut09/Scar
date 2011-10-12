@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h" />
+    <ClInclude Include="AllAnimators.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
