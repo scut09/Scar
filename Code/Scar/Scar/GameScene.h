@@ -44,6 +44,8 @@ public:
 	// 描述：   释放这个场景所加载的资源
 	//************************************
 	virtual void Release() = 0;
+
+	virtual void Draw() {}
 	
 };
 

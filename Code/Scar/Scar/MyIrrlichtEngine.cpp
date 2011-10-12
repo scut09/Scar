@@ -90,6 +90,8 @@ void MyIrrlichtEngine::Run()
 
 		m_pSmgr->drawAll();	
 
+		currentScene->Draw();
+
 		m_pDriver->endScene();
 	}
 }

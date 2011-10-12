@@ -21,5 +21,5 @@ public:
 	virtual void Init() ;
 	virtual void Release() ;
 
-
+	virtual void Draw();
 };
