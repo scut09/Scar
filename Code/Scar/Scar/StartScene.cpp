@@ -8,11 +8,11 @@ ITexture * gImg = MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture("D
 void StartScene::Run() 
 {
 	//driver->beginScene(true, true, video::SColor(255,255,255,255));
-	driver->draw2DImage(gImg, vector2d<s32>(0,0));
 	//driver->endScene();
 	//u.Draw();
 	if ( count++ > 200 )
 	{
+		count = 0;
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
@@ -34,6 +34,12 @@ void StartScene::Init()
 void StartScene::Release() 
 {
 
+
+}
+
+void StartScene::Draw()
+{
+	driver->draw2DImage(gImg, vector2d<s32>(0,0));
 
 }
 
