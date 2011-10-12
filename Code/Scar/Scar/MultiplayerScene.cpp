@@ -54,7 +54,7 @@ void MultiplayerScene::Init()
 	scene::ISceneNode* node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
 
 	ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
-		vector3df( 0, 0, 100 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
+		vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
 	node->addAnimator( anim );
 	anim->drop();
 
