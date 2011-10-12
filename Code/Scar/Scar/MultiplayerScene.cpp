@@ -44,14 +44,14 @@ void MultiplayerScene::Init()
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
-	ModelManager* modelMan = pEngine->GetModelManager();
+	m_pModelMan = pEngine->GetModelManager();
 	m_pAnimationMan = pEngine->GetAnimationManager();
 
 	//  加入摄像机
 	m_pCamera = smgr->addCameraSceneNodeFPS();
 
 	// 加载模型和动画
-	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
+	scene::ISceneNode* node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
 
 	shared_ptr<Aircraft> bottle( new Aircraft );
 	bottle->LoadSceneNode( node );
@@ -101,5 +101,6 @@ void MultiplayerScene::Release()
 
 	m_pAnimationMan->RemoveAll();
 
+	m_pModelMan->DeleteAll();
 }
 

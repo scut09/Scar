@@ -17,12 +17,13 @@ class MultiplayerScene : public GameScene
 	AnimationManager*			m_pAnimationMan;
 	scene::ICameraSceneNode*	m_pCamera;
 	scene::ISceneNode*			m_pSkyBox;
+	ModelManager*				m_pModelMan;
 
 public:
 	shared_ptr<GameScene> startScene;
 
 public:
-	MultiplayerScene() : m_pAnimationMan( 0 ), m_pCamera( 0 )
+	MultiplayerScene() : m_pAnimationMan( 0 ), m_pCamera( 0 ), m_pModelMan( 0 )
 	{	
 	}
 

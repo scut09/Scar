@@ -31,7 +31,8 @@ private:
 		std::string				textureFilename;
 	};
 
-	std::map< std::string, MeshNode > m_meshMap;
+	std::map< std::string, MeshNode >	m_meshMap;
+	std::list< scene::ISceneNode* >		m_ISceneNodeList;
 
 public:	
 	ModelManager()
@@ -44,6 +45,15 @@ public:
 	scene::ISceneNode* AddSceneNodeFromMesh( const std::string& meshID, bool bTestCollision = false );
 
 	void AddSceneNode( const std::string& meshFilename, const std::string );
+
+	void DeleteAll()
+	{
+		for ( auto iter = m_ISceneNodeList.begin(); iter != m_ISceneNodeList.end(); ++iter )
+		{
+			(*iter)->remove();
+		}
+		m_ISceneNodeList.clear();
+	}
 };
 
 

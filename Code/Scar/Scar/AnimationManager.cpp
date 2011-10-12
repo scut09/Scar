@@ -26,7 +26,7 @@ void AnimationManager::RemoveAll()
 	for ( auto iter = m_nodeMovMap.begin(); iter != m_nodeMovMap.end(); ++iter )
 	{
 		iter->first->drop();
-		iter->first->remove();
+		//iter->first->remove();
 	}
 	m_nodeMovMap.clear();
 }
