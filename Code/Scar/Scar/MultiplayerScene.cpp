@@ -17,7 +17,18 @@
 
 void MultiplayerScene::Run()
 {
-	m_pAnimation->Run();
+	m_pAnimationMan->Run();
+
+	static int i = 0;
+
+	if ( i++ > 300 )
+	{
+		i = 0;
+		Release();
+		MyIrrlichtEngine::currentScene = startScene;
+		MyIrrlichtEngine::currentScene->Init();
+		std::cout << "Back\n";
+	}
 
 }
 
@@ -34,10 +45,10 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	ModelManager* modelMan = pEngine->GetModelManager();
-	m_pAnimation = pEngine->GetAnimationManager();
+	m_pAnimationMan = pEngine->GetAnimationManager();
 
 	//  加入摄像机
-	smgr->addCameraSceneNodeFPS();
+	m_pCamera = smgr->addCameraSceneNodeFPS();
 
 	// 加载模型和动画
 	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
@@ -51,12 +62,11 @@ void MultiplayerScene::Init()
 	AnimationManager* aniMan = pEngine->GetAnimationManager();
 	aniMan->AddMovableNode( node, bottle );
 
-
 	ModuleControl control;
 
 	auto driver = pEngine->GetVideoDriver();
 
-	smgr->addSkyBoxSceneNode(
+	m_pSkyBox = smgr->addSkyBoxSceneNode(
 		driver->getTexture("../media/irrlicht2_up.jpg"),
 		driver->getTexture("../media/irrlicht2_dn.jpg"),
 		driver->getTexture("../media/irrlicht2_lf.jpg"),
@@ -86,6 +96,10 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
+	m_pCamera->remove();
+	m_pSkyBox->remove();
+
+	m_pAnimationMan->RemoveAll();
 
 }
 

@@ -78,7 +78,9 @@ shared_ptr<GameScene> InitScene()
 	// 创建根场景
 	shared_ptr<StartScene> rootScene( new StartScene );
 	MyIrrlichtEngine::currentScene = rootScene;
-	rootScene->multiplayerScene =  shared_ptr<MultiplayerScene>( new MultiplayerScene );
+	shared_ptr<MultiplayerScene> multiplayerScene( new MultiplayerScene );
+	rootScene->multiplayerScene = multiplayerScene;
+	multiplayerScene->startScene = rootScene;
 
 	// 初始化根场景
 	rootScene->Init();

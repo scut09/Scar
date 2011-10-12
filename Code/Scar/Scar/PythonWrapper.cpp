@@ -56,5 +56,6 @@ PythonSceneNode ModelManagerSlaver::AddSceneNodeByMeshID( const std::string& mes
 	PythonSceneNode node;
 	scene::ISceneNode* pNode = pModelMan->AddSceneNodeFromMesh( meshID, bTestCollision );
 	node.ptr = pNode;
+	//pNode->drop();		// ÒıÓÃ¼õÒ»
 	return node;
 }

@@ -14,10 +14,15 @@
 
 class MultiplayerScene : public GameScene
 {
-	AnimationManager* m_pAnimation;
+	AnimationManager*			m_pAnimationMan;
+	scene::ICameraSceneNode*	m_pCamera;
+	scene::ISceneNode*			m_pSkyBox;
 
 public:
-	MultiplayerScene() : m_pAnimation( 0 )
+	shared_ptr<GameScene> startScene;
+
+public:
+	MultiplayerScene() : m_pAnimationMan( 0 ), m_pCamera( 0 )
 	{	
 	}
 
