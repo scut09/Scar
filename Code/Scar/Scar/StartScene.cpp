@@ -1,11 +1,9 @@
 #include "StartScene.h"
 #include "def.h"
 
-
-
-
 void StartScene::Run() 
 {
+
 	if ( count++ > 200 )
 	{
 		count = 0;
@@ -16,26 +14,23 @@ void StartScene::Run()
 
 }
 
+void StartScene::Draw()
+{
+	u.Draw();
+}
+
 void StartScene::Init() 
 {
 	pEngine = MyIrrlichtEngine::GetEngine();
 	driver = pEngine->GetVideoDriver();
 
-	u.SetImage("D:\\f.jpg");
-	//driver->getTexture("pic1.jpg");
-
-
+	u.SetImage("pic1.jpg");
 }
 
 void StartScene::Release() 
 {
 
 
-}
-
-void StartScene::Draw()
-{
-	driver->draw2DImage(gImg, vector2d<s32>(0,0));
 }
 
 

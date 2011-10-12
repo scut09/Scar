@@ -74,7 +74,7 @@ video::IVideoDriver* MyIrrlichtEngine::GetVideoDriver()
 
 void MyIrrlichtEngine::Run()
 {
-	u32 frameTime = 33;
+	u32 frameTime = 16;
 	while ( m_pDevice->run() )
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;

@@ -11,6 +11,57 @@ using namespace irr::core;
 using namespace irr::video;
 
 class UIObject;
+class UIAnima;
+
+//////////////////////////////////////////////////////////////////
+//名称：UIAnima
+//描述：实现UI的平移，旋转，缩放，Alpah改变等动画
+//作者：屠文翔，杨成熙
+//////////////////////////////////////////////////////////////////
+class UIAnima
+{
+	//动画播放结束后的操作
+	enum ANIMA_END_OPTION
+	{
+		STAY ,			//停留
+		DESTROY			//销毁宿主
+	};
+
+private:
+	UIObject* Host;	//宿主
+	int Interval;		//每两帧动画的间隔，毫秒
+	int Duration;		//动画总共的持续时间
+	int NumOfFrame;		//总持续帧数
+	int CurrentFrame;	//当前帧数
+	ANIMA_END_OPTION EndOption;	//动画结束后动作
+	bool HasScale;				//是否加入缩放动画
+	bool HasRotate;				//是否加入旋转动画
+	bool HasTranslate;			//是否加入平移动画
+	vector2d<s32> RotCen;		//旋转中心点
+	vector2d<s32> StrCen;		//缩放中心点
+	float StepDeg;				//旋转角度步进值
+	vector2d<f32> StepStr;		//缩放比例步进值
+	vector2d<s32> StepTran;		//平移步进值	
+public:
+	UIAnima( UIObject* host, int duration = 30, ANIMA_END_OPTION opflag = STAY, int interval=30);
+	//设置动画信息
+	void SetUIAnima( int duration, ANIMA_END_OPTION opflag = STAY, int interval=30);
+	//添加缩放动画
+	void AddScale( vector2d<f32> stretch, vector2d<s32> scalePoint );
+	//添加旋转动画
+	void AddRotate( float degree, vector2d<s32> rotatePoint );
+	//添加平移动画
+	void AddTranslate( vector2d<s32> offset );
+	//步进缩放
+	void Scale( vector2d<f32> stepstr, vector2d<s32> scalePoint );
+	//步进旋转
+	void Rotate( float stepdeg, vector2d<s32> rotatePoint );
+	//步进平移
+	void Translate( vector2d<s32> steptran );
+	//运行动画
+	void Run();
+
+};
 
 //////////////////////////////////////////////////////////////////
 //名称：UIObject
@@ -19,17 +70,17 @@ class UIObject;
 //////////////////////////////////////////////////////////////////
 class UIObject
 {
-protected:
+	friend class UIAnima;	//动画类为UI类的友元类
 
-	vector2d<s32> DstQuar[4];		//显示区域矩形
-	//int Width, Height;			
-	//float RotDegree;
-	vector2d<s32> RotCenter;		//旋转中心
+protected:
+	vector2d<s32> DstQuar[4];					//显示区域矩形
+	vector2d<s32> Center;						//矩形的中心点
 	vector< shared_ptr<UIObject> > Children;	//子对象
 	shared_ptr<UIObject> Parent;				//父对象
-	ITexture * Image;					//应用于UI上的图片
+	ITexture * Image;							//应用于UI上的图片
 	IVideoDriver * Driver;						//Driver指针
-
+	shared_ptr<UIAnima> Animations;				//动画变换
+	
 public:
 	UIObject();
 	UIObject( IVideoDriver * driver, vector2d<s32> pos, int width, int height );
