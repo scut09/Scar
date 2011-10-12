@@ -25,9 +25,6 @@
     <Filter Include="Control">
       <UniqueIdentifier>{b8168237-5d23-4925-8bc9-9c8ee5c1659a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{90a42469-8204-419c-81d6-2a44c5e244f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{1421c65f-486a-4400-97a2-1b5665ae1029}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,12 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{d494017d-63bf-400a-924f-03aa78a57adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Old Animation">
+      <UniqueIdentifier>{90a42469-8204-419c-81d6-2a44c5e244f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{b95af60f-a58e-4ce0-abed-b20b87ed9ebf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,7 +58,7 @@
       <Filter>Control</Filter>
     </ClCompile>
     <ClCompile Include="FlyBehavior.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Old Animation</Filter>
     </ClCompile>
     <ClCompile Include="IMissile.cpp">
       <Filter>Models</Filter>
@@ -105,10 +108,10 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="FlyBehavior.h">
-      <Filter>Animation</Filter>
+      <Filter>Old Animation</Filter>
     </ClInclude>
     <ClInclude Include="IFly.h">
-      <Filter>Animation</Filter>
+      <Filter>Old Animation</Filter>
     </ClInclude>
     <ClInclude Include="base.h">
       <Filter>Utility</Filter>
@@ -123,7 +126,7 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="IMovable.h">
-      <Filter>Animation</Filter>
+      <Filter>Old Animation</Filter>
     </ClInclude>
     <ClInclude Include="IAircraft.h">
       <Filter>Models</Filter>
@@ -158,16 +161,16 @@
     <ClInclude Include="UIObject.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="TestAnimator.h">
+    <ClInclude Include="ISceneNodeAnimatorFinishing.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="ISceneNodeAnimatorFinishing.h">
+    <ClInclude Include="AllAnimators.h">
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="AllAnimators.h">
+    <ClInclude Include="TestAnimator.h">
       <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
