@@ -24,7 +24,7 @@ void UIAnima::SetUIAnima( int duration, ANIMA_END_OPTION opflag, int interval)
 	EndOption = opflag;
 }
 //添加缩放动画
-void UIAnima::AddScale( vector2d<f32> stretch, vector2d<s32> scalePoint )
+void UIAnima::AddScale( const vector2d<f32>& stretch, const vector2d<s32>& scalePoint )
 {
 	HasScale = true;
 	StepStr.X = stretch.X / NumOfFrame;
@@ -32,7 +32,7 @@ void UIAnima::AddScale( vector2d<f32> stretch, vector2d<s32> scalePoint )
 	StrCen = scalePoint;
 }
 //添加旋转动画
-void UIAnima::AddRotate( float degree, vector2d<s32> rotatePoint )
+void UIAnima::AddRotate( float degree, const vector2d<s32>& rotatePoint )
 {
 	HasRotate = true;
 	StepDeg = degree / NumOfFrame;
@@ -43,7 +43,7 @@ void AddTranslate( vector2d<s32> offset );
 //步进缩放
 void Scale( vector2d<f32> stepstr, vector2d<s32> scalePoint );
 //步进旋转
-void UIAnima::Rotate( float stepdeg, vector2d<s32> rotatePoint )
+void UIAnima::Rotate( float stepdeg, const vector2d<s32>& rotatePoint )
 {
 	//正角度为逆时针
 	//记录矩阵四个顶点临时坐标
@@ -87,7 +87,7 @@ void UIAnima::Run()
 //////////////////////////////////////////////////////////////////
 
 //构造函数
-UIObject::UIObject( IVideoDriver* driver, vector2d<s32> pos, int width, int height )
+UIObject::UIObject( IVideoDriver* driver, const vector2d<s32>& pos, int width, int height )
 {
 	Driver = driver;
 	DstQuar[0].X = pos.X;
@@ -109,6 +109,19 @@ UIObject::UIObject( IVideoDriver* driver, vector2d<s32> pos, int width, int heig
 void UIObject::SetImage( char * filename )
 {
 	Image = Driver->getTexture( filename );
+}
+//以中心点为基准设置元件位置
+void UIObject::SetCenter( const vector2d<s32>& pos )
+{
+	vector2d<s32> offset = pos - Center;
+	for(int i = 0; i < 4; i++)
+		DstQuar[i] += offset;
+	Center = pos;
+}
+//获取元件中心点位置
+const vector2d<s32>& UIObject::GetCenter() const
+{
+	return Center;
 }
 
 //////////////////////////////////////////////////////////////////

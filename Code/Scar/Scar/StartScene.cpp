@@ -12,6 +12,8 @@ void StartScene::Run()
 		pEngine->currentScene->Init();
 	}
 
+	u.SetCenter( vector2d<s32>( count, count ) );
+
 }
 
 void StartScene::Draw()

@@ -47,17 +47,17 @@ public:
 	//设置动画信息
 	void SetUIAnima( int duration, ANIMA_END_OPTION opflag = STAY, int interval=30);
 	//添加缩放动画
-	void AddScale( vector2d<f32> stretch, vector2d<s32> scalePoint );
+	void AddScale( const vector2d<f32>& stretch, const vector2d<s32>& scalePoint );
 	//添加旋转动画
-	void AddRotate( float degree, vector2d<s32> rotatePoint );
+	void AddRotate( float degree, const vector2d<s32>& rotatePoint );
 	//添加平移动画
-	void AddTranslate( vector2d<s32> offset );
+	void AddTranslate( const vector2d<s32>& offset );
 	//步进缩放
-	void Scale( vector2d<f32> stepstr, vector2d<s32> scalePoint );
+	void Scale( const vector2d<f32>& stepstr, const vector2d<s32>& scalePoint );
 	//步进旋转
-	void Rotate( float stepdeg, vector2d<s32> rotatePoint );
+	void Rotate( float stepdeg, const vector2d<s32>& rotatePoint );
 	//步进平移
-	void Translate( vector2d<s32> steptran );
+	void Translate( const vector2d<s32>& steptran );
 	//运行动画
 	void Run();
 
@@ -83,12 +83,16 @@ protected:
 	
 public:
 	UIObject();
-	UIObject( IVideoDriver * driver, vector2d<s32> pos, int width, int height );
+	UIObject( IVideoDriver * driver, const vector2d<s32>& pos, int width, int height );
 
 	virtual ~UIObject() {}
 
-	//设置UI图片
+	//加载UI图片
 	void SetImage( char * );
+	//以中心点为基准设置元件位置
+	void SetCenter( const vector2d<s32>& pos );
+	//获取元件中心点位置
+	const vector2d<s32>& GetCenter() const;
 	
 	//绘制虚函数
 	virtual void Draw() = 0;	
@@ -103,7 +107,7 @@ public:
 class UIImage : public UIObject
 {
 public:
-	UIImage( IVideoDriver * driver, vector2d<s32> pos, int width, int height ) 
+	UIImage( IVideoDriver * driver, const vector2d<s32>& pos, int width, int height ) 
 		: UIObject( driver, pos, width, height )
 	{}
 	void Draw();
