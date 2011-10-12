@@ -17,23 +17,26 @@
 
 void MultiplayerScene::Run()
 {
+	m_pAnimation->Run();
+
 }
 
 void MultiplayerScene::Init()
 {
+	// 使用Python模块加载模型
 	PythonManager* p = PythonManager::GetPythonManager();
 
 	object modelLoader = p->GetModelLoader();
 	object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
 	MultiplayerLoad();
 
+	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
+	ModelManager* modelMan = pEngine->GetModelManager();
+	m_pAnimation = pEngine->GetAnimationManager();
 
 	smgr->addCameraSceneNodeFPS();
-
-	ModelManager* modelMan = pEngine->GetModelManager();
 
 	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
 
