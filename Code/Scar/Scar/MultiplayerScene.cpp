@@ -12,23 +12,23 @@
 #include <iostream>
 #include "Aircraft.h"
 #include "FlyBehavior.h"
-
+#include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 
 
 void MultiplayerScene::Run()
 {
-	m_pAnimationMan->Run();
+	//m_pAnimationMan->Run();
 
-	static int i = 0;
+	//static int i = 0;
 
-	if ( i++ > 300 )
-	{
-		i = 0;
-		Release();
-		MyIrrlichtEngine::currentScene = startScene;
-		MyIrrlichtEngine::currentScene->Init();
-		std::cout << "Back\n";
-	}
+	//if ( i++ > 300 )
+	//{
+	//	i = 0;
+	//	Release();
+	//	MyIrrlichtEngine::currentScene = startScene;
+	//	MyIrrlichtEngine::currentScene->Init();
+	//	std::cout << "Back\n";
+	//}
 
 }
 
@@ -45,7 +45,7 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	m_pModelMan = pEngine->GetModelManager();
-	m_pAnimationMan = pEngine->GetAnimationManager();
+//	m_pAnimationMan = pEngine->GetAnimationManager();
 
 	//  加入摄像机
 	m_pCamera = smgr->addCameraSceneNodeFPS();
@@ -53,14 +53,19 @@ void MultiplayerScene::Init()
 	// 加载模型和动画
 	scene::ISceneNode* node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
 
-	shared_ptr<Aircraft> bottle( new Aircraft );
-	bottle->LoadSceneNode( node );
-	bottle->SetSpeed( vector3df( 0.01, 0.1, 0 ) );
-	shared_ptr<FlyStraightBehavior> beh( new FlyStraightBehavior );
-	bottle->AddFlyBehavior( beh );
+	ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
+		vector3df( 0, 0, 100 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
+	node->addAnimator( anim );
+	anim->drop();
 
-	AnimationManager* aniMan = pEngine->GetAnimationManager();
-	aniMan->AddMovableNode( node, bottle );
+	//shared_ptr<Aircraft> bottle( new Aircraft );
+	//bottle->LoadSceneNode( node );
+	//bottle->SetSpeed( vector3df( 0.01, 0.1, 0 ) );
+	//shared_ptr<FlyStraightBehavior> beh( new FlyStraightBehavior );
+	//bottle->AddFlyBehavior( beh );
+
+	//AnimationManager* aniMan = pEngine->GetAnimationManager();
+	//aniMan->AddMovableNode( node, bottle );
 
 	ModuleControl control;
 
@@ -99,7 +104,7 @@ void MultiplayerScene::Release()
 	m_pCamera->remove();
 	m_pSkyBox->remove();
 
-	m_pAnimationMan->RemoveAll();
+//	m_pAnimationMan->RemoveAll();
 
 	m_pModelMan->DeleteAll();
 }

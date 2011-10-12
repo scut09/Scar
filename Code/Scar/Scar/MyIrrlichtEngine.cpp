@@ -118,7 +118,7 @@ ModelManager* MyIrrlichtEngine::GetModelManager()
 	return &m_ModelManager;
 }
 
-AnimationManager* MyIrrlichtEngine::GetAnimationManager()
-{
-	return &m_AnimationManager;
-}
+//AnimationManager* MyIrrlichtEngine::GetAnimationManager()
+//{
+//	return &m_AnimationManager;
+//}

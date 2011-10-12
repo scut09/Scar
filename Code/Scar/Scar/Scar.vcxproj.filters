@@ -84,6 +84,9 @@
     <ClCompile Include="AnimationManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -156,6 +159,12 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="TestAnimator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneNodeAnimatorFinishing.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h">
       <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>

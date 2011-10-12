@@ -17,8 +17,7 @@ void StartScene::Run()
 }
 
 void StartScene::Draw()
-{
-	
+{	
 	u.Animations->Run();
 	u.Draw();
 }

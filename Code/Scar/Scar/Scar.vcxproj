@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
     <ClCompile Include="FlyBehavior.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IMissile.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Aircraft.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
+    <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />
@@ -107,6 +109,7 @@
     <ClInclude Include="IFly.h" />
     <ClInclude Include="IMissile.h" />
     <ClInclude Include="IMovable.h" />
+    <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />

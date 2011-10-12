@@ -43,7 +43,7 @@ private:
 
 private:
 	ModelManager					m_ModelManager;
-	AnimationManager				m_AnimationManager;
+	//AnimationManager				m_AnimationManager;		// 过时，抛弃这个。使用irrlicht内部的动画管理
 	u32								m_lastUpdateTime;
 
 
@@ -69,7 +69,7 @@ public:
 
 	ModelManager* GetModelManager();
 
-	AnimationManager* GetAnimationManager();
+	//AnimationManager* GetAnimationManager();
 
 	void Run();
 
