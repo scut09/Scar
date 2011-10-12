@@ -18,18 +18,7 @@ using namespace irr;
 // 
 void ModelManager::LoadModels()
 {
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-
-	auto smgr = pEngine->GetSceneManager();
-	auto driver = pEngine->GetVideoDriver();
-
-	smgr->addSkyBoxSceneNode(
-		driver->getTexture("../media/irrlicht2_up.jpg"),
-		driver->getTexture("../media/irrlicht2_dn.jpg"),
-		driver->getTexture("../media/irrlicht2_lf.jpg"),
-		driver->getTexture("../media/irrlicht2_rt.jpg"),
-		driver->getTexture("../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../media/irrlicht2_bk.jpg"));
+	// 测试用，现在无用
 }
 
 void ModelManager::AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename )

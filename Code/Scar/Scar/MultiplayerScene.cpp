@@ -36,8 +36,10 @@ void MultiplayerScene::Init()
 	ModelManager* modelMan = pEngine->GetModelManager();
 	m_pAnimation = pEngine->GetAnimationManager();
 
+	//  加入摄像机
 	smgr->addCameraSceneNodeFPS();
 
+	// 加载模型和动画
 	scene::ISceneNode* node = modelMan->AddSceneNodeFromMesh( "bottle" );
 
 	shared_ptr<Aircraft> bottle( new Aircraft );
@@ -52,8 +54,15 @@ void MultiplayerScene::Init()
 
 	ModuleControl control;
 
+	auto driver = pEngine->GetVideoDriver();
 
-	modelMan->LoadModels();
+	smgr->addSkyBoxSceneNode(
+		driver->getTexture("../media/irrlicht2_up.jpg"),
+		driver->getTexture("../media/irrlicht2_dn.jpg"),
+		driver->getTexture("../media/irrlicht2_lf.jpg"),
+		driver->getTexture("../media/irrlicht2_rt.jpg"),
+		driver->getTexture("../media/irrlicht2_ft.jpg"),
+		driver->getTexture("../media/irrlicht2_bk.jpg"));
 
 	//// 注册引擎回调函数
 	//pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
