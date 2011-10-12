@@ -38,11 +38,13 @@ private:
 	bool HasScale;				//是否加入缩放动画
 	bool HasRotate;				//是否加入旋转动画
 	bool HasTranslate;			//是否加入平移动画
+	bool HasAlphaChange;		//是否加入Alpha值修改动画
 	vector2d<s32> RotCen;		//旋转中心点
 	vector2d<s32> StrCen;		//缩放中心点
 	float StepDeg;				//旋转角度步进值
 	vector2d<f32> StepStr;		//缩放比例步进值
-	vector2d<s32> StepTran;		//平移步进值	
+	vector2d<s32> StepTran;		//平移步进值
+	int Alpha;				//元件透明度
 public:
 	UIAnima( UIObject* host, int duration = 30, ANIMA_END_OPTION opflag = STAY, int interval=30);
 	//设置动画信息
@@ -53,12 +55,16 @@ public:
 	void AddRotate( float degree, const vector2d<s32>& rotatePoint );
 	//添加平移动画
 	void AddTranslate( const vector2d<s32>& offset );
+	//添加Alpha值修改动画
+	void AddAlphaChange( int alpha );
 	//步进缩放
 	void Scale( const vector2d<f32>& stepstr, const vector2d<s32>& scalePoint );
 	//步进旋转
 	void Rotate( float stepdeg, const vector2d<s32>& rotatePoint );
 	//步进平移
 	void Translate( const vector2d<s32>& steptran );
+	//步进Alpha值修改
+	void AlphaChange( int Alpha );
 	//运行动画
 	void Run();
 

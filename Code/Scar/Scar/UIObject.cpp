@@ -41,9 +41,38 @@ void UIAnima::AddRotate( float degree, const vector2d<s32>& rotatePoint )
 	RotCen = rotatePoint;
 }
 //添加平移动画
-void AddTranslate( vector2d<s32> offset );
+void UIAnima::AddTranslate( const vector2d<s32> &offset )
+{
+	HasTranslate = true;
+	StepTran.X = offset.X / NumOfFrame;
+	StepTran.Y = offset.Y / NumOfFrame;
+}
+//添加Alpha值修改动画
+void UIAnima::AddAlphaChange( int alpha )
+{
+	HasAlphaChange = true;
+	Alpha = alpha / NumOfFrame;
+}
 //步进缩放
-void Scale( vector2d<f32> stepstr, vector2d<s32> scalePoint );
+void UIAnima::Scale( const vector2d<f32> &stepstr, const vector2d<s32> &scalePoint )
+{
+	vector2d<s32> temQuar[4];
+	//切换到以拉伸中心为原点的坐标系
+	for (int i = 0; i < 4; i++)
+	{
+		temQuar[i].X = Host->DstQuar[i].X - scalePoint.X;
+		temQuar[i].Y = Host->DstQuar[i].Y - scalePoint.Y;
+	}
+	//拉伸
+	for (int i = 0; i < 4; i++)
+	{
+		temQuar[i].X *= stepstr.X;
+		temQuar[i].X *= stepstr.Y;
+		//加回原来的坐标系
+		Host->DstQuar[i].X = temQuar[i].X + scalePoint.X;
+		Host->DstQuar[i].X = temQuar[i].Y + scalePoint.Y;
+	}
+}
 //步进旋转
 void UIAnima::Rotate( float stepdeg, const vector2d<s32>& rotatePoint )
 {
@@ -69,12 +98,25 @@ void UIAnima::Rotate( float stepdeg, const vector2d<s32>& rotatePoint )
 	}
 }
 //步进平移
-void Translate( vector2d<s32> steptran );
+void UIAnima::Translate( const vector2d<s32> &steptran )
+{
+	//平移
+	for(int i = 0; i < 4; i++)
+	{
+		Host->DstQuar[i].X += steptran.X;
+		Host->DstQuar[i].Y += steptran.Y;
+	}
+}
+//步进Alpha值修改
+void UIAnima::AlphaChange( int Alpha )
+{
+
+}
 //运行动画
 void UIAnima::Run()
 {
 	u32 now = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
-	
+
 	if (HasScale)
 	{
 	}
