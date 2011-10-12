@@ -73,7 +73,7 @@ scene::ISceneNode* Test( scene::ISceneNode* node )
 }
 
 
-shared_ptr<StartScene> InitScene()
+shared_ptr<GameScene> InitScene()
 {
 	// 创建根场景
 	shared_ptr<StartScene> rootScene( new StartScene );
