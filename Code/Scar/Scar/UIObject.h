@@ -31,6 +31,7 @@ private:
 	UIObject* Host;	//宿主
 	int Interval;		//每两帧动画的间隔，毫秒
 	int Duration;		//动画总共的持续时间
+	u32 LastFrameTime;	//绘制上一帧时的时间
 	int NumOfFrame;		//总持续帧数
 	int CurrentFrame;	//当前帧数
 	ANIMA_END_OPTION EndOption;	//动画结束后动作
@@ -79,13 +80,14 @@ protected:
 	shared_ptr<UIObject> Parent;				//父对象
 	ITexture * Image;							//应用于UI上的图片
 	IVideoDriver * Driver;						//Driver指针
-	shared_ptr<UIAnima> Animations;				//动画变换
+	int Alpha;									//元件透明度
 	
 public:
 	UIObject();
 	UIObject( IVideoDriver * driver, const vector2d<s32>& pos, int width, int height );
-
 	virtual ~UIObject() {}
+
+	shared_ptr<UIAnima> Animations;				//动画变换
 
 	//加载UI图片
 	void SetImage( char * );

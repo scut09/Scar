@@ -12,12 +12,14 @@ void StartScene::Run()
 		pEngine->currentScene->Init();
 	}
 
-	u.SetCenter( vector2d<s32>( count, count ) );
+	//u.SetCenter( vector2d<s32>( count, count ) );
 
 }
 
 void StartScene::Draw()
 {
+	
+	u.Animations->Run();
 	u.Draw();
 }
 
@@ -27,6 +29,8 @@ void StartScene::Init()
 	driver = pEngine->GetVideoDriver();
 
 	u.SetImage("pic1.jpg");
+	u.Animations->SetUIAnima(6000);
+	u.Animations->AddRotate(60,u.GetCenter());
 }
 
 void StartScene::Release() 

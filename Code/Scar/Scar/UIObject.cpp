@@ -1,5 +1,5 @@
 #include "UIObject.h"
-#include <iostream>
+#include "MyIrrlichtEngine.h"
 
 
 //////////////////////////////////////////////////////////////////
@@ -11,8 +11,9 @@
 //构造函数
 UIAnima::UIAnima( UIObject* host, int duration, ANIMA_END_OPTION opflag, int interval )
 {
+	Host = host;
 	SetUIAnima( duration, opflag, interval);
-	NumOfFrame = Duration / Interval;
+	LastFrameTime = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
 	CurrentFrame = 0;
 	HasRotate = HasScale = HasTranslate = false;
 }
@@ -22,6 +23,7 @@ void UIAnima::SetUIAnima( int duration, ANIMA_END_OPTION opflag, int interval)
 	Duration = duration;
 	Interval = interval;
 	EndOption = opflag;
+	NumOfFrame = Duration / Interval;
 }
 //添加缩放动画
 void UIAnima::AddScale( const vector2d<f32>& stretch, const vector2d<s32>& scalePoint )
@@ -71,6 +73,8 @@ void Translate( vector2d<s32> steptran );
 //运行动画
 void UIAnima::Run()
 {
+	u32 now = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
+	
 	if (HasScale)
 	{
 	}
@@ -101,7 +105,7 @@ UIObject::UIObject( IVideoDriver* driver, const vector2d<s32>& pos, int width, i
 	Center.X = (DstQuar[0].X + DstQuar[2].X) / 2;
 	Center.Y = (DstQuar[0].Y + DstQuar[2].Y) / 2;
 	Image = NULL;
-
+	Alpha = 255;
 	Animations = shared_ptr<UIAnima>( new UIAnima( this ) );
 }
 
@@ -139,5 +143,5 @@ void UIImage::Draw()
 	int h = Image->getSize().Height;
 	int w = Image->getSize().Width;
 	rect<s32>r(0, 0, w, h);
-	Driver->draw2DImage( Image, DstQuar, rect<s32>(0,0,w,h), 0, 0, true );
+	Driver->draw2DImage( Image, DstQuar, rect<s32>(0,0,w,h), 0, &SColor(Alpha,255,255,255), true );
 }
