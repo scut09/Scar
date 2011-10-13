@@ -83,7 +83,7 @@ void MultiplayerScene::Init()
 	CFlame flame;
 	auto fire = flame.createFlame(
 		MyIrrlichtEngine::GetEngine()->GetDevice(), 
-		"pic1.jpg"
+		"../media/particle.bmp"
 		);
 
 	node->addChild( fire );
