@@ -37,7 +37,7 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 
 	float steprad = angle / 180 * PI;
 
-	UIObject* pNode = reinterpret_cast< UIObject* >( node );
+	UIObject* pNode = static_cast< UIObject* >( node );
 	//正角度为逆时针
 	//记录矩阵四个顶点临时坐标
 	vector2d<f32> temQuar[4];

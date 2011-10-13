@@ -96,6 +96,7 @@
     <ClCompile Include="RotateUIAnimator.cpp" />
     <ClCompile Include="ScaleUIAnimator.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="TranslateUIAnimator.cpp" />
     <ClCompile Include="UIObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +131,7 @@
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
     <ClInclude Include="IUIAnimator.h" />
+    <ClInclude Include="TranslateUIAnimator.h" />
     <ClInclude Include="UIAnimators.h" />
     <ClInclude Include="UIObject.h" />
   </ItemGroup>

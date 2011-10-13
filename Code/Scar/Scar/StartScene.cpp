@@ -42,11 +42,16 @@ void StartScene::Init()
 	v->SetImage("pic1.jpg");
 	u->AddChild( v );
 	
-	RotateUIAnimator* ani = new RotateUIAnimator( 
+	/*RotateUIAnimator* ani = new RotateUIAnimator( 
 		timer->getRealTime(),
 		1000, 
 		90,
 		u->GetCenter()
+		);*/
+	TranslateUIAnimator* ani = new TranslateUIAnimator(
+		timer->getRealTime(),
+		1000,
+		vector2d<s32>(100,0)
 		);
 	u->AddAnimator(ani);
 	ani->drop();
