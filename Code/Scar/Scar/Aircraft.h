@@ -45,7 +45,6 @@ public:
 		return m_HP;
 	}
 
-
 	virtual void SetSpeed( const core::vector3df& speed )
 	{
 		m_speed = speed;
