@@ -38,12 +38,11 @@ def MultiplayerLoad():
             vector3df( random.randint(-1000, 1000),
                        random.randint(-1000, 1000),
                        random.randint(-1000, 1000) ),
-            vector3df( 0, 0, 1000 ),
+            vector3df( 0, 0, random.randint(1000, 1200) ),
             10000,
             timer.GetTime()
             )
         node.AddAnimator( flyStraightAnim )
-
-    flyStraightAnim.Drop()
+        flyStraightAnim.Drop()
     
 
