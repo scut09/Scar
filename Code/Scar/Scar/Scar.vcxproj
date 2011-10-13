@@ -91,6 +91,7 @@
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
+    <ClCompile Include="RotateUIAnimator.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="UIObject.cpp" />
   </ItemGroup>
@@ -112,6 +113,7 @@
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
+    <ClInclude Include="IUIObject.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
@@ -119,8 +121,11 @@
     <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />
+    <ClInclude Include="RotateUIAnimator.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
+    <ClInclude Include="IUIAnimator.h" />
+    <ClInclude Include="UIAnimators.h" />
     <ClInclude Include="UIObject.h" />
   </ItemGroup>
   <ItemGroup>

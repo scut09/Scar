@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
 #include "UIObject.h"
+#include "IUIObject.h"
 
 class StartScene : public GameScene
 {
@@ -13,7 +14,7 @@ class StartScene : public GameScene
 	UIImage u;//²âÊÔÓÃ
 
 public:
-	StartScene() : count( 0 ), u( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<s32>(0,0), 500, 750 )
+	StartScene() : count( 0 ), u( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(0,0), 500, 750 )
 	{
 	}
 

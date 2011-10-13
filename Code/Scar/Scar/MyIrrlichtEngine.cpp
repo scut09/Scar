@@ -81,17 +81,19 @@ void MyIrrlichtEngine::Run()
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 
-		if ( now - m_lastUpdateTime < frameTime )	continue;
+		if ( now - m_lastUpdateTime < frameTime )
+		{
+			// 运行注册的回调函数
+			m_runCallbackFunc( (void*)this );
 
-		// 运行注册的回调函数
-		m_runCallbackFunc( (void*)this );
+			//m_AnimationManager.Run();
 
-		//m_AnimationManager.Run();
+			// 运行场景
+			currentScene->Run();
+		}
 
-		// 运行场景
-		currentScene->Run();
 
-		m_pDriver->beginScene(true, true, video::SColor(150,50,50,50));
+		m_pDriver->beginScene( true, true, video::SColor( 150, 50, 50, 50 ) );
 
 		m_pSmgr->drawAll();	
 

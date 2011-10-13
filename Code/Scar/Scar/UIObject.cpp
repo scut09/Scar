@@ -7,124 +7,107 @@
 //描述：实现UI的平移，旋转，缩放，Alpah改变等动画
 //作者：屠文翔，杨成熙
 //////////////////////////////////////////////////////////////////
-
-//构造函数
-UIAnima::UIAnima( UIObject* host, int duration, ANIMA_END_OPTION opflag, int interval )
-{
-	Host = host;
-	SetUIAnima( duration, opflag, interval);
-	LastFrameTime = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
-	CurrentFrame = 0;
-	HasRotate = HasScale = HasTranslate = false;
-}
-//设置动画信息
-void UIAnima::SetUIAnima( int duration, ANIMA_END_OPTION opflag, int interval)
-{
-	Duration = duration;
-	Interval = interval;
-	EndOption = opflag;
-	NumOfFrame = Duration / Interval;
-}
-//添加缩放动画
-void UIAnima::AddScale( const vector2d<f32>& stretch, const vector2d<s32>& scalePoint )
-{
-	HasScale = true;
-	StepStr.X = stretch.X / NumOfFrame;
-	StepStr.Y = stretch.Y / NumOfFrame;
-	StrCen = scalePoint;
-}
-//添加旋转动画
-void UIAnima::AddRotate( float degree, const vector2d<s32>& rotatePoint )
-{
-	HasRotate = true;
-	StepDeg = degree / NumOfFrame;
-	RotCen = rotatePoint;
-}
-//添加平移动画
-void UIAnima::AddTranslate( const vector2d<s32> &offset )
-{
-	HasTranslate = true;
-	StepTran.X = offset.X / NumOfFrame;
-	StepTran.Y = offset.Y / NumOfFrame;
-}
-//添加Alpha值修改动画
-void UIAnima::AddAlphaChange( int alpha )
-{
-	HasAlphaChange = true;
-	Alpha = alpha / NumOfFrame;
-}
-//步进缩放
-void UIAnima::Scale( const vector2d<f32> &stepstr, const vector2d<s32> &scalePoint )
-{
-	vector2d<s32> temQuar[4];
-	//切换到以拉伸中心为原点的坐标系
-	for (int i = 0; i < 4; i++)
-	{
-		temQuar[i].X = Host->DstQuar[i].X - scalePoint.X;
-		temQuar[i].Y = Host->DstQuar[i].Y - scalePoint.Y;
-	}
-	//拉伸
-	for (int i = 0; i < 4; i++)
-	{
-		temQuar[i].X *= stepstr.X;
-		temQuar[i].X *= stepstr.Y;
-		//加回原来的坐标系
-		Host->DstQuar[i].X = temQuar[i].X + scalePoint.X;
-		Host->DstQuar[i].X = temQuar[i].Y + scalePoint.Y;
-	}
-}
-//步进旋转
-void UIAnima::Rotate( float stepdeg, const vector2d<s32>& rotatePoint )
-{
-	//正角度为逆时针
-	//记录矩阵四个顶点临时坐标
-	vector2d<s32> temQuar[4];
-	for (int i = 0; i < 4; i++)
-	{
-		temQuar[i].X = Host->DstQuar[i].X - rotatePoint.X;
-		temQuar[i].Y = Host->DstQuar[i].Y - rotatePoint.Y;
-	}
-	//得到旋转后的坐标
-	for (int i = 0; i < 4; i++)
-	{
-		float x,y;
-		x = (float)temQuar[i].X;
-		y = (float)temQuar[i].Y;
-		temQuar[i].X = (s32)(cos(stepdeg) * x - sin(stepdeg) * y);
-		temQuar[i].Y = (s32)(sin(stepdeg) * x + cos(stepdeg) * y);
-		//加回到原来的坐标系
-		Host->DstQuar[i].X = temQuar[i].X + rotatePoint.X;
-		Host->DstQuar[i].Y = temQuar[i].Y + rotatePoint.Y;
-	}
-}
-//步进平移
-void UIAnima::Translate( const vector2d<s32> &steptran )
-{
-	//平移
-	for(int i = 0; i < 4; i++)
-	{
-		Host->DstQuar[i].X += steptran.X;
-		Host->DstQuar[i].Y += steptran.Y;
-	}
-}
-//步进Alpha值修改
-void UIAnima::AlphaChange( int Alpha )
-{
-
-}
-//运行动画
-void UIAnima::Run()
-{
-	u32 now = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
-
-	if (HasScale)
-	{
-	}
-	if (HasRotate)
-	{
-		Rotate( StepDeg, RotCen );
-	}
-}
+//
+////构造函数
+//UIAnima::UIAnima( UIObject* host, u32 duration, u32 loop, ANIMA_END_OPTION opflag, u32 interval )
+//{
+//	Host = host;
+//	SetUIAnima( duration, loop, opflag, interval);
+//	LastFrameTime = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
+//	CurrentFrame = 1;
+//	CurrentLoop = 1;
+//	HasRotate = HasScale = HasTranslate = false;
+//}
+////设置动画信息
+//void UIAnima::SetUIAnima( u32 duration, u32 loop, ANIMA_END_OPTION opflag, u32 interval)
+//{
+//	Duration = duration;
+//	Loop = loop;
+//	Interval = interval;
+//	EndOption = opflag;
+//	NumOfFrame = Duration / Interval;
+//}
+////添加缩放动画
+//void UIAnima::AddScale( const vector2d<f32>& stretch, const vector2d<f32>& scalePoint )
+//{
+//	HasScale = true;
+//	StepStr.X = stretch.X / NumOfFrame;
+//	StepStr.Y = stretch.Y / NumOfFrame;
+//	StrCen = scalePoint;
+//}
+////添加旋转动画
+//void UIAnima::AddRotate( float degree, const vector2d<f32>& rotatePoint )
+//{
+//	HasRotate = true;
+//	StepDeg = degree / NumOfFrame;
+//	RotCen = rotatePoint;
+//}
+////添加平移动画
+//void AddTranslate( vector2d<f32> offset );
+////步进缩放
+//void Scale( vector2d<f32> stepstr, vector2d<f32> scalePoint );
+////步进旋转
+//void UIAnima::Rotate( float stepdeg, const vector2d<f32>& rotatePoint )
+//{
+//	float steprad = stepdeg / 180 * PI;
+//	//正角度为逆时针
+//	//记录矩阵四个顶点临时坐标
+//	vector2d<f32> temQuar[4];
+//	//得到旋转后的坐标
+//	for (int i = 0; i < 4; i++)
+//	{
+//		temQuar[i] = Host->DstQuar[i] - rotatePoint;
+//		float x,y;
+//		x = (float)temQuar[i].X;
+//		y = (float)temQuar[i].Y;
+//		temQuar[i].X = cos(steprad) * x - sin(steprad) * y;
+//		temQuar[i].Y = sin(steprad) * x + cos(steprad) * y;
+//		//加回到原来的坐标系
+//		Host->DstQuar[i] = temQuar[i] + rotatePoint;
+//	}
+//}
+////步进平移
+//void Translate( vector2d<f32> steptran );
+////运行动画
+//void UIAnima::Run()
+//{
+//	//控制帧频
+//	u32 now = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
+//	if(now - LastFrameTime < Interval )
+//		return;
+//	LastFrameTime = now;
+//
+//	//应用变换
+//	if (HasScale)
+//	{
+//	}
+//	if (HasRotate)
+//	{
+//		Rotate( StepDeg, RotCen );
+//	}
+//
+//	//控制帧数
+//	if(HasRotate || HasScale || HasTranslate)
+//	{
+//		CurrentFrame++;
+//		if(CurrentFrame > NumOfFrame)
+//		{
+//			if(Loop == 0)
+//			{
+//				CurrentFrame = 1;
+//			}
+//			else
+//			{
+//				CurrentLoop++;
+//				if(CurrentLoop > Loop)
+//				{
+//					if(EndOption == STAY)
+//						HasTranslate = HasScale = HasRotate = false;
+//				}
+//			}
+//		}
+//	}
+//}
 
 //////////////////////////////////////////////////////////////////
 //名称：UIObject
@@ -133,7 +116,7 @@ void UIAnima::Run()
 //////////////////////////////////////////////////////////////////
 
 //构造函数
-UIObject::UIObject( IVideoDriver* driver, const vector2d<s32>& pos, int width, int height )
+UIObject::UIObject( IVideoDriver* driver, const vector2d<f32>& pos, int width, int height )
 {
 	Driver = driver;
 	DstQuar[0].X = pos.X;
@@ -148,7 +131,7 @@ UIObject::UIObject( IVideoDriver* driver, const vector2d<s32>& pos, int width, i
 	Center.Y = (DstQuar[0].Y + DstQuar[2].Y) / 2;
 	Image = NULL;
 	Alpha = 255;
-	Animations = shared_ptr<UIAnima>( new UIAnima( this ) );
+//	Animations = shared_ptr<UIAnima>( new UIAnima( this ) );
 }
 
 //装载图片
@@ -157,15 +140,15 @@ void UIObject::SetImage( char * filename )
 	Image = Driver->getTexture( filename );
 }
 //以中心点为基准设置元件位置
-void UIObject::SetCenter( const vector2d<s32>& pos )
+void UIObject::SetCenter( const vector2d<f32>& pos )
 {
-	vector2d<s32> offset = pos - Center;
+	vector2d<f32> offset = pos - Center;
 	for(int i = 0; i < 4; i++)
 		DstQuar[i] += offset;
 	Center = pos;
 }
 //获取元件中心点位置
-const vector2d<s32>& UIObject::GetCenter() const
+const vector2d<f32>& UIObject::GetCenter() const
 {
 	return Center;
 }
@@ -185,5 +168,14 @@ void UIImage::Draw()
 	int h = Image->getSize().Height;
 	int w = Image->getSize().Width;
 	rect<s32>r(0, 0, w, h);
-	Driver->draw2DImage( Image, DstQuar, rect<s32>(0,0,w,h), 0, &SColor(Alpha,255,255,255), true );
+	vector2d<s32> intDstQuar[4];
+	for( int i=0; i<4; i++)
+		intDstQuar[i].set( (s32)DstQuar[i].X, (s32)DstQuar[i].Y );
+	SColor colors[4];
+	for (int i=0; i<4; i++)
+	{
+		colors[i] = SColor(Alpha,255,255,255);
+	}
+	Driver->draw2DImage( Image, intDstQuar, rect<s32>(0,0,w,h), 0, colors/*&SColor(Alpha,255,255,255)*/, true );
+	//Driver->draw2DImage( Image, vector2d<s32>(0,0));
 }
