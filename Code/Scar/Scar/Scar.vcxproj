@@ -82,6 +82,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
     <ClCompile Include="DeletionAnimator.cpp" />
+    <ClCompile Include="Flame.cpp" />
     <ClCompile Include="FlyBehavior.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IMissile.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="ScaleUIAnimator.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TranslateUIAnimator.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +112,7 @@
     <ClInclude Include="def.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />
+    <ClInclude Include="Flame.h" />
     <ClInclude Include="FlyBehavior.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="IAircraft.h" />
@@ -135,6 +138,7 @@
     <ClInclude Include="IUIAnimator.h" />
     <ClInclude Include="TranslateUIAnimator.h" />
     <ClInclude Include="UIAnimators.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIObject.h" />
   </ItemGroup>
   <ItemGroup>

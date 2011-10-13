@@ -1,6 +1,9 @@
 #include "StartScene.h"
 #include "def.h"
 #include "UIAnimators.h"
+#include "UIManager.h"
+#include "MyIrrlichtEngine.h"
+#include "EventListener.h"
 
 void StartScene::Run() 
 {
@@ -53,6 +56,17 @@ void StartScene::Init()
 	DeletionAnimator* delAni = new DeletionAnimator( timer->getRealTime(), 500 );
 	v->AddAnimator( delAni );
 	delAni->drop();
+
+	
+
+	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+	{	
+		uiManager.OnEvent( event );
+		//control.OnEvent( event );
+		//pEngine;		// ÒıÇæÖ¸Õë
+		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+		return 0;
+	} );
 }
 
 void StartScene::Release() 

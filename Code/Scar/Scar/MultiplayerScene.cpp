@@ -13,6 +13,7 @@
 #include "Aircraft.h"
 #include "FlyBehavior.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "Flame.h"
 
 
 void MultiplayerScene::Run()
@@ -54,7 +55,7 @@ void MultiplayerScene::Init()
 	scene::ISceneNode* node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
 
 	ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
-		vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
+		vector3df( 0, 10000, 10000 ), 500000, pEngine->GetDevice()->getTimer()->getTime() );
 	node->addAnimator( anim );
 	anim->drop();
 
@@ -79,16 +80,22 @@ void MultiplayerScene::Init()
 	//	return 0;
 	//} );
 
+	CFlame flame;
+	auto fire = flame.createFlame(
+		MyIrrlichtEngine::GetEngine()->GetDevice(), 
+		"pic1.jpg"
+		);
 
+	node->addChild( fire );
 
-	//// 创建并注册receiver的事件处理回调函数
-	//receiver.SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
-	//{	
-	//	//control.OnEvent( event );
-	//	pEngine;		// 引擎指针
-	//	//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
-	//	return 0;
-	//} );
+	// 创建并注册receiver的事件处理回调函数
+	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
+	{	
+		//control.OnEvent( event );
+		pEngine;		// 引擎指针
+		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+		return 0;
+	} );
 }
 
 void MultiplayerScene::Release()

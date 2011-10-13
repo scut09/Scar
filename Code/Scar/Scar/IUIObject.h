@@ -14,6 +14,7 @@
 #include <list>
 #include "IUIAnimator.h"
 #include <irrlicht.h>
+#include <functional>
 
 using namespace irr;
 

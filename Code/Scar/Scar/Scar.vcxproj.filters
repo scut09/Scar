@@ -103,10 +103,13 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="TranslateUIAnimator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="AlphaChangeUIAnimator.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Flame.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,10 +212,13 @@
     <ClInclude Include="DeletionUIAnimator.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="TranslateUIAnimator.h">
+    <ClInclude Include="UIManager.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Flame.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="AlphaChangeUIAnimator.h">
+    <ClInclude Include="TranslateUIAnimator.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
