@@ -9,14 +9,16 @@ void StartScene::Run()
 	{
 		count = 0;
 		u.RemoveAnimators();
-	}
+	}*/
+
+
 	if ( count++ > 200 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
-	}*/
+	}
 
 	//u.SetCenter( vector2d<s32>( count, count ) );
 
