@@ -53,9 +53,9 @@ void StartScene::Init()
 	u->AddAnimator(ani);
 	ani->drop();
 
-	DeletionAnimator* delAni = new DeletionAnimator( timer->getRealTime(), 500 );
+	/*DeletionAnimator* delAni = new DeletionAnimator( timer->getRealTime(), 500 );
 	v->AddAnimator( delAni );
-	delAni->drop();
+	delAni->drop();*/
 
 	
 

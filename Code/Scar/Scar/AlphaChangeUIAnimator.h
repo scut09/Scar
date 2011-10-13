@@ -17,14 +17,14 @@ private:
 	u32 Begin;
 	u32 Duration;
 	u32 LastTime;
-	unsigned int SrcAlpha;
-	unsigned int TarAlpha;
+	f32 SrcAlpha;
+	f32 TarAlpha;
 	f32 AlphaFactor;
 	bool Loop;
 
 public:
-	AlphaChangeUIAnimator( u32 begin, u32 duration, unsigned int srcalpha,
-		unsigned int taralpha, bool loop = false );
+	AlphaChangeUIAnimator( u32 begin, u32 duration, f32 srcalpha,
+		f32 taralpha, bool loop = false );
 
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 

@@ -2,7 +2,7 @@
 #include "UIObject.h"
 
 AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 begin, u32 duration, 
-	unsigned int srcalpha, unsigned int taralpha, bool loop /*= false */ )
+	f32 srcalpha, f32 taralpha, bool loop /*= false */ )
 	: Begin( begin ), Duration( duration ), SrcAlpha( srcalpha ),
 	TarAlpha(taralpha),Loop( loop ), LastTime( begin )
 {
@@ -34,12 +34,11 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
-	//AlphaChange
-	unsigned int alpha = (u32)(SrcAlpha + t * AlphaFactor);
-	
 	UIObject* pNode = static_cast< UIObject* >( node );
-	
-	pNode->SetAlpha( SrcAlpha = alpha );
+
+	//AlphaChange
+	f32 alpha = pNode->GetAlpha() + t * AlphaFactor;	
+	pNode->SetAlpha( alpha );
 	return true;
 }
 
