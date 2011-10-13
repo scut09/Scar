@@ -6,6 +6,10 @@ AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 begin, u32 duration,
 	: Begin( begin ), Duration( duration ), SrcAlpha( srcalpha ),
 	TarAlpha(taralpha),Loop( loop ), LastTime( begin )
 {
+	if(taralpha > 255)
+		taralpha = 255;
+	else if(taralpha < 0)
+		taralpha = 0;
 	AlphaFactor = ( (int)taralpha - (int)srcalpha ) / (f32)duration;
 }
 
