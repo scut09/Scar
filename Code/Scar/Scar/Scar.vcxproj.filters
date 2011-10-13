@@ -93,6 +93,9 @@
     <ClCompile Include="RotateUIAnimator.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="ScaleUIAnimator.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -186,6 +189,9 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="UIAnimators.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleUIAnimator.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

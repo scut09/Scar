@@ -2,16 +2,31 @@
 #include "UIObject.h"
 
 RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, const vector2d<f32>& rotpoint, bool loop /*= false */ ) : Begin( begin ), Duration( duration ),
-	RotPoint( rotpoint ), Loop( loop ), LastTime( begin )
+	RotPoint( rotpoint ), Loop( loop ), LastTime( begin ), Angle(angle)
 {
 	AngleFactor = angle / Duration;
 }
 
 bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 {
+	//还未到达动画开始时间
+	if( Begin > timeMS)
+		return false;
+	//到达动画结束时间
 	if( timeMS - Begin > Duration )
 	{
-		//把自己删掉
+		//循环
+		if(Loop)
+		{
+			Begin = timeMS;
+		}
+		//不循环
+		else
+		{
+			//把自己删掉
+			node->RemoveAnimator(this);
+			return false;
+		}
 	}
 
 	u32 t = timeMS - LastTime;
@@ -40,4 +55,9 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	}
 
 	return true;
+}
+
+RotateUIAnimator* RotateUIAnimator::Clone()
+{
+	return new RotateUIAnimator(Begin, Duration, Angle, RotPoint, Loop);
 }
