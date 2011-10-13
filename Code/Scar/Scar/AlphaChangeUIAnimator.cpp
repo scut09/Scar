@@ -35,7 +35,7 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	LastTime = timeMS;
 
 	//AlphaChange
-	unsigned int alpha = SrcAlpha + t * AlphaFactor;
+	unsigned int alpha = (u32)(SrcAlpha + t * AlphaFactor);
 	
 	UIObject* pNode = static_cast< UIObject* >( node );
 	

@@ -29,12 +29,11 @@ bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 			return false;
 		}
 	}
-
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
 	//Scale
-	vector2d<f32> scale = t * ScaleFactor + 1;
+	vector2d<f32> scale = f32( t ) * ScaleFactor + vector2d<f32>( 1, 1 );
 
 	UIObject* pNode = static_cast< UIObject* >( node );
 

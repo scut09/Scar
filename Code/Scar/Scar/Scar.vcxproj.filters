@@ -43,6 +43,9 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{b95af60f-a58e-4ce0-abed-b20b87ed9ebf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\UIAnimators">
+      <UniqueIdentifier>{7f912e8c-5412-468e-9305-b4b928b7e219}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,19 +93,7 @@
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="RotateUIAnimator.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="ScaleUIAnimator.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="IUIObject.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="DeletionAnimator.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TranslateUIAnimator.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
@@ -110,6 +101,21 @@
     </ClCompile>
     <ClCompile Include="Flame.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaChangeUIAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
+    <ClCompile Include="DeletionAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateUIAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
+    <ClCompile Include="ScaleUIAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
+    <ClCompile Include="TranslateUIAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,22 +200,7 @@
     <ClInclude Include="TestAnimator.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="IUIAnimator.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="IUIObject.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="RotateUIAnimator.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIAnimators.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="ScaleUIAnimator.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="DeletionUIAnimator.h">
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="UIManager.h">
@@ -218,8 +209,26 @@
     <ClInclude Include="Flame.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AlphaChangeUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="DeletionUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="IUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
     <ClInclude Include="TranslateUIAnimator.h">
-      <Filter>UI</Filter>
+      <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="UIAnimators.h">
+      <Filter>UI\UIAnimators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

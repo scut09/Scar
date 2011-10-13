@@ -28,7 +28,6 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 			return false;
 		}
 	}
-
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
