@@ -11,11 +11,14 @@
 
 #include <irrlicht.h>
 #include <functional>
+#include <list>
 #include "def.h"
 #include "ModelManager.h"
 #include "IMovable.h"
 #include "AnimationManager.h"
 #include "GameScene.h"
+
+class IUIObject;
 
 using namespace irr;
 
@@ -45,6 +48,9 @@ private:
 	ModelManager					m_ModelManager;
 	//AnimationManager				m_AnimationManager;		// 过时，抛弃这个。使用irrlicht内部的动画管理
 	u32								m_lastUpdateTime;
+	std::list<IUIObject*>			m_IUIObjectDeleteionList;// 针对IUIOjbect的删除缓冲队列
+	std::list<scene::ISceneNode*>	m_ISceneNodeDeletionList;// 待删除列表，在每次引擎总循环的一次循环结束后会清空它。
+															// 使用它可以让我们实现通过IUIAnimator来删除IUIObject
 
 
 public:
@@ -69,15 +75,18 @@ public:
 
 	ModelManager* GetModelManager();
 
-	//AnimationManager* GetAnimationManager();
+	//AnimationManager* GetAnimationManager();	// 历史问题，动画管理交给
 
 	void Run();
 
 	void SetCallbackFunc( EngineRunCallbackFuncType func );
 
-	void LoadModels()
-	{
-	}
+	// 添加节点到删除队列中
+	void AddToDeletionQueue( scene::ISceneNode* node );
+	void AddToDeletionQueue( IUIObject* node );
+
+	// 删除所有删除队列中的节点，这个会在每次循环后被调用
+	void ClearDeletionList();
 };
 
 

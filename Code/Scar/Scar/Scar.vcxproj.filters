@@ -96,6 +96,9 @@
     <ClCompile Include="ScaleUIAnimator.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="IUIObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

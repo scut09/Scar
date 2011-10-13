@@ -1,3 +1,12 @@
+/********************************************************************
+    创建时间: 2011-10-13   14:36
+    文件名:   IUIObject.h
+    作者:     华亮 屠文翔
+    说明:     IUIObject接口，2D场景节点的接口。
+			我们可以为实现IUIObject接口的类添加IUIAnimator动画以实现动画
+
+*********************************************************************/
+
 #ifndef IUIObject_h__
 #define IUIObject_h__
 
@@ -10,11 +19,12 @@ using namespace irr;
 
 class IUIAnimator;
 
-//////////////////////////////////////////////////////////////////
-//名称：IUIObject
-//描述：UIObject的接口类，负责管理父、字节点，增删动画，以及绘制
-//作者：华亮,屠文翔
-//////////////////////////////////////////////////////////////////
+
+/*
+** 名字：IUIObject
+** 说明：UIObject的接口类，负责管理父、字节点，增删动画，以及绘制
+**
+*/
 class IUIObject : public irr::IReferenceCounted
 {
 //public:
@@ -23,108 +33,48 @@ class IUIObject : public irr::IReferenceCounted
 	IUIObject* Parent;
 
 public:
+	IUIObject();
+
+	virtual ~IUIObject();
+
 	//绘制当前节点
 	virtual void Draw() = 0;
 
 	//绘制树 绘制当前节点以及当前节点的所有子节点
-	void DrawTree()
-	{
-		Draw();
-		for(auto iter = Children.begin(); iter != Children.end(); ++iter)
-		{
-			(*iter)->DrawTree();
-		}
-	}
+	void DrawTree();
 
 	 //运行动画列表中的所有动画
-	void OnAnimate( u32 time )
-	{
-		auto iter = Animators.begin();
-		while ( iter != Animators.end() )
-		{
-			auto i = iter;
-			iter++;
-			//相应动画的接口
-			(*i)->animateUIObject( this, time );
-		}
-		//通知子节点运行动画列表
-		auto it = Children.begin();
-		for (; it != Children.end(); ++it)
-			(*it)->OnAnimate( time );
-	}
+	void OnAnimate( u32 time );
 
 	//将某个动画加入动画运行列表
-	void AddAnimator( IUIAnimator* ani	)
-	{
-		Animators.push_back( ani );
-		ani->grab();
-		//为所有子节点增加相应的动画
-		for( auto iter = Children.begin(); iter != Children.end(); ++iter )
-		{
-			IUIAnimator* aniCopy = ani->Clone(); 
-			(*iter)->AddAnimator(aniCopy);
-		}
-	}
+	void AddAnimator( IUIAnimator* ani	);
 
 	//获取动画列表
-	const std::list< IUIAnimator* >& GetAnimators() const
-	{
-		return Animators;
-	}
+	const std::list< IUIAnimator* >& GetAnimators() const;
 
 	//将某个动画从动画列表中删除
-	void RemoveAnimator( IUIAnimator* ani )
-	{
-		Animators.remove( ani );
-		ani->drop();
-	}
+	void RemoveAnimator( IUIAnimator* ani );
 
 	//清空动画列表
-	void RemoveAnimators()
-	{
-		for ( auto iter = Animators.begin(); iter != Animators.end(); ++iter )
-		{
-			(*iter)->drop();
-		}
-		Animators.clear();
-	}
+	void RemoveAnimators();
 
 	//设置父节点
-	void SetParent( IUIObject* parent )
-	{
-		//这句有问题
-		/*if ( Parent )
-			Parent->RemoveChild( this );*/
-		Parent = parent;
-	}
+	void SetParent( IUIObject* parent );
 
 	//删除子节点
-	void RemoveChild( IUIObject* node )
-	{
-		Children.remove( node );
-		node->drop();
-	}
+	void RemoveChild( IUIObject* node );
 
 	//增加子节点
-	void AddChild( IUIObject* node )
-	{
-		Children.push_back( node );
-		node->SetParent(this);
-		node->grab();
-	}
+	void AddChild( IUIObject* child );
+
+	void RemoveAll();
 
 	//获取子节点列表
-	const std::list< IUIObject* >& GetChildren() const
-	{
-		return Children;
-	}
+	const std::list< IUIObject* >& GetChildren() const;
 
-	//将自己从父节点中删除
-	void RemoveSelf()
-	{
-		if ( Parent )
-			Parent->RemoveChild( this );
-	}
+	// 将自己从父节点中删除
+	// 为了和父类irr::IReferenceCounted中的drop，grab风格一样，所以我们用小写开头
+	void remove();
 
 };
 #endif // IUIObject_h__

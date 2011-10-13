@@ -58,14 +58,6 @@ void MultiplayerScene::Init()
 	node->addAnimator( anim );
 	anim->drop();
 
-	//shared_ptr<Aircraft> bottle( new Aircraft );
-	//bottle->LoadSceneNode( node );
-	//bottle->SetSpeed( vector3df( 0.01, 0.1, 0 ) );
-	//shared_ptr<FlyStraightBehavior> beh( new FlyStraightBehavior );
-	//bottle->AddFlyBehavior( beh );
-
-	//AnimationManager* aniMan = pEngine->GetAnimationManager();
-	//aniMan->AddMovableNode( node, bottle );
 
 	ModuleControl control;
 

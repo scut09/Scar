@@ -7,6 +7,7 @@
 *********************************************************************/
 
 #include "MyIrrlichtEngine.h"
+#include "IUIObject.h"
 
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
@@ -101,6 +102,8 @@ void MyIrrlichtEngine::Run()
 
 		m_pDriver->endScene();
 
+		ClearDeletionList();	// 删除待删除队列中的东西，主要提供给自删除动画使用
+
 		m_lastUpdateTime = now;
 	}
 }
@@ -118,6 +121,45 @@ IrrlichtDevice* MyIrrlichtEngine::GetDevice()
 ModelManager* MyIrrlichtEngine::GetModelManager()
 {
 	return &m_ModelManager;
+}
+
+void MyIrrlichtEngine::AddToDeletionQueue( scene::ISceneNode* node )
+{
+	if ( ! node )	return;
+
+	node->grab();
+	node->remove();
+
+	m_ISceneNodeDeletionList.push_back( node );
+}
+
+void MyIrrlichtEngine::AddToDeletionQueue( IUIObject* node )
+{
+	if ( ! node )	return;
+
+	node->grab();
+	node->remove();
+
+	m_IUIObjectDeleteionList.push_back( node );
+}
+
+void MyIrrlichtEngine::ClearDeletionList()
+{
+	for ( auto iter = m_ISceneNodeDeletionList.begin(); iter != m_ISceneNodeDeletionList.end(); ++iter )
+	{
+		(*iter)->remove();
+		(*iter)->drop();
+	}
+
+	m_ISceneNodeDeletionList.clear();
+
+	for ( auto iter = m_IUIObjectDeleteionList.begin(); iter != m_IUIObjectDeleteionList.end(); ++iter )
+	{
+		(*iter)->remove();
+		(*iter)->drop();
+	}
+
+	m_IUIObjectDeleteionList.clear();
 }
 
 //AnimationManager* MyIrrlichtEngine::GetAnimationManager()

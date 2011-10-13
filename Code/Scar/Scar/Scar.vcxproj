@@ -83,6 +83,7 @@
     <ClCompile Include="FlyBehavior.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IMissile.cpp" />
+    <ClCompile Include="IUIObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
