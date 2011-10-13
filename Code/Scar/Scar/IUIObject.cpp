@@ -54,6 +54,7 @@ void IUIObject::AddAnimator( IUIAnimator* ani )
 	{
 		IUIAnimator* aniCopy = ani->Clone(); 
 		(*iter)->AddAnimator(aniCopy);
+		aniCopy->drop();
 	}
 }
 

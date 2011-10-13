@@ -128,7 +128,6 @@ void MyIrrlichtEngine::AddToDeletionQueue( scene::ISceneNode* node )
 	if ( ! node )	return;
 
 	node->grab();
-	node->remove();
 
 	m_ISceneNodeDeletionList.push_back( node );
 }
@@ -138,7 +137,6 @@ void MyIrrlichtEngine::AddToDeletionQueue( IUIObject* node )
 	if ( ! node )	return;
 
 	node->grab();
-	node->remove();
 
 	m_IUIObjectDeleteionList.push_back( node );
 }

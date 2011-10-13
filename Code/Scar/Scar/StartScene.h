@@ -11,12 +11,12 @@ class StartScene : public GameScene
 	MyIrrlichtEngine* pEngine;
 	irr::video::IVideoDriver* driver;
 
-	UIImage u;//²âÊÔÓÃ
-	UIImage v;//²âÊÔÓÃ
+	UIImage* u;//²âÊÔÓÃ
+	UIImage* v;//²âÊÔÓÃ
 
 public:
-	StartScene() : count( 0 ), u( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(0,0), 500, 750 ),
-		v( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(50,50), 250, 375 )
+	StartScene() : count( 0 ), u( new UIImage( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(0,0), 500, 750 ) ),
+		v( new UIImage( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(50,50), 250, 375 ) )
 	{
 	}
 

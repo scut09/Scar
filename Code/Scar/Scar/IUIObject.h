@@ -41,40 +41,40 @@ public:
 	virtual void Draw() = 0;
 
 	//绘制树 绘制当前节点以及当前节点的所有子节点
-	void DrawTree();
+	virtual void DrawTree();
 
 	 //运行动画列表中的所有动画
-	void OnAnimate( u32 time );
+	virtual void OnAnimate( u32 time );
 
 	//将某个动画加入动画运行列表
-	void AddAnimator( IUIAnimator* ani	);
+	virtual void AddAnimator( IUIAnimator* ani	);
 
 	//获取动画列表
-	const std::list< IUIAnimator* >& GetAnimators() const;
+	virtual const std::list< IUIAnimator* >& GetAnimators() const;
 
 	//将某个动画从动画列表中删除
-	void RemoveAnimator( IUIAnimator* ani );
+	virtual void RemoveAnimator( IUIAnimator* ani );
 
 	//清空动画列表
-	void RemoveAnimators();
+	virtual void RemoveAnimators();
 
 	//设置父节点
-	void SetParent( IUIObject* parent );
+	virtual void SetParent( IUIObject* parent );
 
 	//删除子节点
-	void RemoveChild( IUIObject* node );
+	virtual void RemoveChild( IUIObject* node );
 
 	//增加子节点
-	void AddChild( IUIObject* child );
+	virtual void AddChild( IUIObject* child );
 
-	void RemoveAll();
+	virtual void RemoveAll();
 
 	//获取子节点列表
-	const std::list< IUIObject* >& GetChildren() const;
+	virtual const std::list< IUIObject* >& GetChildren() const;
 
 	// 将自己从父节点中删除
 	// 为了和父类irr::IReferenceCounted中的drop，grab风格一样，所以我们用小写开头
-	void remove();
+	virtual void remove();
 
 };
 #endif // IUIObject_h__

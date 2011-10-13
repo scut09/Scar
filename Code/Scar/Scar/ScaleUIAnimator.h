@@ -11,7 +11,7 @@ class RotateUIAnimator;
 //描述：缩放动画
 //作者：屠文翔，杨成熙
 //////////////////////////////////////////////////////////////////
-class ScaleUIAnimator
+class ScaleUIAnimator : public IUIAnimator
 {
 	
 };

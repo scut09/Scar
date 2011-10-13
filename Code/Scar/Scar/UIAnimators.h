@@ -6,5 +6,7 @@
 //要使用UI动画则包含该头文件
 
 #include "RotateUIAnimator.h"
+#include "ScaleUIAnimator.h"
+#include "DeletionUIAnimator.h"
 
 #endif // UIAnimators_h__

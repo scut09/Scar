@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
+    <ClCompile Include="DeletionAnimator.cpp" />
     <ClCompile Include="FlyBehavior.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IMissile.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="PythonWrapper.h" />
     <ClInclude Include="RotateUIAnimator.h" />
     <ClInclude Include="ScaleUIAnimator.h" />
+    <ClInclude Include="DeletionUIAnimator.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
     <ClInclude Include="IUIAnimator.h" />

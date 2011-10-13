@@ -4,7 +4,6 @@
 
 void StartScene::Run() 
 {
-	u.OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
 	//v.OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
 	/*if ( count++ > 200 )
 	{
@@ -25,8 +24,10 @@ void StartScene::Run()
 
 void StartScene::Draw()
 {	
+	u->OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
+
 //	u.Animations->Run();
-	u.DrawTree();
+	u->DrawTree();
 }
 
 void StartScene::Init() 
@@ -35,20 +36,22 @@ void StartScene::Init()
 	driver = pEngine->GetVideoDriver();
 	ITimer* timer = pEngine->GetDevice()->getTimer();
 
-	u.SetImage("pic1.jpg");
-	v.SetImage("pic1.jpg");
-	u.AddChild(&v);
+	u->SetImage("pic1.jpg");
+	v->SetImage("pic1.jpg");
+	u->AddChild( v );
 	
 	RotateUIAnimator* ani = new RotateUIAnimator( 
 		timer->getRealTime(),
 		1000, 
 		90,
-		u.GetCenter()
+		u->GetCenter()
 		);
-	u.AddAnimator(ani);
+	u->AddAnimator(ani);
 	ani->drop();
 
-	
+	DeletionAnimator* delAni = new DeletionAnimator( timer->getRealTime(), 500 );
+	v->AddAnimator( delAni );
+	delAni->drop();
 }
 
 void StartScene::Release() 
