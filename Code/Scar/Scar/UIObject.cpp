@@ -153,6 +153,16 @@ const vector2d<f32>& UIObject::GetCenter() const
 	return Center;
 }
 
+unsigned int UIObject::GetAlpha()
+{
+	return Alpha;
+}
+
+void UIObject::SetAlpha( unsigned int alpha )
+{
+	Alpha = alpha;
+}
+
 //////////////////////////////////////////////////////////////////
 //Ãû³Æ£ºUIImage 
 //ÃèÊö£º½ö´¦Àí¾²Ì¬Í¼Æ¬,¼Ì³ÐUIObject

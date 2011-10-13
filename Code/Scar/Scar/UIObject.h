@@ -26,7 +26,7 @@ class UIObject : public IUIObject
 	vector2d<f32> Center;						//矩形的中心点
 	ITexture * Image;							//应用于UI上的图片
 	IVideoDriver * Driver;						//Driver指针
-	int Alpha;									//元件透明度
+	unsigned int Alpha;									//元件透明度
 	
 public:
 	UIObject();
@@ -41,8 +41,10 @@ public:
 	void SetCenter( const vector2d<f32>& pos );
 	//获取元件中心点位置
 	const vector2d<f32>& GetCenter() const;
-		
-	
+	//获得Alpha值
+	unsigned int GetAlpha();
+	//设置Alpha值
+	void SetAlpha( unsigned int alpha );
 };
 
 

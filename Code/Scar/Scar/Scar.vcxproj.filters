@@ -102,6 +102,12 @@
     <ClCompile Include="DeletionAnimator.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="TranslateUIAnimator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaChangeUIAnimator.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -201,6 +207,12 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="DeletionUIAnimator.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TranslateUIAnimator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaChangeUIAnimator.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

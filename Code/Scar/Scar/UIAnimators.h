@@ -8,6 +8,7 @@
 #include "RotateUIAnimator.h"
 #include "TranslateUIAnimator.h"
 #include "ScaleUIAnimator.h"
+#include "AlphaChangeUIAnimator.h"
 #include "DeletionUIAnimator.h"
 
 #endif // UIAnimators_h__

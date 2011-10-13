@@ -12,13 +12,13 @@ void StartScene::Run()
 	}*/
 
 
-	if ( count++ > 200 )
-	{
-		count = 0;
-		pEngine->currentScene = multiplayerScene;
-		Release();
-		pEngine->currentScene->Init();
-	}
+	//if ( count++ > 200 )
+	//{
+	//	count = 0;
+	//	pEngine->currentScene = multiplayerScene;
+	//	Release();
+	//	pEngine->currentScene->Init();
+	//}
 
 	//u.SetCenter( vector2d<s32>( count, count ) );
 
@@ -42,17 +42,11 @@ void StartScene::Init()
 	v->SetImage("pic1.jpg");
 	u->AddChild( v );
 	
-	/*RotateUIAnimator* ani = new RotateUIAnimator( 
+	AlphaChangeUIAnimator* ani = new AlphaChangeUIAnimator( 
 		timer->getRealTime(),
-		1000, 
-		90,
-		u->GetCenter()
-		);*/
-	TranslateUIAnimator* ani = new TranslateUIAnimator(
-		timer->getRealTime(),
-		1000,
-		vector2d<s32>(100,0)
-		);
+		5000,
+		u->GetAlpha(),
+		0);
 	u->AddAnimator(ani);
 	ani->drop();
 
