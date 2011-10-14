@@ -27,10 +27,11 @@ class UIObject : public IUIObject
 	ITexture * Image;							//应用于UI上的图片
 	IVideoDriver * Driver;						//Driver指针
 	f32 Alpha;									//元件透明度
+	s32 Order;									//元件在树的同一层时的摆放顺序
 	
 public:
 	UIObject();
-	UIObject( IVideoDriver * driver, const vector2d<f32>& pos, int width, int height );
+	UIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 Order = 0 );
 	virtual ~UIObject() {}
 
 	//shared_ptr<UIAnima> Animations;				//动画变换
@@ -56,8 +57,8 @@ public:
 class UIImage : public UIObject
 {
 public:
-	UIImage( IVideoDriver * driver, const vector2d<f32>& pos, int width, int height ) 
-		: UIObject( driver, pos, width, height )
+	UIImage( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order = 0 ) 
+		: UIObject( driver, pos, width, height, order )
 	{}
 	void Draw();
 };

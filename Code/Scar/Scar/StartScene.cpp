@@ -33,8 +33,7 @@ void StartScene::Init()
 
 	u->SetImage("pic1.jpg");
 	v->SetImage("pic1.jpg");
-	//u->AddChild( v );
-	
+
 	/*AlphaChangeUIAnimator* ani = new AlphaChangeUIAnimator( 
 		timer->getRealTime(),
 		5000,
@@ -43,14 +42,43 @@ void StartScene::Init()
 	u->AddAnimator(ani);
 	ani->drop();*/
 
-	TranslateUIAnimator* traani = new TranslateUIAnimator(
+	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
 		timer->getRealTime(),
 		2000,
 		vector2d<s32>(300,0));
 	u->AddAnimator(traani);
+	traani->drop();*/
+
+	/*RotateUIAnimator* rotani = new RotateUIAnimator(
+	timer->getRealTime(),
+	3000,
+	360,
+	v->DstQuar[0],
+	v->GetCenter(),
+	false);
+	v->AddAnimator(rotani);
+	rotani->drop();*/
+
+	ScaleUIAnimator* scaani = new ScaleUIAnimator(
+		timer->getRealTime(),
+		3000,
+		vector2d<f32>(2,2),
+		v->DstQuar[0]
+	);
+		v->AddAnimator(scaani);
+		scaani->drop();
+
+	TranslateUIAnimator* traani = new TranslateUIAnimator(
+		timer->getRealTime(),
+		3000,
+		vector2d<s32>(1500,0));
+	v->AddAnimator(traani);
 	traani->drop();
 
-	uiManager->SetRoot(u);	
+	
+
+	uiManager->SetRoot(v);	
+	//uiManager->AddUINode(v,u);
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	

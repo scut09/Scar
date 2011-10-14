@@ -20,11 +20,12 @@ private:
 	f32 AngleFactor;
 	u32 LastTime;
 	vector2d<f32> RotPoint;
+	vector2d<f32> OldObjCen;
 	bool Loop;
 
 public:
 	RotateUIAnimator( u32 begin, u32 duration, f32 angle, 
-		const vector2d<f32>& rotpoint, bool loop = false );
+		const vector2d<f32>& rotpoint, const vector2d<f32>& ObjCen, bool loop = false );
 	
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 

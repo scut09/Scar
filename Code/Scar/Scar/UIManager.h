@@ -19,23 +19,27 @@ public:
 		return true;
 	}
 	//获取UI树根节点
-	UIObject* GetRoot()
-	{
-		return Root;
-	}
+	UIObject* GetRoot();
 	//向UI树中插入节点
-	bool AddUINode( UIObject* node, const vector2d<s32>& pos, const vector2d<f32>& scalefactor,
-					UIObject* parent, s32 order = 0 );
+	bool AddUINode( UIObject* node, UIObject* parent, s32 order = 0 )
+	{
+		parent->AddChild(node);
+		//for( auto iter = parent->GetChildren())
+		for( auto iter = parent->GetAnimators().begin(); iter != parent->GetAnimators().end(); ++iter )
+		{
+			node->AddAnimator( (*iter)->Clone() );		
+		}
+		/*vector2d<f32> offset = pos - node->Center;
+		for(int i=0; i<4; i++)
+		node->DstQuar[i] += offset;*/
+		return true;
+	}
 	//从UI树中删除节点,也会删除该节点的所有后代节点
 	bool RemoveUINode( UIObject* node );
 	//获取被当前坐标命中的UI元件
 	UIObject* GetHitUIByPos(s32 x, s32 y);
 	//运行UI树
-	void RunTree()
-	{
-		Root->OnAnimate(Timer->getRealTime());
-		Root->DrawTree();
-	}
+	void RunTree();
 	//消息处理
 	void OnEvent( const SEvent& event );
 

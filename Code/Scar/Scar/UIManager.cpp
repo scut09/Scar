@@ -9,3 +9,16 @@ void UIManager::OnEvent( const SEvent& event )
 
 
 }
+
+//获取根节点
+UIObject* UIManager::GetRoot()
+{
+	return Root;
+}
+
+//运行树
+void UIManager::RunTree()
+{
+	Root->OnAnimate(Timer->getRealTime());
+	Root->DrawTree();
+}

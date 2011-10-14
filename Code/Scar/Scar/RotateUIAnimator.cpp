@@ -1,9 +1,10 @@
 #include "RotateUIAnimator.h"
 #include "UIObject.h"
 
-RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, const vector2d<f32>& rotpoint, bool loop /*= false */ ) : Begin( begin ), Duration( duration ),
+RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, const vector2d<f32>& rotpoint, const vector2d<f32>& ObjCen, bool loop /*= false */ ) : Begin( begin ), Duration( duration ),
 	RotPoint( rotpoint ), Loop( loop ), LastTime( begin ), Angle(angle)
 {
+	OldObjCen = ObjCen;
 	AngleFactor = angle / Duration;
 }
 
@@ -33,10 +34,12 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 
 	// Rotate
 	f32 angle = t * AngleFactor;
-
 	float steprad = angle / 180 * PI;
 
 	UIObject* pNode = static_cast< UIObject* >( node );
+	RotPoint += (pNode->GetCenter() - OldObjCen);
+	
+
 	//正角度为逆时针
 	//记录矩阵四个顶点临时坐标
 	vector2d<f32> temQuar[4];
@@ -53,10 +56,12 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		pNode->DstQuar[i] = temQuar[i] + RotPoint;
 	}
 
+	OldObjCen = pNode->GetCenter();
+
 	return true;
 }
 
 RotateUIAnimator* RotateUIAnimator::Clone()
 {
-	return new RotateUIAnimator(Begin, Duration, Angle, RotPoint, Loop);
+	return new RotateUIAnimator(Begin, Duration, Angle, RotPoint, OldObjCen, Loop);
 }

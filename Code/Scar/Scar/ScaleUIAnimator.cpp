@@ -55,3 +55,5 @@ ScaleUIAnimator* ScaleUIAnimator::Clone()
 {
 	return new ScaleUIAnimator(Begin, Duration, Scale, ScaPoint, Loop);
 }
+
+

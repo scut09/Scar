@@ -9,22 +9,23 @@
 //////////////////////////////////////////////////////////////////
 
 //构造函数
-UIObject::UIObject( IVideoDriver* driver, const vector2d<f32>& pos, int width, int height )
+UIObject::UIObject( IVideoDriver* driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order )
 {
 	Driver = driver;
-	DstQuar[0].X = pos.X;
-	DstQuar[0].Y = pos.Y;
+
+	Center = pos;
+	DstQuar[0].X = pos.X - width / 2;
+	DstQuar[0].Y = pos.Y - height / 2;
 	DstQuar[1].X = DstQuar[0].X + width;
 	DstQuar[1].Y = DstQuar[0].Y;
 	DstQuar[2].X = DstQuar[0].X + width;
 	DstQuar[2].Y = DstQuar[0].Y + height;
 	DstQuar[3].X = DstQuar[0].X;
 	DstQuar[3].Y = DstQuar[0].Y + height;
-	Center.X = (DstQuar[0].X + DstQuar[2].X) / 2;
-	Center.Y = (DstQuar[0].Y + DstQuar[2].Y) / 2;
+	
 	Image = NULL;
 	Alpha = 255;
-//	Animations = shared_ptr<UIAnima>( new UIAnima( this ) );
+	Order = order;
 }
 
 //装载图片
