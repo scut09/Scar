@@ -10,5 +10,6 @@
 #define AllAnimators_h__
 
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "CSceneNodeAutoTrackAnimator.h"
 
 #endif // AllAnimators_h__

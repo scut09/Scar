@@ -38,6 +38,11 @@ public:
 	ModelManager()
 	{ }
 
+	const std::list< scene::ISceneNode* >& GetISceneNodeList() const
+	{
+		return m_ISceneNodeList;
+	}
+
 	void LoadModels();
 
 	void AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename );
