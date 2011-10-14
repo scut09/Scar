@@ -8,6 +8,8 @@
 *********************************************************************/
 
 #include "IUIObject.h"
+#include <algorithm>
+
 
 //IUIObject::IUIObject( s32 Order )
 //	: Parent( 0 ), Order( order )
@@ -120,6 +122,12 @@ void IUIObject::AddChild( IUIObject* child )
 	child->remove();			// 从原父节点中移除自己
 	Children.push_back(child);
 	child->Parent = this;		// 这里不能用SetParent，否则会无限递归到栈溢出
+	
+	// 根据孩子的Order排序
+	Children.sort( []( IUIObject* lhs, IUIObject* rhs )->bool
+	{
+		return lhs->GetOrder() < rhs->GetOrder();
+	});
 }
 
 void IUIObject::RemoveAll()

@@ -117,6 +117,9 @@
     <ClCompile Include="TranslateUIAnimator.cpp">
       <Filter>UI\UIAnimators</Filter>
     </ClCompile>
+    <ClCompile Include="Toolkit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="UIAnimators.h">
       <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolkit.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
