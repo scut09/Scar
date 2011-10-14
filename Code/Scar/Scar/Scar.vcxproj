@@ -81,6 +81,7 @@
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
+    <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp" />
     <ClCompile Include="DeletionAnimator.cpp" />
     <ClCompile Include="Flame.cpp" />
     <ClCompile Include="FlyBehavior.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
+    <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />

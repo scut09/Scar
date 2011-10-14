@@ -20,9 +20,9 @@ void StartScene::Run()
 
 void StartScene::Draw()
 {	
-
 	uiManager->RunTree();
-
+	/*u->OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
+	u->DrawTree();*/
 }
 
 void StartScene::Init() 
@@ -42,7 +42,14 @@ void StartScene::Init()
 	u->AddAnimator(ani);
 	ani->drop();*/
 
-	RotateUIAnimator* rotani = new RotateUIAnimator(
+	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
+		timer->getRealTime(),
+		2000,
+		vector2d<s32>(300,0));
+	u->AddAnimator(traani);
+	traani->drop();*/
+
+	/*RotateUIAnimator* rotani = new RotateUIAnimator(
 	timer->getRealTime(),
 	3000,
 	360,
@@ -50,14 +57,26 @@ void StartScene::Init()
 	v->GetCenter(),
 	false);
 	v->AddAnimator(rotani);
-	rotani->drop();
+	rotani->drop();*/
 
-	TranslateUIAnimator* traani = new TranslateUIAnimator(
+	ScaleUIAnimator* scaani = new ScaleUIAnimator(
 		timer->getRealTime(),
 		3000,
-		vector2d<s32>(1500,0));
+		vector2d<f32>(2,1),
+		v->DstQuar[0]-vector2d<f32>( 80,80 ),
+		v->GetCenter()
+		);
+	v->AddAnimator(scaani);
+	scaani->drop();
+
+	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
+		timer->getRealTime(),
+		3000,
+		vector2d<s32>(400,0));
 	v->AddAnimator(traani);
-	traani->drop();
+	traani->drop();*/
+
+	
 
 	uiManager->SetRoot(v);	
 	//uiManager->AddUINode(v,u);

@@ -120,6 +120,9 @@
     <ClCompile Include="Toolkit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="Toolkit.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeAutoTrackAnimator.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
