@@ -35,18 +35,16 @@ bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	//Scale
 	vector2d<f32> scale = f32( t ) * ScaleFactor + vector2d<f32>( 1, 1 );
 
-	IUIObject* pNode = static_cast< IUIObject* >( node );
-
 	//记录矩阵四个顶点临时坐标
 	vector2d<f32> temQuar[4];
 	//得到拉伸后的坐标
 	for ( int i = 0 ; i < 4; i++)
 	{
-		temQuar[i] = pNode->DstQuar[i] - ScaPoint;
+		temQuar[i] = node->DstQuar[i] - ScaPoint;
 		temQuar[i].X *= scale.X;
 		temQuar[i].Y *= scale.Y;
 		//加回到原来的坐标系
-		pNode->DstQuar[i] = temQuar[i] + ScaPoint;
+		node->DstQuar[i] = temQuar[i] + ScaPoint;
 	}
 	return true;
 }

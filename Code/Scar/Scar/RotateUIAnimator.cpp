@@ -36,9 +36,8 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	f32 angle = t * AngleFactor;
 	float steprad = angle / 180 * PI;
 
-	IUIObject* pNode = static_cast< IUIObject* >( node );
-	RotPoint += (pNode->GetCenter() - OldObjCen);
-	
+
+	RotPoint += (node->GetCenter() - OldObjCen);
 
 	//正角度为逆时针
 	//记录矩阵四个顶点临时坐标
@@ -46,17 +45,17 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	//得到旋转后的坐标
 	for (int i = 0; i < 4; i++)
 	{
-		temQuar[i] = pNode->DstQuar[i] - RotPoint;
+		temQuar[i] = node->DstQuar[i] - RotPoint;
 		float x,y;
 		x = (float)temQuar[i].X;
 		y = (float)temQuar[i].Y;
 		temQuar[i].X = cos(steprad) * x - sin(steprad) * y;
 		temQuar[i].Y = sin(steprad) * x + cos(steprad) * y;
 		//加回到原来的坐标系
-		pNode->DstQuar[i] = temQuar[i] + RotPoint;
+		node->DstQuar[i] = temQuar[i] + RotPoint;
 	}
 
-	OldObjCen = pNode->GetCenter();
+	OldObjCen = node->GetCenter();
 
 	return true;
 }

@@ -30,19 +30,20 @@ class IUIAnimator;
 */
 class IUIObject : public irr::IReferenceCounted
 {
-//public:
+protected:
 	std::list< IUIAnimator* > Animators;
 	std::list< IUIObject* > Children;
 	IUIObject* Parent;
 	s32 Order;									//元件在树的同一层时的摆放顺序
+	vector2d<f32> Center;						//矩形的中心点
+	IVideoDriver * Driver;						//Driver指针
+	f32 Alpha;									//元件透明度
+	ITexture * Image;							//应用于UI上的图片
 
 public:
 	vector2d<f32> DstQuar[4];					//显示区域矩形
-	vector2d<f32> Center;						//矩形的中心点
-	ITexture * Image;							//应用于UI上的图片
-	IVideoDriver * Driver;						//Driver指针
-	f32 Alpha;									//元件透明度
-
+	
+									
 public:
 	//IUIObject( s32 order = 0 );
 
@@ -50,10 +51,12 @@ public:
 
 	//加载UI图片
 	void SetImage( char * );
+
 	//以中心点为基准设置元件位置
 	void SetCenter( const vector2d<f32>& pos );
 	//获取元件中心点位置
 	const vector2d<f32>& GetCenter() const;
+
 	//获得Alpha值
 	f32 GetAlpha();
 	//设置Alpha值
@@ -61,8 +64,9 @@ public:
 
 	virtual ~IUIObject();
 
+	//设置元件顺序
 	virtual s32 GetOrder() const;
-
+	//获取元件顺序
 	virtual void SetOrder( s32 order );
 
 	//绘制当前节点

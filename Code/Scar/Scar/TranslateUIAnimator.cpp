@@ -32,12 +32,10 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
-	IUIObject* pNode = static_cast< IUIObject* >( node );
-
 	/*for(int i=0; i<4; i++)
-		pNode->DstQuar[i] += OffsetFactor;*/
+		node->DstQuar[i] += OffsetFactor;*/
 
-	pNode->SetCenter( pNode->GetCenter() + OffsetFactor );
+	node->SetCenter( node->GetCenter() + OffsetFactor );
 
 	return true;
 }

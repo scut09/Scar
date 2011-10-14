@@ -42,14 +42,7 @@ void StartScene::Init()
 	u->AddAnimator(ani);
 	ani->drop();*/
 
-	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
-		timer->getRealTime(),
-		2000,
-		vector2d<s32>(300,0));
-	u->AddAnimator(traani);
-	traani->drop();*/
-
-	/*RotateUIAnimator* rotani = new RotateUIAnimator(
+	RotateUIAnimator* rotani = new RotateUIAnimator(
 	timer->getRealTime(),
 	3000,
 	360,
@@ -57,16 +50,7 @@ void StartScene::Init()
 	v->GetCenter(),
 	false);
 	v->AddAnimator(rotani);
-	rotani->drop();*/
-
-	ScaleUIAnimator* scaani = new ScaleUIAnimator(
-		timer->getRealTime(),
-		3000,
-		vector2d<f32>(2,2),
-		v->DstQuar[0]
-	);
-		v->AddAnimator(scaani);
-		scaani->drop();
+	rotani->drop();
 
 	TranslateUIAnimator* traani = new TranslateUIAnimator(
 		timer->getRealTime(),
@@ -74,8 +58,6 @@ void StartScene::Init()
 		vector2d<s32>(1500,0));
 	v->AddAnimator(traani);
 	traani->drop();
-
-	
 
 	uiManager->SetRoot(v);	
 	//uiManager->AddUINode(v,u);
