@@ -7,32 +7,22 @@
 
 void StartScene::Run() 
 {
-	//v.OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
+
 	/*if ( count++ > 200 )
-	{
-		count = 0;
-		u.RemoveAnimators();
-	}*/
-
-
-	if ( count++ > 200 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
-	}
-
-	//u.SetCenter( vector2d<s32>( count, count ) );
+	}*/
 
 }
 
 void StartScene::Draw()
 {	
-	u->OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
-
-//	u.Animations->Run();
-	u->DrawTree();
+	uiManager->RunTree();
+	/*u->OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
+	u->DrawTree();*/
 }
 
 void StartScene::Init() 
@@ -43,28 +33,28 @@ void StartScene::Init()
 
 	u->SetImage("pic1.jpg");
 	v->SetImage("pic1.jpg");
-	u->AddChild( v );
+	//u->AddChild( v );
 	
-	AlphaChangeUIAnimator* ani = new AlphaChangeUIAnimator( 
+	/*AlphaChangeUIAnimator* ani = new AlphaChangeUIAnimator( 
 		timer->getRealTime(),
 		5000,
 		u->GetAlpha(),
 		0);
 	u->AddAnimator(ani);
-	ani->drop();
+	ani->drop();*/
 
-	/*DeletionAnimator* delAni = new DeletionAnimator( timer->getRealTime(), 500 );
-	v->AddAnimator( delAni );
-	delAni->drop();*/
+	TranslateUIAnimator* traani = new TranslateUIAnimator(
+		timer->getRealTime(),
+		2000,
+		vector2d<s32>(300,0));
+	u->AddAnimator(traani);
+	traani->drop();
 
-	
+	uiManager->SetRoot(u);	
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
-		uiManager.OnEvent( event );
-		//control.OnEvent( event );
-		//pEngine;		// ÒıÇæÖ¸Õë
-		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+		uiManager->OnEvent( event );
 		return 0;
 	} );
 }
