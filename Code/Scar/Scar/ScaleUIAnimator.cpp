@@ -1,5 +1,5 @@
 #include "ScaleUIAnimator.h"
-#include "UIObject.h"
+#include "IUIObject.h"
 
 ScaleUIAnimator::ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, const vector2d<f32>& scapoint, bool loop /*= false */ )
 	: Begin( begin ), Duration( duration ), Scale( scale ), ScaPoint( scapoint ), Loop( loop ), LastTime( begin )
@@ -35,7 +35,7 @@ bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	//Scale
 	vector2d<f32> scale = f32( t ) * ScaleFactor + vector2d<f32>( 1, 1 );
 
-	UIObject* pNode = static_cast< UIObject* >( node );
+	IUIObject* pNode = static_cast< IUIObject* >( node );
 
 	//记录矩阵四个顶点临时坐标
 	vector2d<f32> temQuar[4];

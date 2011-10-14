@@ -1,5 +1,5 @@
 #include "RotateUIAnimator.h"
-#include "UIObject.h"
+#include "IUIObject.h"
 
 RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, const vector2d<f32>& rotpoint, const vector2d<f32>& ObjCen, bool loop /*= false */ ) : Begin( begin ), Duration( duration ),
 	RotPoint( rotpoint ), Loop( loop ), LastTime( begin ), Angle(angle)
@@ -36,7 +36,7 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	f32 angle = t * AngleFactor;
 	float steprad = angle / 180 * PI;
 
-	UIObject* pNode = static_cast< UIObject* >( node );
+	IUIObject* pNode = static_cast< IUIObject* >( node );
 	RotPoint += (pNode->GetCenter() - OldObjCen);
 	
 

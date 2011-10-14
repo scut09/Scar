@@ -1,5 +1,5 @@
 #include "TranslateUIAnimator.h"
-#include "UIObject.h"
+#include "IUIObject.h"
 
 TranslateUIAnimator::TranslateUIAnimator( u32 begin, u32 duration, const vector2d<s32>& offset, bool loop ) :
 Begin(begin), Duration(duration), LastTime(begin), Loop(loop), Offset(offset)
@@ -32,7 +32,7 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
-	UIObject* pNode = static_cast< UIObject* >( node );
+	IUIObject* pNode = static_cast< IUIObject* >( node );
 
 	/*for(int i=0; i<4; i++)
 		pNode->DstQuar[i] += OffsetFactor;*/

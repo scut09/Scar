@@ -11,7 +11,7 @@ void UIManager::OnEvent( const SEvent& event )
 }
 
 //获取根节点
-UIObject* UIManager::GetRoot()
+IUIObject* UIManager::GetRoot()
 {
 	return Root;
 }

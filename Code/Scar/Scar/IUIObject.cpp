@@ -9,10 +9,25 @@
 
 #include "IUIObject.h"
 
-IUIObject::IUIObject()
-	: Parent( 0 )
+//IUIObject::IUIObject( s32 Order )
+//	: Parent( 0 ), Order( order )
+//{
+//}
+
+IUIObject::IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order /*= 0 */ ) :
+Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver )
 {
+	Center = pos;
+	DstQuar[0].X = pos.X - width / 2;
+	DstQuar[0].Y = pos.Y - height / 2;
+	DstQuar[1].X = DstQuar[0].X + width;
+	DstQuar[1].Y = DstQuar[0].Y;
+	DstQuar[2].X = DstQuar[0].X + width;
+	DstQuar[2].Y = DstQuar[0].Y + height;
+	DstQuar[3].X = DstQuar[0].X;
+	DstQuar[3].Y = DstQuar[0].Y + height;
 }
+
 
 IUIObject::~IUIObject()
 {
@@ -127,4 +142,44 @@ void IUIObject::remove()
 {
 	if ( Parent )
 		Parent->RemoveChild( this );
+}
+
+irr::s32 IUIObject::GetOrder() const
+{
+	return Order;
+}
+
+void IUIObject::SetOrder( s32 order )
+{
+	Order = order;
+}
+
+
+//装载图片
+void IUIObject::SetImage( char * filename )
+{
+	Image = Driver->getTexture( filename );
+}
+//以中心点为基准设置元件位置
+void IUIObject::SetCenter( const vector2d<f32>& pos )
+{
+	vector2d<f32> offset = pos - Center;
+	for(int i = 0; i < 4; i++)
+		DstQuar[i] += offset;
+	Center = pos;
+}
+//获取元件中心点位置
+const vector2d<f32>& IUIObject::GetCenter() const
+{
+	return Center;
+}
+
+f32 IUIObject::GetAlpha()
+{
+	return Alpha;
+}
+
+void IUIObject::SetAlpha( f32 alpha )
+{
+	Alpha = alpha;
 }

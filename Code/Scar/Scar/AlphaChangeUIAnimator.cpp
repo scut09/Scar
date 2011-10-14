@@ -1,5 +1,5 @@
 #include "AlphaChangeUIAnimator.h"
-#include "UIObject.h"
+#include "IUIObject.h"
 
 AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 begin, u32 duration, 
 	f32 srcalpha, f32 taralpha, bool loop /*= false */ )
@@ -38,7 +38,7 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
-	UIObject* pNode = static_cast< UIObject* >( node );
+	IUIObject* pNode = static_cast< IUIObject* >( node );
 
 	//AlphaChange
 	f32 alpha = pNode->GetAlpha() + t * AlphaFactor;	

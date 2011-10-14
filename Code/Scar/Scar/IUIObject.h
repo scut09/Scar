@@ -17,13 +17,15 @@
 #include <functional>
 
 using namespace irr;
+using namespace irr::core;
+using namespace irr::video;
 
 class IUIAnimator;
 
 
 /*
 ** 名字：IUIObject
-** 说明：UIObject的接口类，负责管理父、字节点，增删动画，以及绘制
+** 说明：IUIObject的接口类，负责管理父、字节点，增删动画，以及绘制
 **
 */
 class IUIObject : public irr::IReferenceCounted
@@ -32,11 +34,36 @@ class IUIObject : public irr::IReferenceCounted
 	std::list< IUIAnimator* > Animators;
 	std::list< IUIObject* > Children;
 	IUIObject* Parent;
+	s32 Order;									//元件在树的同一层时的摆放顺序
 
 public:
-	IUIObject();
+	vector2d<f32> DstQuar[4];					//显示区域矩形
+	vector2d<f32> Center;						//矩形的中心点
+	ITexture * Image;							//应用于UI上的图片
+	IVideoDriver * Driver;						//Driver指针
+	f32 Alpha;									//元件透明度
+
+public:
+	//IUIObject( s32 order = 0 );
+
+	IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order = 0 );
+
+	//加载UI图片
+	void SetImage( char * );
+	//以中心点为基准设置元件位置
+	void SetCenter( const vector2d<f32>& pos );
+	//获取元件中心点位置
+	const vector2d<f32>& GetCenter() const;
+	//获得Alpha值
+	f32 GetAlpha();
+	//设置Alpha值
+	void SetAlpha( f32 alpha );
 
 	virtual ~IUIObject();
+
+	virtual s32 GetOrder() const;
+
+	virtual void SetOrder( s32 order );
 
 	//绘制当前节点
 	virtual void Draw() = 0;

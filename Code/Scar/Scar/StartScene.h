@@ -2,8 +2,8 @@
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
-#include "UIObject.h"
 #include "IUIObject.h"
+#include "UIObject.h"
 #include "UIManager.h"
 
 class StartScene : public GameScene

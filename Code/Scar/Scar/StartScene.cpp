@@ -20,9 +20,9 @@ void StartScene::Run()
 
 void StartScene::Draw()
 {	
+
 	uiManager->RunTree();
-	/*u->OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
-	u->DrawTree();*/
+
 }
 
 void StartScene::Init() 
