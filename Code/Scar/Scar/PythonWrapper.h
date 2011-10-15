@@ -41,6 +41,20 @@ struct PythonSLight
 };
 
 /*
+** 名字：PythonVector2d
+** 说明：兼容vector2df
+**
+*/
+struct PythonVector2df
+{
+	f32 x;
+	f32 y;
+
+	PythonVector2df( f32 xx = 0, f32 yy = 0 ) : x( xx ), y( yy ) {}
+
+};
+
+/*
 ** 名字：PythonVector3df
 ** 说明：兼容vector3df
 **

@@ -34,6 +34,14 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "y", &PythonVector3df::y )
 		.def_readwrite( "z", &PythonVector3df::z );
 
+
+	//class_< PythonVector2df >( "vector2df", "fake vector2df", init< f32, f32 >() )
+	//	.def_readwrite( "x", &PythonVector2df::x )
+	//	.def_readwrite( "y", &PythonVector2df::y );
+
+	class_< irr::core::vector2d<s32> >( "vector2d", "fake vector2d<s32>", init< s32, s32 >() )
+		;
+
 	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" )
 		.def( "SetPosition", &PythonSceneNode::SetPosition )
 		.def( "GetPosition", &PythonSceneNode::GetPosition )

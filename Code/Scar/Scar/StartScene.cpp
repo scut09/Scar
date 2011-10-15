@@ -27,12 +27,34 @@ void StartScene::Draw()
 
 void StartScene::Init() 
 {
+	using namespace boost::python;
+
+	object tranAni;
+	try
+	{
+		object ui = import( "UILoader" );
+
+
+		object GetTran = ui.attr( "GetTran" );
+		tranAni = GetTran();
+		PyObject* obj = tranAni.ptr();
+		obj->ob_refcnt++;
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
+
+
+
 	pEngine = MyIrrlichtEngine::GetEngine();
 	driver = pEngine->GetVideoDriver();
 	ITimer* timer = pEngine->GetDevice()->getTimer();
 
 	u->SetImage("pic1.jpg");
-	v->SetImage("pic1.jpg");
+	//v->SetImage("pic1.jpg");
+
+	u->AddAnimator( extract<IUIAnimator*>( tranAni ) );
 
 	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
 		timer->getRealTime(),
@@ -41,7 +63,7 @@ void StartScene::Init()
 	u->AddAnimator(traani);
 	traani->drop();*/
 
-	RotateUIAnimator* rotani2 = new RotateUIAnimator(
+	/*RotateUIAnimator* rotani2 = new RotateUIAnimator(
 		timer->getRealTime(),
 		3000,
 		360,
@@ -59,7 +81,7 @@ void StartScene::Init()
 	v->GetCenter(),
 	false);
 	v->AddAnimator(rotani);
-	rotani->drop();
+	rotani->drop();*/
 
 	/*ScaleUIAnimator* scaani = new ScaleUIAnimator(
 		timer->getRealTime(),
@@ -74,7 +96,7 @@ void StartScene::Init()
 	
 
 	uiManager->SetRoot(u);	
-	uiManager->AddUINode(v,u);
+	//uiManager->AddUINode(v,u);
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	

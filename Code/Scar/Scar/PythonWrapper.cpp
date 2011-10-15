@@ -66,5 +66,5 @@ PythonSceneNode ModelManagerWrapper::AddSceneNodeByMeshID( const std::string& me
 // 
 u32 TimerWrapper::GetTime()
 {
-	return MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+	return MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
 }

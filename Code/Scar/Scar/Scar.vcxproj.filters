@@ -268,5 +268,8 @@
     <None Include="..\..\..\bin\scene.py">
       <Filter>Python</Filter>
     </None>
+    <None Include="..\..\..\bin\UILoader.py">
+      <Filter>Python</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -153,6 +153,7 @@
     <None Include="..\..\..\bin\client.py" />
     <None Include="..\..\..\bin\ModelLoader.py" />
     <None Include="..\..\..\bin\scene.py" />
+    <None Include="..\..\..\bin\UILoader.py" />
     <None Include="..\..\..\bin\WEB.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

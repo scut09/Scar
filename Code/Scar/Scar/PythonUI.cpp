@@ -556,10 +556,11 @@ struct UIImage_wrapper : UIImage, bp::wrapper< UIImage > {
 
 BOOST_PYTHON_MODULE(UI){
     bp::class_< IUIAnimator_wrapper, boost::noncopyable >( "IUIAnimator" )    
-        //.def( 
-        //    "Clone"
-        //    , bp::pure_virtual( (::IUIAnimator * ( ::IUIAnimator::* )(  ) )(&::IUIAnimator::Clone) )
-        //        /* undefined call policies */ )    ;
+        .def( 
+            "Clone"
+            , bp::pure_virtual( (::IUIAnimator * ( ::IUIAnimator::* )(  ) )(&::IUIAnimator::Clone) )
+			, bp::return_value_policy<bp::reference_existing_object>()
+                /* undefined call policies */ )    
         .def( 
             "animateUIObject"
             , bp::pure_virtual( (bool ( ::IUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::IUIAnimator::animateUIObject) )
@@ -797,53 +798,57 @@ BOOST_PYTHON_MODULE(UI){
         }
     }
 
-	//bp::class_< DeletionAnimator_wrapper, bp::bases< IUIAnimator > >( "DeletionAnimator", bp::init< irr::u32, irr::u32 >(( bp::arg("now"), bp::arg("time") )) )    
-	//	.def( 
-	//	"Clone"
-	//	, (::IUIAnimator * ( ::DeletionAnimator::* )(  ) )(&::DeletionAnimator::Clone)
-	//	, (::IUIAnimator * ( DeletionAnimator_wrapper::* )(  ) )(&DeletionAnimator_wrapper::default_Clone)
-	//	/* undefined call policies */ )    
-	//	.def( 
-	//	"animateUIObject"
-	//	, (bool ( ::DeletionAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::DeletionAnimator::animateUIObject)
-	//	, (bool ( DeletionAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&DeletionAnimator_wrapper::default_animateUIObject)
-	//	, ( bp::arg("node"), bp::arg("timeMS") ) );
+	bp::class_< DeletionAnimator_wrapper, bp::bases< IUIAnimator > >( "DeletionAnimator", bp::init< irr::u32, irr::u32 >(( bp::arg("now"), bp::arg("time") )) )    
+		.def( 
+		"Clone"
+		, (::IUIAnimator * ( ::DeletionAnimator::* )(  ) )(&::DeletionAnimator::Clone)
+		, (::IUIAnimator * ( DeletionAnimator_wrapper::* )(  ) )(&DeletionAnimator_wrapper::default_Clone)
+		, bp::return_value_policy< bp::reference_existing_object >()
+		/* undefined call policies */ )    
+		.def( 
+		"animateUIObject"
+		, (bool ( ::DeletionAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::DeletionAnimator::animateUIObject)
+		, (bool ( DeletionAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&DeletionAnimator_wrapper::default_animateUIObject)
+		, ( bp::arg("node"), bp::arg("timeMS") ) );
 
-    //bp::class_< RotateUIAnimator_wrapper, bp::bases< IUIAnimator > >( "RotateUIAnimator", bp::init< irr::u32, irr::u32, irr::f32, irr::core::vector2d< float > const &, irr::core::vector2d< float > const &, bp::optional< bool > >(( bp::arg("begin"), bp::arg("duration"), bp::arg("angle"), bp::arg("rotpoint"), bp::arg("ObjCen"), bp::arg("loop")=(bool)(false) )) )    
-    //    .def( 
-    //        "Clone"
-    //        , (::RotateUIAnimator * ( ::RotateUIAnimator::* )(  ) )(&::RotateUIAnimator::Clone)
-    //        , (::RotateUIAnimator * ( RotateUIAnimator_wrapper::* )(  ) )(&RotateUIAnimator_wrapper::default_Clone)
-    //            /* undefined call policies */ )    
-    //    .def( 
-    //        "animateUIObject"
-    //        , (bool ( ::RotateUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::RotateUIAnimator::animateUIObject)
-    //        , (bool ( RotateUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&RotateUIAnimator_wrapper::default_animateUIObject)
-    //        , ( bp::arg("node"), bp::arg("timeMS") ) );
+    bp::class_< RotateUIAnimator_wrapper, bp::bases< IUIAnimator > >( "RotateUIAnimator", bp::init< irr::u32, irr::u32, irr::f32, irr::core::vector2d< float > const &, irr::core::vector2d< float > const &, bp::optional< bool > >(( bp::arg("begin"), bp::arg("duration"), bp::arg("angle"), bp::arg("rotpoint"), bp::arg("ObjCen"), bp::arg("loop")=(bool)(false) )) )    
+        .def( 
+            "Clone"
+            , (::RotateUIAnimator * ( ::RotateUIAnimator::* )(  ) )(&::RotateUIAnimator::Clone)
+            , (::RotateUIAnimator * ( RotateUIAnimator_wrapper::* )(  ) )(&RotateUIAnimator_wrapper::default_Clone)
+			, bp::return_value_policy< bp::reference_existing_object >()
+                /* undefined call policies */ )    
+        .def( 
+            "animateUIObject"
+            , (bool ( ::RotateUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::RotateUIAnimator::animateUIObject)
+            , (bool ( RotateUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&RotateUIAnimator_wrapper::default_animateUIObject)
+            , ( bp::arg("node"), bp::arg("timeMS") ) );
 
-    //bp::class_< ScaleUIAnimator_wrapper, bp::bases< IUIAnimator > >( "ScaleUIAnimator", bp::init< irr::u32, irr::u32, irr::core::vector2d< float >, irr::core::vector2d< float > const &, bp::optional< bool > >(( bp::arg("begin"), bp::arg("duration"), bp::arg("scale"), bp::arg("scapoint"), bp::arg("loop")=(bool)(false) )) )    
-    //    .def( 
-    //        "Clone"
-    //        , (::ScaleUIAnimator * ( ::ScaleUIAnimator::* )(  ) )(&::ScaleUIAnimator::Clone)
-    //        , (::ScaleUIAnimator * ( ScaleUIAnimator_wrapper::* )(  ) )(&ScaleUIAnimator_wrapper::default_Clone)
-    //            /* undefined call policies */ )    
-    //    .def( 
-    //        "animateUIObject"
-    //        , (bool ( ::ScaleUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::ScaleUIAnimator::animateUIObject)
-    //        , (bool ( ScaleUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&ScaleUIAnimator_wrapper::default_animateUIObject)
-    //        , ( bp::arg("node"), bp::arg("timeMS") ) );
+   // bp::class_< ScaleUIAnimator_wrapper, bp::bases< IUIAnimator > >( "ScaleUIAnimator", bp::init< irr::u32, irr::u32, irr::core::vector2d< float >, irr::core::vector2d< float > const &, bp::optional< bool > >(( bp::arg("begin"), bp::arg("duration"), bp::arg("scale"), bp::arg("scapoint"), bp::arg("loop")=(bool)(false) )) )    
+   //     .def( 
+   //         "Clone"
+   //         , (::ScaleUIAnimator * ( ::ScaleUIAnimator::* )(  ) )(&::ScaleUIAnimator::Clone)
+   //         , (::ScaleUIAnimator * ( ScaleUIAnimator_wrapper::* )(  ) )(&ScaleUIAnimator_wrapper::default_Clone)
+			//, bp::return_value_policy< bp::reference_existing_object >()
+   //             /* undefined call policies */ )    
+   //     .def( 
+   //         "animateUIObject"
+   //         , (bool ( ::ScaleUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::ScaleUIAnimator::animateUIObject)
+   //         , (bool ( ScaleUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&ScaleUIAnimator_wrapper::default_animateUIObject)
+   //         , ( bp::arg("node"), bp::arg("timeMS") ) );
 
-    //bp::class_< TranslateUIAnimator_wrapper, bp::bases< IUIAnimator > >( "TranslateUIAnimator", bp::init< irr::u32, irr::u32, irr::core::vector2d< int > const &, bp::optional< bool > >(( bp::arg("begin"), bp::arg("duration"), bp::arg("offset"), bp::arg("loop")=(bool)(false) )) )    
-    //    .def( 
-    //        "Clone"
-    //        , (::TranslateUIAnimator * ( ::TranslateUIAnimator::* )(  ) )(&::TranslateUIAnimator::Clone)
-    //        , (::TranslateUIAnimator * ( TranslateUIAnimator_wrapper::* )(  ) )(&TranslateUIAnimator_wrapper::default_Clone)
-    //            /* undefined call policies */ )    
-    //    .def( 
-    //        "animateUIObject"
-    //        , (bool ( ::TranslateUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::TranslateUIAnimator::animateUIObject)
-    //        , (bool ( TranslateUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&TranslateUIAnimator_wrapper::default_animateUIObject)
-    //        , ( bp::arg("node"), bp::arg("timeMS") ) );
+    bp::class_< TranslateUIAnimator_wrapper, bp::bases< IUIAnimator > >( "TranslateUIAnimator", bp::init< irr::u32, irr::u32, irr::core::vector2d< int > const &, bp::optional< bool > >(( bp::arg("begin"), bp::arg("duration"), bp::arg("offset"), bp::arg("loop")=(bool)(false) )) )    
+        .def( 
+            "Clone"
+            , (::TranslateUIAnimator * ( ::TranslateUIAnimator::* )(  ) )(&::TranslateUIAnimator::Clone)
+            , (::TranslateUIAnimator * ( TranslateUIAnimator_wrapper::* )(  ) )(&TranslateUIAnimator_wrapper::default_Clone)
+			, bp::return_value_policy< bp::manage_new_object >()
+                /* undefined call policies */ )    
+        .def( 
+            "animateUIObject"
+            , (bool ( ::TranslateUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::TranslateUIAnimator::animateUIObject)
+            , (bool ( TranslateUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&TranslateUIAnimator_wrapper::default_animateUIObject)
+            , ( bp::arg("node"), bp::arg("timeMS") ) );
 
     bp::class_< UIImage_wrapper, bp::bases< IUIObject > >( "UIImage", bp::init< irr::video::IVideoDriver *, irr::core::vector2d< float > const &, irr::s32, irr::s32, bp::optional< irr::s32 > >(( bp::arg("driver"), bp::arg("pos"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0) )) )    
         .def( 
