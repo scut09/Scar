@@ -110,4 +110,11 @@ void StartScene::Release()
 
 }
 
+StartScene::StartScene() : count( 0 )
+{
+	u = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 500, 750, 0, vector2d<f32>(250, 375) );
+	v = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 100, 150, 0, vector2d<f32>(-200, -300) ); 
+	uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
+}
+
 

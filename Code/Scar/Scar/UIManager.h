@@ -28,10 +28,10 @@ public:
 		//{
 		//	
 		//}
-		for( auto iter = parent->GetAnimators().begin(); iter != parent->GetAnimators().end(); ++iter )
-		{
-			node->AddAnimator( (*iter)->Clone() );		
-		}
+		//for( auto iter = parent->GetAnimators().begin(); iter != parent->GetAnimators().end(); ++iter )
+		//{
+		//	node->AddAnimator( (*iter)->Clone() );		
+		//}
 		return true;
 	}
 	//从UI树中删除节点,也会删除该节点的所有后代节点

@@ -145,6 +145,29 @@ void IUIObject::LoadImage( char * filename )
 	Image = Driver->getTexture( filename );
 }
 
+matrix<f32> IUIObject::GetRelativeTransformation() const
+{
+	matrix<f32> mat( 3, 3 );
+	MAKE_INDENTITY3(mat);
+	// 旋转
+	f32 rad = RelativeRotation * core::DEGTORAD;
+	mat(0,0) = cos(rad);	mat(0,1) = sin(rad);
+	mat(1,0) = -sin(rad);	mat(1,1) = cos(rad);
+	// 平移
+	mat(2,0) = RelativeTranslation.X;
+	mat(2,1) = RelativeTranslation.Y;
+	// 缩放
+	if( RelativeScale != vector2d<f32>(1.0f, 1.0f) )
+	{
+		matrix<f32> smat( 3, 3 );
+		MAKE_INDENTITY3(smat);
+		smat(0,0) = RelativeScale.X;
+		smat(1,1) = RelativeScale.Y;
+		mat = prod(smat, mat);
+	}
+	return mat;
+}
+
 ////以中心点为基准设置元件位置
 //void IUIObject::SetCenter( const vector2d<f32>& pos )
 //{

@@ -49,7 +49,7 @@ void UIImage::Draw()
 	vector2d<s32> intDstQuar[4];
 	ub::vector<f32> temp(3);
 	temp(2) = 1;
-	//std::cout<<TransM<<std::endl;
+	std::cout<<AbsoluteTransformation<<std::endl;
 	for( int i=0; i<4; i++)
 	{
 		temp(0) = DestinationQuadrangle[i].X;

@@ -18,12 +18,7 @@ class StartScene : public GameScene
 	UIManager* uiManager;
 
 public:
-	StartScene() : count( 0 )
-	{
-		u = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 500, 750 );
-		v = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 100, 150 ); 
-		uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
-	}
+	StartScene();
 
 	shared_ptr<GameScene> multiplayerScene;
 

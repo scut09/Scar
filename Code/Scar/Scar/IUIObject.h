@@ -52,15 +52,19 @@ protected:
 	vector2d<f32>	RelativeTranslation;		// 相对平移量
 	f32				RelativeRotation;			// 相对旋转
 	vector2d<f32>	RelativeScale;				// 相对缩放
-	matrix<f32>	AbsoluteTransformation;		// 绝对坐标系变换矩阵
+	matrix<f32>	AbsoluteTransformation;			// 绝对坐标系变换矩阵
 
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
 									
 public:
 
-	IUIObject( IUIObject* parent, IVideoDriver * driver, s32 width, s32 height, s32 order = 0 ) :
+	IUIObject( IUIObject* parent, IVideoDriver * driver, s32 width, s32 height, s32 order = 0,
+		const vector2d<f32>& position = vector2d<f32>( 0, 0 ),
+		f32 rotdeg = 0,
+		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) ):
 	  Parent(NULL), Driver(driver), Order(order), AbsoluteTransformation( 3, 3 )
 	{
+		
 		if ( parent )
 			parent->AddChild(this);
 
@@ -75,9 +79,9 @@ public:
 		DestinationQuadrangle[3].Y = DestinationQuadrangle[0].Y + height;
 
 		RelativeAlpha = 255;
-		RelativeRotation = 0;
-		RelativeScale = vector2d<f32>( 1, 1 );
-		RelativeTranslation= vector2d<f32>( 0, 0 );
+		RelativeRotation = rotdeg;
+		RelativeScale = scale;
+		RelativeTranslation= position;
 		IsVisible = true;
 
 		UpdateAbsolutePosition();
@@ -101,28 +105,7 @@ public:
 	virtual ~IUIObject();
 
 
-	virtual matrix<f32> GetRelativeTransformation() const
-	{
-		matrix<f32> mat( 3, 3 );
-		MAKE_INDENTITY3(mat);
-		// 旋转
-		f32 rad = RelativeRotation * core::DEGTORAD;
-		mat(0,0) = cos(rad);	mat(0,1) = sin(rad);
-		mat(1,0) = -sin(rad);	mat(1,1) = cos(rad);
-		// 平移
-		mat(2,0) = RelativeTranslation.X;
-		mat(2,1) = RelativeTranslation.Y;
-		// 缩放
-		if( RelativeScale != vector2d<f32>(1.0f, 1.0f) )
-		{
-			matrix<f32> smat( 3, 3 );
-			MAKE_INDENTITY3(smat);
-			smat(0,0) = RelativeScale.X;
-			smat(0,1) = RelativeScale.Y;
-			mat = prod(mat, smat);
-		}
-		return mat;
-	}
+	virtual matrix<f32> GetRelativeTransformation() const;
 
 	// 获取当前节点的绝对变换矩阵
 	virtual const matrix<f32>& GetAbsoluteTransformation() const
@@ -145,7 +128,7 @@ public:
 	{
 		if (Parent)
 		{
-			AbsoluteTransformation.assign( ub::prod( Parent->GetAbsoluteTransformation(), GetRelativeTransformation() ) );
+			AbsoluteTransformation.assign( ub::prod( GetRelativeTransformation(), Parent->GetAbsoluteTransformation() ) );
 		}
 		else
 		{
@@ -160,7 +143,7 @@ public:
 		 IUIObject* p = Parent;
 		 while( p != NULL )
 		 {
-			 absalp *= p->RelativeAlpha;
+			 absalp *= p->RelativeAlpha / 255.f;
 			 p = p->Parent;
 		 }
 		 return absalp;
