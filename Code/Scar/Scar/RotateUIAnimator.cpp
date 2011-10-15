@@ -23,6 +23,7 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		//不循环
 		else
 		{
+			//historyM *= 
 			//把自己删掉
 			node->RemoveAnimator(this);
 			return false;

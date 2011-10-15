@@ -50,14 +50,14 @@ void StartScene::Init()
 	v->AddAnimator(in2);
 	in2->drop();*/
 
-	RotateUIAnimator* rotani = new RotateUIAnimator(
+	/*RotateUIAnimator* rotani = new RotateUIAnimator(
 	timer->getRealTime(),
 	3000,
 	360,
 	v->GetCenter(),
 	true);
 	v->AddAnimator(rotani);
-	rotani->drop();
+	rotani->drop();*/
 
 	/*BlinkUIAnimator* out2 = new BlinkUIAnimator( vector2d<f32>(50,75));
 	v->AddAnimator(out2);

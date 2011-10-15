@@ -10,6 +10,8 @@
 #ifndef IUIObject_h__
 #define IUIObject_h__
 
+#define MAKE_INDENTITY3( m ) do { m.clear(); m(0, 0) = m( 1, 1 ) = m( 2, 2 ) = 1; } while ( 0 )
+
 //#include "def.h"
 #include <list>
 #include "IUIAnimator.h"
@@ -46,7 +48,7 @@ protected:
 public:
 	vector2d<f32> DstQuar[4];					//显示区域矩形
 	matrix<f32>& TransM;						//变换矩阵	
-	
+	matrix<f32>& HistoryM;						//历史矩阵
 									
 public:
 	//IUIObject( s32 order = 0 );

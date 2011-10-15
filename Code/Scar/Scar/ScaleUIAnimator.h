@@ -27,7 +27,7 @@ private:
 
 public:
 	ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale,
-		const vector2d<f32>& scapoint, const vector2d<f32>& oldobjcen, bool loop = false );
+		const vector2d<f32>& scapoint, bool loop = false );
 
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 
