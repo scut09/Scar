@@ -17,7 +17,7 @@
 //}
 
 IUIObject::IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order /*= 0 */ ) :
-Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver ), Parent(NULL)
+Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver ), Parent(NULL), TransM(*new matrix<f32>(3,3))
 {
 	Center = pos;
 	DstQuar[0].X = pos.X - width / 2;
@@ -28,11 +28,14 @@ Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver ), Parent(NULL)
 	DstQuar[2].Y = DstQuar[0].Y + height;
 	DstQuar[3].X = DstQuar[0].X;
 	DstQuar[3].Y = DstQuar[0].Y + height;
+	TransM.clear();
+	TransM( 0, 0 ) = TransM( 1, 1 ) = TransM( 2, 2 ) = 1;
 }
 
 
 IUIObject::~IUIObject()
 {
+	delete &TransM;
 	RemoveAll();			// 删除所有孩子,将孩子的引用计数器减一，设置它的Parent为0
 	RemoveAnimators();		// 删除所有的动画
 }

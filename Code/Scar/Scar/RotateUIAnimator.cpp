@@ -1,10 +1,9 @@
 #include "RotateUIAnimator.h"
 #include "UIObject.h"
 
-RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, const vector2d<f32>& rotpoint, const vector2d<f32>& ObjCen, bool loop /*= false */ ) : Begin( begin ), Duration( duration ),
-	RotPoint( rotpoint ), Loop( loop ), LastTime( begin ), Angle(angle)
+RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, const vector2d<f32>& rotpoint, bool loop /*= false */ ) : Begin( begin ), 
+	Duration( duration ), RotPoint( rotpoint ), Loop( loop ), LastTime( begin ), Angle(angle)
 {
-	OldObjCen = ObjCen;
 	AngleFactor = angle / Duration;
 }
 
@@ -31,37 +30,59 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	}
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
-
+	//计算新的旋转中心
+	ub::vector<f32> tmp(3);
+	tmp(0) = RotPoint.X;	tmp(1) = RotPoint.Y; tmp(2) = 1;
+	tmp = prod(tmp, node->TransM);
+	vector2d<f32> newRotPoint(tmp(0), tmp(1));
 	// Rotate
 	f32 angle = t * AngleFactor;
-	float steprad = angle / 180 * PI;
+	float rad = angle / 180 * PI;
+	vector2d<f32> offset = newRotPoint - node->DstQuar[0];
+	//创建平移矩阵（移来移去)
+	matrix<f32> inmat(3,3);
+	inmat.clear();
+	inmat(0,0) = inmat(1,1) = inmat(2,2) = 1;
+	inmat(2,0) = -offset.X;	inmat(2,1) = -offset.Y;
+	matrix<f32> outmat(3,3);
+	outmat.clear();
+	outmat(0,0) = outmat(1,1) = outmat(2,2) = 1;
+	outmat(2,0) = offset.X;	outmat(2,1) = offset.Y;
+	//创建旋转矩阵
+	matrix<f32> rotmat(3,3);
+	rotmat.clear();
+	rotmat(2,2) = 1;
+	rotmat(0,0) = cos(rad);	rotmat(0,1) = -sin(rad);
+	rotmat(1,0) = sin(rad);	rotmat(1,1) = cos(rad);
+	//旋转操作
+	node->TransM = prod(node->TransM, inmat);
+	node->TransM = prod(node->TransM, rotmat);
+	node->TransM = prod(node->TransM, outmat);
+	//std::cout<< angle <<std::endl;
+	//std::cout<< rad <<std::endl;
+	//std::cout<< rotmat <<std::endl;
 
-	//IUIObject* pNode = static_cast< IUIObject* >( node );
-	RotPoint += (node->GetCenter() - OldObjCen);
-	
+	//计算新的旋转中心
+	//平移
+	//RotPoint += (node->GetCenter() - OldObjCen);	
+	////缩放
+	//vector2d<f32> oldvec = OldObjLT - OldObjCen;
+	//vector2d<f32> newvec = node->DstQuar[0] - node->GetCenter();
+	////f32 scalfactor = sqrt(newvec.getLengthSQ() / oldvec.getLengthSQ());
+	////RotPoint += (scalfactor - 1) * (RotPoint - node->GetCenter());
+	//旋转
+	/*f32 rotdeg = (f32)newvec.getAngleWith(oldvec);
+	vector2d<f32> v1 = RotPoint - node->GetCenter();
+	vector2d<f32> v2 = v1.rotateBy(-rotdeg);
+	vector2d<f32> v3 = v2 - v1;
+	RotPoint += v3;*/
 
-	//正角度为逆时针
-	//记录矩阵四个顶点临时坐标
-	vector2d<f32> temQuar;
-	//得到旋转后的坐标
-	for (int i = 0; i < 4; i++)
-	{
-		temQuar = node->DstQuar[i] - RotPoint;
-		float x,y;
-		x = (float)temQuar.X;
-		y = (float)temQuar.Y;
-		temQuar.X = cos(steprad) * x - sin(steprad) * y;
-		temQuar.Y = sin(steprad) * x + cos(steprad) * y;
-		//加回到原来的坐标系
-		node->DstQuar[i] = temQuar + RotPoint;
-	}
-
-	OldObjCen = node->GetCenter();
+	//OldObjCen = node->GetCenter();
 
 	return true;
 }
 
 RotateUIAnimator* RotateUIAnimator::Clone()
 {
-	return new RotateUIAnimator(Begin, Duration, Angle, RotPoint, OldObjCen, Loop);
+	return new RotateUIAnimator(Begin, Duration, Angle, RotPoint, Loop);
 }

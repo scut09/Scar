@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
     <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp" />
     <ClCompile Include="DeletionAnimator.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="AlphaChangeUIAnimator.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
+    <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
     <ClInclude Include="def.h" />

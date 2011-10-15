@@ -15,73 +15,72 @@ void StartScene::Run()
 		Release();
 		pEngine->currentScene->Init();
 	}*/
-
+	
 }
 
 void StartScene::Draw()
 {	
 	uiManager->RunTree();
-	/*u->OnAnimate( MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime() );
-	u->DrawTree();*/
+	//u->OnAnimate(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime());
+	/*v->OnAnimate(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime());
+	v->DrawTree();*/
 }
 
 void StartScene::Init() 
 {
-	using namespace boost::python;
-
-	object tranAni;
-	try
-	{
-		object ui = import( "UILoader" );
-
-
-		object GetTran = ui.attr( "GetTran" );
-		tranAni = GetTran();
-		PyObject* obj = tranAni.ptr();
-		obj->ob_refcnt++;
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
-
-
-
 	pEngine = MyIrrlichtEngine::GetEngine();
 	driver = pEngine->GetVideoDriver();
 	ITimer* timer = pEngine->GetDevice()->getTimer();
 
 	u->SetImage("pic1.jpg");
-	//v->SetImage("pic1.jpg");
+	v->SetImage("pic1.jpg");
 
-	u->AddAnimator( extract<IUIAnimator*>( tranAni ) );
-
-	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
+	TranslateUIAnimator* traani = new TranslateUIAnimator(
 		timer->getRealTime(),
 		2000,
 		vector2d<s32>(300,0)); 
 	u->AddAnimator(traani);
-	traani->drop();*/
+	traani->drop();
 
-	/*RotateUIAnimator* rotani2 = new RotateUIAnimator(
-		timer->getRealTime(),
-		3000,
-		360,
-		u->GetCenter(),
-		u->GetCenter(),
-		false);
-	u->AddAnimator(rotani2);
-	rotani2->drop();
+	/*BlinkUIAnimator* in1 = new BlinkUIAnimator( vector2d<f32>(-250, -375));
+	u->AddAnimator(in1);
+	in1->drop();*/
+
+	/*BlinkUIAnimator* in2 = new BlinkUIAnimator( vector2d<f32>(-50,-75));
+	v->AddAnimator(in2);
+	in2->drop();*/
 
 	RotateUIAnimator* rotani = new RotateUIAnimator(
 	timer->getRealTime(),
 	3000,
 	360,
 	v->GetCenter(),
-	v->GetCenter(),
-	false);
+	true);
 	v->AddAnimator(rotani);
-	rotani->drop();*/
+	rotani->drop();
+
+	/*BlinkUIAnimator* out2 = new BlinkUIAnimator( vector2d<f32>(50,75));
+	v->AddAnimator(out2);
+	out2->drop();*/
+
+	/*RotateUIAnimator* rotani2 = new RotateUIAnimator(
+	timer->getRealTime(),
+	3000,
+	360,
+	u->GetCenter(),
+	true);
+	u->AddAnimator(rotani2);
+	rotani2->drop();*/
+	
+	/*BlinkUIAnimator* out1 = new BlinkUIAnimator( vector2d<f32>(250, 375));
+	u->AddAnimator(out1);
+	out1->drop();*/
+
+	
+
+	
+	
+	
 
 	/*ScaleUIAnimator* scaani = new ScaleUIAnimator(
 		timer->getRealTime(),
@@ -96,11 +95,11 @@ void StartScene::Init()
 	
 
 	uiManager->SetRoot(u);	
-	//uiManager->AddUINode(v,u);
+	uiManager->AddUINode(v,u);
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
-		uiManager->OnEvent( event );
+		//uiManager->OnEvent( event );
 		return 0;
 	} );
 }

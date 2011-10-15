@@ -10,6 +10,7 @@ Begin(begin), Duration(duration), LastTime(begin), Loop(loop), Offset(offset)
 
 bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 {
+	
 	//还未到达动画开始时间
 	if( Begin > timeMS)
 		return false;
@@ -32,12 +33,8 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	u32 t = timeMS - LastTime;
 	LastTime = timeMS;
 
-	//IUIObject* pNode = static_cast< IUIObject* >( node );
-
-	/*for(int i=0; i<4; i++)
-		node->DstQuar[i] += OffsetFactor;*/
-
-	node->SetCenter( node->GetCenter() + OffsetFactor );
+	node->TransM(2,0) += OffsetFactor.X * (f32)t;
+	node->TransM(2,1) += OffsetFactor.Y * (f32)t;
 
 	return true;
 }

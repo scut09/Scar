@@ -44,8 +44,17 @@ void UIImage::Draw()
 	int w = Image->getSize().Width;
 	rect<s32>r(0, 0, w, h);
 	vector2d<s32> intDstQuar[4];
+	ub::vector<f32> temp(3);
+	temp(2) = 1;
+	//std::cout<<TransM<<std::endl;
 	for( int i=0; i<4; i++)
-		intDstQuar[i].set( (s32)DstQuar[i].X, (s32)DstQuar[i].Y );
+	{
+		temp(0) = DstQuar[i].X;
+		temp(1) = DstQuar[i].Y;
+		temp = prod(temp, TransM);
+		intDstQuar[i].set( (s32)temp(0), (s32)temp(1) );
+		//intDstQuar[i].set( (s32)DstQuar[i].X, (s32)DstQuar[i].Y );
+	}
 	SColor colors[4];
 	for (int i=0; i<4; i++)
 	{

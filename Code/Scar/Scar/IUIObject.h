@@ -15,10 +15,13 @@
 #include "IUIAnimator.h"
 #include <irrlicht.h>
 #include <functional>
-
+#include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/io.hpp>
 using namespace irr;
 using namespace irr::core;
 using namespace irr::video;
+using namespace boost::numeric::ublas;
+namespace ub = boost::numeric::ublas;
 
 class IUIAnimator;
 
@@ -42,6 +45,7 @@ protected:
 
 public:
 	vector2d<f32> DstQuar[4];					//显示区域矩形
+	matrix<f32>& TransM;						//变换矩阵	
 	
 									
 public:

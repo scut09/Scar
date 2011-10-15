@@ -126,6 +126,9 @@
     <ClCompile Include="PythonUI.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="BlinkUIAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="MyIReferenceCounted.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
