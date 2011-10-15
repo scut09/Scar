@@ -32,7 +32,7 @@ public:
 	bool GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo);
 
 private:
-	bool To2DScreamPos(vector3df v, position2d<s32>* p);
+	bool To2DScreamPos(vector3df v, position2d<f32>* p);
 
 private:
 	ICameraSceneNode*	m_pCamara;

@@ -20,24 +20,29 @@ Toolkit::~Toolkit(void)
 bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 {
 	// 计算三维物体在屏幕上的坐标
-	if ( !To2DScreamPos(pNode->getPosition(), &(pNode2DInfo->pos)) )
+	position2d<f32> screamPoint;
+	if ( !To2DScreamPos(pNode->getPosition(), &(screamPoint)) )
 	{
 		return false;
 	}
-
+	pNode2DInfo->pos.X = (s32)screamPoint.X;
+	pNode2DInfo->pos.Y = (s32)screamPoint.Y;
 	s32 width, height;
+	f32 xMax, xMin, yMax, yMin;
+	xMin = xMax = yMin = yMax = 0;
 
 	width = m_pDriver->getViewPort().getWidth();
 	height = m_pDriver->getViewPort().getHeight();
 
 	// 如果超出视口,则返回false
-	if ( pNode2DInfo->pos.X >= width || pNode2DInfo->pos.Y >= height )
+	if ( pNode2DInfo->pos.X > width || pNode2DInfo->pos.Y > height ||  
+		pNode2DInfo->pos.X < 0|| pNode2DInfo->pos.Y < 0 )
 	{
 		return false;
 	}
 
 	vector3df pEdges[8];
-	position2d<s32> pEdgesPos[8];
+	position2d<f32> pEdgesPos[8];
 	// 去物体的包围盒，用于计算物体在屏幕上的2D大小
 	pNode->getTransformedBoundingBox().getEdges(pEdges);
 	
@@ -47,9 +52,37 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 			return false;
 	}
 
-	// 包围盒的最小点和最大点是0和7
-	pNode2DInfo->width = abs(pEdgesPos[0].X - pEdgesPos[7].X);
-	pNode2DInfo->height = abs(pEdgesPos[0].Y - pEdgesPos[7].Y);
+	// 查找二维上相距最远的两个点
+	xMin = xMax = pEdgesPos[0].X;
+	yMin = yMax = pEdgesPos[0].Y;
+
+	for (int i = 0; i < 8; i++)
+	{
+		if(pEdgesPos[i].X > xMax)
+		{
+			xMax = pEdgesPos[i].X;
+		}
+		if (pEdgesPos[i].X < xMin)
+		{
+			xMin = pEdgesPos[i].X;
+		}
+		if (pEdgesPos[i].Y > yMax)
+		{
+			yMax = pEdgesPos[i].Y;
+		}
+		if (pEdgesPos[i].Y < yMin)
+		{
+			yMin = pEdgesPos[i].Y;
+		}
+	}
+
+	if (xMax - xMin == 0 || yMax - yMin == 0)
+	{
+		return false;
+	}
+
+	pNode2DInfo->height = (s32)abs(yMax - yMin);
+	pNode2DInfo->width = (s32)abs(xMax - xMin);
 
 	return true;
 }
@@ -59,7 +92,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
    描述：通过3D坐标计算出其屏幕坐标
 */
 /************************************************************************/
-bool Toolkit::To2DScreamPos(vector3df v, position2d<s32>* p)
+bool Toolkit::To2DScreamPos(vector3df v, position2d<f32>* p)
 {
 	s32 width, height;
 
@@ -71,7 +104,7 @@ bool Toolkit::To2DScreamPos(vector3df v, position2d<s32>* p)
 	in[1] = v.Y;
 	in[2] = v.Z;
 	in[3] = 1.0;
-
+	 
 	matrix4 ModleView;
 	matrix4 Project;
 
@@ -98,4 +131,6 @@ bool Toolkit::To2DScreamPos(vector3df v, position2d<s32>* p)
 	p->Y = (1 + in[1]) * height / 2;
 
 	p->Y = height - p->Y;
+
+	return true;
 }
