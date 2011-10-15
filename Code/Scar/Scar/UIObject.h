@@ -1,9 +1,10 @@
 #ifndef UIOBJECT_H
 #define UIOBJECT_H
 
-#include "def.h"
+//#include "def.h"
 #include <math.h>
 #include "IUIObject.h"
+#include <vector>
 
 using std::vector;
 using namespace irr;

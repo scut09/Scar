@@ -123,6 +123,9 @@
     <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="PythonUI.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

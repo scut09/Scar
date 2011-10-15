@@ -14,5 +14,7 @@
 #include "AnimationManager.h"
 
 extern "C" void initEngine(); 
+extern "C" void initUI(); 
+
 
 #endif // PythonModule_h__

@@ -10,7 +10,7 @@
 #ifndef IUIObject_h__
 #define IUIObject_h__
 
-#include "def.h"
+//#include "def.h"
 #include <list>
 #include "IUIAnimator.h"
 #include <irrlicht.h>

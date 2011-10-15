@@ -16,7 +16,7 @@
 //
 #define BOOST_PYTHON_STATIC_LIB
 
-#include <boost\python.hpp> //前面所做的一切配置都是为了调用这个头文件和相关库  
+#include <boost/python.hpp> //前面所做的一切配置都是为了调用这个头文件和相关库  
 
 //
 // 因为Python虚拟机的GIL，所以同时只能有一个线程在运行，
@@ -28,14 +28,14 @@
 
 
 // Boost线程库
-#include <boost\thread.hpp>
+#include <boost/thread.hpp>
 
 // 断言
 #include "boost/assert.hpp"
 
 // 智能指针
-//#include <boost/smart_ptr.hpp>
-using std::shared_ptr;
+#include <boost/smart_ptr.hpp>
+using boost::shared_ptr;
 
 // Irrlicht引擎
 #include <irrlicht.h>

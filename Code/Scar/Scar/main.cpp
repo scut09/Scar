@@ -96,6 +96,7 @@ int main()
 
 	// 初始化Python模块
 	initEngine();
+	initUI();
 
 	// 创建引擎事件接收器
 	MyEventReceiver receiver;
