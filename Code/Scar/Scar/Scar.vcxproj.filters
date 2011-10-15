@@ -248,6 +248,9 @@
     <ClInclude Include="__array_1.pypp.hpp">
       <Filter>Python</Filter>
     </ClInclude>
+    <ClInclude Include="MyIReferenceCounted.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">

@@ -11,7 +11,7 @@
 #ifndef UIAnimator_h__
 #define UIAnimator_h__
 
-#include <irrlicht.h>
+#include "MyIReferenceCounted.h"
 using namespace irr;
 
 class IUIObject;
@@ -21,7 +21,7 @@ class IUIObject;
 //描述：动画的接口类，所有的动画均派生自此类
 //作者：华亮
 //////////////////////////////////////////////////////////////////
-class IUIAnimator : public irr::IReferenceCounted
+class IUIAnimator : public Scar::IReferenceCounted
 {
 public:
 	virtual ~IUIAnimator() {}

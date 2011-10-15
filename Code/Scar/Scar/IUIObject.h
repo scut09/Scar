@@ -28,7 +28,7 @@ class IUIAnimator;
 ** 说明：IUIObject的接口类，负责管理父、字节点，增删动画，以及绘制
 **
 */
-class IUIObject : public irr::IReferenceCounted
+class IUIObject : public Scar::IReferenceCounted
 {
 protected:
 	std::list< IUIAnimator* > Animators;

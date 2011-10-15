@@ -129,6 +129,7 @@
     <ClInclude Include="IUIObject.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />
+    <ClInclude Include="MyIReferenceCounted.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
     <ClInclude Include="PythonManager.h" />
