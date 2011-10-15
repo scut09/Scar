@@ -43,8 +43,8 @@ class UIAnima;
 class UIImage : public IUIObject
 {
 public:
-	UIImage( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order = 0 ) 
-		: IUIObject( driver, pos, width, height, order )
+	UIImage( IUIObject* parent, IVideoDriver * driver, s32 width, s32 height, s32 order = 0 ) 
+		: IUIObject( parent, driver, width, height, order )
 	{}
 	void Draw();
 };

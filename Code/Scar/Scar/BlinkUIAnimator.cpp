@@ -8,8 +8,8 @@ BlinkUIAnimator::BlinkUIAnimator( const vector2d<f32>& offset )
 
 bool BlinkUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 {
-	node->TransM(2,0) += Offset.X;
-	node->TransM(2,1) += Offset.Y;
+	/*node->TransM(2,0) += Offset.X;
+	node->TransM(2,1) += Offset.Y;*/
 	return true;
 }
 

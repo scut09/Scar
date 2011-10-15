@@ -35,12 +35,12 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		}
 	}
 
-	u32 t = timeMS - LastTime;
-	LastTime = timeMS;
+	//u32 t = timeMS - LastTime;
+	//LastTime = timeMS;
 
-	//AlphaChange
-	f32 alpha = node->GetAlpha() + t * AlphaFactor;	
-	node->SetAlpha( alpha );
+	////AlphaChange
+	//f32 alpha = node->GetAlpha() + t * AlphaFactor;	
+	//node->SetAlpha( alpha );
 	return true;
 }
 

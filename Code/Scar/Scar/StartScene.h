@@ -20,8 +20,8 @@ class StartScene : public GameScene
 public:
 	StartScene() : count( 0 )
 	{
-		u = new UIImage( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(250,375), 500, 750 );
-		v = new UIImage( MyIrrlichtEngine::GetEngine()->GetVideoDriver(), vector2d<f32>(50,75), 100, 150 ); 
+		u = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 500, 750 );
+		v = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 100, 150 ); 
 		uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
 	}
 

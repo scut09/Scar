@@ -11,31 +11,8 @@
 #include <algorithm>
 
 
-//IUIObject::IUIObject( s32 Order )
-//	: Parent( 0 ), Order( order )
-//{
-//}
-
-IUIObject::IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order /*= 0 */ ) :
-Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver ), Parent(NULL), TransM(*new matrix<f32>(3,3)), HistoryM(*new matrix<f32>(3,3))
-{
-	Center = pos;
-	DstQuar[0].X = pos.X - width / 2;
-	DstQuar[0].Y = pos.Y - height / 2;
-	DstQuar[1].X = DstQuar[0].X + width;
-	DstQuar[1].Y = DstQuar[0].Y;
-	DstQuar[2].X = DstQuar[0].X + width;
-	DstQuar[2].Y = DstQuar[0].Y + height;
-	DstQuar[3].X = DstQuar[0].X;
-	DstQuar[3].Y = DstQuar[0].Y + height;
-	MAKE_INDENTITY3(TransM);
-	MAKE_INDENTITY3(HistoryM);
-}
-
-
 IUIObject::~IUIObject()
 {
-	delete &TransM;
 	RemoveAll();			// 删除所有孩子,将孩子的引用计数器减一，设置它的Parent为0
 	RemoveAnimators();		// 删除所有的动画
 }
@@ -52,7 +29,6 @@ void IUIObject::DrawTree()
 void IUIObject::OnAnimate( u32 time )
 {
 	auto iter = Animators.begin();
-	TransM.assign( HistoryM );
 	while ( iter != Animators.end() )
 	{
 		auto i = iter;
@@ -132,6 +108,10 @@ void IUIObject::AddChild( IUIObject* child )
 	{
 		return lhs->GetOrder() < rhs->GetOrder();
 	});
+
+
+
+
 }
 
 void IUIObject::RemoveAll()
@@ -141,7 +121,6 @@ void IUIObject::RemoveAll()
 		(*iter)->SetParent( 0 );
 		(*iter)->drop();
 	}
-
 	Children.clear();
 }
 
@@ -156,48 +135,39 @@ void IUIObject::remove()
 		Parent->RemoveChild( this );
 }
 
-irr::s32 IUIObject::GetOrder() const
-{
-	return Order;
-}
-
-void IUIObject::SetOrder( s32 order )
-{
-	Order = order;
-}
-
 
 //装载图片
-void IUIObject::SetImage( char * filename )
+void IUIObject::LoadImage( char * filename )
 {
 	Image = Driver->getTexture( filename );
 }
-//以中心点为基准设置元件位置
-void IUIObject::SetCenter( const vector2d<f32>& pos )
-{
-	vector2d<f32> offset = pos - Center;
-	for(int i = 0; i < 4; i++)
-		DstQuar[i] += offset;
-	Center = pos;
-}
-//获取元件中心点位置
-const vector2d<f32>& IUIObject::GetCenter() const
-{
-	return Center;
-}
 
-f32 IUIObject::GetAlpha()
-{
-	return Alpha;
-}
-
-void IUIObject::SetAlpha( f32 alpha )
-{
-	Alpha = alpha;
-}
-
-bool IUIObject::ModifyCenter( const vector2d<f32>& pos )
-{
-	Center = pos;
-	return true;
-}
+////以中心点为基准设置元件位置
+//void IUIObject::SetCenter( const vector2d<f32>& pos )
+//{
+//	vector2d<f32> offset = pos - Center;
+//	for(int i = 0; i < 4; i++)
+//		DstQuar[i] += offset;
+//	Center = pos;
+//}
+////获取元件中心点位置
+//const vector2d<f32>& IUIObject::GetCenter() const
+//{
+//	return Center;
+//}
+//
+//f32 IUIObject::GetAlpha()
+//{
+//	return Alpha;
+//}
+//
+//void IUIObject::SetAlpha( f32 alpha )
+//{
+//	Alpha = alpha;
+//}
+//
+//bool IUIObject::ModifyCenter( const vector2d<f32>& pos )
+//{
+//	Center = pos;
+//	return true;
+//}

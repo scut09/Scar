@@ -6,7 +6,7 @@ ScaleUIAnimator::ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, 
 {
 	ScaleFactor.X = ( scale.X - 1 ) / duration;
 	ScaleFactor.Y = ( scale.Y - 1 ) / duration;
-	ScaleSet = false;
+	//ScaleSet = false;
 }
 
 bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )

@@ -32,8 +32,8 @@ void StartScene::Init()
 	driver = pEngine->GetVideoDriver();
 	ITimer* timer = pEngine->GetDevice()->getTimer();
 
-	u->SetImage("pic1.jpg");
-	v->SetImage("pic1.jpg");
+	u->LoadImage("pic1.jpg");
+	v->LoadImage("pic1.jpg");
 
 	TranslateUIAnimator* traani = new TranslateUIAnimator(
 		timer->getRealTime(),

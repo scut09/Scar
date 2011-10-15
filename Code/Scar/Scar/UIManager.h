@@ -43,6 +43,9 @@ public:
 	//消息处理
 	void OnEvent( const SEvent& event );
 
+	// 命中检测
+	IUIObject* HistTest( s32 x, s32 y );
+
 private:
 	IUIObject* Root;				//UI树根节点
 	IUIObject* Focus;			//被激活的UI节点

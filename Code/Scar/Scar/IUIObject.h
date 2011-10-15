@@ -36,85 +36,250 @@ class IUIAnimator;
 class IUIObject : public Scar::IReferenceCounted
 {
 protected:
-	std::list< IUIAnimator* > Animators;
-	std::list< IUIObject* > Children;
-	IUIObject* Parent;
-	s32 Order;									//元件在树的同一层时的摆放顺序
-	vector2d<f32> Center;						//矩形的中心点
-	IVideoDriver * Driver;						//Driver指针
-	f32 Alpha;									//元件透明度
-	ITexture * Image;							//应用于UI上的图片
+	std::list< IUIAnimator* >	Animators;		// 动画列表
+	std::list< IUIObject* >		Children;		// 子节点列表
+	IUIObject*					Parent;			// 父节点指针
+	s32							Order;			// 元件在树的同一层时的摆放顺序
+	bool						IsVisible;		// 元件是否可见
 
-public:
-	vector2d<f32> DstQuar[4];					//显示区域矩形
-	matrix<f32>& TransM;						//变换矩阵	
-	matrix<f32>& HistoryM;						//历史矩阵
+	IVideoDriver*				Driver;			// Driver指针
+	ITexture*					Image;			// 应用于UI上的图片
+
+	f32				RelativeAlpha;				// 相对透明度
+	vector2d<f32>	RelativeTranslation;		// 相对平移量
+	f32				RelativeRotation;			// 相对旋转
+	vector2d<f32>	RelativeScale;				// 相对缩放
+	matrix<f32>	AbsoluteTransformation;		// 绝对坐标系变换矩阵
+
+	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
 									
 public:
-	//IUIObject( s32 order = 0 );
 
-	IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order = 0 );
+	IUIObject( IUIObject* parent, IVideoDriver * driver, s32 width, s32 height, s32 order = 0 ) :
+	  Parent(NULL), Driver(driver), Order(order), AbsoluteTransformation( 3, 3 )
+	{
+		if ( parent )
+			parent->AddChild(this);
 
-	//加载UI图片
-	void SetImage( char * );
+		//设置模型坐标系，以原点为中心
+		DestinationQuadrangle[0].X = - width / 2.f;
+		DestinationQuadrangle[0].Y = - height / 2.f;
+		DestinationQuadrangle[1].X = DestinationQuadrangle[0].X + width;
+		DestinationQuadrangle[1].Y = DestinationQuadrangle[0].Y;
+		DestinationQuadrangle[2].X = DestinationQuadrangle[0].X + width;
+		DestinationQuadrangle[2].Y = DestinationQuadrangle[0].Y + height;
+		DestinationQuadrangle[3].X = DestinationQuadrangle[0].X;
+		DestinationQuadrangle[3].Y = DestinationQuadrangle[0].Y + height;
 
-	//以中心点为基准设置元件位置
-	void SetCenter( const vector2d<f32>& pos );
-	//改变中心点位置
-	bool ModifyCenter( const vector2d<f32>& pos );
-	//获取元件中心点位置
-	const vector2d<f32>& GetCenter() const;
+		RelativeAlpha = 255;
+		RelativeRotation = 0;
+		RelativeScale = vector2d<f32>( 1, 1 );
+		RelativeTranslation= vector2d<f32>( 0, 0 );
+		IsVisible = true;
 
-	//获得Alpha值
-	f32 GetAlpha();
-	//设置Alpha值
-	void SetAlpha( f32 alpha );
+		UpdateAbsolutePosition();
+	}
+
+	// 加载UI图片
+	void LoadImage( char * );
+
+	// 以中心点为基准设置元件位置
+	//void SetCenter( const vector2d<f32>& pos );
+	// 改变中心点位置
+	//bool ModifyCenter( const vector2d<f32>& pos );
+	// 获取元件中心点位置
+	//const vector2d<f32>& GetCenter() const;
+
+	// 获得Alpha值
+	//f32 GetAlpha();
+	// 设置Alpha值
+	//void SetAlpha( f32 alpha );
 
 	virtual ~IUIObject();
 
-	//设置元件顺序
-	virtual s32 GetOrder() const;
-	//获取元件顺序
-	virtual void SetOrder( s32 order );
 
-	//绘制当前节点
+	virtual matrix<f32> GetRelativeTransformation() const
+	{
+		matrix<f32> mat( 3, 3 );
+		MAKE_INDENTITY3(mat);
+		// 旋转
+		f32 rad = RelativeRotation * core::DEGTORAD;
+		mat(0,0) = cos(rad);	mat(0,1) = sin(rad);
+		mat(1,0) = -sin(rad);	mat(1,1) = cos(rad);
+		// 平移
+		mat(2,0) = RelativeTranslation.X;
+		mat(2,1) = RelativeTranslation.Y;
+		// 缩放
+		if( RelativeScale != vector2d<f32>(1.0f, 1.0f) )
+		{
+			matrix<f32> smat( 3, 3 );
+			MAKE_INDENTITY3(smat);
+			smat(0,0) = RelativeScale.X;
+			smat(0,1) = RelativeScale.Y;
+			mat = prod(mat, smat);
+		}
+		return mat;
+	}
+
+	// 获取当前节点的绝对变换矩阵
+	virtual const matrix<f32>& GetAbsoluteTransformation() const
+	{
+		return AbsoluteTransformation;
+	}
+
+	// 获取当前节点的绝对位置
+	virtual vector2d<f32> GetAbsolutePosition() const
+	{
+		matrix<f32> mat = GetAbsoluteTransformation();
+		vector2d<f32> abspos;
+		abspos.X = mat( 2, 0 );
+		abspos.Y = mat( 2, 1 );
+		return abspos;
+	}
+
+	// 更新当前节点基于相对变换矩阵的绝对变换矩阵
+	virtual void UpdateAbsolutePosition()
+	{
+		if (Parent)
+		{
+			AbsoluteTransformation.assign( ub::prod( Parent->GetAbsoluteTransformation(), GetRelativeTransformation() ) );
+		}
+		else
+		{
+			AbsoluteTransformation.assign( GetRelativeTransformation() );
+		}
+	}
+
+	// 获取当前节点绝对透明度
+	 virtual f32 GetAbsoluteAlpha() const
+	 {
+		 f32 absalp = RelativeAlpha;
+		 IUIObject* p = Parent;
+		 while( p != NULL )
+		 {
+			 absalp *= p->RelativeAlpha;
+			 p = p->Parent;
+		 }
+		 return absalp;
+	 }
+
+	// 绘制当前节点
 	virtual void Draw() = 0;
 
-	//绘制树 绘制当前节点以及当前节点的所有子节点
+	// 绘制树 绘制当前节点以及当前节点的所有子节点
 	virtual void DrawTree();
 
-	 //运行动画列表中的所有动画
+	// 运行动画列表中的所有动画
 	virtual void OnAnimate( u32 time );
 
-	//将某个动画加入动画运行列表
+	// 将某个动画加入动画运行列表
 	virtual void AddAnimator( IUIAnimator* ani	);
 
-	//获取动画列表
+	// 获取动画列表
 	virtual const std::list< IUIAnimator* >& GetAnimators() const;
 
-	//将某个动画从动画列表中删除
+	// 将某个动画从动画列表中删除
 	virtual void RemoveAnimator( IUIAnimator* ani );
 
-	//清空动画列表
+	// 清空动画列表
 	virtual void RemoveAnimators();
 
-	//设置父节点
+	// 设置父节点
 	virtual void SetParent( IUIObject* parent );
 
-	//删除子节点
+	// 移除子节点
 	virtual void RemoveChild( IUIObject* node );
 
-	//增加子节点
+	// 增加子节点
 	virtual void AddChild( IUIObject* child );
 
+	// 移除所有子节点
 	virtual void RemoveAll();
 
-	//获取子节点列表
+	// 获取子节点列表
 	virtual const std::list< IUIObject* >& GetChildren() const;
 
 	// 将自己从父节点中删除
 	// 为了和父类irr::IReferenceCounted中的drop，grab风格一样，所以我们用小写开头
 	virtual void remove();
+
+	// 判断当前坐标是否在元件中
+	virtual IUIObject* HitTest( s32 x, s32 y )
+	{
+		return 0;
+	}
+
+	// 元件叠放顺序
+	virtual void SetOrder( s32 order )
+	{
+		Order = order;
+	}
+	virtual s32 GetOrder() const
+	{
+		return Order;
+	}
+
+	// 相对Alpha值
+	virtual	void SetAlpha( f32 alpha )
+	{
+		RelativeAlpha = alpha;
+	}
+	virtual f32 GetAlpha() const
+	{
+		return RelativeAlpha;
+	}
+
+	// 相对位置
+	virtual void SetPosition( const vector2d<f32>& pos )
+	{
+		RelativeTranslation = pos;
+	}
+	virtual const vector2d<f32>& GetPosition() const
+	{
+		return RelativeTranslation;
+	}
+
+	// 相对旋转角度
+	virtual void SetRotation( f32 rotdeg )
+	{
+		RelativeRotation = rotdeg;
+	}
+	virtual f32 GetRotation() const
+	{
+		return RelativeRotation;
+	}
+
+	// 相对缩放
+	virtual void SetScale( const vector2d<f32>& scale )
+	{
+		RelativeScale = scale;
+	}
+	virtual const vector2d<f32>& GetScale() const
+	{
+		return RelativeScale;
+	}
+
+	// 可见性
+	virtual void SetVisible( bool isvisible )
+	{
+		IsVisible = isvisible;
+	}
+	virtual bool GetVisible()
+	{
+		return IsVisible;
+	}
+
+	//virtual const vector2d<f32>* GetDestinationQuadrangle() const
+	//{
+	//	return DestinationQuadrangle;
+	//}
+	//virtual void SetDestinationQuadrangle( vector2d<f32> quadr[4] )
+	//{
+	//	for ( int i = 0; i < 4; i++ )
+	//	{
+	//		DestinationQuadrangle[i] = quadr[i];
+	//	}
+	//}
 
 };
 #endif // IUIObject_h__

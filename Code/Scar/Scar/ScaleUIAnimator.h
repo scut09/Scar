@@ -20,10 +20,9 @@ private:
 	vector2d<f32> Scale;
 	vector2d<f32> ScaleFactor;
 	vector2d<f32> ScaPoint;
-	vector2d<f32> OldObjCen;
-	vector2d<f32> ScaleVector[4];
+	//vector2d<f32> ScaleVector[4];
 	bool Loop;
-	bool ScaleSet;
+	//bool ScaleSet;
 
 public:
 	ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale,
