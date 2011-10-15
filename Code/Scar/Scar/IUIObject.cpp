@@ -7,9 +7,12 @@
 
 *********************************************************************/
 
+
+
 #include "IUIObject.h"
 #include <algorithm>
 
+//#pragma warning( push )
 
 IUIObject::~IUIObject()
 {
@@ -171,3 +174,9 @@ void IUIObject::LoadImage( char * filename )
 //	Center = pos;
 //	return true;
 //}
+
+
+
+
+
+//#pragma warning( pop ) 

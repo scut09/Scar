@@ -9,6 +9,8 @@
 #ifndef _DEF_H_
 #define _DEF_H_
 
+
+
 //
 // Python ½âÊÍÆ÷Ö§³Ö
 //

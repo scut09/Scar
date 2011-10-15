@@ -10,6 +10,9 @@
 #ifndef IUIObject_h__
 #define IUIObject_h__
 
+//#pragma warning( push )
+
+
 #define MAKE_INDENTITY3( m ) do { m.clear(); m(0, 0) = m( 1, 1 ) = m( 2, 2 ) = 1; } while ( 0 )
 
 //#include "def.h"
@@ -282,4 +285,7 @@ public:
 	//}
 
 };
+
+//#pragma warning( pop ) 
+
 #endif // IUIObject_h__
