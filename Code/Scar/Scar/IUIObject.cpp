@@ -17,7 +17,7 @@
 //}
 
 IUIObject::IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 order /*= 0 */ ) :
-Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver )
+Order( order ), Alpha( 255 ), Image( 0 ), Driver( driver ), Parent(NULL)
 {
 	Center = pos;
 	DstQuar[0].X = pos.X - width / 2;
@@ -119,6 +119,7 @@ void IUIObject::AddChild( IUIObject* child )
 	if ( ! child )	return;
 
 	child->grab();
+	//这里有问题
 	child->remove();			// 从原父节点中移除自己
 	Children.push_back(child);
 	child->Parent = this;		// 这里不能用SetParent，否则会无限递归到栈溢出
@@ -190,4 +191,10 @@ f32 IUIObject::GetAlpha()
 void IUIObject::SetAlpha( f32 alpha )
 {
 	Alpha = alpha;
+}
+
+bool IUIObject::ModifyCenter( const vector2d<f32>& pos )
+{
+	Center = pos;
+	return true;
 }
