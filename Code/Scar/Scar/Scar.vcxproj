@@ -145,6 +145,7 @@
     <ClInclude Include="UIAnimators.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIObject.h" />
+    <ClInclude Include="__array_1.pypp.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py" />

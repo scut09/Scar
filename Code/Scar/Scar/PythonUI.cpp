@@ -555,15 +555,15 @@ struct UIImage_wrapper : UIImage, bp::wrapper< UIImage > {
 };
 
 BOOST_PYTHON_MODULE(UI){
-    //bp::class_< IUIAnimator_wrapper, boost::noncopyable >( "IUIAnimator" )    
-    //    .def( 
-    //        "Clone"
-    //        , bp::pure_virtual( (::IUIAnimator * ( ::IUIAnimator::* )(  ) )(&::IUIAnimator::Clone) )
-    //            /* undefined call policies */ )    
-    //    .def( 
-    //        "animateUIObject"
-    //        , bp::pure_virtual( (bool ( ::IUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::IUIAnimator::animateUIObject) )
-    //        , ( bp::arg("node"), bp::arg("timeMS") ) );
+    bp::class_< IUIAnimator_wrapper, boost::noncopyable >( "IUIAnimator" )    
+        //.def( 
+        //    "Clone"
+        //    , bp::pure_virtual( (::IUIAnimator * ( ::IUIAnimator::* )(  ) )(&::IUIAnimator::Clone) )
+        //        /* undefined call policies */ )    ;
+        .def( 
+            "animateUIObject"
+            , bp::pure_virtual( (bool ( ::IUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::IUIAnimator::animateUIObject) )
+            , ( bp::arg("node"), bp::arg("timeMS") ) );
 
     { //::IUIObject
         typedef bp::class_< IUIObject_wrapper, boost::noncopyable > IUIObject_exposer_t;

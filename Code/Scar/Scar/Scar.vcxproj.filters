@@ -245,6 +245,9 @@
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="__array_1.pypp.hpp">
+      <Filter>Python</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">
