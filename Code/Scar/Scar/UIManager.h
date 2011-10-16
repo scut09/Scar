@@ -15,6 +15,9 @@ public:
 	}
 	bool SetRoot( IUIObject* root )
 	{
+		root->grab();
+		if ( Root )
+			Root->drop();
 		Root = root;
 		return true;
 	}

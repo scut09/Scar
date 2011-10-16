@@ -1,12 +1,13 @@
 from UI import *
 from Engine import *
 
-def GetTran():
-    timer = Timer()
-    ani = TranslateUIAnimator(
-        timer.GetTime(),
-        2000,
-        vector2d( 300, 200 )
-        )
+def GetRoot():
+    engine = MyEngine()
+    
+    img = UIImage(
+        None,
+        500, 750 )
 
-    return ani
+    img.LoadImage( "pic1.jpg" )
+
+    return img

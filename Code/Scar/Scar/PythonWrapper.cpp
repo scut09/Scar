@@ -64,7 +64,33 @@ PythonSceneNode ModelManagerWrapper::AddSceneNodeByMeshID( const std::string& me
 //
 // Class TimerWrapper
 // 
+
+TimerWrapper::TimerWrapper()
+{
+	m_timer = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer();
+}
+
 u32 TimerWrapper::GetTime()
 {
-	return MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+	return m_timer->getTime();
+}
+
+u32 TimerWrapper::GetRealTime()
+{
+	return m_timer->getRealTime();
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+//
+// Class Engine
+// 
+MyEngine::MyEngine()
+{
+	m_driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
+}
+
+irr::video::IVideoDriver* MyEngine::GetDriver()
+{
+	return m_driver;
 }

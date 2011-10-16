@@ -42,6 +42,12 @@ BOOST_PYTHON_MODULE( Engine )
 	class_< irr::core::vector2d<s32> >( "vector2d", "fake vector2d<s32>", init< s32, s32 >() )
 		;
 
+	class_< irr::core::vector2d<f32> >( "vector2df", "fake vector2d<f32>", init< f32, f32 >() )
+		;
+
+	//class_< irr::video::IVideoDriver >( "IVideoDriver", "fake IVideoDriver" )
+	//	;	
+
 	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" )
 		.def( "SetPosition", &PythonSceneNode::SetPosition )
 		.def( "GetPosition", &PythonSceneNode::GetPosition )
@@ -63,5 +69,8 @@ BOOST_PYTHON_MODULE( Engine )
 
 	class_< TimerWrapper >( "Timer", "fake Timer" )
 		.def( "GetTime", &TimerWrapper::GetTime );
+
+	class_< MyEngine >( "MyEngine", "fake Engine" )
+		.def( "GetDriver", &MyEngine::GetDriver, return_value_policy< reference_existing_object >() );
 
 }

@@ -196,6 +196,7 @@ public:
 
 };
 
+
 /*
 ** 名字：TimerWrapper
 ** 说明：一个提供引擎时间的包装类
@@ -203,10 +204,29 @@ public:
 */
 class TimerWrapper
 {
+	irr::ITimer* m_timer;
+
 public:
+	TimerWrapper();
+
 	u32 GetTime();
+	u32 GetRealTime();
 };
 
 
+/*
+** 名字：Engine
+** 说明：引擎包装类
+**
+*/
+class MyEngine
+{
+	irr::video::IVideoDriver* m_driver;
+
+public:
+	MyEngine();
+
+	irr::video::IVideoDriver* GetDriver();
+};
 
 #endif // PythonWrapper_h__
