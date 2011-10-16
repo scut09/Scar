@@ -19,7 +19,7 @@ def GetRoot():
     tranni = TranslateUIAnimator(
         timer.GetRealTime(),
         3000,
-        vector2d( 300, 0 )
+        vector2d( 300, 200 )
         )
     img.AddAnimator( tranni )
     Save( tranni )              # 对于所有创建出来的对象都要使用Save，不用使用drop
