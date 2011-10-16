@@ -106,6 +106,7 @@
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Toolkit.cpp" />
     <ClCompile Include="TranslateUIAnimator.cpp" />
+    <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIImage.cpp" />
   </ItemGroup>

@@ -129,6 +129,9 @@
     <ClCompile Include="UIImage.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

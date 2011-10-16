@@ -53,6 +53,7 @@ void StartScene::Init()
 
 	u = new UIImage( NULL, 500, 750, 0, vector2d<f32>(250, 375) );
 	v = new UIImage( NULL, 100, 150, 0, vector2d<f32>(-200, -300) ); 
+	bt = new UIButton( NULL, 0, 0 );
 
 	u->LoadImage("pic1.jpg");
 	v->LoadImage("pic1.jpg");
@@ -98,6 +99,7 @@ void StartScene::Init()
 
 	uiManager->SetRoot( u );	
 	uiManager->AddUINode( v, u );
+	uiManager->AddUINode( bt, u );
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	

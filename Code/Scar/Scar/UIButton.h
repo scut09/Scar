@@ -18,26 +18,9 @@ public:
 UIButton( IUIObject* parent, s32 width, s32 height, s32 order = 0,
 			   const vector2d<f32>& position = vector2d<f32>(0,0),
 			   f32 rotdeg = 0,
-			   const vector2d<f32>& scale = vector2d<f32>(1,1) )
-			   : IUIObject( parent, width, height, order, position, rotdeg, scale )
-		   {
+			   const vector2d<f32>& scale = vector2d<f32>(1,1) );
 
-		   }
-
-	virtual void Draw()
-	{
-
-	}
-
-	virtual void OnMouseLeftButtonDown( const irr::SEvent::SMouseInput& event ) 
-	{
-		std::cout<< event.X << "," << event.Y << std::endl;
-	}
-
-	virtual void OnKeyDown( const irr::SEvent::SKeyInput& event ) 
-	{
-		std::cout<< event.Key << std::endl;
-	}
+	virtual void Draw();
 
 	std::function<void()> MouseMove;
 	std::function<void()> MouseLeftButtonDown;
