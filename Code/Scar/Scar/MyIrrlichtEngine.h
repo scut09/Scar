@@ -14,8 +14,8 @@
 #include <list>
 #include "def.h"
 #include "ModelManager.h"
-#include "IMovable.h"
-#include "AnimationManager.h"
+//#include "IMovable.h"
+//#include "AnimationManager.h"
 #include "GameScene.h"
 
 class IUIObject;
