@@ -204,3 +204,94 @@ Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 ), Image( 0 )
 
 	UpdateAbsolutePosition();
 }
+
+//消息分派
+void IUIObject::OnEvent( const SEvent& event )
+{
+	//using namespace irr;
+
+	if ( event.EventType == EET_MOUSE_INPUT_EVENT )
+	{
+		SEvent::SMouseInput mouseEvent = event.MouseInput;
+		s32	NewMouseX = mouseEvent.X;
+		s32 NewMouseY = mouseEvent.Y;
+
+		if ( mouseEvent.Event == EMIE_MOUSE_MOVED )
+			OnMouseMove( mouseEvent );
+		if ( mouseEvent.Event == EMIE_LMOUSE_PRESSED_DOWN )
+			OnMouseLeftButtonDown( mouseEvent );
+		if ( mouseEvent.Event == EMIE_LMOUSE_LEFT_UP )
+			OnMouseLeftButtonUp( mouseEvent );
+		if ( mouseEvent.Event == EMIE_RMOUSE_PRESSED_DOWN )
+			OnMouseRightButtonDown( mouseEvent );
+		if ( mouseEvent.Event == EMIE_RMOUSE_LEFT_UP )
+			OnMouseRightButtonUp( mouseEvent );
+		if ( mouseEvent.Event == EMIE_MOUSE_WHEEL )
+			OnWheel( mouseEvent );
+
+		OldMouseX = NewMouseX;
+		OldMouseY = NewMouseY;
+	}
+	else if ( event.EventType == EET_KEY_INPUT_EVENT )
+	{
+		SEvent::SKeyInput keyEvent = event.KeyInput;
+		if ( keyEvent.PressedDown )
+			OnKeyDown( keyEvent );
+		if ( !keyEvent.PressedDown )
+			OnKeyUp( keyEvent );
+	}
+	else
+		return;
+
+	for( auto iter = Children.begin(); iter != Children.end(); ++iter )
+		(*iter)->OnEvent( event );
+
+	//IUIObject::OnEvent( event );
+}
+
+//判断点是否在当前元件内部
+bool IUIObject::IsPointIn( s32 x, s32 y )
+{
+	//首先获取元件四个顶点当前在屏幕上的绝对坐标
+	matrix<f32> TransMat = AbsoluteTransformation;
+	vector2d<f32> AbsPoints[4];
+	ub::vector<f32> temPoint(3);
+	temPoint(2) = 1;
+	for( int i=0; i<4; i++ )
+	{
+		temPoint(0) = DestinationQuadrangle[i].X;
+		temPoint(1) = DestinationQuadrangle[i].Y;
+		temPoint = prod( temPoint, TransMat );
+		AbsPoints[i].X = temPoint(0);
+		AbsPoints[i].Y = temPoint(1);
+	}
+	//求元件包围盒宽高
+	vector2d<f32> v1 = AbsPoints[0] - AbsPoints[2];
+	vector2d<f32> v2 = AbsPoints[1] - AbsPoints[3];
+	f32 boxWidth = std::max( abs(v1.X), abs(v2.X) );
+	f32 boxHeight = std::max( abs(v1.Y), abs(v2.Y) );
+	
+	/*std::cout<< "width: " << boxWidth << "  height: " << boxHeight << std::endl;
+	std::cout<< AbsPoints[0].X << "," << AbsPoints[0].Y << "\t";
+	std::cout<< AbsPoints[1].X << "," << AbsPoints[1].Y << std::endl;
+	std::cout<< AbsPoints[3].X << "," << AbsPoints[3].Y << "\t"; 
+	std::cout<< AbsPoints[2].X << "," << AbsPoints[2].Y << std::endl;*/
+	
+	//求四个顶点指向目标点的向量
+	//并把这四个向量加在一起
+	vector2d<f32> v[4];
+	vector2d<f32> vd = vector2d<f32>(0, 0);
+	for ( int i=0; i<4; i++ )
+	{
+		v[i] = vector2d<f32>( (f32)x, (f32)y ) - AbsPoints[i];
+		vd += v[i];
+	}
+	/*std::cout<< v[0].X << "," << v[0].Y << "\t";
+	std::cout<< v[1].X << "," << v[1].Y << std::endl;
+	std::cout<< v[3].X << "," << v[3].Y << "\t"; 
+	std::cout<< v[2].X << "," << v[2].Y << std::endl;*/
+	if( abs(vd.X) <= 2 * boxWidth && abs(vd.Y) <= 2 * boxHeight )
+		return true;
+
+	return false;
+}

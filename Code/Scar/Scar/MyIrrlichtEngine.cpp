@@ -44,7 +44,7 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 		if ( ! pDevice ) return NULL;
 
 		// Òþ²ØÊó±ê
-		pDevice->getCursorControl()->setVisible( false );
+		//pDevice->getCursorControl()->setVisible( false );
 
 		m_pIrrlichtEngine = new MyIrrlichtEngine;
 		m_pIrrlichtEngine->m_pDevice = pDevice;

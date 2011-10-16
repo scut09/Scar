@@ -8,13 +8,13 @@
 void StartScene::Run() 
 {
 
-	if ( count++ > 3000 )
+	/*if ( count++ > 3000 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
-	}
+	}*/
 	
 }
 
@@ -51,42 +51,42 @@ void StartScene::Init()
 	}
 
 
-	//u = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 500, 750, 0, vector2d<f32>(250, 375) );
-	//v = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 100, 150, 0, vector2d<f32>(-200, -300) ); 
+	u = new UIImage( NULL, 500, 750, 0, vector2d<f32>(250, 375) );
+	v = new UIImage( NULL, 100, 150, 0, vector2d<f32>(-200, -300) ); 
 
-	//u->LoadImage("pic1.jpg");
-	//v->LoadImage("pic1.jpg");
+	u->LoadImage("pic1.jpg");
+	v->LoadImage("pic1.jpg");
 
-	///*TranslateUIAnimator* traani = new TranslateUIAnimator(
-	//	timer->getRealTime(),
-	//	3000,
-	//	vector2d<s32>(300,0)); 
-	//u->AddAnimator(traani);
-	//traani->drop();*/
+	TranslateUIAnimator* traani = new TranslateUIAnimator(
+		timer->getRealTime(),
+		3000,
+		vector2d<s32>(300,0)); 
+	u->AddAnimator(traani);
+	traani->drop();
 
-	//RotateUIAnimator* rotani = new RotateUIAnimator(
-	//timer->getRealTime(),
-	//3000,
-	//360,
-	//true);
-	//v->AddAnimator(rotani);
-	//rotani->drop();
+	RotateUIAnimator* rotani = new RotateUIAnimator(
+		timer->getRealTime(),
+		3000,
+		360,
+		true);
+	v->AddAnimator(rotani);
+	rotani->drop();
 
-	//RotateUIAnimator* rotani2 = new RotateUIAnimator(
-	//	timer->getRealTime(),
-	//	3000,
-	//	360,
-	//	true);
-	//u->AddAnimator(rotani2);
-	//rotani2->drop();
+	RotateUIAnimator* rotani2 = new RotateUIAnimator(
+		timer->getRealTime(),
+		3000,
+		360,
+		true);
+	u->AddAnimator(rotani2);
+	rotani2->drop();
 
-	//ScaleUIAnimator* scaani = new ScaleUIAnimator(
-	//	timer->getRealTime(),
-	//	3000,
-	//	vector2d<f32>(.5f,.5f)
-	//	);
-	//u->AddAnimator(scaani);
-	//scaani->drop();
+	ScaleUIAnimator* scaani = new ScaleUIAnimator(
+		timer->getRealTime(),
+		3000,
+		vector2d<f32>(.5f,.5f)
+		);
+	u->AddAnimator(scaani);
+	scaani->drop();
 
 	//AlphaChangeUIAnimator* alpani = new AlphaChangeUIAnimator(
 	//	timer->getRealTime(),
@@ -96,12 +96,16 @@ void StartScene::Init()
 	//u->AddAnimator(alpani);
 	//alpani->drop();
 
-	//uiManager->SetRoot( u );	
-	//uiManager->AddUINode( v, u );
+	uiManager->SetRoot( u );	
+	uiManager->AddUINode( v, u );
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
-		//uiManager->OnEvent( event );
+		//std::cout<< u->GetAbsoluteTransformation() <<std::endl;
+		/*std::cout<< event.MouseInput.X << " , " << event.MouseInput.Y <<std::endl;
+		std::cout<< u->IsPointIn( event.MouseInput.X, event.MouseInput.Y ) <<std::endl;
+		std::cout << std::endl;*/
+		uiManager->OnEvent( event );
 		return 0;
 	} );
 }

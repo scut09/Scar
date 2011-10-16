@@ -17,7 +17,7 @@ class StartScene : public GameScene
 
 	UIImage* u;//≤‚ ‘”√
 	UIImage* v;//≤‚ ‘”√
-	//UIButton* bt; // ≤‚ ‘”√
+	UIButton* bt; // ≤‚ ‘”√
 
 	UIManager* uiManager;
 

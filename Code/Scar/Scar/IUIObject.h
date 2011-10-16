@@ -161,11 +161,7 @@ public:
 		return 0;
 	}
 
-	virtual bool IsPointIn( s32 x, s32 y )
-	{
-
-		return false;
-	}
+	virtual bool IsPointIn( s32 x, s32 y );
 
 	// Ôª¼þµþ·ÅË³Ðò
 	virtual void SetOrder( s32 order )
@@ -250,10 +246,6 @@ protected:
 public:
 	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event ) {}
 
-	virtual void OnMouseMoveIn( const irr::SEvent::SMouseInput& event ) {}
-
-	virtual void OnMouseMoveOut( const irr::SEvent::SMouseInput& event ) {}
-
 	virtual void OnMouseLeftButtonUp( const irr::SEvent::SMouseInput& event ) {}
 
 	virtual void OnMouseLeftButtonDown( const irr::SEvent::SMouseInput& event ) {}
@@ -269,69 +261,7 @@ public:
 	virtual void OnKeyUp( const irr::SEvent::SKeyInput& event ) {}
 
 
-	virtual void OnEvent( const SEvent& event ) 
-	{
-		//using namespace irr;
-
-		if ( event.EventType == EET_MOUSE_INPUT_EVENT )
-		{
-			SEvent::SMouseInput mouseEvent = event.MouseInput;
-			s32	NewMouseX = mouseEvent.X;
-			s32 NewMouseY = mouseEvent.Y;
-
-			if( IsPointIn( NewMouseX, NewMouseY ) )
-			{
-				if ( !IsMouseIn )
-				{
-					IsMouseIn = true;
-					OnMouseMoveIn( mouseEvent );
-				}
-				else 
-				{
-					if ( mouseEvent.Event == EMIE_MOUSE_MOVED )
-						OnMouseMove( mouseEvent );
-					if ( mouseEvent.Event == EMIE_LMOUSE_PRESSED_DOWN )
-						OnMouseLeftButtonDown( mouseEvent );
-					if ( mouseEvent.Event == EMIE_LMOUSE_LEFT_UP )
-						OnMouseLeftButtonUp( mouseEvent );
-					if ( mouseEvent.Event == EMIE_RMOUSE_PRESSED_DOWN )
-						OnMouseRightButtonDown( mouseEvent );
-					if ( mouseEvent.Event == EMIE_RMOUSE_LEFT_UP )
-						OnMouseRightButtonUp( mouseEvent );
-					if ( mouseEvent.Event == EMIE_MOUSE_WHEEL )
-						OnWheel( mouseEvent );
-				}
-			}
-			else
-			{
-				if ( IsMouseIn )
-				{
-					IsMouseIn = false;
-					OnMouseMoveOut( mouseEvent );
-				}
-			}
-
-			OldMouseX = NewMouseX;
-			OldMouseY = NewMouseY;
-		}
-		else if ( event.EventType == EET_KEY_INPUT_EVENT )
-		{
-			SEvent::SKeyInput keyEvent = event.KeyInput;
-			if ( keyEvent.PressedDown )
-				OnKeyDown( keyEvent );
-			if ( !keyEvent.PressedDown )
-				OnKeyUp( keyEvent );
-		}
-		else
-			return;
-
-
-
-
-
-
-		IUIObject::OnEvent( event );
-	}
+	virtual void OnEvent( const SEvent& event );
 
 };
 
