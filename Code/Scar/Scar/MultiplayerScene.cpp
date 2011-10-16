@@ -81,13 +81,26 @@ void MultiplayerScene::Init()
 	//	return 0;
 	//} );
 
-	CFlame flame;
-	auto fire = flame.createFlame(
-		MyIrrlichtEngine::GetEngine()->GetDevice(), 
-		"../media/particle.bmp"
-		);
+	
+	//CFlame flame;
+	//auto fire = flame.createFlame(
+	//	MyIrrlichtEngine::GetEngine()->GetDevice(), 
+	//	"../media/particle.bmp"
+	//	);
+	//node->addChild( fire );
 
-	node->addChild( fire );
+	//创建边上的粒子****************
+	//for (int i = 0;i < 24;i++)
+	//{
+	//	CFlame flame;
+	//	auto fire = flame.createFlame(
+	//		MyIrrlichtEngine::GetEngine()->GetDevice(), 
+	//		"../media/particle.bmp"
+	//		);
+	////	fire->setVisible(false);   //初始不可见
+	//	node->addChild( fire );
+	//}
+
 
 	// 创建并注册receiver的事件处理回调函数
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
