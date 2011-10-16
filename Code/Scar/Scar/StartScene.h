@@ -7,6 +7,8 @@
 #include "UIButton.h"
 #include "UIManager.h"
 
+class boost::python::object;
+
 class StartScene : public GameScene
 {
 	int count;
@@ -18,6 +20,8 @@ class StartScene : public GameScene
 	//UIButton* bt; // ≤‚ ‘”√
 
 	UIManager* uiManager;
+
+	boost::python::object root;
 
 public:
 	StartScene();

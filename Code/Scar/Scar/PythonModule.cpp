@@ -68,6 +68,7 @@ BOOST_PYTHON_MODULE( Engine )
 		.def( "CreateFlyStraightAutoDelAnimator", &AnimationManagerWrapper::CreateFlyStraightAutoDelAnimator );
 
 	class_< TimerWrapper >( "Timer", "fake Timer" )
+		.def( "GetRealTime", &TimerWrapper::GetRealTime )
 		.def( "GetTime", &TimerWrapper::GetTime );
 
 	class_< MyEngine >( "MyEngine", "fake Engine" )

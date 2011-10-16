@@ -16,6 +16,7 @@ class TranslateUIAnimator : public IUIAnimator
 {
 public:
 	TranslateUIAnimator( u32 begin, u32 duration, const vector2d<s32>& offset, bool loop = false );
+	~TranslateUIAnimator();
 
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 

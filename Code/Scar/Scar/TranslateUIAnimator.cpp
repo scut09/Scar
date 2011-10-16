@@ -1,5 +1,6 @@
 #include "TranslateUIAnimator.h"
 #include "UIImage.h"
+#include <iostream>
 
 TranslateUIAnimator::TranslateUIAnimator( u32 begin, u32 duration, const vector2d<s32>& offset, bool loop ) :
 Begin(begin), Duration(duration), LastTime(begin), Loop(loop), Offset(offset)
@@ -41,4 +42,9 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 TranslateUIAnimator* TranslateUIAnimator::Clone()
 {
 	return new TranslateUIAnimator(Begin, Duration, Offset, Loop);
+}
+
+TranslateUIAnimator::~TranslateUIAnimator()
+{
+	std::cout << "TranslateUIAnimator destruction\n";
 }

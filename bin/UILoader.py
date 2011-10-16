@@ -1,8 +1,14 @@
-from UI import *
+﻿from UI import *
 from Engine import *
 
-def GetRoot():
-    engine = MyEngine()
+ObjectDeletionList = []
+
+def Save( obj ):
+    global ObjectDeletionList
+    ObjectDeletionList.append( obj )
+
+def GetRoot():   
+    timer = Timer()     # 
     
     img = UIImage(
         None,
@@ -10,4 +16,25 @@ def GetRoot():
 
     img.LoadImage( "pic1.jpg" )
 
+    tranni = TranslateUIAnimator(
+        timer.GetRealTime(),
+        3000,
+        vector2d( 300, 0 )
+        )
+    img.AddAnimator( tranni )
+    Save( tranni )              # 对于所有创建出来的对象都要使用Save，不用使用drop
+
+    rotani = RotateUIAnimator(
+        timer.GetRealTime(),
+        3000,
+        360,
+        True
+        )
+    img.AddAnimator( rotani )
+    Save( rotani )
+
     return img
+
+def DeleteTree():
+    global ObjectDeletionList
+    ObjectDeletionList = []

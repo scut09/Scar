@@ -8,13 +8,13 @@
 void StartScene::Run() 
 {
 
-	/*if ( count++ > 3000 )
+	if ( count++ > 3000 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
-	}*/
+	}
 	
 }
 
@@ -32,18 +32,18 @@ void StartScene::Init()
 	uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
 
 
-	using namespace boost::python;
-
 	try
 	{
+		using namespace boost::python;
+
 		object UILoader = import( "UILoader" );
 		object GetRoot = UILoader.attr( "GetRoot" );
-		object root = GetRoot();
-		root.ptr()->ob_refcnt++;		// 增加引用计数
+		root = GetRoot();
+		//root.ptr()->ob_refcnt++;		// 增加引用计数
 
 		IUIObject* r = extract<IUIObject*>( root ); 
 		uiManager->SetRoot( r );
-		r->drop();
+		//r->drop();	// 使用Python对象不用内存管理
 	}
 	catch ( ... )
 	{
@@ -109,9 +109,23 @@ void StartScene::Init()
 void StartScene::Release() 
 {
 	//v->drop();
-	uiManager->GetRoot()->drop();
+	//uiManager->GetRoot()->drop();	// 使用Python传回的不用Delete
 
 	delete uiManager;
+
+	try
+	{
+		using namespace boost::python;
+
+		object UILoader = import( "UILoader" );
+		object DeleteTree = UILoader.attr( "DeleteTree" );
+		DeleteTree();
+		root = object();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 }
 
 StartScene::StartScene() : count( 0 )
