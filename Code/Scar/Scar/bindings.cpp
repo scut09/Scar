@@ -2034,7 +2034,7 @@ struct IGUIImage_wrapper : irr::gui::IGUIImage, bp::wrapper< irr::gui::IGUIImage
 
 };
 
-BOOST_PYTHON_MODULE(pyplusplus){
+BOOST_PYTHON_MODULE( UI ){
 	bp::enum_< irr::gui::EGUI_BUTTON_STATE>("EGUI_BUTTON_STATE")
 		.value("EGBS_BUTTON_UP", irr::gui::EGBS_BUTTON_UP)
 		.value("EGBS_BUTTON_DOWN", irr::gui::EGBS_BUTTON_DOWN)
