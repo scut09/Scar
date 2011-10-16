@@ -25,6 +25,8 @@ public:
 		: IUIObject( parent, width, height, order, position, rotdeg, scale )
 	{}
 
+	~UIImage();
+
 	void Draw();
 
 

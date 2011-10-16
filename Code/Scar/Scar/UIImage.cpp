@@ -1,5 +1,6 @@
 #include "UIImage.h"
 #include "MyIrrlichtEngine.h"
+#include <iostream>
 
 //////////////////////////////////////////////////////////////////
 //Ãû³Æ£ºUIImage 
@@ -38,4 +39,9 @@ void UIImage::Draw()
 
 	Driver->draw2DImage( Image, intDstQuar, rect<s32>(0,0,w,h), 0, colors/*&SColor(Alpha,255,255,255)*/, true );
 	//Driver->draw2DImage( Image, vector2d<s32>(0,0));
+}
+
+UIImage::~UIImage()
+{
+	std::cout << "====> UIImage destruction\n";
 }
