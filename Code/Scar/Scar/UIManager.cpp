@@ -19,8 +19,11 @@ IUIObject* UIManager::GetRoot()
 //运行树
 void UIManager::RunTree()
 {
-	Root->OnAnimate(Timer->getRealTime());
-	Root->DrawTree();
+	if ( Root )
+	{
+		Root->OnAnimate(Timer->getRealTime());
+		Root->DrawTree();
+	}
 }
 
 //向树中增加节点

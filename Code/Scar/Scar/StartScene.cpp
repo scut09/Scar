@@ -8,13 +8,13 @@
 void StartScene::Run() 
 {
 
-	/*if ( count++ > 200 )
+	if ( count++ > 10 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
 		Release();
 		pEngine->currentScene->Init();
-	}*/
+	}
 	
 }
 
@@ -86,7 +86,7 @@ void StartScene::Init()
 
 void StartScene::Release() 
 {
-
+	uiManager->SetRoot( 0 );
 }
 
 StartScene::StartScene() : count( 0 )
