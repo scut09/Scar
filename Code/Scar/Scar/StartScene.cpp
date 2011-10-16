@@ -8,7 +8,7 @@
 void StartScene::Run() 
 {
 
-	if ( count++ > 100 )
+	if ( count++ > 3000 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
@@ -21,8 +21,8 @@ void StartScene::Run()
 void StartScene::Draw()
 {	
 	uiManager->RunTree();
-	//u->OnAnimate(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime());
-	/*v->OnAnimate(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime());
+	//u->OnAnimate(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime());
+	/*v->OnAnimate(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime());
 	v->DrawTree();*/
 }
 
@@ -36,14 +36,14 @@ void StartScene::Init()
 	v->LoadImage("pic1.jpg");
 
 	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
-		timer->getRealTime(),
+		timer->getTime(),
 		3000,
 		vector2d<s32>(300,0)); 
 	u->AddAnimator(traani);
 	traani->drop();*/
 
 	RotateUIAnimator* rotani = new RotateUIAnimator(
-	timer->getRealTime(),
+	timer->getTime(),
 	3000,
 	360,
 	true);
@@ -51,7 +51,7 @@ void StartScene::Init()
 	rotani->drop();
 
 	RotateUIAnimator* rotani2 = new RotateUIAnimator(
-		timer->getRealTime(),
+		timer->getTime(),
 		3000,
 		360,
 		true);
@@ -59,7 +59,7 @@ void StartScene::Init()
 	rotani2->drop();
 
 	ScaleUIAnimator* scaani = new ScaleUIAnimator(
-		timer->getRealTime(),
+		timer->getTime(),
 		3000,
 		vector2d<f32>(.5f,.5f)
 		);
@@ -67,7 +67,7 @@ void StartScene::Init()
 	scaani->drop();
 
 	AlphaChangeUIAnimator* alpani = new AlphaChangeUIAnimator(
-		timer->getRealTime(),
+		timer->getTime(),
 		3000,
 		u->GetAlpha(),
 		0);

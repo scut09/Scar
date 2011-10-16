@@ -21,7 +21,7 @@ void UIManager::RunTree()
 {
 	if ( Root )
 	{
-		Root->OnAnimate(Timer->getRealTime());
+		Root->OnAnimate(Timer->getTime());
 		Root->DrawTree();
 	}
 }
