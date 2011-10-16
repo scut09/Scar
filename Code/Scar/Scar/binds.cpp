@@ -26,7 +26,7 @@
 
 #include "UIManager.h"
 
-#include "UIObject.h"
+#include "UIImage.h"
 
 namespace bp = boost::python;
 

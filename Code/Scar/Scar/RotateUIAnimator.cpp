@@ -1,5 +1,5 @@
 #include "RotateUIAnimator.h"
-#include "UIObject.h"
+#include "UIImage.h"
 
 RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, bool loop /*= false */ ) : Begin( begin ), 
 	Duration( duration ), Loop( loop ), LastTime( begin ), Angle(angle)

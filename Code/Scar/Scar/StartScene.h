@@ -3,7 +3,7 @@
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
 #include "IUIObject.h"
-#include "UIObject.h"
+#include "UIImage.h"
 #include "UIButton.h"
 #include "UIManager.h"
 

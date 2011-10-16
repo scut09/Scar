@@ -1,5 +1,5 @@
 #include "BlinkUIAnimator.h"
-#include "UIObject.h"
+#include "UIImage.h"
 
 BlinkUIAnimator::BlinkUIAnimator( const vector2d<f32>& offset )
 {

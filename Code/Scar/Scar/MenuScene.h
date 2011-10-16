@@ -4,7 +4,7 @@
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
 #include "IUIObject.h"
-#include "UIObject.h"
+#include "UIImage.h"
 #include "UIManager.h"
 
 class MenuScene : public GameScene

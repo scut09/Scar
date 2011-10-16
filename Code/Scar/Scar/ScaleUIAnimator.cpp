@@ -1,5 +1,5 @@
 #include "ScaleUIAnimator.h"
-#include "UIObject.h"
+#include "UIImage.h"
 
 ScaleUIAnimator::ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, bool loop /*= false */ )
 	: Begin( begin ), Duration( duration ), Scale( scale ), Loop( loop ), LastTime( begin )

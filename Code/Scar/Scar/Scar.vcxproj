@@ -107,7 +107,7 @@
     <ClCompile Include="Toolkit.cpp" />
     <ClCompile Include="TranslateUIAnimator.cpp" />
     <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="UIObject.cpp" />
+    <ClCompile Include="UIImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h" />
@@ -152,7 +152,7 @@
     <ClInclude Include="UIAnimators.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
-    <ClInclude Include="UIObject.h" />
+    <ClInclude Include="UIImage.h" />
     <ClInclude Include="__array_1.pypp.hpp" />
   </ItemGroup>
   <ItemGroup>

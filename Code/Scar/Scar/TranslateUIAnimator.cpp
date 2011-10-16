@@ -1,5 +1,5 @@
 #include "TranslateUIAnimator.h"
-#include "UIObject.h"
+#include "UIImage.h"
 
 TranslateUIAnimator::TranslateUIAnimator( u32 begin, u32 duration, const vector2d<s32>& offset, bool loop ) :
 Begin(begin), Duration(duration), LastTime(begin), Loop(loop), Offset(offset)
