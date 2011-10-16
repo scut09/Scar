@@ -30,10 +30,10 @@
 
 
 // Boost线程库
-#include <boost/thread.hpp>
+//#include <boost/thread.hpp>
 
 // 断言
-#include "boost/assert.hpp"
+//#include "boost/assert.hpp"
 
 // 智能指针
 #include <boost/smart_ptr.hpp>

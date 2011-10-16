@@ -4,6 +4,7 @@
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
 #include "AllUIObjects.h"
+#include "UIManager.h"
 
 class MenuScene : public GameScene
 {
@@ -16,15 +17,30 @@ class MenuScene : public GameScene
 	UIManager* uiManager;
 
 public:
-	MenuScene();
+	MenuScene()
+	{
 
-	virtual void Run() ;
+	}
 
-	virtual void Init() ;
+	virtual void Run() 
+	{
 
-	virtual void Release() ;
+	}
 
-	virtual void Draw();
+	virtual void Init() 
+	{
+
+	}
+
+	virtual void Release() 
+	{
+
+	}
+
+	virtual void Draw()
+	{
+
+	}
 };
 
 #endif // MenuScene_h__

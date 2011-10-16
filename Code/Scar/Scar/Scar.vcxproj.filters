@@ -123,9 +123,6 @@
     <ClCompile Include="BlinkUIAnimator.cpp">
       <Filter>UI\UIAnimators</Filter>
     </ClCompile>
-    <ClCompile Include="binds.cpp">
-      <Filter>Python</Filter>
-    </ClCompile>
     <ClCompile Include="UIImage.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -137,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="AllUIObjects.h">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="bindings.cpp">
+      <Filter>Python</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

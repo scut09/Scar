@@ -1,10 +1,9 @@
 #pragma once
-
+#include "def.h"
 #include "GameScene.h"
 #include "AllUIObjects.h"
 #include "UIManager.h"
-
-class boost::python::object;
+#include "MyIrrlichtEngine.h"
 
 class StartScene : public GameScene
 {
