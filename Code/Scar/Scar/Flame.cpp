@@ -1,9 +1,8 @@
-
 #include "Flame.h"
 
 
 
-CFlame::CFlame(void):m_maxAccel(255),m_flamY(9),m_flamX(6),m_lifetime(1000),m_flame(0)
+CFlame::CFlame(void):m_flamY(9),m_flamX(6),m_flame(0)
 {
 
 }
@@ -13,17 +12,7 @@ CFlame::~CFlame(void)
 {
 }
 
-void CFlame::setMaxAccel( f32&accel )
-{
-	if (accel<=0)
-	{
-		accel=-accel<0?-accel:1;
-	}
 
-	else{
-		m_maxAccel = accel;
-	}
-}
 
 void CFlame::modifyFlameByAccel( vector3df accel )
 {
@@ -33,22 +22,20 @@ void CFlame::modifyFlameByAccel( vector3df accel )
 	}
 	IParticleBoxEmitter*pe = (IParticleBoxEmitter*)m_flame->getEmitter();
 	vector3df tempaccel=accel;
-	vector3df particlespeed = tempaccel.normalize()/20;
-	pe->setDirection(particlespeed*(((f32)(((accel.getLength()*3/m_maxAccel)+1))/3)));
+	vector3df particlespeed = tempaccel.normalize()/30;
+	pe->setDirection(particlespeed);
 	vector3df temp;
 	temp= pe->getDirection()*2000/(pe->getMaxParticlesPerSecond()+pe->getMinParticlesPerSecond());
 
 	f32 H=temp.X>temp.Y?temp.X:temp.Y;
 
-	if (temp.X>temp.Y)
+	if ((temp.X)>(temp.Y))
 	{
 		pe->setMaxStartSize(dimension2df(m_flamY,m_flamX));pe->setMinStartSize(dimension2df(m_flamY,m_flamX));
 	}
 	else {
 		pe->setMaxStartSize(dimension2df(m_flamX,m_flamY));pe->setMinStartSize(dimension2df(m_flamX,m_flamY));
 	}
-	pe->setMinParticlesPerSecond(pe->getDirection().getLength()*m_lifetime/m_flamY*3);
-	pe->setMaxParticlesPerSecond(pe->getDirection().getLength()*m_lifetime/m_flamY*3);
 
 }
 
@@ -78,14 +65,16 @@ IParticleSystemSceneNode* CFlame::createFlame( IrrlichtDevice *device,char * tex
 	}
 	m_flamY=(minStartSize.Height+maxStartSize.Height)/2;
 	m_flamX = (minStartSize.Width+maxStartSize.Width)/2;
-	m_lifetime = (lifeTimeMax+lifeTimeMin)/2;
 
 	modifyFlameByAccel(accl);
 	return m_flame;
 }
 
-IParticleSystemSceneNode * CFlame::getParticle()
+void CFlame::setpos( vector3df pos )
 {
-	return m_flame;
+	if (m_flame)
+	{
+		m_flame->setPosition(pos);
+	}
 }
 
