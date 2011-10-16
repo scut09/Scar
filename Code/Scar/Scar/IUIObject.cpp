@@ -55,12 +55,13 @@ void IUIObject::AddAnimator( IUIAnimator* ani )
 	Animators.push_back( ani );
 	ani->grab();
 	//为所有子节点增加相应的动画
-	for( auto iter = Children.begin(); iter != Children.end(); ++iter )
+	//这个是历史遗留问题，可以删除这段了
+	/*for( auto iter = Children.begin(); iter != Children.end(); ++iter )
 	{
 		IUIAnimator* aniCopy = ani->Clone(); 
 		(*iter)->AddAnimator(aniCopy);
 		aniCopy->drop();
-	}
+	}*/
 }
 
 const std::list< IUIAnimator* >& IUIObject::GetAnimators() const
@@ -91,23 +92,23 @@ void IUIObject::SetParent( IUIObject* parent )
 	// 用户可能输入为空
 	Parent = parent;
 	if ( parent )
-		parent->AddChild( this );
+		parent->AddChild( this );	//计数器将会在AddChild内部+1
 
-	drop();		// 将自己的引用计数建1，当引用计数减为0是，自己会被delelte
+	drop();		// 将自己的引用计数-1，等于是将控制权移交给父节点。当引用计数减为0是，自己会被delelte
 }
 
 void IUIObject::RemoveChild( IUIObject* node )
 {
 	node->Parent = 0;			// 这里不能使用SetParent()！
-	Children.remove( node );
-	node->drop();
+	Children.remove( node );	// 将孩子从自己的子节点列表中移除
+	node->drop();				// 孩子计数器-1
 }
 
 void IUIObject::AddChild( IUIObject* child )
 {
 	if ( ! child )	return;
 
-	child->grab();				// 自己对child节点引用，所以对引用计数加一
+	child->grab();				// 自己对child节点引用，所以对引用计数+1
 	child->remove();			// 从原父节点中移除自己
 	Children.push_back(child);
 	child->Parent = this;		// 这里不能用SetParent，否则会无限递归到栈溢出
@@ -151,6 +152,7 @@ void IUIObject::LoadImage( char * filename )
 	Image = Driver->getTexture( filename );
 }
 
+//获取相对变换矩阵
 matrix<f32> IUIObject::GetRelativeTransformation() const
 {
 	matrix<f32> mat( 3, 3 );
@@ -173,39 +175,3 @@ matrix<f32> IUIObject::GetRelativeTransformation() const
 	}
 	return mat;
 }
-
-////以中心点为基准设置元件位置
-//void IUIObject::SetCenter( const vector2d<f32>& pos )
-//{
-//	vector2d<f32> offset = pos - Center;
-//	for(int i = 0; i < 4; i++)
-//		DstQuar[i] += offset;
-//	Center = pos;
-//}
-////获取元件中心点位置
-//const vector2d<f32>& IUIObject::GetCenter() const
-//{
-//	return Center;
-//}
-//
-//f32 IUIObject::GetAlpha()
-//{
-//	return Alpha;
-//}
-//
-//void IUIObject::SetAlpha( f32 alpha )
-//{
-//	Alpha = alpha;
-//}
-//
-//bool IUIObject::ModifyCenter( const vector2d<f32>& pos )
-//{
-//	Center = pos;
-//	return true;
-//}
-
-
-
-
-
-//#pragma warning( pop ) 

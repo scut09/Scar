@@ -152,9 +152,6 @@
     <ClInclude Include="IFly.h">
       <Filter>Old Animation</Filter>
     </ClInclude>
-    <ClInclude Include="base.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="def.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -256,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="BlinkUIAnimator.h">
       <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>Python</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

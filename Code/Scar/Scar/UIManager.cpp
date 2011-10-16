@@ -21,7 +21,7 @@ void UIManager::RunTree()
 {
 	if ( Root )
 	{
-		Root->OnAnimate(Timer->getTime());
+		Root->OnAnimate(Timer->getRealTime());
 		Root->DrawTree();
 	}
 }
@@ -30,5 +30,6 @@ void UIManager::RunTree()
 bool UIManager::AddUINode( IUIObject* node, IUIObject* parent )
 {
 	parent->AddChild(node);
+	node->drop();
 	return true;
 }
