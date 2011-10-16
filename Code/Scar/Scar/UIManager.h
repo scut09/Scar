@@ -23,16 +23,27 @@ public:
 	//向UI树中插入节点
 	bool AddUINode( IUIObject* node, IUIObject* parent );
 	//从UI树中删除节点,也会删除该节点的所有后代节点
-	bool RemoveUINode( IUIObject* node );
+	bool RemoveUINode( IUIObject* node )
+	{
+		return NULL;
+	}
+
 	//获取被当前坐标命中的UI元件
-	IUIObject* GetHitUIByPos(s32 x, s32 y);
+	IUIObject* GetHitUIByPos(s32 x, s32 y)
+	{
+		return NULL;
+	}
+
 	//运行UI树
 	void RunTree();
 	//消息处理
 	void OnEvent( const SEvent& event );
 
 	// 命中检测
-	IUIObject* HistTest( s32 x, s32 y );
+	IUIObject* HistTest( s32 x, s32 y )
+	{
+		return NULL;
+	}
 
 private:
 	IUIObject* Root;				//UI树根节点
