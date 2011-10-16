@@ -52,7 +52,7 @@ protected:
 	vector2d<f32>	RelativeTranslation;		// 相对平移量
 	f32				RelativeRotation;			// 相对旋转
 	vector2d<f32>	RelativeScale;				// 相对缩放
-	matrix<f32>	AbsoluteTransformation;			// 绝对坐标系变换矩阵
+	matrix<f32>		AbsoluteTransformation;		// 绝对坐标系变换矩阵
 
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
 									

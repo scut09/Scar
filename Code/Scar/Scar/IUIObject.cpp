@@ -17,7 +17,12 @@
 IUIObject::~IUIObject()
 {
 	RemoveAll();			// 删除所有孩子,将孩子的引用计数器减一，设置它的Parent为0
-	RemoveAnimators();		// 删除所有的动画
+	//RemoveAnimators();		// 删除所有的动画，
+	// 反正都要销毁了，为了性能，所以不需要使用RemoveAnimators里面的Animators.clear()
+	for ( auto iter = Animators.begin(); iter != Animators.end(); ++iter )
+	{
+		(*iter)->drop();
+	}
 }
 
 void IUIObject::DrawTree()
@@ -93,6 +98,7 @@ void IUIObject::SetParent( IUIObject* parent )
 
 void IUIObject::RemoveChild( IUIObject* node )
 {
+	node->Parent = 0;			// 这里不能使用SetParent()！
 	Children.remove( node );
 	node->drop();
 }
@@ -101,7 +107,7 @@ void IUIObject::AddChild( IUIObject* child )
 {
 	if ( ! child )	return;
 
-	child->grab();
+	child->grab();				// 自己对child节点引用，所以对引用计数加一
 	child->remove();			// 从原父节点中移除自己
 	Children.push_back(child);
 	child->Parent = this;		// 这里不能用SetParent，否则会无限递归到栈溢出
@@ -121,7 +127,7 @@ void IUIObject::RemoveAll()
 {
 	for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
 	{
-		(*iter)->SetParent( 0 );
+		(*iter)->Parent = 0;	// 这里不能使用SetParent()，否则在析构的时候，中途会把自己从Children里面移除，导致迭代器失效而崩溃
 		(*iter)->drop();
 	}
 	Children.clear();
