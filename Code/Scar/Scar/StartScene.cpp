@@ -78,9 +78,10 @@ void StartScene::Init()
 	u->AddAnimator(alpani);
 	alpani->drop();
 
-	uiManager->SetRoot(u);	
 	u->AddChild( v );
 	v->drop();
+
+	uiManager->SetRoot(u);	
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
