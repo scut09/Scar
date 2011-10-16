@@ -132,6 +132,12 @@
     <ClCompile Include="UIButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AllUIObjects.h">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

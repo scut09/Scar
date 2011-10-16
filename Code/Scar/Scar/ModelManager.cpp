@@ -60,4 +60,14 @@ scene::ISceneNode* ModelManager::AddSceneNodeFromMesh( const std::string& meshID
 	return node;
 }
 
+void ModelManager::DeleteAll()
+{
+	for ( auto iter = m_ISceneNodeList.begin(); iter != m_ISceneNodeList.end(); ++iter )
+	{
+		(*iter)->remove();
+		(*iter)->drop();
+	}
+	m_ISceneNodeList.clear();
+}
+
 

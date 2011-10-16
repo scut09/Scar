@@ -2,9 +2,7 @@
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
-#include "IUIObject.h"
-#include "UIImage.h"
-#include "UIButton.h"
+#include "AllUIObjects.h"
 #include "UIManager.h"
 
 class boost::python::object;

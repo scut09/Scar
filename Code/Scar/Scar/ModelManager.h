@@ -51,15 +51,7 @@ public:
 
 	void AddSceneNode( const std::string& meshFilename, const std::string );
 
-	void DeleteAll()
-	{
-		for ( auto iter = m_ISceneNodeList.begin(); iter != m_ISceneNodeList.end(); ++iter )
-		{
-			(*iter)->remove();
-			(*iter)->drop();
-		}
-		m_ISceneNodeList.clear();
-	}
+	void DeleteAll();
 };
 
 

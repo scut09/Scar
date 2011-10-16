@@ -3,9 +3,7 @@
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
-#include "IUIObject.h"
-#include "UIImage.h"
-#include "UIManager.h"
+#include "AllUIObjects.h"
 
 class MenuScene : public GameScene
 {

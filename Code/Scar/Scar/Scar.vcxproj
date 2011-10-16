@@ -94,6 +94,7 @@
     <ClCompile Include="IMissile.cpp" />
     <ClCompile Include="IUIObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
     <ClCompile Include="MultiplayerScene.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIImage.cpp" />
+    <ClCompile Include="AllUIObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h" />
