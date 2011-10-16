@@ -8,7 +8,7 @@
 void StartScene::Run() 
 {
 
-	if ( count++ > 10 )
+	if ( count++ > 100 )
 	{
 		count = 0;
 		pEngine->currentScene = multiplayerScene;
