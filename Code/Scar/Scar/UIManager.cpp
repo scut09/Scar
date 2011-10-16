@@ -4,9 +4,15 @@
 
 void UIManager::OnEvent( const SEvent& event )
 {
-	std::cout << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
-
-
+	//std::cout << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+	if ( event.EventType == EET_MOUSE_INPUT_EVENT && event.MouseInput.Event == EMIE_LMOUSE_PRESSED_DOWN )
+		std::cout<< event.MouseInput.ButtonStates <<std::endl;
+	if ( event.EventType == EET_KEY_INPUT_EVENT )
+	{
+		std::cout << event.KeyInput.PressedDown << std::endl;
+		std::cout << event.KeyInput.Key << std::endl;
+		std::cout << event.KeyInput.Char << std::endl;
+	}
 
 }
 

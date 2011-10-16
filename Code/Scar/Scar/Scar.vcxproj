@@ -132,6 +132,7 @@
     <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="IUIObject.h" />
+    <ClInclude Include="MenuScene.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />
     <ClInclude Include="MyIReferenceCounted.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Toolkit.h" />
     <ClInclude Include="TranslateUIAnimator.h" />
     <ClInclude Include="UIAnimators.h" />
+    <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="__array_1.pypp.hpp" />

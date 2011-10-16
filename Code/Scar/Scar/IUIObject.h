@@ -58,34 +58,10 @@ protected:
 									
 public:
 
-	IUIObject( IUIObject* parent, IVideoDriver * driver, s32 width, s32 height, s32 order = 0,
+	IUIObject( IUIObject* parent, s32 width, s32 height, s32 order = 0,
 		const vector2d<f32>& position = vector2d<f32>( 0, 0 ),
 		f32 rotdeg = 0,
-		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) ):
-	  Parent(NULL), Driver(driver), Order(order), AbsoluteTransformation( 3, 3 )
-	{
-		
-		if ( parent )
-			parent->AddChild(this);
-
-		//设置模型坐标系，以原点为中心
-		DestinationQuadrangle[0].X = - width / 2.f;
-		DestinationQuadrangle[0].Y = - height / 2.f;
-		DestinationQuadrangle[1].X = DestinationQuadrangle[0].X + width;
-		DestinationQuadrangle[1].Y = DestinationQuadrangle[0].Y;
-		DestinationQuadrangle[2].X = DestinationQuadrangle[0].X + width;
-		DestinationQuadrangle[2].Y = DestinationQuadrangle[0].Y + height;
-		DestinationQuadrangle[3].X = DestinationQuadrangle[0].X;
-		DestinationQuadrangle[3].Y = DestinationQuadrangle[0].Y + height;
-
-		RelativeAlpha = 255;
-		RelativeRotation = rotdeg;
-		RelativeScale = scale;
-		RelativeTranslation= position;
-		IsVisible = true;
-
-		UpdateAbsolutePosition();
-	}
+		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) );
 
 	// 加载UI图片
 	void LoadImage( char * );
@@ -180,7 +156,15 @@ public:
 	// 判断当前坐标是否在元件中
 	virtual IUIObject* HitTest( s32 x, s32 y )
 	{
+		throw std::exception("The method or operation is not implemented.");
+		
 		return 0;
+	}
+
+	virtual bool IsPointIn( s32 x, s32 y )
+	{
+
+		return false;
 	}
 
 	// 元件叠放顺序
@@ -243,17 +227,111 @@ public:
 		return IsVisible;
 	}
 
-	//virtual const vector2d<f32>* GetDestinationQuadrangle() const
+	//virtual void OnEvent( const SEvent& event )
 	//{
-	//	return DestinationQuadrangle;
-	//}
-	//virtual void SetDestinationQuadrangle( vector2d<f32> quadr[4] )
-	//{
-	//	for ( int i = 0; i < 4; i++ )
+	//	for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
 	//	{
-	//		DestinationQuadrangle[i] = quadr[i];
+	//		(*iter)->OnEvent( event );
 	//	}
 	//}
+
+/////////////////////////////////////////////////////////////////////////////////////
+protected:
+	s32		OldMouseX;
+	s32		OldMouseY;
+	bool	IsMouseIn;
+
+	void	IniEventResponser()
+	{
+		OldMouseX = OldMouseY = 0;
+		IsMouseIn = false;
+	}
+
+public:
+	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnMouseMoveIn( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnMouseMoveOut( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnMouseLeftButtonUp( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnMouseLeftButtonDown( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnMouseRightButtonUp( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnMouseRightButtonDown( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnWheel( const irr::SEvent::SMouseInput& event ) {}
+
+	virtual void OnKeyDown( const irr::SEvent::SKeyInput& event ) {}
+
+	virtual void OnKeyUp( const irr::SEvent::SKeyInput& event ) {}
+
+
+	virtual void OnEvent( const SEvent& event ) 
+	{
+		//using namespace irr;
+
+		if ( event.EventType == EET_MOUSE_INPUT_EVENT )
+		{
+			SEvent::SMouseInput mouseEvent = event.MouseInput;
+			s32	NewMouseX = mouseEvent.X;
+			s32 NewMouseY = mouseEvent.Y;
+
+			if( IsPointIn( NewMouseX, NewMouseY ) )
+			{
+				if ( !IsMouseIn )
+				{
+					IsMouseIn = true;
+					OnMouseMoveIn( mouseEvent );
+				}
+				else 
+				{
+					if ( mouseEvent.Event == EMIE_MOUSE_MOVED )
+						OnMouseMove( mouseEvent );
+					if ( mouseEvent.Event == EMIE_LMOUSE_PRESSED_DOWN )
+						OnMouseLeftButtonDown( mouseEvent );
+					if ( mouseEvent.Event == EMIE_LMOUSE_LEFT_UP )
+						OnMouseLeftButtonUp( mouseEvent );
+					if ( mouseEvent.Event == EMIE_RMOUSE_PRESSED_DOWN )
+						OnMouseRightButtonDown( mouseEvent );
+					if ( mouseEvent.Event == EMIE_RMOUSE_LEFT_UP )
+						OnMouseRightButtonUp( mouseEvent );
+					if ( mouseEvent.Event == EMIE_MOUSE_WHEEL )
+						OnWheel( mouseEvent );
+				}
+			}
+			else
+			{
+				if ( IsMouseIn )
+				{
+					IsMouseIn = false;
+					OnMouseMoveOut( mouseEvent );
+				}
+			}
+
+			OldMouseX = NewMouseX;
+			OldMouseY = NewMouseY;
+		}
+		else if ( event.EventType == EET_KEY_INPUT_EVENT )
+		{
+			SEvent::SKeyInput keyEvent = event.KeyInput;
+			if ( keyEvent.PressedDown )
+				OnKeyDown( keyEvent );
+			if ( !keyEvent.PressedDown )
+				OnKeyUp( keyEvent );
+		}
+		else
+			return;
+
+
+
+
+
+
+		IUIObject::OnEvent( event );
+	}
 
 };
 

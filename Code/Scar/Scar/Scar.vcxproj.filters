@@ -257,6 +257,12 @@
     <ClInclude Include="base.h">
       <Filter>Python</Filter>
     </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\a.py">

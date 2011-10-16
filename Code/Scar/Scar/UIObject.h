@@ -1,10 +1,7 @@
 #ifndef UIOBJECT_H
 #define UIOBJECT_H
 
-//#include "def.h"
-#include <math.h>
 #include "IUIObject.h"
-#include <vector>
 
 using std::vector;
 using namespace irr;
@@ -12,28 +9,6 @@ using namespace irr::core;
 using namespace irr::video;
 
 class IUIObject;
-class UIAnima;
-
-////////////////////////////////////////////////////////////////////
-////名称：IUIObject
-////描述：UI基类
-////作者：屠文翔，杨成熙
-////////////////////////////////////////////////////////////////////
-//class IUIObject : public IUIObject
-//{
-//	
-//
-//	
-//public:
-//	IUIObject();
-//	IUIObject( IVideoDriver * driver, const vector2d<f32>& pos, s32 width, s32 height, s32 Order = 0 );
-//	virtual ~IUIObject() {}
-//
-//	//shared_ptr<UIAnima> Animations;				//动画变换
-//
-//
-//};
-
 
 //////////////////////////////////////////////////////////////////
 //名称：UIImage 
@@ -43,13 +18,16 @@ class UIAnima;
 class UIImage : public IUIObject
 {
 public:
-	UIImage( IUIObject* parent, IVideoDriver * driver, s32 width, s32 height, s32 order = 0, 
+	UIImage( IUIObject* parent, s32 width, s32 height, s32 order = 0, 
 		const vector2d<f32>& position = vector2d<f32>( 0, 0 ),
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) ) 
-		: IUIObject( parent, driver, width, height, order, position, rotdeg, scale )
+		: IUIObject( parent, width, height, order, position, rotdeg, scale )
 	{}
+
 	void Draw();
+
+
 };
 
 #endif

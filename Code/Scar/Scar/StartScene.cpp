@@ -29,8 +29,9 @@ void StartScene::Init()
 	driver = pEngine->GetVideoDriver();
 	ITimer* timer = pEngine->GetDevice()->getTimer();
 
-	u = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 500, 750, 0, vector2d<f32>(250, 375) );
-	v = new UIImage( NULL, MyIrrlichtEngine::GetEngine()->GetVideoDriver(), 100, 150, 0, vector2d<f32>(-200, -300) ); 
+	u = new UIImage( NULL, 500, 750, 0, vector2d<f32>(250, 375) );
+	v = new UIImage( NULL, 100, 150, 0, vector2d<f32>(-200, -300) ); 
+	//bt = new UIButton;
 	uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
 
 	u->LoadImage("pic1.jpg");
@@ -77,10 +78,11 @@ void StartScene::Init()
 
 	uiManager->SetRoot( u );	
 	uiManager->AddUINode( v, u );
+//	uiManager->AddUINode( bt, u );
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
-		//uiManager->OnEvent( event );
+		uiManager->OnEvent( event );
 		return 0;
 	} );
 }

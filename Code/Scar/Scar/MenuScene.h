@@ -1,33 +1,32 @@
-#pragma once
+#ifndef MenuScene_h__
+#define MenuScene_h__
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
 #include "IUIObject.h"
 #include "UIObject.h"
-#include "UIButton.h"
 #include "UIManager.h"
 
-class StartScene : public GameScene
+class MenuScene : public GameScene
 {
 	int count;
 	MyIrrlichtEngine* pEngine;
 	irr::video::IVideoDriver* driver;
 
-	UIImage* u;//≤‚ ‘”√
-	UIImage* v;//≤‚ ‘”√
-	//UIButton* bt; // ≤‚ ‘”√
+	IUIObject* root;
 
 	UIManager* uiManager;
 
 public:
-	StartScene();
-
-	shared_ptr<GameScene> multiplayerScene;
+	MenuScene();
 
 	virtual void Run() ;
 
 	virtual void Init() ;
+
 	virtual void Release() ;
 
 	virtual void Draw();
 };
+
+#endif // MenuScene_h__

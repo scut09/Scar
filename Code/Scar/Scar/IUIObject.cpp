@@ -11,8 +11,10 @@
 
 #include "IUIObject.h"
 #include <algorithm>
+#include "MyIrrlichtEngine.h"
 
-//#pragma warning( push )
+//#pragma warning( push )y
+
 
 IUIObject::~IUIObject()
 {
@@ -174,4 +176,31 @@ matrix<f32> IUIObject::GetRelativeTransformation() const
 		mat = prod(smat, mat);
 	}
 	return mat;
+}
+
+IUIObject::IUIObject( IUIObject* parent, s32 width, s32 height, s32 order /*= 0*/, const vector2d<f32>& position /*= vector2d<f32>( 0, 0 )*/, f32 rotdeg /*= 0*/, const vector2d<f32>& scale /*= vector2d<f32>( 1.f, 1.f ) */ ) :
+Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 )
+{
+	if ( parent )
+		parent->AddChild(this);
+
+	Driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
+
+	//设置模型坐标系，以原点为中心
+	DestinationQuadrangle[0].X = - width / 2.f;
+	DestinationQuadrangle[0].Y = - height / 2.f;
+	DestinationQuadrangle[1].X = DestinationQuadrangle[0].X + width;
+	DestinationQuadrangle[1].Y = DestinationQuadrangle[0].Y;
+	DestinationQuadrangle[2].X = DestinationQuadrangle[0].X + width;
+	DestinationQuadrangle[2].Y = DestinationQuadrangle[0].Y + height;
+	DestinationQuadrangle[3].X = DestinationQuadrangle[0].X;
+	DestinationQuadrangle[3].Y = DestinationQuadrangle[0].Y + height;
+
+	RelativeAlpha = 255;
+	RelativeRotation = rotdeg;
+	RelativeScale = scale;
+	RelativeTranslation= position;
+	IsVisible = true;
+
+	UpdateAbsolutePosition();
 }
