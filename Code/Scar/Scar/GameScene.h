@@ -9,6 +9,8 @@
 #ifndef GameScene_h__
 #define GameScene_h__
 
+#include <vector>
+
 /*
 ** 名字：GameScene
 ** 说明：所有游戏场景的抽象基类
@@ -18,7 +20,11 @@
 class GameScene
 {
 public:
+	GameScene() : Scenes( 20, 0 ) {}
+
 	virtual ~GameScene() {}
+
+	std::vector<GameScene*> Scenes;
 
 	
 	//************************************

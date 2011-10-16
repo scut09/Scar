@@ -5,7 +5,8 @@
 //响应事件
 void UIManager::OnEvent( const SEvent& event )
 {
-	Root->OnEvent( event );
+	if ( Root )
+		Root->OnEvent( event );
 }
 
 //获取根节点
