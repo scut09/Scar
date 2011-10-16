@@ -123,11 +123,11 @@
     <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="PythonUI.cpp">
-      <Filter>Python</Filter>
-    </ClCompile>
     <ClCompile Include="BlinkUIAnimator.cpp">
       <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
+    <ClCompile Include="binds.cpp">
+      <Filter>Python</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
