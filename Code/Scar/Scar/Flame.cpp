@@ -22,7 +22,7 @@ void CFlame::modifyFlameByAccel( vector3df accel )
 	}
 	IParticleBoxEmitter*pe = (IParticleBoxEmitter*)m_flame->getEmitter();
 	vector3df tempaccel=accel;
-	vector3df particlespeed = tempaccel.normalize()/30;
+	vector3df particlespeed = tempaccel.normalize()/m_life;
 	pe->setDirection(particlespeed);
 	vector3df temp;
 	temp= pe->getDirection()*2000/(pe->getMaxParticlesPerSecond()+pe->getMinParticlesPerSecond());
@@ -65,7 +65,7 @@ IParticleSystemSceneNode* CFlame::createFlame( IrrlichtDevice *device,char * tex
 	}
 	m_flamY=(minStartSize.Height+maxStartSize.Height)/2;
 	m_flamX = (minStartSize.Width+maxStartSize.Width)/2;
-
+	m_life = (lifeTimeMax+lifeTimeMin)/2.0;
 	modifyFlameByAccel(accl);
 	return m_flame;
 }
