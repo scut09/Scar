@@ -35,64 +35,44 @@ void StartScene::Init()
 	u->LoadImage("pic1.jpg");
 	v->LoadImage("pic1.jpg");
 
-	TranslateUIAnimator* traani = new TranslateUIAnimator(
-		timer->getRealTime(),
-		2000,
-		vector2d<s32>(300,0)); 
-	u->AddAnimator(traani);
-	traani->drop();
-
-	/*BlinkUIAnimator* in1 = new BlinkUIAnimator( vector2d<f32>(-250, -375));
-	u->AddAnimator(in1);
-	in1->drop();*/
-
-	/*BlinkUIAnimator* in2 = new BlinkUIAnimator( vector2d<f32>(-50,-75));
-	v->AddAnimator(in2);
-	in2->drop();*/
-
-	/*RotateUIAnimator* rotani = new RotateUIAnimator(
-	timer->getRealTime(),
-	3000,
-	360,
-	v->GetCenter(),
-	true);
-	v->AddAnimator(rotani);
-	rotani->drop();*/
-
-	/*BlinkUIAnimator* out2 = new BlinkUIAnimator( vector2d<f32>(50,75));
-	v->AddAnimator(out2);
-	out2->drop();*/
-
-	/*RotateUIAnimator* rotani2 = new RotateUIAnimator(
-	timer->getRealTime(),
-	3000,
-	360,
-	u->GetCenter(),
-	true);
-	u->AddAnimator(rotani2);
-	rotani2->drop();*/
-	
-	/*BlinkUIAnimator* out1 = new BlinkUIAnimator( vector2d<f32>(250, 375));
-	u->AddAnimator(out1);
-	out1->drop();*/
-
-	
-
-	
-	
-	
-
-	/*ScaleUIAnimator* scaani = new ScaleUIAnimator(
+	/*TranslateUIAnimator* traani = new TranslateUIAnimator(
 		timer->getRealTime(),
 		3000,
-		vector2d<f32>(2,1),
-		v->DstQuar[0]-vector2d<f32>( 80,80 ),
-		v->GetCenter()
-		);
-	v->AddAnimator(scaani);
-	scaani->drop();*/
+		vector2d<s32>(300,0)); 
+	u->AddAnimator(traani);
+	traani->drop();*/
 
-	
+	RotateUIAnimator* rotani = new RotateUIAnimator(
+	timer->getRealTime(),
+	3000,
+	360,
+	true);
+	v->AddAnimator(rotani);
+	rotani->drop();
+
+	RotateUIAnimator* rotani2 = new RotateUIAnimator(
+		timer->getRealTime(),
+		3000,
+		360,
+		true);
+	u->AddAnimator(rotani2);
+	rotani2->drop();
+
+	ScaleUIAnimator* scaani = new ScaleUIAnimator(
+		timer->getRealTime(),
+		3000,
+		vector2d<f32>(.5f,.5f)
+		);
+	u->AddAnimator(scaani);
+	scaani->drop();
+
+	AlphaChangeUIAnimator* alpani = new AlphaChangeUIAnimator(
+		timer->getRealTime(),
+		3000,
+		u->GetAlpha(),
+		0);
+	u->AddAnimator(alpani);
+	alpani->drop();
 
 	uiManager->SetRoot(u);	
 	uiManager->AddUINode(v,u);
@@ -106,7 +86,6 @@ void StartScene::Init()
 
 void StartScene::Release() 
 {
-
 
 }
 

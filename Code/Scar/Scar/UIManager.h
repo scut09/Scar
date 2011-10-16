@@ -21,19 +21,7 @@ public:
 	//获取UI树根节点
 	IUIObject* GetRoot();
 	//向UI树中插入节点
-	bool AddUINode( IUIObject* node, IUIObject* parent )
-	{
-		parent->AddChild(node);
-		//for( auto iter = parent->GetChildren().begin(); iter != parent->GetChildren().end(); ++iter )
-		//{
-		//	
-		//}
-		//for( auto iter = parent->GetAnimators().begin(); iter != parent->GetAnimators().end(); ++iter )
-		//{
-		//	node->AddAnimator( (*iter)->Clone() );		
-		//}
-		return true;
-	}
+	bool AddUINode( IUIObject* node, IUIObject* parent );
 	//从UI树中删除节点,也会删除该节点的所有后代节点
 	bool RemoveUINode( IUIObject* node );
 	//获取被当前坐标命中的UI元件

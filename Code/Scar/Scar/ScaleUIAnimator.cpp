@@ -1,12 +1,11 @@
 #include "ScaleUIAnimator.h"
 #include "UIObject.h"
 
-ScaleUIAnimator::ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, const vector2d<f32>& scapoint, bool loop /*= false */ )
-	: Begin( begin ), Duration( duration ), Scale( scale ), ScaPoint( scapoint ), Loop( loop ), LastTime( begin )
+ScaleUIAnimator::ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, bool loop /*= false */ )
+	: Begin( begin ), Duration( duration ), Scale( scale ), Loop( loop ), LastTime( begin )
 {
 	ScaleFactor.X = ( scale.X - 1 ) / duration;
 	ScaleFactor.Y = ( scale.Y - 1 ) / duration;
-	//ScaleSet = false;
 }
 
 bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
@@ -30,46 +29,18 @@ bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 			return false;
 		}
 	}
+	u32 t = timeMS - LastTime;
+	LastTime = timeMS;
 
-	//IUIObject* pNode = static_cast< IUIObject* >( node );
+	node->SetScale( node->GetScale() + ScaleFactor * (f32)t );
 
-	//if (! ScaleSet )
-	//{
-	//	for ( int i = 0; i < 4; i++ )
-	//		ScaleVector[i] = node->DstQuar[i] - ScaPoint;
-	//	ScaleSet = true;
-	//}
-	//u32 t = timeMS - LastTime;
-	//LastTime = timeMS;
-
-	////Scale
-	//vector2d<f32> scale = ScaleFactor * (f32)t ;
-
-
-
-	//ScaPoint += ( node->GetCenter() - OldObjCen ) * ( scale + vector2d<f32> ( 1,1 ));
-	//OldObjCen = node->GetCenter();
-
-	////记录矩阵四个顶点临时坐标
-	//vector2d<f32> temQuar;
-	////得到拉伸后的坐标
-	//for ( int i = 0 ; i < 4; i++)
-	//{
-	//	temQuar = node->DstQuar[i] - ScaPoint;
-	//	temQuar += ScaleVector[i] * scale;
-	//	//加回到原来的坐标系
-	//	node->DstQuar[i] = temQuar + ScaPoint /** ( scale + vector2d<f32> ( 1,1 ))*/;
-	//}
-	//
-	//
-	
 	return true;
 
 }
 
 ScaleUIAnimator* ScaleUIAnimator::Clone()
 {
-	return new ScaleUIAnimator(Begin, Duration, Scale, ScaPoint, Loop);
+	return new ScaleUIAnimator(Begin, Duration, Scale, Loop);
 }
 
 

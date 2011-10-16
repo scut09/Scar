@@ -22,3 +22,10 @@ void UIManager::RunTree()
 	Root->OnAnimate(Timer->getRealTime());
 	Root->DrawTree();
 }
+
+//向树中增加节点
+bool UIManager::AddUINode( IUIObject* node, IUIObject* parent )
+{
+	parent->AddChild(node);
+	return true;
+}

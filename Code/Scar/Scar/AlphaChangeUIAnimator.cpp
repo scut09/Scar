@@ -10,7 +10,7 @@ AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 begin, u32 duration,
 		taralpha = 255;
 	else if(taralpha < 0)
 		taralpha = 0;
-	AlphaFactor = ( (int)taralpha - (int)srcalpha ) / (f32)duration;
+	AlphaFactor = ( taralpha - srcalpha ) / (f32)duration;
 }
 
 bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
@@ -34,13 +34,15 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 			return false;
 		}
 	}
+	u32 t = timeMS - LastTime;
+	LastTime = timeMS;
 
-	//u32 t = timeMS - LastTime;
-	//LastTime = timeMS;
+	f32 alpha = node->GetAlpha() + AlphaFactor * t;
+	if( alpha > 255 ) alpha = 255;
+	else if ( alpha < 0 ) alpha = 0;
 
-	////AlphaChange
-	//f32 alpha = node->GetAlpha() + t * AlphaFactor;	
-	//node->SetAlpha( alpha );
+	node->SetAlpha( alpha );
+
 	return true;
 }
 

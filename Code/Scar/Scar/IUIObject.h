@@ -90,18 +90,6 @@ public:
 	// 加载UI图片
 	void LoadImage( char * );
 
-	// 以中心点为基准设置元件位置
-	//void SetCenter( const vector2d<f32>& pos );
-	// 改变中心点位置
-	//bool ModifyCenter( const vector2d<f32>& pos );
-	// 获取元件中心点位置
-	//const vector2d<f32>& GetCenter() const;
-
-	// 获得Alpha值
-	//f32 GetAlpha();
-	// 设置Alpha值
-	//void SetAlpha( f32 alpha );
-
 	virtual ~IUIObject();
 
 
