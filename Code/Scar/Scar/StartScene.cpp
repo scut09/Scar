@@ -51,55 +51,55 @@ void StartScene::Init()
 	}
 
 
-	u = new UIImage( NULL, 500, 750, 0, vector2d<f32>(250, 375) );
-	v = new UIImage( NULL, 100, 150, 0, vector2d<f32>(-200, -300) ); 
-	bt = new UIButton( NULL, 0, 0 );
+	//u = new UIImage( NULL, 500, 750, 0, vector2d<f32>(250, 375) );
+	//v = new UIImage( NULL, 100, 150, 0, vector2d<f32>(-200, -300) ); 
+	//bt = new UIButton( NULL, 0, 0 );
 
-	u->LoadImage("pic1.jpg");
-	v->LoadImage("pic1.jpg");
+	//u->LoadImage("pic1.jpg");
+	//v->LoadImage("pic1.jpg");
 
-	TranslateUIAnimator* traani = new TranslateUIAnimator(
-		timer->getRealTime(),
-		3000,
-		vector2d<s32>(300,0)); 
-	u->AddAnimator(traani);
-	traani->drop();
-
-	RotateUIAnimator* rotani = new RotateUIAnimator(
-		timer->getRealTime(),
-		3000,
-		360,
-		true);
-	v->AddAnimator(rotani);
-	rotani->drop();
-
-	RotateUIAnimator* rotani2 = new RotateUIAnimator(
-		timer->getRealTime(),
-		3000,
-		360,
-		true);
-	u->AddAnimator(rotani2);
-	rotani2->drop();
-
-	ScaleUIAnimator* scaani = new ScaleUIAnimator(
-		timer->getRealTime(),
-		3000,
-		vector2d<f32>(.5f,.5f)
-		);
-	u->AddAnimator(scaani);
-	scaani->drop();
-
-	//AlphaChangeUIAnimator* alpani = new AlphaChangeUIAnimator(
+	//TranslateUIAnimator* traani = new TranslateUIAnimator(
 	//	timer->getRealTime(),
 	//	3000,
-	//	u->GetAlpha(),
-	//	0);
-	//u->AddAnimator(alpani);
-	//alpani->drop();
+	//	vector2d<s32>(300,0)); 
+	//u->AddAnimator(traani);
+	//traani->drop();
 
-	uiManager->SetRoot( u );	
-	uiManager->AddUINode( v, u );
-	uiManager->AddUINode( bt, u );
+	//RotateUIAnimator* rotani = new RotateUIAnimator(
+	//	timer->getRealTime(),
+	//	3000,
+	//	360,
+	//	true);
+	//v->AddAnimator(rotani);
+	//rotani->drop();
+
+	//RotateUIAnimator* rotani2 = new RotateUIAnimator(
+	//	timer->getRealTime(),
+	//	3000,
+	//	360,
+	//	true);
+	//u->AddAnimator(rotani2);
+	//rotani2->drop();
+
+	//ScaleUIAnimator* scaani = new ScaleUIAnimator(
+	//	timer->getRealTime(),
+	//	3000,
+	//	vector2d<f32>(.5f,.5f)
+	//	);
+	//u->AddAnimator(scaani);
+	//scaani->drop();
+
+	////AlphaChangeUIAnimator* alpani = new AlphaChangeUIAnimator(
+	////	timer->getRealTime(),
+	////	3000,
+	////	u->GetAlpha(),
+	////	0);
+	////u->AddAnimator(alpani);
+	////alpani->drop();
+
+	//uiManager->SetRoot( u );	
+	//uiManager->AddUINode( v, u );
+	//uiManager->AddUINode( bt, u );
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
