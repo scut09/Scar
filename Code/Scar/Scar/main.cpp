@@ -118,6 +118,8 @@ int main()
 	// Æô¶¯ÒýÇæ
 	pEngine->Run();
 
+	pEngine->GetDevice()->drop();
+
 	//Py_Finalize();
 	return 0;
 }

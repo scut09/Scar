@@ -79,7 +79,8 @@ void StartScene::Init()
 	alpani->drop();
 
 	uiManager->SetRoot(u);	
-	uiManager->AddUINode(v,u);
+	u->AddChild( v );
+	v->drop();
 
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
@@ -91,7 +92,8 @@ void StartScene::Init()
 void StartScene::Release() 
 {
 	//v->drop();
-	u->drop();
+	uiManager->GetRoot()->drop();
+
 	delete uiManager;
 }
 
