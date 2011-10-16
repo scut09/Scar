@@ -155,9 +155,7 @@ public:
 
 	// 判断当前坐标是否在元件中
 	virtual IUIObject* HitTest( s32 x, s32 y )
-	{
-		throw std::exception("The method or operation is not implemented.");
-		
+	{		
 		return 0;
 	}
 
