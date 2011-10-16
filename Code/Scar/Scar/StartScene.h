@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GameScene.h"
-#include "MyIrrlichtEngine.h"
 #include "AllUIObjects.h"
 #include "UIManager.h"
 
