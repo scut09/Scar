@@ -97,10 +97,12 @@ public:
 	virtual ~IUIObject();
 
 	// 注册Python的函数
-	void AddFunc( const std::string& eventName, const std::string& funcName, const std::string& ModuleName );
+	virtual void AddFunc( const std::string& eventName, const std::string& funcName, const std::string& ModuleName );
+
+	virtual void PythonFunc( const std::string& eventName );
 
 	// 取消注册Python函数
-	void RemoveFunc( const std::string& funcName );
+	virtual void RemoveFunc( const std::string& funcName );
 
 	virtual matrix<f32> GetRelativeTransformation() const;
 

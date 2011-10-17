@@ -352,3 +352,23 @@ void IUIObject::RemoveFunc( const std::string& funcName )
 {
 	FuncMap.erase( funcName );
 }
+
+void IUIObject::PythonFunc( const std::string& eventName )
+{
+	try
+	{	
+		auto func = FuncMap.find( eventName );
+		if ( func != FuncMap.end() )
+		{
+			using namespace boost::python;
+			auto FuncInfo = FuncMap[ eventName ];
+			object module = import( FuncInfo.ModuleName.c_str() );
+			object fun = module.attr( FuncInfo.FuncName.c_str() );
+			fun( boost::ref( this ) );
+		}
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
+}

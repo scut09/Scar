@@ -55,25 +55,8 @@ void UIButton::OnMouseMove( const irr::SEvent::SMouseInput& event )
 		else
 		{
 			//’‚¿Ô–¥OnMouseMoveµƒ¬ﬂº≠
-			try
-			{
-				std::string eventName = "OnMouseMove";
-				auto func = FuncMap.find( eventName );
-				if ( func != FuncMap.end() )
-				{
-					using namespace boost::python;
-					auto FuncInfo = FuncMap[ eventName ];
-					object module = import( FuncInfo.ModuleName.c_str() );
-					object fun = module.attr( FuncInfo.FuncName.c_str() );
-					fun( boost::ref( this ) );
-				}
-			}
-			catch ( ... )
-			{
-				PyErr_Print();
-			}
-		}
-		
+			PythonFunc( "OnMouseMove" );
+		}		
 	}
 	else if ( IsMouseIn )
 	{
@@ -86,131 +69,36 @@ void UIButton::OnMouseLeftButtonUp( const irr::SEvent::SMouseInput& event )
 {
 	if( IsMouseIn )
 	{
-		try
-		{
-			std::string eventName = "OnMouseLeftButtonUp";
-			auto func = FuncMap.find( eventName );
-			if ( func != FuncMap.end() )
-			{
-				using namespace boost::python;
-				auto FuncInfo = FuncMap[ eventName ];
-				object module = import( FuncInfo.ModuleName.c_str() );
-				object fun = module.attr( FuncInfo.FuncName.c_str() );
-				fun( boost::ref( this ) );
-			}
-		}
-		catch ( ... )
-		{
-			PyErr_Print();
-		}
+		PythonFunc( "OnMouseLeftButtonUp" );
 	}
 }
+
 
 void UIButton::OnMouseLeftButtonDown( const irr::SEvent::SMouseInput& event )
 {
 	if( IsMouseIn )
 	{
-		try
-		{
-			std::string eventName = "OnMouseLeftButtonDown";
-			auto func = FuncMap.find( eventName );
-			if ( func != FuncMap.end() )
-			{
-				using namespace boost::python;
-				auto FuncInfo = FuncMap[ eventName ];
-				object module = import( FuncInfo.ModuleName.c_str() );
-				object fun = module.attr( FuncInfo.FuncName.c_str() );
-				fun( boost::ref( this ) );
-			}
-		}
-		catch ( ... )
-		{
-			PyErr_Print();
-		}
+		PythonFunc( "OnMouseLeftButtonDown" );
 	}
 }
 
 void UIButton::OnMouseRightButtonUp( const irr::SEvent::SMouseInput& event )
 {
-	try
-	{
-		std::string eventName = "OnMouseRightButtonUp";
-		auto func = FuncMap.find( eventName );
-		if ( func != FuncMap.end() )
-		{
-			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
-			object module = import( FuncInfo.ModuleName.c_str() );
-			object fun = module.attr( FuncInfo.FuncName.c_str() );
-			fun( boost::ref( this ) );
-		}
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+	PythonFunc( "OnMouseRightButtonUp" );
 }
 
 void UIButton::OnMouseRightButtonDown( const irr::SEvent::SMouseInput& event )
-{
-	try
-	{
-		std::string eventName = "OnMouseRightButtonDown";
-		auto func = FuncMap.find( eventName );
-		if ( func != FuncMap.end() )
-		{
-			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
-			object module = import( FuncInfo.ModuleName.c_str() );
-			object fun = module.attr( FuncInfo.FuncName.c_str() );
-			fun( boost::ref( this ) );
-		}
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+{	
+	PythonFunc( "OnMouseRightButtonDown" );
 }
 
 void UIButton::OnMouseMoveIn()
 {
-	try
-	{
-		std::string eventName = "OnMouseMoveIn";
-		auto func = FuncMap.find( eventName );
-		if ( func != FuncMap.end() )
-		{
-			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
-			object module = import( FuncInfo.ModuleName.c_str() );
-			object fun = module.attr( FuncInfo.FuncName.c_str() );
-			fun( boost::ref( this ) );
-		}
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+	PythonFunc( "OnMouseMoveIn" );
 }
 
 void UIButton::OnMouseMoveOut()
-{
-	try
-	{
-		std::string eventName = "OnMouseMoveOut";
-		auto func = FuncMap.find( eventName );
-		if ( func != FuncMap.end() )
-		{
-			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
-			object module = import( FuncInfo.ModuleName.c_str() );
-			object fun = module.attr( FuncInfo.FuncName.c_str() );
-			fun( boost::ref( this ) );
-		}
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+{	
+	PythonFunc( "OnMouseMoveOut" );
 }
 
