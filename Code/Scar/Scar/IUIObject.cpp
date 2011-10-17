@@ -267,10 +267,18 @@ void IUIObject::OnEvent( const SEvent& event )
 //判断点是否在当前元件内部
 bool IUIObject::IsPointIn( s32 x, s32 y )
 {
+	bool tem;
 	if( Shape == SQUARE )
-		return IsPointInSquare( x, y );
+		tem = IsPointInSquare( x, y );
 	if( Shape == CIRCLE )
-		return IsPointInCircle( x, y );
+		tem = IsPointInCircle( x, y );
+	if ( tem )
+		return tem;
+	for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
+	{
+		if ((*iter)->IsPointIn( x, y ))
+			return true;
+	}
 
 	return false;	
 }
