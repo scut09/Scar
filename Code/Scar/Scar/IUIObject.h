@@ -48,6 +48,17 @@ enum SHAPE_FLAGS
 class IUIObject : public Scar::IReferenceCounted
 {
 protected:
+	struct EventHandler
+	{
+		std::string FuncName;
+		std::string ModuleName;
+
+		EventHandler() {}
+		EventHandler( const std::string& func, const std::string& module )
+			: FuncName( func ), ModuleName( module ) {}
+	};
+
+protected:
 	std::vector< IUIAnimator* >	Animators;		// 动画列表
 	std::vector< IUIObject* >	Children;		// 子节点列表
 	IUIObject*					Parent;			// 父节点指针
@@ -63,7 +74,7 @@ protected:
 	vector2d<f32>	RelativeScale;				// 相对缩放
 	matrix<f32>		AbsoluteTransformation;		// 绝对坐标系变换矩阵
 
-	std::hash_map< std::string, std::string >	FuncMap;
+	std::hash_map< std::string, EventHandler >	FuncMap;	// 注册处理函数信息
 
 
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
@@ -71,6 +82,7 @@ protected:
 
 	bool IsPointInSquare( s32 x, s32 y );		// 判断点是否在矩形区域内
 	bool IsPointInCircle( s32 x, s32 y );		// 判断点是否在圆形区域内
+
 									
 public:
 
@@ -85,7 +97,7 @@ public:
 	virtual ~IUIObject();
 
 	// 注册Python的函数
-	void AddFunc( const std::string& funcName, const std::string& ModuleName = "" );
+	void AddFunc( const std::string& eventName, const std::string& funcName, const std::string& ModuleName );
 
 	// 取消注册Python函数
 	void RemoveFunc( const std::string& funcName );

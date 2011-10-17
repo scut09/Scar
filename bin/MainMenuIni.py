@@ -8,6 +8,8 @@ def GetRoot():
 
     btn.SetPosition( vector2df( 300, 300 ) )
 
-    #btn.GetChildren()[ 0 ].SetVisible( True )
+    #btn.SetVisible( False )
+
+    #btn.GetChildren()[ 1 ].SetVisible( False )
 
     return btn

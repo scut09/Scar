@@ -14,7 +14,7 @@ def BtnDefault():
 
 # 添加按钮鼠标悬停样式容器
 def BtnOver():
-    n = UIImage( None, 0, 0, 1 )
+    n = UIImage( None, 0, 0, -1 )
     Save( n )
     #n.SetVisible( False )
     return n
@@ -27,6 +27,10 @@ BtnTitle =  {
                 "退出":"../media/UIResource/Menu/t_4.png"
             }
 
+def Test1( node ):
+    pass
+    
+    
 
 # 组装主菜单六边形按钮
 def MainMenuBtn( titleIndex ):
@@ -47,7 +51,7 @@ def MainMenuBtn( titleIndex ):
     default1.LoadImage( "../media/UIResource/Menu/b_1_b.png" )
     default.AddChild( default1 )
 
-    default2 = UIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
+    default2 = UIImage( None, 105, 187, 1, 0, vector2df( 66, -15 ) )
     Save( default2 )
     default2.LoadImage( "../media/UIResource/Menu/b_2_b.png" )
     default.AddChild( default2 )
@@ -62,7 +66,7 @@ def MainMenuBtn( titleIndex ):
     over1.LoadImage( "../media/UIResource/Menu/b_1_y.png" )
     over.AddChild( over1 )
 
-    over2 = UIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
+    over2 = UIImage( None, 105, 187, 1, 0, vector2df( 66, -15 ) )
     Save( over2 )
     over2.LoadImage( "../media/UIResource/Menu/b_2_y.png" )
     over.AddChild( over2 )
@@ -79,7 +83,6 @@ def MainMenuBtn( titleIndex ):
     overTitle.LoadImage( BtnTitle[ titleIndex ] )
     over.AddChild( defaultTitle )
 
-    #over.OnMouseMove = 
-    
+    btn.AddFunc( "OnMouseMove", "Test1", "MenuUIObjects" )
 
     return btn

@@ -2140,8 +2140,8 @@ BOOST_PYTHON_MODULE( UI ){
             , ( bp::arg("child") ) )    
         .def( 
             "AddFunc"
-            , (void ( ::IUIObject::* )( ::std::string const &,::std::string const & ) )( &::IUIObject::AddFunc )
-            , ( bp::arg("funcName"), bp::arg("ModuleName")="" ) )    
+            , (void ( ::IUIObject::* )( ::std::string const &,::std::string const &,::std::string const & ) )( &::IUIObject::AddFunc )
+            , ( bp::arg("eventName"), bp::arg("funcName"), bp::arg("ModuleName") ) )    
         .def( 
             "Draw"
             , bp::pure_virtual( (void ( ::IUIObject::* )(  ) )(&::IUIObject::Draw) ) )    

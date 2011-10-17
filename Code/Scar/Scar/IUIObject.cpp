@@ -330,9 +330,9 @@ bool IUIObject::IsPointInCircle( s32 x, s32 y)
 	return false;
 }
 
-void IUIObject::AddFunc( const std::string& funcName, const std::string& ModuleName /*= "" */ )
+void IUIObject::AddFunc( const std::string& eventName, const std::string& funcName, const std::string& ModuleName )
 {
-	FuncMap[ funcName ] = ModuleName;
+	FuncMap[ eventName ] = EventHandler( funcName, ModuleName );
 }
 
 void IUIObject::RemoveFunc( const std::string& funcName )
