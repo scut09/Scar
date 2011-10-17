@@ -22,6 +22,9 @@
 #include <functional>
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/io.hpp>
+#include <hash_map>
+
+
 using namespace irr;
 using namespace irr::core;
 using namespace irr::video;
@@ -60,6 +63,8 @@ protected:
 	vector2d<f32>	RelativeScale;				// 相对缩放
 	matrix<f32>		AbsoluteTransformation;		// 绝对坐标系变换矩阵
 
+	std::hash_map< std::string, std::string >	FuncMap;
+
 
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
 	int				Shape;						// 元件的判定区域形状
@@ -79,6 +84,11 @@ public:
 
 	virtual ~IUIObject();
 
+	// 注册Python的函数
+	void AddFunc( const std::string& funcName, const std::string& ModuleName = "" );
+
+	// 取消注册Python函数
+	void RemoveFunc( const std::string& funcName );
 
 	virtual matrix<f32> GetRelativeTransformation() const;
 
