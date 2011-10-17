@@ -8,7 +8,7 @@ UIButton::UIButton( IUIObject* parent, s32 width, s32 height, s32 order /*= 0*/,
 	const vector2d<f32>& scale /*= vector2d<f32>(1,1) */ )
 	: IUIObject( parent, width, height, order, shape, position, rotdeg, scale )
 {
-
+	IsMouseIn = false;
 }
 
 //»æÖÆ
@@ -84,43 +84,49 @@ void UIButton::OnMouseMove( const irr::SEvent::SMouseInput& event )
 
 void UIButton::OnMouseLeftButtonUp( const irr::SEvent::SMouseInput& event )
 {
-	try
+	if( IsMouseIn )
 	{
-		std::string eventName = "OnMouseLeftButtonUp";
-		auto func = FuncMap.find( eventName );
-		if ( func != FuncMap.end() )
+		try
 		{
-			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
-			object module = import( FuncInfo.ModuleName.c_str() );
-			object fun = module.attr( FuncInfo.FuncName.c_str() );
-			fun( boost::ref( this ) );
+			std::string eventName = "OnMouseLeftButtonUp";
+			auto func = FuncMap.find( eventName );
+			if ( func != FuncMap.end() )
+			{
+				using namespace boost::python;
+				auto FuncInfo = FuncMap[ eventName ];
+				object module = import( FuncInfo.ModuleName.c_str() );
+				object fun = module.attr( FuncInfo.FuncName.c_str() );
+				fun( boost::ref( this ) );
+			}
 		}
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
+		catch ( ... )
+		{
+			PyErr_Print();
+		}
 	}
 }
 
 void UIButton::OnMouseLeftButtonDown( const irr::SEvent::SMouseInput& event )
 {
-	try
+	if( IsMouseIn )
 	{
-		std::string eventName = "OnMouseLeftButtonDown";
-		auto func = FuncMap.find( eventName );
-		if ( func != FuncMap.end() )
+		try
 		{
-			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
-			object module = import( FuncInfo.ModuleName.c_str() );
-			object fun = module.attr( FuncInfo.FuncName.c_str() );
-			fun( boost::ref( this ) );
+			std::string eventName = "OnMouseLeftButtonDown";
+			auto func = FuncMap.find( eventName );
+			if ( func != FuncMap.end() )
+			{
+				using namespace boost::python;
+				auto FuncInfo = FuncMap[ eventName ];
+				object module = import( FuncInfo.ModuleName.c_str() );
+				object fun = module.attr( FuncInfo.FuncName.c_str() );
+				fun( boost::ref( this ) );
+			}
 		}
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
+		catch ( ... )
+		{
+			PyErr_Print();
+		}
 	}
 }
 

@@ -28,15 +28,9 @@ BtnTitle =  {
                 "退出":"../media/UIResource/Menu/t_4.png"
             }
 
-"""def Test1( node ):
-    ani = RotateUIAnimator(
-        Timer().GetRealTime(),
-        3000,
-        360,
-        True
-        )
-    Save( ani )
-    node.AddAnimator( ani )"""
+#######################################
+# 六边形菜单按钮
+#######################################
 
 def OnMenuButtonMouseMoveIn( node ):
     alphaUp = AlphaChangeUIAnimator(
@@ -51,12 +45,94 @@ def OnMenuButtonMouseMoveIn( node ):
         255,
         0 )
     Save( alphaDown )
+    move1 = TranslateUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2d( 260, 0 ) )
+    Save( move1 )
+    move2 = move1.Clone()
+    Save( move2 )
+    squareAlpha = AlphaChangeUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        0,
+        255 )
+    Save( squareAlpha )
+    squareScale = ScaleUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2df( 1.9, 1 ) )
+    Save( squareScale )
+    squareTrans = TranslateUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2d( 100, 0 ) )
+    Save( squareTrans )
+    
     node.GetChildren()[0].AddAnimator( alphaDown )
     node.GetChildren()[1].AddAnimator( alphaUp )
-
+    node.GetChildren()[0].GetChildren()[0].AddAnimator( move1 )
+    node.GetChildren()[1].GetChildren()[1].AddAnimator( move2 )
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
+    #node.GetAnimators().clear()
     
 def OnMenuButtonMouseMoveOut( node ):
-    pass
+    #if node.GetAnimators().empty() != False :
+    #node.RemoveAnimators()
+        
+    alphaUp = AlphaChangeUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        0,
+        255 )
+    Save( alphaUp )
+    alphaDown = AlphaChangeUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        255,
+        0 )
+    Save( alphaDown )
+    move1 = TranslateUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2d( -260, 0 ) )
+    Save( move1 )
+    move2 = move1.Clone()
+    Save( move2 )
+    squareAlpha = AlphaChangeUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        255,
+        0 )
+    Save( squareAlpha )
+    squareScale = ScaleUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2df( 0.1, 1 ) )
+    Save( squareScale )
+    squareTrans = TranslateUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2d( -100, 0 ) )
+    Save( squareTrans )
+    
+    node.GetChildren()[0].AddAnimator( alphaUp )
+    node.GetChildren()[1].AddAnimator( alphaDown )
+    node.GetChildren()[0].GetChildren()[0].AddAnimator( move1 )
+    node.GetChildren()[1].GetChildren()[1].AddAnimator( move2 )
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
+
+def OnMenuLeftButtonUp( node ):
+    m = MultiplayerScene()
+    SaveScenes( "fuck", m )
+    DeleteTree()
+    ChangeGameScene( m )
+    
+    
     
 
 # 组装主菜单六边形按钮
@@ -64,6 +140,8 @@ def MainMenuBtn( titleIndex ):
     btn = UIButton(
         None,
         210, 210,
+        0,
+        1
         )
     Save( btn )
     
@@ -98,10 +176,12 @@ def MainMenuBtn( titleIndex ):
     over2.LoadImage( "../media/UIResource/Menu/b_2_y.png" )
     over.AddChild( over2 )
 
-    over3 = UIImage( None, 291, 83 )
+    over3 = UIImage( None, 291, 83, -2, 0, vector2df( 200, 20 ) )
     Save( over3 )
     over3.LoadImage( "../media/UIResource/Menu/b_3.png" )
-    over3.SetVisible( False )
+    over3.SetAlpha( 0 )
+    over3.SetScale( vector2df( 0.1, 1 ) )
+    over3.SetPosition( vector2df( 100, 0 ) )
     over.AddChild( over3 )
 
     overTitle = UIImage( None, 96, 60, 1 )
@@ -110,5 +190,11 @@ def MainMenuBtn( titleIndex ):
     over.AddChild( overTitle )
 
     btn.AddFunc( "OnMouseMoveIn", "OnMenuButtonMouseMoveIn", "MenuUIObjects" )
+    btn.AddFunc( "OnMouseMoveOut", "OnMenuButtonMouseMoveOut", "MenuUIObjects" )
+    btn.AddFunc( "OnMouseLeftButtonUp", "OnMenuLeftButtonUp", "MenuUIObjects" )
 
     return btn
+
+#######################################
+# 六边形菜单按钮
+#######################################

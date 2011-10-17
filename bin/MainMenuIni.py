@@ -6,7 +6,7 @@ def GetRoot():
 
     btn = MainMenuBtn( "多人" )
 
-    btn.SetPosition( vector2df( 300, 300 ) )
+    btn.SetPosition( vector2df( 200, 200 ) )
 
     #btn.SetVisible( False )
 
