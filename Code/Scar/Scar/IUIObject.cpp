@@ -218,8 +218,6 @@ void IUIObject::OnEvent( const SEvent& event )
 	if ( event.EventType == EET_MOUSE_INPUT_EVENT )
 	{
 		SEvent::SMouseInput mouseEvent = event.MouseInput;
-		s32	NewMouseX = mouseEvent.X;
-		s32 NewMouseY = mouseEvent.Y;
 
 		if ( mouseEvent.Event == EMIE_MOUSE_MOVED )
 			OnMouseMove( mouseEvent );
@@ -233,9 +231,6 @@ void IUIObject::OnEvent( const SEvent& event )
 			OnMouseRightButtonUp( mouseEvent );
 		if ( mouseEvent.Event == EMIE_MOUSE_WHEEL )
 			OnWheel( mouseEvent );
-
-		OldMouseX = NewMouseX;
-		OldMouseY = NewMouseY;
 	}
 	else if ( event.EventType == EET_KEY_INPUT_EVENT )
 	{

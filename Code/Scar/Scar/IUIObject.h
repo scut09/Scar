@@ -241,17 +241,6 @@ public:
 	//}
 
 /////////////////////////////////////////////////////////////////////////////////////
-protected:
-	s32		OldMouseX;
-	s32		OldMouseY;
-	bool	IsMouseIn;
-
-	void	IniEventResponser()
-	{
-		OldMouseX = OldMouseY = 0;
-		IsMouseIn = false;
-	}
-
 public:
 	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event ) {}
 

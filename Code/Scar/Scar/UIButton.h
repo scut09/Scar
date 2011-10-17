@@ -12,6 +12,9 @@ class IUIObject;
 
 class UIButton : public IUIObject
 {
+protected:
+	bool IsMouseIn;
+
 public:
 
 	UIButton( IUIObject* parent, s32 width, s32 height, s32 order = 0, int shape = SQUARE,
@@ -20,6 +23,20 @@ public:
 		const vector2d<f32>& scale = vector2d<f32>(1,1) );
 
 	virtual void Draw();
+
+	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event );
+
+	virtual void OnMouseLeftButtonUp( const irr::SEvent::SMouseInput& event );
+
+	virtual void OnMouseLeftButtonDown( const irr::SEvent::SMouseInput& event );
+
+	virtual void OnMouseRightButtonUp( const irr::SEvent::SMouseInput& event );
+
+	virtual void OnMouseRightButtonDown( const irr::SEvent::SMouseInput& event );
+
+	void OnMouseMoveIn();
+
+	void OnMouseMoveOut();
 
 };
 

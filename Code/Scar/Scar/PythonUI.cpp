@@ -373,10 +373,6 @@ struct IUIObject_wrapper : IUIObject, bp::wrapper< IUIObject > {
 		return IUIObject::HitTest( x, y );
 	}
 
-	void IniEventResponser(  ){
-		IUIObject::IniEventResponser(  );
-	}
-
 	virtual bool IsPointIn( ::irr::s32 x, ::irr::s32 y ) {
 		if( bp::override func_IsPointIn = this->get_override( "IsPointIn" ) )
 			return func_IsPointIn( x, y );
@@ -1151,9 +1147,6 @@ struct UIButton_wrapper : UIButton, bp::wrapper< UIButton > {
 		return IUIObject::HitTest( x, y );
 	}
 
-	void IniEventResponser(  ){
-		IUIObject::IniEventResponser(  );
-	}
 
 	virtual bool IsPointIn( ::irr::s32 x, ::irr::s32 y ) {
 		if( bp::override func_IsPointIn = this->get_override( "IsPointIn" ) )
@@ -1603,10 +1596,6 @@ struct UIImage_wrapper : UIImage, bp::wrapper< UIImage > {
 
 	::IUIObject * default_HitTest( ::irr::s32 x, ::irr::s32 y ) {
 		return IUIObject::HitTest( x, y );
-	}
-
-	void IniEventResponser(  ){
-		IUIObject::IniEventResponser(  );
 	}
 
 	virtual bool IsPointIn( ::irr::s32 x, ::irr::s32 y ) {
@@ -2235,9 +2224,6 @@ BOOST_PYTHON_MODULE( UI ){
 		, ( bp::arg("x"), bp::arg("y") )
 		, bp::return_value_policy< bp::reference_existing_object >() )    
 		.def( 
-		"IniEventResponser"
-		, (void ( IUIObject_wrapper::* )(  ) )(&IUIObject_wrapper::IniEventResponser) )    
-		.def( 
 		"IsPointIn"
 		, (bool ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::IsPointIn)
 		, (bool ( IUIObject_wrapper::* )( ::irr::s32,::irr::s32 ) )(&IUIObject_wrapper::default_IsPointIn)
@@ -2527,10 +2513,7 @@ BOOST_PYTHON_MODULE( UI ){
 		, (::IUIObject * ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::HitTest)
 		, (::IUIObject * ( UIButton_wrapper::* )( ::irr::s32,::irr::s32 ) )(&UIButton_wrapper::default_HitTest)
 		, ( bp::arg("x"), bp::arg("y") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"IniEventResponser"
-		, (void ( UIButton_wrapper::* )(  ) )(&UIButton_wrapper::IniEventResponser) )    
+		, bp::return_value_policy< bp::reference_existing_object >() )   		
 		.def( 
 		"IsPointIn"
 		, (bool ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::IsPointIn)
@@ -2727,9 +2710,6 @@ BOOST_PYTHON_MODULE( UI ){
 		, (::IUIObject * ( UIImage_wrapper::* )( ::irr::s32,::irr::s32 ) )(&UIImage_wrapper::default_HitTest)
 		, ( bp::arg("x"), bp::arg("y") )			
 		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"IniEventResponser"
-		, (void ( UIImage_wrapper::* )(  ) )(&UIImage_wrapper::IniEventResponser) )    
 		.def( 
 		"IsPointIn"
 		, (bool ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::IsPointIn)
