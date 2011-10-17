@@ -1,14 +1,13 @@
-from UILoader import *
+﻿from UILoader import *
+from MenuUIObjects import *
 
 def GetRoot():
     timer = Timer()
 
-    btn = UIImage(
-        None,
-        210, 210 )
+    btn = MainMenuBtn( "多人" )
 
-    btn.LoadImage( "../media/UIResource/Menu/b_1_y.png" )
+    btn.SetPosition( vector2df( 300, 300 ) )
 
-    Save( btn )
+    #btn.GetChildren()[ 0 ].SetVisible( True )
 
     return btn
