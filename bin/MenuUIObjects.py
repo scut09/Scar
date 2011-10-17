@@ -31,41 +31,44 @@ BtnTitle =  {
 #######################################
 # 六边形菜单按钮
 #######################################
+duration = 400
 
 def OnMenuButtonMouseMoveIn( node ):
+    global duration
+    SaveNodeAnimatorTime( node, Timer().GetRealTime() )   
     alphaUp = AlphaChangeUIAnimator(
         Timer().GetRealTime(),
-        400,
+        duration,
         0,
         255 )
     Save( alphaUp )
     alphaDown = AlphaChangeUIAnimator(
         Timer().GetRealTime(),
-        400,
+        duration,
         255,
         0 )
     Save( alphaDown )
     move1 = TranslateUIAnimator(
         Timer().GetRealTime(),
-        400,
+        duration,
         vector2d( 260, 0 ) )
     Save( move1 )
     move2 = move1.Clone()
     Save( move2 )
     squareAlpha = AlphaChangeUIAnimator(
         Timer().GetRealTime(),
-        400,
+        duration,
         0,
         255 )
     Save( squareAlpha )
     squareScale = ScaleUIAnimator(
         Timer().GetRealTime(),
-        400,
+        duration,
         vector2df( 1.9, 1 ) )
     Save( squareScale )
     squareTrans = TranslateUIAnimator(
         Timer().GetRealTime(),
-        400,
+        duration,
         vector2d( 100, 0 ) )
     Save( squareTrans )
     
@@ -77,44 +80,50 @@ def OnMenuButtonMouseMoveIn( node ):
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
     #node.GetAnimators().clear()
+
+
+
     
 def OnMenuButtonMouseMoveOut( node ):
-    #if node.GetAnimators().empty() != False :
-    #node.RemoveAnimators()
-        
+    global duration
+    addTime = 0
+    runTime = Timer().GetRealTime() - GetAnimatorTime( node )
+    addTime = duration - runTime   
+    SaveNodeAnimatorTime( node, Timer().GetRealTime() )
+    
     alphaUp = AlphaChangeUIAnimator(
-        Timer().GetRealTime(),
-        400,
+        Timer().GetRealTime() + addTime,
+        duration,
         0,
         255 )
     Save( alphaUp )
     alphaDown = AlphaChangeUIAnimator(
-        Timer().GetRealTime(),
-        400,
+        Timer().GetRealTime() + addTime,
+        duration,
         255,
         0 )
     Save( alphaDown )
     move1 = TranslateUIAnimator(
-        Timer().GetRealTime(),
-        400,
+        Timer().GetRealTime() + addTime,
+        duration,
         vector2d( -260, 0 ) )
     Save( move1 )
     move2 = move1.Clone()
     Save( move2 )
     squareAlpha = AlphaChangeUIAnimator(
-        Timer().GetRealTime(),
-        400,
+        Timer().GetRealTime() + addTime,
+        duration,
         255,
         0 )
     Save( squareAlpha )
     squareScale = ScaleUIAnimator(
-        Timer().GetRealTime(),
-        400,
+        Timer().GetRealTime() + addTime,
+        duration,
         vector2df( 0.1, 1 ) )
     Save( squareScale )
     squareTrans = TranslateUIAnimator(
-        Timer().GetRealTime(),
-        400,
+        Timer().GetRealTime() + addTime,
+        duration,
         vector2d( -100, 0 ) )
     Save( squareTrans )
     

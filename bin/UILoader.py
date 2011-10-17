@@ -3,15 +3,26 @@ from Engine import *
 
 ObjectDeletionList = []     # 一个场景内部的所有资源，在场景调用Release时，这里面的东西会被删除
 ScenesDict = dict()     # 场景寿命长
+AnimatorsTime = dict()
 
+def SaveNodeAnimatorTime( node, time ):
+    global AnimatorsTime
+    AnimatorsTime[ node ] = time
+    
 # 保存一个场景内部的资源
 def Save( obj ):
-    global ObjectDeletionList
+    global ObjectDeletionList, AnimatorsTime
     ObjectDeletionList.append( obj )
+   # AnimatorsTime[ obj ] = Timer().GetRealTime()
+    
 # 删除一个场景内部的资源
 def DeleteTree():
     global ObjectDeletionList
     ObjectDeletionList = dict()
+
+def GetAnimatorTime( node ):
+    global AnimatorsTime
+    return AnimatorsTime[ node ]
 
 # 保存整个场景跳转状态图
 def SaveScenes( name, scene ):
