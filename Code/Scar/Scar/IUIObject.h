@@ -16,7 +16,7 @@
 #define MAKE_INDENTITY3( m ) do { m.clear(); m(0, 0) = m( 1, 1 ) = m( 2, 2 ) = 1; } while ( 0 )
 
 //#include "def.h"
-#include <list>
+#include <vector>
 #include "IUIAnimator.h"
 #include <irrlicht.h>
 #include <functional>
@@ -48,8 +48,8 @@ enum SHAPE_FLAGS
 class IUIObject : public Scar::IReferenceCounted
 {
 protected:
-	std::list< IUIAnimator* >	Animators;		// 动画列表
-	std::list< IUIObject* >		Children;		// 子节点列表
+	std::vector< IUIAnimator* >	Animators;		// 动画列表
+	std::vector< IUIObject* >	Children;		// 子节点列表
 	IUIObject*					Parent;			// 父节点指针
 	s32							Order;			// 元件在树的同一层时的摆放顺序
 	bool						IsVisible;		// 元件是否可见
@@ -147,7 +147,7 @@ public:
 	virtual void AddAnimator( IUIAnimator* ani	);
 
 	// 获取动画列表
-	virtual const std::list< IUIAnimator* >& GetAnimators() const;
+	virtual const std::vector< IUIAnimator* >& GetAnimators() const;
 
 	// 将某个动画从动画列表中删除
 	virtual void RemoveAnimator( IUIAnimator* ani );
@@ -168,7 +168,7 @@ public:
 	virtual void RemoveAll();
 
 	// 获取子节点列表
-	virtual const std::list< IUIObject* >& GetChildren() const;
+	virtual const std::vector< IUIObject* >& GetChildren() const;
 
 	// 将自己从父节点中删除
 	// 为了和父类irr::IReferenceCounted中的drop，grab风格一样，所以我们用小写开头

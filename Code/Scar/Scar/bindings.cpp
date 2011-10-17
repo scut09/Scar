@@ -2012,7 +2012,7 @@ struct IGUIImage_wrapper : irr::gui::IGUIImage, bp::wrapper< irr::gui::IGUIImage
 
 };
 
-BOOST_PYTHON_MODULE(pyplusplus){
+BOOST_PYTHON_MODULE( UI ){
     bp::enum_< irr::gui::EGUI_BUTTON_STATE>("EGUI_BUTTON_STATE")
         .value("EGBS_BUTTON_UP", irr::gui::EGBS_BUTTON_UP)
         .value("EGBS_BUTTON_DOWN", irr::gui::EGBS_BUTTON_DOWN)
@@ -2112,6 +2112,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
             , ( bp::arg("node"), bp::arg("timeMS") ) );
 
     bp::class_< GameScene_wrapper, boost::noncopyable >( "GameScene", bp::init< >() )    
+		.def_readwrite( "Scenes", &GameScene_wrapper::Scenes )
         .def( 
             "Draw"
             , (void ( ::GameScene::* )(  ) )(&::GameScene::Draw)
@@ -2162,11 +2163,11 @@ BOOST_PYTHON_MODULE(pyplusplus){
             , (::irr::f32 ( IUIObject_wrapper::* )(  ) const)(&IUIObject_wrapper::default_GetAlpha) )    
         .def( 
             "GetAnimators"
-            , (::std::list< IUIAnimator* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetAnimators)
+            , (::std::vector< IUIAnimator* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetAnimators)
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetChildren"
-            , (::std::list< IUIObject* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetChildren)
+            , (::std::vector< IUIObject* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetChildren)
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetOrder"
@@ -2485,11 +2486,11 @@ BOOST_PYTHON_MODULE(pyplusplus){
             , (::irr::f32 ( UIButton_wrapper::* )(  ) const)(&UIButton_wrapper::default_GetAlpha) )    
         .def( 
             "GetAnimators"
-            , (::std::list< IUIAnimator* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetAnimators)
+            , (::std::vector< IUIAnimator* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetAnimators)
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetChildren"
-            , (::std::list< IUIObject* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetChildren)
+            , (::std::vector< IUIObject* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetChildren)
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetOrder"
@@ -2651,11 +2652,11 @@ BOOST_PYTHON_MODULE(pyplusplus){
             , (::irr::f32 ( UIImage_wrapper::* )(  ) const)(&UIImage_wrapper::default_GetAlpha) )    
         .def( 
             "GetAnimators"
-            , (::std::list< IUIAnimator* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetAnimators)
+            , (::std::vector< IUIAnimator* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetAnimators)
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetChildren"
-            , (::std::list< IUIObject* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetChildren)
+            , (::std::vector< IUIObject* > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetChildren)
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetOrder"

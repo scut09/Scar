@@ -135,9 +135,6 @@
     <ClCompile Include="AllUIObjects.h">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="PythonUI.cpp">
-      <Filter>Python</Filter>
-    </ClCompile>
     <ClCompile Include="bindings.cpp">
       <Filter>Python</Filter>
     </ClCompile>

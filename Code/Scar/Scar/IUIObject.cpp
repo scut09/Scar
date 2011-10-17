@@ -69,14 +69,18 @@ void IUIObject::AddAnimator( IUIAnimator* ani )
 	}*/
 }
 
-const std::list< IUIAnimator* >& IUIObject::GetAnimators() const
+const std::vector< IUIAnimator* >& IUIObject::GetAnimators() const
 {
 	return Animators;
 }
 
 void IUIObject::RemoveAnimator( IUIAnimator* ani )
 {
-	Animators.remove( ani );
+	//删除元素
+	auto itr = std::find( Animators.begin(), Animators.end(), ani );
+	int diff = itr - Animators.begin();
+	Animators.erase( Animators.begin() + diff );
+
 	ani->drop();
 }
 
@@ -105,7 +109,12 @@ void IUIObject::SetParent( IUIObject* parent )
 void IUIObject::RemoveChild( IUIObject* node )
 {
 	node->Parent = 0;			// 这里不能使用SetParent()！
-	Children.remove( node );	// 将孩子从自己的子节点列表中移除
+	//Children.remove( node );	// 将孩子从自己的子节点列表中移除
+	//删除元素
+	auto itr = std::find( Children.begin(), Children.end(), node );
+	int diff = itr - Children.begin();
+	Children.erase( Children.begin() + diff );
+
 	node->drop();				// 孩子计数器-1
 }
 
@@ -119,13 +128,14 @@ void IUIObject::AddChild( IUIObject* child )
 	child->Parent = this;		// 这里不能用SetParent，否则会无限递归到栈溢出
 	
 	// 根据孩子的Order排序
-	Children.sort( []( IUIObject* lhs, IUIObject* rhs )->bool
-	{
-		return lhs->GetOrder() < rhs->GetOrder();
-	});
-
-
-
+	//Children.sort( []( IUIObject* lhs, IUIObject* rhs )->bool
+	//{
+	//	return lhs->GetOrder() < rhs->GetOrder();
+	//});
+	std::sort( Children.begin(), Children.end(), []( IUIObject* lhs, IUIObject* rhs )->bool
+		{
+			return lhs->GetOrder() > rhs->GetOrder();
+		} );
 
 }
 
@@ -139,7 +149,7 @@ void IUIObject::RemoveAll()
 	Children.clear();
 }
 
-const std::list< IUIObject* >& IUIObject::GetChildren() const
+const std::vector< IUIObject* >& IUIObject::GetChildren() const
 {
 	return Children;
 }

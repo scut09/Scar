@@ -8,6 +8,8 @@
 
 #include "PythonWrapper.h"
 #include "AnimationManager.h"
+#include "GameScene.h"
+#include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 BOOST_PYTHON_MODULE( Engine )
 {
@@ -29,7 +31,8 @@ BOOST_PYTHON_MODULE( Engine )
 		.def( init< u32 >( arg( "clr" ) ) )
 		;
 
-
+	boost::python::class_<std::vector<GameScene*> >("GameScenes")
+		.def(boost::python::vector_indexing_suite<std::vector<GameScene*> >());
 
 //	class_< irr::video::SColor >( "SColor", "SColor" );
 //	SColor() 

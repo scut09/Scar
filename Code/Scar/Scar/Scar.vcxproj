@@ -101,7 +101,6 @@
     <ClCompile Include="MyIrrlichtEngine.cpp" />
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
-    <ClCompile Include="PythonUI.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RotateUIAnimator.cpp" />
     <ClCompile Include="ScaleUIAnimator.cpp" />
