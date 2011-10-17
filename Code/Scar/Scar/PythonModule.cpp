@@ -64,9 +64,13 @@ BOOST_PYTHON_MODULE( Engine )
 	//	.def_readwrite( "y", &PythonVector2df::y );
 
 	class_< irr::core::vector2d<s32> >( "vector2d", "fake vector2d<s32>", init< s32, s32 >() )
+		.def_readwrite( "X", &irr::core::vector2d<s32>::X )
+		.def_readwrite( "Y", &irr::core::vector2d<s32>::Y )
 		;
 
 	class_< irr::core::vector2d<f32> >( "vector2df", "fake vector2d<f32>", init< f32, f32 >() )
+		.def_readwrite( "X", &irr::core::vector2d<f32>::X )
+		.def_readwrite( "Y", &irr::core::vector2d<f32>::Y )
 		;
 
 	//class_< irr::video::IVideoDriver >( "IVideoDriver", "fake IVideoDriver" )
