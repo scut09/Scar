@@ -33,6 +33,15 @@ def GetRoot():
     img.AddAnimator( rotani )
     Save( rotani )
 
+    simg = UIImage(
+        None,
+        100, 150 )
+    Save( simg )
+
+    simg.LoadImage( "pic1.jpg" )
+
+    img.AddChild( simg )
+
     return img
 
 def DeleteTree():

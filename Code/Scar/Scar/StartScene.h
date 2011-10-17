@@ -1,5 +1,6 @@
 #pragma once
 #include "def.h"
+#include "def.h"
 #include "GameScene.h"
 #include "AllUIObjects.h"
 #include "UIManager.h"

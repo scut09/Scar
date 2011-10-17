@@ -30,6 +30,12 @@ namespace ub = boost::numeric::ublas;
 
 class IUIAnimator;
 
+enum SHAPE_FLAGS
+{
+	SQUARE = 0,
+	CIRCLE,
+	TRIANGLE
+};
 
 /*
 ** 名字：IUIObject
@@ -54,11 +60,13 @@ protected:
 	vector2d<f32>	RelativeScale;				// 相对缩放
 	matrix<f32>		AbsoluteTransformation;		// 绝对坐标系变换矩阵
 
+
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
+	int				Shape;
 									
 public:
 
-	IUIObject( IUIObject* parent, s32 width, s32 height, s32 order = 0,
+	IUIObject( IUIObject* parent, s32 width, s32 height, s32 order = 0, int shape = SQUARE,
 		const vector2d<f32>& position = vector2d<f32>( 0, 0 ),
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) );

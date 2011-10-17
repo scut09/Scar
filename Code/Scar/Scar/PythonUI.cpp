@@ -229,8 +229,8 @@ struct GameScene_wrapper : GameScene, bp::wrapper< GameScene > {
 
 struct IUIObject_wrapper : IUIObject, bp::wrapper< IUIObject > {
 
-	IUIObject_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 height, ::irr::s32 order=0, ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
-		: IUIObject( boost::python::ptr(parent), width, height, order, boost::ref(position), rotdeg, boost::ref(scale) )
+	IUIObject_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 height, ::irr::s32 order=0, int shape=0, ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
+		: IUIObject( boost::python::ptr(parent), width, height, order, shape, boost::ref(position), rotdeg, boost::ref(scale) )
 		, bp::wrapper< IUIObject >(){
 			// constructor
 
@@ -1000,8 +1000,8 @@ struct UIButton_wrapper : UIButton, bp::wrapper< UIButton > {
 
 	}
 
-	UIButton_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 height, ::irr::s32 order=0, ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
-		: UIButton( boost::python::ptr(parent), width, height, order, boost::ref(position), rotdeg, boost::ref(scale) )
+	UIButton_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 height, ::irr::s32 order=0, int shape=0, ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
+		: UIButton( boost::python::ptr(parent), width, height, order, shape, boost::ref(position), rotdeg, boost::ref(scale) )
 		, bp::wrapper< UIButton >(){
 			// constructor
 
@@ -1454,8 +1454,8 @@ struct UIImage_wrapper : UIImage, bp::wrapper< UIImage > {
 
 	}
 
-	UIImage_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 height, ::irr::s32 order=0, ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
-		: UIImage( boost::python::ptr(parent), width, height, order, boost::ref(position), rotdeg, boost::ref(scale) )
+	UIImage_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 height, ::irr::s32 order=0, int shape=0, ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
+		: UIImage( boost::python::ptr(parent), width, height, order, shape, boost::ref(position), rotdeg, boost::ref(scale) )
 		, bp::wrapper< UIImage >(){
 			// constructor
 
@@ -2143,7 +2143,26 @@ BOOST_PYTHON_MODULE( UI ){
 	boost::python::class_<std::vector<GameScene*> >("GameScenes")
 		.def(boost::python::vector_indexing_suite<std::vector<GameScene*> >());
 
-	bp::class_< IUIObject_wrapper, bp::bases< Scar::IReferenceCounted >, boost::noncopyable >( "IUIObject", bp::init< IUIObject *, irr::s32, irr::s32, bp::optional< irr::s32, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const & > >(( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
+	bp::class_< IUIObject_wrapper, bp::bases< Scar::IReferenceCounted >, boost::noncopyable >(
+		"IUIObject",
+		bp::init<
+		IUIObject *,
+		irr::s32, 
+		irr::s32, 
+		bp::optional< 
+		irr::s32, 
+		int,
+		irr::core::vector2d< float > const &, 
+		irr::f32, irr::core::vector2d< float > const & >
+		>(( 
+		bp::arg("parent"),
+		bp::arg("width"),
+		bp::arg("height"),
+		bp::arg("order")=(::irr::s32)(0), 
+		bp::arg("shape")=(int)0, 
+		bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f),
+		bp::arg("rotdeg")=0, 
+		bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
 		.def( 
 		"AddAnimator"
 		, (void ( ::IUIObject::* )( ::IUIAnimator * ) )(&::IUIObject::AddAnimator)
@@ -2429,7 +2448,14 @@ BOOST_PYTHON_MODULE( UI ){
 		, (bool ( TranslateUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&TranslateUIAnimator_wrapper::default_animateUIObject)
 		, ( bp::arg("node"), bp::arg("timeMS") ) );
 
-	bp::class_< UIButton_wrapper, bp::bases< IUIObject > >( "UIButton", bp::init< IUIObject *, irr::s32, irr::s32, bp::optional< irr::s32, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const & > >(( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
+	bp::class_< UIButton_wrapper, bp::bases< IUIObject > >( 
+		"UIButton",
+		bp::init< 
+		IUIObject *, 
+		irr::s32,
+		irr::s32,
+		bp::optional< irr::s32, int, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const & > 
+		>(( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=(int)0, bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
 		.def( 
 		"Draw"
 		, (void ( ::UIButton::* )(  ) )(&::UIButton::Draw)
@@ -2622,7 +2648,13 @@ BOOST_PYTHON_MODULE( UI ){
 		, (void ( ::IUIObject::* )(  ) )(&::IUIObject::remove)
 		, (void ( UIButton_wrapper::* )(  ) )(&UIButton_wrapper::default_remove) );
 
-	bp::class_< UIImage_wrapper, bp::bases< IUIObject > >( "UIImage", bp::init< IUIObject *, irr::s32, irr::s32, bp::optional< irr::s32, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const & > >(( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
+	bp::class_< UIImage_wrapper, bp::bases< IUIObject > >( "UIImage", 
+		bp::init<
+		IUIObject *, 
+		irr::s32, 
+		irr::s32, 
+		bp::optional< irr::s32, int, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const & > 
+		>(( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=(int)0, bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
 		.def( 
 		"Draw"
 		, (void ( ::UIImage::* )(  ) )(&::UIImage::Draw)

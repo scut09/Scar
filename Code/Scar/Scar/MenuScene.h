@@ -22,25 +22,13 @@ public:
 
 	}
 
-	virtual void Run() 
-	{
+	virtual void Run();
 
-	}
+	virtual void Init();
 
-	virtual void Init() 
-	{
+	virtual void Release();
 
-	}
-
-	virtual void Release() 
-	{
-
-	}
-
-	virtual void Draw()
-	{
-
-	}
+	virtual void Draw();
 };
 
 #endif // MenuScene_h__

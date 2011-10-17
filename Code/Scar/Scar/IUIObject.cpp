@@ -178,8 +178,10 @@ matrix<f32> IUIObject::GetRelativeTransformation() const
 	return mat;
 }
 
-IUIObject::IUIObject( IUIObject* parent, s32 width, s32 height, s32 order /*= 0*/, const vector2d<f32>& position /*= vector2d<f32>( 0, 0 )*/, f32 rotdeg /*= 0*/, const vector2d<f32>& scale /*= vector2d<f32>( 1.f, 1.f ) */ ) :
-Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 ), Image( 0 )
+IUIObject::IUIObject( IUIObject* parent, s32 width, s32 height, s32 order /*= 0*/, int shape,
+	const vector2d<f32>& position /*= vector2d<f32>( 0, 0 )*/,
+	f32 rotdeg /*= 0*/, const vector2d<f32>& scale /*= vector2d<f32>( 1.f, 1.f ) */ ) :
+Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 ), Image( 0 ), Shape( shape )
 {
 	if ( parent )
 		parent->AddChild(this);
