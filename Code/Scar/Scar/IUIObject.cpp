@@ -42,13 +42,18 @@ void IUIObject::DrawTree()
 void IUIObject::OnAnimate( u32 time )
 {
 	auto iter = Animators.begin();
-	while ( iter != Animators.end() )
+	//while ( iter != Animators.end() )
+	//{
+	//	auto i = iter;
+	//	iter++;
+	//	//相应动画的接口
+	//	(*i)->animateUIObject( this, time );
+	//}
+	for ( int i = 0; i < Animators.size(); i++ )
 	{
-		auto i = iter;
-		iter++;
-		//相应动画的接口
-		(*i)->animateUIObject( this, time );
+		Animators[ i ]->animateUIObject( this, time );
 	}
+
 	//通知子节点运行动画列表
 	auto it = Children.begin();
 	for (; it != Children.end(); ++it)
@@ -134,7 +139,7 @@ void IUIObject::AddChild( IUIObject* child )
 	//});
 	std::sort( Children.begin(), Children.end(), []( IUIObject* lhs, IUIObject* rhs )->bool
 		{
-			return lhs->GetOrder() > rhs->GetOrder();
+			return lhs->GetOrder() < rhs->GetOrder();
 		} );
 
 }
