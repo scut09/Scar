@@ -10,6 +10,7 @@
 #include "AnimationManager.h"
 #include "GameScene.h"
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
+#include "IUIObject.h"
 
 BOOST_PYTHON_MODULE( Engine )
 {
