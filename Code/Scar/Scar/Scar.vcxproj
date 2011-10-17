@@ -83,7 +83,7 @@
   <ItemGroup>
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
-    <ClCompile Include="bindings.cpp" />
+    <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
     <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp" />
