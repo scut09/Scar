@@ -62,7 +62,10 @@ protected:
 
 
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
-	int				Shape;
+	int				Shape;						// 元件的判定区域形状
+
+	bool IsPointInSquare( s32 x, s32 y );		// 判断点是否在矩形区域内
+	bool IsPointInCircle( s32 x, s32 y );		// 判断点是否在圆形区域内
 									
 public:
 

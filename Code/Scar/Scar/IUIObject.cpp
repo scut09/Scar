@@ -29,10 +29,13 @@ IUIObject::~IUIObject()
 
 void IUIObject::DrawTree()
 {
-	Draw();
-	for(auto iter = Children.begin(); iter != Children.end(); ++iter)
+	if( IsVisible )
 	{
-		(*iter)->DrawTree();
+		Draw();
+		for(auto iter = Children.begin(); iter != Children.end(); ++iter)
+		{
+			(*iter)->DrawTree();
+		}
 	}
 }
 
@@ -254,6 +257,17 @@ void IUIObject::OnEvent( const SEvent& event )
 //判断点是否在当前元件内部
 bool IUIObject::IsPointIn( s32 x, s32 y )
 {
+	if( Shape == SQUARE )
+		return IsPointInSquare( x, y );
+	if( Shape == CIRCLE )
+		return IsPointInCircle( x, y );
+
+	return false;	
+}
+
+// 判断点是否在矩形区域内
+bool IUIObject::IsPointInSquare( s32 x, s32 y )
+{
 	//首先获取元件四个顶点当前在屏幕上的绝对坐标
 	matrix<f32> TransMat = AbsoluteTransformation;
 	vector2d<f32> AbsPoints[4];
@@ -294,6 +308,19 @@ bool IUIObject::IsPointIn( s32 x, s32 y )
 	std::cout<< v[2].X << "," << v[2].Y << std::endl;*/
 	if( abs(vd.X) <= 2 * boxWidth && abs(vd.Y) <= 2 * boxHeight )
 		return true;
+	return false;
+}
 
+// 判断点是否在圆形区域内
+bool IUIObject::IsPointInCircle( s32 x, s32 y)
+{
+	//首先获取圆形区域半径
+	f32 r = ( ( DestinationQuadrangle[2] - DestinationQuadrangle[0] ).getLength() ) / 2;
+	//判断点是否在园外
+	vector2d<f32> point = vector2d<f32>( (f32)x, (f32)y );
+	f32 dis = ( point - GetAbsolutePosition() ).getLength();
+	if ( dis <= r )
+		return true;
+	
 	return false;
 }

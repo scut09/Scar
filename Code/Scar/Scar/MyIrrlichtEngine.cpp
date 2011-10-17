@@ -96,7 +96,7 @@ void MyIrrlichtEngine::Run()
 		}
 
 
-		m_pDriver->beginScene( true, true, video::SColor( 150, 50, 50, 50 ) );
+		m_pDriver->beginScene( true, true, video::SColor( 255, 0, 0, 0 ) );
 
 		m_pSmgr->drawAll();	
 
