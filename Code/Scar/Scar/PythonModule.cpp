@@ -34,6 +34,9 @@ BOOST_PYTHON_MODULE( Engine )
 	boost::python::class_<std::vector<GameScene*> >("GameScenes")
 		.def(boost::python::vector_indexing_suite<std::vector<GameScene*> >());
 
+	boost::python::class_<std::vector<IUIObject*> >("IUIObjects")
+		.def(boost::python::vector_indexing_suite<std::vector<IUIObject*> >());
+
 //	class_< irr::video::SColor >( "SColor", "SColor" );
 //	SColor() 
 
