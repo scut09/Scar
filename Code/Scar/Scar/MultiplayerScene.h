@@ -19,8 +19,6 @@ class MultiplayerScene : public GameScene
 	scene::ISceneNode*			m_pSkyBox;
 	ModelManager*				m_pModelMan;
 
-public:
-	shared_ptr<GameScene> startScene;
 
 public:
 	MultiplayerScene() : m_pCamera( 0 ), m_pModelMan( 0 )

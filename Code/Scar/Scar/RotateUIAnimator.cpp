@@ -41,3 +41,8 @@ RotateUIAnimator* RotateUIAnimator::Clone()
 {
 	return new RotateUIAnimator(Begin, Duration, Angle, Loop);
 }
+
+RotateUIAnimator::~RotateUIAnimator()
+{
+	std::cout << "====> RotateUIAnimator destructoin\n";
+}

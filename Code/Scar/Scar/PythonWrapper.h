@@ -229,4 +229,8 @@ public:
 	irr::video::IVideoDriver* GetDriver();
 };
 
+class GameScene;
+void ChangeGameScene( GameScene* scene );
+
 #endif // PythonWrapper_h__
+

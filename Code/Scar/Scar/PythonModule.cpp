@@ -91,4 +91,6 @@ BOOST_PYTHON_MODULE( Engine )
 	class_< MyEngine >( "MyEngine", "fake Engine" )
 		.def( "GetDriver", &MyEngine::GetDriver, return_value_policy< reference_existing_object >() );
 
+	def( "ChangeGameScene", ChangeGameScene, args("scene"), "change the game scene and initialize it " );
+
 }

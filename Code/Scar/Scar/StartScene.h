@@ -18,12 +18,8 @@ class StartScene : public GameScene
 
 	UIManager* uiManager;
 
-	boost::python::object root;
-
 public:
 	StartScene();
-
-	shared_ptr<GameScene> multiplayerScene;
 
 	virtual void Run() ;
 

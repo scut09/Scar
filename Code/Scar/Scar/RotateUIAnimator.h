@@ -23,7 +23,8 @@ private:
 
 public:
 	RotateUIAnimator( u32 begin, u32 duration, f32 angle, bool loop = false );
-	
+	~RotateUIAnimator();
+
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 
 	virtual RotateUIAnimator* Clone();

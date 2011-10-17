@@ -38,9 +38,16 @@ void MultiplayerScene::Init()
 	// 使用Python模块加载模型
 	PythonManager* p = PythonManager::GetPythonManager();
 
-	object modelLoader = p->GetModelLoader();
-	object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
-	MultiplayerLoad();
+	try
+	{
+		object modelLoader = p->GetModelLoader();
+		object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
+		MultiplayerLoad();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();

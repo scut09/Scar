@@ -7,15 +7,18 @@
 
 void StartScene::Run() 
 {
-
-	/*if ( count++ > 3000 )
+	try
 	{
-		count = 0;
-		pEngine->currentScene = multiplayerScene;
-		Release();
-		pEngine->currentScene->Init();
-	}*/
-	
+		using namespace boost::python;
+
+		object UILoader = import( "UILoader" );
+		object StartSceneRun = UILoader.attr( "StartSceneRun" );
+		StartSceneRun();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 }
 
 void StartScene::Draw()
@@ -31,15 +34,13 @@ void StartScene::Init()
 
 	uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
 
-
 	try
 	{
 		using namespace boost::python;
 
 		object UILoader = import( "UILoader" );
 		object GetRoot = UILoader.attr( "GetRoot" );
-		root = GetRoot();
-		//root.ptr()->ob_refcnt++;		// 增加引用计数
+		object root = GetRoot();
 
 		IUIObject* r = extract<IUIObject*>( root ); 
 		uiManager->SetRoot( r );
@@ -97,16 +98,8 @@ void StartScene::Init()
 	////u->AddAnimator(alpani);
 	////alpani->drop();
 
-	//uiManager->SetRoot( u );	
-	//uiManager->AddUINode( v, u );
-	//uiManager->AddUINode( bt, u );
-
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
-		//std::cout<< u->GetAbsoluteTransformation() <<std::endl;
-		/*std::cout<< event.MouseInput.X << " , " << event.MouseInput.Y <<std::endl;
-		std::cout<< u->IsPointIn( event.MouseInput.X, event.MouseInput.Y ) <<std::endl;
-		std::cout << std::endl;*/
 		uiManager->OnEvent( event );
 		return 0;
 	} );
@@ -119,6 +112,12 @@ void StartScene::Release()
 
 	delete uiManager;
 
+	// 清除掉自己注册的回调函数，否则会因为引用销毁的东西而导致崩溃
+	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+	{	
+		return 0;
+	} );
+
 	try
 	{
 		using namespace boost::python;
@@ -126,7 +125,6 @@ void StartScene::Release()
 		object UILoader = import( "UILoader" );
 		object DeleteTree = UILoader.attr( "DeleteTree" );
 		DeleteTree();
-		root = object();
 	}
 	catch ( ... )
 	{

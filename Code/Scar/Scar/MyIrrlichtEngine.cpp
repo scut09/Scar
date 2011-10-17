@@ -17,7 +17,7 @@ int MyIrrlichtEngine::screen_width = 1000;
 int MyIrrlichtEngine::screen_height = 640;
 // 全屏设置，默认为窗口
 bool MyIrrlichtEngine::bFullScreen = false;
-shared_ptr<GameScene> MyIrrlichtEngine::currentScene;
+GameScene* MyIrrlichtEngine::currentScene = NULL;
 
 
 /*
@@ -79,6 +79,8 @@ void MyIrrlichtEngine::Run()
 	while ( m_pDevice->run() )
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;
+
+		if ( currentScene == NULL )		continue;
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 

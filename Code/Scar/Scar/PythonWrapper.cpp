@@ -94,3 +94,18 @@ irr::video::IVideoDriver* MyEngine::GetDriver()
 {
 	return m_driver;
 }
+
+void ChangeGameScene( GameScene* scene )
+{
+	if ( MyIrrlichtEngine::currentScene )
+	{
+		MyIrrlichtEngine::currentScene->Release();
+	}
+
+	MyIrrlichtEngine::currentScene = scene;
+
+	if ( MyIrrlichtEngine::currentScene )
+	{
+		MyIrrlichtEngine::currentScene->Init();
+	}
+}

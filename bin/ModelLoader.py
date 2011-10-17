@@ -2,7 +2,7 @@
 import random
 
 def Color( alpha, red, green, blue ):
-    color = SColor()
+    color = SColorFake()
     color.alpha = alpha
     color.red = red
     color.green = green

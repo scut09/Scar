@@ -73,19 +73,38 @@ scene::ISceneNode* Test( scene::ISceneNode* node )
 }
 
 
-shared_ptr<GameScene> InitScene()
+GameScene* InitScene()
 {
+	// 因为日后使用python创建出场景跳转，所以不需要管理内存，现在这里仅供测试
+
 	// 创建根场景
-	shared_ptr<StartScene> rootScene( new StartScene );
-	MyIrrlichtEngine::currentScene = rootScene;
-	shared_ptr<MultiplayerScene> multiplayerScene( new MultiplayerScene );
-	rootScene->multiplayerScene = multiplayerScene;
-	multiplayerScene->startScene = rootScene;
+	//StartScene* rootScene = new StartScene;
+	//MyIrrlichtEngine::currentScene = rootScene;
+	//MultiplayerScene* multiplayerScene = new MultiplayerScene;
+	//rootScene->Scenes[ 0 ] = multiplayerScene;
+	//multiplayerScene->Scenes[ 0 ] = rootScene;
 
-	// 初始化根场景
-	rootScene->Init();
+	//// 初始化根场景
+	//rootScene->Init();
 
-	return rootScene;
+	try
+	{
+		using namespace boost::python;
+
+		object UILoader = import( "UILoader" );
+		object GetRoot = UILoader.attr( "CreateGameScenes" );
+		object root = GetRoot();
+		//root.ptr()->ob_refcnt++;		// 增加引用计数
+
+		//MyIrrlichtEngine::currentScene = extract<GameScene*>( root ); 
+		//r->drop();	// 使用Python对象不用内存管理
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
+
+	return NULL;
 }
 
 
@@ -113,7 +132,7 @@ int main()
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 
 	// 这里需要保存一个根场景的引用，否则它会被销毁
-	shared_ptr<GameScene> root = InitScene();	// 构造场景跳转图
+	GameScene* root = InitScene();	// 构造场景跳转图
 
 	// 启动引擎
 	pEngine->Run();
