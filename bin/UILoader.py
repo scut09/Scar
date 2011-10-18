@@ -4,6 +4,16 @@ from Engine import *
 ObjectDeletionList = []     # 一个场景内部的所有资源，在场景调用Release时，这里面的东西会被删除
 ScenesDict = dict()     # 场景寿命长
 AnimatorsTime = dict()
+NodeChildren = dict()
+
+
+def SaveNodeChilren( node, Children ):
+    global NodeChilren
+    NodeChilren[ node ] = Children
+
+def GetNodeChildren():
+    global NodeChilren
+    return NodeChilren
 
 def SaveNodeAnimatorTime( node, time ):
     global AnimatorsTime

@@ -35,6 +35,13 @@ duration = 400
 
 def OnMenuButtonMouseMoveIn( node ):
     global duration
+
+    # 删除所有动画
+    childrenList = GetNodeChildren( node )
+    node.RemoveAnimators()
+    for child in  childrenList:
+        child.RemoveAnimators()
+    
     SaveNodeAnimatorTime( node, Timer().GetRealTime() )   
     alphaUp = AlphaChangeUIAnimator(
         Timer().GetRealTime(),
@@ -86,6 +93,13 @@ def OnMenuButtonMouseMoveIn( node ):
     
 def OnMenuButtonMouseMoveOut( node ):
     global duration
+    
+    # 删除所有动画
+    childrenList = GetNodeChildren( node )
+    node.RemoveAnimators()
+    for child in  childrenList:
+        child.RemoveAnimators()
+    
     addTime = 0
     runTime = Timer().GetRealTime() - GetAnimatorTime( node )
     addTime = duration - runTime   
@@ -153,37 +167,48 @@ def MainMenuBtn( titleIndex ):
         1
         )
     Save( btn )
+
+    # btn children list
+    btnChildren = []
     
-    default = BtnDefault()
+    default = BtnDefault()    
     over = BtnOver()
+    
+    btnChildren.append( over )
+    btnChildren.append( default )
     
     btn.AddChild( default )
     btn.AddChild( over )
 
     default1 = UIImage( None, 210, 210, 0 )
-    Save( default1 )
+    Save( default1 )    
     default1.LoadImage( "../media/UIResource/Menu/b_1_b.png" )
     default.AddChild( default1 )
+    btnChildren.append( default1 )
 
     default2 = UIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
     Save( default2 )
     default2.LoadImage( "../media/UIResource/Menu/b_2_b.png" )
     default.AddChild( default2 )
+    btnChildren.append( default2 )
 
     defaultTitle = UIImage( None, 96, 60, 1 )
     Save( defaultTitle )
     defaultTitle.LoadImage( BtnTitle[ titleIndex ] )
     default.AddChild( defaultTitle )
-
+    btnChildren.append( defaultTitle )
+    
     over1 = UIImage( None, 210, 210, 0 )
     Save( over1 )
     over1.LoadImage( "../media/UIResource/Menu/b_1_y.png" )
     over.AddChild( over1 )
+    btnChildren.append( over1 )
 
     over2 = UIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
     Save( over2 )
     over2.LoadImage( "../media/UIResource/Menu/b_2_y.png" )
     over.AddChild( over2 )
+    btnChildren.append( over2 )
 
     over3 = UIImage( None, 291, 83, -2, 0, vector2df( 200, 20 ) )
     Save( over3 )
@@ -192,16 +217,20 @@ def MainMenuBtn( titleIndex ):
     over3.SetScale( vector2df( 0.1, 1 ) )
     over3.SetPosition( vector2df( 100, 0 ) )
     over.AddChild( over3 )
+    btnChildren.append( over3 )
 
     overTitle = UIImage( None, 96, 60, 1 )
     Save( overTitle )
     overTitle.LoadImage( BtnTitle[ titleIndex ] )
     over.AddChild( overTitle )
+    btnChildren.append( overTitle )
 
     btn.AddFunc( "OnMouseMoveIn", "OnMenuButtonMouseMoveIn", "MenuUIObjects" )
     btn.AddFunc( "OnMouseMoveOut", "OnMenuButtonMouseMoveOut", "MenuUIObjects" )
     btn.AddFunc( "OnMouseLeftButtonUp", "OnMenuLeftButtonUp", "MenuUIObjects" )
 
+    SaveNodeChilren( btn, btnChildren )
+    
     return btn
 
 #######################################
