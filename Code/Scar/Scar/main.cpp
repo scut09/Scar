@@ -130,6 +130,22 @@ int main()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
+	using namespace boost::python;
+
+	try
+	{
+		object main_module = import( "__main__" );
+		object main_namespace = main_module.attr( "__dict__" );
+		//object sys = import( "sys" );
+		object ignored = exec( 
+			"import sys\n"
+			"sys.path.append('./python')\n", main_namespace );
+		ignored = exec( "print sys.path", main_namespace );
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 
 	// 这里需要保存一个根场景的引用，否则它会被销毁
 	GameScene* root = InitScene();	// 构造场景跳转图
