@@ -295,9 +295,6 @@
     <None Include="..\..\..\bin\MainMenuIni.py">
       <Filter>Python</Filter>
     </None>
-    <None Include="..\..\..\bin\MenuUIObjects.py">
-      <Filter>Python</Filter>
-    </None>
     <None Include="..\..\..\bin\setup.py">
       <Filter>Python</Filter>
     </None>

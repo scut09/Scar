@@ -121,11 +121,11 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
-//	m_pCamera->remove();
-//	m_pSkyBox->remove();
-//
-////	m_pAnimationMan->RemoveAll();
-//
-//	m_pModelMan->DeleteAll();
+	m_pCamera->remove();
+	m_pSkyBox->remove();
+
+//	m_pAnimationMan->RemoveAll();
+
+	m_pModelMan->DeleteAll();
 }
 

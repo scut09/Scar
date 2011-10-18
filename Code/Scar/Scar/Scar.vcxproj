@@ -162,7 +162,6 @@
     <None Include="..\..\..\bin\a.py" />
     <None Include="..\..\..\bin\client.py" />
     <None Include="..\..\..\bin\MainMenuIni.py" />
-    <None Include="..\..\..\bin\MenuUIObjects.py" />
     <None Include="..\..\..\bin\ModelLoader.py" />
     <None Include="..\..\..\bin\scene.py" />
     <None Include="..\..\..\bin\setup.py" />
