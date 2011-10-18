@@ -7,6 +7,7 @@ Begin(begin), Duration(duration), LastTime(begin), Loop(loop), Offset(offset)
 {
 	OffsetFactor.X = Offset.X / (f32)Duration;
 	OffsetFactor.Y = Offset.Y / (f32)Duration;
+	Origin = vector2d<f32>( 0.0012f, 0.0013f );
 }
 
 bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
@@ -14,6 +15,24 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	//还未到达动画开始时间
 	if( Begin > timeMS)
 		return false;
+	
+	/*u32 t = timeMS - LastTime;
+	LastTime = timeMS;
+	vector2d<f32> pos = node->GetPosition();
+	node->SetPosition( vector2d<f32>( pos.X + OffsetFactor.X * t, pos.Y + OffsetFactor.Y * t ) );*/
+
+	if ( Origin == vector2d<f32>( 0.0012f, 0.0013f ) )
+		Origin = node->GetPosition();
+
+	u32 t = timeMS - Begin;
+	vector2d<f32> offset = OffsetFactor * t;
+	if( offset.getLength() > Offset.getLength() )
+	{
+		offset.X = (f32)Offset.X;
+		offset.Y = (f32)Offset.Y;
+	}
+	node->SetPosition( Origin + offset );
+
 	//到达动画结束时间
 	if( timeMS - Begin > Duration )
 	{
@@ -30,11 +49,6 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 			return false;
 		}
 	}
-	u32 t = timeMS - LastTime;
-	LastTime = timeMS;
-
-	vector2d<f32> pos = node->GetPosition();
-	node->SetPosition( vector2d<f32>( pos.X + OffsetFactor.X * t, pos.Y + OffsetFactor.Y * t ) );
 
 	return true;
 }

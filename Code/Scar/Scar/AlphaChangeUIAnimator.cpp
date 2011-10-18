@@ -18,6 +18,15 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	//还未达到动画开始时间
 	if ( Begin > timeMS )
 		return false;
+	
+	/*u32 t = timeMS - LastTime;
+	LastTime = timeMS;*/
+	u32 t = timeMS - Begin;
+	f32 alpha = SrcAlpha + AlphaFactor * t;
+	if( alpha > 255 ) alpha = 255;
+	else if ( alpha < 0 ) alpha = 0;
+	node->SetAlpha( alpha );
+
 	//到达动画结束时间
 	if ( timeMS - Begin > Duration )
 	{
@@ -34,14 +43,6 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 			return false;
 		}
 	}
-	u32 t = timeMS - LastTime;
-	LastTime = timeMS;
-
-	f32 alpha = node->GetAlpha() + AlphaFactor * t;
-	if( alpha > 255 ) alpha = 255;
-	else if ( alpha < 0 ) alpha = 0;
-
-	node->SetAlpha( alpha );
 
 	return true;
 }

@@ -19,6 +19,7 @@ private:
 	f32 Angle;
 	f32 AngleFactor;
 	u32 LastTime;
+	f32 Origin;
 	bool Loop;
 
 public:

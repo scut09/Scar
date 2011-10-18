@@ -28,6 +28,7 @@ private:
 	u32 Duration;
 	vector2d<f32> OffsetFactor;
 	vector2d<s32> Offset;
+	vector2d<f32> Origin;
 	bool Loop;
 	
 };

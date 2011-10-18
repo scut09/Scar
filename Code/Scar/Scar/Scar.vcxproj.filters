@@ -46,6 +46,9 @@
     <Filter Include="UI\UIAnimators">
       <UniqueIdentifier>{7f912e8c-5412-468e-9305-b4b928b7e219}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Python\py">
+      <UniqueIdentifier>{6c37d9d7-2f75-4032-8865-4b0b4e19bd46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -274,32 +277,41 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\bin\a.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\a.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\client.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\client.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\WEB.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\MainMenuIni.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\ModelLoader.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\ModelLoader.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\scene.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\MouseEventHandler.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\UILoader.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\scene.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\MainMenuIni.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\setup.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\setup.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\SexangleButton.py">
+      <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\StartScene.py">
-      <Filter>Python</Filter>
+    <None Include="..\..\..\bin\Python\SexangleButtonPop.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\StartScene.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\UILoader.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\WEB.py">
+      <Filter>Python\py</Filter>
     </None>
   </ItemGroup>
 </Project>

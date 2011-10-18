@@ -19,6 +19,7 @@ private:
 	u32 LastTime;
 	vector2d<f32> Scale;
 	vector2d<f32> ScaleFactor;
+	vector2d<f32> Origin;
 	bool Loop;
 
 public:
