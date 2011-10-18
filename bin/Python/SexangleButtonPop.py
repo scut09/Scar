@@ -175,10 +175,8 @@ def OnMenuButtonMouseMoveOut( node ):
 
     
 def OnMenuLeftButtonUp( node ):
-    m = MultiplayerScene()
-    SaveScenes( "fuck", m )
-    DeleteTree()
-    ChangeGameScene( m )
+    global ScenesDict
+    ChangeGameScene( ScenesDict[ 'm' ] )
     
     
     
