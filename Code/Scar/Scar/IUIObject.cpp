@@ -280,7 +280,9 @@ bool IUIObject::IsPointIn( s32 x, s32 y )
 			return tem;
 		for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
 		{
-			if ((*iter)->IsPointIn( x, y ))
+			if  (DestinationQuadrangle[0] == DestinationQuadrangle[2] )
+				break;
+			if ( (*iter)->IsPointIn( x, y ) )
 				return true;
 		}
 	}
