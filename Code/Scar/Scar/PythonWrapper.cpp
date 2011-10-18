@@ -9,7 +9,7 @@
 
 #include "PythonWrapper.h"
 #include "MyIrrlichtEngine.h"
-
+#include <boost/thread.hpp>
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -95,8 +95,12 @@ irr::video::IVideoDriver* MyEngine::GetDriver()
 	return m_driver;
 }
 
+boost::mutex ChangeGameSceneMutex;
+
 void ChangeGameScene( GameScene* scene )
 {
+	boost::mutex::scoped_lock lock( ChangeGameSceneMutex );
+
 	if ( MyIrrlichtEngine::currentScene )
 	{
 		MyIrrlichtEngine::currentScene->Release();
