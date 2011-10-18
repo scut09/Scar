@@ -44,5 +44,5 @@ RotateUIAnimator* RotateUIAnimator::Clone()
 
 RotateUIAnimator::~RotateUIAnimator()
 {
-	std::cout << "====> RotateUIAnimator destructoin\n";
+	DESTRUCTION_PRINT("RotateUIAnimator");
 }

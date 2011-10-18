@@ -11,6 +11,13 @@
 #ifndef UIAnimator_h__
 #define UIAnimator_h__
 
+// 定义OUTPUT_DESTRUCTION_INFO可以输出动画的析构信息
+#ifdef OUTPUT_DESTRUCTION_INFO
+#	define DESTRUCTION_PRINT( classname ) std::cout << "====> " << classname << std::endl;
+#else
+#	define DESTRUCTION_PRINT( classname )
+#endif
+
 #include "MyIReferenceCounted.h"
 using namespace irr;
 

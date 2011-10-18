@@ -46,5 +46,5 @@ TranslateUIAnimator* TranslateUIAnimator::Clone()
 
 TranslateUIAnimator::~TranslateUIAnimator()
 {
-	std::cout << "====> TranslateUIAnimator destruction\n";
+	DESTRUCTION_PRINT("TranslateUIAnimator");
 }

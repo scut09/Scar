@@ -25,6 +25,7 @@ private:
 public:
 	AlphaChangeUIAnimator( u32 begin, u32 duration, f32 srcalpha,
 		f32 taralpha, bool loop = false );
+	~AlphaChangeUIAnimator();
 
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 

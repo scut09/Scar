@@ -23,6 +23,7 @@ private:
 
 public:
 	ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, bool loop = false );
+	~ScaleUIAnimator();
 
 	virtual bool animateUIObject( IUIObject* node, u32 timeMS );
 

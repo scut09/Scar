@@ -2,18 +2,26 @@
 from Engine import *
 
 ObjectDeletionList = []     # 一个场景内部的所有资源，在场景调用Release时，这里面的东西会被删除
-ScenesDict = dict()     # 场景寿命长
+ScenesDict = dict()         # 场景寿命长
 AnimatorsTime = dict()
 NodeChildren = dict()
 
-
 def SaveNodeChilren( node, Children ):
+    '保存一个节点的孩子,输入一个list'
     global NodeChilren
     NodeChildren[ node ] = Children
 
 def GetNodeChildren( node ):
+    '获取一个节点的所有孩子'
     global NodeChildren
     return NodeChildren[ node ]
+
+def DeleteNodeAnimators( node ):
+    '通知节点在C++中将它们的动画列表清空'
+    global NodeChildren
+    node.RemoveAnimators()
+    for child in NodeChildren[ node ]:
+        child.RemoveAnimators()
 
 def SaveNodeAnimatorTime( node, time ):
     global AnimatorsTime
@@ -27,8 +35,11 @@ def Save( obj ):
     
 # 删除一个场景内部的资源
 def DeleteTree():
-    global ObjectDeletionList
-    ObjectDeletionList = dict()
+    global ObjectDeletionList, NodeChildren, AnimatorsTime
+    ObjectDeletionList = []
+    AnimatorsTime = dict()
+    NodeChildren = dict()
+    
 
 def GetAnimatorTime( node ):
     global AnimatorsTime
@@ -38,10 +49,11 @@ def GetAnimatorTime( node ):
 def SaveScenes( name, scene ):
     global ScenesDict
     ScenesDict[ name ] = scene
+    
 # 删除整个场景
 def DeleteScenes():
     global ScenesDict
-    ScenesDict = []
+    ScenesDict = dict()
 
 count = 0
 def StartSceneRun():

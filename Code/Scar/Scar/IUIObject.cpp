@@ -271,17 +271,19 @@ bool IUIObject::IsPointIn( s32 x, s32 y )
 {
 	if ( IsVisible )
 	{
-		bool tem;
-		if( Shape == SQUARE )
-			tem = IsPointInSquare( x, y );
-		if( Shape == CIRCLE )
-			tem = IsPointInCircle( x, y );
-		if ( tem )
-			return tem;
+		if ( DestinationQuadrangle[0] != DestinationQuadrangle[2] ) 
+		{
+			bool tem;
+			if( Shape == SQUARE )
+				tem = IsPointInSquare( x, y );
+			if( Shape == CIRCLE )
+				tem = IsPointInCircle( x, y );
+			if ( tem )
+				return tem;
+		}
+
 		for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
 		{
-			if  (DestinationQuadrangle[0] == DestinationQuadrangle[2] )
-				break;
 			if ( (*iter)->IsPointIn( x, y ) )
 				return true;
 		}

@@ -50,3 +50,8 @@ AlphaChangeUIAnimator* AlphaChangeUIAnimator::Clone()
 {
 	return new AlphaChangeUIAnimator(Begin, Duration, SrcAlpha, TarAlpha, Loop);
 }
+
+AlphaChangeUIAnimator::~AlphaChangeUIAnimator()
+{
+	DESTRUCTION_PRINT("AlphaChangeUIAnimator");
+}

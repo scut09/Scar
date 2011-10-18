@@ -43,4 +43,9 @@ ScaleUIAnimator* ScaleUIAnimator::Clone()
 	return new ScaleUIAnimator(Begin, Duration, Scale, Loop);
 }
 
+ScaleUIAnimator::~ScaleUIAnimator()
+{
+	DESTRUCTION_PRINT("ScaleUIAnimator");
+}
+
 
