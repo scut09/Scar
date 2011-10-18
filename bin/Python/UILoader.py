@@ -1,13 +1,16 @@
-﻿from UI import *
+﻿# 加载C++中的模块
+from UI import *
 from Engine import *
+# 加载其他Python模块，尽量不使用from ... import *，除非是通用的工具函数，
+# 否则使用import
+from ScenesCreator import *
 
 ObjectDeletionList = []     # 一个场景内部的所有资源，在场景调用Release时，这里面的东西会被删除
-ScenesDict = dict()         # 场景寿命长
 AnimatorsTime = dict()
 NodeChildren = dict()
 
 def SaveNodeChilren( node, Children ):
-    '保存一个节点的孩子,输入一个list'
+    '保存一个节点的孩子,输入一个list，以便于可以一次性删除节点及子节点的动画'
     global NodeChilren
     NodeChildren[ node ] = Children
 
@@ -45,15 +48,6 @@ def GetAnimatorTime( node ):
     global AnimatorsTime
     return AnimatorsTime[ node ]
 
-# 保存整个场景跳转状态图
-def SaveScenes( name, scene ):
-    global ScenesDict
-    ScenesDict[ name ] = scene
-    
-# 删除整个场景
-def DeleteScenes():
-    global ScenesDict
-    ScenesDict = dict()
 
 count = 0
 def StartSceneRun():
@@ -63,19 +57,4 @@ def StartSceneRun():
         ChangeGameScene( ScenesDict[ 'm' ] )    # 跳转到多人游戏
         count = 0
     count += 1
-
-def CreateGameScenes():
-    menu = MenuScene()
-    SaveScenes( "menu", menu )
-    
-    start = StartScene()
-    SaveScenes( "start", start )
-    
-    multi = MultiplayerScene()
-    SaveScenes( "m", multi )
-    
-    start.Scenes[ 0 ] = multi
-    
-    ChangeGameScene( menu )
-
 
