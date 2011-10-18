@@ -13,6 +13,7 @@
 
 using namespace boost::python;
 
+void InitPythonPath();
 
 class PythonManager
 {
