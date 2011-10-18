@@ -60,8 +60,8 @@ def OnMenuButtonMouseMoveIn( node ):
         duration,
         vector2d( 260, 0 ) )
     Save( move1 )
-    move2 = move1.Clone()
-    Save( move2 )
+    move2 = move1.Clone()    
+    #Save( move2 )
     squareAlpha = AlphaChangeUIAnimator(
         Timer().GetRealTime(),
         duration,
@@ -80,11 +80,16 @@ def OnMenuButtonMouseMoveIn( node ):
         duration,
         vector2d( 100, 0 ) )
     Save( squareTrans )
+    node.GetChildren()[1].GetChildren()[0].SetPosition( vector2df( 100, 0 ) )
+
+    node.GetChildren()[0].GetChildren()[0].SetPosition( vector2df( 66, -15 ) )
+    node.GetChildren()[1].GetChildren()[1].SetPosition( vector2df( 66, -15 ) )
     
     node.GetChildren()[0].AddAnimator( alphaDown )
     node.GetChildren()[1].AddAnimator( alphaUp )
     node.GetChildren()[0].GetChildren()[0].AddAnimator( move1 )
     node.GetChildren()[1].GetChildren()[1].AddAnimator( move2 )
+    move2.drop()
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
@@ -141,9 +146,8 @@ def OnMenuButtonMouseMoveOut( node ):
     squareTrans = TranslateUIAnimator(
         Timer().GetRealTime() + addTime,
         duration,
-        vector2d( 66 - Float2Int( node.GetChildren()[1].GetChildren()[0].GetPosition().X ), 0 ) )
+        vector2d( 100 - Float2Int( node.GetChildren()[1].GetChildren()[0].GetPosition().X ), 0 ) )
     Save( squareTrans )
-    
     node.GetChildren()[0].AddAnimator( alphaUp )
     node.GetChildren()[1].AddAnimator( alphaDown )
     node.GetChildren()[0].GetChildren()[0].AddAnimator( move1 )
@@ -151,7 +155,6 @@ def OnMenuButtonMouseMoveOut( node ):
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
-
 def OnMenuLeftButtonUp( node ):
     m = MultiplayerScene()
     SaveScenes( "fuck", m )

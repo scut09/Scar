@@ -229,37 +229,39 @@ Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 ), Image( 0 ), Shape( s
 void IUIObject::OnEvent( const SEvent& event )
 {
 	//using namespace irr;
-
-	if ( event.EventType == EET_MOUSE_INPUT_EVENT )
+	if ( IsVisible )
 	{
-		SEvent::SMouseInput mouseEvent = event.MouseInput;
+		if ( event.EventType == EET_MOUSE_INPUT_EVENT )
+		{
+			SEvent::SMouseInput mouseEvent = event.MouseInput;
 
-		if ( mouseEvent.Event == EMIE_MOUSE_MOVED )
-			OnMouseMove( mouseEvent );
-		if ( mouseEvent.Event == EMIE_LMOUSE_PRESSED_DOWN )
-			OnMouseLeftButtonDown( mouseEvent );
-		if ( mouseEvent.Event == EMIE_LMOUSE_LEFT_UP )
-			OnMouseLeftButtonUp( mouseEvent );
-		if ( mouseEvent.Event == EMIE_RMOUSE_PRESSED_DOWN )
-			OnMouseRightButtonDown( mouseEvent );
-		if ( mouseEvent.Event == EMIE_RMOUSE_LEFT_UP )
-			OnMouseRightButtonUp( mouseEvent );
-		if ( mouseEvent.Event == EMIE_MOUSE_WHEEL )
-			OnWheel( mouseEvent );
-	}
-	else if ( event.EventType == EET_KEY_INPUT_EVENT )
-	{
-		SEvent::SKeyInput keyEvent = event.KeyInput;
-		if ( keyEvent.PressedDown )
-			OnKeyDown( keyEvent );
-		if ( !keyEvent.PressedDown )
-			OnKeyUp( keyEvent );
-	}
-	else
-		return;
+			if ( mouseEvent.Event == EMIE_MOUSE_MOVED )
+				OnMouseMove( mouseEvent );
+			if ( mouseEvent.Event == EMIE_LMOUSE_PRESSED_DOWN )
+				OnMouseLeftButtonDown( mouseEvent );
+			if ( mouseEvent.Event == EMIE_LMOUSE_LEFT_UP )
+				OnMouseLeftButtonUp( mouseEvent );
+			if ( mouseEvent.Event == EMIE_RMOUSE_PRESSED_DOWN )
+				OnMouseRightButtonDown( mouseEvent );
+			if ( mouseEvent.Event == EMIE_RMOUSE_LEFT_UP )
+				OnMouseRightButtonUp( mouseEvent );
+			if ( mouseEvent.Event == EMIE_MOUSE_WHEEL )
+				OnWheel( mouseEvent );
+		}
+		else if ( event.EventType == EET_KEY_INPUT_EVENT )
+		{
+			SEvent::SKeyInput keyEvent = event.KeyInput;
+			if ( keyEvent.PressedDown )
+				OnKeyDown( keyEvent );
+			if ( !keyEvent.PressedDown )
+				OnKeyUp( keyEvent );
+		}
+		else
+			return;
 
-	for( auto iter = Children.begin(); iter != Children.end(); ++iter )
-		(*iter)->OnEvent( event );
+		for( auto iter = Children.begin(); iter != Children.end(); ++iter )
+			(*iter)->OnEvent( event );
+	}
 
 	//IUIObject::OnEvent( event );
 }
@@ -267,17 +269,20 @@ void IUIObject::OnEvent( const SEvent& event )
 //判断点是否在当前元件内部
 bool IUIObject::IsPointIn( s32 x, s32 y )
 {
-	bool tem;
-	if( Shape == SQUARE )
-		tem = IsPointInSquare( x, y );
-	if( Shape == CIRCLE )
-		tem = IsPointInCircle( x, y );
-	if ( tem )
-		return tem;
-	for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
+	if ( IsVisible )
 	{
-		if ((*iter)->IsPointIn( x, y ))
-			return true;
+		bool tem;
+		if( Shape == SQUARE )
+			tem = IsPointInSquare( x, y );
+		if( Shape == CIRCLE )
+			tem = IsPointInCircle( x, y );
+		if ( tem )
+			return tem;
+		for ( auto iter = Children.begin(); iter != Children.end(); ++iter )
+		{
+			if ((*iter)->IsPointIn( x, y ))
+				return true;
+		}
 	}
 
 	return false;	
