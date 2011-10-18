@@ -232,5 +232,10 @@ public:
 class GameScene;
 void ChangeGameScene( GameScene* scene );
 
+// 提供给Python类型转换
+s32 Float2Int( f32 f );
+
+f32 Int2Float( s32 s );
+
 #endif // PythonWrapper_h__
 

@@ -109,3 +109,14 @@ void ChangeGameScene( GameScene* scene )
 		MyIrrlichtEngine::currentScene->Init();
 	}
 }
+
+irr::s32 Float2Int( f32 f )
+{
+	return (s32)f;
+}
+
+irr::f32 Int2Float( s32 s )
+{
+	return (f32)s;
+}
+

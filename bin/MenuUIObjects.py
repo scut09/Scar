@@ -73,6 +73,8 @@ def OnMenuButtonMouseMoveIn( node ):
         duration,
         vector2df( 1.9, 1 ) )
     Save( squareScale )
+    node.GetChildren()[1].GetChildren()[0].SetScale( vector2df( 0.1, 1 ) )
+    
     squareTrans = TranslateUIAnimator(
         Timer().GetRealTime(),
         duration,
@@ -101,8 +103,8 @@ def OnMenuButtonMouseMoveOut( node ):
         child.RemoveAnimators()
     
     addTime = 0
-    runTime = Timer().GetRealTime() - GetAnimatorTime( node )
-    addTime = duration - runTime   
+    #runTime = Timer().GetRealTime() - GetAnimatorTime( node )
+    #addTime = duration - runTime   
     SaveNodeAnimatorTime( node, Timer().GetRealTime() )
     
     alphaUp = AlphaChangeUIAnimator(
@@ -117,10 +119,11 @@ def OnMenuButtonMouseMoveOut( node ):
         255,
         0 )
     Save( alphaDown )
+    
     move1 = TranslateUIAnimator(
         Timer().GetRealTime() + addTime,
         duration,
-        vector2d( -260, 0 ) )
+        vector2d( 66 - Float2Int( node.GetChildren()[0].GetChildren()[0].GetPosition().X ), 0 ) )
     Save( move1 )
     move2 = move1.Clone()
     Save( move2 )
@@ -138,7 +141,7 @@ def OnMenuButtonMouseMoveOut( node ):
     squareTrans = TranslateUIAnimator(
         Timer().GetRealTime() + addTime,
         duration,
-        vector2d( -100, 0 ) )
+        vector2d( 66 - Float2Int( node.GetChildren()[1].GetChildren()[0].GetPosition().X ), 0 ) )
     Save( squareTrans )
     
     node.GetChildren()[0].AddAnimator( alphaUp )

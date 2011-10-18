@@ -104,4 +104,8 @@ BOOST_PYTHON_MODULE( Engine )
 
 	def( "ChangeGameScene", ChangeGameScene, args("scene"), "change the game scene and initialize it " );
 
+	def( "Float2Int", Float2Int, args("f"), "f 2 I" );
+
+	def( "Int2Float", Int2Float, args( "s" ), "I 2 F" );
+
 }
