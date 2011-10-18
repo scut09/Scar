@@ -1,4 +1,7 @@
-﻿# 加载C++中的模块
+﻿# 
+# 作者：华亮
+# 说明：提供创建场景，切换场景，删除场景的方法
+#
 from UI import *
 from Engine import *
 
