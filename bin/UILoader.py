@@ -9,11 +9,11 @@ NodeChildren = dict()
 
 def SaveNodeChilren( node, Children ):
     global NodeChilren
-    NodeChilren[ node ] = Children
+    NodeChildren[ node ] = Children
 
-def GetNodeChildren():
-    global NodeChilren
-    return NodeChilren
+def GetNodeChildren( node ):
+    global NodeChildren
+    return NodeChildren[ node ]
 
 def SaveNodeAnimatorTime( node, time ):
     global AnimatorsTime
