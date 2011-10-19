@@ -75,7 +75,21 @@ video::IVideoDriver* MyIrrlichtEngine::GetVideoDriver()
 
 void MyIrrlichtEngine::Run()
 {
+	core::dimension2d<u32> size = m_pDevice->getVideoDriver()->getScreenSize();
 	u32 frameTime = 16;
+	wchar_t tmp[255];
+	s32 now = 0;
+	s32 lastfps = 0;
+	s32 sceneStartTime = m_pDevice->getTimer()->getTime();
+	gui::IGUIStaticText* statusText;
+	const int lwidth = size.Width - 20;
+	const int lheight = 16;
+
+	core::rect<int> pos(10, size.Height-lheight-10, 10+lwidth, size.Height-10);
+	//m_pDevice->getGUIEnvironment()->addImage(pos);
+	statusText = m_pDevice->getGUIEnvironment()->addStaticText(L"Loading...",	pos, true);
+	statusText->setOverrideColor(video::SColor(255,205,200,200));
+
 	while ( m_pDevice->run() )
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;
@@ -105,6 +119,20 @@ void MyIrrlichtEngine::Run()
 		m_pDriver->endScene();
 
 		ClearDeletionList();	// 删除待删除队列中的东西，主要提供给自删除动画使用
+
+		// write statistics
+		const s32 nowfps = m_pDriver->getFPS();
+
+		swprintf(tmp, 255, L"%ls fps:%3d triangles:%0.3f mio/s",
+			m_pDriver->getName(), m_pDriver->getFPS(),
+			m_pDriver->getPrimitiveCountDrawn(1) * (1.f / 1000000.f));
+
+		statusText->setText(tmp);
+		if ( nowfps != lastfps )
+		{
+			m_pDevice->setWindowCaption(tmp);
+			lastfps = nowfps;
+		}
 
 		m_lastUpdateTime = now;
 	}

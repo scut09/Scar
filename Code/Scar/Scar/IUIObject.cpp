@@ -276,7 +276,7 @@ bool IUIObject::IsPointIn( s32 x, s32 y )
 			bool tem;
 			if( Shape == SQUARE )
 				tem = IsPointInSquare( x, y );
-			if( Shape == CIRCLE )
+			else if( Shape == CIRCLE )
 				tem = IsPointInCircle( x, y );
 			if ( tem )
 				return tem;
