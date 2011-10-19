@@ -9,6 +9,9 @@ from Engine import *
 # 否则使用import
 from ScenesCreator import *
 
+ScreenWidth = 0
+ScreenHeight = 0
+
 ObjectDeletionList = []     # 一个场景内部的所有资源，在场景调用Release时，这里面的东西会被删除
 AnimatorsTime = dict()      # 保存节点的动画开始时间
 NodeChildren = dict()       # 保存一个节点的所有孩子
@@ -51,6 +54,14 @@ def DeleteTree():
 def GetAnimatorTime( node ):
     global AnimatorsTime
     return AnimatorsTime[ node ]
+
+def SetScreen( x, y ):
+    global ScreenWidth, ScreenHeight
+    ScreenWidth, ScreenHeight = x, y
+
+def GetScreen():
+    global ScreenWidth, ScreenHeight
+    return ( ScreenWidth, ScreenHeight )
 
 
 count = 0

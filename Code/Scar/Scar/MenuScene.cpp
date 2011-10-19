@@ -8,6 +8,27 @@
 void MenuScene::Run()
 {
 	//std::cout<< "fuck" << std::endl;
+	if ( IsFirstRun )
+	{
+		IsFirstRun = false;
+
+		try
+		{
+			using namespace boost::python;
+
+			object UILoader = import( SceneName.c_str() );
+			object LoadStartAnimation = UILoader.attr( "LoadStartAnimation" );
+			IUIObject* root = uiManager->GetRoot();
+			LoadStartAnimation( boost::ref( root ) );
+
+			//r->drop();	// 使用Python对象不用内存管理
+		}
+		catch ( ... )
+		{
+			PyErr_Print();
+		}
+
+	}
 }
 
 void MenuScene::Init()

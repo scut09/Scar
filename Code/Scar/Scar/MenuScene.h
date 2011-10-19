@@ -19,8 +19,10 @@ class MenuScene : public GameScene
 
 	std::string SceneName;
 
+	bool	IsFirstRun;
+
 public:
-	MenuScene( const std::string& sceneName ) : SceneName( sceneName )
+	MenuScene( const std::string& sceneName ) : SceneName( sceneName ), IsFirstRun( true )
 	{
 
 	}

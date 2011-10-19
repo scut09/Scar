@@ -14,9 +14,9 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	if( Begin > timeMS)
 		return false;
 	
-	/*u32 t = timeMS - LastTime;
-	LastTime = timeMS;
-	node->SetRotation( node->GetRotation() + AngleFactor * t );*/
+	//u32 t = timeMS - LastTime;
+	//LastTime = timeMS;
+	//node->SetRotation( node->GetRotation() + AngleFactor * t );
 
 	if( Origin == 0.0013f )
 		Origin = node->GetRotation();
@@ -37,6 +37,7 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		//不循环
 		else
 		{
+			node->SetRotation( Origin + ang );
 			//把自己删掉
 			node->RemoveAnimator(this);
 			return false;

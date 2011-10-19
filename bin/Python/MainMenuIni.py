@@ -2,8 +2,8 @@
 import SexangleButton
 import ScenesCreator
 
-RatioX = 0.78125
-RatioY = 0.625
+RatioX = ScreenWidth / 1280.0
+RatioY = ScreenHeight / 1024.0
 AniList = [] #用以保存动画
 Save( AniList )
 
@@ -11,6 +11,8 @@ def GetRoot():
     
     global RatioX
     global RatioY
+
+    print RatioX, RatioY
 
     # 场景根节点
     root = UIImage( None, 0, 0 )
@@ -110,6 +112,69 @@ def CreateMenu():
     dua = 400 #动画持续时间
     #AniList = [] #用以保存动画
     global AniList
+    '''rot1 = RotateUIAnimator(
+        Timer().GetRealTime(),
+        dua,
+        450 )
+    sca1 = ScaleUIAnimator(
+        Timer().GetRealTime(),
+        dua,
+        vector2df( 1.9, 1.9 ) )
+    alp1 = AlphaChangeUIAnimator(
+        Timer().GetRealTime(),
+        dua,
+        0,
+        255 )
+    rot2 = rot1.Clone()
+    rot3 = rot1.Clone()
+    rot4 = rot1.Clone()
+    sca2 = sca1.Clone()
+    sca3 = sca1.Clone()
+    sca4 = sca1.Clone()
+    alp2 = alp1.Clone()
+    alp3 = alp1.Clone()
+    alp4 = alp1.Clone()
+    btn1.AddAnimator( rot1 )
+    btn1.AddAnimator( alp1 )
+    btn1.AddAnimator( sca1 )
+    btn2.AddAnimator( rot2 )
+    btn2.AddAnimator( alp2 )
+    btn2.AddAnimator( sca2 )
+    btn3.AddAnimator( rot3 )
+    btn3.AddAnimator( alp3 )
+    btn3.AddAnimator( sca3 )
+    btn4.AddAnimator( rot4 )
+    btn4.AddAnimator( alp4 )
+    btn4.AddAnimator( sca4 )
+    rot2.drop()
+    rot3.drop()
+    rot4.drop()
+    sca2.drop()
+    sca3.drop()
+    sca4.drop()
+    alp2.drop()
+    alp3.drop()
+    alp4.drop()
+    AniList.append( rot1 )
+    AniList.append( alp1 )
+    AniList.append( sca1 )'''
+
+    #Save( AniList )
+
+    btn2.AddFunc( "OnMouseLeftButtonDown", "OnBtn2Click", "MainMenuIni" )
+
+    return menu
+
+def LoadStartAnimation( root ):
+    dua = 400
+    menu = root.GetChildren()[1]
+    #menu.SetScale( vector2df( 0.5, 0.5 ) )
+    btn1 = menu.GetChildren()[0]
+    btn2 = menu.GetChildren()[1]
+    btn3 = menu.GetChildren()[2]
+    btn4 = menu.GetChildren()[3]
+
+    # 按钮出现动画
     rot1 = RotateUIAnimator(
         Timer().GetRealTime(),
         dua,
@@ -157,21 +222,17 @@ def CreateMenu():
     AniList.append( alp1 )
     AniList.append( sca1 )
 
-    #Save( AniList )
-
-    btn2.AddFunc( "OnMouseLeftButtonDown", "OnBtn2Click", "MainMenuIni" )
-
-    return menu
+    return root
 
 ######################################################
 # 点击多人游戏后切换场景
 ###################################################### 
 def OnBtn2Click( node ):
-    '''menu = node.Parent
-    btn1 = node.GetChildren()[0]
-    btn2 = node.GetChildren()[1]
-    btn3 = node.GetChildren()[2]
-    btn4 = node.GetChildren()[3]'''
+    menu = node.GetParent()
+    btn1 = menu.GetChildren()[0]
+    btn2 = menu.GetChildren()[1]
+    btn3 = menu.GetChildren()[2]
+    btn4 = menu.GetChildren()[3]
     #创建菜单过场动画
     sca1 = ScaleUIAnimator(
         Timer().GetRealTime(),
@@ -181,6 +242,9 @@ def OnBtn2Click( node ):
         Timer().GetRealTime(),
         400,
         255,
-        0 )    
-    #global ScenesDict
+        0 )
+    AniList.append( sca1 )
+    AniList.append( alp1 )
+    btn1.AddAnimator( sca1 )
+    btn1.AddAnimator( alp1 )
     ChangeGameScene( GetScene( 'm' ) )

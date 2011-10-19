@@ -123,7 +123,7 @@ int main()
 	// 初始化引擎
 	MyIrrlichtEngine::pEventReceiver = &receiver;
 	MyIrrlichtEngine::screen_width = 1000;
-	MyIrrlichtEngine::screen_height = 640;
+	MyIrrlichtEngine::screen_height = 600;
 	MyIrrlichtEngine::bFullScreen = false;
 
 	// 创建引擎，并获取引擎指针
@@ -141,6 +141,10 @@ int main()
 			"import sys\n"
 			"sys.path.append('./python')\n", main_namespace );
 		ignored = exec( "print sys.path", main_namespace );
+
+		object UILoader = import( "UILoader" );
+		object SetScreen = UILoader.attr( "SetScreen" );
+		SetScreen( MyIrrlichtEngine::screen_width, MyIrrlichtEngine::screen_height );
 	}
 	catch ( ... )
 	{
