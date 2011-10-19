@@ -141,6 +141,9 @@
     <ClCompile Include="PythonFixUI.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="huoyanshuxing.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="UIImage.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="huoyanshuxing.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

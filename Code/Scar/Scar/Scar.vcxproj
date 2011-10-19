@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Flame.h" />
     <ClInclude Include="FlyBehavior.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="huoyanshuxing.h" />
     <ClInclude Include="IAircraft.h" />
     <ClInclude Include="IClient.h" />
     <ClInclude Include="IFly.h" />
