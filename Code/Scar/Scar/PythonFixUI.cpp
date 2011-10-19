@@ -673,8 +673,8 @@ struct MenuScene_wrapper : MenuScene, bp::wrapper< MenuScene > {
         
     }
 
-    MenuScene_wrapper( )
-    : MenuScene( )
+    MenuScene_wrapper( const std::string& sceneName )
+    : MenuScene( sceneName )
       , bp::wrapper< MenuScene >(){
         // null constructor
     
@@ -2339,7 +2339,7 @@ BOOST_PYTHON_MODULE( UI ){
             , (void ( ::IUIObject::* )(  ) )(&::IUIObject::remove)
             , (void ( IUIObject_wrapper::* )(  ) )(&IUIObject_wrapper::default_remove) );
 
-    bp::class_< MenuScene_wrapper, bp::bases< GameScene > >( "MenuScene", bp::init< >() )    
+    bp::class_< MenuScene_wrapper, bp::bases< GameScene > >( "MenuScene", bp::init< const std::string& >() )    
         .def( 
             "Draw"
             , (void ( ::MenuScene::* )(  ) )(&::MenuScene::Draw)

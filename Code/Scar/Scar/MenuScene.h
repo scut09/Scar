@@ -5,6 +5,7 @@
 #include "MyIrrlichtEngine.h"
 #include "AllUIObjects.h"
 #include "UIManager.h"
+#include <string>
 
 class MenuScene : public GameScene
 {
@@ -17,7 +18,7 @@ class MenuScene : public GameScene
 	UIManager* uiManager;
 
 public:
-	MenuScene()
+	MenuScene( const std::string& sceneName )
 	{
 
 	}
