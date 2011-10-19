@@ -2,17 +2,9 @@
 #include "MyIrrlichtEngine.h"
 #include <iostream>
 #include <math.h>
-#include "Flame.h"
+//#include "Flame.h"
 
-int isfirsttime = 1;
-u32 lasttime,t_sum = 0;
-core::vector3df speed_daodan = core::vector3df(1,1,1);
 
-IParticleSystemSceneNode* firelist[100];
-int head_firelist,tail_firelist;
-
-CFlame flame;
-//std::list< scene::ISceneNode* > liziList;
 
 void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 timeMs )
 {
@@ -24,12 +16,13 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 	{
 		node->setPosition(vector3df(0,0,200));
 		lasttime = timeMs;
-		head_firelist = 99;
-		for (int k = 0;k < 100;k++)
+		head_firelist = amount_daodan - 1;
+		for (int k = 0;k < amount_daodan;k++)
 		{
-			firelist[k] =flame.createFlame(
+			firelist[k].createFlame(
 				MyIrrlichtEngine::GetEngine()->GetDevice(), 
-				"../media/particle.bmp",0,-1,
+				"../media/particle.bmp"				
+				/*,0,-1,
 				vector3df(0,0,0),
 				SColor(0,0,0,255),
 				1000,aabbox3df(0,0,0,1,1,1),
@@ -37,8 +30,9 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 				1000,1000,(f32)0,
 				SColor(0,255,255,255),SColor(0,255,255,255),
 				dimension2df(6,9),dimension2df( 6,9 ),
-				speed_daodan
-				);		
+				speed_daodan*/
+				);
+			//firelist[k].modifyFlameByAccel(speed_daodan);
 		//	firelist[k]->setVisible(false);	
 		}	
 		tail_firelist = 0;
@@ -99,10 +93,11 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 		}
 
 		//设置跟踪的火焰
-		for (int k = 0;k < 2;k++)
+		for (int k = 0;k < 1;k++)
 		{
 			head_firelist++;
-			firelist[head_firelist % 100]->setPosition(pos_daodan);
+			firelist[head_firelist % amount_daodan].setpos(pos_daodan);
+			firelist[head_firelist % amount_daodan].modifyFlameByAccel(speed_daodan);
 			//firelist[head_firelist % 100]->
 		}
 
@@ -128,10 +123,7 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 	
 		vector3df distance;
 		distance = node->getPosition() - pos;
-
-
 		
-
 
 		if (distance.getLength() < max_yinbao)
 		{
@@ -142,16 +134,6 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 		{
 			//std::cout <<"自我爆炸"<< std::endl;  //这里调用爆炸函数  然后返回			
 		}
-
-		/*if (t_sum > 2000)
-		{
-			for (int i = 0;i < 2 && liziList.size();i++)
-			{
-				(liziList.front())->remove();				
-				liziList.pop_front();
-			}				
-		}	*/
-
 		break;
 	}
 

@@ -14,6 +14,7 @@
 #include "FlyBehavior.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "Flame.h"
+#include "huoyanshuxing.h"
 
 
 void MultiplayerScene::Run()
@@ -66,6 +67,13 @@ void MultiplayerScene::Init()
 	ISceneNodeAnimator* anim = new CSceneNodeAnimatorAutoTrack( smgr );
 	node->addAnimator( anim );
 	anim->drop();
+
+	for ( auto iter = m_pModelMan->GetISceneNodeList().begin(); iter != m_pModelMan->GetISceneNodeList().end(); ++iter )
+	{
+		ISceneNodeAnimator* anim = new Chuoyanshuxing( smgr );
+		(*iter)->addAnimator( anim );
+		anim->drop();
+	}
 
 
 	ModuleControl control;
