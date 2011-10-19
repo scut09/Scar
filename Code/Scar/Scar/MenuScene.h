@@ -17,8 +17,10 @@ class MenuScene : public GameScene
 
 	UIManager* uiManager;
 
+	std::string SceneName;
+
 public:
-	MenuScene( const std::string& sceneName )
+	MenuScene( const std::string& sceneName ) : SceneName( sceneName )
 	{
 
 	}

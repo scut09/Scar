@@ -18,7 +18,7 @@ void MenuScene::Init()
 	{
 		using namespace boost::python;
 
-		object UILoader = import( "MainMenuIni" );
+		object UILoader = import( SceneName.c_str() );
 		object GetRoot = UILoader.attr( "GetRoot" );
 		object root = GetRoot();
 
