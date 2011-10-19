@@ -23,7 +23,7 @@ bool ScaleUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		Origin = node->GetScale();
 
 	u32 t = timeMS - Begin;
-	vector2d<f32> sca = ScaleFactor * t;
+	vector2d<f32> sca = ScaleFactor * (f32)t;
 	if( sca.getLength() > Scale.getLength() )
 		sca = Scale;
 	node->SetScale( Origin + sca );

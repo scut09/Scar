@@ -22,7 +22,7 @@ bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		Origin = node->GetRotation();
 
 	u32 t = timeMS - Begin;
-	f32 ang = AngleFactor * t;
+	f32 ang = AngleFactor * (f32)t;
 	if ( abs(ang) > abs(Angle) ) ang = Angle;
 	node->SetRotation( Origin + ang );
 

@@ -22,7 +22,7 @@ bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 	/*u32 t = timeMS - LastTime;
 	LastTime = timeMS;*/
 	u32 t = timeMS - Begin;
-	f32 alpha = SrcAlpha + AlphaFactor * t;
+	f32 alpha = SrcAlpha + AlphaFactor * (f32)t;
 	if( alpha > 255 ) alpha = 255;
 	else if ( alpha < 0 ) alpha = 0;
 	node->SetAlpha( alpha );

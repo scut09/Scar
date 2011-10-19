@@ -313,8 +313,5 @@
     <None Include="..\..\..\bin\Python\WEB.py">
       <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\Python\ScenesCreator.py">
-      <Filter>Python\py</Filter>
-    </None>
   </ItemGroup>
 </Project>

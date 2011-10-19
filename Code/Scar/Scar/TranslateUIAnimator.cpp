@@ -25,7 +25,7 @@ bool TranslateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 		Origin = node->GetPosition();
 
 	u32 t = timeMS - Begin;
-	vector2d<f32> offset = OffsetFactor * t;
+	vector2d<f32> offset = OffsetFactor * (f32)t;
 	if( offset.getLength() > Offset.getLength() )
 	{
 		offset.X = (f32)Offset.X;
