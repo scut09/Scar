@@ -9,8 +9,11 @@ ScenesDict = dict()
 
 def CreateGameScenes():
     '由C++调用来初始化场景结构'
-    menu = MenuScene( "MainMenuIni" )
-    SaveScenes( "menu", menu )
+    mainMenu = MenuScene( "MainMenuIni" )
+    SaveScenes( "mainMenu", mainMenu )
+
+    multiMenu = MenuScene( "MultiMenuIni" )
+    SaveScenes( "multiMenu", multiMenu )
     
     start = StartScene()
     SaveScenes( "start", start )
@@ -20,7 +23,7 @@ def CreateGameScenes():
     
     start.Scenes[ 0 ] = multi
     
-    ChangeGameScene( menu )
+    ChangeGameScene( mainMenu )
 
 def GetScene( name ):
     '输入一个场景的名字，返回一个场景对象'
