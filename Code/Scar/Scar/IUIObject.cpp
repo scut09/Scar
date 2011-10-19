@@ -384,9 +384,9 @@ void IUIObject::PythonFunc( const std::string& eventName )
 	{	
 		auto func = FuncMap.find( eventName );
 		if ( func != FuncMap.end() )
-		{
+		{			
 			using namespace boost::python;
-			auto FuncInfo = FuncMap[ eventName ];
+			auto FuncInfo = (*func).second;	//FuncMap[ eventName ];		// Speed Up
 			object module = import( FuncInfo.ModuleName.c_str() );
 			object fun = module.attr( FuncInfo.FuncName.c_str() );
 			fun( boost::ref( this ) );
