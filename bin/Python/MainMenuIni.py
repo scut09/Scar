@@ -59,13 +59,6 @@ def CreateBg():
     Save( bg )
     bg.LoadImage( "../media/UIResource/Menu/bg_1.jpg" )
     bg.SetAlpha( 0 )
-    alphaUp = AlphaChangeUIAnimator(
-        Timer().GetRealTime() + 400,
-        1000,
-        0,
-        255 )
-    AniList.append( alphaUp )
-    bg.AddAnimator( alphaUp )
     return bg
 
 ######################################################
@@ -107,68 +100,18 @@ def CreateMenu():
     btn4.SetRotation( -90 )
     btn4.SetAlpha( 0 )
     btn4.SetScale( vector2df( 0.1, 0.1 ) )
-  
-    # 旋转、缩放、Alpha改变动画
-    dua = 400 #动画持续时间
-    #AniList = [] #用以保存动画
-    global AniList
-    '''rot1 = RotateUIAnimator(
-        Timer().GetRealTime(),
-        dua,
-        450 )
-    sca1 = ScaleUIAnimator(
-        Timer().GetRealTime(),
-        dua,
-        vector2df( 1.9, 1.9 ) )
-    alp1 = AlphaChangeUIAnimator(
-        Timer().GetRealTime(),
-        dua,
-        0,
-        255 )
-    rot2 = rot1.Clone()
-    rot3 = rot1.Clone()
-    rot4 = rot1.Clone()
-    sca2 = sca1.Clone()
-    sca3 = sca1.Clone()
-    sca4 = sca1.Clone()
-    alp2 = alp1.Clone()
-    alp3 = alp1.Clone()
-    alp4 = alp1.Clone()
-    btn1.AddAnimator( rot1 )
-    btn1.AddAnimator( alp1 )
-    btn1.AddAnimator( sca1 )
-    btn2.AddAnimator( rot2 )
-    btn2.AddAnimator( alp2 )
-    btn2.AddAnimator( sca2 )
-    btn3.AddAnimator( rot3 )
-    btn3.AddAnimator( alp3 )
-    btn3.AddAnimator( sca3 )
-    btn4.AddAnimator( rot4 )
-    btn4.AddAnimator( alp4 )
-    btn4.AddAnimator( sca4 )
-    rot2.drop()
-    rot3.drop()
-    rot4.drop()
-    sca2.drop()
-    sca3.drop()
-    sca4.drop()
-    alp2.drop()
-    alp3.drop()
-    alp4.drop()
-    AniList.append( rot1 )
-    AniList.append( alp1 )
-    AniList.append( sca1 )'''
-
-    #Save( AniList )
 
     btn2.AddFunc( "OnMouseLeftButtonDown", "OnBtn2Click", "MainMenuIni" )
 
     return menu
 
+######################################################
+# 场景装载时动画
+######################################################  
 def LoadStartAnimation( root ):
     dua = 400
+    bg = root.GetChildren()[0]
     menu = root.GetChildren()[1]
-    #menu.SetScale( vector2df( 0.5, 0.5 ) )
     btn1 = menu.GetChildren()[0]
     btn2 = menu.GetChildren()[1]
     btn3 = menu.GetChildren()[2]
@@ -222,6 +165,15 @@ def LoadStartAnimation( root ):
     AniList.append( alp1 )
     AniList.append( sca1 )
 
+    #背景显示动画
+    alphaUp = AlphaChangeUIAnimator(
+        Timer().GetRealTime() + 400,
+        1000,
+        0,
+        255 )
+    AniList.append( alphaUp )
+    bg.AddAnimator( alphaUp )
+
     return root
 
 ######################################################
@@ -237,14 +189,38 @@ def OnBtn2Click( node ):
     sca1 = ScaleUIAnimator(
         Timer().GetRealTime(),
         400,
-        vector2df( 0.1, 0.1 ) )
+        vector2df( 0.6, 0.6 ) )
     alp1 = AlphaChangeUIAnimator(
         Timer().GetRealTime(),
         400,
         255,
         0 )
+    rot1 = RotateUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        -360 )
+    rot2 = rot1.Clone()
+    rot3 = rot1.Clone()
+    sca2 = sca1.Clone()
+    sca3 = sca1.Clone()
+    alp2 = alp1.Clone()
+    alp3 = alp1.Clone()
     AniList.append( sca1 )
+    AniList.append( sca2 )
+    AniList.append( sca3 )
     AniList.append( alp1 )
+    AniList.append( alp2 )
+    AniList.append( alp3 )
+    AniList.append( rot1 )
+    AniList.append( rot2 )
+    AniList.append( rot3 )
     btn1.AddAnimator( sca1 )
     btn1.AddAnimator( alp1 )
-    ChangeGameScene( GetScene( 'm' ) )
+    btn1.AddAnimator( rot1 )
+    btn4.AddAnimator( sca2 )
+    btn4.AddAnimator( alp2 )
+    btn4.AddAnimator( rot2 )
+    btn3.AddAnimator( sca3 )
+    btn3.AddAnimator( alp3 )
+    btn3.AddAnimator( rot3 )
+    #ChangeGameScene( GetScene( 'm' ) )
