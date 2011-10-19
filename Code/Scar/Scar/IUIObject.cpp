@@ -341,9 +341,23 @@ bool IUIObject::IsPointInSquare( s32 x, s32 y )
 // 判断点是否在圆形区域内
 bool IUIObject::IsPointInCircle( s32 x, s32 y)
 {
-	//首先获取圆形区域半径（内切，取长边）
+	//首先获取元件四个顶点当前在屏幕上的绝对坐标
+	matrix<f32> TransMat = AbsoluteTransformation;
+	vector2d<f32> AbsPoints[4];
+	ub::vector<f32> temPoint(3);
+	temPoint(2) = 1;
+	for( int i=0; i<4; i++ )
+	{
+		temPoint(0) = DestinationQuadrangle[i].X;
+		temPoint(1) = DestinationQuadrangle[i].Y;
+		temPoint = prod( temPoint, TransMat );
+		AbsPoints[i].X = temPoint(0);
+		AbsPoints[i].Y = temPoint(1);
+	}
+	//然后获取圆形区域半径（内切，取长边）
 	//f32 r = ( ( DestinationQuadrangle[2] - DestinationQuadrangle[0] ).getLength() ) / 2;
-	vector2d<f32> wh = DestinationQuadrangle[2] - DestinationQuadrangle[0];
+	//vector2d<f32> wh = DestinationQuadrangle[2] - DestinationQuadrangle[0];
+	vector2d<f32> wh = AbsPoints[2] - AbsPoints[0];
 	f32 r = wh.X > wh.Y ? wh.X/2 :wh.Y/2;
 	//判断点是否在园外
 	vector2d<f32> point = vector2d<f32>( (f32)x, (f32)y );

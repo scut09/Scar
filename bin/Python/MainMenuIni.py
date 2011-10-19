@@ -4,6 +4,8 @@ import ScenesCreator
 
 RatioX = 0.78125
 RatioY = 0.625
+AniList = [] #用以保存动画
+Save( AniList )
 
 def GetRoot():
     
@@ -38,27 +40,35 @@ def GetRoot():
 
     return root
 
-# 组装左上角LOGO
+######################################################
+# 组装左上角Logo
+######################################################
 def CreateLogo():
     logo = UIImage( None, 350, 92 )
     Save( logo )
     logo.LoadImage( "../media/UIResource/Menu/logo_1.png" )
     return logo
 
+######################################################
+# 组装背景
+######################################################
 def CreateBg():
     bg = UIImage( None, 940, 1024, -1 )
     Save( bg )
     bg.LoadImage( "../media/UIResource/Menu/bg_1.jpg" )
+    bg.SetAlpha( 0 )
+    alphaUp = AlphaChangeUIAnimator(
+        Timer().GetRealTime() + 400,
+        1000,
+        0,
+        255 )
+    AniList.append( alphaUp )
+    bg.AddAnimator( alphaUp )
     return bg
-    
 
 ######################################################
 # 组装菜单项
-######################################################
-def OnBtn2Click( node ):
-    global ScenesDict
-    ChangeGameScene( ScenesDict[ 'm' ] )
-    
+######################################################    
 def CreateMenu():
     
     # 设置第一个按钮的位置，其他按钮相对这个按钮设置位置
@@ -98,7 +108,8 @@ def CreateMenu():
   
     # 旋转、缩放、Alpha改变动画
     dua = 400 #动画持续时间
-    AniList = [] #用以保存动画
+    #AniList = [] #用以保存动画
+    global AniList
     rot1 = RotateUIAnimator(
         Timer().GetRealTime(),
         dua,
@@ -146,8 +157,30 @@ def CreateMenu():
     AniList.append( alp1 )
     AniList.append( sca1 )
 
-    Save( AniList )
+    #Save( AniList )
 
     btn2.AddFunc( "OnMouseLeftButtonDown", "OnBtn2Click", "MainMenuIni" )
 
     return menu
+
+######################################################
+# 点击多人游戏后切换场景
+###################################################### 
+def OnBtn2Click( node ):
+    '''menu = node.Parent
+    btn1 = node.GetChildren()[0]
+    btn2 = node.GetChildren()[1]
+    btn3 = node.GetChildren()[2]
+    btn4 = node.GetChildren()[3]'''
+    #创建菜单过场动画
+    sca1 = ScaleUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        vector2df( 0.1, 0.1 ) )
+    alp1 = AlphaChangeUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        255,
+        0 )    
+    #global ScenesDict
+    ChangeGameScene( GetScene( 'm' ) )
