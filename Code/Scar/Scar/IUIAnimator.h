@@ -12,6 +12,7 @@
 #define UIAnimator_h__
 
 // 定义OUTPUT_DESTRUCTION_INFO可以输出动画的析构信息
+//#define OUTPUT_DESTRUCTION_INFO
 #ifdef OUTPUT_DESTRUCTION_INFO
 #	define DESTRUCTION_PRINT( classname ) std::cout << "====> " << classname << std::endl;
 #else

@@ -136,5 +136,9 @@ void MultiplayerScene::Release()
 //	m_pAnimationMan->RemoveAll();
 
 	m_pModelMan->DeleteAll();
+
+	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+	scene::ISceneManager* smgr = pEngine->GetSceneManager();
+	smgr->clear();
 }
 
