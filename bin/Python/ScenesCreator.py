@@ -9,7 +9,7 @@ ScenesDict = dict()
 
 def CreateGameScenes():
     '由C++调用来初始化场景结构'
-    menu = MenuScene()
+    menu = MenuScene( "MainMenuIni" )
     SaveScenes( "menu", menu )
     
     start = StartScene()
