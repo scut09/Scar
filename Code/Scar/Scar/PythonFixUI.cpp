@@ -296,6 +296,11 @@ struct IUIObject_wrapper : IUIObject, bp::wrapper< IUIObject > {
             return this->IUIObject::GetAbsolutePosition(  );
         }
     }
+
+	virtual IUIObject* GetParent() const
+	{
+		return this->IUIObject::GetParent();
+	}
     
     ::irr::core::vector2d< float > default_GetAbsolutePosition(  ) const  {
         return IUIObject::GetAbsolutePosition( );
@@ -2142,6 +2147,11 @@ BOOST_PYTHON_MODULE( UI ){
             "AddFunc"
             , (void ( ::IUIObject::* )( ::std::string const &,::std::string const &,::std::string const & ) )( &::IUIObject::AddFunc )
             , ( bp::arg("eventName"), bp::arg("funcName"), bp::arg("ModuleName") ) )    
+		.def(
+			"GetParent"
+			, &::IUIObject::GetParent
+			, bp::return_value_policy< bp::reference_existing_object >()
+			)	
         .def( 
             "Draw"
             , bp::pure_virtual( (void ( ::IUIObject::* )(  ) )(&::IUIObject::Draw) ) )    

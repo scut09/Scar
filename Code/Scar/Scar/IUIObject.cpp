@@ -383,3 +383,8 @@ void IUIObject::PythonFunc( const std::string& eventName )
 		PyErr_Print();
 	}
 }
+
+IUIObject* IUIObject::GetParent() const
+{
+	return Parent;
+}

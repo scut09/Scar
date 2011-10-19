@@ -172,6 +172,9 @@ public:
 	// 设置父节点
 	virtual void SetParent( IUIObject* parent );
 
+	// 获取父节点
+	virtual IUIObject* GetParent() const;
+
 	// 移除子节点
 	virtual void RemoveChild( IUIObject* node );
 
