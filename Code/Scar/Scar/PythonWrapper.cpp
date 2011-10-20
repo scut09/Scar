@@ -10,6 +10,7 @@
 #include "PythonWrapper.h"
 #include "MyIrrlichtEngine.h"
 #include <boost/thread.hpp>
+#include "EventListener.h"
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -106,6 +107,12 @@ void ChangeGameScene( GameScene* scene )
 		//MyIrrlichtEngine::currentScene->Release();
 		// 延迟删除
 		MyIrrlichtEngine::GetEngine()->AddToDeletionQueue( MyIrrlichtEngine::currentScene );
+		// 清除掉自己注册的回调函数，否则会因为引用销毁的东西而导致崩溃
+		static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( 
+			[]( const SEvent& event )->void*
+		{	
+			return 0;
+		} );
 	}
 
 	MyIrrlichtEngine::currentScene = scene;

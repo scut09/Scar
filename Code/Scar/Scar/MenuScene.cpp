@@ -68,12 +68,6 @@ void MenuScene::Release()
 	delete uiManager;
 	//uiManager = NULL;
 
-	// 清除掉自己注册的回调函数，否则会因为引用销毁的东西而导致崩溃
-	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
-	{	
-		return 0;
-	} );
-
 	try
 	{
 		using namespace boost::python;
