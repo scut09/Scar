@@ -178,7 +178,7 @@ def OnNoPopMouseMoveIn( node ):
     global duration
 
     # 删除所有动画
-    #DeleteNodeAnimators( node ) # 通知节点在C++中将它们的动画列表清空
+    DeleteNodeAnimators( node ) # 通知节点在C++中将它们的动画列表清空
     DeleteAnimators( node )     # 回收所有节点内存
 
     aniList = []
@@ -205,7 +205,7 @@ def OnNoPopMouseMoveOut( node ):
     global duration
 
     # 删除所有动画
-    #DeleteNodeAnimators( node ) # 通知节点在C++中将它们的动画列表清空
+    DeleteNodeAnimators( node ) # 通知节点在C++中将它们的动画列表清空
     DeleteAnimators( node )     # 回收所有节点内存
 
     aniList = []

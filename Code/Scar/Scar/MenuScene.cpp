@@ -68,18 +68,18 @@ void MenuScene::Release()
 	delete uiManager;
 	//uiManager = NULL;
 
-	try
-	{
-		using namespace boost::python;
+	//try
+	//{
+	//	using namespace boost::python;
 
-		object UILoader = import( "UILoader" );
-		object DeleteTree = UILoader.attr( "DeleteTree" );
-		DeleteTree();
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+	//	object UILoader = import( "UILoader" );
+	//	object DeleteTree = UILoader.attr( "DeleteTree" );
+	//	DeleteTree();
+	//}
+	//catch ( ... )
+	//{
+	//	PyErr_Print();
+	//}
 }
 
 void MenuScene::Draw()
