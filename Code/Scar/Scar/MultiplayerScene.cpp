@@ -61,7 +61,7 @@ void MultiplayerScene::Init()
 //	m_pAnimationMan = pEngine->GetAnimationManager();
 
 	//  加入摄像机
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 0.5f );
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 0.2f );
 
 	// 加载模型和动画
 	node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
