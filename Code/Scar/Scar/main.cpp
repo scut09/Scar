@@ -13,6 +13,7 @@
 #include "FlyBehavior.h"
 #include "MultiplayerScene.h"
 #include "StartScene.h"
+#include "PythonManager.h"
 
 
 scene::ISceneNode* Test( scene::ISceneNode* node )
@@ -73,38 +74,20 @@ scene::ISceneNode* Test( scene::ISceneNode* node )
 }
 
 
-GameScene* InitScene()
+void InitScene()
 {
-	// 因为日后使用python创建出场景跳转，所以不需要管理内存，现在这里仅供测试
-
-	// 创建根场景
-	//StartScene* rootScene = new StartScene;
-	//MyIrrlichtEngine::currentScene = rootScene;
-	//MultiplayerScene* multiplayerScene = new MultiplayerScene;
-	//rootScene->Scenes[ 0 ] = multiplayerScene;
-	//multiplayerScene->Scenes[ 0 ] = rootScene;
-
-	//// 初始化根场景
-	//rootScene->Init();
-
 	try
 	{
 		using namespace boost::python;
 
 		object UILoader = import( "UILoader" );
-		object GetRoot = UILoader.attr( "CreateGameScenes" );
-		object root = GetRoot();
-		//root.ptr()->ob_refcnt++;		// 增加引用计数
-
-		//MyIrrlichtEngine::currentScene = extract<GameScene*>( root ); 
-		//r->drop();	// 使用Python对象不用内存管理
+		object CreateGameScenes = UILoader.attr( "CreateGameScenes" );
+		CreateGameScenes();
 	}
 	catch ( ... )
 	{
 		PyErr_Print();
 	}
-
-	return NULL;
 }
 
 
@@ -130,29 +113,10 @@ int main()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
-	using namespace boost::python;
-
-	try
-	{
-		object main_module = import( "__main__" );
-		object main_namespace = main_module.attr( "__dict__" );
-		//object sys = import( "sys" );
-		object ignored = exec( 
-			"import sys\n"
-			"sys.path.append('./python')\n", main_namespace );
-		ignored = exec( "print sys.path", main_namespace );
-
-		object UILoader = import( "UILoader" );
-		object SetScreen = UILoader.attr( "SetScreen" );
-		SetScreen( MyIrrlichtEngine::screen_width, MyIrrlichtEngine::screen_height );
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
-
-	// 这里需要保存一个根场景的引用，否则它会被销毁
-	GameScene* root = InitScene();	// 构造场景跳转图
+	
+	AddPythonPath();	// 添加Python路径
+	
+	InitScene();		// 构造场景跳转图
 
 	// 启动引擎
 	pEngine->Run();

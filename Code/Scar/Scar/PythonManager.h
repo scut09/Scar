@@ -14,6 +14,9 @@
 using namespace boost::python;
 
 
+void AddPythonPath();
+
+
 class PythonManager
 {
 

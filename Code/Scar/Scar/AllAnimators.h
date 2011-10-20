@@ -11,5 +11,6 @@
 
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "CSceneNodeAutoTrackAnimator.h"
+#include "huoyanshuxing.h"
 
 #endif // AllAnimators_h__
