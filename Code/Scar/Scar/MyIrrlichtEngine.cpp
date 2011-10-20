@@ -171,23 +171,45 @@ void MyIrrlichtEngine::AddToDeletionQueue( IUIObject* node )
 	m_IUIObjectDeleteionList.push_back( node );
 }
 
+void MyIrrlichtEngine::AddToDeletionQueue( GameScene* scene )
+{
+	m_GameSceneDeletionList.push_back( scene );
+}
+
 void MyIrrlichtEngine::ClearDeletionList()
 {
-	for ( auto iter = m_ISceneNodeDeletionList.begin(); iter != m_ISceneNodeDeletionList.end(); ++iter )
+	// 3D节点删除
+	if ( ! m_ISceneNodeDeletionList.empty() )
 	{
-		(*iter)->remove();
-		(*iter)->drop();
+		for ( auto iter = m_ISceneNodeDeletionList.begin(); iter != m_ISceneNodeDeletionList.end(); ++iter )
+		{
+			(*iter)->remove();
+			(*iter)->drop();
+		}
+		m_ISceneNodeDeletionList.clear();
 	}
 
-	m_ISceneNodeDeletionList.clear();
-
-	for ( auto iter = m_IUIObjectDeleteionList.begin(); iter != m_IUIObjectDeleteionList.end(); ++iter )
+	// 2D节点删除
+	if ( ! m_IUIObjectDeleteionList.empty() )
 	{
-		(*iter)->remove();
-		(*iter)->drop();
+		for ( auto iter = m_IUIObjectDeleteionList.begin(); iter != m_IUIObjectDeleteionList.end(); ++iter )
+		{
+			(*iter)->remove();
+			(*iter)->drop();
+		}
+		m_IUIObjectDeleteionList.clear();
 	}
 
-	m_IUIObjectDeleteionList.clear();
+	// 游戏场景资源释放
+	if ( ! m_GameSceneDeletionList.empty() )
+	{
+		for ( auto iter = m_GameSceneDeletionList.begin(); iter != m_GameSceneDeletionList.end(); ++iter )
+		{
+			(*iter)->Release();
+		}
+		m_GameSceneDeletionList.clear();
+	}
+
 }
 
 //AnimationManager* MyIrrlichtEngine::GetAnimationManager()

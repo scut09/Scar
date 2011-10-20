@@ -36,7 +36,10 @@ BtnTitle =  {
                 "单人":"../media/UIResource/Menu/t_1.png",
                 "多人":"../media/UIResource/Menu/t_2.png",
                 "设定":"../media/UIResource/Menu/t_3.png",
-                "退出":"../media/UIResource/Menu/t_4.png"
+                "退出":"../media/UIResource/Menu/t_4.png",
+                "新建":"../media/UIResource/Menu/t_5.png",
+                "加入":"../media/UIResource/Menu/t_6.png",
+                "返回":"../media/UIResource/Menu/t_7.png"
             }
 
 #######################################
@@ -366,4 +369,20 @@ def MainMenuBtn( titleIndex ):
     SaveNodeChilren( btn, btnChildren )
     
     return btn
-    
+
+#######################################
+# 组装已经被选中的按钮选项
+#######################################
+def MainMenuButtonSelected( titleIndex ):
+    img = UIImage( None, 200, 200 )
+    Save( img )
+    img.LoadImage( "../media/UIResource/Menu/b_1_b.png" )
+    img2 = UIImage( None, 200, 200 )
+    Save( img2 )
+    img2.LoadImage( "../media/UIResource/Menu/b_1_y.png" )
+    img.AddChild( img2 )
+    title = UIImage( None, 96,60 )
+    title.LoadImage( BtnTitle[ titleIndex ] )
+    img2.AddChild( title )
+    Save( title )
+    return img

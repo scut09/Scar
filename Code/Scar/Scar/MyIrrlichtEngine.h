@@ -51,6 +51,7 @@ private:
 	std::list<IUIObject*>			m_IUIObjectDeleteionList;// 针对IUIOjbect的删除缓冲队列
 	std::list<scene::ISceneNode*>	m_ISceneNodeDeletionList;// 待删除列表，在每次引擎总循环的一次循环结束后会清空它。
 															// 使用它可以让我们实现通过IUIAnimator来删除IUIObject
+	std::list<GameScene*>			m_GameSceneDeletionList;// 延迟场景删除
 
 
 public:
@@ -84,6 +85,7 @@ public:
 	// 添加节点到删除队列中
 	void AddToDeletionQueue( scene::ISceneNode* node );
 	void AddToDeletionQueue( IUIObject* node );
+	void AddToDeletionQueue( GameScene* scene );
 
 	// 删除所有删除队列中的节点，这个会在每次循环后被调用
 	void ClearDeletionList();

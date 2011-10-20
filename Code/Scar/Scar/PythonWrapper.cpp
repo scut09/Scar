@@ -103,7 +103,9 @@ void ChangeGameScene( GameScene* scene )
 
 	if ( MyIrrlichtEngine::currentScene )
 	{
-		MyIrrlichtEngine::currentScene->Release();
+		//MyIrrlichtEngine::currentScene->Release();
+		// ÑÓ³ÙÉ¾³ý
+		MyIrrlichtEngine::GetEngine()->AddToDeletionQueue( MyIrrlichtEngine::currentScene );
 	}
 
 	MyIrrlichtEngine::currentScene = scene;

@@ -33,6 +33,8 @@ void MenuScene::Run()
 
 void MenuScene::Init()
 {
+	std::cout << "===> " << this->SceneName << " construction" << std::endl;
+
 	uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
 
 	try
@@ -61,7 +63,10 @@ void MenuScene::Init()
 
 void MenuScene::Release()
 {
+	std::cout << "===> " << this->SceneName << " destruction" << std::endl;
+
 	delete uiManager;
+	//uiManager = NULL;
 
 	// 清除掉自己注册的回调函数，否则会因为引用销毁的东西而导致崩溃
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
@@ -85,5 +90,6 @@ void MenuScene::Release()
 
 void MenuScene::Draw()
 {
-	uiManager->RunTree();
+	if ( uiManager )
+		uiManager->RunTree();
 }

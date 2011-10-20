@@ -40,6 +40,8 @@
 
 #include "UIImage.h"
 
+#include "TimelagUIAnimator.h"
+
 namespace bp = boost::python;
 
 struct IUIAnimator_wrapper : IUIAnimator, bp::wrapper< IUIAnimator > {
@@ -2432,6 +2434,26 @@ BOOST_PYTHON_MODULE( UI ){
             , (bool ( TranslateUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&TranslateUIAnimator_wrapper::default_animateUIObject)
             , ( bp::arg("node"), bp::arg("timeMS") ) );
 
+
+	//////////////////////////////////////////////////////////////////////
+//	TimelagUIAnimator( u32 begin, u32 duration, std::string moduleName, std::string funName, bool loop = false );
+	// 
+	bp::class_< TimelagUIAnimator, bp::bases< IUIAnimator > >( 
+		"TimelagUIAnimator",
+		bp::init< irr::u32, irr::u32, const std::string&, const std::string& , bp::optional< bool > >
+		(( bp::arg("begin"), bp::arg("duration"), bp::arg("moduleName"), bp::arg("funName"), bp::arg("loop")=(bool)(false) )) )    
+		.def( 
+		"Clone"
+		, &TimelagUIAnimator::Clone
+		, bp::return_value_policy< bp::reference_existing_object >()
+		)    
+		.def( 
+		"animateUIObject"
+		, &TimelagUIAnimator::animateUIObject
+
+		);
+
+
     bp::class_< UIButton_wrapper, bp::bases< IUIObject > >( "UIButton", bp::init< IUIObject *, irr::s32, irr::s32, bp::optional< irr::s32, int, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const & > >(( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=int(::SQUARE), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )) )    
         .def( 
             "Draw"
@@ -2694,7 +2716,7 @@ BOOST_PYTHON_MODULE( UI ){
             , (::IUIObject * ( UIImage_wrapper::* )( ::irr::s32,::irr::s32 ) )(&UIImage_wrapper::default_HitTest)
             , ( bp::arg("x"), bp::arg("y") )
                 , bp::return_value_policy< bp::reference_existing_object >()
- )    
+			)    
         .def( 
             "IsPointIn"
             , (bool ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::IsPointIn)

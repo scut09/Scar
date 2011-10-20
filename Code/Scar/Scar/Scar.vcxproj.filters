@@ -144,6 +144,9 @@
     <ClCompile Include="huoyanshuxing.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="TimelagUIAnimator.cpp">
+      <Filter>UI\UIAnimators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="huoyanshuxing.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="TimelagUIAnimator.h">
+      <Filter>UI\UIAnimators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

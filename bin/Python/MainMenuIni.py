@@ -88,16 +88,12 @@ def CreateMenu():
     menu.AddChild( btn2 )
     menu.AddChild( btn3 )
     menu.AddChild( btn4 )
-    btn1.SetRotation( -90 )
     btn1.SetAlpha( 0 )
     btn1.SetScale( vector2df( 0.1, 0.1 ) )
-    btn2.SetRotation( -90 )
     btn2.SetAlpha( 0 )
     btn2.SetScale( vector2df( 0.1, 0.1 ) )
-    btn3.SetRotation( -90 )
     btn3.SetAlpha( 0 )
     btn3.SetScale( vector2df( 0.1, 0.1 ) )
-    btn4.SetRotation( -90 )
     btn4.SetAlpha( 0 )
     btn4.SetScale( vector2df( 0.1, 0.1 ) )
 
@@ -121,7 +117,7 @@ def LoadStartAnimation( root ):
     rot1 = RotateUIAnimator(
         Timer().GetRealTime(),
         dua,
-        450 )
+        360 )
     sca1 = ScaleUIAnimator(
         Timer().GetRealTime(),
         dua,
@@ -180,11 +176,21 @@ def LoadStartAnimation( root ):
 # 点击多人游戏后切换场景
 ###################################################### 
 def OnBtn2Click( node ):
+    #ChangeGameScene( GetScene( 'multiMenu' ) )
     menu = node.GetParent()
     btn1 = menu.GetChildren()[0]
     btn2 = menu.GetChildren()[1]
     btn3 = menu.GetChildren()[2]
     btn4 = menu.GetChildren()[3]
+    #取消响应函数
+    btn1.RemoveFunc( "OnMenuButtonMouseMoveIn" )
+    btn1.RemoveFunc( "OnMenuButtonMouseMoveOut" )
+    btn2.RemoveFunc( "OnMenuButtonMouseMoveIn" )
+    btn2.RemoveFunc( "OnMenuButtonMouseMoveOut" )
+    btn3.RemoveFunc( "OnMenuButtonMouseMoveIn" )
+    btn3.RemoveFunc( "OnMenuButtonMouseMoveOut" )
+    btn4.RemoveFunc( "OnNoPopMouseMoveIn" )
+    btn4.RemoveFunc( "OnNoPopMouseMoveOut" )
     #创建菜单过场动画
     sca1 = ScaleUIAnimator(
         Timer().GetRealTime(),
@@ -223,4 +229,25 @@ def OnBtn2Click( node ):
     btn3.AddAnimator( sca3 )
     btn3.AddAnimator( alp3 )
     btn3.AddAnimator( rot3 )
-    #ChangeGameScene( GetScene( 'm' ) )
+    rot4 = rot1.Clone()
+    sca4 = sca1.Clone()
+    alp4 = alp1.Clone()
+    AniList.append( rot4 )
+    AniList.append( sca4 )
+    AniList.append( alp4 )
+    btn2.AddAnimator( rot4 )
+    btn2.AddAnimator( sca4 )
+    btn2.AddAnimator( alp4 )
+    btn2.GetChildren()[1].GetChildren()[0].SetVisible( False )
+    btn2.GetChildren()[1].GetChildren()[1].SetVisible( False )
+    #动画播放完后跳转场景
+    tim1 = TimelagUIAnimator(
+        Timer().GetRealTime(),
+        400,
+        "MainMenuIni",
+        "JumpToMultiMenu" )
+    AniList.append( tim1 )
+    btn2.AddAnimator( tim1 )
+
+def JumpToMultiMenu():        
+    ChangeGameScene( GetScene( 'multiMenu' ) )
