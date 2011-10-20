@@ -108,6 +108,8 @@ void MultiplayerScene::Init()
 		node->setMaterialTexture( 0, driver->getTexture("../media/Planets/planet6.jpg") );
 		node->setMaterialFlag( video::EMF_LIGHTING, false );
 	}
+	
+	
 
 	m_pCamera->setFarValue( 10000);
 	//// 注册引擎回调函数
