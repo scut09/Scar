@@ -122,8 +122,8 @@ int main()
 
 	// 初始化引擎
 	MyIrrlichtEngine::pEventReceiver = &receiver;
-	MyIrrlichtEngine::screen_width = 1000;
-	MyIrrlichtEngine::screen_height = 600;
+	MyIrrlichtEngine::screen_width = 1024;
+	MyIrrlichtEngine::screen_height = 768;
 	MyIrrlichtEngine::bFullScreen = false;
 
 	// 创建引擎，并获取引擎指针

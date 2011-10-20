@@ -20,10 +20,15 @@ def MultiplayerLoad():
     man.AddMesh( "bottle", "../module/mayabottle.obj", "" )
 
     # 设置光源
-    light = SLight()
+    '''light = SLight()
     light.AmbientColor = Color( 0, 10, 255, 255 )
     light.DiffuseColor = Color( 0, 128, 128, 128 )
     light.SpecularColor = Color( 0, 128, 128, 128 )
+    man.AddLight( light, 1000.0, 200.0, 100.0 )'''
+    light = SLight()
+    light.AmbientColor = Color( 0, 255, 255, 255 )
+    light.DiffuseColor = Color( 0, 128, 128, 128 )
+    light.SpecularColor = Color( 0, 0, 0, 0 )
     man.AddLight( light, 1000.0, 200.0, 100.0 )
 
     aniMan = AnimationManager()

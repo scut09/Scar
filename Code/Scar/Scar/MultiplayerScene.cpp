@@ -16,6 +16,7 @@
 #include "Flame.h"
 #include "huoyanshuxing.h"
 
+scene::ISceneNode* node;
 
 void MultiplayerScene::Run()
 {
@@ -31,6 +32,9 @@ void MultiplayerScene::Run()
 	//	MyIrrlichtEngine::currentScene->Init();
 	//	std::cout << "Back\n";
 	//}
+	vector3df camarapos = m_pCamera->getPosition();
+	node->setPosition(camarapos + vector3df(0, 0, 4000));
+
 
 }
 
@@ -57,10 +61,10 @@ void MultiplayerScene::Init()
 //	m_pAnimationMan = pEngine->GetAnimationManager();
 
 	//  加入摄像机
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 10, 0.5f );
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 0.5f );
 
 	// 加载模型和动画
-	scene::ISceneNode* node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
+	node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
 
 	//ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
 	//	vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
@@ -81,14 +85,31 @@ void MultiplayerScene::Init()
 
 	auto driver = pEngine->GetVideoDriver();
 
-	m_pSkyBox = smgr->addSkyBoxSceneNode(
+	/*m_pSkyBox = smgr->addSkyBoxSceneNode(
 		driver->getTexture("../media/irrlicht2_up.jpg"),
 		driver->getTexture("../media/irrlicht2_dn.jpg"),
 		driver->getTexture("../media/irrlicht2_lf.jpg"),
 		driver->getTexture("../media/irrlicht2_rt.jpg"),
 		driver->getTexture("../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../media/irrlicht2_bk.jpg"));
+		driver->getTexture("../media/irrlicht2_bk.jpg"));*/
 
+	m_pSkyBox = smgr->addSkyBoxSceneNode(
+		driver->getTexture("../media/Space/c07_up.jpg"),
+		driver->getTexture("../media/Space/c07_dn.jpg"),
+		driver->getTexture("../media/Space/c07_lt.jpg"),
+		driver->getTexture("../media/Space/c07_rt.jpg"),
+		driver->getTexture("../media/Space/c07_ft.jpg"),
+		driver->getTexture("../media/Space/c07_bk.jpg"));
+
+	node = smgr->addSphereSceneNode( 1500 );
+	if ( node )
+	{
+		node->setPosition( core::vector3df(0,0,0) );
+		node->setMaterialTexture( 0, driver->getTexture("../media/Planets/planet6.jpg") );
+		node->setMaterialFlag( video::EMF_LIGHTING, false );
+	}
+
+	m_pCamera->setFarValue( 10000);
 	//// 注册引擎回调函数
 	//pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
 	//{
