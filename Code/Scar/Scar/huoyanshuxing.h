@@ -14,25 +14,13 @@ using namespace scene;
 class Chuoyanshuxing : public scene::ISceneNodeAnimator
 {
 public:
-	Chuoyanshuxing( ISceneManager* man ) : m_pSmgr( man )
-	{
-		isfirsttime = 1;
-		lasttime,t_sum = 0;
-		speed_daodan = core::vector3df(1,1,1);
-		amount_daodan = 5;   //导弹火焰的粒子数量
-		//	CFlame firelist[amount_daodan];
-		//	amount_daodan = 10;
-
-	}
+	Chuoyanshuxing( ISceneManager* man );
 
 	virtual void animateNode( scene::ISceneNode* node, u32 timeMs );
 
 	virtual ISceneNodeAnimator* createClone(
 		ISceneNode* node,
-		ISceneManager* newManager = 0 )
-	{
-		return NULL;
-	}
+		ISceneManager* newManager = 0 );
 
 private:
 	ISceneManager*		m_pSmgr;

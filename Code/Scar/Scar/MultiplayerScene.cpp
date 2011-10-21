@@ -33,8 +33,7 @@ void MultiplayerScene::Run()
 	//	std::cout << "Back\n";
 	//}
 	vector3df camarapos = m_pCamera->getPosition();
-	node->setPosition(camarapos + vector3df(0, 0, 4000));
-
+	node->setPosition(camarapos + vector3df(0, 0, 1000000));//100万
 
 }
 
@@ -42,6 +41,34 @@ void MultiplayerScene::Init()
 {
 	// 使用Python模块加载模型
 	PythonManager* p = PythonManager::GetPythonManager();
+
+	// 获取引擎
+	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+	scene::ISceneManager* smgr = pEngine->GetSceneManager();
+	m_pModelMan = pEngine->GetModelManager();
+
+	//  加入摄像机
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	m_pCamera->setFOV( 1 );
+	m_pCamera->setFarValue( 1000000 );
+
+	//加载星球
+	node = smgr->addSphereSceneNode( 500000 );
+	if ( node )
+	{
+		node->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture("../media/Planets/planet6.jpg") );
+		node->setMaterialFlag( video::EMF_LIGHTING, false );
+	}
+
+	//加载空间站模型
+	IMeshSceneNode* cs1 = smgr->addMeshSceneNode( smgr->getMesh("../modle/station/cs1.obj") );
+	if( cs1 )
+	{
+		std::cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+		//cs1->setPosition( core::vector3df(0,0,0) );
+		//cs1->setMaterialTexture( 0, driver->getTexture("../media/Planets/planet6.jpg") );
+		//cs1->setMaterialFlag( video::EMF_LIGHTING, false );
+	}
 
 	try
 	{
@@ -54,33 +81,31 @@ void MultiplayerScene::Init()
 		PyErr_Print();
 	}
 
-	// 获取引擎
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-	scene::ISceneManager* smgr = pEngine->GetSceneManager();
-	m_pModelMan = pEngine->GetModelManager();
+
 //	m_pAnimationMan = pEngine->GetAnimationManager();
 
-	//  加入摄像机
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 0.2f );
-	m_pCamera->setFOV( 1 );
-	m_pCamera->setFarValue( 10000 );
+
 
 	// 加载模型和动画
-	node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
+	auto bottleNode = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
 
 	//ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
 	//	vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
 	ISceneNodeAnimator* anim = new CSceneNodeAnimatorAutoTrack( smgr );
-	node->addAnimator( anim );
+	bottleNode->addAnimator( anim );
 	anim->drop();
 
 	for ( auto iter = m_pModelMan->GetISceneNodeList().begin(); iter != m_pModelMan->GetISceneNodeList().end(); ++iter )
 	{
 		ISceneNodeAnimator* anim = new Chuoyanshuxing( smgr );
-		//(*iter)->addAnimator( anim );
+		(*iter)->addAnimator( anim );
 		//(*iter)->setScale( vector3df( 1000, 1000, 1000 ) );
 		anim->drop();
 	}
+
+
+
+
 
 
 	ModuleControl control;
@@ -95,25 +120,17 @@ void MultiplayerScene::Init()
 		driver->getTexture("../media/irrlicht2_ft.jpg"),
 		driver->getTexture("../media/irrlicht2_bk.jpg"));*/
 
+	// 天空盒
 	m_pSkyBox = smgr->addSkyBoxSceneNode(
 		driver->getTexture("../media/Space/c07_up.jpg"),
 		driver->getTexture("../media/Space/c07_dn.jpg"),
 		driver->getTexture("../media/Space/c07_lt.jpg"),
 		driver->getTexture("../media/Space/c07_rt.jpg"),
 		driver->getTexture("../media/Space/c07_ft.jpg"),
-		driver->getTexture("../media/Space/c07_bk.jpg"));
+		driver->getTexture("../media/Space/c07_bk.jpg"));	
+	//不知道为什么把天空盒设小一点反而不会出黑边
+	m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
 
-	node = smgr->addSphereSceneNode( 1500 );
-	if ( node )
-	{
-		node->setPosition( core::vector3df(0,0,0) );
-		node->setMaterialTexture( 0, driver->getTexture("../media/Planets/planet6.jpg") );
-		node->setMaterialFlag( video::EMF_LIGHTING, false );
-	}
-	
-	
-
-	m_pCamera->setFarValue( 10000);
 	//// 注册引擎回调函数
 	//pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
 	//{

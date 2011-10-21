@@ -38,3 +38,18 @@ void Chuoyanshuxing::animateNode( scene::ISceneNode* node, u32 timeMs )
 	}
 }
 
+Chuoyanshuxing::Chuoyanshuxing( ISceneManager* man ) : m_pSmgr( man )
+{
+	isfirsttime = 1;
+	lasttime,t_sum = 0;
+	speed_daodan = core::vector3df(1,1,1);
+	amount_daodan = 1;   //导弹火焰的粒子数量
+	//	CFlame firelist[amount_daodan];
+	//	amount_daodan = 10;
+}
+
+ISceneNodeAnimator* Chuoyanshuxing::createClone( ISceneNode* node, ISceneManager* newManager /*= 0 */ )
+{
+	return NULL;
+}
+
