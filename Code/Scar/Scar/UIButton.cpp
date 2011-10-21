@@ -16,6 +16,10 @@ void UIButton::Draw()
 {
 	UpdateAbsolutePosition();
 
+	// 如果大小为0，那就没必要画自己了
+	/*if( DestinationQuadrangle[0] == DestinationQuadrangle[2] )
+		return;*/
+
 	if (Image==NULL)
 		return;
 	int h = Image->getSize().Height;

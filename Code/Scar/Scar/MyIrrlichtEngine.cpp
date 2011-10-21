@@ -98,7 +98,7 @@ void MyIrrlichtEngine::Run()
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 
-		if ( now - m_lastUpdateTime < frameTime )
+		//if ( now - m_lastUpdateTime < frameTime )
 		{
 			// 运行注册的回调函数
 			m_runCallbackFunc( (void*)this );

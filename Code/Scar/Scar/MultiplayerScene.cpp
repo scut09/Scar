@@ -62,6 +62,8 @@ void MultiplayerScene::Init()
 
 	//  加入摄像机
 	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 0.2f );
+	m_pCamera->setFOV( 1 );
+	m_pCamera->setFarValue( 10000 );
 
 	// 加载模型和动画
 	node = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
@@ -75,7 +77,7 @@ void MultiplayerScene::Init()
 	for ( auto iter = m_pModelMan->GetISceneNodeList().begin(); iter != m_pModelMan->GetISceneNodeList().end(); ++iter )
 	{
 		ISceneNodeAnimator* anim = new Chuoyanshuxing( smgr );
-		(*iter)->addAnimator( anim );
+		//(*iter)->addAnimator( anim );
 		//(*iter)->setScale( vector3df( 1000, 1000, 1000 ) );
 		anim->drop();
 	}

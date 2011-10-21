@@ -2,8 +2,8 @@
 import SexangleButton
 import ScenesCreator
 
-RatioX = 1000 / 1280.0
-RatioY = 600 / 1024.0
+RatioX = ScreenWidth / 1280.0
+RatioY = ScreenHeight / 1024.0
 AniList = [] #用以保存动画
 Save( AniList )
 
