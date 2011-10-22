@@ -15,9 +15,9 @@ def MultiplayerLoad():
     man = ModelMan()
 
     # 下面以 "MeshID" "Mesh文件名" "Mesh的贴图名"为引擎添加Mesh
-    man.AddMesh( "1", "../module/1234.obj", "" )
-    man.AddMesh( "2", "../media/sydney.md2", "../media/sydney.bmp" )
-    man.AddMesh( "bottle", "../module/mayabottle.obj", "" )
+    man.AddMesh( u"1", u"../module/1234.obj", u"" )
+    man.AddMesh( u"2", u"../media/sydney.md2", u"../media/sydney.bmp" )
+    man.AddMesh( u"bottle", u"../module/mayabottle.obj", u"" )
 
     # 设置光源
     '''light = SLight()
