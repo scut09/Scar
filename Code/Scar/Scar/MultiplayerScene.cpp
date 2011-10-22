@@ -17,6 +17,8 @@
 #include "huoyanshuxing.h"
 #include "SceneNodeAnimatorAircraftFPS.h"
 #include "SpaceStation.h"
+#include "MissileNode.h"
+#include "CSceneNodeAnimatorCollisionResponse.h"
 
 scene::ISceneNode* node;
 
@@ -31,6 +33,24 @@ void MultiplayerScene::Run()
 	smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-200000, 0, 1000000) );//100万
 	// 设置卫星位置，使其永远相对摄像机
 	smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + vector3df(100000, 0, -250000) );
+
+
+	static bool bFirstRun = true;
+	if ( bFirstRun )
+	{
+		bFirstRun = false;	
+
+		MissileNode* missile = new MissileNode( smgr->getGeometryCreator()->createSphereMesh( 50 ), 0, smgr, -1 );
+		missile->setVisible( true );
+		missile->setParent( smgr->getRootSceneNode() );
+		auto SSSS = smgr->createFlyStraightAnimator( vector3df( 0, 0, 0 ), vector3df( 4000, 3000, 1000 ), 10000 );
+		missile->addAnimator( SSSS );
+		SSSS->drop();
+
+		CSceneNodeAnimatorMyCollisionResponse* col = new CSceneNodeAnimatorMyCollisionResponse( smgr->getSceneCollisionManager() );
+		missile->addAnimator( col );
+		missile->drop();
+	}
 }
 
 void MultiplayerScene::Init()
@@ -43,6 +63,7 @@ void MultiplayerScene::Init()
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	m_pModelMan = pEngine->GetModelManager();
 	auto driver = pEngine->GetVideoDriver();
+	auto device = pEngine->GetDevice();
 
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
@@ -82,15 +103,21 @@ void MultiplayerScene::Init()
 	}
 
 	//加载空间站模型
-	/*IMeshSceneNode* cs1 = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );*/
-	BuildSpaceStation* cs1 = new BuildSpaceStation( smgr, _T("../modle/station/cs1.obj" ) );
+	scene::IAnimatedMesh* mesh;
+	auto cs1 = smgr->addAnimatedMeshSceneNode( mesh = smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+
+	scene::ITriangleSelector* selector = smgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)cs1 );
+	cs1->setTriangleSelector(selector);
+	selector->drop();
+	
+	//BuildSpaceStation* cs1 = new BuildSpaceStation( smgr, _T("../modle/station/cs1.obj" ) );
 	//m_pCamera->addAnimator(smgr->createCollisionResponseAnimator(cs1->getTriangleSelector(), m_pCamera));
 	//cs1->drop();
-	if( cs1 )
-	{
+	//if( cs1 )
+	//{
 		// 设置名字
 		//station->setName( "station1" );
-	}
+	//}
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );
@@ -194,6 +221,11 @@ void MultiplayerScene::Init()
 	////	fire->setVisible(false);   //初始不可见
 	//	node->addChild( fire );
 	//}
+
+
+
+
+
 
 
 	// 创建并注册receiver的事件处理回调函数

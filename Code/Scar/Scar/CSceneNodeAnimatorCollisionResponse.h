@@ -21,47 +21,16 @@ using namespace scene;
 ** ËµÃ÷£ºÅö×²ÏìÓ¦
 **
 */
-class CSceneNodeAnimatorCollisionResponse : public ISceneNodeAnimator
+class CSceneNodeAnimatorMyCollisionResponse : public ISceneNodeAnimator
 {
 public:
-	CSceneNodeAnimatorCollisionResponse( ISceneCollisionManager* col ) 
-		: CollisionMgr( col )
-		, FirstRun( true )
-	{
+	CSceneNodeAnimatorMyCollisionResponse( ISceneCollisionManager* col );
 
-	}
-
-	virtual void animateNode( ISceneNode* node, u32 timeMs )
-	{
-		using namespace core;
-
-		if ( FirstRun )
-		{
-			FirstRun = true;
-			LastPoint = node->getPosition();
-		}
-
-		core::vector3df pos = node->getPosition();
-
-		line3df		line( LastPoint, pos );
-		vector3df	collisonPoint;
-		triangle3df	tri;
-		ISceneNode* colNode = CollisionMgr->getSceneNodeAndCollisionPointFromRay( line, collisonPoint, tri );
-		if ( colNode )
-		{
-
-		}
-
-		LastPoint = pos;
-
-	}
+	virtual void animateNode( ISceneNode* node, u32 timeMs );
 
 	virtual ISceneNodeAnimator* createClone(
 		ISceneNode* node,
-		ISceneManager* newManager = 0 )
-	{
-		return new CSceneNodeAnimatorCollisionResponse( CollisionMgr );
-	}
+		ISceneManager* newManager = 0 );
 
 private:
 	ISceneCollisionManager*		CollisionMgr;

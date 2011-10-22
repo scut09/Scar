@@ -22,7 +22,7 @@ using namespace irr;
 ** 说明：碰撞回调
 **
 */
-class ICollisionCallback
+class IWeaponCollisionCallback
 {
 public:
 	virtual void OnCollision( scene::ISceneNode* target ) = 0;
@@ -36,7 +36,7 @@ public:
 ** 说明：武器基类
 **
 */
-class IWeapon : public irr::scene::CMeshSceneNode, public ICollisionCallback
+class IWeapon : public irr::scene::CMeshSceneNode, public IWeaponCollisionCallback
 {
 public:
 	IWeapon( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,

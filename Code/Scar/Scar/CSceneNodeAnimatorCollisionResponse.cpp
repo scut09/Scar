@@ -8,4 +8,44 @@
 
 
 #include "CSceneNodeAnimatorCollisionResponse.h"
+#include <iostream>
 
+
+CSceneNodeAnimatorMyCollisionResponse::CSceneNodeAnimatorMyCollisionResponse( ISceneCollisionManager* col ) : CollisionMgr( col )
+	, FirstRun( true )
+{
+
+}
+
+void CSceneNodeAnimatorMyCollisionResponse::animateNode( ISceneNode* node, u32 timeMs )
+{
+	using namespace core;
+
+	if ( FirstRun )
+	{
+		FirstRun = false;
+		LastPoint = node->getPosition();
+	}
+
+	core::vector3df pos = node->getPosition();
+
+	line3df		line( LastPoint, pos );
+
+	vector3df	collisonPoint;
+	triangle3df	tri;
+	ISceneNode* colNode = CollisionMgr->getSceneNodeAndCollisionPointFromRay( line, collisonPoint, tri );
+	if ( colNode )
+	{
+		std::cout << "haha\n";
+	}
+
+	if ( line.getLength() > 3 )
+	{
+		LastPoint = pos;
+	}
+}
+
+ISceneNodeAnimator* CSceneNodeAnimatorMyCollisionResponse::createClone( ISceneNode* node, ISceneManager* newManager /*= 0 */ )
+{
+	return new CSceneNodeAnimatorMyCollisionResponse( CollisionMgr );
+}
