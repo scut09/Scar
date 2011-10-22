@@ -107,6 +107,8 @@
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RotateUIAnimator.cpp" />
     <ClCompile Include="ScaleUIAnimator.cpp" />
+    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp" />
+    <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TimelagUIAnimator.cpp" />
     <ClCompile Include="Toolkit.cpp" />
@@ -154,6 +156,8 @@
     <ClInclude Include="RotateUIAnimator.h" />
     <ClInclude Include="ScaleUIAnimator.h" />
     <ClInclude Include="DeletionUIAnimator.h" />
+    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h" />
+    <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
     <ClInclude Include="IUIAnimator.h" />

@@ -153,6 +153,12 @@
     <ClCompile Include="IShip.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceStation.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -297,6 +303,12 @@
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="IShip.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceStation.h">
       <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
