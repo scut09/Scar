@@ -31,15 +31,24 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 	{
 		video::E_DRIVER_TYPE driverType = (video::E_DRIVER_TYPE)video::EDT_OPENGL;
 
-		auto pDevice = irr::createDevice(
-			driverType, 
-			core::dimension2d<u32>( screen_width, screen_height ), 
-			16, 
-			bFullScreen, 
-			false, 
-			false, 
-			pEventReceiver
-			);
+		SIrrlichtCreationParameters param;
+
+		param.WindowSize = core::dimension2d<u32>( screen_width, screen_height );
+		param.AntiAlias = 2;
+		param.EventReceiver = pEventReceiver;
+		param.DriverType = driverType;
+
+		auto pDevice = irr::createDeviceEx( param );
+
+		//auto pDevice = irr::createDevice(
+		//	driverType, 
+		//	core::dimension2d<u32>( screen_width, screen_height ), 
+		//	16, 
+		//	bFullScreen, 
+		//	false, 
+		//	false, 
+		//	pEventReceiver
+		//	);
 		// 创建设备失败，返回NULL
 		if ( ! pDevice ) return NULL;
 
