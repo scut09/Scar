@@ -317,6 +317,15 @@
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="IWeapon.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletNode.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileNode.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">

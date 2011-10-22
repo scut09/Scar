@@ -71,13 +71,13 @@ namespace scene
 		//! Creates a clone of this scene node and its children.
 		virtual ISceneNode* clone(ISceneNode* newParent=0, ISceneManager* newManager=0);
 
-	protected:
+	//protected:
 
 		void copyMaterials();
 
-		core::array<video::SMaterial> Materials;
-		core::aabbox3d<f32> Box;
-		video::SMaterial tmpReadOnlyMaterial;
+		core::array<video::SMaterial>	Materials;
+		core::aabbox3d<f32>				Box;
+		video::SMaterial				tmpReadOnlyMaterial;
 
 		IMesh* Mesh;
 

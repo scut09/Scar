@@ -126,6 +126,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="BlinkUIAnimator.h" />
+    <ClInclude Include="BulletNode.h" />
     <ClInclude Include="CMeshSceneNode.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
@@ -145,7 +146,9 @@
     <ClInclude Include="IServer.h" />
     <ClInclude Include="IShip.h" />
     <ClInclude Include="IUIObject.h" />
+    <ClInclude Include="IWeapon.h" />
     <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="MissileNode.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />
     <ClInclude Include="MyIReferenceCounted.h" />
