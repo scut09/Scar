@@ -66,7 +66,7 @@ protected:
 
 public:
 	
-	virtual ~IShip(void);
+	virtual ~IShip(void){};
 
 	//初始化飞船的属性参数
 	virtual void initShip(const std::wstring& name,const f32& maxspeed=10, const vector3df& speed=vector3df(0,1,0), 
@@ -95,11 +95,11 @@ public:
 	virtual f32  GetExperienceToGrade()const{ return ExperienceToGrade;}
 
 	//获取和修改飞船的当前等级
-	virtual void SetCurrentGrade(const f32& grade){ CurrentGrade = grade;}
-	virtual f32 GetCurrentGrade()const{ return CurrentGrade; }
+	virtual void SetCurrentGrade(const u32& grade){ CurrentGrade = grade;}
+	virtual u32 GetCurrentGrade()const{ return CurrentGrade; }
 
 	//获取和修改飞船的最高等级
-	virtual void SetMaxGrade( const f32& grade ){ MaxGrade = grade; }
+	virtual void SetMaxGrade( const u32& grade ){ MaxGrade = grade; }
 	virtual u32  GetMaxGrade() const { return MaxGrade; }
 	
 	//获取和修改飞船的升一个等级增加的生命上限
@@ -108,7 +108,7 @@ public:
 
 	//获取和修改飞船的惯性
 	virtual void SetInertance(const f32& inertance ){ Inertance = inertance;}
-	virtual u32  GetInertance()const { return Inertance;}
+	virtual f32  GetInertance()const { return Inertance;}
 
 	//获取和修改飞船的每秒恢复的生命值
 	virtual void SetRecoverLife(const f32& recoverlife){ RecoverLife = RecoverLife; }

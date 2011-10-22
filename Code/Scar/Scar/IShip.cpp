@@ -23,7 +23,7 @@ void IShip::Move(u32 time)
 	}
 
 	vector3df pos = getPosition();
-	pos+=time * Speed+0.5*Acceleration*time * time;
+	pos+=(f32)time * Speed+Acceleration*((f32)0.5*(f32)time * (f32)time);
 		setPosition(pos);
 }
 
