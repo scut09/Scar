@@ -15,6 +15,8 @@
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "Flame.h"
 #include "huoyanshuxing.h"
+#include "SceneNodeAnimatorAircraftFPS.h"
+#include "SpaceStation.h"
 
 scene::ISceneNode* node;
 
@@ -43,7 +45,11 @@ void MultiplayerScene::Init()
 	auto driver = pEngine->GetVideoDriver();
 
 	//  加入摄像机
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	m_pCamera = smgr->addCameraSceneNode();
+	auto ani = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+	m_pCamera->addAnimator( ani );
+	ani->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1000000 );
 	//m_pCamera->setPosition( vector3df( 0, 0, -1000000 ) );
@@ -76,11 +82,14 @@ void MultiplayerScene::Init()
 	}
 
 	//加载空间站模型
-	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-	if ( station )
+	/*IMeshSceneNode* cs1 = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );*/
+	BuildSpaceStation* cs1 = new BuildSpaceStation( smgr, _T("../modle/station/cs1.obj" ) );
+	//m_pCamera->addAnimator(smgr->createCollisionResponseAnimator(cs1->getTriangleSelector(), m_pCamera));
+	//cs1->drop();
+	if( cs1 )
 	{
 		// 设置名字
-		station->setName( "station1" );
+		//station->setName( "station1" );
 	}
 
 	////加载太阳

@@ -16,43 +16,40 @@ using namespace irr;
 using namespace core;
 using namespace scene;
 
-class SpaceStation : public ISceneNode
+class BuildSpaceStation 
 {
 public:
 
-	SpaceStation(ISceneNode* parent, ISceneManager* mgr, s32 id,
-			const core::vector3df& position = core::vector3df(0,0,0),
-			const core::vector3df& rotation = core::vector3df(0,0,0),
-			const core::vector3df& scale = core::vector3df(1,1,1))
-		: ISceneNode(parent, mgr, id, position, rotation, scale), m_pSmgr(mgr), 
-						m_pCamara(0), m_pSpaceStationMesh(0) {}
-
-
-	void setMesh(IMesh* mesh);
-
-	virtual void render() {}
-
-	virtual const core::aabbox3d<f32>& getBoundingBox() const 
+	BuildSpaceStation( ISceneManager* smgr, const irr::io::path &pFileName, s32 id = -1, 
+		const core::vector3df& position = core::vector3df(0,0,0),
+		const core::vector3df& rotation = core::vector3df(0,0,0),
+		const core::vector3df& scale = core::vector3df(1,1,1) )
 	{
-		return m_pSpaceStationMesh->getBoundingBox();
+		auto m_pCamera = smgr->getActiveCamera();
+		if (!m_pCamera)
+		{
+			return;
+		}
+
+		auto m_pSpaceStationMesh = smgr->getMesh( pFileName );
+
+		auto ss = smgr->addMeshSceneNode(
+			m_pSpaceStationMesh
+			, smgr->getRootSceneNode()
+			, id
+			, position
+			, rotation
+			, scale
+			);
+
+		auto TriangleSelector = smgr->createOctreeTriangleSelector( m_pSpaceStationMesh, ss, 128 );
+
+		ss->setTriangleSelector( TriangleSelector );
+
+		m_pCamera->addAnimator( smgr->createCollisionResponseAnimator( TriangleSelector, m_pCamera ) );
+
+		TriangleSelector->drop();
 	}
-
-	IMesh* getMesh(void);
-
-	bool Initialize(const irr::io::path &pFileName);
-
-	virtual ITriangleSelector* getTriangleSelector() const
-	{
-		return TriangleSelector;
-	}
-
-private:
-	IMesh* m_pSpaceStationMesh;
-	ISceneManager* m_pSmgr;
-	ICameraSceneNode* m_pCamara;
-	
-	
-
 };
 
 #endif
