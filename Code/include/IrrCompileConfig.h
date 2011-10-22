@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2010 Nikolaus Gebhardt
+// Copyright (C) 2002-2009 Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
@@ -8,11 +8,11 @@
 //! Irrlicht SDK Version
 #define IRRLICHT_VERSION_MAJOR 1
 #define IRRLICHT_VERSION_MINOR 7
-#define IRRLICHT_VERSION_REVISION 2
+#define IRRLICHT_VERSION_REVISION 1
 // This flag will be defined only in SVN, the official release code will have
 // it undefined
-#define IRRLICHT_VERSION_SVN -beta
-#define IRRLICHT_SDK_VERSION "1.7.2"
+//#define IRRLICHT_VERSION_SVN -beta
+#define IRRLICHT_SDK_VERSION "1.7.1"
 
 #include <stdio.h> // TODO: Although included elsewhere this is required at least for mingw
 
@@ -101,9 +101,9 @@
 
 //! Define _IRR_COMPILE_WITH_DIRECT3D_8_ and _IRR_COMPILE_WITH_DIRECT3D_9_ to
 //! compile the Irrlicht engine with Direct3D8 and/or DIRECT3D9.
-/** If you only want to use the software device or opengl you can disable those defines.
+/** If you only want to use the software device or opengl this can be useful.
 This switch is mostly disabled because people do not get the g++ compiler compile
-directX header files, and directX is only available on Windows platforms. If you
+directX header files, and directX is only available on windows platforms. If you
 are using Dev-Cpp, and want to compile this using a DX dev pack, you can define
 _IRR_COMPILE_WITH_DX9_DEV_PACK_. So you simply need to add something like this
 to the compiler settings: -DIRR_COMPILE_WITH_DX9_DEV_PACK
@@ -118,7 +118,7 @@ headers, e.g. Summer 2004.  This is a Microsoft issue, not an Irrlicht one.
 
 //! Only define _IRR_COMPILE_WITH_DIRECT3D_8_ if you have an appropriate DXSDK, e.g. Summer 2004
 //#define _IRR_COMPILE_WITH_DIRECT3D_8_
-#define _IRR_COMPILE_WITH_DIRECT3D_9_
+//#define _IRR_COMPILE_WITH_DIRECT3D_9_
 
 #endif
 
@@ -166,7 +166,22 @@ you will not be able to use anything provided by the GUI Environment, including 
 /** This enables the engine to read/write from unicode filesystem. If you
 disable this feature, the engine behave as before (ansi). This is currently only supported
 for Windows based systems. */
-//#define _IRR_WCHAR_FILESYSTEM
+#define _IRR_WCHAR_FILESYSTEM
+
+//! Define _IRR_IMPROVE_UNICODE to enable unicode support for Logger, Clipbord. and care surrogate pair in CGUIEditBox.
+/** Use with define _IRR_WCHAR_FILESYSTEM and UNICODE */
+#define _IRR_IMPROVE_UNICODE
+
+#ifdef _IRR_IMPROVE_UNICODE
+	#define _IRR_WCHAR_FILESYSTEM
+#endif
+
+//! Define _IRR_IMPROVE_UNICODE to enable Input Method - MS-IME, XIM, etc - .
+/** This enables the engine to intercept input method messages. */
+#define _IRR_USE_INPUT_METHOD
+
+//! Define _IRR_COMPILE_WITH_CGUITTFONT_ to build with CGUITTFont. It isn't always necessary. If anything, not recommended.
+//#define _IRR_COMPILE_WITH_CGUITTFONT_
 
 //! Define _IRR_COMPILE_WITH_JPEGLIB_ to enable compiling the engine using libjpeg.
 /** This enables the engine to read jpeg images. If you comment this out,
@@ -352,7 +367,7 @@ defined. */
 //! Define _IRR_COMPILE_WITH_ZIP_ENCRYPTION_ if you want to read AES-encrypted ZIP archives
 #define _IRR_COMPILE_WITH_ZIP_ENCRYPTION_
 //! Define _IRR_COMPILE_WITH_BZIP2_ if you want to support bzip2 compressed zip archives
-/** bzip2 is superior to the original zip file compression modes, but requires
+/** bzip2 is superior to the original zip file compression modes, but requires 
 a certain amount of memory for decompression and adds several files to the
 library. */
 #define _IRR_COMPILE_WITH_BZIP2_
@@ -491,6 +506,8 @@ precision will be lower but speed higher. currently X86 only
 
 #ifndef _IRR_WINDOWS_API_
 	#undef _IRR_WCHAR_FILESYSTEM
+	#undef _IRR_IMPROVE_UNICODE
+	#undef _IRR_USE_INPUT_METHOD
 #endif
 
 #if defined(__sparc__) || defined(__sun__)
