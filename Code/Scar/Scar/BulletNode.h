@@ -11,7 +11,6 @@
 
 #include "IWeapon.h"
 
-
 /*
 ** Ãû×Ö£ºBulletNode
 ** ËµÃ÷£ºÅÚµ¯
@@ -27,7 +26,6 @@ public:
 		: IWeapon( mesh, parent, mgr, id, position, rotation, scale )
 	{
 	}
-
 
 	irr::scene::ISceneNode* Clone( irr::scene::ISceneNode* newParent, irr::scene::ISceneManager* newManager )
 	{

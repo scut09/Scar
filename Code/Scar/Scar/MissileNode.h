@@ -29,7 +29,9 @@ public:
 	{
 	}
 
-	irr::scene::ISceneNode* Clone( irr::scene::ISceneNode* newParent, irr::scene::ISceneManager* newManager )
+	
+
+	virtual irr::scene::ISceneNode* Clone( irr::scene::ISceneNode* newParent, irr::scene::ISceneManager* newManager )
 	{
 		if ( ! newParent ) newParent = Parent;
 		if ( ! newManager ) newManager = SceneManager;

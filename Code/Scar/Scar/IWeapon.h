@@ -10,26 +10,43 @@
 #ifndef IWeapon_h__
 #define IWeapon_h__
 
+#include <typeinfo>
 #include "CMeshSceneNode.h"
 
 using namespace irr;
+
+
+
+/*
+** 名字：ICollisionCallback
+** 说明：碰撞回调
+**
+*/
+class ICollisionCallback
+{
+public:
+	virtual void OnCollision( scene::ISceneNode* target ) = 0;
+};
+
+
+
 
 /*
 ** 名字：IWeapon
 ** 说明：武器基类
 **
 */
-class IWeapon : public irr::scene::CMeshSceneNode
+class IWeapon : public irr::scene::CMeshSceneNode, public ICollisionCallback
 {
 public:
 	IWeapon( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
 		irr::scene::ISceneManager* mgr, s32 id,
 		const core::vector3df& position, const core::vector3df& rotation,
-		const core::vector3df& scale )
-		: CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
-	{
-		setVisible( false );
-	}
+		const core::vector3df& scale );
+
+
+	virtual void OnCollision( scene::ISceneNode* target );
+
 	
 	//! 克隆一个自己，主要在发射导弹/炮弹的时候的可以复制一份武器出来
 	virtual irr::scene::ISceneNode* Clone( irr::scene::ISceneNode* newParent, irr::scene::ISceneManager* newManager ) = 0;
@@ -55,8 +72,6 @@ protected:
 	s32		Damage;			// 杀伤力
 
 };
-
-
 
 
 

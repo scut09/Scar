@@ -162,6 +162,12 @@
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="IWeapon.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -325,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="MissileNode.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

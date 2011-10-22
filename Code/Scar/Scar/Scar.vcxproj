@@ -84,8 +84,10 @@
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="CMeshSceneNode.cpp" />
+    <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="IShip.cpp" />
+    <ClCompile Include="IWeapon.cpp" />
     <ClCompile Include="MySceneNodeAnimatorLinerScale.cpp" />
     <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
@@ -128,6 +130,7 @@
     <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="BulletNode.h" />
     <ClInclude Include="CMeshSceneNode.h" />
+    <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
     <ClInclude Include="def.h" />
