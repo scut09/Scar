@@ -56,12 +56,12 @@ void MultiplayerScene::Init()
 	node = smgr->addSphereSceneNode( 500000 );
 	if ( node )
 	{
-		node->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture("../media/Planets/planet6.jpg") );
+		node->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
 		node->setMaterialFlag( video::EMF_LIGHTING, false );
 	}
 
 	//加载空间站模型
-	IMeshSceneNode* cs1 = smgr->addMeshSceneNode( smgr->getMesh("../modle/station/cs1.obj") );
+	IMeshSceneNode* cs1 = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
 	if( cs1 )
 	{
 		std::cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
@@ -87,7 +87,7 @@ void MultiplayerScene::Init()
 
 
 	// 加载模型和动画
-	auto bottleNode = m_pModelMan->AddSceneNodeFromMesh( "bottle" );
+	auto bottleNode = m_pModelMan->AddSceneNodeFromMesh( _T("bottle") );
 
 	//ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
 	//	vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
@@ -122,12 +122,12 @@ void MultiplayerScene::Init()
 
 	// 天空盒
 	m_pSkyBox = smgr->addSkyBoxSceneNode(
-		driver->getTexture("../media/Space/c07_up.jpg"),
-		driver->getTexture("../media/Space/c07_dn.jpg"),
-		driver->getTexture("../media/Space/c07_lt.jpg"),
-		driver->getTexture("../media/Space/c07_rt.jpg"),
-		driver->getTexture("../media/Space/c07_ft.jpg"),
-		driver->getTexture("../media/Space/c07_bk.jpg"));	
+		driver->getTexture( _T("../media/Space/c07_up.jpg") ),
+		driver->getTexture( _T("../media/Space/c07_dn.jpg") ),
+		driver->getTexture( _T("../media/Space/c07_lt.jpg") ),
+		driver->getTexture( _T("../media/Space/c07_rt.jpg") ),
+		driver->getTexture( _T("../media/Space/c07_ft.jpg") ),
+		driver->getTexture( _T("../media/Space/c07_bk.jpg") ) );	
 	//不知道为什么把天空盒设小一点反而不会出黑边
 	m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
 

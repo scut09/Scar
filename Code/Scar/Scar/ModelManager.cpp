@@ -21,7 +21,7 @@ void ModelManager::LoadModels()
 	// 测试用，现在无用
 }
 
-void ModelManager::AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename )
+void ModelManager::AddMesh( const std::wstring& meshID, const std::wstring& meshFilename, const std::wstring& textureFilename )
 {
 	scene::ISceneManager* smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 	MeshNode node = { smgr->getMesh( meshFilename.c_str() ), textureFilename };
@@ -29,7 +29,7 @@ void ModelManager::AddMesh( const std::string& meshID, const std::string& meshFi
 	m_meshMap[ meshID ] = node;
 }
 
-scene::ISceneNode* ModelManager::AddSceneNodeFromMesh( const std::string& meshID, bool bTestCollision )
+scene::ISceneNode* ModelManager::AddSceneNodeFromMesh( const std::wstring& meshID, bool bTestCollision )
 {
 	if ( m_meshMap.find( meshID ) == m_meshMap.end() )		return NULL;
 

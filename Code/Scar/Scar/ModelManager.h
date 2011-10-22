@@ -28,10 +28,10 @@ private:
 	struct MeshNode
 	{
 		scene::IAnimatedMesh*	mesh;
-		std::string				textureFilename;
+		std::wstring				textureFilename;
 	};
 
-	std::map< std::string, MeshNode >	m_meshMap;
+	std::map< std::wstring, MeshNode >	m_meshMap;
 	std::list< scene::ISceneNode* >		m_ISceneNodeList;
 
 public:	
@@ -45,11 +45,11 @@ public:
 
 	void LoadModels();
 
-	void AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename );
+	void AddMesh( const std::wstring& meshID, const std::wstring& meshFilename, const std::wstring& textureFilename );
 
-	scene::ISceneNode* AddSceneNodeFromMesh( const std::string& meshID, bool bTestCollision = false );
+	scene::ISceneNode* AddSceneNodeFromMesh( const std::wstring& meshID, bool bTestCollision = false );
 
-	void AddSceneNode( const std::string& meshFilename, const std::string );
+	void AddSceneNode( const std::wstring& meshFilename, const std::wstring );
 
 	void DeleteAll();
 };

@@ -29,13 +29,13 @@ namespace Network
 		// 函数名:  Network::IServer::CreateGameRoom
 		// 返回值:  int
 		// 参数:    int maxPlayerNumber					最大玩家数量
-		// 参数:    const std::string & gameRoomName		游戏房间的名字
+		// 参数:    const std::wstring & gameRoomName		游戏房间的名字
 		// 函数修饰:
 		// 描述：   创建游戏房间
 		//************************************
 		virtual int CreateGameRoom( 
 			int maxPlayerNumber, 
-			const std::string& gameRoomName 
+			const std::wstring& gameRoomName 
 			) = 0;
 
 		//************************************

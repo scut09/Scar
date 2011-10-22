@@ -167,11 +167,11 @@ struct PythonSceneNode
 class ModelManagerWrapper
 {
 public:
-	void AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename );
+	void AddMesh( const std::wstring& meshID, const std::wstring& meshFilename, const std::wstring& textureFilename );
 
 	void AddLight( const PythonSLight& light, f32 x, f32 y, f32 z );
 
-	PythonSceneNode AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision = false );
+	PythonSceneNode AddSceneNodeByMeshID( const std::wstring& meshID, bool bTestCollision = false );
 };
 
 

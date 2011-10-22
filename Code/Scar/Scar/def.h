@@ -9,7 +9,7 @@
 #ifndef _DEF_H_
 #define _DEF_H_
 
-
+#include <tchar.h>
 
 //
 // Python ½âÊÍÆ÷Ö§³Ö

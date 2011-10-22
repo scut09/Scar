@@ -23,8 +23,8 @@ namespace Network
 	*/
 	struct ServerInfo
 	{
-		std::string ip;
-		std::string roomName;
+		std::wstring ip;
+		std::wstring roomName;
 		int			maxPlayerNumber;
 		int			currentPlayerNumber;
 	};
@@ -53,11 +53,11 @@ namespace Network
 		//************************************
 		// 函数名:  IClient::EnterGameRoom
 		// 返回值:  int
-		// 参数:    const std::string & ip
+		// 参数:    const std::wstring & ip
 		// 函数修饰:
 		// 描述：   加入服务器
 		//************************************
-		virtual int EnterGameRoom( const std::string& ip ) = 0;
+		virtual int EnterGameRoom( const std::wstring& ip ) = 0;
 
 		//************************************
 		// 函数名:  IClient::SetOnMsgCallbackFunc

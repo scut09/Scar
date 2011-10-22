@@ -16,7 +16,7 @@
 //
 // Class ModelManagerSlaver
 // 
-void ModelManagerWrapper::AddMesh( const std::string& meshID, const std::string& meshFilename, const std::string& textureFilename )
+void ModelManagerWrapper::AddMesh( const std::wstring& meshID, const std::wstring& meshFilename, const std::wstring& textureFilename )
 {
 	ModelManager* pModelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
@@ -50,7 +50,7 @@ void ModelManagerWrapper::AddLight( const PythonSLight& light, f32 x, f32 y, f32
 	//std::cout << x << ' ' << y << ' ' << z << std::endl;
 }
 
-PythonSceneNode ModelManagerWrapper::AddSceneNodeByMeshID( const std::string& meshID, bool bTestCollision /*= false */ )
+PythonSceneNode ModelManagerWrapper::AddSceneNodeByMeshID( const std::wstring& meshID, bool bTestCollision /*= false */ )
 {
 	ModelManager* pModelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 

@@ -52,7 +52,7 @@ private:
 
 public:
 	static scene::ISceneCollisionManager*				m_pColMan;
-	static std::map<scene::ISceneNode*, std::string>*	m_pModels;
+	static std::map<scene::ISceneNode*, std::wstring>*	m_pModels;
 
 public:
 	Missile() {}

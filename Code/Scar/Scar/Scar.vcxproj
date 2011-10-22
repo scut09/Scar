@@ -83,7 +83,9 @@
   <ItemGroup>
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="CMeshSceneNode.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
+    <ClCompile Include="IShip.cpp" />
     <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
@@ -121,6 +123,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="BlinkUIAnimator.h" />
+    <ClInclude Include="CMeshSceneNode.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
     <ClInclude Include="def.h" />
@@ -137,6 +140,7 @@
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
+    <ClInclude Include="IShip.h" />
     <ClInclude Include="IUIObject.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="ModelManager.h" />

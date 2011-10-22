@@ -14,7 +14,7 @@
 using namespace irr;
 
 scene::ISceneCollisionManager* Missile::m_pColMan = NULL;
-std::map<scene::ISceneNode*, std::string>*	Missile::m_pModels = NULL;
+std::map<scene::ISceneNode*, std::wstring>*	Missile::m_pModels = NULL;
 
 
 extern scene::ICameraSceneNode* camera;

@@ -147,6 +147,12 @@
     <ClCompile Include="TimelagUIAnimator.cpp">
       <Filter>UI\UIAnimators</Filter>
     </ClCompile>
+    <ClCompile Include="CMeshSceneNode.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="IShip.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -286,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="TimelagUIAnimator.h">
       <Filter>UI\UIAnimators</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshSceneNode.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="IShip.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
