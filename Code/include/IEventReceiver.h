@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2010 Nikolaus Gebhardt
+// Copyright (C) 2002-2009 Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
@@ -6,6 +6,7 @@
 #define __I_EVENT_RECEIVER_H_INCLUDED__
 
 #include "ILogger.h"
+#include "position2d.h"
 #include "Keycodes.h"
 #include "irrString.h"
 
@@ -48,6 +49,14 @@ namespace irr
 		/** Log events are only passed to the user receiver if there is one. If they are absorbed by the
 		user receiver then no text will be sent to the console. */
 		EET_LOG_TEXT_EVENT,
+
+#if defined(_IRR_USE_INPUT_METHOD)
+		//! A input method event
+		/** Input method events are created by the input method message and passed to IrrlichtDevice::postEventFromUser.
+		Windows: Implemented.
+		Linux / Other: Not yet implemented. */
+		EET_IMPUT_METHOD_EVENT,
+#endif
 
 		//! A user event with user data.
 		/** This is not used by Irrlicht and can be used to send user
@@ -142,6 +151,20 @@ namespace irr
 		EMBSM_FORCE_32_BIT = 0x7fffffff
 	};
 
+#if defined(_IRR_USE_INPUT_METHOD)
+	//! Enumeration for all input method events
+	enum EINPUT_METHOD_EVENT
+	{
+		//! a character from input method.
+		EIME_CHAR_INPUT = 0,
+
+		//! change position of composition window
+		EIME_CHANGE_POS,
+
+		EIME_FORCE_32_BIT = 0x7fffffff
+	};
+#endif
+
 	namespace gui
 	{
 
@@ -160,11 +183,9 @@ namespace irr
 			EGET_ELEMENT_FOCUSED,
 
 			//! The mouse cursor hovered over a gui element.
-			/** If an element has sub-elements you also get this message for the subelements */
 			EGET_ELEMENT_HOVERED,
 
 			//! The mouse cursor left the hovered element.
-			/** If an element has sub-elements you also get this message for the subelements */
 			EGET_ELEMENT_LEFT,
 
 			//! An element would like to close.
@@ -245,11 +266,8 @@ namespace irr
 			//! A tree view node was expanded. See IGUITreeView::getLastEventNode().
 			EGET_TREEVIEW_NODE_EXPAND,
 
-			//! deprecated - use EGET_TREEVIEW_NODE_COLLAPSE instead
-			EGET_TREEVIEW_NODE_COLLAPS,
-
 			//! A tree view node was collapsed. See IGUITreeView::getLastEventNode().
-			EGET_TREEVIEW_NODE_COLLAPSE = EGET_TREEVIEW_NODE_COLLAPS,
+			EGET_TREEVIEW_NODE_COLLAPS,
 
 			//! No real event. Just for convenience to get number of events
 			EGET_COUNT
@@ -394,7 +412,11 @@ struct SEvent
 	struct SLogEvent
 	{
 		//! Pointer to text which has been logged
+#if defined(_IRR_IMPROVE_UNICODE)
+		const wchar_t* Text;
+#else
 		const c8* Text;
+#endif
 
 		//! Log level in which the text has been logged
 		ELOG_LEVEL Level;
@@ -410,6 +432,20 @@ struct SEvent
 		s32 UserData2;
 	};
 
+#if defined(_IRR_USE_INPUT_METHOD)
+	struct SInputMethodEvent
+	{
+		//! Parent window handle for IMM functions (Windows only)
+		void* Handle;
+
+		//! Character from Input Method
+		wchar_t Char;
+
+		//! Type of input method event
+		EINPUT_METHOD_EVENT Event;
+	};
+#endif
+
 	EEVENT_TYPE EventType;
 	union
 	{
@@ -419,6 +455,9 @@ struct SEvent
 		struct SJoystickEvent JoystickEvent;
 		struct SLogEvent LogEvent;
 		struct SUserEvent UserEvent;
+#if defined(_IRR_USE_INPUT_METHOD)
+		struct SInputMethodEvent InputMethodEvent;
+#endif
 	};
 
 };

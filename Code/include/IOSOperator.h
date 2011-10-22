@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2010 Nikolaus Gebhardt
+// Copyright (C) 2002-2009 Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
@@ -22,11 +22,19 @@ public:
 	virtual const wchar_t* getOperationSystemVersion() const = 0;
 
 	//! Copies text to the clipboard
+#if defined(_IRR_IMPROVE_UNICODE)
+	virtual void copyToClipboard(const wchar_t* text) const = 0;
+#else
 	virtual void copyToClipboard(const c8* text) const = 0;
+#endif
 
 	//! Get text from the clipboard
 	/** \return Returns 0 if no string is in there. */
+#if defined(_IRR_IMPROVE_UNICODE)
+	virtual const wchar_t* getTextFromClipboard() const = 0;
+#else
 	virtual const c8* getTextFromClipboard() const = 0;
+#endif
 
 	//! Get the processor speed in megahertz
 	/** \param MHz The integer variable to store the speed in.

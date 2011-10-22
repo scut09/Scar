@@ -1,6 +1,6 @@
 /* irrlicht.h -- interface of the 'Irrlicht Engine'
 
-  Copyright (C) 2002-2010 Nikolaus Gebhardt
+  Copyright (C) 2002-2009 Nikolaus Gebhardt
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -183,8 +183,11 @@
 #include "triangle3d.h"
 #include "vector2d.h"
 #include "vector3d.h"
+#if defined(_IRR_COMPILE_WITH_CGUITTFONT_)
+#include "irrUString.h"
+#endif
 
-/*! \mainpage Irrlicht Engine 1.7.2 API documentation
+/*! \mainpage Irrlicht Engine 1.7.1 API documentation
  *
  * <div align="center"><img src="logobig.png" ></div>
  *

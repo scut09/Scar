@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2010 Nikolaus Gebhardt
+// Copyright (C) 2002-2009 Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
@@ -165,6 +165,16 @@ public:
 	This pointer should not be dropped. See IReferenceCounted::drop() for
 	more information. */
 	virtual IGUIFont* getFont(const io::path& filename) = 0;
+
+#if defined(_IRR_COMPILE_WITH_CGUITTFONT_)
+	//! Returns pointer to the font with the specified filename.
+	/** Loads the font if it was not loaded before.
+	\param filename Filename of the Font.
+	\return Pointer to the font. Returns 0 if the font could not be loaded.
+	This pointer should not be dropped. See IReferenceCounted::drop() for
+	more information. */
+	virtual IGUIFont* getFont(const io::path& filename, u32 fontsize, bool antialias = true, bool transparency = true) { return getFont(filename); };
+#endif
 
 	//! Adds an externally loaded font to the font list.
 	/** This method allows to attach an already loaded font to the list of

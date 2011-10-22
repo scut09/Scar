@@ -5,6 +5,7 @@
 #ifndef __IRR_I_VIDEO_DRIVER_H_INCLUDED__
 #define __IRR_I_VIDEO_DRIVER_H_INCLUDED__
 
+#include "vector2d.h"
 #include "rect.h"
 #include "SColor.h"
 #include "ITexture.h"
@@ -394,6 +395,15 @@ namespace video
 		virtual void draw2DImage(const video::ITexture* texture, const core::position2d<s32> corners[4],
 			const core::rect<s32>& sourceRect, const core::rect<s32>* clipRect,
 			const video::SColor* const colors, bool useAlphaChannelOfTexture) {}
+
+
+		//! 可以旋转地贴2D字体。。。
+		virtual void mydraw2DImageBatch(const video::ITexture* texture,
+			const core::array<core::myposition>& positions,
+			const core::array<core::rect<s32> >& sourceRects,
+			const core::rect<s32>* clipRect,
+			SColor color,
+			bool useAlphaChannelOfTexture) {}
 
 		//! Adds a new render target texture to the texture cache.
 		/** \param size Size of the texture, in pixels. Width and

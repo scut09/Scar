@@ -332,6 +332,16 @@ public:
 	template<class T>
 	bool dimension2d<T>::operator==(const vector2d<T>& other) const { return Width == other.X && Height == other.Y; }
 
+	class myposition
+	{
+	public:
+		myposition() : LeftUpper( vector2d<s32> (0,0) ),RightUpper( vector2d<s32> (0,0) ),RightLower( vector2d<s32> (0,0) ),LeftLower( vector2d<s32> (0,0) ){}
+
+		vector2d< s32 > LeftUpper, RightUpper, RightLower, LeftLower;
+
+		myposition( vector2d<s32> lu,vector2d<s32> ru,vector2d<s32> rl,vector2d<s32> ll) : LeftUpper(lu), RightUpper(ru), RightLower(rl), LeftLower(ll){}
+
+	};
 } // end namespace core
 } // end namespace irr
 
