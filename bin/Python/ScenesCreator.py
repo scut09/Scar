@@ -23,7 +23,7 @@ def CreateGameScenes():
     
     start.Scenes[ 0 ] = multi
     
-    ChangeGameScene( mainMenu )
+    ChangeGameScene( multi )
 
 def GetScene( name ):
     '输入一个场景的名字，返回一个场景对象'
