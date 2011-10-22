@@ -153,11 +153,8 @@
     <ClCompile Include="IShip.cpp">
       <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="SpaceStation.cpp">
-      <Filter>Models</Filter>
+    <ClCompile Include="MySceneNodeAnimatorLinerScale.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,11 +302,8 @@
     <ClInclude Include="IShip.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
+    <ClInclude Include="MySceneNodeAnimatorLinerScale.h">
       <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="SpaceStation.h">
-      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

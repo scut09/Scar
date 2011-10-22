@@ -20,21 +20,15 @@ scene::ISceneNode* node;
 
 void MultiplayerScene::Run()
 {
-	//m_pAnimationMan->Run();
+	// 获取引擎
+	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 
-	//static int i = 0;
-
-	//if ( i++ > 300 )
-	//{
-	//	i = 0;
-	//	Release();
-	//	MyIrrlichtEngine::currentScene = startScene;
-	//	MyIrrlichtEngine::currentScene->Init();
-	//	std::cout << "Back\n";
-	//}
 	vector3df camarapos = m_pCamera->getPosition();
-	node->setPosition(camarapos + vector3df(0, 0, 1000000));//100万
-
+	// 设置行星位置，使其永远相对摄像机
+	smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-200000, 0, 1000000) );//100万
+	// 设置卫星位置，使其永远相对摄像机
+	smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + vector3df(100000, 0, -250000) );
 }
 
 void MultiplayerScene::Init()
@@ -46,29 +40,66 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	m_pModelMan = pEngine->GetModelManager();
+	auto driver = pEngine->GetVideoDriver();
 
 	//  加入摄像机
 	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1000000 );
+	//m_pCamera->setPosition( vector3df( 0, 0, -1000000 ) );
 
-	//加载星球
-	node = smgr->addSphereSceneNode( 500000 );
-	if ( node )
+	//加载行星
+	auto planet = smgr->addSphereSceneNode( 500000 );
+	if ( planet )
 	{
-		node->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
-		node->setMaterialFlag( video::EMF_LIGHTING, false );
+		// 设置名称
+		planet->setName( "planet1" );
+		// 加载纹理
+		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
+		// 星球自转
+		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
+		planet->addAnimator( rot );
+		// 设置初始大小
+		//planet->setScale( vector3df( .01f ) );
+		// 缩放动画
+		//auto sca = smgr->createRotationAnimator()
+	}
+
+	//加载卫星
+	auto moon = smgr->addSphereSceneNode( 125000 );
+	if ( moon )
+	{
+		// 设置名称
+		moon->setName( "moon1" );
+		// 加载纹理
+		moon->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") ) );
 	}
 
 	//加载空间站模型
-	IMeshSceneNode* cs1 = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-	if( cs1 )
+	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	if ( station )
 	{
-		std::cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
-		//cs1->setPosition( core::vector3df(0,0,0) );
-		//cs1->setMaterialTexture( 0, driver->getTexture("../media/Planets/planet6.jpg") );
-		//cs1->setMaterialFlag( video::EMF_LIGHTING, false );
+		// 设置名字
+		station->setName( "station1" );
 	}
+
+	////加载太阳
+	//auto sun = smgr->addSphereSceneNode( 200000 );
+	//if ( sun )
+	//{
+	//	// 设置名称
+	//	moon->setName( "sun1" );
+	//}
+
+	// 太阳光（平行光）
+	video::SLight light1;
+	light1.Type = ELT_DIRECTIONAL;
+	light1.SpecularColor = video::SColorf( 0, 0, 0 );
+	light1.AmbientColor = video::SColorf( 0.15f, 0.15f, 0.15f );
+	//light1.AmbientColor = video::SColorf( 0,0,0 );
+	auto lsn = smgr->addLightSceneNode();
+	lsn->setLightData( light1 );
+	lsn->setRotation( vector3df( 0, 90, 0 ) );
 
 	try
 	{
@@ -104,13 +135,9 @@ void MultiplayerScene::Init()
 	}
 
 
-
-
-
-
 	ModuleControl control;
 
-	auto driver = pEngine->GetVideoDriver();
+	
 
 	/*m_pSkyBox = smgr->addSkyBoxSceneNode(
 		driver->getTexture("../media/irrlicht2_up.jpg"),
@@ -127,7 +154,7 @@ void MultiplayerScene::Init()
 		driver->getTexture( _T("../media/Space/c07_lt.jpg") ),
 		driver->getTexture( _T("../media/Space/c07_rt.jpg") ),
 		driver->getTexture( _T("../media/Space/c07_ft.jpg") ),
-		driver->getTexture( _T("../media/Space/c07_bk.jpg") ) );	
+		driver->getTexture( _T("../media/Space/c07_bk.jpg") ));	
 	//不知道为什么把天空盒设小一点反而不会出黑边
 	m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
 
