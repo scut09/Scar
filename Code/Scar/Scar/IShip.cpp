@@ -74,7 +74,7 @@ void IShip::GradeUpByExperience()
 	}
 }
 
-void IShip::RefreshAttrbutes()
+void IShip::RefreshAttrbutes( const u32& time )
 {
 	GradeUpByExperience();
 	MaxLifeUpByGrade();

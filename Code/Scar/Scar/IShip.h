@@ -40,6 +40,7 @@ public:
 	CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 	{
 		Money =0;
+		Energy =1000;
 	}
 
 protected:
@@ -62,7 +63,8 @@ protected:
     f32                RecoverLife;            // 恢复生命 
 	f32                Experience;             // 经验值
 	f32                ExperienceToGrade;      // 加等级的经验值
-	u32                Money;                  // 金钱           
+	u32                Money;                  // 金钱    
+	u32                Energy;                 // 能量
 
 public:
 	
@@ -75,6 +77,11 @@ public:
 		const u32& shield=1, const u32& currentgrade=0, const u32& nextgrade=1, const u32&maxgrade=10, const f32& inertance=1,
 		const f32& recoverLife=10, const f32& experience=0, const f32& experiencetograde=100 );
 	
+
+	//获取和修改飞船的能量 
+	virtual void SetEnergy( const u32& en ){ Energy = en; }
+	virtual u32   GetEnergy() const { return Energy;}
+
 	//获取和修改飞船的金钱
 	virtual void SetMoney( const u32& money) { Money  = money; }
 	virtual u32  GetMoney() const { return Money; }
@@ -165,7 +172,7 @@ public:
 	virtual void Move(u32 time);
 
 	//刷新属性
-	virtual void RefreshAttrbutes();
+	virtual void RefreshAttrbutes( const u32& time);
 	
 	
 
