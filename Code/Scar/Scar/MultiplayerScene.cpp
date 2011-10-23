@@ -14,11 +14,7 @@
 #include "FlyBehavior.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "Flame.h"
-#include "huoyanshuxing.h"
-#include "SceneNodeAnimatorAircraftFPS.h"
-#include "SpaceStation.h"
-#include "MissileNode.h"
-#include "CSceneNodeAnimatorCollisionResponse.h"
+#include "AllAnimators.h"
 
 scene::ISceneNode* node;
 
@@ -30,27 +26,9 @@ void MultiplayerScene::Run()
 
 	vector3df camarapos = m_pCamera->getPosition();
 	// 设置行星位置，使其永远相对摄像机
-	smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-200000, 0, 1000000) );//100万
+	smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-2e5, 0, 8e5) );
 	// 设置卫星位置，使其永远相对摄像机
-	smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + vector3df(100000, 0, -250000) );
-
-
-	static bool bFirstRun = true;
-	if ( bFirstRun )
-	{
-		bFirstRun = false;	
-
-		MissileNode* missile = new MissileNode( smgr->getGeometryCreator()->createSphereMesh( 50 ), 0, smgr, -1 );
-		missile->setVisible( true );
-		missile->setParent( smgr->getRootSceneNode() );
-		auto SSSS = smgr->createFlyStraightAnimator( vector3df( 0, 0, 0 ), vector3df( 4000, 3000, 1000 ), 10000 );
-		missile->addAnimator( SSSS );
-		SSSS->drop();
-
-		CSceneNodeAnimatorMyCollisionResponse* col = new CSceneNodeAnimatorMyCollisionResponse( smgr->getSceneCollisionManager() );
-		missile->addAnimator( col );
-		missile->drop();
-	}
+	smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + vector3df(1e5, 0, 2.5e5) );
 }
 
 void MultiplayerScene::Init()
@@ -63,20 +41,15 @@ void MultiplayerScene::Init()
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	m_pModelMan = pEngine->GetModelManager();
 	auto driver = pEngine->GetVideoDriver();
-	auto device = pEngine->GetDevice();
 
 	//  加入摄像机
-	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();
-	auto ani = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
-	m_pCamera->addAnimator( ani );
-	ani->drop();
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 	m_pCamera->setFOV( 1 );
-	m_pCamera->setFarValue( 1000000 );
+	m_pCamera->setFarValue( 1e7f );
 	//m_pCamera->setPosition( vector3df( 0, 0, -1000000 ) );
 
 	//加载行星
-	auto planet = smgr->addSphereSceneNode( 500000 );
+	auto planet = smgr->addSphereSceneNode( 4e5 );
 	if ( planet )
 	{
 		// 设置名称
@@ -84,40 +57,53 @@ void MultiplayerScene::Init()
 		// 加载纹理
 		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
 		// 星球自转
-		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
+		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.003f, 0) );
 		planet->addAnimator( rot );
+		rot->drop();
 		// 设置初始大小
-		//planet->setScale( vector3df( .01f ) );
+		planet->setScale( vector3df( .01f ) );
 		// 缩放动画
-		//auto sca = smgr->createRotationAnimator()
+		auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), MT_LOG );
+		planet->addAnimator( sca );
+		sca->drop();
 	}
 
 	//加载卫星
-	auto moon = smgr->addSphereSceneNode( 125000 );
+	auto moon = smgr->addSphereSceneNode( 1e5 );
 	if ( moon )
 	{
 		// 设置名称
 		moon->setName( "moon1" );
 		// 加载纹理
 		moon->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") ) );
+		// 星球自转
+		auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
+		moon->addAnimator( rot );
+		rot->drop();
+		// 设置初始大小
+		moon->setScale( vector3df( .001f ) );
+		//moon->setVisible( false );
+		// 缩放动画
+		auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), MT_LOG, 500 );
+		moon->addAnimator( sca );
+		sca->drop();
 	}
 
 	//加载空间站模型
-	scene::IAnimatedMesh* mesh;
-	auto cs1 = smgr->addAnimatedMeshSceneNode( mesh = smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-
-	scene::ITriangleSelector* selector = smgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)cs1 );
-	cs1->setTriangleSelector(selector);
-	selector->drop();
-	
-	//BuildSpaceStation* cs1 = new BuildSpaceStation( smgr, _T("../modle/station/cs1.obj" ) );
-	//m_pCamera->addAnimator(smgr->createCollisionResponseAnimator(cs1->getTriangleSelector(), m_pCamera));
-	//cs1->drop();
-	//if( cs1 )
-	//{
+	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	if ( station )
+	{
 		// 设置名字
-		//station->setName( "station1" );
-	//}
+		station->setName( "station1" );
+		// 设置初始大小
+		station->setScale( vector3df( .001f));
+		//station->setRotation( vector3df( 0, 90, 0) );
+		station->setVisible(false);
+		// 缩放动画
+		//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
+		//moon->addAnimator( sca );
+		//sca->drop();
+	}
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );
@@ -137,43 +123,38 @@ void MultiplayerScene::Init()
 	lsn->setLightData( light1 );
 	lsn->setRotation( vector3df( 0, 90, 0 ) );
 
-	try
-	{
-		object modelLoader = p->GetModelLoader();
-		object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
-		MultiplayerLoad();
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+	//try
+	//{
+	//	object modelLoader = p->GetModelLoader();
+	//	object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
+	//	MultiplayerLoad();
+	//}
+	//catch ( ... )
+	//{
+	//	PyErr_Print();
+	//}
 
 
 //	m_pAnimationMan = pEngine->GetAnimationManager();
 
 
 
-	// 加载模型和动画
-	auto bottleNode = m_pModelMan->AddSceneNodeFromMesh( _T("bottle") );
+	//// 加载模型和动画
+	//auto bottleNode = m_pModelMan->AddSceneNodeFromMesh( _T("bottle") );
 
-	//ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
-	//	vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
-	ISceneNodeAnimator* anim = new CSceneNodeAnimatorAutoTrack( smgr );
-	bottleNode->addAnimator( anim );
-	anim->drop();
+	////ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
+	////	vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
+	//ISceneNodeAnimator* anim = new CSceneNodeAnimatorAutoTrack( smgr );
+	//bottleNode->addAnimator( anim );
+	//anim->drop();
 
-	for ( auto iter = m_pModelMan->GetISceneNodeList().begin(); iter != m_pModelMan->GetISceneNodeList().end(); ++iter )
-	{
-		ISceneNodeAnimator* anim = new Chuoyanshuxing( smgr );
-		(*iter)->addAnimator( anim );
-		//(*iter)->setScale( vector3df( 1000, 1000, 1000 ) );
-		anim->drop();
-	}
-
-
-	ModuleControl control;
-
-	
+	//for ( auto iter = m_pModelMan->GetISceneNodeList().begin(); iter != m_pModelMan->GetISceneNodeList().end(); ++iter )
+	//{
+	//	ISceneNodeAnimator* anim = new Chuoyanshuxing( smgr );
+	//	(*iter)->addAnimator( anim );
+	//	//(*iter)->setScale( vector3df( 1000, 1000, 1000 ) );
+	//	anim->drop();
+	//}
 
 	/*m_pSkyBox = smgr->addSkyBoxSceneNode(
 		driver->getTexture("../media/irrlicht2_up.jpg"),
@@ -221,11 +202,6 @@ void MultiplayerScene::Init()
 	////	fire->setVisible(false);   //初始不可见
 	//	node->addChild( fire );
 	//}
-
-
-
-
-
 
 
 	// 创建并注册receiver的事件处理回调函数

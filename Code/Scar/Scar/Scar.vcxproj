@@ -88,7 +88,8 @@
     <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
-    <ClCompile Include="MySceneNodeAnimatorLinerScale.cpp" />
+    <ClCompile Include="MySceneNodeAnimatorScale.cpp" />
+    <ClCompile Include="MySceneNodeAnimatorSetVisible.cpp" />
     <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
@@ -157,7 +158,8 @@
     <ClInclude Include="MyIReferenceCounted.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
-    <ClInclude Include="MySceneNodeAnimatorLinerScale.h" />
+    <ClInclude Include="MySceneNodeAnimatorScale.h" />
+    <ClInclude Include="MySceneNodeAnimatorSetVisible.h" />
     <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />

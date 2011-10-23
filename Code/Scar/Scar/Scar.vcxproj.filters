@@ -156,9 +156,6 @@
     <ClCompile Include="SpaceStation.cpp">
       <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="MySceneNodeAnimatorLinerScale.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -167,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="IWeapon.cpp">
       <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="MySceneNodeAnimatorScale.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="MySceneNodeAnimatorSetVisible.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +317,6 @@
     <ClInclude Include="IShip.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="MySceneNodeAnimatorLinerScale.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="SpaceStation.h">
       <Filter>Models</Filter>
     </ClInclude>
@@ -333,6 +333,12 @@
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MySceneNodeAnimatorScale.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MySceneNodeAnimatorSetVisible.h">
       <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>

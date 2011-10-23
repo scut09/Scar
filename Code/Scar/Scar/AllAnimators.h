@@ -12,5 +12,7 @@
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "CSceneNodeAutoTrackAnimator.h"
 #include "huoyanshuxing.h"
+#include "MySceneNodeAnimatorSetVisible.h"
+#include "MySceneNodeAnimatorScale.h"
 
 #endif // AllAnimators_h__
