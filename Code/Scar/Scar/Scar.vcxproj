@@ -83,8 +83,11 @@
   <ItemGroup>
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="Battleship.cpp" />
     <ClCompile Include="CMeshSceneNode.cpp" />
+    <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
+    <ClCompile Include="Frigate.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
@@ -128,9 +131,11 @@
     <ClInclude Include="AlphaChangeUIAnimator.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="base.h" />
+    <ClInclude Include="Battleship.h" />
     <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="BulletNode.h" />
     <ClInclude Include="CMeshSceneNode.h" />
+    <ClInclude Include="Cruiseship.h" />
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
@@ -139,6 +144,7 @@
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="Flame.h" />
     <ClInclude Include="FlyBehavior.h" />
+    <ClInclude Include="Frigate.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="huoyanshuxing.h" />
     <ClInclude Include="IAircraft.h" />
