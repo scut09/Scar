@@ -49,6 +49,9 @@
     <Filter Include="Python\py">
       <UniqueIdentifier>{6c37d9d7-2f75-4032-8865-4b0b4e19bd46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ship">
+      <UniqueIdentifier>{15d39265-faa4-4c32-92d4-93abe6367c1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,6 +173,15 @@
     </ClCompile>
     <ClCompile Include="MySceneNodeAnimatorSetVisible.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Battleship.cpp">
+      <Filter>ship</Filter>
+    </ClCompile>
+    <ClCompile Include="Cruiseship.cpp">
+      <Filter>ship</Filter>
+    </ClCompile>
+    <ClCompile Include="Frigate.cpp">
+      <Filter>ship</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +352,15 @@
     </ClInclude>
     <ClInclude Include="MySceneNodeAnimatorSetVisible.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Battleship.h">
+      <Filter>ship</Filter>
+    </ClInclude>
+    <ClInclude Include="Cruiseship.h">
+      <Filter>ship</Filter>
+    </ClInclude>
+    <ClInclude Include="Frigate.h">
+      <Filter>ship</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
