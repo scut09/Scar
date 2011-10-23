@@ -5,7 +5,11 @@
     说明:	  继承IShip基类,护卫舰,特点主要在于防守
 
 *********************************************************************/
-#pragma once
+#ifndef Frigate_h__
+#define Frigate_h__
+
+
+
 #include "iship.h"
 class CFrigate :
 	public IShip
@@ -59,3 +63,4 @@ protected:
 	bool BuildAir;                      //防御气体技能
 };
 
+#endif // Frigate_h__

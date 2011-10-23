@@ -5,10 +5,16 @@
     说明:	  继承IShip基类,巡航舰,特点主要在于敏捷
 
 *********************************************************************/
-#pragma once
+#ifndef Cruiseship_h__
+#define Cruiseship_h__
+
+
 #include "iship.h"
 class CCruiseship :
 	public IShip
+
+
+
 {
 public:
 	CCruiseship(irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
@@ -53,3 +59,4 @@ protected:
 	
 };
 
+#endif // Cruiseship_h__
