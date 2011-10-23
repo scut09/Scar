@@ -60,7 +60,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../lib/Win32-visualstudio;../Python/libs;../../boost-1_47/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Irrlicht.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Irrlicht.lib;freetype247MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,6 +84,7 @@
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Battleship.cpp" />
+    <ClCompile Include="CGUITTFont.cpp" />
     <ClCompile Include="CMeshSceneNode.cpp" />
     <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="AllUIObjects.h" />
+    <ClCompile Include="UIStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aircraft.h" />
@@ -138,6 +140,7 @@
     <ClInclude Include="Battleship.h" />
     <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="BulletNode.h" />
+    <ClInclude Include="CGUITTFont.h" />
     <ClInclude Include="CMeshSceneNode.h" />
     <ClInclude Include="Cruiseship.h" />
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIImage.h" />
+    <ClInclude Include="UIStaticText.h" />
     <ClInclude Include="__array_1.pypp.hpp" />
   </ItemGroup>
   <ItemGroup>

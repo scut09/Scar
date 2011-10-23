@@ -7,5 +7,6 @@
 
 #include "UIImage.h"
 #include "UIButton.h"
+#include "UIStaticText.h"
 
 #endif // AllUIObjects_h__

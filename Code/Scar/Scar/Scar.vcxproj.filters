@@ -195,6 +195,12 @@
     <ClCompile Include="MySceneNodeAnimatorShake.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="CGUITTFont.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIStaticText.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -385,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="MySceneNodeAnimatorCallFunc.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="CGUITTFont.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIStaticText.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

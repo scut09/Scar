@@ -31,6 +31,7 @@ void MenuScene::Run()
 	}
 }
 
+
 void MenuScene::Init()
 {
 	std::cout << "===> " << this->SceneName << " construction" << std::endl;
@@ -59,6 +60,7 @@ void MenuScene::Init()
 		uiManager->OnEvent( event );
 		return 0;
 	} );
+
 }
 
 void MenuScene::Release()
