@@ -183,6 +183,18 @@
     <ClCompile Include="Frigate.cpp">
       <Filter>ship</Filter>
     </ClCompile>
+    <ClCompile Include="MySceneNodeAnimatorCallFunc.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="RelateCameraAnimatorStay.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="RelateCameraAnimatorMove.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="MySceneNodeAnimatorShake.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -361,6 +373,18 @@
     </ClInclude>
     <ClInclude Include="Frigate.h">
       <Filter>ship</Filter>
+    </ClInclude>
+    <ClInclude Include="RelateCameraAnimatorStay.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="RelateCameraAnimatorMove.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MySceneNodeAnimatorShake.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MySceneNodeAnimatorCallFunc.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

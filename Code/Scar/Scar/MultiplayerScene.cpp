@@ -16,7 +16,9 @@
 #include "Flame.h"
 #include "AllAnimators.h"
 
-scene::ISceneNode* node;
+//scene::ISceneNode* node;
+
+vector3df moonPos = vector3df( 1e5, 0, 2.5e5 );
 
 void MultiplayerScene::Run()
 {
@@ -26,9 +28,9 @@ void MultiplayerScene::Run()
 
 	vector3df camarapos = m_pCamera->getPosition();
 	// 设置行星位置，使其永远相对摄像机
-	smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-2e5, 0, 8e5) );
+	//smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-2e5, 0, 8e5) );
 	// 设置卫星位置，使其永远相对摄像机
-	smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + vector3df(1e5, 0, 2.5e5) );
+	//smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + moonPos );
 }
 
 void MultiplayerScene::Init()
@@ -46,8 +48,11 @@ void MultiplayerScene::Init()
 	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
+	auto shakeAni = new MySceneNodeAnimatorShake( 0, 5000, 1 );
+	m_pCamera->addAnimator( shakeAni );
+	shakeAni->drop();
 	//m_pCamera->setPosition( vector3df( 0, 0, -1000000 ) );
-
+	
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );
 	if ( planet )
@@ -63,9 +68,13 @@ void MultiplayerScene::Init()
 		// 设置初始大小
 		planet->setScale( vector3df( .01f ) );
 		// 缩放动画
-		auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), MT_LOG );
+		auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
 		planet->addAnimator( sca );
 		sca->drop();
+		// 行星永远相对镜头
+		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( -2e5, 0, 8e5 ) );
+		planet->addAnimator( relstayAni );
+		relstayAni->drop();
 	}
 
 	//加载卫星
@@ -84,10 +93,17 @@ void MultiplayerScene::Init()
 		moon->setScale( vector3df( .001f ) );
 		//moon->setVisible( false );
 		// 缩放动画
-		auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), MT_LOG, 500 );
+		auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
 		moon->addAnimator( sca );
 		sca->drop();
+		// 飞跃星球效果
+		auto relmovAni = new RelateCameraAnimatorMove( 2000, 6000, m_pCamera,
+			vector3df(1e5, 0, 2.5e5), vector3df(1e5, 0, -2.5e5), RM_MT_LOG, 800 );
+		moon->addAnimator( relmovAni );
+		relmovAni->drop();
 	}
+
+
 
 	//加载空间站模型
 	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
@@ -96,7 +112,7 @@ void MultiplayerScene::Init()
 		// 设置名字
 		station->setName( "station1" );
 		// 设置初始大小
-		station->setScale( vector3df( .001f));
+		//station->setScale( vector3df( .001f));
 		//station->setRotation( vector3df( 0, 90, 0) );
 		station->setVisible(false);
 		// 缩放动画
@@ -116,7 +132,7 @@ void MultiplayerScene::Init()
 	// 太阳光（平行光）
 	video::SLight light1;
 	light1.Type = ELT_DIRECTIONAL;
-	light1.SpecularColor = video::SColorf( 0, 0, 0 );
+	light1.SpecularColor = video::SColorf( 0.1f, 0.1f, 0.1f );
 	light1.AmbientColor = video::SColorf( 0.15f, 0.15f, 0.15f );
 	//light1.AmbientColor = video::SColorf( 0,0,0 );
 	auto lsn = smgr->addLightSceneNode();

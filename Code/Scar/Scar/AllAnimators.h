@@ -14,5 +14,10 @@
 #include "huoyanshuxing.h"
 #include "MySceneNodeAnimatorSetVisible.h"
 #include "MySceneNodeAnimatorScale.h"
+#include "MySceneNodeAnimatorShake.h"
+#include "MySceneNodeAnimatorCallFunc.h"
+
+#include "RelateCameraAnimatorStay.h"
+#include "RelateCameraAnimatorMove.h"
 
 #endif // AllAnimators_h__

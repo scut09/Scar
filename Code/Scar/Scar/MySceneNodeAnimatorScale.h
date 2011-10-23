@@ -16,13 +16,13 @@ using namespace irr::core;
 using namespace irr::scene;
 
 // 缓动类型
-enum MOVE_TYPE
+enum AS_MOVE_TYPE
 {
-	MT_LINER,			// 线性
-	MT_LOG,				// 对数 快->慢
-	MT_SQUARE,			// 平方 慢->快
-	MT_SQRT,			// 开方 快->慢
-	MT_POW				// 指数 设置指数以调整曲线
+	AS_MT_LINER,			// 线性
+	AS_MT_LOG,				// 对数 快->慢
+	AS_MT_SQUARE,			// 平方 慢->快
+	AS_MT_SQRT,			// 开方 快->慢
+	AS_MT_POW				// 指数 设置指数以调整曲线
 };
 
 class MySceneNodeAnimatorScale : public ISceneNodeAnimator
@@ -33,12 +33,12 @@ class MySceneNodeAnimatorScale : public ISceneNodeAnimator
 	vector3df Origin;				// 原始缩放
 	vector3df Scale;				// 缩放增量
 	vector3df ScaleFactor;			// 缩放因子
-	MOVE_TYPE MoveType;				// 缓动类型
+	AS_MOVE_TYPE MoveType;				// 缓动类型
 	f32 Factor;						// 缓动系数	
 
 public:
 
-	MySceneNodeAnimatorScale( u32 delay, u32 duration, vector3df scale, MOVE_TYPE type = MT_LINER, f32 factor = 0 );
+	MySceneNodeAnimatorScale( u32 delay, u32 duration, vector3df scale, AS_MOVE_TYPE type = AS_MT_LINER, f32 factor = 0 );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

@@ -1,26 +1,25 @@
 #include "MySceneNodeAnimatorScale.h"
 
-
-MySceneNodeAnimatorScale::MySceneNodeAnimatorScale( u32 delay, u32 duration, vector3df scale, MOVE_TYPE type /*= LINER*/, f32 factor /*= 0 */ ) :
+MySceneNodeAnimatorScale::MySceneNodeAnimatorScale( u32 delay, u32 duration, vector3df scale, AS_MOVE_TYPE type /*= LINER*/, f32 factor /*= 0 */ ) :
 Begin( 0 ), Delay( delay ), Duration( duration ), Scale( scale ), MoveType( type ), Factor( factor )
 {
 	Origin = vector3df( -1, -1, -1 );
 	ScaleFactor = scale - vector3df( 1 );
 	switch( MoveType )
 	{
-	case MT_LINER:
+	case AS_MT_LINER:
 		ScaleFactor /= (f32)duration;
 		break;
-	case MT_LOG:
+	case AS_MT_LOG:
 		if ( Factor == 0 ) Factor = 80;
 		ScaleFactor /= log( (f32)(duration / Factor + 1) );
 		break;
-	case MT_SQUARE:
+	case AS_MT_SQUARE:
 		break;
-	case MT_SQRT:
+	case AS_MT_SQRT:
 		if ( Factor == 0 ) Factor = 1;
 		ScaleFactor /= sqrt( (f32)(duration / Factor) );
-	case MT_POW:
+	case AS_MT_POW:
 		if ( Factor == 0 ) Factor = 1;
 		ScaleFactor /= pow( (f32)duration, Factor );
 		break;
@@ -42,18 +41,18 @@ void MySceneNodeAnimatorScale::animateNode( ISceneNode* node, u32 timeMs )
 	vector3df sca;
 	switch ( MoveType )
 	{
-	case MT_LINER:
+	case AS_MT_LINER:
 		sca = ScaleFactor * (f32)t;
 		break;
-	case MT_LOG:
+	case AS_MT_LOG:
 		sca = ScaleFactor * log( (f32)(t / Factor + 1) );
 		break;
-	case MT_SQUARE:
+	case AS_MT_SQUARE:
 		break;
-	case MT_SQRT:
+	case AS_MT_SQRT:
 		sca = ScaleFactor * sqrt( (f32)(t / Factor) );
 		break;
-	case MT_POW:
+	case AS_MT_POW:
 		sca = ScaleFactor * pow( (f32)t, Factor );
 		break;
 	}
