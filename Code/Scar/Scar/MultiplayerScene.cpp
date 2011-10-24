@@ -22,15 +22,7 @@ vector3df moonPos = vector3df( 1e5, 0, 2.5e5 );
 
 void MultiplayerScene::Run()
 {
-	// 获取引擎
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 
-	vector3df camarapos = m_pCamera->getPosition();
-	// 设置行星位置，使其永远相对摄像机
-	//smgr->getSceneNodeFromName("planet1")->setPosition( camarapos + vector3df(-2e5, 0, 8e5) );
-	// 设置卫星位置，使其永远相对摄像机
-	//smgr->getSceneNodeFromName("moon1")->setPosition( camarapos + moonPos );
 }
 
 void MultiplayerScene::Init()
@@ -45,14 +37,25 @@ void MultiplayerScene::Init()
 	auto driver = pEngine->GetVideoDriver();
 
 	//  加入摄像机
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	/*m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );*/
+	m_pCamera = smgr->addCameraSceneNode();
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+	m_pCamera->addAnimator( fpsAni );
+	fpsAni->drop();
+	//m_pCamera = smgr->addCameraSceneNodeMaya();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	auto shakeAni = new MySceneNodeAnimatorShake( 0, 5000, 1 );
+	auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();
-	//m_pCamera->setPosition( vector3df( 0, 0, -1000000 ) );
+	m_pCamera->bindTargetAndRotation(true);
 	
+	//m_pCamera->setPosition( vector3df( 0, 0, -5e5 ) );
+	//auto warpAni = new MySceneNodeAnimatorMove( 4000, 3000, m_pCamera->getPosition(), vector3df( 0, 0, -1e5) );
+	//m_pCamera->addAnimator( warpAni );
+	//m_pCamera->setRotation(vector3df(0));
+	//warpAni->drop();
+
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );
 	if ( planet )
@@ -113,8 +116,7 @@ void MultiplayerScene::Init()
 		station->setName( "station1" );
 		// 设置初始大小
 		//station->setScale( vector3df( .001f));
-		//station->setRotation( vector3df( 0, 90, 0) );
-		station->setVisible(false);
+		//station->setVisible(false);
 		// 缩放动画
 		//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
 		//moon->addAnimator( sca );

@@ -93,6 +93,7 @@
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
     <ClCompile Include="MySceneNodeAnimatorCallFunc.cpp" />
+    <ClCompile Include="MySceneNodeAnimatorMove.cpp" />
     <ClCompile Include="MySceneNodeAnimatorScale.cpp" />
     <ClCompile Include="MySceneNodeAnimatorSetVisible.cpp" />
     <ClCompile Include="MySceneNodeAnimatorShake.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
     <ClInclude Include="MySceneNodeAnimatorCallFunc.h" />
+    <ClInclude Include="MySceneNodeAnimatorMove.h" />
     <ClInclude Include="MySceneNodeAnimatorScale.h" />
     <ClInclude Include="MySceneNodeAnimatorSetVisible.h" />
     <ClInclude Include="MySceneNodeAnimatorShake.h" />

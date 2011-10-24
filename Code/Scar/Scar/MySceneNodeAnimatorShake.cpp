@@ -1,4 +1,5 @@
 #include "MySceneNodeAnimatorShake.h"
+#include <iostream>
 
 MySceneNodeAnimatorShake::MySceneNodeAnimatorShake( u32 delay, u32 duration, f32 ampFrom, f32 ampTo )
 	: Begin( 0 ), Delay( delay ), Duration( duration ), AmpFrom( ampFrom), AmpTo( ampTo )
@@ -34,6 +35,7 @@ void MySceneNodeAnimatorShake::animateNode( ISceneNode* node, u32 timeMs )
 	if( sX >100 ) sX = 0;	// 为了解决莫名其妙的超大数
 	if( sY >100 ) sY = 0;
 	vector3df shake = vector3df( sX, sY, 0 );
+	std::cout<< shake.X << "," << shake.Y << std::endl;
 	LastOffset = shake;
 	node->setRotation( Origin + shake );
 

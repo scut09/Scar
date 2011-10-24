@@ -7,10 +7,10 @@
 	作者:		屠文翔
 	
 	描述:		相对镜头运动动画
+				从一点运动到另一点
 *********************************************************************/
 
 #include "ICameraSceneNode.h"
-
 using namespace irr;
 using namespace irr::core;
 using namespace irr::scene;
@@ -20,9 +20,6 @@ enum RM_MOVE_TYPE
 {
 	RM_MT_LINER,			// 线性
 	RM_MT_LOG,				// 对数 快->慢
-	RM_MT_SQUARE,			// 平方 慢->快
-	RM_MT_SQRT,			// 开方 快->慢
-	RM_MT_POW				// 指数 设置指数以调整曲线
 };
 
 class RelateCameraAnimatorMove : public ISceneNodeAnimator

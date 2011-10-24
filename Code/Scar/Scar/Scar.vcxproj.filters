@@ -201,6 +201,9 @@
     <ClCompile Include="UIStaticText.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="MySceneNodeAnimatorMove.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -397,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="UIStaticText.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MySceneNodeAnimatorMove.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

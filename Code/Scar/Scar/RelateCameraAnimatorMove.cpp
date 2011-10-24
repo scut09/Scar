@@ -49,5 +49,5 @@ void RelateCameraAnimatorMove::animateNode( ISceneNode* node, u32 timeMs )
 
 ISceneNodeAnimator* RelateCameraAnimatorMove::createClone( ISceneNode* node, ISceneManager* newManager/*=0 */ )
 {
-	throw std::exception("The method or operation is not implemented.");
+	return new RelateCameraAnimatorMove( Delay, Duration, Camera, StartPos, EndPos, MoveType, Factor );
 }

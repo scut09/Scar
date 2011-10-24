@@ -16,8 +16,11 @@
 #include "MySceneNodeAnimatorScale.h"
 #include "MySceneNodeAnimatorShake.h"
 #include "MySceneNodeAnimatorCallFunc.h"
+#include "MySceneNodeAnimatorMove.h"
 
 #include "RelateCameraAnimatorStay.h"
 #include "RelateCameraAnimatorMove.h"
+
+#include "SceneNodeAnimatorAircraftFPS.h"
 
 #endif // AllAnimators_h__
