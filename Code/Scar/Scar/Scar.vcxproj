@@ -97,6 +97,7 @@
     <ClCompile Include="MySceneNodeAnimatorScale.cpp" />
     <ClCompile Include="MySceneNodeAnimatorSetVisible.cpp" />
     <ClCompile Include="MySceneNodeAnimatorShake.cpp" />
+    <ClCompile Include="NetworkPacket.cpp" />
     <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Flame.h" />
     <ClInclude Include="FlyBehavior.h" />
     <ClInclude Include="Frigate.h" />
+    <ClInclude Include="GameBag.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="huoyanshuxing.h" />
     <ClInclude Include="IAircraft.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="MySceneNodeAnimatorScale.h" />
     <ClInclude Include="MySceneNodeAnimatorSetVisible.h" />
     <ClInclude Include="MySceneNodeAnimatorShake.h" />
+    <ClInclude Include="NetworkPacket.h" />
     <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="ScaleUIAnimator.h" />
     <ClInclude Include="DeletionUIAnimator.h" />
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
