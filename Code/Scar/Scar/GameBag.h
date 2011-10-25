@@ -2,9 +2,8 @@
 #define GameBag_h__
 
 
-#include <irrlicht.h>
+typedef float f32;
 
-using namespace irr;
 
 namespace Network
 {

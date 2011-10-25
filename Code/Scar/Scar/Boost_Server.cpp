@@ -1,60 +1,51 @@
 #include "Boost_Server.h"
 
 
-Network::BoostServer::BoostServer() : m_sock( io )
+Network::BoostServer::BoostServer( int port ) : m_port( port )
 {
-	socket_base::broadcast option( true );
-
-	// Broadcast
-	m_sock.open( boost::asio::ip::udp::v4() );
-	m_sock.set_option( option );
-
-	//
-	m_broadcast_ep = udp::endpoint( address::from_string( "255.255.255.255" ), PORT );
-}
-
-void Network::BoostServer::Inti()
-{
-
-}
-
-void Network::BoostServer::Broadcast( const PACKAGE& p )
-{
-	m_sock.send_to( buffer( &p, p.GetLength() ), m_broadcast_ep );
-}
-
-void Network::BoostServer::Run()
-{
-	udp::socket sock( io, udp::endpoint( udp::v4(), PORT ) );
-
-	std::vector<char> buf( 1600 );
-
-	while ( 1 )
+	// 创建网络
+	m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( port, port ) );
+	// 注册接受回调函数
+	m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
 	{
-		udp::endpoint ep;
-		//system::error_code ec;
+		OnReceive( ip, p );
+	} );
+}
 
-		//sock.receive_from( buffer( buf ), ep, 0, ec );
+void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
+{
+	using namespace boost::asio;
 
-		//if ( ec && ec != error::message_size )
-		//{
-		//	// error
-		//}
+	int cmd = p.GetCMD();
 
-		//ep.address();
+	// 请求房间
+	if ( cmd == REQUEST_ROOM )
+	{
+		PACKAGE pack;
 
-		//boost::asio::socket_base::broadcast option(true);
-		//socket.set_option(option);
+		pack.SetCMD( BROADCAST_ROOM );
 
-		//std::string ip;
-		//std::set<unsigned int> result;
-		//getlocalip(result,ip,io_service);//得到主机ip地址
+		BroadcastRoomBag room;
+		wchar_t* room_name = L"ETET";
+		wcscpy( room.room_name, room_name );
 
-		//ipinfo->count=1;
-		//ipinfo->iplist[0].ipaddr=ip;
+		pack.SetData( (const char*)&room, sizeof( BroadcastRoomBag ) );
 
-		//udp::endpoint destination(boost::asio::ip::address::from_string("255.255.255.255"), PORT);
+		m_network->Send( ip::address_v4().broadcast().to_ulong(), m_port, pack );
 
-		//socket.send_to(boost::asio::buffer(ipinfo,(sizeof(_ipinfo)+sizeof(_ipinfo().iplist[0]))),destination);
+		std::cout << "REQUEST_ROOM\n";
+	}
+	// 广播房间
+	else if ( cmd == BROADCAST_ROOM )
+	{
+		std::cout << "BROADCAST_ROOM\n";
+		BroadcastRoomBag room;
+		room = *(BroadcastRoomBag*)p.GetData();
+		std::wcout << "Room Name: " << room.room_name << std::endl;
+	}
+	// 英雄移动
+	else if ( cmd == HERO_MOVE )
+	{
+		std::cout << "HERO_MOVE\n";
 	}
 }

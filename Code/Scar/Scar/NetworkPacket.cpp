@@ -17,12 +17,12 @@ Network::PACKAGE::PACKAGE()
 	m_PackageID = -1;
 }
 
-char* Network::PACKAGE::GetData( int offsize )
+const char* Network::PACKAGE::GetData( int offsize ) const
 {
 	return (char*)this + offsize;
 }
 
-char* Network::PACKAGE::GetData()
+const char* Network::PACKAGE::GetData() const
 {
 	return m_data;
 }

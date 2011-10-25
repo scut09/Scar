@@ -26,9 +26,9 @@ namespace Network
 		PACKAGE();
 
 		// 根据偏移地址获取附加数据,数据起点为12.
-		char* GetData( int offsize );
+		const char* GetData( int offsize ) const;
 		// 获取附加数据
-		char* GetData();
+		const char* GetData() const;
 		// 设置数据,length大于1024会被自动截断!
 		int	SetData( const char* buffer, int length );
 		// 设置数据,数据以0为结束,一般用于文本.

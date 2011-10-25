@@ -6,14 +6,15 @@
 
 *********************************************************************/
 
+#ifndef Boost_Client_h__
+#define Boost_Client_h__
 
-#ifndef Client_h__
-#define Client_h__
 
 #include "NetworkPacket.h"
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <vector>
+#include "CNetwork.h"
 
 namespace Network
 {
@@ -24,31 +25,37 @@ namespace Network
 	class BoostClient
 	{
 	public:
-		void SendToServer( const PACKAGE& packet )
+		BoostClient( int port ) : m_port( port )
 		{
-			m_sock.send_to( buffer( &packet, packet.GetLength() ), m_server_ep );
+			// 创建网络
+			m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( port, 12345 ) );
+			// 注册接受回调函数
+			m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
+			{
+				OnReceive( ip, p );
+			} );
 		}
 
-		void Test()
+		void OnReceive( unsigned long ip, const PACKAGE& p )
+		{
+
+		}
+
+		void Send( std::string ip )
 		{
 			PACKAGE p;
 			p.SetCMD( REQUEST_ROOM );
-			SendToServer( p );
+			m_network->Send( ip, m_port, p );
 		}
 
+
 	private:
-		io_service		io;
-
-		udp::endpoint	m_server_ep;
-
-		udp::socket		m_sock;
-
-
+		int							m_port;
+		std::shared_ptr<INetwork>	m_network;
 	};
 
 
 }
 
 
-
-#endif // Client_h__
+#endif // Boost_Client_h__

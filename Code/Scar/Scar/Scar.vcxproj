@@ -88,6 +88,7 @@
     <ClCompile Include="Boost_Client.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CMeshSceneNode.cpp" />
+    <ClCompile Include="CNetwork.cpp" />
     <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
     <ClCompile Include="Frigate.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Boost_Client.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CMeshSceneNode.h" />
+    <ClInclude Include="CNetwork.h" />
     <ClInclude Include="Cruiseship.h" />
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="IFly.h" />
     <ClInclude Include="IMissile.h" />
     <ClInclude Include="IMovable.h" />
+    <ClInclude Include="INetwork.h" />
     <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="IShip.h" />

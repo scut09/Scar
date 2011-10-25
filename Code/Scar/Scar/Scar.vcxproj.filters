@@ -219,6 +219,9 @@
     <ClCompile Include="Server.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="CNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -438,6 +441,12 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CNetwork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="INetwork.h">
       <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>

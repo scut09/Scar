@@ -6,14 +6,17 @@
 
 *********************************************************************/
 
-#ifndef Server_h__
-#define Server_h__
+#ifndef Boost_Server_h__
+#define Boost_Server_h__
 
 #include "NetworkPacket.h"
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <vector>
 #include <string>
+#include <boost/smart_ptr.hpp>
+#include <iostream>
+#include "CNetwork.h"
 
 namespace Network
 {
@@ -21,48 +24,20 @@ namespace Network
 	using namespace boost::asio;
 	using namespace boost::asio::ip;
 
-	const int PORT = 1234;
-
 	// ·þÎñÆ÷
 	class BoostServer
 	{
-		io_service	io;
-		udp::socket m_sock;
-
 	public:
-		BoostServer();
+		BoostServer( int port ); 
 
-		void Inti();
-
-		void Broadcast( const PACKAGE& p );
-
-		void Run();
-
-		void OnReceive( const PACKAGE& p )
-		{
-			if ( p.GetCMD() == REQUEST_ROOM )
-			{
-				PACKAGE pack;
-
-				pack.SetCMD( BROADCAST_ROOM );
-
-				BroadcastRoomBag room;
-				wchar_t* room_name = L"ETET";
-				wcscpy( room.room_name, room_name );
-
-				Broadcast( pack );
-			}
-		}
+		void OnReceive( unsigned long ip, const PACKAGE& p );
 
 	private:
-
-		udp::endpoint	m_broadcast_ep;
-
+		int							m_port;
+		std::shared_ptr<INetwork>	m_network;
 	};
 
 
 }
 
-
-
-#endif // Server_h__
+#endif // Boost_Server_h__
