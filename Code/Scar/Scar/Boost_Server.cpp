@@ -1,7 +1,7 @@
-#include "Server.h"
+#include "Boost_Server.h"
 
 
-Network::Server::Server() : m_sock( io )
+Network::BoostServer::BoostServer() : m_sock( io )
 {
 	socket_base::broadcast option( true );
 
@@ -13,17 +13,17 @@ Network::Server::Server() : m_sock( io )
 	m_broadcast_ep = udp::endpoint( address::from_string( "255.255.255.255" ), PORT );
 }
 
-void Network::Server::Inti()
+void Network::BoostServer::Inti()
 {
 
 }
 
-void Network::Server::Broadcast( const PACKAGE& p )
+void Network::BoostServer::Broadcast( const PACKAGE& p )
 {
 	m_sock.send_to( buffer( &p, p.GetLength() ), m_broadcast_ep );
 }
 
-void Network::Server::Run()
+void Network::BoostServer::Run()
 {
 	udp::socket sock( io, udp::endpoint( udp::v4(), PORT ) );
 

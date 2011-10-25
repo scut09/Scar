@@ -24,13 +24,13 @@ namespace Network
 	const int PORT = 1234;
 
 	// ·þÎñÆ÷
-	class Server
+	class BoostServer
 	{
 		io_service	io;
 		udp::socket m_sock;
 
 	public:
-		Server();
+		BoostServer();
 
 		void Inti();
 

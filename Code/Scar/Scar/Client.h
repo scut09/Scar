@@ -7,6 +7,7 @@
 *********************************************************************/
 
 #pragma once
+#include <tchar.h>
 #include <vector>
 #include <process.h>
 #include <time.h>

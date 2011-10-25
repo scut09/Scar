@@ -21,7 +21,7 @@ namespace Network
 	using namespace boost::asio;
 	using namespace boost::asio::ip;
 
-	class Client
+	class BoostClient
 	{
 	public:
 		void SendToServer( const PACKAGE& packet )

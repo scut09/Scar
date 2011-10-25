@@ -6,7 +6,7 @@
 
 *********************************************************************/
 
-#include "StdAfx.h"
+
 #include "Client.h"
 
 using namespace Network;

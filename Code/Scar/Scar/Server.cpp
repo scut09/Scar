@@ -6,7 +6,7 @@
 
 *********************************************************************/
 
-#include "StdAfx.h"
+
 #include <string>
 #include <sstream>
 #include "Server.h"
