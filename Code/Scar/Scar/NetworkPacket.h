@@ -1,3 +1,11 @@
+/********************************************************************
+    创建时间: 2011-10-25   20:22
+    文件名:   NetworkPacket.h
+    作者:     华亮 Cedric Porter [ Stupid ET ]	
+    说明:     网络数据包
+
+*********************************************************************/
+
 #ifndef NetworkPacket_h__
 #define NetworkPacket_h__
 
@@ -5,8 +13,8 @@
 
 namespace Network
 {
-	const int MAX_ADDITION_LENGTH = 1024;
-	const int PackHeadLength = 12;
+	const int MAX_ADDITION_LENGTH = 1024;		// 数据包附加信息最大值
+	const int PackHeadLength = 12;				// 数据包头的大小
 
 
 	//

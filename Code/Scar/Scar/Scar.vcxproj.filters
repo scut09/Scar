@@ -204,14 +204,14 @@
     <ClCompile Include="NetworkPacket.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
     <ClCompile Include="PythonUINew.cpp">
       <Filter>Python</Filter>
+    </ClCompile>
+    <ClCompile Include="Boost_Client.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Boost_Server.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -419,10 +419,10 @@
     <ClInclude Include="GameBag.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Server.h">
+    <ClInclude Include="Boost_Server.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h">
+    <ClInclude Include="Boost_Client.h">
       <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
