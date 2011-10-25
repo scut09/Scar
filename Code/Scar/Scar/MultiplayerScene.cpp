@@ -15,20 +15,26 @@
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "Flame.h"
 #include "AllAnimators.h"
+#include "AllUIObjects.h"
+#include "UIAnimators.h"
+#include "UIManager.h"
+
 
 //scene::ISceneNode* node;
+UIManager* uiManager; //测试用
 
-vector3df moonPos = vector3df( 1e5, 0, 2.5e5 );
+IUIObject* root;	//测试用
+
 
 void MultiplayerScene::Run()
 {
-
+	
 }
 
 void MultiplayerScene::Init()
 {
 	// 使用Python模块加载模型
-	PythonManager* p = PythonManager::GetPythonManager();
+	//PythonManager* p = PythonManager::GetPythonManager();
 
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
@@ -45,16 +51,10 @@ void MultiplayerScene::Init()
 	//m_pCamera = smgr->addCameraSceneNodeMaya();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
+	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();
-	m_pCamera->bindTargetAndRotation(true);
-	
-	//m_pCamera->setPosition( vector3df( 0, 0, -5e5 ) );
-	//auto warpAni = new MySceneNodeAnimatorMove( 4000, 3000, m_pCamera->getPosition(), vector3df( 0, 0, -1e5) );
-	//m_pCamera->addAnimator( warpAni );
-	//m_pCamera->setRotation(vector3df(0));
-	//warpAni->drop();
+	m_pCamera->bindTargetAndRotation(true);*/
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );
@@ -69,11 +69,11 @@ void MultiplayerScene::Init()
 		planet->addAnimator( rot );
 		rot->drop();
 		// 设置初始大小
-		planet->setScale( vector3df( .01f ) );
-		// 缩放动画
-		auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
-		planet->addAnimator( sca );
-		sca->drop();
+		//planet->setScale( vector3df( .01f ) );
+		//// 缩放动画
+		//auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
+		//planet->addAnimator( sca );
+		//sca->drop();
 		// 行星永远相对镜头
 		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( -2e5, 0, 8e5 ) );
 		planet->addAnimator( relstayAni );
@@ -93,35 +93,39 @@ void MultiplayerScene::Init()
 		moon->addAnimator( rot );
 		rot->drop();
 		// 设置初始大小
-		moon->setScale( vector3df( .001f ) );
+		//moon->setScale( vector3df( .001f ) );
 		//moon->setVisible( false );
-		// 缩放动画
-		auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
-		moon->addAnimator( sca );
-		sca->drop();
-		// 飞跃星球效果
-		auto relmovAni = new RelateCameraAnimatorMove( 2000, 6000, m_pCamera,
-			vector3df(1e5, 0, 2.5e5), vector3df(1e5, 0, -2.5e5), RM_MT_LOG, 800 );
-		moon->addAnimator( relmovAni );
-		relmovAni->drop();
-	}
-
-
-
-	//加载空间站模型
-	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-	if ( station )
-	{
-		// 设置名字
-		station->setName( "station1" );
-		// 设置初始大小
-		//station->setScale( vector3df( .001f));
-		//station->setVisible(false);
-		// 缩放动画
-		//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
+		//// 缩放动画
+		//auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
 		//moon->addAnimator( sca );
 		//sca->drop();
+		//// 飞跃星球效果
+		//auto relmovAni = new RelateCameraAnimatorMove( 2000, 6000, m_pCamera,
+		//	vector3df(1e5, 0, 2.5e5), vector3df(1e5, 0, -2.5e5), RM_MT_LOG, 800 );
+		//moon->addAnimator( relmovAni );
+		//relmovAni->drop();
+		// 卫星永远相对镜头
+		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( 1e5, 0, 2.5e5 ) );
+		moon->addAnimator( relstayAni );
+		relstayAni->drop();
 	}
+
+
+
+	////加载空间站模型
+	//IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	//if ( station )
+	//{
+	//	// 设置名字
+	//	station->setName( "station1" );
+	//	// 设置初始大小
+	//	//station->setScale( vector3df( .001f));
+	//	//station->setVisible(false);
+	//	// 缩放动画
+	//	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
+	//	//moon->addAnimator( sca );
+	//	//sca->drop();
+	//}
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );
@@ -140,6 +144,36 @@ void MultiplayerScene::Init()
 	auto lsn = smgr->addLightSceneNode();
 	lsn->setLightData( light1 );
 	lsn->setRotation( vector3df( 0, 90, 0 ) );
+
+	// 加载UI界面
+	//dimension2d<u32> screenSize = pEngine->GetVideoDriver()->getScreenSize();
+	//vector2d<f32> center = vector2d<f32>( (f32)(screenSize.Width/2), (f32)(screenSize.Height/2) );
+	//root = new UIImage( 0, 0, 0 );
+	//UIImage* ring1 = new UIImage( root, 586, 586, 0, 1, center );
+	//ring1->LoadImage( "../media/UIResource/Game/cr_1.png" );
+	////ring1->drop();
+	//
+	//uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
+	//uiManager->SetRoot( root );
+	//root->drop();
+
+	uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
+	try
+	{
+		using namespace boost::python;
+
+		object UILoader = import( "MultiPlayIni" );
+		object GetRoot = UILoader.attr( "GetRoot" );
+		object root = GetRoot();
+
+		IUIObject* r = extract<IUIObject*>( root ); 
+		uiManager->SetRoot( r );
+		//r->drop();	// 使用Python对象不用内存管理
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 
 	//try
 	//{
@@ -173,14 +207,6 @@ void MultiplayerScene::Init()
 	//	//(*iter)->setScale( vector3df( 1000, 1000, 1000 ) );
 	//	anim->drop();
 	//}
-
-	/*m_pSkyBox = smgr->addSkyBoxSceneNode(
-		driver->getTexture("../media/irrlicht2_up.jpg"),
-		driver->getTexture("../media/irrlicht2_dn.jpg"),
-		driver->getTexture("../media/irrlicht2_lf.jpg"),
-		driver->getTexture("../media/irrlicht2_rt.jpg"),
-		driver->getTexture("../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../media/irrlicht2_bk.jpg"));*/
 
 	// 天空盒
 	m_pSkyBox = smgr->addSkyBoxSceneNode(
@@ -234,6 +260,9 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
+	if ( uiManager )
+		delete uiManager;
+
 	m_pCamera->remove();
 	m_pSkyBox->remove();
 
@@ -244,5 +273,10 @@ void MultiplayerScene::Release()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	smgr->clear();
+}
+
+void MultiplayerScene::Draw()
+{
+	uiManager->RunTree();
 }
 

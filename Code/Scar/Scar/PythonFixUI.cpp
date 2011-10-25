@@ -788,7 +788,7 @@ struct MultiplayerScene_wrapper : MultiplayerScene, bp::wrapper< MultiplayerScen
         if( bp::override func_Draw = this->get_override( "Draw" ) )
             func_Draw(  );
         else{
-            this->GameScene::Draw(  );
+            this->MultiplayerScene::Draw(  );
         }
     }
     

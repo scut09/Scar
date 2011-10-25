@@ -28,7 +28,7 @@ public:
 	virtual void Run();
 	virtual void Init();
 	virtual void Release();
-
+	virtual void Draw();
 };
 
 
