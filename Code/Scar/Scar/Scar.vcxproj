@@ -99,7 +99,6 @@
     <ClCompile Include="MySceneNodeAnimatorSetVisible.cpp" />
     <ClCompile Include="MySceneNodeAnimatorShake.cpp" />
     <ClCompile Include="NetworkPacket.cpp" />
-    <ClCompile Include="PythonFixUI.cpp" />
     <ClCompile Include="BlinkUIAnimator.cpp" />
     <ClCompile Include="CSceneNodeAnimatorSelfDelFlyStraight.cpp" />
     <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp" />
@@ -117,6 +116,7 @@
     <ClCompile Include="MyIrrlichtEngine.cpp" />
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
+    <ClCompile Include="PythonUINew.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RelateCameraAnimatorMove.cpp" />
     <ClCompile Include="RelateCameraAnimatorStay.cpp" />

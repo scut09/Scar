@@ -81,6 +81,8 @@ protected:
 	vector2df		LeftTop;					// 左上角
 	vector2df		RightBottom;				// 右下角
 
+	bool			bAntiAliasing;
+
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
 	int				Shape;						// 元件的判定区域形状
 
@@ -94,6 +96,11 @@ public:
 		const vector2d<f32>& position = vector2d<f32>( 0, 0 ),
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) );
+
+	void SetAntiAliasing( bool bAnti = true )
+	{
+		bAntiAliasing = bAnti;
+	}
 
 	// 设置源矩形	
 	//************************************

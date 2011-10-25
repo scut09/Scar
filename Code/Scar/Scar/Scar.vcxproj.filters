@@ -141,9 +141,6 @@
     <ClCompile Include="AllUIObjects.h">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="PythonFixUI.cpp">
-      <Filter>Python</Filter>
-    </ClCompile>
     <ClCompile Include="huoyanshuxing.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -212,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="Client.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonUINew.cpp">
+      <Filter>Python</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
