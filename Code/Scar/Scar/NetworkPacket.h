@@ -6,6 +6,8 @@
 namespace Network
 {
 	const int MAX_ADDITION_LENGTH = 1024;
+	const int PackHeadLength = 12;
+
 
 	//
 	// сно╥╟Э

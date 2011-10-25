@@ -18,7 +18,42 @@ namespace Network
 		BULLET_HIT,			// 炮弹命中
 		HERO_INFO,			// 玩家信息
 		ROOM_CREATE,
+		MESSAGE_BROADCAST,
+		MESSAGE_TO,
+		REQUEST_ROOM,
+		BROADCAST_ROOM,
 		ENTER_ROOM
+	};
+
+	struct PlayerInfo
+	{
+		wchar_t		player_name[ 16 ];	// 32B
+
+		// 24B
+		int			player_index;		
+
+		f32			x;
+		f32			y;
+		f32			z;
+
+		f32			rot_x;
+		f32			rot_y;
+
+
+	};
+
+	struct BroadcastRoomBag
+	{
+		wchar_t		room_name[ 32 ];		// 64 B
+		int			player_number;			// 4 B
+		int			max_player_number;
+		char		map_name[ 64 ];
+	}; 
+
+	struct BroadcastPlayerInfo
+	{
+		int		player_number;
+
 	};
 
 	struct HeroMove
@@ -38,7 +73,7 @@ namespace Network
 
 	struct BulletCreateBag
 	{
-		int		ownerIndex;
+		int		owner_index;
 		f32		x;
 		f32		y;
 		f32		z;

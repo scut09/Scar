@@ -85,6 +85,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Battleship.cpp" />
     <ClCompile Include="CGUITTFont.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="CMeshSceneNode.cpp" />
     <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="RotateUIAnimator.cpp" />
     <ClCompile Include="ScaleUIAnimator.cpp" />
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TimelagUIAnimator.cpp" />
@@ -143,6 +145,7 @@
     <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="BulletNode.h" />
     <ClInclude Include="CGUITTFont.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="CMeshSceneNode.h" />
     <ClInclude Include="Cruiseship.h" />
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
