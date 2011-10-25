@@ -41,7 +41,10 @@ void UIImage::Draw()
 		colors[i] = SColor((u32)GetAbsoluteAlpha(),255,255,255);
 	}
 
+	//Driver->enableMaterial2D();
 	Driver->draw2DImage( Image, intDstQuar, rect<s32>(0,0,w,h), 0, colors/*&SColor(Alpha,255,255,255)*/, true );
+	//sDriver->enableMaterial2D( false );
+	
 	//Driver->draw2DImage( Image, vector2d<s32>(0,0));
 }
 

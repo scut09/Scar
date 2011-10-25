@@ -12,6 +12,7 @@
 #include <irrlicht.h>
 
 using namespace irr;
+using namespace irr::core;
 using namespace scene;
 
 class CSceneNodeAnimatorAircraftFPS : public ISceneNodeAnimatorCameraFPS
@@ -107,11 +108,15 @@ public:
 		s32 LastAnimationTime;
 
 		core::array<SCamKeyMap> KeyMap;
-		core::position2d<f32> CenterCursor, CursorPos;
+		core::position2d<f32> CenterCursor;
 
 		bool CursorKeys[6];
 
-		bool firstUpdate;
+		bool firstUpdate;				// 是否初始化完成
 		bool NoVerticalMovement;
+
+		vector2d<s32> CenterPos;		// 屏幕中心位置
+		vector2d<s32> CursorPos;		// 鼠标当前位置
+		s32 MoveRadius;					// 准心移动半径
 };
 #endif

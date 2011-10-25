@@ -6,7 +6,8 @@
 
 *********************************************************************/
 #include "SceneNodeAnimatorAircraftFPS.h"
-
+#include "MyIrrlichtEngine.h"
+#include <iostream>
 
 
 //! constructor
@@ -74,7 +75,7 @@ bool CSceneNodeAnimatorAircraftFPS::OnEvent(const SEvent& evt)
 	case EET_MOUSE_INPUT_EVENT:
 		if (evt.MouseInput.Event == EMIE_MOUSE_MOVED)
 		{
-			CursorPos = CursorControl->getRelativePosition();
+			CursorPos = CursorControl->getPosition();
 			return true;
 		}
 		break;
@@ -94,17 +95,27 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	ICameraSceneNode* camera = static_cast<ICameraSceneNode*>(node);
 
+	// 在这里面做初始化工作
 	if (firstUpdate)
 	{
+		// 鼠标位置初始为屏幕中心
 		camera->updateAbsolutePosition();
 		if (CursorControl && camera)
 		{
 			CursorControl->setPosition(0.5f, 0.5f);
-			CursorPos = CenterCursor = CursorControl->getRelativePosition();
+			CursorPos = CenterPos = CursorControl->getPosition();
 		}
+		// 鼠标能移动的范围是大圈圈的范围
+		MoveRadius = 586 / 2;
 
 		LastAnimationTime = timeMs;
 
+		//// 获得屏幕中心点位置
+		//dimension2d<u32> screenSize = MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getScreenSize();
+		//CenterPos.X = (s32)screenSize.Width / 2;
+		//CenterPos.Y = (s32)screenSize.Height / 2;
+		
+		// 初始化完成
 		firstUpdate = false;
 	}
 
@@ -129,49 +140,68 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	if (CursorControl)
 	{
-		if (CursorPos != CenterCursor)
+		/*std::cout << std::endl;
+		std::cout<< CursorPos.X << "," << CursorPos.Y << std::endl;
+		std::cout<< CenterPos.X << "," << CenterPos.Y << std::endl;*/
+
+		vector2d<s32> CursorOffset = CursorPos - CenterPos;
+		f32 OffsetLength = CursorOffset.getLength();
+		// 如果鼠标飞出大圈圈
+		if ( OffsetLength > MoveRadius )
 		{
-			relativeRotation.Y -= (0.5f - CursorPos.X) * RotateSpeed;
-			relativeRotation.X -= (0.5f - CursorPos.Y) * RotateSpeed * MouseYDirection;
-
-			// X < MaxVerticalAngle or X > 360-MaxVerticalAngle
-
-			if (relativeRotation.X > MaxVerticalAngle*2 &&
-				relativeRotation.X < 360.0f-MaxVerticalAngle)
-			{
-				relativeRotation.X = 360.0f-MaxVerticalAngle;
-			}
-			else
-				if (relativeRotation.X > MaxVerticalAngle &&
-					relativeRotation.X < 360.0f-MaxVerticalAngle)
-				{
-					relativeRotation.X = MaxVerticalAngle;
-				}
-
-				// Do the fix as normal, special case below
-				// reset cursor position to the centre of the window.
-				CursorControl->setPosition(0.5f, 0.5f);
-				CenterCursor = CursorControl->getRelativePosition();
-
-				// needed to avoid problems when the event receiver is disabled
-				CursorPos = CenterCursor;
+			vector2d<s32> newPos;
+			f32 factor = MoveRadius / (f32)OffsetLength;
+			CursorOffset.X  = (s32)( CursorOffset.X * factor );
+			CursorOffset.Y  = (s32)( CursorOffset.Y * factor );
+			newPos = CursorOffset + CenterPos;
+			CursorPos = newPos;
+			CursorControl->setPosition( newPos.X, newPos.Y );
 		}
 
-		// Special case, mouse is whipped outside of window before it can update.
-		video::IVideoDriver* driver = smgr->getVideoDriver();
-		core::vector2d<u32> mousepos(u32(CursorControl->getPosition().X), u32(CursorControl->getPosition().Y));
-		core::rect<u32> screenRect(0, 0, driver->getScreenSize().Width, driver->getScreenSize().Height);
+		//CursorControl->getPosition()
+		//if (CursorPos != CenterCursor)
+		//{
+		//	relativeRotation.Y -= (0.5f - CursorPos.X) * RotateSpeed;
+		//	relativeRotation.X -= (0.5f - CursorPos.Y) * RotateSpeed * MouseYDirection;
 
-		// Only if we are moving outside quickly.
-		bool reset = !screenRect.isPointInside(mousepos);
+		//	// X < MaxVerticalAngle or X > 360-MaxVerticalAngle
 
-		if(reset)
-		{
-			// Force a reset.
-			CursorControl->setPosition(0.5f, 0.5f);
-			CenterCursor = CursorControl->getRelativePosition();
-			CursorPos = CenterCursor;
-		}
+		//	if (relativeRotation.X > MaxVerticalAngle*2 &&
+		//		relativeRotation.X < 360.0f-MaxVerticalAngle)
+		//	{
+		//		relativeRotation.X = 360.0f-MaxVerticalAngle;
+		//	}
+		//	else
+		//		if (relativeRotation.X > MaxVerticalAngle &&
+		//			relativeRotation.X < 360.0f-MaxVerticalAngle)
+		//		{
+		//			relativeRotation.X = MaxVerticalAngle;
+		//		}
+
+		//		// Do the fix as normal, special case below
+		//		// reset cursor position to the centre of the window.
+		//		//CursorControl->setPosition(0.5f, 0.5f);
+		//		CenterCursor = CursorControl->getRelativePosition();
+
+		//		// needed to avoid problems when the event receiver is disabled
+		//		CursorPos = CenterCursor;
+		//}
+
+		//// Special case, mouse is whipped outside of window before it can update.
+		//video::IVideoDriver* driver = smgr->getVideoDriver();
+		//core::vector2d<u32> mousepos(u32(CursorControl->getPosition().X), u32(CursorControl->getPosition().Y));
+		//core::rect<u32> screenRect(0, 0, driver->getScreenSize().Width, driver->getScreenSize().Height);
+
+		//// Only if we are moving outside quickly.
+		//bool reset = !screenRect.isPointInside(mousepos);
+
+		//if(reset)
+		//{
+		//	// Force a reset.
+		//	CursorControl->setPosition(0.5f, 0.5f);
+		//	CenterCursor = CursorControl->getRelativePosition();
+		//	CursorPos = CenterCursor;
+		//}
 	}
 
 	// set target

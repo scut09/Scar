@@ -23,11 +23,17 @@ def GetRoot():
     # 中心准心
     post1 = UIImage( root, 86, 86, 0, 1, vector2df( cenX, cenY ) )
     post1.LoadImage("../media/UIResource/Game/post_1.png")
+    rotAni = RotateUIAnimator( 0, 2000, 360, True )
+    Save( rotAni )
+    post1.AddAnimator( rotAni )
     Save( post1 )
 
     # 鼠标准心
     post2 = UIImage( root, 56, 56, 0, 1, vector2df( cenX, cenY ) )
     post2.LoadImage("../media/UIResource/Game/post_2.png")
+    rotAni2 = RotateUIAnimator( 0, 2000, -360, True )
+    Save( rotAni2 )
+    post2.AddAnimator( rotAni2 )
     Save( post2 )
 
     return root

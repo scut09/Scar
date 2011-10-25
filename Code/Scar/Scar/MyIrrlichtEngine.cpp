@@ -99,6 +99,11 @@ void MyIrrlichtEngine::Run()
 	statusText = m_pDevice->getGUIEnvironment()->addStaticText(L"Loading...",	pos, true);
 	statusText->setOverrideColor(video::SColor(255,205,200,200));
 
+	// 2D¿¹¾â³Ý
+	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
+	m_pDriver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
+	m_pDriver->enableMaterial2D();
+
 	while ( m_pDevice->run() )
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;

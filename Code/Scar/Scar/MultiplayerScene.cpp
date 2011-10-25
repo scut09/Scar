@@ -25,10 +25,13 @@ UIManager* uiManager; //测试用
 
 IUIObject* root;	//测试用
 
+IUIObject* Cursor;	// 鼠标准心
+
 
 void MultiplayerScene::Run()
 {
-	
+	auto CursorPos = MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl()->getPosition();
+	Cursor->SetPosition( vector2df( (f32)CursorPos.X, (f32)CursorPos.Y ) );
 }
 
 void MultiplayerScene::Init()
@@ -41,6 +44,9 @@ void MultiplayerScene::Init()
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	m_pModelMan = pEngine->GetModelManager();
 	auto driver = pEngine->GetVideoDriver();
+
+	// 隐藏鼠标
+	pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
 	//  加入摄像机
 	/*m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );*/
@@ -174,6 +180,9 @@ void MultiplayerScene::Init()
 	{
 		PyErr_Print();
 	}
+
+	// 获取鼠标准心
+	Cursor = uiManager->GetRoot()->GetChildren()[3];
 
 	//try
 	//{
