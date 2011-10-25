@@ -78,6 +78,9 @@ protected:
 
 	std::string		Name;						// 名字
 
+	vector2df		LeftTop;					// 左上角
+	vector2df		RightBottom;				// 右下角
+
 	vector2d<f32>	DestinationQuadrangle[4];	// 显示区域矩形
 	int				Shape;						// 元件的判定区域形状
 
@@ -92,7 +95,28 @@ public:
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) );
 
+	// 设置源矩形	
+	//************************************
+	// 参数:    const vector2df & leftTop		// 左上角的点
+	// 参数:    const vector2df & rightBottom	// 右下角的点
+	//************************************
+	void SetSourceRect( const vector2df& leftTop, const vector2df& rightBottom )
+	{
+		LeftTop = leftTop;
+		RightBottom = rightBottom;
+	}
 
+	// 获取源矩形左上角的点
+	const vector2df& GetLeftTop() const
+	{
+		return LeftTop;
+	}
+
+	// 获取源矩形右下角的点
+	const vector2df& GetRightBottom() const
+	{
+		return RightBottom;
+	}
 
 	// 设置/获取名字
 	void SetName( const std::string& name )
