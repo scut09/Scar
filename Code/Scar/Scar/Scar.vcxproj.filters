@@ -213,6 +213,12 @@
     <ClCompile Include="Boost_Server.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -423,6 +429,15 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Boost_Client.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
       <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>

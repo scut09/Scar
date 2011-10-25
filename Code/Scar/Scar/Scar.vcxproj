@@ -86,6 +86,7 @@
     <ClCompile Include="Battleship.cpp" />
     <ClCompile Include="CGUITTFont.cpp" />
     <ClCompile Include="Boost_Client.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="CMeshSceneNode.cpp" />
     <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="ScaleUIAnimator.cpp" />
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp" />
     <ClCompile Include="Boost_Server.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TimelagUIAnimator.cpp" />
@@ -146,6 +148,7 @@
     <ClInclude Include="BulletNode.h" />
     <ClInclude Include="CGUITTFont.h" />
     <ClInclude Include="Boost_Client.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="CMeshSceneNode.h" />
     <ClInclude Include="Cruiseship.h" />
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="MySceneNodeAnimatorScale.h" />
     <ClInclude Include="MySceneNodeAnimatorSetVisible.h" />
     <ClInclude Include="MySceneNodeAnimatorShake.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="NetworkPacket.h" />
     <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />
@@ -193,6 +197,7 @@
     <ClInclude Include="DeletionUIAnimator.h" />
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h" />
     <ClInclude Include="Boost_Server.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
