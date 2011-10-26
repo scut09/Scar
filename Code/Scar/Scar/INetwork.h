@@ -30,10 +30,10 @@ namespace Network
 		virtual void Close() = 0;
 
 		// 发送，输入字符串形式的ip
-		virtual void Send( const std::string& ip, int port, const PACKAGE& pack ) = 0;
+		virtual void Send( const std::string& ip, const PACKAGE& pack ) = 0;
 
 		// 发送，输入数字形式的ip		
-		virtual void Send( unsigned long ip, int port, const PACKAGE& pack ) = 0;
+		virtual void Send( unsigned long ip, const PACKAGE& pack ) = 0;
 
 	};
 }

@@ -6,11 +6,12 @@
 
 *********************************************************************/
 
+#include "Boost_Client.h"
+#include "Boost_Server.h"
 #include "MultiplayerScene.h"
 #include "PythonManager.h"
 #include "EngineHeader.h"
 #include <iostream>
-#include "Aircraft.h"
 #include "FlyBehavior.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "Flame.h"
@@ -23,6 +24,9 @@
 #include "irrKlang.h"
 using namespace irrklang;
 
+Network::BoostServer server;
+
+Network::BoostClient client;
 
 //scene::ISceneNode* node;
 UIManager* uiManager; //测试用
@@ -36,7 +40,6 @@ IShip* cf1;
 
 ISoundEngine* pSoundEngine;
 ISoundSource* fuck;
-
 
 void MultiplayerScene::Run()
 {
@@ -53,6 +56,10 @@ void MultiplayerScene::Run()
 
 void MultiplayerScene::Init()
 {
+	server.Start( 1990, 2012 );
+	client.Start( 2012, 1990 );
+
+
 	// 使用Python模块加载模型
 	//PythonManager* p = PythonManager::GetPythonManager();
 
@@ -285,6 +292,9 @@ void MultiplayerScene::Init()
 		return 0;
 	} );
 	
+
+	client.QueryRoom();
+
 }
 
 void MultiplayerScene::Release()

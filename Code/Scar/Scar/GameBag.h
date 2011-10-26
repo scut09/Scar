@@ -2,9 +2,6 @@
 #define GameBag_h__
 
 
-typedef float f32;
-
-
 namespace Network
 {
 
@@ -19,7 +16,8 @@ namespace Network
 		ROOM_CREATE,
 		MESSAGE_BROADCAST,
 		MESSAGE_TO,
-		REQUEST_ROOM,
+		QUERY_ROOM,			// 广播查询房间
+		REQUEST_ROOM,		// 请求加入
 		BROADCAST_ROOM,
 		ENTER_ROOM
 	};
@@ -31,12 +29,12 @@ namespace Network
 		// 24B
 		int			player_index;		
 
-		f32			x;
-		f32			y;
-		f32			z;
+		float			x;
+		float			y;
+		float			z;
 
-		f32			rot_x;
-		f32			rot_y;
+		float			rot_x;
+		float			rot_y;
 
 
 	};
@@ -58,24 +56,24 @@ namespace Network
 	struct HeroMove
 	{
 		int		index;
-		f32		x;
-		f32		y;
-		f32		z;
+		float		x;
+		float		y;
+		float		z;
 	};
 
 	struct HeroRotate
 	{
 		int		index;
-		f32		x;
-		f32		y;
+		float		x;
+		float		y;
 	};
 
 	struct BulletCreateBag
 	{
 		int		owner_index;
-		f32		x;
-		f32		y;
-		f32		z;
+		float		x;
+		float		y;
+		float		z;
 		// type
 		// bullet index
 		// bullet target

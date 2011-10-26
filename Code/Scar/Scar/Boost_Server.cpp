@@ -1,16 +1,17 @@
 #include "Boost_Server.h"
 
 
-Network::BoostServer::BoostServer( int port ) : m_port( port )
+void Network::BoostServer::Start( int listen_port, int target_port )
 {
 	// 创建网络
-	m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( port, port ) );
+	m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port ) );
 	// 注册接受回调函数
 	m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
 	{
 		OnReceive( ip, p );
 	} );
 }
+
 
 void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 {
@@ -19,7 +20,7 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	int cmd = p.GetCMD();
 
 	// 请求房间
-	if ( cmd == REQUEST_ROOM )
+	if ( cmd == QUERY_ROOM )
 	{
 		PACKAGE pack;
 
@@ -31,14 +32,14 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 
 		pack.SetData( (const char*)&room, sizeof( BroadcastRoomBag ) );
 
-		m_network->Send( ip::address_v4().broadcast().to_ulong(), m_port, pack );
+		m_network->Send( ip::address_v4().broadcast().to_ulong(), pack );
 
-		std::cout << "REQUEST_ROOM\n";
+		std::cout << "BoostServer receives REQUEST_ROOM\n";
 	}
 	// 广播房间
 	else if ( cmd == BROADCAST_ROOM )
 	{
-		std::cout << "BROADCAST_ROOM\n";
+		std::cout << "BoostServer receives BROADCAST_ROOM\n";
 		BroadcastRoomBag room;
 		room = *(BroadcastRoomBag*)p.GetData();
 		std::wcout << "Room Name: " << room.room_name << std::endl;

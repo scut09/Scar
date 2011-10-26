@@ -28,9 +28,10 @@ namespace Network
 	class BoostServer
 	{
 	public:
-		BoostServer( int port ); 
-
 		void OnReceive( unsigned long ip, const PACKAGE& p );
+
+		void Start( int listen_port, int target_port );
+
 
 	private:
 		int							m_port;

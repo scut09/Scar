@@ -8,10 +8,32 @@
 
 #include "Boost_Client.h"
 
-Network::BoostClient::BoostClient( int port ) : m_port( port )
+
+void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
+{
+	int cmd = p.GetCMD();
+
+	if ( cmd == BROADCAST_ROOM )
+	{
+		std::cout << "Server broadcast room: ip= " 
+			<< boost::asio::ip::address_v4( ip ).to_string() 
+			<< " room name= ";
+		std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
+			<< std::endl;
+	}
+}
+
+void Network::BoostClient::Send( std::string ip )
+{
+	PACKAGE p;
+	p.SetCMD( REQUEST_ROOM );
+	m_network->Send( ip, p );
+}
+
+void Network::BoostClient::Start( int listen_port, int target_port )
 {
 	// 创建网络
-	m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( port, 12345 ) );
+	m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port ) );
 	// 注册接受回调函数
 	m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
 	{
@@ -19,14 +41,9 @@ Network::BoostClient::BoostClient( int port ) : m_port( port )
 	} );
 }
 
-void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
-{
-
-}
-
-void Network::BoostClient::Send( std::string ip )
+void Network::BoostClient::QueryRoom()
 {
 	PACKAGE p;
-	p.SetCMD( REQUEST_ROOM );
-	m_network->Send( ip, m_port, p );
+	p.SetCMD( QUERY_ROOM );
+	m_network->Send( 0, p );
 }

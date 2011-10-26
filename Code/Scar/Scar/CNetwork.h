@@ -26,7 +26,9 @@ namespace Network
 	class CNetwork : public INetwork
 	{
 	public:
-		CNetwork( int port = 12345, int target_port = 0 );
+		CNetwork( int port, int target_port );
+
+		~CNetwork();
 
 		// 开始接受网络信息
 		virtual void Start( INetworkCallbackType func );
@@ -35,10 +37,10 @@ namespace Network
 		virtual void Close();
 
 		// 发送，输入字符串形式的ip
-		virtual void Send( const std::string& ip, int port, const PACKAGE& pack );
+		virtual void Send( const std::string& ip, const PACKAGE& pack );
 
 		// 发送，输入数字形式的ip		
-		virtual void Send( unsigned long ip, int port, const PACKAGE& pack );
+		virtual void Send( unsigned long ip, const PACKAGE& pack );
 
 	private:
 			

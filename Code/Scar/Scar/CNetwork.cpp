@@ -8,8 +8,9 @@
 
 
 #include "CNetwork.h"
+#include <iostream>
 
-Network::CNetwork::CNetwork( int port /*= 12345*/, int target_port /*= 0*/ )
+Network::CNetwork::CNetwork( int port, int target_port )
 	: m_listen_port( port )
 	, m_target_port( target_port )
 	, m_broadcast_ep( ip::address::from_string( "255.255.255.255" ), target_port )
@@ -21,6 +22,12 @@ Network::CNetwork::CNetwork( int port /*= 12345*/, int target_port /*= 0*/ )
 	// 允许广播
 	socket_base::broadcast option( true );
 	m_send_sock->set_option( option );
+}
+
+Network::CNetwork::~CNetwork()
+{
+	m_thread->interrupt();
+	m_send_sock->close();
 }
 
 void Network::CNetwork::Start( INetworkCallbackType func )
@@ -39,14 +46,21 @@ void Network::CNetwork::Close()
 	m_thread.reset();
 }
 
-void Network::CNetwork::Send( const std::string& ip, int port, const PACKAGE& pack )
+void Network::CNetwork::Send( const std::string& ip, const PACKAGE& pack )
 {
 	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address::from_string( ip ), m_target_port ) );
 }
 
-void Network::CNetwork::Send( unsigned long ip, int port, const PACKAGE& pack )
+void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
 {
-	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
+	if ( ip == 0 )	// 广播
+	{
+		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), m_broadcast_ep );
+	}
+	else
+	{
+		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
+	}
 }
 
 void Network::CNetwork::Run()
@@ -59,12 +73,15 @@ void Network::CNetwork::Run()
 
 	while ( 1 )
 	{
+		boost::this_thread::interruption_point();
+
 		// 阻塞接受消息
 		sock.receive_from( buffer( buf ), ep, 0, ec );
 
 		if ( ec && ec != error::message_size )
 		{
 			std::cerr << "Error occurs in CNetwork::Run()\n";
+			//::system( "pause" );
 			continue;
 		}
 

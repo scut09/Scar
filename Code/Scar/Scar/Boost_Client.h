@@ -25,11 +25,13 @@ namespace Network
 	class BoostClient
 	{
 	public:
-		BoostClient( int port );
+		void Start( int listen_port, int target_port );
 
 		void OnReceive( unsigned long ip, const PACKAGE& p );
 
 		void Send( std::string ip );
+
+		void QueryRoom();
 
 	private:
 
