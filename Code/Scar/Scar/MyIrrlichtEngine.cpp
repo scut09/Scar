@@ -101,11 +101,11 @@ void MyIrrlichtEngine::Run()
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;
 
-		if ( currentScene == NULL )		continue;
+		if ( currentScene == NULL )		return;		// 无场景，结束游戏循环
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 
-		if ( now - m_lastUpdateTime < frameTime ) 
+		if ( now - m_lastUpdateTime < frameTime )	// 控制帧率
 		{
 			boost::thread::sleep( boost::get_system_time() + boost::posix_time::milliseconds( 2 ) );
 			continue;
@@ -116,15 +116,13 @@ void MyIrrlichtEngine::Run()
 
 		//m_AnimationManager.Run();
 
-		// 运行场景
+		// 计算更新场景
 		currentScene->Run();
 
-
-
+		// 绘制场景
 		m_pDriver->beginScene( true, true, video::SColor( 255, 0, 0, 0 ) );
 
 		m_pSmgr->drawAll();	
-
 		currentScene->Draw();
 
 		m_pDriver->endScene();
