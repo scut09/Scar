@@ -114,8 +114,6 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		// 不需要绑定旋转和target
 		camera->bindTargetAndRotation( false );
 		
-		camera->setRotation(vector3df( 0, 60, 0));
-		
 		// 初始化完成
 		firstUpdate = false;
 	}
@@ -240,7 +238,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	// 设置照相机节点旋转状态
 	vector3df relateRot = camera->getRotation();
-	vector3df currentRot = relateRot + vector3df(0,0,0.2f)/* + 旋转改变量*/;
+	vector3df currentRot = relateRot/* + 旋转改变量*/;
 	camera->setRotation( currentRot );
 
 	// 设置照相机节点的位置

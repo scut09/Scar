@@ -20,6 +20,9 @@
 #include "UIManager.h"
 #include "Frigate.h"
 
+#include "irrKlang.h"
+using namespace irrklang;
+
 
 //scene::ISceneNode* node;
 UIManager* uiManager; //测试用
@@ -30,6 +33,9 @@ IUIObject* Cursor;	// 鼠标准心
 IUIObject* Speed1;	// 速度槽慢
 IUIObject* Speed2;	// 速度槽空
 IShip* cf1;
+
+ISoundEngine* pSoundEngine;
+ISoundSource* fuck;
 
 
 void MultiplayerScene::Run()
@@ -42,7 +48,7 @@ void MultiplayerScene::Run()
 	f32 ratio = cf1->GetVelocity() / cf1->GetMaxSpeed();
 	f32 border = 389 * ( 1 - ratio );
 	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
-	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );
+	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );	
 }
 
 void MultiplayerScene::Init()
@@ -76,8 +82,6 @@ void MultiplayerScene::Init()
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();
 	m_pCamera->bindTargetAndRotation(true);*/
-
-	
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );
@@ -132,7 +136,9 @@ void MultiplayerScene::Init()
 		relstayAni->drop();
 	}
 
-
+	pSoundEngine = createIrrKlangDevice();
+	fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
+		//fuck->setVolume( fuck->getVolume() - 10 );
 
 	//加载空间站模型
 	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
@@ -168,17 +174,6 @@ void MultiplayerScene::Init()
 	lsn->setRotation( vector3df( 0, 90, 0 ) );
 
 	// 加载UI界面
-	//dimension2d<u32> screenSize = pEngine->GetVideoDriver()->getScreenSize();
-	//vector2d<f32> center = vector2d<f32>( (f32)(screenSize.Width/2), (f32)(screenSize.Height/2) );
-	//root = new UIImage( 0, 0, 0 );
-	//UIImage* ring1 = new UIImage( root, 586, 586, 0, 1, center );
-	//ring1->LoadImage( "../media/UIResource/Game/cr_1.png" );
-	////ring1->drop();
-	//
-	//uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
-	//uiManager->SetRoot( root );
-	//root->drop();
-
 	uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
 	try
 	{
@@ -196,7 +191,6 @@ void MultiplayerScene::Init()
 	{
 		PyErr_Print();
 	}
-
 	// 获取鼠标准心
 	Cursor = uiManager->GetRoot()->GetChildren()[3];
 	// 获取速度槽
@@ -280,10 +274,17 @@ void MultiplayerScene::Init()
 	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
 	{	
 		//control.OnEvent( event );
-		pEngine;		// 引擎指针
-		//std::cout << "\n" << event.MouseInput.X << ' ' << event.MouseInput.Y << std::endl;
+		//pEngine;		// 引擎指针
+		//if (event.EventType == EET_KEY_INPUT_EVENT )
+		//{
+		//	if (event.KeyInput.Key == KEY_KEY_W )
+		//	{
+		//		pSoundEngine->play2D( fuck );
+		//	}
+		//}
 		return 0;
 	} );
+	
 }
 
 void MultiplayerScene::Release()
