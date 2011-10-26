@@ -111,10 +111,10 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 		LastAnimationTime = timeMs;
 
-		//// 获得屏幕中心点位置
-		//dimension2d<u32> screenSize = MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getScreenSize();
-		//CenterPos.X = (s32)screenSize.Width / 2;
-		//CenterPos.Y = (s32)screenSize.Height / 2;
+		// 不需要绑定旋转和target
+		camera->bindTargetAndRotation( false );
+		
+		camera->setRotation(vector3df( 0, 60, 0));
 		
 		// 初始化完成
 		firstUpdate = false;
@@ -159,15 +159,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 			CursorControl->setPosition( newPos.X, newPos.Y );
 		}
 		
-		vector3df relateRot = camera->getRotation();
-		vector3df currentRot = relateRot + vector3df(0, 0.05f, 0 );
-		//f32 zDeg = currentRot.Z;
-		//vector3df upVector = vector3df( 0, 1, 0 );
-		//upVector.rotateXYBy( zDeg );
-		camera->setRotation( currentRot );
-		camera->setTarget( camera->getTarget() + currentRot.rotationToDirection() );
-		//camera->setUpVector( upVector );
-		//camera->setPosition( camera->getPosition() + vector3df(-5, 0, 0) );
+		
 		
 
 		//if (CursorPos != CenterCursor)
@@ -244,6 +236,37 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		if ( Ship->GetVelocity() < 0 )
 			Ship->SetVelocity( 0 );
 	}
+
+
+	// 设置照相机节点旋转状态
+	vector3df relateRot = camera->getRotation();
+	vector3df currentRot = relateRot + vector3df(0,0,0.2f)/* + 旋转改变量*/;
+	camera->setRotation( currentRot );
+
+	// 设置照相机节点的位置
+	vector3df direction = currentRot.rotationToDirection();
+	direction.normalize();
+	vector3df movement = direction * Ship->GetVelocity()/* 再乘以一个时间系数 */;
+	camera->setPosition( camera->getPosition() + movement );
+	//camera->setPosition( camera->getPosition() + vector3df(0, 0, Ship->GetVelocity()) );
+
+	// 设置target的位置（X轴和Y轴）
+	direction = vector3df( currentRot.X, currentRot.Y, 0 );			// 先忽略Z轴旋转
+	direction = direction.rotationToDirection();					// 由角度求出位置向量
+	camera->setTarget( camera->getPosition() + direction );
+
+	// 设置镜头旋转（Z轴）
+	f32 zDeg = currentRot.Z;
+	//if ( (s32)currentRot.Y % 360 >= 90 )
+	//zDeg *= -1;
+	vector3df upVector = vector3df( 0, 1, 0 );
+	upVector.rotateXYBy( zDeg );
+	camera->setUpVector( upVector );
+	/*std::cout<<camera->getUpVector().X<<","<<camera->getUpVector().Y<<","<<camera->getUpVector().Z<<"\t";
+	std::cout<<zDeg<<std::endl;*/
+
+	
+
 
 	// set target
 
