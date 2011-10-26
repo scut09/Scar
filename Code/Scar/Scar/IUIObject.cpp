@@ -49,7 +49,7 @@ void IUIObject::OnAnimate( u32 time )
 	//	//相应动画的接口
 	//	(*i)->animateUIObject( this, time );
 	//}
-	for ( int i = 0; i < Animators.size(); i++ )
+	for ( u32 i = 0; i < Animators.size(); i++ )
 	{
 		Animators[ i ]->animateUIObject( this, time );
 	}
@@ -170,6 +170,11 @@ void IUIObject::remove()
 void IUIObject::LoadImage( char * filename )
 {
 	Image = Driver->getTexture( filename );
+	if ( Image )
+	{
+		LeftTop = vector2df( 0, 0 );
+		RightBottom = vector2df( (f32)Image->getSize().Width, (f32)Image->getSize().Height );
+	}
 }
 
 //获取相对变换矩阵
@@ -221,6 +226,9 @@ Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 ), Image( 0 ), Shape( s
 	RelativeScale = scale;
 	RelativeTranslation= position;
 	IsVisible = true;
+
+	// 默认不适用反锯齿
+	bAntiAliasing = false;
 
 	UpdateAbsolutePosition();
 }

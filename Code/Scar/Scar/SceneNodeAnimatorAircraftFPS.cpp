@@ -12,9 +12,10 @@
 
 //! constructor
 CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl,
+	IShip* ship,
 	f32 rotateSpeed, f32 moveSpeed, f32 jumpSpeed,
 	SKeyMap* keyMapArray, u32 keyMapSize, bool noVerticalMovement, bool invertY)
-	: CursorControl(cursorControl), MaxVerticalAngle(88.0f),
+	: CursorControl(cursorControl), Ship(ship), MaxVerticalAngle(88.0f),
 	MoveSpeed(moveSpeed), RotateSpeed(rotateSpeed), JumpSpeed(jumpSpeed),
 	MouseYDirection(invertY ? -1.0f : 1.0f),
 	LastAnimationTime(0), firstUpdate(true), NoVerticalMovement(noVerticalMovement)
@@ -131,12 +132,12 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	f32 timeDiff = (f32) ( timeMs - LastAnimationTime );
 	LastAnimationTime = timeMs;
 
-	// update position
-	core::vector3df pos = camera->getPosition();
+	//// update position
+	//core::vector3df pos = camera->getPosition();
 
-	// Update rotation
-	core::vector3df target = (camera->getTarget() - camera->getAbsolutePosition());
-	core::vector3df relativeRotation = target.getHorizontalAngle();
+	//// Update rotation
+	//core::vector3df target = (camera->getTarget() - camera->getAbsolutePosition());
+	//core::vector3df relativeRotation = target.getHorizontalAngle();
 
 	if (CursorControl)
 	{
@@ -145,7 +146,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		std::cout<< CenterPos.X << "," << CenterPos.Y << std::endl;*/
 
 		vector2d<s32> CursorOffset = CursorPos - CenterPos;
-		f32 OffsetLength = CursorOffset.getLength();
+		s32 OffsetLength = CursorOffset.getLength();
 		// 如果鼠标飞出大圈圈
 		if ( OffsetLength > MoveRadius )
 		{
@@ -157,8 +158,18 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 			CursorPos = newPos;
 			CursorControl->setPosition( newPos.X, newPos.Y );
 		}
+		
+		vector3df relateRot = camera->getRotation();
+		vector3df currentRot = relateRot + vector3df(0, 0.05f, 0 );
+		//f32 zDeg = currentRot.Z;
+		//vector3df upVector = vector3df( 0, 1, 0 );
+		//upVector.rotateXYBy( zDeg );
+		camera->setRotation( currentRot );
+		camera->setTarget( camera->getTarget() + currentRot.rotationToDirection() );
+		//camera->setUpVector( upVector );
+		//camera->setPosition( camera->getPosition() + vector3df(-5, 0, 0) );
+		
 
-		//CursorControl->getPosition()
 		//if (CursorPos != CenterCursor)
 		//{
 		//	relativeRotation.Y -= (0.5f - CursorPos.X) * RotateSpeed;
@@ -204,9 +215,39 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		//}
 	}
 
+	// 当W键按下时加速，当W键弹起时速度缓慢回落
+	if ( CursorKeys[EKA_MOVE_FORWARD] )
+	{
+		if ( Ship->GetVelocity() < Ship->GetMaxSpeed() )
+		{
+			f32 current = ( Ship->GetMaxSpeed() - Ship->GetVelocity() ) / 100.0f/*灵敏度相关*/ + Ship->GetVelocity();
+			Ship->SetVelocity( current );
+		}
+		// 防止上溢
+		if ( Ship->GetVelocity() > Ship->GetMaxSpeed() )
+			Ship->SetVelocity( Ship->GetMaxSpeed() );
+	}
+	else if ( Ship->GetVelocity() > 0 )
+	{
+		Ship->SetVelocity( Ship->GetVelocity() - 0.005f/*灵敏度相关*/ );
+		// 防止下溢
+		if ( Ship->GetVelocity() < 0 )
+			Ship->SetVelocity( 0 );
+	}
+
+	// 当S键按下时减速
+	if ( CursorKeys[EKA_MOVE_BACKWARD] )
+	{
+		if ( Ship->GetVelocity() > 0 )
+			Ship->SetVelocity( Ship->GetVelocity() - 0.01f/*灵敏度相关*/ );
+		// 防止下溢
+		if ( Ship->GetVelocity() < 0 )
+			Ship->SetVelocity( 0 );
+	}
+
 	// set target
 
-	target.set(0,0, core::max_(1.f, pos.getLength()));
+	/*target.set(0,0, core::max_(1.f, pos.getLength()));
 	core::vector3df movedir = target;
 
 	core::matrix4 mat;
@@ -229,11 +270,11 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		pos += movedir * timeDiff * MoveSpeed;
 
 	if (CursorKeys[EKA_MOVE_BACKWARD])
-		pos -= movedir * timeDiff * MoveSpeed;
+		pos -= movedir * timeDiff * MoveSpeed;*/
 
 	// strafing
 
-	core::vector3df strafevect = target;
+	/*core::vector3df strafevect = target;
 	strafevect = strafevect.crossProduct(camera->getUpVector());
 
 	if (NoVerticalMovement)
@@ -245,11 +286,11 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		pos += strafevect * timeDiff * MoveSpeed;
 
 	if (CursorKeys[EKA_STRAFE_RIGHT])
-		pos -= strafevect * timeDiff * MoveSpeed;
+		pos -= strafevect * timeDiff * MoveSpeed;*/
 
 	// For jumping, we find the collision response animator attached to our camera
 	// and if it's not falling, we tell it to jump.
-	if (CursorKeys[EKA_JUMP_UP])
+	/*if (CursorKeys[EKA_JUMP_UP])
 	{
 		const ISceneNodeAnimatorList& animators = camera->getAnimators();
 		ISceneNodeAnimatorList::ConstIterator it = animators.begin();
@@ -266,14 +307,14 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 			it++;
 		}
-	}
+	}*/
 
 	// write translation
-	camera->setPosition(pos);
+	//camera->setPosition(pos);
 
 	// write right target
-	target += pos;
-	camera->setTarget(target);
+	//target += pos;
+	//camera->setTarget(target);
 }
 
 
@@ -360,7 +401,7 @@ void CSceneNodeAnimatorAircraftFPS::setInvertMouse(bool invert)
 ISceneNodeAnimator* CSceneNodeAnimatorAircraftFPS::createClone(ISceneNode* node, ISceneManager* newManager)
 {
 	CSceneNodeAnimatorAircraftFPS * newAnimator =
-		new CSceneNodeAnimatorAircraftFPS(CursorControl,	RotateSpeed, MoveSpeed, JumpSpeed,
+		new CSceneNodeAnimatorAircraftFPS(CursorControl, Ship, RotateSpeed, MoveSpeed, JumpSpeed,
 		0, 0, NoVerticalMovement);
 	newAnimator->setKeyMap(KeyMap);
 	return newAnimator;

@@ -18,6 +18,7 @@
 #include "AllUIObjects.h"
 #include "UIAnimators.h"
 #include "UIManager.h"
+#include "Frigate.h"
 
 
 //scene::ISceneNode* node;
@@ -26,12 +27,22 @@ UIManager* uiManager; //测试用
 IUIObject* root;	//测试用
 
 IUIObject* Cursor;	// 鼠标准心
+IUIObject* Speed1;	// 速度槽慢
+IUIObject* Speed2;	// 速度槽空
+IShip* cf1;
 
 
 void MultiplayerScene::Run()
 {
+	// 准心追随鼠标
 	auto CursorPos = MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl()->getPosition();
 	Cursor->SetPosition( vector2df( (f32)CursorPos.X, (f32)CursorPos.Y ) );
+
+	// 绘制速度槽
+	f32 ratio = cf1->GetVelocity() / cf1->GetMaxSpeed();
+	f32 border = 389 * ( 1 - ratio );
+	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
+	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );
 }
 
 void MultiplayerScene::Init()
@@ -48,19 +59,25 @@ void MultiplayerScene::Init()
 	// 隐藏鼠标
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
+	// 创建飞船
+	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	//m_pCamera->addChild( cf1 );
+	cf1->setPosition( vector3df( 0, 0, 50 ) );
+
 	//  加入摄像机
-	/*m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );*/
+	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 	m_pCamera = smgr->addCameraSceneNode();
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
 	m_pCamera->addAnimator( fpsAni );
 	fpsAni->drop();
-	//m_pCamera = smgr->addCameraSceneNodeMaya();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();
 	m_pCamera->bindTargetAndRotation(true);*/
+
+	
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );
@@ -74,7 +91,7 @@ void MultiplayerScene::Init()
 		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.003f, 0) );
 		planet->addAnimator( rot );
 		rot->drop();
-		// 设置初始大小
+		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
 		//// 缩放动画
 		//auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
@@ -98,9 +115,8 @@ void MultiplayerScene::Init()
 		auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
 		moon->addAnimator( rot );
 		rot->drop();
-		// 设置初始大小
+		//// 设置初始大小
 		//moon->setScale( vector3df( .001f ) );
-		//moon->setVisible( false );
 		//// 缩放动画
 		//auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
 		//moon->addAnimator( sca );
@@ -118,20 +134,20 @@ void MultiplayerScene::Init()
 
 
 
-	////加载空间站模型
-	//IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-	//if ( station )
-	//{
-	//	// 设置名字
-	//	station->setName( "station1" );
-	//	// 设置初始大小
-	//	//station->setScale( vector3df( .001f));
-	//	//station->setVisible(false);
-	//	// 缩放动画
-	//	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
-	//	//moon->addAnimator( sca );
-	//	//sca->drop();
-	//}
+	//加载空间站模型
+	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	if ( station )
+	{
+		// 设置名字
+		station->setName( "station1" );
+		// 设置初始大小
+		//station->setScale( vector3df( .001f));
+		//station->setVisible(false);
+		// 缩放动画
+		//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
+		//moon->addAnimator( sca );
+		//sca->drop();
+	}
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );
@@ -183,6 +199,9 @@ void MultiplayerScene::Init()
 
 	// 获取鼠标准心
 	Cursor = uiManager->GetRoot()->GetChildren()[3];
+	// 获取速度槽
+	Speed1 = uiManager->GetRoot()->GetChildren()[4];
+	Speed2 = uiManager->GetRoot()->GetChildren()[5];
 
 	//try
 	//{

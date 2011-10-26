@@ -21,19 +21,35 @@ void UIImage::Draw()
 		return;
 	int h = Image->getSize().Height;
 	int w = Image->getSize().Width;
-	rect<s32>r(0, 0, w, h);
+	rect<s32>SrcRect( (s32)LeftTop.X, (s32)LeftTop.Y, (s32)RightBottom.X, (s32)RightBottom.Y );
 
 	vector2d<s32> intDstQuar[4];
 	ub::vector<f32> temp(3);
 	temp(2) = 1;
 	//std::cout<<AbsoluteTransformation<<std::endl;
-	for( int i=0; i<4; i++)
+	/*for( int i=0; i<4; i++)
 	{
 		temp(0) = DestinationQuadrangle[i].X;
 		temp(1) = DestinationQuadrangle[i].Y;
 		temp = prod( temp, AbsoluteTransformation );
 		intDstQuar[i].set( (s32)temp(0), (s32)temp(1) );
-	}
+	}*/
+	temp(0) = DestinationQuadrangle[0].X + LeftTop.X;
+	temp(1) = DestinationQuadrangle[0].Y + LeftTop.Y;
+	temp = prod( temp, AbsoluteTransformation );
+	intDstQuar[0].set( (s32)temp(0), (s32)temp(1) );
+	temp(0) = DestinationQuadrangle[1].X + RightBottom.X - w;
+	temp(1) = DestinationQuadrangle[1].Y + LeftTop.Y;
+	temp = prod( temp, AbsoluteTransformation );
+	intDstQuar[1].set( (s32)temp(0), (s32)temp(1) );
+	temp(0) = DestinationQuadrangle[2].X + RightBottom.X - w;
+	temp(1) = DestinationQuadrangle[2].Y + RightBottom.Y - h;
+	temp = prod( temp, AbsoluteTransformation );
+	intDstQuar[2].set( (s32)temp(0), (s32)temp(1) );
+	temp(0) = DestinationQuadrangle[3].X + LeftTop.X;
+	temp(1) = DestinationQuadrangle[3].Y + RightBottom.Y - h;
+	temp = prod( temp, AbsoluteTransformation );
+	intDstQuar[3].set( (s32)temp(0), (s32)temp(1) );
 
 	SColor colors[4];
 	for (int i=0; i<4; i++)
@@ -41,9 +57,15 @@ void UIImage::Draw()
 		colors[i] = SColor((u32)GetAbsoluteAlpha(),255,255,255);
 	}
 
-	//Driver->enableMaterial2D();
-	Driver->draw2DImage( Image, intDstQuar, rect<s32>(0,0,w,h), 0, colors/*&SColor(Alpha,255,255,255)*/, true );
-	//sDriver->enableMaterial2D( false );
+	if ( bAntiAliasing )
+	{
+		Driver->enableMaterial2D();
+	}
+	Driver->draw2DImage( Image, intDstQuar, SrcRect, 0, colors/*&SColor(Alpha,255,255,255)*/, true );
+	if ( bAntiAliasing )
+	{
+		Driver->enableMaterial2D( false );
+	}
 	
 	//Driver->draw2DImage( Image, vector2d<s32>(0,0));
 }

@@ -95,7 +95,7 @@ void MyIrrlichtEngine::Run()
 	// 2D¿¹¾â³İ
 	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter = true;
 	m_pDriver->getMaterial2D().AntiAliasing = video::EAAM_FULL_BASIC;
-	m_pDriver->enableMaterial2D();
+	//m_pDriver->enableMaterial2D();
 
 	while ( m_pDevice->run() )
 	{

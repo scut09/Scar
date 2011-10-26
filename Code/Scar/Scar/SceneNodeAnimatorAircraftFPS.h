@@ -10,7 +10,7 @@
 
 
 #include <irrlicht.h>
-
+#include "IShip.h"
 using namespace irr;
 using namespace irr::core;
 using namespace scene;
@@ -21,7 +21,7 @@ public:
 	public:
 
 		//! Constructor
-		CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl,
+		CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl, IShip* ship,
 			f32 rotateSpeed = 100.0f, f32 moveSpeed = .5f, f32 jumpSpeed=0.f,
 			SKeyMap* keyMapArray=0, u32 keyMapSize=0, bool noVerticalMovement=false,
 			bool invertY=false);
@@ -118,5 +118,7 @@ public:
 		vector2d<s32> CenterPos;		// 屏幕中心位置
 		vector2d<s32> CursorPos;		// 鼠标当前位置
 		s32 MoveRadius;					// 准心移动半径
+
+		IShip* Ship;					// 操控的飞船
 };
 #endif

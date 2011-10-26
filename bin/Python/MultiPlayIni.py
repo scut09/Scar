@@ -23,6 +23,7 @@ def GetRoot():
     # 中心准心
     post1 = UIImage( root, 86, 86, 0, 1, vector2df( cenX, cenY ) )
     post1.LoadImage("../media/UIResource/Game/post_1.png")
+    post1.SetAntiAliasing()
     rotAni = RotateUIAnimator( 0, 2000, 360, True )
     Save( rotAni )
     post1.AddAnimator( rotAni )
@@ -31,10 +32,22 @@ def GetRoot():
     # 鼠标准心
     post2 = UIImage( root, 56, 56, 0, 1, vector2df( cenX, cenY ) )
     post2.LoadImage("../media/UIResource/Game/post_2.png")
+    post2.SetAntiAliasing()
     rotAni2 = RotateUIAnimator( 0, 2000, -360, True )
     Save( rotAni2 )
     post2.AddAnimator( rotAni2 )
     Save( post2 )
+
+    # 速度槽满
+    speedBar1 = UIImage( root, 98, 389, 0, 0, vector2df( cenX + 232, cenY - 10 ) )
+    speedBar1.LoadImage("../media/UIResource/Game/speed_1.png")
+    #speedBar1.SetSourceRect( vector2df( 0, 150 ), vector2df( 98, 389 ) );
+    Save( speedBar1 )
+    # 速度槽空
+    speedBar2 = UIImage( root, 98, 389, 0, 0, vector2df( cenX + 232, cenY - 10 ) )
+    speedBar2.LoadImage("../media/UIResource/Game/speed_2.png")
+    #speedBar2.SetSourceRect( vector2df( 0, 0 ), vector2df( 98, 150 ) );
+    Save( speedBar2 )
 
     return root
 

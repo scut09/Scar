@@ -47,6 +47,7 @@ protected:
 	
 	f32		           MaxSpeed;			   // 最大速度
 	vector3df          Speed;                  // 速度 
+	f32				   Velocity;			   // 速率
 	vector3df		   Acceleration;		   // 加速度
 	f32                MaxAcceleration;        // 最大加速度 
 	f32		           Sensitivity;	           // 灵敏度
@@ -77,6 +78,9 @@ public:
 		const u32& shield=1, const u32& currentgrade=0, const u32& nextgrade=1, const u32&maxgrade=10, const f32& inertance=1,
 		const f32& recoverLife=10, const f32& experience=0, const f32& experiencetograde=100 );
 	
+	//获取和修改飞船速率
+	virtual f32 GetVelocity() const { return Velocity; }
+	virtual void SetVelocity( f32 velocity ) { Velocity = velocity; }
 
 	//获取和修改飞船的能量 
 	virtual void SetEnergy( const u32& en ){ Energy = en; }

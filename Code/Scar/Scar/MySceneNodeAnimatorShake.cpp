@@ -1,5 +1,6 @@
 #include "MySceneNodeAnimatorShake.h"
 #include <iostream>
+#include "ICameraSceneNode.h"
 
 MySceneNodeAnimatorShake::MySceneNodeAnimatorShake( u32 delay, u32 duration, f32 ampFrom, f32 ampTo )
 	: Begin( 0 ), Delay( delay ), Duration( duration ), AmpFrom( ampFrom), AmpTo( ampTo )
@@ -17,7 +18,9 @@ void MySceneNodeAnimatorShake::animateNode( ISceneNode* node, u32 timeMs )
 	if( Begin > timeMs )
 		return;
 
-	Origin = node->getRotation() - LastOffset;
+	ICameraSceneNode* camera = static_cast<ICameraSceneNode*>(node);
+
+	Origin = camera->getRotation() - LastOffset;
 	u32 t = timeMs - Begin;
 
 	srand( timeMs );
@@ -26,7 +29,7 @@ void MySceneNodeAnimatorShake::animateNode( ISceneNode* node, u32 timeMs )
 	if ( mul100 == 0 )
 	{
 		//把自己删掉
-		node->removeAnimator(this);
+		camera->removeAnimator(this);
 		return;
 	}
 	f32 half = Amplitude / 2.0f;
@@ -35,15 +38,19 @@ void MySceneNodeAnimatorShake::animateNode( ISceneNode* node, u32 timeMs )
 	if( sX >100 ) sX = 0;	// 为了解决莫名其妙的超大数
 	if( sY >100 ) sY = 0;
 	vector3df shake = vector3df( sX, sY, 0 );
-	//std::cout<< shake.X << "," << shake.Y << std::endl;
 	LastOffset = shake;
-	node->setRotation( Origin + shake );
+	vector3df rot = Origin + shake;
+	//camera->setRotation( Origin + shake );
+	camera->bindTargetAndRotation( false );
+	std::cout<<camera->getAbsolutePosition().X<<","<<camera->getAbsolutePosition().Y<<","<<camera->getAbsolutePosition().Z<<std::endl;
+	camera->setTarget( camera->getAbsolutePosition() + rot.rotationToDirection() );
+	camera->bindTargetAndRotation( true );
 
 	//到达动画结束时间
 	if ( timeMs - Begin > Duration )
 	{
 		//把自己删掉
-		node->removeAnimator(this);
+		camera->removeAnimator(this);
 		return;
 	}
 }
