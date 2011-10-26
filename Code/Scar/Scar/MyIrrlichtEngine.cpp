@@ -1,13 +1,15 @@
 /********************************************************************
-	创建时间: 2011:9:27   14:54
-	文件名:   MyIrrlichtEngine.cpp
-	作者:     华亮 Cedric Porter [ Stupid ET ]	
-	说明:     
+创建时间: 2011:9:27   14:54
+文件名:   MyIrrlichtEngine.cpp
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     
 
 *********************************************************************/
 
 #include "MyIrrlichtEngine.h"
 #include "IUIObject.h"
+#include <boost/thread.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
@@ -40,15 +42,6 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 
 		auto pDevice = irr::createDeviceEx( param );
 
-		//auto pDevice = irr::createDevice(
-		//	driverType, 
-		//	core::dimension2d<u32>( screen_width, screen_height ), 
-		//	16, 
-		//	bFullScreen, 
-		//	false, 
-		//	false, 
-		//	pEventReceiver
-		//	);
 		// 创建设备失败，返回NULL
 		if ( ! pDevice ) return NULL;
 
@@ -100,8 +93,8 @@ void MyIrrlichtEngine::Run()
 	statusText->setOverrideColor(video::SColor(255,205,200,200));
 
 	// 2D抗锯齿
-	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter=true;
-	m_pDriver->getMaterial2D().AntiAliasing=video::EAAM_FULL_BASIC;
+	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter = true;
+	m_pDriver->getMaterial2D().AntiAliasing = video::EAAM_FULL_BASIC;
 	m_pDriver->enableMaterial2D();
 
 	while ( m_pDevice->run() )
@@ -112,16 +105,20 @@ void MyIrrlichtEngine::Run()
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 
-		//if ( now - m_lastUpdateTime < frameTime )
+		if ( now - m_lastUpdateTime < frameTime ) 
 		{
-			// 运行注册的回调函数
-			m_runCallbackFunc( (void*)this );
-
-			//m_AnimationManager.Run();
-
-			// 运行场景
-			currentScene->Run();
+			boost::thread::sleep( boost::get_system_time() + boost::posix_time::milliseconds( 2 ) );
+			continue;
 		}
+
+		// 运行注册的回调函数
+		m_runCallbackFunc( (void*)this );
+
+		//m_AnimationManager.Run();
+
+		// 运行场景
+		currentScene->Run();
+
 
 
 		m_pDriver->beginScene( true, true, video::SColor( 255, 0, 0, 0 ) );
