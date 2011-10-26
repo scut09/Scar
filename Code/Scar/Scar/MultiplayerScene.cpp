@@ -41,8 +41,37 @@ IShip* cf1;
 ISoundEngine* pSoundEngine;
 ISoundSource* fuck;
 
+bool bRunOnce = true;
+
 void MultiplayerScene::Run()
 {
+	if ( bRunOnce )
+	{
+		bRunOnce = false;
+		auto rooms = client.GetRooms();
+		auto localIP = client.GetLocalIP();
+
+		auto iter = rooms.begin();
+		for ( ; iter != rooms.end(); ++iter )
+		{
+			std::cout << "Room " << iter->first << " ";
+			std::wcout << iter->second.room_name << std::endl;
+
+			if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )		// 非本机IP
+			{	
+				client.EnterRoom( iter->first );
+				break;
+			}
+		}
+
+		if ( iter == rooms.end() )
+			client.EnterRoom( *localIP.begin() );			
+
+	}
+
+
+
+
 	// 准心追随鼠标
 	auto CursorPos = MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl()->getPosition();
 	Cursor->SetPosition( vector2df( (f32)CursorPos.X, (f32)CursorPos.Y ) );
@@ -294,6 +323,7 @@ void MultiplayerScene::Init()
 	
 
 	client.QueryRoom();
+
 
 }
 

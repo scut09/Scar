@@ -18,12 +18,11 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	using namespace boost::asio;
 
 	int cmd = p.GetCMD();
+	PACKAGE pack;
 
 	// «Î«Û∑øº‰
 	if ( cmd == QUERY_ROOM )
 	{
-		PACKAGE pack;
-
 		pack.SetCMD( BROADCAST_ROOM );
 
 		BroadcastRoomBag room;
@@ -48,5 +47,11 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	else if ( cmd == HERO_MOVE )
 	{
 		std::cout << "HERO_MOVE\n";
+	}
+	else if ( cmd == REQUEST_ENTER_ROOM )
+	{
+		std::cout << "BoostServer receives REQUEST_ENTER_ROOM\n";
+		pack.SetCMD( ALLOW_JOIN_ROOM );
+		m_network->Send( ip, pack );
 	}
 }

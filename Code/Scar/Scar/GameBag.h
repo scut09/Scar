@@ -17,9 +17,9 @@ namespace Network
 		MESSAGE_BROADCAST,
 		MESSAGE_TO,
 		QUERY_ROOM,			// 广播查询房间
-		REQUEST_ROOM,		// 请求加入
+		REQUEST_ENTER_ROOM,		// 请求加入
 		BROADCAST_ROOM,
-		ENTER_ROOM
+		ALLOW_JOIN_ROOM
 	};
 
 	struct PlayerInfo

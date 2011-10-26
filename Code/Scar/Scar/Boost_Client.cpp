@@ -24,13 +24,18 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 		std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
 			<< std::endl;
 	}
+	else if ( cmd == ALLOW_JOIN_ROOM )
+	{
+		std::cout << "BoostClient receives ALLOW_JOIN_ROOM\n";
+
+	}
 }
 
 void Network::BoostClient::Send( std::string ip )
 {
-	PACKAGE p;
-	p.SetCMD( REQUEST_ROOM );
-	m_network->Send( ip, p );
+	//PACKAGE p;
+	//p.SetCMD( REQUEST_ROOM );
+	//m_network->Send( ip, p );
 }
 
 void Network::BoostClient::Start( int listen_port, int target_port )
