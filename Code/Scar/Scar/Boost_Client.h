@@ -15,6 +15,7 @@
 #include <boost/thread.hpp>
 #include <vector>
 #include "CNetwork.h"
+#include <map>
 
 namespace Network
 {
@@ -35,8 +36,9 @@ namespace Network
 
 	private:
 
-		int							m_port;
-		std::shared_ptr<INetwork>	m_network;
+		int										m_port;
+		std::shared_ptr<INetwork>				m_network;
+		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 	};
 
 

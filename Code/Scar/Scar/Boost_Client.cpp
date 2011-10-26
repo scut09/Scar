@@ -15,6 +15,9 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 
 	if ( cmd == BROADCAST_ROOM )
 	{
+		BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
+		m_roomMap[ boost::asio::ip::address_v4( ip ).to_string() ] = bag;
+
 		std::cout << "Server broadcast room: ip= " 
 			<< boost::asio::ip::address_v4( ip ).to_string() 
 			<< " room name= ";
