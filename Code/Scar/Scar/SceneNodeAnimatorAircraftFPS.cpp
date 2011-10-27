@@ -25,6 +25,12 @@ CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl
 
 	allKeysUp();
 
+	/*Vect = vector2d<f32> ( 0.f, 0.f );
+	AcceFactor = 10;*/
+	//Count = 0;
+
+	//flag = false;
+
 	// create key map
 	if (!keyMapArray || !keyMapSize)
 	{
@@ -144,13 +150,45 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		CursorControl->setPosition( newPos.X, newPos.Y );
 	}
 	// 杨成熙写的鼠标方向控制
+	//Count += 1;
+	//Count %= 100;
+	vector3df RotChange = vector3df(0);
+	//if ( ! flag )
+	//{
 	f32 horizonChange = 1;	// 当镜头上下翻转时鼠标水平操控方向也要翻转
 	if ( camera->getUpVector().Y < 0 )
 		horizonChange = -1;
 	f32 factor = 1.f;
-	vector3df RotChange = vector3df(0);
+	//vector2d<f32>temvect ( (f32)CursorOffset.X, (f32)CursorOffset.Y );
+	//temvect.normalize();
+	/*bool vectchange = ( abs( Vect.X - temvect.X ) < 0.05f ) && ( abs( Vect.Y - temvect.Y ) < 0.05f );
+	if ( vectchange )
+	{
+	if ( AcceFactor != 90 )
+	AcceFactor += 1;
+	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
+	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
+	if ( Count == 0 )
+	LastOffset = CursorOffset;
+	}
+	else
+	{
+	if( AcceFactor != 5 )
+	{
+	RotChange.Y += (f32) horizonChange * ( LastOffset.X  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
+	RotChange.X += (f32) ( LastOffset.Y  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
+	AcceFactor -= 1;
+	}
+	else
+	{
+	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
+	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
+	Vect = temvect;
+	}
+	}*/
 	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor;
 	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor;
+		//}
 
 	// 键盘控制
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
@@ -184,9 +222,21 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	// 当A键按下时左侧翻
 	if ( CursorKeys[EKA_STRAFE_LEFT] )
 	{
-
+		/*if ( ! flag )
+			flag = true;*/
+		RotChange = vector3df( 0, 0, 15 );
 	}
-
+	/*if ( flag )
+	{
+		RotChange = vector3df( 0, 0, -15 );
+		Count += 1;
+		camera->setPosition( camera->getPosition() + vector3df( -50, 0, 0 ) );
+		if ( Count == 24 )
+		{
+			flag = false;
+			Count = 0;
+		}
+	}*/
 
 	// 设置照相机节点旋转状态
 	vector3df relateRot = camera->getRotation();
