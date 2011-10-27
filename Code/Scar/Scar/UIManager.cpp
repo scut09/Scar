@@ -32,3 +32,20 @@ bool UIManager::AddUINode( IUIObject* node, IUIObject* parent )
 	node->drop();
 	return true;
 }
+
+IUIObject* UIManager::GetObjectByName( const std::string& name, IUIObject* node )
+{
+	if ( !node )
+		node = this->GetRoot();
+
+	if ( node->GetName() == name )
+		return node;
+
+	for ( auto iter = node->GetChildren().begin(); iter != node->GetChildren().end(); ++iter )
+	{
+		IUIObject* it = GetObjectByName( name, (*iter) );
+		if ( it != 0 )
+			return it;
+	}
+	return 0;
+}

@@ -39,6 +39,7 @@ IUIObject* root;	//测试用
 IUIObject* Cursor;	// 鼠标准心
 IUIObject* Speed1;	// 速度槽慢
 IUIObject* Speed2;	// 速度槽空
+IUIObject* Gradienter;	// 水平仪
 IShip* cf1;
 BulletNode* bullet;	// 子弹
 
@@ -98,6 +99,9 @@ void MultiplayerScene::Run()
 	f32 border = 389 * ( 1 - ratio );
 	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
 	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );	
+
+	// 水平仪转动
+	Gradienter->SetRotation( m_pCamera->getRotation().Z );
 }
 
 void MultiplayerScene::Init()
@@ -251,10 +255,12 @@ void MultiplayerScene::Init()
 		PyErr_Print();
 	}
 	// 获取鼠标准心
-	Cursor = uiManager->GetRoot()->GetChildren()[3];
+	Cursor = uiManager->GetObjectByName("cursor");
 	// 获取速度槽
-	Speed1 = uiManager->GetRoot()->GetChildren()[4];
-	Speed2 = uiManager->GetRoot()->GetChildren()[5];
+	Speed1 = uiManager->GetObjectByName( "speed1" );
+	Speed2 = uiManager->GetObjectByName( "speed2" );
+	// 获取水平仪
+	Gradienter = uiManager->GetObjectByName( "gradienter" );
 
 	try
 	{

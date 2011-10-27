@@ -41,6 +41,8 @@ public:
 	void RunTree();
 	//消息处理
 	void OnEvent( const SEvent& event );
+	//从树上获取特定名字的节点
+	IUIObject* GetObjectByName( const std::string& name, IUIObject* node = 0 );
 
 	// 命中检测
 	IUIObject* HistTest( s32 x, s32 y )

@@ -18,6 +18,8 @@ def GetRoot():
     # 水平圈
     ring2 = UIImage( root, 635, 438, 0, 1, vector2df( cenX, cenY ) )
     ring2.LoadImage("../media/UIResource/Game/cr_2.png")
+    ring2.SetName( "gradienter" )
+    ring2.SetAntiAliasing()
     Save( ring2 )
 
     # 中心准心
@@ -33,6 +35,7 @@ def GetRoot():
     post2 = UIImage( root, 56, 56, 0, 1, vector2df( cenX, cenY ) )
     post2.LoadImage("../media/UIResource/Game/post_2.png")
     post2.SetAntiAliasing()
+    post2.SetName( "cursor" )
     rotAni2 = RotateUIAnimator( 0, 2000, -360, True )
     Save( rotAni2 )
     post2.AddAnimator( rotAni2 )
@@ -41,12 +44,12 @@ def GetRoot():
     # 速度槽满
     speedBar1 = UIImage( root, 98, 389, 0, 0, vector2df( cenX + 232, cenY - 10 ) )
     speedBar1.LoadImage("../media/UIResource/Game/speed_1.png")
-    #speedBar1.SetSourceRect( vector2df( 0, 150 ), vector2df( 98, 389 ) );
+    speedBar1.SetName( "speed1" )
     Save( speedBar1 )
     # 速度槽空
     speedBar2 = UIImage( root, 98, 389, 0, 0, vector2df( cenX + 232, cenY - 10 ) )
     speedBar2.LoadImage("../media/UIResource/Game/speed_2.png")
-    #speedBar2.SetSourceRect( vector2df( 0, 0 ), vector2df( 98, 150 ) );
+    speedBar2.SetName( "speed2" )
     Save( speedBar2 )
 
     return root
