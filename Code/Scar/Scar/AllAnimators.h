@@ -22,5 +22,7 @@
 #include "RelateCameraAnimatorMove.h"
 
 #include "SceneNodeAnimatorAircraftFPS.h"
+#include "SceneNodeAnimatorFollow.h"
+#include "FireAnimator.h"
 
 #endif // AllAnimators_h__

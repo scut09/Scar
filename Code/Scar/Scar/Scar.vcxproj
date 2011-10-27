@@ -91,6 +91,7 @@
     <ClCompile Include="CNetwork.cpp" />
     <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
+    <ClCompile Include="FireAnimator.cpp" />
     <ClCompile Include="Frigate.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="IShip.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="ScaleUIAnimator.cpp" />
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp" />
     <ClCompile Include="Boost_Server.cpp" />
+    <ClCompile Include="SceneNodeAnimatorFollow.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="StartScene.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="def.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />
+    <ClInclude Include="FireAnimator.h" />
     <ClInclude Include="Flame.h" />
     <ClInclude Include="FlyBehavior.h" />
     <ClInclude Include="Frigate.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="DeletionUIAnimator.h" />
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h" />
     <ClInclude Include="Boost_Server.h" />
+    <ClInclude Include="SceneNodeAnimatorFollow.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="StartScene.h" />

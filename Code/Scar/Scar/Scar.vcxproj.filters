@@ -222,6 +222,12 @@
     <ClCompile Include="CNetwork.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="SceneNodeAnimatorFollow.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="FireAnimator.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -451,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodeAnimatorFollow.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="FireAnimator.h">
+      <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
