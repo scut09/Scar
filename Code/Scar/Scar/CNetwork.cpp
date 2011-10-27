@@ -70,6 +70,8 @@ void Network::CNetwork::Handle()
 
 		// 调用回调函数处理收到消息
 		m_func( p.ip, p.pack );
+
+		boost::this_thread::interruption_point();	// 中断点
 	}
 }
 
@@ -77,14 +79,14 @@ void Network::CNetwork::Handle()
 void Network::CNetwork::Run()
 {
 	ip::udp::socket		sock( io, boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), m_listen_port ) );		// 接受udp的socket
-	std::vector<char>	buf( 1280 );	// 缓冲区
+	std::vector<char>	buf( 1464 );	// 缓冲区
 	system::error_code	ec;				// 错误码
 	ip::udp::endpoint	ep;				// 保存发送端的信息
 	PACKAGE				pack;			// 数据包
 
 	while ( 1 )
 	{
-		boost::this_thread::interruption_point();
+		boost::this_thread::interruption_point();	// 中断点
 
 		// 阻塞接受消息
 		sock.receive_from( buffer( buf ), ep, 0, ec );
