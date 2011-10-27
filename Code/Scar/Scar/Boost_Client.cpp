@@ -77,7 +77,7 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 			if ( iter != m_players.end() )
 			{
 				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
-				iter->second->setPosition( irr::core::vector3df( rot.x, rot.y ) );
+				iter->second->setPosition( irr::core::vector3df( rot.x, rot.y, 0 ) );
 			}
 		}
 	}
