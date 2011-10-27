@@ -48,6 +48,9 @@ void MultiplayerScene::Run()
 	if ( bRunOnce )
 	{
 		bRunOnce = false;
+
+		Sleep( 1000 );
+
 		auto rooms = client.GetRooms();
 		auto localIP = client.GetLocalIP();
 
@@ -59,13 +62,16 @@ void MultiplayerScene::Run()
 
 			if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )		// 非本机IP
 			{	
+				std::cout << "enter " << iter->first << std::endl;
 				client.EnterRoom( iter->first );
 				break;
 			}
 		}
 
 		if ( iter == rooms.end() )
-			client.EnterRoom( *localIP.begin() );			
+			client.EnterRoom( *localIP.begin() );		
+
+		std::cout << "m_index " << client.m_index << std::endl;
 
 	}
 
@@ -108,11 +114,12 @@ void MultiplayerScene::Init()
 	cf1->setPosition( vector3df( 0, 0, 50 ) );
 
 	//  加入摄像机
-	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
-	m_pCamera->addAnimator( fpsAni );
-	fpsAni->drop();
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+
+	//m_pCamera = smgr->addCameraSceneNode();
+	//auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
+	//m_pCamera->addAnimator( fpsAni );
+	//fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );

@@ -80,7 +80,6 @@ namespace Network
 		int										m_index;
 
 	private:
-
 		int										m_port;
 		std::shared_ptr<INetwork>				m_network;
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
