@@ -61,7 +61,7 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 			auto iter = m_players.find( move.index );
 			if ( iter != m_players.end() )
 			{
-				std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
 				iter->second->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
 			}
 
@@ -79,7 +79,7 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 
 			auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
-			auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("bottle") );
+			auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("1") );
 
 			// ´´½¨·É´¬
 			//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
