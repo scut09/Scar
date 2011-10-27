@@ -34,6 +34,7 @@ def MultiplayerLoad():
     aniMan = AnimationManager()
     timer = Timer()
 
+    '''
     for i in range( 20 ):
         node = man.AddSceneNodeByMeshID( "1", False )
         node.SetPosition( random.randint(-1000, 1000),
@@ -49,5 +50,5 @@ def MultiplayerLoad():
             )
         node.AddAnimator( flyStraightAnim )
         flyStraightAnim.Drop()
-    
+    '''    
 
