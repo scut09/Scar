@@ -65,6 +65,7 @@ namespace Network
 		// 在新线程中运行，负责接受消息并调用回调函数处理消息
 		void Run();
 
+		// 在新线程中处理消息队列中的数据
 		void Handle();
 
 
