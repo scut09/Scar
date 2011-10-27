@@ -102,8 +102,7 @@ void MultiplayerScene::Init()
 	client.Start( 2012, 1990 );
 
 
-	// 使用Python模块加载模型
-	//PythonManager* p = PythonManager::GetPythonManager();
+
 
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
@@ -247,16 +246,18 @@ void MultiplayerScene::Init()
 	Speed1 = uiManager->GetRoot()->GetChildren()[4];
 	Speed2 = uiManager->GetRoot()->GetChildren()[5];
 
-	//try
-	//{
-	//	object modelLoader = p->GetModelLoader();
-	//	object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
-	//	MultiplayerLoad();
-	//}
-	//catch ( ... )
-	//{
-	//	PyErr_Print();
-	//}
+	try
+	{
+		// 使用Python模块加载模型
+		PythonManager* p = PythonManager::GetPythonManager();
+		object modelLoader = p->GetModelLoader();
+		object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
+		MultiplayerLoad();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 
 
 //	m_pAnimationMan = pEngine->GetAnimationManager();
