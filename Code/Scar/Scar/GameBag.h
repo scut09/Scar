@@ -1,3 +1,12 @@
+/********************************************************************
+    创建时间: 2011-10-27   18:26
+    文件名:   GameBag.h
+    作者:     华亮 Cedric Porter [ Stupid ET ]	
+    说明:     游戏中发送的数据包的类型和各种数据包
+
+*********************************************************************/
+
+
 #ifndef GameBag_h__
 #define GameBag_h__
 
@@ -22,6 +31,8 @@ namespace Network
 		ALLOW_JOIN_ROOM
 	};
 
+	// 由服务端发回的允许加入的数据包
+	// 内容包括自己被分配的在游戏中的id，和初始坐标
 	struct AllowJoinRoomBag
 	{
 		int		index;
@@ -37,6 +48,7 @@ namespace Network
 		AllowJoinRoomBag() {}
 	};
 
+	// 玩家信息
 	struct PlayerInfoBag
 	{
 		wchar_t		player_name[ 16 ];	// 32B
@@ -54,6 +66,7 @@ namespace Network
 
 	};
 
+	// 由服务端广播发送的自己创建的房间的信息
 	struct BroadcastRoomBag
 	{
 		wchar_t		room_name[ 32 ];		// 64 B
@@ -68,6 +81,7 @@ namespace Network
 
 	};
 
+	// 玩家移动的数据包
 	struct HeroMove
 	{
 		int		index;
@@ -81,6 +95,7 @@ namespace Network
 		HeroMove() {}
 	};
 
+	// 玩家视角旋转的数据包
 	struct HeroRotate
 	{
 		int		index;
@@ -92,6 +107,7 @@ namespace Network
 		{ }
 	};
 
+	// 发射炮弹的数据包
 	struct BulletCreateBag
 	{
 		int		owner_index;

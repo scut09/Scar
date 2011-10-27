@@ -146,6 +146,7 @@
     <ClInclude Include="base.h" />
     <ClInclude Include="Battleship.h" />
     <ClInclude Include="BlinkUIAnimator.h" />
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="BulletNode.h" />
     <ClInclude Include="CGUITTFont.h" />
     <ClInclude Include="Boost_Client.h" />

@@ -12,6 +12,7 @@
 #define CNetwork_h__
 
 #include "INetwork.h"
+#include "Buffer.h"
 #include <boost/smart_ptr.hpp>
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
@@ -19,7 +20,6 @@
 #include <vector>
 #include <string>
 #include <set>
-#include <queue>
 
 namespace Network
 {
@@ -27,51 +27,7 @@ namespace Network
 	using namespace boost::asio;
 	using boost::asio::ip::udp;
 
-	// 类似生产者消费者的缓冲，如果在Get的时候缓冲为空，它会阻塞直到不为空
-	template< typename T >
-	class Buffer
-	{
-		std::queue<T>	m_queue;
-		boost::mutex	m_mutex;
-		boost::condition_variable_any m_cond_get;
-
-	public:
-		void Put( const T& element )
-		{
-			{
-				boost::mutex::scoped_lock lock( m_mutex );
-				m_queue.push( element );
-			}
-
-			m_cond_get.notify_one();
-		}
-
-		T Get()
-		{
-			T head;
-
-			{
-				boost::mutex::scoped_lock lock( m_mutex );
-
-				if ( m_queue.empty() )
-				{
-					m_cond_get.wait( m_mutex );
-				}
-
-				head = m_queue.front();
-				m_queue.pop();
-			}
-
-			return head;
-		}
-
-		bool IsEmpty() const
-		{
-			boost::mutex::scoped_lock lock( m_mutex );
-			
-			return m_queue.empty();
-		}
-	};
+	
 
 	struct PlayerInfo
 	{

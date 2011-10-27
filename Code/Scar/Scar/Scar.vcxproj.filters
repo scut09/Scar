@@ -449,6 +449,9 @@
     <ClInclude Include="INetwork.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">
