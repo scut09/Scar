@@ -44,6 +44,7 @@ CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl
 	}
 
 	// 初始化万向节锁
+	AntiGimbalLock = 1.0f;
 }
 
 
@@ -247,7 +248,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	// 设置照相机节点旋转状态
 	vector3df relateRot = camera->getRotation();
-	vector3df currentRot = relateRot + RotChange/* + 旋转改变量*/;
+	vector3df currentRot = relateRot + vector3df( 0,2,0); /*RotChange*//* + 旋转改变量*/;
 	camera->setRotation( currentRot );
 
 	// 设置照相机节点的位置
@@ -260,16 +261,44 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	// 设置target的位置（X轴和Y轴）
 	direction = vector3df( currentRot.X, currentRot.Y, 0 );			// 先忽略Z轴旋转
 	direction = direction.rotationToDirection();					// 由角度求出位置向量
-	std::cout<<std::endl;
-	std::cout<< currentRot.X<<","<<currentRot.Y<<std::endl;
-	std::cout<< direction.X<<","<<direction.Y<<","<<direction.Z<<std::endl;
 	camera->setTarget( camera->getPosition() + direction );
 
 	// 修正镜头向上的方向
 	vector3df samePlane = camera->getTarget() + core::vector3df(1,0,0);
-	camera->setUpVector( (camera->getTarget().crossProduct(samePlane)) );
+	vector3df upVector = camera->getTarget().crossProduct(samePlane);
 
-	// 设置镜头旋转（Z轴）
+	/*vector3df upVector = vector3df( 0, 1, 0 );
+
+	f32 hX = currentRot.X * DEGTORAD / 2.0f;
+	f32 hY = currentRot.Y * DEGTORAD / 2.0f;
+	f32 hZ = currentRot.Z * DEGTORAD / 2.0f;
+	f32 cx = cos( hX ); f32 cy = cos( hY ); f32 cz = cos( hZ );
+	f32 sx = sin( hX ); f32 sy = sin( hY ); f32 sz = sin( hZ );
+
+	f32 w = cx*cy*cz + sx*sy*sz;
+	f32 x = cx*sy*cz + sx*cy*sz;
+	f32 y = cx*cy*sz - sx*sy*cz;
+	f32 z = sx*cy*cz - cx*sy*sz;
+
+	matrix4 rotmat;
+	rotmat[0]= 1-2*( y*y + z*z );	rotmat[4]= 2*( x*y - w*z );		rotmat[8]= 2*( w*y + x*z );		rotmat[12]=0;
+	rotmat[1]= 2*( x*y + w*z );		rotmat[5]= 1-2*( x*x + z*z );	rotmat[9]= 2*( y*z - w*x );		rotmat[13]=0;
+	rotmat[2]= 2*( x*z - w*y );		rotmat[6]= 2*( y*z + w*x );		rotmat[10]= 1-2*( x*x + y*y );	rotmat[14]=0;
+	rotmat[3]= 0;					rotmat[7]= 0;					rotmat[11]= 0;					rotmat[15]=1;
+
+	upVector.*/
+
+
+
+
+	//std::cout<<std::endl;
+	//std::cout<< currentRot.X<<","<<currentRot.Y<<std::endl;
+	//std::cout<< upVector.X<<","<<upVector.Y<<","<<upVector.Z<<std::endl;
+
+	camera->setUpVector( upVector );
+	irr::core::quaternion quar( currentRot );	
+
+	// 设置镜头旋转（Z轴）y
 	//f32 zDeg = currentRot.Z;
 	////if ( (s32)currentRot.Y % 360 >= 90 )
 	////zDeg *= -1;

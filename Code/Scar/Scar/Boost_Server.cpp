@@ -26,14 +26,12 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 		pack.SetCMD( BROADCAST_ROOM );
 
 		BroadcastRoomBag room;
-		wchar_t* room_name = L"XiGe";
+		wchar_t* room_name = L"TWX";
 		wcscpy( room.room_name, room_name );
 
 		pack.SetData( (const char*)&room, sizeof( BroadcastRoomBag ) );
 
 		m_network->Send( ip::address_v4().broadcast().to_ulong(), pack );
-
-		
 
 		std::cout << ip::address_v4( ip ).to_string() << " BoostServer receives REQUEST_ROOM\n";
 	}
