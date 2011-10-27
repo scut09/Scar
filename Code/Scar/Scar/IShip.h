@@ -14,6 +14,9 @@
 
 #include "CMeshSceneNode.h"
 #include <string>
+#include "IWeapon.h"
+#include <vector>
+#include <irrlicht.h>
 
 using namespace irr;
 using namespace core;
@@ -39,15 +42,16 @@ public:
 		:
 	CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 	{
+		if ( !parent )
+		{
+			this->setParent( mgr->getRootSceneNode() );
+		}
 		Money =0;
 		Energy =1000;
 	}
 
 protected:
-	
-	f32		           MaxSpeed;			   // 最大速度
 	vector3df          Speed;                  // 速度 
-	f32				   Velocity;			   // 速率
 	vector3df		   Acceleration;		   // 加速度
 	f32                MaxAcceleration;        // 最大加速度 
 	f32		           Sensitivity;	           // 灵敏度
@@ -67,6 +71,13 @@ protected:
 	u32                Money;                  // 金钱    
 	u32                Energy;                 // 能量
 
+	f32					MaxSpeed;				// 最大速度
+	f32					Velocity;				// 速率
+	u32					GunEquitCount;			// 最大主炮装备数量
+	u32					MissileEquitCount;		// 最大飞弹种类装备数量
+	std::vector< IWeapon* >		Guns;			// 主炮
+	std::vector< IWeapon* >		Missiles;		// 飞弹
+
 public:
 	
 	virtual ~IShip(void){};
@@ -77,7 +88,19 @@ public:
 		const f32& maxlife=1000, const f32& currentlife=1000, const f32& lifeaddpergrade=1000, const f32& defence=2, 
 		const u32& shield=1, const u32& currentgrade=0, const u32& nextgrade=1, const u32&maxgrade=10, const f32& inertance=1,
 		const f32& recoverLife=10, const f32& experience=0, const f32& experiencetograde=100 );
-	
+
+	//获取和设置飞船的主炮
+	const std::vector< IWeapon* >& GetGuns() const;
+	void AddGun( IWeapon* gun );
+	void RemoveGun( IWeapon* gun );
+	void RemoveGuns();
+
+	//获取和设置飞船的飞弹
+	const std::vector< IWeapon* >& GetMissles() const;
+	void AddMissles( IWeapon* missile );
+	void RemoveMissle( IWeapon* missile );
+	void RemoveMissles();
+
 	//获取和修改飞船速率
 	virtual f32 GetVelocity() const { return Velocity; }
 	virtual void SetVelocity( f32 velocity ) { Velocity = velocity; }

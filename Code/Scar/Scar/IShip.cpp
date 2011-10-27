@@ -7,7 +7,7 @@
 *********************************************************************/
 
 #include "IShip.h"
-
+#include <algorithm>
 
 
 void IShip::Move(u32 time) 
@@ -101,4 +101,66 @@ void IShip::initShip( const std::wstring& name,const f32& maxspeed/*=10*/, const
 	RecoverLife = recoverLife;
 	Experience = experience;
 	ExperienceToGrade = experiencetograde;
+}
+
+void IShip::AddGun( IWeapon* gun )
+{
+	if ( !gun ) return;
+	if ( Guns.size() >= GunEquitCount )
+		return;
+	gun->grab();
+	Guns.push_back( gun );
+}
+
+void IShip::RemoveGun( IWeapon* gun )
+{
+	auto itr = std::find( Guns.begin(), Guns.end(), gun );
+	int diff = itr - Guns.begin();
+	Guns.erase( Guns.begin() + diff );
+	gun->drop();
+}
+
+void IShip::RemoveGuns()
+{
+	for ( auto iter = Guns.begin(); iter != Guns.end(); ++iter )
+	{
+		(*iter)->drop();
+	}
+	Guns.clear();
+}
+
+const std::vector< IWeapon* >& IShip::GetGuns() const
+{
+	return Guns;
+}
+
+const std::vector< IWeapon* >& IShip::GetMissles() const
+{
+	return Missiles;
+}
+
+void IShip::AddMissles( IWeapon* missile )
+{
+	if ( !missile ) return;
+	if ( Missiles.size() >= MissileEquitCount )
+		return;
+	missile->grab();
+	Missiles.push_back( missile );
+}
+
+void IShip::RemoveMissle( IWeapon* missile )
+{
+	auto itr = std::find( Missiles.begin(), Missiles.end(), missile );
+	int diff = itr - Missiles.begin();
+	Missiles.erase( Missiles.begin() + diff );
+	missile->drop();
+}
+
+void IShip::RemoveMissles()
+{
+	for ( auto iter = Missiles.begin(); iter != Missiles.end(); ++iter )
+	{
+		(*iter)->drop();
+	}
+	Missiles.clear();
 }

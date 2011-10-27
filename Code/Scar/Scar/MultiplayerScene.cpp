@@ -22,6 +22,7 @@
 #include "UIAnimators.h"
 #include "UIManager.h"
 #include "Frigate.h"
+#include "BulletNode.h"
 
 #include "irrKlang.h"
 using namespace irrklang;
@@ -39,6 +40,7 @@ IUIObject* Cursor;	// 鼠标准心
 IUIObject* Speed1;	// 速度槽慢
 IUIObject* Speed2;	// 速度槽空
 IShip* cf1;
+BulletNode* bullet;	// 子弹
 
 ISoundEngine* pSoundEngine;
 ISoundSource* fuck;
@@ -103,9 +105,6 @@ void MultiplayerScene::Init()
 	server.Start( 1990, 2012 );
 	client.Start( 2012, 1990 );
 
-
-
-
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
@@ -119,6 +118,15 @@ void MultiplayerScene::Init()
 	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 	//m_pCamera->addChild( cf1 );
 	cf1->setPosition( vector3df( 0, 0, 50 ) );
+	// 创建子弹
+	bullet = new BulletNode( smgr->getMesh("../module/mayabottle.obj"), 0, smgr, -1,
+		vector3df(0,0,0), vector3df(0), vector3df(1) );
+	//bullet->setVisible( true );
+	cf1->AddGun( bullet );
+	// 创建火控
+	auto fireAni = new FireAnimator();
+	cf1->addAnimator( fireAni );
+	fireAni->drop();
 
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
@@ -324,8 +332,9 @@ void MultiplayerScene::Init()
 
 
 	// 创建并注册receiver的事件处理回调函数
-	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ pEngine ]( const SEvent& event )->void*
+	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ fireAni, pEngine ]( const SEvent& event )->void*
 	{	
+		fireAni->OnEvent( event );
 		//control.OnEvent( event );
 		//pEngine;		// 引擎指针
 		/*if (event.EventType == EET_KEY_INPUT_EVENT )

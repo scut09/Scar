@@ -156,9 +156,6 @@
     <ClCompile Include="SpaceStation.cpp">
       <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -226,6 +223,9 @@
       <Filter>Control</Filter>
     </ClCompile>
     <ClCompile Include="FireAnimator.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
       <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
@@ -377,9 +377,6 @@
     <ClInclude Include="SpaceStation.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="IWeapon.h">
       <Filter>Models</Filter>
     </ClInclude>
@@ -462,6 +459,9 @@
       <Filter>Control</Filter>
     </ClInclude>
     <ClInclude Include="FireAnimator.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
       <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>

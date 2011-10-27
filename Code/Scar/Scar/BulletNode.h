@@ -36,8 +36,6 @@ public:
 		BulletNode* nb = new BulletNode( Mesh, newParent,
 			newManager, ID, RelativeTranslation, RelativeRotation, RelativeScale );
 
-		nb->setVisible( true );
-
 		// 复制ISceneNode基本属性
 		nb->cloneMembers( this, newManager );
 		nb->ReadOnlyMaterials = ReadOnlyMaterials;
@@ -48,6 +46,8 @@ public:
 
 		// 复制基本属性给新的MissileNode
 		CloneAttributeTo( nb );
+
+		nb->setVisible( true );
 
 		return nb;
 	}

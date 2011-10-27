@@ -16,8 +16,11 @@ using namespace irr::scene;
 
 class FireAnimator : public ISceneNodeAnimator
 {
+	bool IsFire;
+
 public:
 	FireAnimator()
+		: IsFire( false )
 	{
 
 	}
@@ -25,6 +28,8 @@ public:
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 
 	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager=0 );
+
+	virtual bool OnEvent( const SEvent& event );
 
 };
 
