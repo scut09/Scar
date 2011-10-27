@@ -49,7 +49,7 @@ namespace Network
 
 		void SendHeroMove( int index, float x, float y, float z );
 
-		void SendHeroRot( int index, float x, float y );
+		void SendHeroRot( int index, float x, float y , float z );
 
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const
 		{

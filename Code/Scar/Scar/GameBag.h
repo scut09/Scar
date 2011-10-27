@@ -111,9 +111,10 @@ namespace Network
 		int		index;
 		float		x;
 		float		y;
+		float		z;
 
-		HeroRotate( int i = 0, float xx = 0, float yy = 0 ) 
-			: index( i ), x( xx ), y( yy )
+		HeroRotate( int i = 0, float xx = 0, float yy = 0, float zz = 0 ) 
+			: index( i ), x( xx ), y( yy ), z( zz )
 		{ }
 	};
 

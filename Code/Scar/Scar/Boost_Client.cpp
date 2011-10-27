@@ -77,7 +77,7 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 			if ( iter != m_players.end() )
 			{
 				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
-				iter->second->setRotation( irr::core::vector3df( rot.x, rot.y, 0 ) );
+				iter->second->setRotation( irr::core::vector3df( rot.x, rot.y, rot.z ) );
 			}
 		}
 	}
@@ -153,12 +153,12 @@ void Network::BoostClient::SendHeroMove( int index, float x, float y, float z )
 }
 
 
-void Network::BoostClient::SendHeroRot( int index, float x, float y )
+void Network::BoostClient::SendHeroRot( int index, float x, float y, float z )
 {
 	PACKAGE pack;
 	pack.SetCMD( HERO_ROTATE );
 
-	HeroRotate rot( index, x, y );
+	HeroRotate rot( index, x, y, z );
 
 	pack.SetData( (char*)&rot, sizeof( HeroRotate ) );
 
