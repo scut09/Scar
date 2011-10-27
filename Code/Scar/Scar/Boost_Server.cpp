@@ -47,6 +47,9 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	else if ( cmd == HERO_MOVE )
 	{
 		std::cout << "HERO_MOVE\n";
+		HeroMove move;
+		move = *(HeroMove*)p.GetData();
+		std::cout << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
 	}
 	else if ( cmd == REQUEST_ENTER_ROOM )
 	{

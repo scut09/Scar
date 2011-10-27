@@ -156,6 +156,9 @@
     <ClCompile Include="SpaceStation.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -218,9 +221,6 @@
     </ClCompile>
     <ClCompile Include="CNetwork.cpp">
       <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
-      <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,6 +371,9 @@
     <ClInclude Include="SpaceStation.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
     <ClInclude Include="IWeapon.h">
       <Filter>Models</Filter>
     </ClInclude>
@@ -445,9 +448,6 @@
     </ClInclude>
     <ClInclude Include="INetwork.h">
       <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
-      <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

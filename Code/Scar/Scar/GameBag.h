@@ -59,6 +59,11 @@ namespace Network
 		float		x;
 		float		y;
 		float		z;
+
+		HeroMove( int i, float xx, float yy, float zz )
+			: index( i ), x( xx ), y( yy ), z( zz ) {}
+
+		HeroMove() {}
 	};
 
 	struct HeroRotate
@@ -66,6 +71,10 @@ namespace Network
 		int		index;
 		float		x;
 		float		y;
+
+		HeroRotate( int i, float xx, float yy ) 
+			: index( i ), x( xx ), y( yy )
+		{ }
 	};
 
 	struct BulletCreateBag

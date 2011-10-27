@@ -27,7 +27,7 @@ namespace Network
 	class BoostClient
 	{
 	public:
-		BoostClient()
+		BoostClient() : m_server_IP( 0 )
 		{
 			SaveLocalIPAddress();
 		}
@@ -40,12 +40,9 @@ namespace Network
 
 		void QueryRoom();
 
-		void EnterRoom( const std::string& ip )
-		{
-			PACKAGE pack;
-			pack.SetCMD( REQUEST_ENTER_ROOM );
-			m_network->Send( 0, pack );
-		}
+		void EnterRoom( const std::string& ip );
+
+		void SendHeroMove( int index, float x, float y, float z );
 
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const
 		{
@@ -85,6 +82,7 @@ namespace Network
 		std::shared_ptr<INetwork>				m_network;
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 		std::set<std::string>					m_localIP;
+		unsigned long							m_server_IP;
 	};
 
 

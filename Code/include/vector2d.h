@@ -340,7 +340,14 @@ public:
 		vector2d< s32 > LeftUpper, RightUpper, RightLower, LeftLower;
 
 		myposition( vector2d<s32> lu,vector2d<s32> ru,vector2d<s32> rl,vector2d<s32> ll) : LeftUpper(lu), RightUpper(ru), RightLower(rl), LeftLower(ll){}
-
+		s32 getWidth() const
+		{
+			return RightLower.X - LeftLower.X;
+		}
+		s32 getHeight() const
+		{
+			return RightLower.Y - RightUpper.Y;
+		}
 	};
 } // end namespace core
 } // end namespace irr

@@ -27,6 +27,7 @@ Network::CNetwork::CNetwork( int port, int target_port )
 Network::CNetwork::~CNetwork()
 {
 	m_thread->interrupt();
+	m_thread->join();
 	m_send_sock->close();
 }
 
