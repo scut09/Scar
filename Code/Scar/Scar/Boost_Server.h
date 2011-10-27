@@ -26,8 +26,6 @@ namespace Network
 	using namespace boost::asio;
 	using namespace boost::asio::ip;
 
-
-
 	// ·þÎñÆ÷
 	class BoostServer
 	{
@@ -35,31 +33,6 @@ namespace Network
 		void OnReceive( unsigned long ip, const PACKAGE& p );
 
 		void Start( int listen_port, int target_port );
-
-	private:
-		void SaveLocalIPAddress()
-		{
-			using namespace boost::asio::ip;
-			boost::asio::io_service io;
-
-			tcp::resolver resolver( io ); 
-			tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
-			tcp::resolver::iterator iter = resolver.resolve( query ); 
-			tcp::resolver::iterator end; 
-
-			while ( iter != end ) 
-			{   
-				tcp::endpoint ep = *iter++;    
-				if ( ep.address().is_v4() )
-				{
-					m_localIP.insert( ep.address().to_string() );
-					//std::cout << ep.address().to_string() << std::endl;
-				}
-			} 
-		}
-
-	public:
-
 
 	private:
 		std::set<std::string>		m_localIP;
