@@ -86,7 +86,7 @@ void MultiplayerScene::Run()
 	auto pos = m_pCamera->getPosition();
 	client.SendHeroMove( client.m_index, pos.X, pos.Y, pos.Z );
 	auto rot = m_pCamera->getRotation();
-	client.SendHeroRot( client.m_index, rot.X, rot.Y );
+	client.SendHeroRot( client.m_index, rot.X, rot.Y, rot.Z );
 
 
 	// ×¼ÐÄ×·ËæÊó±ê
