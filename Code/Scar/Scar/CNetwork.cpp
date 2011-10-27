@@ -58,15 +58,7 @@ void Network::CNetwork::Send( const std::string& ip, const PACKAGE& pack )
 
 void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
 {
-	if ( ip == 0 )	// ¹ã²¥
-	{
-		//std::cout << "Broadcast ";
-
-	}
-	else
-	{
-		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
-	}
+	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
 }
 
 

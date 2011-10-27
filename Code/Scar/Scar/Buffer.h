@@ -34,7 +34,7 @@ public:
 			m_queue.push( element );
 		}
 
-		m_cond_get.notify_one();
+		m_cond_get.notify_one();		// 通知Get已经有东西加入
 	}
 
 	T Get()
@@ -44,13 +44,19 @@ public:
 		{
 			boost::mutex::scoped_lock lock( m_mutex );
 
-			if ( m_queue.empty() )
+			while ( 1 )
 			{
-				m_cond_get.wait( m_mutex );
+				if ( m_queue.empty() )
+				{
+					m_cond_get.wait( m_mutex );
+					continue;
+				}
+
+				head = m_queue.front();
+				m_queue.pop();
+				break;
 			}
 
-			head = m_queue.front();
-			m_queue.pop();
 		}
 
 		return head;
