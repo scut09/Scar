@@ -22,6 +22,8 @@ Network::CNetwork::CNetwork( int port, int target_port )
 	// 允许广播
 	socket_base::broadcast option( true );
 	m_send_sock->set_option( option );
+
+	SaveBroadcastIPAddress();
 }
 
 Network::CNetwork::~CNetwork()
@@ -56,7 +58,14 @@ void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
 {
 	if ( ip == 0 )	// 广播
 	{
-		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), m_broadcast_ep );
+		//std::cout << "Broadcast ";
+		for ( auto ipIter = m_broadcast_ip.begin(); ipIter != m_broadcast_ip.end(); ++ipIter )
+		{			
+			//auto addr = boost::asio::ip::address_v4( *ipIter );
+			m_broadcast_ep.address( boost::asio::ip::address_v4( *ipIter ) );
+			m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), m_broadcast_ep );
+			//std::cout << addr.to_string() << std::endl;
+		}
 	}
 	else
 	{
@@ -90,5 +99,27 @@ void Network::CNetwork::Run()
 
 		// 调用回调函数处理收到消息
 		m_func( ep.address().to_v4().to_ulong(), pack );
+	}
+}
+
+void Network::CNetwork::SaveBroadcastIPAddress()
+{
+	using namespace boost::asio::ip;
+	boost::asio::io_service io;
+
+	tcp::resolver resolver( io ); 
+	tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
+	tcp::resolver::iterator iter = resolver.resolve( query ); 
+	tcp::resolver::iterator end; 
+
+	while ( iter != end ) 
+	{   
+		tcp::endpoint ep = *iter++;    
+		if ( ep.address().is_v4() )
+		{
+			unsigned long ip = ep.address().to_v4().to_ulong();
+			ip |= 0xff;				// 将IP地址最后的位置为255,以便广播
+			m_broadcast_ip.insert( ip );					
+		}
 	}
 }

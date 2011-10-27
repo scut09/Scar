@@ -26,14 +26,16 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 		pack.SetCMD( BROADCAST_ROOM );
 
 		BroadcastRoomBag room;
-		wchar_t* room_name = L"ETET";
+		wchar_t* room_name = L"XiGe";
 		wcscpy( room.room_name, room_name );
 
 		pack.SetData( (const char*)&room, sizeof( BroadcastRoomBag ) );
 
 		m_network->Send( ip::address_v4().broadcast().to_ulong(), pack );
 
-		std::cout << "BoostServer receives REQUEST_ROOM\n";
+		
+
+		std::cout << ip::address_v4( ip ).to_string() << " BoostServer receives REQUEST_ROOM\n";
 	}
 	// ¹ã²¥·¿¼ä
 	else if ( cmd == BROADCAST_ROOM )
@@ -53,6 +55,7 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	}
 	else if ( cmd == REQUEST_ENTER_ROOM )
 	{
+		std::cout << ip::address_v4( ip ).to_string() << " ";
 		std::cout << "BoostServer receives REQUEST_ENTER_ROOM\n";
 		pack.SetCMD( ALLOW_JOIN_ROOM );
 		m_network->Send( ip, pack );

@@ -16,6 +16,8 @@
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
 #include <vector>
+#include <string>
+#include <set>
 
 namespace Network
 {
@@ -49,6 +51,11 @@ namespace Network
 
 
 	private:
+		// 保存每个网卡的自己的IP,以便于多网卡广播
+		void SaveBroadcastIPAddress();
+
+
+	private:
 		INetworkCallbackType			m_func;			// 消息处理函数
 		std::shared_ptr<boost::thread>	m_thread;		// 接受消息的线程的指针
 		std::shared_ptr<ip::udp::socket>m_send_sock;	// 发送的socket
@@ -56,6 +63,8 @@ namespace Network
 		io_service						io;				// 前摄器模式
 		int								m_listen_port;	// 监听的端口
 		int								m_target_port;	// 目标的端口
+		std::set<unsigned long>			m_broadcast_ip;	// 广播IP
+
 	};
 }
 
