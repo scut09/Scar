@@ -19,7 +19,7 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 
 	int cmd = p.GetCMD();
 
-	std::cout << "BoostClient cmd = " << cmd << std::endl;
+	//std::cout << "BoostClient cmd = " << cmd << std::endl;
 
 	PACKAGE pack;
 

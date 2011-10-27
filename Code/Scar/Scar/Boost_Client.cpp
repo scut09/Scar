@@ -13,7 +13,7 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 {
 	int cmd = p.GetCMD();
 
-	std::cout << "BoostClient cmd = " << cmd << std::endl;
+	//std::cout << "BoostClient cmd = " << cmd << std::endl;
 
 	if ( cmd == BROADCAST_ROOM )		// 收到房间广播，保存到房间列表中
 	{
