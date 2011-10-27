@@ -72,12 +72,14 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 
 		auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
-		// 创建飞船
-		IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-		//m_pCamera->addChild( cf1 );
-		cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
+		auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("bottle") );
 
-		m_players[ oneplayer.player_index ] = cf1;
+		// 创建飞船
+		//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+		//m_pCamera->addChild( cf1 );
+		//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
+
+		m_players[ oneplayer.player_index ] = bottleNode;
 
 		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}
