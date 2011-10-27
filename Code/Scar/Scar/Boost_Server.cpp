@@ -73,6 +73,8 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 		PlayerInfo player( index, ip );
 		m_playerList.push_back( player );
 
+		Sleep( 2000 );
+
 		// 发送已有玩家信息给新玩家，这个需要改进
 		for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
 		{
@@ -84,6 +86,8 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 
 			m_network->Send( ip, pack );
 		}
+
+		Sleep( 2000 );
 
 		OnePlayerInfoBag oneplayer;
 		oneplayer.player_index = index;

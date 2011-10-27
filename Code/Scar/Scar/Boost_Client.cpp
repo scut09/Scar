@@ -58,8 +58,13 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 		move = *(HeroMove*)p.GetData();
 		if ( move.index != m_index )
 		{
-			//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
-			m_players[ move.index ]->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
+			auto iter = m_players.find( move.index );
+			if ( iter != m_players.end() )
+			{
+				std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+				iter->second->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
+			}
+
 		}
 	}
 	// 收到新玩家加入
@@ -68,20 +73,24 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 		OnePlayerInfoBag oneplayer;
 		oneplayer = *(OnePlayerInfoBag*)p.GetData();
 
-		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+		if ( oneplayer.player_index != m_index )
+		{
+			auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 
-		auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
+			auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
 
-		auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("bottle") );
+			auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("bottle") );
 
-		// 创建飞船
-		//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-		//m_pCamera->addChild( cf1 );
-		//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
+			// 创建飞船
+			//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+			//m_pCamera->addChild( cf1 );
+			//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
 
-		m_players[ oneplayer.player_index ] = bottleNode;
+			m_players[ oneplayer.player_index ] = bottleNode;
 
-		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
+			std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
+		}
+
 	}
 }
 
