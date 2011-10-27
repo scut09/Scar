@@ -193,6 +193,7 @@
     <ClInclude Include="MySceneNodeAnimatorSetVisible.h" />
     <ClInclude Include="MySceneNodeAnimatorShake.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="NetworkBase.h" />
     <ClInclude Include="NetworkPacket.h" />
     <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />

@@ -10,16 +10,17 @@
 #define Boost_Client_h__
 
 
+#include "CNetwork.h"
+#include "IShip.h"
+#include "NetworkBase.h"
 #include "NetworkPacket.h"
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
-#include <vector>
-#include "CNetwork.h"
+#include <hash_map>
+#include <irrlicht.h>
 #include <map>
 #include <set>
-#include <hash_map>
-#include "IShip.h"
-#include <irrlicht.h>
+#include <vector>
 
 namespace Network
 {
@@ -29,19 +30,19 @@ namespace Network
 
 	struct BroadcastRoomBag;
 
-	class BoostClient
+	class BoostClient : public NetworkBase
 	{
 	public:
-		BoostClient() : m_server_IP( 0 )
-		{
-			SaveLocalIPAddress();
-		}
+		BoostClient();
 
-		void Start( int listen_port, int target_port );
+		// 消息处理函数
+		void BroadcastRoomHandler( unsigned long ip, const PACKAGE& p );
+		void AllowJoinRoomHandler( unsigned long ip, const PACKAGE& p );
+		void HeroMoveHandler( unsigned long ip, const PACKAGE& p );
+		void HeroRotateHandler( unsigned long ip, const PACKAGE& p );
+		void NewPlayerJoinHandler( unsigned long ip, const PACKAGE& p );
 
-		void OnReceive( unsigned long ip, const PACKAGE& p );
-
-		void Send( std::string ip );
+		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 
 		void QueryRoom();
 
@@ -69,13 +70,11 @@ namespace Network
 		// 管理其他玩家信息，到时需要分到其他类来处理，现在为了方便暂时放这里
 		std::hash_map<int, irr::scene::ISceneNode*>			m_players;
 
-
 	public:
 		int										m_index;
 
 	private:
 		int										m_port;
-		std::shared_ptr<INetwork>				m_network;
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 		std::set<std::string>					m_localIP;
 		unsigned long							m_server_IP;

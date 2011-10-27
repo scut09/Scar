@@ -11,15 +11,15 @@
 #ifndef CNetwork_h__
 #define CNetwork_h__
 
-#include "INetwork.h"
 #include "Buffer.h"
+#include "INetwork.h"
+#include <boost/asio.hpp>
 #include <boost/smart_ptr.hpp>
 #include <boost/thread.hpp>
-#include <boost/asio.hpp>
 #include <boost/thread/mutex.hpp>
-#include <vector>
-#include <string>
 #include <set>
+#include <string>
+#include <vector>
 
 namespace Network
 {

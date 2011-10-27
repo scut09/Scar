@@ -9,38 +9,31 @@
 #ifndef Boost_Server_h__
 #define Boost_Server_h__
 
-#include "NetworkPacket.h"
-#include <boost/asio.hpp>
-#include <boost/thread.hpp>
-#include <vector>
-#include <string>
-#include <list>
-#include <boost/smart_ptr.hpp>
-#include <iostream>
 #include "CNetwork.h"
+#include "NetworkBase.h"
+
+#include <iostream>
+#include <list>
 #include <set>
+#include <string>
+#include <vector>
 
 namespace Network
 {
-	using namespace boost;
-	using namespace boost::asio;
-	using namespace boost::asio::ip;
-
 	// 服务器
-	class BoostServer
+	class BoostServer : public NetworkBase
 	{
 	public:
-		void OnReceive( unsigned long ip, const PACKAGE& p );
+		BoostServer();
 
-		void Start( int listen_port, int target_port );
+		// 消息处理函数
+		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
+		void QueryRoomHandler( unsigned long ip, const PACKAGE& p );
+		void RequestEnterRoomHandler( unsigned long ip, const PACKAGE& p );
 
 	private:
-		std::set<std::string>		m_localIP;
-
-		int							m_port;
-		std::shared_ptr<INetwork>	m_network;
-
-		std::list<PlayerInfo>		m_playerList;
+		std::list<PlayerInfo>					m_playerList;	// 玩家列表
+		std::set<std::string>					m_localIP;		// 本地IP
 	};
 
 

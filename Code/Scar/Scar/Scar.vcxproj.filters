@@ -464,6 +464,9 @@
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h">
       <Filter>Control</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkBase.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">

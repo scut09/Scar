@@ -1,8 +1,8 @@
-/********************************************************************
-    ¥¥Ω® ±º‰: 2011-10-25   20:26
-    Œƒº˛√˚:   Client.cpp
-    ◊˜’ﬂ:     ª™¡¡ Cedric Porter [ Stupid ET ]	
-    Àµ√˜:     øÕªß∂À
+Ôªø/********************************************************************
+    ÂàõÂª∫Êó∂Èó¥: 2011-10-25   20:26
+    Êñá‰ª∂Âêç:   Client.cpp
+    ‰ΩúËÄÖ:     Âçé‰∫Æ Cedric Porter [ Stupid ET ]	
+    ËØ¥Êòé:     ÂÆ¢Êà∑Á´Ø
 
 *********************************************************************/
 
@@ -12,118 +12,20 @@
 #include "Frigate.h"
 
 
-void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
+Network::BoostClient::BoostClient() : m_server_IP( 0 )
 {
-	int cmd = p.GetCMD();
+	SaveLocalIPAddress();
 
-	//std::cout << "BoostClient cmd = " << cmd << std::endl;
-
-	//  ’µΩ∑øº‰π„≤•£¨±£¥ÊµΩ∑øº‰¡–±Ì÷–
-	if ( cmd == BROADCAST_ROOM )		
-	{
-		BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
-		m_roomMap[ boost::asio::ip::address_v4( ip ).to_string() ] = bag;
-
-		std::cout << "Server broadcast room: ip= " 
-			<< boost::asio::ip::address_v4( ip ).to_string() 
-			<< " room name= ";
-		std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
-			<< std::endl;
-
-		std::cout << "<current rooms>\n";
-		for ( auto iter = m_roomMap.begin(); iter != m_roomMap.end(); ++iter )
-		{
-			std::cout << "ip " << iter->first << std::endl;
-		}
-		std::cout << "</current rooms>\n";
-	}
-	//  ’µΩ‘ –Ìº”»Î∑øº‰µƒœ˚œ¢£¨ø™ º”Œœ∑
-	else if ( cmd == ALLOW_JOIN_ROOM )	
-	{
-		std::cout << boost::asio::ip::address_v4( ip ).to_string() << " ==>BoostClient receives ALLOW_JOIN_ROOM\n";
-
-		m_server_IP = ip;
-
-		PlayerInfo player;
-		player = *(PlayerInfo*)p.GetData();
-
-		m_index = player.index;
-
-
-	}
-	//  ’µΩÕÊº““∆∂Ø
-	else if ( cmd == HERO_MOVE )
-	{
-		HeroMove move;
-		move = *(HeroMove*)p.GetData();
-		if ( move.index != m_index )
-		{
-			auto iter = m_players.find( move.index );
-			if ( iter != m_players.end() )
-			{
-				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
-				iter->second->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
-			}
-		}
-	}
-	// ÕÊº“’’œ‡ª˙–˝◊™
-	else if ( cmd == HERO_ROTATE )
-	{
-		HeroRotate rot;
-		rot = *(HeroRotate*)p.GetData();
-		if ( rot.index != m_index )
-		{
-			auto iter = m_players.find( rot.index );
-			if ( iter != m_players.end() )
-			{
-				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
-				iter->second->setRotation( irr::core::vector3df( rot.x, rot.y, rot.z ) );
-			}
-		}
-	}
-	//  ’µΩ–¬ÕÊº“º”»Î
-	else if ( cmd == NEW_PLAYER_JOIN )
-	{
-		OnePlayerInfoBag oneplayer;
-		oneplayer = *(OnePlayerInfoBag*)p.GetData();
-
-		if ( oneplayer.player_index != m_index )
-		{
-			auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
-
-			auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
-
-			auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("1") );
-
-			// ¥¥Ω®∑…¥¨
-			//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-			//m_pCamera->addChild( cf1 );
-			//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
-
-			m_players[ oneplayer.player_index ] = bottleNode;
-
-			std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
-		}
-
-	}
-}
-
-void Network::BoostClient::Send( std::string ip )
-{
-	PACKAGE p;
-	p.SetCMD( ALLOW_JOIN_ROOM );
-	//m_network->Send( ip, p );
-}
-
-void Network::BoostClient::Start( int listen_port, int target_port )
-{
-	// ¥¥Ω®Õ¯¬Á
-	m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port ) );
-	// ◊¢≤·Ω” ‹ªÿµ˜∫Ø ˝
-	m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
-	{
-		OnReceive( ip, p );
-	} );
+	RegisterMessageHandler( BROADCAST_ROOM, 
+		[this]( unsigned long ip, const PACKAGE& p ){ BroadcastRoomHandler( ip, p ); });
+	RegisterMessageHandler( ALLOW_JOIN_ROOM, 
+		[this]( unsigned long ip, const PACKAGE& p ){ AllowJoinRoomHandler( ip, p ); });
+	RegisterMessageHandler( HERO_MOVE, 
+		[this]( unsigned long ip, const PACKAGE& p ){ HeroMoveHandler( ip, p ); });
+	RegisterMessageHandler( HERO_ROTATE, 
+		[this]( unsigned long ip, const PACKAGE& p ){ HeroRotateHandler( ip, p ); });
+	RegisterMessageHandler( NEW_PLAYER_JOIN, 
+		[this]( unsigned long ip, const PACKAGE& p ){ NewPlayerJoinHandler( ip, p ); });
 }
 
 void Network::BoostClient::QueryRoom()
@@ -185,4 +87,93 @@ void Network::BoostClient::SaveLocalIPAddress()
 			std::cout << ep.address().to_string() << std::endl;
 		}
 	}
+}
+
+void Network::BoostClient::BroadcastRoomHandler( unsigned long ip, const PACKAGE& p )
+{
+	BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
+	m_roomMap[ boost::asio::ip::address_v4( ip ).to_string() ] = bag;
+
+	std::cout << "Server broadcast room: ip= " 
+		<< boost::asio::ip::address_v4( ip ).to_string() 
+		<< " room name= ";
+	std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
+		<< std::endl;
+
+	std::cout << "<current rooms>\n";
+	for ( auto iter = m_roomMap.begin(); iter != m_roomMap.end(); ++iter )
+	{
+		std::cout << "ip " << iter->first << std::endl;
+	}
+	std::cout << "</current rooms>\n";
+}
+
+void Network::BoostClient::AllowJoinRoomHandler( unsigned long ip, const PACKAGE& p )
+{
+	std::cout << boost::asio::ip::address_v4( ip ).to_string() << " ==>BoostClient receives ALLOW_JOIN_ROOM\n";
+
+	m_server_IP = ip;
+
+	PlayerInfo player;
+	player = *(PlayerInfo*)p.GetData();
+
+	m_index = player.index;
+}
+
+void Network::BoostClient::HeroMoveHandler( unsigned long ip, const PACKAGE& p )
+{
+	HeroMove move;
+	move = *(HeroMove*)p.GetData();
+	if ( move.index != m_index )
+	{
+		auto iter = m_players.find( move.index );
+		if ( iter != m_players.end() )
+		{
+			//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+			iter->second->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
+		}
+	}
+}
+
+void Network::BoostClient::HeroRotateHandler( unsigned long ip, const PACKAGE& p )
+{
+	HeroRotate rot;
+	rot = *(HeroRotate*)p.GetData();
+	if ( rot.index != m_index )
+	{
+		auto iter = m_players.find( rot.index );
+		if ( iter != m_players.end() )
+		{
+			//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+			iter->second->setRotation( irr::core::vector3df( rot.x, rot.y, rot.z ) );
+		}
+	}
+}
+
+void Network::BoostClient::NewPlayerJoinHandler( unsigned long ip, const PACKAGE& p )
+{
+	OnePlayerInfoBag oneplayer;
+	oneplayer = *(OnePlayerInfoBag*)p.GetData();
+
+	if ( oneplayer.player_index != m_index )
+	{
+		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+
+		auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
+
+		auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("1") );
+
+		//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+		//m_pCamera->addChild( cf1 );
+		//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
+
+		m_players[ oneplayer.player_index ] = bottleNode;
+
+		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
+	}
+}
+
+void Network::BoostClient::OtherMessageHandler( unsigned long ip, const PACKAGE& p )
+{
+
 }
