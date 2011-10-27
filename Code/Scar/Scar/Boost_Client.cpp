@@ -13,6 +13,8 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 {
 	int cmd = p.GetCMD();
 
+	std::cout << "BoostClient cmd = " << cmd << std::endl;
+
 	if ( cmd == BROADCAST_ROOM )		// 收到房间广播，保存到房间列表中
 	{
 		BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
@@ -33,7 +35,7 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 	}
 	else if ( cmd == ALLOW_JOIN_ROOM )	// 收到允许加入房间的消息，开始游戏
 	{
-		std::cout << boost::asio::ip::address_v4( ip ).to_string() << " BoostClient receives ALLOW_JOIN_ROOM\n";
+		std::cout << boost::asio::ip::address_v4( ip ).to_string() << " ==>BoostClient receives ALLOW_JOIN_ROOM\n";
 
 		m_server_IP = ip;
 
@@ -57,8 +59,8 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 
 void Network::BoostClient::Send( std::string ip )
 {
-	//PACKAGE p;
-	//p.SetCMD( REQUEST_ROOM );
+	PACKAGE p;
+	p.SetCMD( ALLOW_JOIN_ROOM );
 	//m_network->Send( ip, p );
 }
 

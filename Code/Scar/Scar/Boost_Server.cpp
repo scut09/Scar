@@ -18,6 +18,9 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	using namespace boost::asio;
 
 	int cmd = p.GetCMD();
+
+	std::cout << "BoostClient cmd = " << cmd << std::endl;
+
 	PACKAGE pack;
 
 	// ÇëÇó·¿¼ä

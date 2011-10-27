@@ -28,8 +28,8 @@ Network::CNetwork::CNetwork( int port, int target_port )
 
 Network::CNetwork::~CNetwork()
 {
-	m_thread->interrupt();
-	m_thread->join();
+	m_socket_thread->interrupt();
+	m_socket_thread->join();
 	m_send_sock->close();
 }
 
@@ -37,16 +37,18 @@ void Network::CNetwork::Start( INetworkCallbackType func )
 {
 	m_func = func;
 
-	// 启动新线程来运行Run()函数
-	m_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Run, this ) ) );
-
+	// 启动新线程来接受消息
+	m_socket_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Run, this ) ) );
+	// 启动新线程来处理消息
+	m_handle_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Handle, this ) ) );
 	//m_thread->join();
 }
 
 void Network::CNetwork::Close()
 {
-	m_thread->interrupt();
-	m_thread.reset();
+	m_socket_thread->interrupt();
+	m_handle_thread->interrupt();
+	m_socket_thread.reset();
 }
 
 void Network::CNetwork::Send( const std::string& ip, const PACKAGE& pack )
@@ -66,6 +68,19 @@ void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
 		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
 	}
 }
+
+
+void Network::CNetwork::Handle()
+{
+	while ( 1 )
+	{
+		IP_Package p = m_packetBuffer.Get();
+
+		// 调用回调函数处理收到消息
+		m_func( p.ip, p.pack );
+	}
+}
+
 
 void Network::CNetwork::Run()
 {
@@ -91,8 +106,8 @@ void Network::CNetwork::Run()
 
 		pack = *(PACKAGE*)buf.data();
 
-		// 调用回调函数处理收到消息
-		m_func( ep.address().to_v4().to_ulong(), pack );
+		// 将数据包放入Buffer中
+		m_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
 	}
 }
 

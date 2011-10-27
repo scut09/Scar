@@ -15,15 +15,63 @@
 #include <boost/smart_ptr.hpp>
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
+#include <boost/thread/mutex.hpp>
 #include <vector>
 #include <string>
 #include <set>
+#include <queue>
 
 namespace Network
 {
 	using namespace boost;
 	using namespace boost::asio;
 	using boost::asio::ip::udp;
+
+	// 类似生产者消费者的缓冲，如果在Get的时候缓冲为空，它会阻塞直到不为空
+	template< typename T >
+	class Buffer
+	{
+		std::queue<T>	m_queue;
+		boost::mutex	m_mutex;
+		boost::condition_variable_any m_cond_get;
+
+	public:
+		void Put( const T& element )
+		{
+			{
+				boost::mutex::scoped_lock lock( m_mutex );
+				m_queue.push( element );
+			}
+
+			m_cond_get.notify_one();
+		}
+
+		T Get()
+		{
+			T head;
+
+			{
+				boost::mutex::scoped_lock lock( m_mutex );
+
+				if ( m_queue.empty() )
+				{
+					m_cond_get.wait( m_mutex );
+				}
+
+				head = m_queue.front();
+				m_queue.pop();
+			}
+
+			return head;
+		}
+
+		bool IsEmpty() const
+		{
+			boost::mutex::scoped_lock lock( m_mutex );
+			
+			return m_queue.empty();
+		}
+	};
 
 	struct PlayerInfo
 	{
@@ -61,21 +109,38 @@ namespace Network
 		// 在新线程中运行，负责接受消息并调用回调函数处理消息
 		void Run();
 
+		void Handle();
+
 
 	private:
 		// 保存每个网卡的自己的IP,以便于多网卡广播
 		void SaveBroadcastIPAddress();
 
 
+		struct IP_Package
+		{
+			unsigned long ip;
+			PACKAGE pack;
+
+			IP_Package() {}
+			IP_Package( unsigned long IP, const PACKAGE& p )
+				: ip( IP ), pack( p ) 
+			{}
+		};
+
+
 	private:
 		INetworkCallbackType			m_func;			// 消息处理函数
-		std::shared_ptr<boost::thread>	m_thread;		// 接受消息的线程的指针
+		std::shared_ptr<boost::thread>	m_socket_thread;		// 接受消息的线程的指针
+		std::shared_ptr<boost::thread>	m_handle_thread;// 接受消息的线程的指针
+
 		std::shared_ptr<ip::udp::socket>m_send_sock;	// 发送的socket
 		ip::udp::endpoint				m_broadcast_ep;	// 广播的地址
 		io_service						io;				// 前摄器模式
 		int								m_listen_port;	// 监听的端口
 		int								m_target_port;	// 目标的端口
 		std::set<unsigned long>			m_broadcast_ip;	// 广播IP
+		Buffer<IP_Package>			m_packetBuffer;	// 包缓冲
 
 	};
 }
