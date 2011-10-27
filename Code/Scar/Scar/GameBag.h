@@ -41,12 +41,10 @@ namespace Network
 		float	y;
 		float	z;
 
-		AllowJoinRoomBag( int i, float xx, float yy, float zz )
+		AllowJoinRoomBag( int i = 0, float xx = 0, float yy = 0, float zz = 0 )
 			: index( i ), x( xx ), y( yy ), z( zz )
 		{
 		}
-
-		AllowJoinRoomBag() {}
 	};
 
 	// 一个玩家信息 56B
@@ -103,10 +101,8 @@ namespace Network
 		float		y;
 		float		z;
 
-		HeroMove( int i, float xx, float yy, float zz )
+		HeroMove( int i = 0, float xx = 0, float yy = 0, float zz = 0 )
 			: index( i ), x( xx ), y( yy ), z( zz ) {}
-
-		HeroMove() {}
 	};
 
 	// 玩家视角旋转的数据包
@@ -116,7 +112,7 @@ namespace Network
 		float		x;
 		float		y;
 
-		HeroRotate( int i, float xx, float yy ) 
+		HeroRotate( int i = 0, float xx = 0, float yy = 0 ) 
 			: index( i ), x( xx ), y( yy )
 		{ }
 	};

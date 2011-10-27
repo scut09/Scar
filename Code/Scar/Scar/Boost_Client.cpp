@@ -64,7 +64,21 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
 				iter->second->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
 			}
-
+		}
+	}
+	// 玩家照相机旋转
+	else if ( cmd == HERO_ROTATE )
+	{
+		HeroRotate rot;
+		rot = *(HeroRotate*)p.GetData();
+		if ( rot.index != m_index )
+		{
+			auto iter = m_players.find( rot.index );
+			if ( iter != m_players.end() )
+			{
+				//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+				iter->second->setPosition( irr::core::vector3df( rot.x, rot.y, rot.z ) );
+			}
 		}
 	}
 	// 收到新玩家加入
