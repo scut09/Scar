@@ -99,8 +99,12 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	}
 	else
 	{
-		// 其他，广播
-		m_network->Broadcast( p );
+		// 其他，发送给玩家
+		for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
+		{
+			m_network->Send( iter->ip, p );
+		}
+		//m_network->Broadcast( p );
 
 	}
 }
