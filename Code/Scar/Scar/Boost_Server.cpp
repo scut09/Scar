@@ -50,22 +50,40 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 	// 允许加入房间
 	else if ( cmd == REQUEST_ENTER_ROOM )
 	{
-		if ( m_playerList.size() > 10 )	;
+		if ( m_playerList.size() > 10 )	
+		{
+			// 失败
+		}
 
+		// 为新玩家分配id
 		int index = m_playerList.size();
 
 		std::cout << ip::address_v4( ip ).to_string() << " ";
 		std::cout << "==> BoostServer receives REQUEST_ENTER_ROOM\n"
 			<< "allocate index " << index << std::endl;
 
+		// 发送允许加入消息
 		pack.SetCMD( ALLOW_JOIN_ROOM );
 		AllowJoinRoomBag allowBag( index, 0, 0, 0 );
 		pack.SetData( (char*)&allowBag, sizeof( AllowJoinRoomBag ) );
 
 		m_network->Send( ip, pack );
 
+		// 保存这个玩家信息
 		PlayerInfo player( index, ip );
 		m_playerList.push_back( player );
+
+		// 发送已有玩家信息给新玩家，这个需要改进
+		for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
+		{
+			OnePlayerInfoBag oneplayer;
+			oneplayer.player_index = iter->index;
+			
+			pack.SetCMD( NEW_PLAYER_JOIN );
+			pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
+
+			m_network->Send( ip, pack );
+		}
 
 		OnePlayerInfoBag oneplayer;
 		oneplayer.player_index = index;

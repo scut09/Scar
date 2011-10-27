@@ -78,6 +78,8 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 		cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
 
 		m_players[ oneplayer.player_index ] = cf1;
+
+		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}
 }
 
