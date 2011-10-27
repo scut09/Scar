@@ -24,7 +24,7 @@ Network::CNetwork::CNetwork( int listen_port, int target_port )
 	m_send_sock->set_option( option );
 
 	// 为不同的网卡创建广播的地址
-	SaveBroadcastIPAddress();
+	CreateBroadcastIPAddress();
 
 	// 创建接受的socket
 	m_receive_sock = std::shared_ptr<boost::asio::ip::udp::socket>(
@@ -89,7 +89,7 @@ void Network::CNetwork::Handle()
 void Network::CNetwork::Run()
 {
 	//ip::udp::socket		m_receive_sock( io, boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), m_listen_port ) );		// 接受udp的socket
-	std::vector<char>	buf( 1464 );	// 缓冲区
+	std::vector<char>	buf( 1472 );	// 缓冲区
 	system::error_code	ec;				// 错误码
 	ip::udp::endpoint	ep;				// 保存发送端的信息
 	PACKAGE				pack;			// 数据包
@@ -115,7 +115,7 @@ void Network::CNetwork::Run()
 	}
 }
 
-void Network::CNetwork::SaveBroadcastIPAddress()
+void Network::CNetwork::CreateBroadcastIPAddress()
 {
 	using namespace boost::asio::ip;
 	boost::asio::io_service io;

@@ -70,8 +70,8 @@ namespace Network
 
 
 	private:
-		// 保存每个网卡的自己的IP,以便于多网卡广播
-		void SaveBroadcastIPAddress();
+		// 创建每个网卡的自己的IP,以便于多网卡广播
+		void CreateBroadcastIPAddress();
 
 
 		struct IP_Package
