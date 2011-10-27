@@ -25,10 +25,11 @@ namespace Network
 		ROOM_CREATE,
 		MESSAGE_BROADCAST,
 		MESSAGE_TO,
-		QUERY_ROOM,			// 广播查询房间
-		REQUEST_ENTER_ROOM,		// 请求加入
-		BROADCAST_ROOM,
-		ALLOW_JOIN_ROOM
+		QUERY_ROOM,			// 玩家广播查询房间
+		REQUEST_ENTER_ROOM,	// 请求加入
+		BROADCAST_ROOM,		// 服务端广播自己创建了房间
+		ALLOW_JOIN_ROOM,	// 服务端允许玩家加入
+		NEW_PLAYER_JOIN		// 广播新玩家加入
 	};
 
 	// 由服务端发回的允许加入的数据包
@@ -48,23 +49,36 @@ namespace Network
 		AllowJoinRoomBag() {}
 	};
 
-	// 玩家信息
-	struct PlayerInfoBag
+	// 一个玩家信息 56B
+	struct OnePlayerInfoBag
 	{
 		wchar_t		player_name[ 16 ];	// 32B
 
 		// 24B
 		int			player_index;		
 
-		float			x;
-		float			y;
-		float			z;
+		float		x;
+		float		y;
+		float		z;
 
-		float			rot_x;
-		float			rot_y;
-
-
+		float		rot_x;
+		float		rot_y;
 	};
+
+	// 广播用的所有玩家信息
+	struct PlayerInfoBag
+	{
+		int					number;
+		OnePlayerInfoBag	players[ 10 ];
+
+		PlayerInfoBag() : number( 0 ) {}
+
+		int GetLength() const
+		{
+			return sizeof( int ) + sizeof( OnePlayerInfoBag ) * number;
+		}
+	};
+
 
 	// 由服务端广播发送的自己创建的房间的信息
 	struct BroadcastRoomBag

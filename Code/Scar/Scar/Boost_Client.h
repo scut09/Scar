@@ -17,6 +17,8 @@
 #include "CNetwork.h"
 #include <map>
 #include <set>
+#include <hash_map>
+#include "IShip.h"
 
 namespace Network
 {
@@ -77,6 +79,12 @@ namespace Network
 				}
 			} 
 		}
+
+
+	private:
+		// 管理其他玩家信息，到时需要分到其他类来处理，现在为了方便暂时放这里
+		std::hash_map<int, IShip*>			m_players;
+
 
 	public:
 		int										m_index;

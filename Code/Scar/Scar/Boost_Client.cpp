@@ -8,6 +8,8 @@
 
 #include "Boost_Client.h"
 #include "GameBag.h"
+#include "MyIrrlichtEngine.h"
+#include "Frigate.h"
 
 
 void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
@@ -16,7 +18,8 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 
 	//std::cout << "BoostClient cmd = " << cmd << std::endl;
 
-	if ( cmd == BROADCAST_ROOM )		// 收到房间广播，保存到房间列表中
+	// 收到房间广播，保存到房间列表中
+	if ( cmd == BROADCAST_ROOM )		
 	{
 		BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
 		m_roomMap[ boost::asio::ip::address_v4( ip ).to_string() ] = bag;
@@ -34,7 +37,8 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 		}
 		std::cout << "</current rooms>\n";
 	}
-	else if ( cmd == ALLOW_JOIN_ROOM )	// 收到允许加入房间的消息，开始游戏
+	// 收到允许加入房间的消息，开始游戏
+	else if ( cmd == ALLOW_JOIN_ROOM )	
 	{
 		std::cout << boost::asio::ip::address_v4( ip ).to_string() << " ==>BoostClient receives ALLOW_JOIN_ROOM\n";
 
@@ -47,14 +51,33 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 
 
 	}
+	// 收到玩家移动
 	else if ( cmd == HERO_MOVE )
 	{
 		HeroMove move;
 		move = *(HeroMove*)p.GetData();
 		if ( move.index != m_index )
 		{
-			std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+			//std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+			m_players[ move.index ]->setPosition( irr::core::vector3df( move.x, move.y, move.z ) );
 		}
+	}
+	// 收到新玩家加入
+	else if ( cmd == NEW_PLAYER_JOIN )
+	{
+		OnePlayerInfoBag oneplayer;
+		oneplayer = *(OnePlayerInfoBag*)p.GetData();
+
+		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+
+		auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
+
+		// 创建飞船
+		IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+		//m_pCamera->addChild( cf1 );
+		cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
+
+		m_players[ oneplayer.player_index ] = cf1;
 	}
 }
 

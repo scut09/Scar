@@ -66,6 +66,14 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 
 		PlayerInfo player( index, ip );
 		m_playerList.push_back( player );
+
+		OnePlayerInfoBag oneplayer;
+		oneplayer.player_index = index;
+
+		pack.SetCMD( NEW_PLAYER_JOIN );
+		pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
+
+		m_network->Broadcast( pack );
 	}
 	else
 	{
