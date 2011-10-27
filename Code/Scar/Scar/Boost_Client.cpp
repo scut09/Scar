@@ -7,6 +7,7 @@
 *********************************************************************/
 
 #include "Boost_Client.h"
+#include "GameBag.h"
 
 
 void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )

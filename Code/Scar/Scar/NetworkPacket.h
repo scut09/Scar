@@ -9,7 +9,6 @@
 #ifndef NetworkPacket_h__
 #define NetworkPacket_h__
 
-#include "GameBag.h"
 
 namespace Network
 {

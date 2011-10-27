@@ -1,4 +1,5 @@
 #include "Boost_Server.h"
+#include "GameBag.h"
 
 
 void Network::BoostServer::Start( int listen_port, int target_port )

@@ -6,7 +6,7 @@
 
 *********************************************************************/
 
-
+#include "GameBag.h"
 #include "CNetwork.h"
 #include <iostream>
 

@@ -27,7 +27,7 @@ namespace Network
 	using namespace boost::asio;
 	using boost::asio::ip::udp;
 
-	
+	struct PACKAGE;
 
 	struct PlayerInfo
 	{
@@ -86,17 +86,17 @@ namespace Network
 
 
 	private:
+		Buffer<IP_Package>				m_packetBuffer;	// 包缓冲
 		INetworkCallbackType			m_func;			// 消息处理函数
-		std::shared_ptr<boost::thread>	m_socket_thread;		// 接受消息的线程的指针
-		std::shared_ptr<boost::thread>	m_handle_thread;// 接受消息的线程的指针
-
-		std::shared_ptr<ip::udp::socket>m_send_sock;	// 发送的socket
-		ip::udp::endpoint				m_broadcast_ep;	// 广播的地址
-		io_service						io;				// 前摄器模式
 		int								m_listen_port;	// 监听的端口
 		int								m_target_port;	// 目标的端口
+		io_service						io;				// 前摄器模式
+		ip::udp::endpoint				m_broadcast_ep;	// 广播的地址
 		std::set<unsigned long>			m_broadcast_ip;	// 广播IP
-		Buffer<IP_Package>			m_packetBuffer;	// 包缓冲
+		std::shared_ptr<boost::thread>	m_handle_thread;// 接受消息的线程的指针
+		std::shared_ptr<boost::thread>	m_socket_thread;// 接受消息的线程的指针
+		std::shared_ptr<ip::udp::socket>m_send_sock;	// 发送的socket
+
 
 	};
 }

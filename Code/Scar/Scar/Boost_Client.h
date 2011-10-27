@@ -24,6 +24,8 @@ namespace Network
 	using namespace boost::asio;
 	using namespace boost::asio::ip;
 
+	struct BroadcastRoomBag;
+
 	class BoostClient
 	{
 	public:

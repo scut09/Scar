@@ -18,6 +18,8 @@ namespace Network
 {
 	typedef std::function< void( unsigned long, const PACKAGE& ) >	INetworkCallbackType;
 
+	struct PACKAGE;
+
 	class INetwork
 	{
 	public:

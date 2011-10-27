@@ -40,7 +40,7 @@ namespace Network
 		float	y;
 		float	z;
 
-		AllowJoinRoomBag( int i, int xx, int yy, int zz )
+		AllowJoinRoomBag( int i, float xx, float yy, float zz )
 			: index( i ), x( xx ), y( yy ), z( zz )
 		{
 		}

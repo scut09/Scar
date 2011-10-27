@@ -8,6 +8,8 @@
 
 #include "Boost_Client.h"
 #include "Boost_Server.h"
+#include "GameBag.h"
+
 #include "MultiplayerScene.h"
 #include "PythonManager.h"
 #include "EngineHeader.h"
