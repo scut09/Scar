@@ -31,7 +31,7 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 
 		pack.SetData( (const char*)&room, sizeof( BroadcastRoomBag ) );
 
-		m_network->Send( ip::address_v4().broadcast().to_ulong(), pack );
+		m_network->Broadcast( pack );
 
 		std::cout << ip::address_v4( ip ).to_string() << " BoostServer receives REQUEST_ROOM\n";
 	}
@@ -51,10 +51,13 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 		int index = m_playerList.size();
 
 		std::cout << ip::address_v4( ip ).to_string() << " ";
-		std::cout << "BoostServer receives REQUEST_ENTER_ROOM\n";
+		std::cout << "==> BoostServer receives REQUEST_ENTER_ROOM\n"
+			<< "allocate index " << index << std::endl;
+
 		pack.SetCMD( ALLOW_JOIN_ROOM );
 		AllowJoinRoomBag allowBag( index, 0, 0, 0 );
 		pack.SetData( (char*)&allowBag, sizeof( AllowJoinRoomBag ) );
+
 		m_network->Send( ip, pack );
 
 		PlayerInfo player( index, ip );

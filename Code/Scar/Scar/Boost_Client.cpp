@@ -23,10 +23,18 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 			<< " room name= ";
 		std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
 			<< std::endl;
+
+		std::cout << "<current rooms>\n";
+		for ( auto iter = m_roomMap.begin(); iter != m_roomMap.end(); ++iter )
+		{
+			std::cout << "ip " << iter->first << std::endl;
+		}
+		std::cout << "</current rooms>\n";
 	}
 	else if ( cmd == ALLOW_JOIN_ROOM )	// 收到允许加入房间的消息，开始游戏
 	{
-		std::cout << "BoostClient receives ALLOW_JOIN_ROOM\n";
+		std::cout << boost::asio::ip::address_v4( ip ).to_string() << " BoostClient receives ALLOW_JOIN_ROOM\n";
+
 		m_server_IP = ip;
 
 		PlayerInfo player;
