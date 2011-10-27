@@ -120,5 +120,6 @@ public:
 		s32 MoveRadius;					// 准心移动半径
 
 		IShip* Ship;					// 操控的飞船
+		f32 AntiGimbalLock;				// 处理万向节锁。初始为1.0，特殊情况下变为-1.0
 };
 #endif

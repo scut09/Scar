@@ -311,13 +311,13 @@ void MultiplayerScene::Init()
 	{	
 		//control.OnEvent( event );
 		//pEngine;		// ÒıÇæÖ¸Õë
-		//if (event.EventType == EET_KEY_INPUT_EVENT )
-		//{
-		//	if (event.KeyInput.Key == KEY_KEY_W )
-		//	{
-		//		pSoundEngine->play2D( fuck );
-		//	}
-		//}
+		/*if (event.EventType == EET_KEY_INPUT_EVENT )
+		{
+			if (event.KeyInput.Key == KEY_KEY_W )
+			{
+				pSoundEngine->play2D( fuck );
+			}
+		}*/
 		return 0;
 	} );
 	

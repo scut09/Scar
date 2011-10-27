@@ -42,6 +42,8 @@ CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl
 		// create custom key map
 		setKeyMap(keyMapArray, keyMapSize);
 	}
+
+	// 初始化万向节锁
 }
 
 
@@ -137,8 +139,8 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	//core::vector3df target = (camera->getTarget() - camera->getAbsolutePosition());
 	//core::vector3df relativeRotation = target.getHorizontalAngle();
 
-	if (CursorControl)
-	{
+	//if (CursorControl)
+	//{
 		/*std::cout << std::endl;
 		std::cout<< CursorPos.X << "," << CursorPos.Y << std::endl;
 		std::cout<< CenterPos.X << "," << CenterPos.Y << std::endl;*/
@@ -156,8 +158,15 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 			CursorPos = newPos;
 			CursorControl->setPosition( newPos.X, newPos.Y );
 		}
-		
-		
+
+		// 杨成熙
+		f32 factor = 150.0f;
+		vector3df RotChange = vector3df(0);
+		RotChange.Y += (f32) ( CursorOffset.X  / 293.0f ) / factor * RotateSpeed;
+		RotChange.X += (f32) ( CursorOffset.Y  / 293.0f ) / factor * RotateSpeed;
+
+		//currentpos = core::vector2d<f32> ( CursorControl->getRelativePosition().X, CursorControl->getRelativePosition().Y );
+
 		
 
 		//if (CursorPos != CenterCursor)
@@ -203,7 +212,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		//	CenterCursor = CursorControl->getRelativePosition();
 		//	CursorPos = CenterCursor;
 		//}
-	}
+//	}
 
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
 	if ( CursorKeys[EKA_MOVE_FORWARD] )
@@ -238,7 +247,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	// 设置照相机节点旋转状态
 	vector3df relateRot = camera->getRotation();
-	vector3df currentRot = relateRot/* + 旋转改变量*/;
+	vector3df currentRot = relateRot + RotChange/* + 旋转改变量*/;
 	camera->setRotation( currentRot );
 
 	// 设置照相机节点的位置
@@ -251,15 +260,22 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	// 设置target的位置（X轴和Y轴）
 	direction = vector3df( currentRot.X, currentRot.Y, 0 );			// 先忽略Z轴旋转
 	direction = direction.rotationToDirection();					// 由角度求出位置向量
+	std::cout<<std::endl;
+	std::cout<< currentRot.X<<","<<currentRot.Y<<std::endl;
+	std::cout<< direction.X<<","<<direction.Y<<","<<direction.Z<<std::endl;
 	camera->setTarget( camera->getPosition() + direction );
 
+	// 修正镜头向上的方向
+	vector3df samePlane = camera->getTarget() + core::vector3df(1,0,0);
+	camera->setUpVector( (camera->getTarget().crossProduct(samePlane)) );
+
 	// 设置镜头旋转（Z轴）
-	f32 zDeg = currentRot.Z;
-	//if ( (s32)currentRot.Y % 360 >= 90 )
-	//zDeg *= -1;
-	vector3df upVector = vector3df( 0, 1, 0 );
-	upVector.rotateXYBy( zDeg );
-	camera->setUpVector( upVector );
+	//f32 zDeg = currentRot.Z;
+	////if ( (s32)currentRot.Y % 360 >= 90 )
+	////zDeg *= -1;
+	//vector3df upVector = vector3df( 0, 1, 0 );
+	//upVector.rotateXYBy( zDeg );
+	//camera->setUpVector( upVector );
 	/*std::cout<<camera->getUpVector().X<<","<<camera->getUpVector().Y<<","<<camera->getUpVector().Z<<"\t";
 	std::cout<<zDeg<<std::endl;*/
 
