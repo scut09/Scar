@@ -94,18 +94,18 @@ void Network::BoostClient::BroadcastRoomHandler( unsigned long ip, const PACKAGE
 	BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
 	m_roomMap[ boost::asio::ip::address_v4( ip ).to_string() ] = bag;
 
-	std::cout << "Server broadcast room: ip= " 
-		<< boost::asio::ip::address_v4( ip ).to_string() 
-		<< " room name= ";
-	std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
-		<< std::endl;
+	//std::cout << "Server broadcast room: ip= " 
+	//	<< boost::asio::ip::address_v4( ip ).to_string() 
+	//	<< " room name= ";
+	//std::wcout << ((BroadcastRoomBag*)p.GetData())->room_name
+	//	<< std::endl;
 
-	std::cout << "<current rooms>\n";
-	for ( auto iter = m_roomMap.begin(); iter != m_roomMap.end(); ++iter )
-	{
-		std::cout << "ip " << iter->first << std::endl;
-	}
-	std::cout << "</current rooms>\n";
+	//std::cout << "<current rooms>\n";
+	//for ( auto iter = m_roomMap.begin(); iter != m_roomMap.end(); ++iter )
+	//{
+	//	std::cout << "ip " << iter->first << std::endl;
+	//}
+	//std::cout << "</current rooms>\n";
 }
 
 void Network::BoostClient::AllowJoinRoomHandler( unsigned long ip, const PACKAGE& p )

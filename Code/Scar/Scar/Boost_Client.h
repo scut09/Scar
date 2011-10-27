@@ -14,9 +14,6 @@
 #include "IShip.h"
 #include "NetworkBase.h"
 #include "NetworkPacket.h"
-#include <boost/asio.hpp>
-#include <boost/thread.hpp>
-#include <hash_map>
 #include <irrlicht.h>
 #include <map>
 #include <set>

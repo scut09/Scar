@@ -11,7 +11,6 @@
 
 #include "CNetwork.h"
 #include "NetworkBase.h"
-
 #include <iostream>
 #include <list>
 #include <set>
