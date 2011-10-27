@@ -43,19 +43,27 @@ void Network::BoostServer::OnReceive( unsigned long ip, const PACKAGE& p )
 		room = *(BroadcastRoomBag*)p.GetData();
 		std::wcout << "Room Name: " << room.room_name << std::endl;
 	}
-	// 英雄移动
-	else if ( cmd == HERO_MOVE )
-	{
-		std::cout << "HERO_MOVE\n";
-		HeroMove move;
-		move = *(HeroMove*)p.GetData();
-		std::cout << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
-	}
+	// 允许加入房间
 	else if ( cmd == REQUEST_ENTER_ROOM )
 	{
+		if ( m_playerList.size() > 10 )	;
+
+		int index = m_playerList.size();
+
 		std::cout << ip::address_v4( ip ).to_string() << " ";
 		std::cout << "BoostServer receives REQUEST_ENTER_ROOM\n";
 		pack.SetCMD( ALLOW_JOIN_ROOM );
+		AllowJoinRoomBag allowBag( index, 0, 0, 0 );
+		pack.SetData( (char*)&allowBag, sizeof( AllowJoinRoomBag ) );
 		m_network->Send( ip, pack );
+
+		PlayerInfo player( index, ip );
+		m_playerList.push_back( player );
+	}
+	else
+	{
+		// 其他，广播
+		m_network->Broadcast( p );
+
 	}
 }

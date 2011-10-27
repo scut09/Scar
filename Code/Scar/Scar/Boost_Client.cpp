@@ -28,6 +28,22 @@ void Network::BoostClient::OnReceive( unsigned long ip, const PACKAGE& p )
 	{
 		std::cout << "BoostClient receives ALLOW_JOIN_ROOM\n";
 		m_server_IP = ip;
+
+		PlayerInfo player;
+		player = *(PlayerInfo*)p.GetData();
+
+		m_index = player.index;
+
+
+	}
+	else if ( cmd == HERO_MOVE )
+	{
+		HeroMove move;
+		move = *(HeroMove*)p.GetData();
+		if ( move.index != m_index )
+		{
+			std::cout << "=> HERO_MOVE " << move.index << ' ' << move.x << ' ' << move.y << ' ' << move.z << std::endl;
+		}
 	}
 }
 
@@ -53,14 +69,14 @@ void Network::BoostClient::QueryRoom()
 {
 	PACKAGE p;
 	p.SetCMD( QUERY_ROOM );
-	m_network->Send( 0, p );
+	m_network->Broadcast( p );
 }
 
 void Network::BoostClient::EnterRoom( const std::string& ip )
 {
 	PACKAGE pack;
 	pack.SetCMD( REQUEST_ENTER_ROOM );
-	m_network->Send( 0, pack );
+	m_network->Send( ip, pack );
 }
 
 void Network::BoostClient::SendHeroMove( int index, float x, float y, float z )

@@ -59,13 +59,7 @@ void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
 	if ( ip == 0 )	// 广播
 	{
 		//std::cout << "Broadcast ";
-		for ( auto ipIter = m_broadcast_ip.begin(); ipIter != m_broadcast_ip.end(); ++ipIter )
-		{			
-			//auto addr = boost::asio::ip::address_v4( *ipIter );
-			m_broadcast_ep.address( boost::asio::ip::address_v4( *ipIter ) );
-			m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), m_broadcast_ep );
-			//std::cout << addr.to_string() << std::endl;
-		}
+
 	}
 	else
 	{
@@ -121,5 +115,14 @@ void Network::CNetwork::SaveBroadcastIPAddress()
 			ip |= 0xff;				// 将IP地址最后的位置为255,以便广播
 			m_broadcast_ip.insert( ip );					
 		}
+	}
+}
+
+void Network::CNetwork::Broadcast( const PACKAGE& pack )
+{
+	for ( auto ipIter = m_broadcast_ip.begin(); ipIter != m_broadcast_ip.end(); ++ipIter )
+	{			
+		m_broadcast_ep.address( boost::asio::ip::address_v4( *ipIter ) );
+		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), m_broadcast_ep );
 	}
 }

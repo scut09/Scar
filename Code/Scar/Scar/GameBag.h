@@ -22,7 +22,22 @@ namespace Network
 		ALLOW_JOIN_ROOM
 	};
 
-	struct PlayerInfo
+	struct AllowJoinRoomBag
+	{
+		int		index;
+		float	x;
+		float	y;
+		float	z;
+
+		AllowJoinRoomBag( int i, int xx, int yy, int zz )
+			: index( i ), x( xx ), y( yy ), z( zz )
+		{
+		}
+
+		AllowJoinRoomBag() {}
+	};
+
+	struct PlayerInfoBag
 	{
 		wchar_t		player_name[ 16 ];	// 32B
 

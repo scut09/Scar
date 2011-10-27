@@ -25,6 +25,15 @@ namespace Network
 	using namespace boost::asio;
 	using boost::asio::ip::udp;
 
+	struct PlayerInfo
+	{
+		int				index;
+		unsigned long	ip;
+
+		PlayerInfo( int i, unsigned long IP ) : ip( IP ), index( i ) {}
+		PlayerInfo() {}
+	};
+
 	class CNetwork : public INetwork
 	{
 	public:
@@ -43,6 +52,9 @@ namespace Network
 
 		// 发送，输入数字形式的ip		
 		virtual void Send( unsigned long ip, const PACKAGE& pack );
+
+		// 支持多网卡的广播
+		virtual void Broadcast( const PACKAGE& pack );
 
 	private:
 			

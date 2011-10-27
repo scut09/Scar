@@ -69,7 +69,8 @@ void MultiplayerScene::Run()
 
 	}
 
-
+	auto pos = m_pCamera->getPosition();
+	client.SendHeroMove( client.m_index, pos.X, pos.Y, pos.Z );
 
 
 	// ×¼ĞÄ×·ËæÊó±ê

@@ -76,6 +76,9 @@ namespace Network
 			} 
 		}
 
+	public:
+		int										m_index;
+
 	private:
 
 		int										m_port;

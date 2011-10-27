@@ -14,6 +14,7 @@
 #include <boost/thread.hpp>
 #include <vector>
 #include <string>
+#include <list>
 #include <boost/smart_ptr.hpp>
 #include <iostream>
 #include "CNetwork.h"
@@ -24,6 +25,8 @@ namespace Network
 	using namespace boost;
 	using namespace boost::asio;
 	using namespace boost::asio::ip;
+
+
 
 	// ·þÎñÆ÷
 	class BoostServer
@@ -55,11 +58,16 @@ namespace Network
 			} 
 		}
 
+	public:
+
+
 	private:
 		std::set<std::string>		m_localIP;
 
 		int							m_port;
 		std::shared_ptr<INetwork>	m_network;
+
+		std::list<PlayerInfo>		m_playerList;
 	};
 
 
