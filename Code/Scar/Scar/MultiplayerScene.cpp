@@ -114,12 +114,12 @@ void MultiplayerScene::Init()
 	cf1->setPosition( vector3df( 0, 0, 50 ) );
 
 	//  ¼ÓÈëÉãÏñ»ú
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 
-	//m_pCamera = smgr->addCameraSceneNode();
-	//auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
-	//m_pCamera->addAnimator( fpsAni );
-	//fpsAni->drop();
+	m_pCamera = smgr->addCameraSceneNode();
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
+	m_pCamera->addAnimator( fpsAni );
+	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );

@@ -8,17 +8,15 @@
 #include "SceneNodeAnimatorAircraftFPS.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
-
+#include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/io.hpp>
+namespace ub = boost::numeric::ublas;
 
 //! constructor
 CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl,
-	IShip* ship,
-	f32 rotateSpeed, f32 moveSpeed, f32 jumpSpeed,
-	SKeyMap* keyMapArray, u32 keyMapSize, bool noVerticalMovement, bool invertY)
-	: CursorControl(cursorControl), Ship(ship), MaxVerticalAngle(88.0f),
-	MoveSpeed(moveSpeed), RotateSpeed(rotateSpeed), JumpSpeed(jumpSpeed),
-	MouseYDirection(invertY ? -1.0f : 1.0f),
-	LastAnimationTime(0), firstUpdate(true), NoVerticalMovement(noVerticalMovement)
+	IShip* ship, SKeyMap* keyMapArray, u32 keyMapSize)
+	: CursorControl(cursorControl), Ship(ship),
+	LastAnimationTime(0), firstUpdate(true)
 {
 
 
@@ -42,9 +40,6 @@ CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl
 		// create custom key map
 		setKeyMap(keyMapArray, keyMapSize);
 	}
-
-	// 初始化万向节锁
-	AntiGimbalLock = 1.0f;
 }
 
 
@@ -133,88 +128,31 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	f32 timeDiff = (f32) ( timeMs - LastAnimationTime );
 	LastAnimationTime = timeMs;
 
-	//// update position
-	//core::vector3df pos = camera->getPosition();
+	// 鼠标控制
+	// 取得当前鼠标在屏幕上的位置以及离中心点的位移量
+	vector2d<s32> CursorOffset = CursorPos - CenterPos;
+	s32 OffsetLength = CursorOffset.getLength();
+	// 如果鼠标飞出大圈圈
+	if ( OffsetLength > MoveRadius )
+	{
+		vector2d<s32> newPos;
+		f32 factor = MoveRadius / (f32)OffsetLength;
+		CursorOffset.X  = (s32)( CursorOffset.X * factor );
+		CursorOffset.Y  = (s32)( CursorOffset.Y * factor );
+		newPos = CursorOffset + CenterPos;
+		CursorPos = newPos;
+		CursorControl->setPosition( newPos.X, newPos.Y );
+	}
+	// 杨成熙写的鼠标方向控制
+	f32 horizonChange = 1;	// 当镜头上下翻转时鼠标水平操控方向也要翻转
+	if ( camera->getUpVector().Y < 0 )
+		horizonChange = -1;
+	f32 factor = 1.f;
+	vector3df RotChange = vector3df(0);
+	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor;
+	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor;
 
-	//// Update rotation
-	//core::vector3df target = (camera->getTarget() - camera->getAbsolutePosition());
-	//core::vector3df relativeRotation = target.getHorizontalAngle();
-
-	//if (CursorControl)
-	//{
-		/*std::cout << std::endl;
-		std::cout<< CursorPos.X << "," << CursorPos.Y << std::endl;
-		std::cout<< CenterPos.X << "," << CenterPos.Y << std::endl;*/
-
-		vector2d<s32> CursorOffset = CursorPos - CenterPos;
-		s32 OffsetLength = CursorOffset.getLength();
-		// 如果鼠标飞出大圈圈
-		if ( OffsetLength > MoveRadius )
-		{
-			vector2d<s32> newPos;
-			f32 factor = MoveRadius / (f32)OffsetLength;
-			CursorOffset.X  = (s32)( CursorOffset.X * factor );
-			CursorOffset.Y  = (s32)( CursorOffset.Y * factor );
-			newPos = CursorOffset + CenterPos;
-			CursorPos = newPos;
-			CursorControl->setPosition( newPos.X, newPos.Y );
-		}
-
-		// 杨成熙
-		f32 factor = 150.0f;
-		vector3df RotChange = vector3df(0);
-		RotChange.Y += (f32) ( CursorOffset.X  / 293.0f ) / factor * RotateSpeed;
-		RotChange.X += (f32) ( CursorOffset.Y  / 293.0f ) / factor * RotateSpeed;
-
-		//currentpos = core::vector2d<f32> ( CursorControl->getRelativePosition().X, CursorControl->getRelativePosition().Y );
-
-		
-
-		//if (CursorPos != CenterCursor)
-		//{
-		//	relativeRotation.Y -= (0.5f - CursorPos.X) * RotateSpeed;
-		//	relativeRotation.X -= (0.5f - CursorPos.Y) * RotateSpeed * MouseYDirection;
-
-		//	// X < MaxVerticalAngle or X > 360-MaxVerticalAngle
-
-		//	if (relativeRotation.X > MaxVerticalAngle*2 &&
-		//		relativeRotation.X < 360.0f-MaxVerticalAngle)
-		//	{
-		//		relativeRotation.X = 360.0f-MaxVerticalAngle;
-		//	}
-		//	else
-		//		if (relativeRotation.X > MaxVerticalAngle &&
-		//			relativeRotation.X < 360.0f-MaxVerticalAngle)
-		//		{
-		//			relativeRotation.X = MaxVerticalAngle;
-		//		}
-
-		//		// Do the fix as normal, special case below
-		//		// reset cursor position to the centre of the window.
-		//		//CursorControl->setPosition(0.5f, 0.5f);
-		//		CenterCursor = CursorControl->getRelativePosition();
-
-		//		// needed to avoid problems when the event receiver is disabled
-		//		CursorPos = CenterCursor;
-		//}
-
-		//// Special case, mouse is whipped outside of window before it can update.
-		//video::IVideoDriver* driver = smgr->getVideoDriver();
-		//core::vector2d<u32> mousepos(u32(CursorControl->getPosition().X), u32(CursorControl->getPosition().Y));
-		//core::rect<u32> screenRect(0, 0, driver->getScreenSize().Width, driver->getScreenSize().Height);
-
-		//// Only if we are moving outside quickly.
-		//bool reset = !screenRect.isPointInside(mousepos);
-
-		//if(reset)
-		//{
-		//	// Force a reset.
-		//	CursorControl->setPosition(0.5f, 0.5f);
-		//	CenterCursor = CursorControl->getRelativePosition();
-		//	CursorPos = CenterCursor;
-		//}
-//	}
-
+	// 键盘控制
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
 	if ( CursorKeys[EKA_MOVE_FORWARD] )
 	{
@@ -234,7 +172,6 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		if ( Ship->GetVelocity() < 0 )
 			Ship->SetVelocity( 0 );
 	}
-
 	// 当S键按下时减速
 	if ( CursorKeys[EKA_MOVE_BACKWARD] )
 	{
@@ -244,11 +181,16 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		if ( Ship->GetVelocity() < 0 )
 			Ship->SetVelocity( 0 );
 	}
+	// 当A键按下时左侧翻
+	if ( CursorKeys[EKA_STRAFE_LEFT] )
+	{
+
+	}
 
 
 	// 设置照相机节点旋转状态
 	vector3df relateRot = camera->getRotation();
-	vector3df currentRot = relateRot + vector3df( 0,2,0); /*RotChange*//* + 旋转改变量*/;
+	vector3df currentRot = relateRot + RotChange/* + 旋转改变量*/;
 	camera->setRotation( currentRot );
 
 	// 设置照相机节点的位置
@@ -266,37 +208,29 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	// 修正镜头向上的方向
 	vector3df samePlane = camera->getTarget() + core::vector3df(1,0,0);
 	vector3df upVector = camera->getTarget().crossProduct(samePlane);
-
-	/*vector3df upVector = vector3df( 0, 1, 0 );
-
-	f32 hX = currentRot.X * DEGTORAD / 2.0f;
-	f32 hY = currentRot.Y * DEGTORAD / 2.0f;
-	f32 hZ = currentRot.Z * DEGTORAD / 2.0f;
-	f32 cx = cos( hX ); f32 cy = cos( hY ); f32 cz = cos( hZ );
-	f32 sx = sin( hX ); f32 sy = sin( hY ); f32 sz = sin( hZ );
-
-	f32 w = cx*cy*cz + sx*sy*sz;
-	f32 x = cx*sy*cz + sx*cy*sz;
-	f32 y = cx*cy*sz - sx*sy*cz;
-	f32 z = sx*cy*cz - cx*sy*sz;
-
-	matrix4 rotmat;
-	rotmat[0]= 1-2*( y*y + z*z );	rotmat[4]= 2*( x*y - w*z );		rotmat[8]= 2*( w*y + x*z );		rotmat[12]=0;
-	rotmat[1]= 2*( x*y + w*z );		rotmat[5]= 1-2*( x*x + z*z );	rotmat[9]= 2*( y*z - w*x );		rotmat[13]=0;
-	rotmat[2]= 2*( x*z - w*y );		rotmat[6]= 2*( y*z + w*x );		rotmat[10]= 1-2*( x*x + y*y );	rotmat[14]=0;
-	rotmat[3]= 0;					rotmat[7]= 0;					rotmat[11]= 0;					rotmat[15]=1;
-
-	upVector.*/
-
-
-
-
-	//std::cout<<std::endl;
-	//std::cout<< currentRot.X<<","<<currentRot.Y<<std::endl;
-	//std::cout<< upVector.X<<","<<upVector.Y<<","<<upVector.Z<<std::endl;
-
 	camera->setUpVector( upVector );
-	irr::core::quaternion quar( currentRot );	
+
+	// 使用四元数完美解决万向锁，感谢熙狗
+	// 从欧拉角构造四元数
+	irr::core::quaternion quar( vector3df( currentRot.X * DEGTORAD, currentRot.Y * DEGTORAD, currentRot.Z * DEGTORAD ) );
+	// 从四元数构造旋转矩阵
+	matrix4 m = quar.getMatrix();
+	// 镜头upVector初始为( 0, 1, 0 )
+	ub::vector<f32> temp(4);
+	temp(0) = 0; temp(1) = 1; temp(2) = 0; temp(3) = 1;
+	// 使用boost库进行向量和矩阵相乘
+	ub::matrix<f32> m2(4,4);
+	for ( int i=0; i<4; i++ )
+	{
+		for( int j=0; j<4; j++ )
+		{
+			m2(j,i) = m[ 4*i + j ];
+		}
+	}
+	temp = ub::prod( temp, m2 );
+	// 设置镜头upVector
+	camera->setUpVector( vector3df( temp(0), temp(1), temp(2) ) );
+	// 注意：当上下翻转后，鼠标水平操控方向翻转
 
 	// 设置镜头旋转（Z轴）y
 	//f32 zDeg = currentRot.Z;
@@ -308,79 +242,6 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	/*std::cout<<camera->getUpVector().X<<","<<camera->getUpVector().Y<<","<<camera->getUpVector().Z<<"\t";
 	std::cout<<zDeg<<std::endl;*/
 
-	
-
-
-	// set target
-
-	/*target.set(0,0, core::max_(1.f, pos.getLength()));
-	core::vector3df movedir = target;
-
-	core::matrix4 mat;
-	mat.setRotationDegrees(core::vector3df(relativeRotation.X, relativeRotation.Y, 0));
-	mat.transformVect(target);
-
-	if (NoVerticalMovement)
-	{
-		mat.setRotationDegrees(core::vector3df(0, relativeRotation.Y, 0));
-		mat.transformVect(movedir);
-	}
-	else
-	{
-		movedir = target;
-	}
-
-	movedir.normalize();
-
-	if (CursorKeys[EKA_MOVE_FORWARD])
-		pos += movedir * timeDiff * MoveSpeed;
-
-	if (CursorKeys[EKA_MOVE_BACKWARD])
-		pos -= movedir * timeDiff * MoveSpeed;*/
-
-	// strafing
-
-	/*core::vector3df strafevect = target;
-	strafevect = strafevect.crossProduct(camera->getUpVector());
-
-	if (NoVerticalMovement)
-		strafevect.Y = 0.0f;
-
-	strafevect.normalize();
-
-	if (CursorKeys[EKA_STRAFE_LEFT])
-		pos += strafevect * timeDiff * MoveSpeed;
-
-	if (CursorKeys[EKA_STRAFE_RIGHT])
-		pos -= strafevect * timeDiff * MoveSpeed;*/
-
-	// For jumping, we find the collision response animator attached to our camera
-	// and if it's not falling, we tell it to jump.
-	/*if (CursorKeys[EKA_JUMP_UP])
-	{
-		const ISceneNodeAnimatorList& animators = camera->getAnimators();
-		ISceneNodeAnimatorList::ConstIterator it = animators.begin();
-		while(it != animators.end())
-		{
-			if(ESNAT_COLLISION_RESPONSE == (*it)->getType())
-			{
-				ISceneNodeAnimatorCollisionResponse * collisionResponse =
-					static_cast<ISceneNodeAnimatorCollisionResponse *>(*it);
-
-				if(!collisionResponse->isFalling())
-					collisionResponse->jump(JumpSpeed);
-			}
-
-			it++;
-		}
-	}*/
-
-	// write translation
-	//camera->setPosition(pos);
-
-	// write right target
-	//target += pos;
-	//camera->setTarget(target);
 }
 
 
@@ -389,35 +250,6 @@ void CSceneNodeAnimatorAircraftFPS::allKeysUp()
 	for (u32 i=0; i<6; ++i)
 		CursorKeys[i] = false;
 }
-
-
-//! Sets the rotation speed
-void CSceneNodeAnimatorAircraftFPS::setRotateSpeed(f32 speed)
-{
-	RotateSpeed = speed;
-}
-
-
-//! Sets the movement speed
-void CSceneNodeAnimatorAircraftFPS::setMoveSpeed(f32 speed)
-{
-	MoveSpeed = speed;
-}
-
-
-//! Gets the rotation speed
-f32 CSceneNodeAnimatorAircraftFPS::getRotateSpeed() const
-{
-	return RotateSpeed;
-}
-
-
-// Gets the movement speed
-f32 CSceneNodeAnimatorAircraftFPS::getMoveSpeed() const
-{
-	return MoveSpeed;
-}
-
 
 //! Sets the keyboard mapping for this animator
 void CSceneNodeAnimatorAircraftFPS::setKeyMap(SKeyMap *map, u32 count)
@@ -446,37 +278,49 @@ void CSceneNodeAnimatorAircraftFPS::setKeyMap(SKeyMap *map, u32 count)
 	}
 }
 
-
-//! Sets whether vertical movement should be allowed.
-void CSceneNodeAnimatorAircraftFPS::setVerticalMovement(bool allow)
-{
-	NoVerticalMovement = !allow;
-}
-
-
-//! Sets whether the Y axis of the mouse should be inverted.
-void CSceneNodeAnimatorAircraftFPS::setInvertMouse(bool invert)
-{
-	if (invert)
-		MouseYDirection = -1.0f;
-	else
-		MouseYDirection = 1.0f;
-}
-
-
 ISceneNodeAnimator* CSceneNodeAnimatorAircraftFPS::createClone(ISceneNode* node, ISceneManager* newManager)
 {
 	CSceneNodeAnimatorAircraftFPS * newAnimator =
-		new CSceneNodeAnimatorAircraftFPS(CursorControl, Ship, RotateSpeed, MoveSpeed, JumpSpeed,
-		0, 0, NoVerticalMovement);
+		new CSceneNodeAnimatorAircraftFPS(CursorControl, Ship, 0, 0);
 	newAnimator->setKeyMap(KeyMap);
 	return newAnimator;
 }
 
-
 void CSceneNodeAnimatorAircraftFPS::setKeyMap(const core::array<SCamKeyMap>& keymap)
 {
 	KeyMap=keymap;
+}
+
+// 以下的这些方法不需要实现
+
+irr::f32 CSceneNodeAnimatorAircraftFPS::getMoveSpeed() const
+{
+	throw std::exception("The method or operation is not implemented.");
+}
+
+void CSceneNodeAnimatorAircraftFPS::setMoveSpeed( f32 moveSpeed )
+{
+	throw std::exception("The method or operation is not implemented.");
+}
+
+irr::f32 CSceneNodeAnimatorAircraftFPS::getRotateSpeed() const
+{
+	throw std::exception("The method or operation is not implemented.");
+}
+
+void CSceneNodeAnimatorAircraftFPS::setRotateSpeed( f32 rotateSpeed )
+{
+	throw std::exception("The method or operation is not implemented.");
+}
+
+void CSceneNodeAnimatorAircraftFPS::setVerticalMovement( bool allow )
+{
+	throw std::exception("The method or operation is not implemented.");
+}
+
+void CSceneNodeAnimatorAircraftFPS::setInvertMouse( bool invert )
+{
+	throw std::exception("The method or operation is not implemented.");
 }
 
 

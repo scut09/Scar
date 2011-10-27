@@ -22,9 +22,7 @@ public:
 
 		//! Constructor
 		CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl, IShip* ship,
-			f32 rotateSpeed = 100.0f, f32 moveSpeed = .5f, f32 jumpSpeed=0.f,
-			SKeyMap* keyMapArray=0, u32 keyMapSize=0, bool noVerticalMovement=false,
-			bool invertY=false);
+			SKeyMap* keyMapArray=0, u32 keyMapSize=0 );
 
 		//! Destructor
 		virtual ~CSceneNodeAnimatorAircraftFPS();
@@ -35,30 +33,10 @@ public:
 		//! Event receiver
 		virtual bool OnEvent(const SEvent& event);
 
-		//! Returns the speed of movement in units per second
-		virtual f32 getMoveSpeed() const;
-
-		//! Sets the speed of movement in units per second
-		virtual void setMoveSpeed(f32 moveSpeed);
-
-		//! Returns the rotation speed
-		virtual f32 getRotateSpeed() const;
-
-		//! Set the rotation speed
-		virtual void setRotateSpeed(f32 rotateSpeed);
-
 		//! Sets the keyboard mapping for this animator
 		//! \param keymap: an array of keyboard mappings, see SKeyMap
 		//! \param count: the size of the keyboard map array
 		virtual void setKeyMap(SKeyMap *map, u32 count);
-
-		//! Sets whether vertical movement should be allowed.
-		virtual void setVerticalMovement(bool allow);
-
-		//! Sets whether the Y axis of the mouse should be inverted.
-		/** If enabled then moving the mouse down will cause
-		the camera to look up. It is disabled by default. */
-		virtual void setInvertMouse(bool invert);
 
 		//! This animator will receive events when attached to the active camera
 		virtual bool isEventReceiverEnabled() const
@@ -92,34 +70,39 @@ public:
 		\param keymap the new keymap array */
 		void setKeyMap(const core::array<SCamKeyMap>& keymap);
 
+		/*
+		 *	以下的这些函数不需要被实现
+		 */
+		virtual f32 getMoveSpeed() const;
+
+		virtual void setMoveSpeed( f32 moveSpeed );
+
+		virtual f32 getRotateSpeed() const;
+
+		virtual void setRotateSpeed( f32 rotateSpeed );
+
+		virtual void setVerticalMovement( bool allow );
+
+		virtual void setInvertMouse( bool invert );
+		/*
+		 *	以上的这些函数不需要被实现
+		 */
 	private:
 		void allKeysUp();
 
 		gui::ICursorControl *CursorControl;
 
-		f32 MaxVerticalAngle;
+		s32 LastAnimationTime;			// 上一次动画时间
 
-		f32 MoveSpeed;
-		f32 RotateSpeed;
-		f32 JumpSpeed;
-		// -1.0f for inverted mouse, defaults to 1.0f
-		f32 MouseYDirection;
-
-		s32 LastAnimationTime;
-
-		core::array<SCamKeyMap> KeyMap;
-		core::position2d<f32> CenterCursor;
-
-		bool CursorKeys[6];
+		core::array<SCamKeyMap> KeyMap;	// 键盘按键映射
+		bool CursorKeys[6];				// 相应按键是否被按下
 
 		bool firstUpdate;				// 是否初始化完成
-		bool NoVerticalMovement;
 
 		vector2d<s32> CenterPos;		// 屏幕中心位置
 		vector2d<s32> CursorPos;		// 鼠标当前位置
 		s32 MoveRadius;					// 准心移动半径
 
 		IShip* Ship;					// 操控的飞船
-		f32 AntiGimbalLock;				// 处理万向节锁。初始为1.0，特殊情况下变为-1.0
 };
 #endif
