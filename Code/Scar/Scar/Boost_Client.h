@@ -49,6 +49,8 @@ namespace Network
 
 		void SendHeroMove( int index, float x, float y, float z );
 
+		void SendHeroRot( int index, float x, float y );
+
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const
 		{
 			return m_roomMap;
@@ -60,26 +62,7 @@ namespace Network
 		}
 
 	private:
-		void SaveLocalIPAddress()
-		{
-			using namespace boost::asio::ip;
-			boost::asio::io_service io;
-
-			tcp::resolver resolver( io ); 
-			tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
-			tcp::resolver::iterator iter = resolver.resolve( query ); 
-			tcp::resolver::iterator end; 
-
-			while ( iter != end ) 
-			{   
-				tcp::endpoint ep = *iter++;    
-				if ( ep.address().is_v4() )
-				{
-					m_localIP.insert( ep.address().to_string() );
-					std::cout << ep.address().to_string() << std::endl;
-				}
-			} 
-		}
+		void SaveLocalIPAddress();
 
 
 	private:

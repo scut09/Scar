@@ -151,3 +151,38 @@ void Network::BoostClient::SendHeroMove( int index, float x, float y, float z )
 
 	m_network->Send( m_server_IP, pack );
 }
+
+
+void Network::BoostClient::SendHeroRot( int index, float x, float y )
+{
+	PACKAGE pack;
+	pack.SetCMD( HERO_ROTATE );
+
+	HeroRotate rot( index, x, y );
+
+	pack.SetData( (char*)&rot, sizeof( HeroRotate ) );
+
+	m_network->Send( m_server_IP, pack );
+}
+
+
+void Network::BoostClient::SaveLocalIPAddress()
+{
+	using namespace boost::asio::ip;
+	boost::asio::io_service io;
+
+	tcp::resolver resolver( io ); 
+	tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
+	tcp::resolver::iterator iter = resolver.resolve( query ); 
+	tcp::resolver::iterator end; 
+
+	while ( iter != end ) 
+	{   
+		tcp::endpoint ep = *iter++;    
+		if ( ep.address().is_v4() )
+		{
+			m_localIP.insert( ep.address().to_string() );
+			std::cout << ep.address().to_string() << std::endl;
+		}
+	}
+}
