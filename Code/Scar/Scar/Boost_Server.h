@@ -19,6 +19,12 @@
 
 namespace Network
 {
+	//using namespace boost;
+	//using namespace boost::asio;
+	//using boost::asio::ip::udp;
+
+	typedef std::hash_map<unsigned long, TCPSocketPointerType> IP_TcpSockMapType;
+
 	// 服务器
 	class BoostServer : public NetworkBase
 	{
@@ -31,8 +37,8 @@ namespace Network
 		void RequestEnterRoomHandler( unsigned long ip, const PACKAGE& p );
 
 	private:
-		std::list<PlayerInfo>					m_playerList;	// 玩家列表
-		std::set<std::string>					m_localIP;		// 本地IP
+		std::list<PlayerInfo>					m_playerList;		// 玩家列表
+		std::set<std::string>					m_localIP;			// 本地IP
 	};
 
 

@@ -61,6 +61,12 @@ namespace Network
 			} );
 		}
 
+		// ¹Ø±Õ
+		virtual void Close()
+		{
+			m_network.reset();
+		}
+
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p )	{}
 		 
 		//************************************

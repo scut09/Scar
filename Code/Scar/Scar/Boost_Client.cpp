@@ -11,6 +11,7 @@
 #include "MyIrrlichtEngine.h"
 #include "Frigate.h"
 
+using namespace Network;
 
 Network::BoostClient::BoostClient() : m_server_IP( 0 )
 {
@@ -39,7 +40,7 @@ void Network::BoostClient::EnterRoom( const std::string& ip )
 {
 	PACKAGE pack;
 	pack.SetCMD( REQUEST_ENTER_ROOM );
-	m_network->Send( ip, pack );
+	m_network->SendTo( ip, pack );
 }
 
 void Network::BoostClient::SendHeroMove( int index, float x, float y, float z )
@@ -51,7 +52,7 @@ void Network::BoostClient::SendHeroMove( int index, float x, float y, float z )
 
 	pack.SetData( (char*)&move, sizeof( HeroMove ) );
 
-	m_network->Send( m_server_IP, pack );
+	m_network->SendTo( m_server_IP, pack );
 }
 
 
@@ -64,7 +65,7 @@ void Network::BoostClient::SendHeroRot( int index, float x, float y, float z )
 
 	pack.SetData( (char*)&rot, sizeof( HeroRotate ) );
 
-	m_network->Send( m_server_IP, pack );
+	m_network->SendTo( m_server_IP, pack );
 }
 
 
@@ -175,5 +176,75 @@ void Network::BoostClient::NewPlayerJoinHandler( unsigned long ip, const PACKAGE
 
 void Network::BoostClient::OtherMessageHandler( unsigned long ip, const PACKAGE& p )
 {
+
+}
+
+void Network::BoostClient::Start( int listen_port, int target_port )
+{
+	m_target_port = target_port;
+
+	NetworkBase::Start( listen_port, target_port );
+
+	// 启动io异步等待的线程
+	m_io_thread = std::shared_ptr<boost::thread>( 
+		new boost::thread([this]()
+	{
+		while ( 1 )
+		{
+			try
+			{
+				using namespace boost::asio;
+
+				boost::this_thread::interruption_point();
+				this->io.run();
+				boost::thread::yield();
+				boost::thread::sleep( boost::get_system_time() + boost::posix_time::seconds( 1 ) );
+			}
+			catch ( std::exception& e )
+			{
+				std::cout << "==> Exception " << e.what() << std::endl;
+			}
+		}
+	}) );
+}
+
+const std::map<std::string, BroadcastRoomBag>& Network::BoostClient::GetRooms() const
+{
+	return m_roomMap;
+}
+
+const std::set<std::string>& Network::BoostClient::GetLocalIP() const
+{
+	return m_localIP;
+}
+
+void Network::BoostClient::TcpSendTo( int ip, const PACKAGE& p )
+{
+	using namespace boost::asio;			
+
+	// 创建连接socket
+	TCPSocketPointerType sock = TCPSocketPointerType( new ip::tcp::socket( io ) );
+	// ip
+	ip::tcp::endpoint ep( ip::address_v4( ip ), m_target_port );
+
+	// 拷贝PACKAGE到临时buffer中
+	std::shared_ptr< std::vector<char> > buf( new std::vector<char>( p.GetLength() ) );
+	int len = p.GetLength();
+	for ( int i = 0; i < len; i++ )
+	{
+		(*buf)[ i ] = ((char*)&p)[ i ];
+	}
+
+	// 连接服务端
+	sock->async_connect( ep, [ sock, buf ]( const boost::system::error_code& ec )
+	{
+		if ( ec )	return;
+
+		async_write( *sock, boost::asio::buffer( *buf ),
+			[](const boost::system::error_code& /*error*/, size_t bytes_transferred )
+		{
+			std::cout << "=> tcp send done, bytes= " << bytes_transferred << std::endl;
+		});
+	});
 
 }

@@ -26,9 +26,13 @@ Network::CNetwork::CNetwork( int listen_port, int target_port )
 	// 为不同的网卡创建广播的地址
 	CreateBroadcastIPAddress();
 
-	// 创建接受的socket
+	// 创建接受的udp socket
 	m_receive_sock = std::shared_ptr<boost::asio::ip::udp::socket>(
 		new boost::asio::ip::udp::socket( io, boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), listen_port ) ) );
+
+	// 创建tcp的acceptor
+	m_acceptor = std::shared_ptr<ip::tcp::acceptor>( 
+		new ip::tcp::acceptor( io, ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) );
 }
 
 Network::CNetwork::~CNetwork()
@@ -40,11 +44,30 @@ void Network::CNetwork::Start( INetworkCallbackType func )
 {
 	m_func = func;
 
-	// 启动新线程来接受消息
+	// 启动新线程来接受UDP消息
 	m_socket_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::UDP_Listener, this ) ) );
 	// 启动新线程来处理消息
 	m_handle_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::UDP_Handler, this ) ) );
-	//m_thread->join();
+
+	StartTCP();	
+	// 异步等待线程
+	m_io_thread = std::shared_ptr<thread>( new thread( [this]() 
+	{
+		while ( 1 )
+		{
+			try
+			{
+				boost::this_thread::interruption_point();
+				io.run();
+				boost::thread::yield();
+				boost::thread::sleep( boost::get_system_time() + boost::posix_time::seconds( 1 ) );
+			}
+			catch ( std::exception& e )
+			{
+				std::cout << "==> Exception " << e.what() << std::endl;
+			}
+		}
+	} ) );
 }
 
 void Network::CNetwork::Close()
@@ -54,19 +77,22 @@ void Network::CNetwork::Close()
 	m_receive_sock->close();
 	m_socket_thread->interrupt();
 	m_handle_thread->interrupt();
+	m_io_thread->interrupt();
 	m_socket_thread.reset();
 	m_handle_thread.reset();
+	m_io_thread.reset();
+	m_acceptor->close();
 	//m_socket_thread->join();
 	//m_handle_thread->join();
 	std::cout << "End CNetwork::Close()\n";
 }
 
-void Network::CNetwork::Send( const std::string& ip, const PACKAGE& pack )
+void Network::CNetwork::SendTo( const std::string& ip, const PACKAGE& pack )
 {
 	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address::from_string( ip ), m_target_port ) );
 }
 
-void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
+void Network::CNetwork::SendTo( unsigned long ip, const PACKAGE& pack )
 {
 	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
 }
@@ -76,7 +102,7 @@ void Network::CNetwork::UDP_Handler()
 {
 	while ( 1 )
 	{
-		IP_Package p = m_udp_packetBuffer.Get();
+		IP_Package p = m_packetBuffer.Get();
 
 		// 调用回调函数处理收到消息
 		m_func( p.ip, p.pack );
@@ -89,10 +115,10 @@ void Network::CNetwork::UDP_Handler()
 void Network::CNetwork::UDP_Listener()
 {
 	//ip::udp::socket		m_receive_sock( io, boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), m_listen_port ) );		// 接受udp的socket
-	std::vector<char>	buf( 1472 );	// 缓冲区
-	system::error_code	ec;				// 错误码
-	ip::udp::endpoint	ep;				// 保存发送端的信息
-	PACKAGE				pack;			// 数据包
+	std::vector<char>	buf( BUFFER_SIZE );	// 缓冲区
+	system::error_code	ec;					// 错误码
+	ip::udp::endpoint	ep;					// 保存发送端的信息
+	PACKAGE				pack;				// 数据包
 
 	while ( 1 )
 	{
@@ -110,8 +136,12 @@ void Network::CNetwork::UDP_Listener()
 
 		pack = *(PACKAGE*)buf.data();
 
-		// 将数据包放入Buffer中
-		m_udp_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
+		// 校验包是否有效
+		if ( pack.GetMagicNumber() == MagicNumber )
+		{
+			// 将数据包放入Buffer中
+			m_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
+		}
 	}
 }
 
@@ -144,4 +174,45 @@ void Network::CNetwork::Broadcast( const PACKAGE& pack )
 		m_broadcast_ep.address( boost::asio::ip::address_v4( *ipIter ) );
 		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), m_broadcast_ep );
 	}
+}
+
+void Network::CNetwork::StartTCP()
+{
+	TCPSocketPointerType sock( new ip::tcp::socket( io ) );
+
+	// 异步acceptor
+	m_acceptor->async_accept( *sock, 
+		boost::bind( &CNetwork::TCPAcceptHandler, this, placeholders::error, sock ) );
+}
+
+void Network::CNetwork::TCPAcceptHandler( const boost::system::error_code& ec, TCPSocketPointerType sock )
+{
+	if ( ec )	return;
+
+	// 为当前socket创建缓冲
+	std::shared_ptr< std::vector<char> > buf( new std::vector<char>( BUFFER_SIZE, 0 ) );
+	// 异步读取
+	sock->async_read_some( buffer( *buf ), boost::bind( &CNetwork::TCPReadHandler, this, placeholders::error, sock, buf ) );
+	// 继续等待其他连接
+	StartTCP();
+}
+
+void Network::CNetwork::TCPReadHandler( const boost::system::error_code& ec, 
+	TCPSocketPointerType sock, std::shared_ptr< std::vector<char> > buf )
+{
+	if ( ec )	return;
+
+	PACKAGE pack = *(PACKAGE*)buf->data();
+
+	// 校验包是否有效
+	if ( pack.GetMagicNumber() == MagicNumber )
+	{
+		// 将数据包放入Buffer中
+		m_packetBuffer.Put( IP_Package( sock->remote_endpoint().address().to_v4().to_ulong(), pack ) );
+	}
+
+	// 继续读取
+	sock->async_read_some( buffer( *buf ), boost::bind( &CNetwork::TCPReadHandler, this, placeholders::error, sock, buf ) );
+
+	std::cout << "==> TCP receives from " << sock->remote_endpoint().address().to_string() << std::endl;
 }

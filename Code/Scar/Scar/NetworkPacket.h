@@ -12,9 +12,9 @@
 
 namespace Network
 {
-	const int MAX_ADDITION_LENGTH = 1024;		// 数据包附加信息最大值
-	const int PackHeadLength = 12;				// 数据包头的大小
-
+	const int MAX_ADDITION_LENGTH = 1024;			// 数据包附加信息最大值
+	const int PackHeadLength = 16;					// 数据包头的大小
+	const unsigned int MagicNumber = 0xf3ac43de;	// 魔数，用于检测包的有效性
 
 	//
 	// 游戏包
@@ -46,9 +46,13 @@ namespace Network
 		// 设置包ID
 		void SetID( int id );
 
+		// 获取魔数
+		unsigned int GetMagicNumber() const;
+
 	public:
-		int		m_cmd;			// 包命令
-		int		m_PackageID;	// 数据包编号
+		unsigned int	m_magic_number;	// 魔数，用于检查是否有效
+		int				m_cmd;			// 包命令
+		int				m_PackageID;	// 数据包编号
 
 	private:
 		int		m_length;		// 数据包长度

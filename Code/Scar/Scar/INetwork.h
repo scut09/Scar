@@ -32,10 +32,10 @@ namespace Network
 		virtual void Close() = 0;
 
 		// 发送，输入字符串形式的ip
-		virtual void Send( const std::string& ip, const PACKAGE& pack ) = 0;
+		virtual void SendTo( const std::string& ip, const PACKAGE& pack ) = 0;
 
 		// 发送，输入数字形式的ip		
-		virtual void Send( unsigned long ip, const PACKAGE& pack ) = 0;
+		virtual void SendTo( unsigned long ip, const PACKAGE& pack ) = 0;
 
 		// 支持多网卡的广播
 		virtual void Broadcast( const PACKAGE& pack ) = 0;		

@@ -47,7 +47,7 @@ void Network::BoostServer::RequestEnterRoomHandler( unsigned long ip, const PACK
 	AllowJoinRoomBag allowBag( index, 0, 0, 0 );
 	pack.SetData( (char*)&allowBag, sizeof( AllowJoinRoomBag ) );
 
-	m_network->Send( ip, pack );
+	m_network->SendTo( ip, pack );
 
 	// 保存这个玩家信息
 	PlayerInfo player( index, ip );
@@ -64,7 +64,7 @@ void Network::BoostServer::RequestEnterRoomHandler( unsigned long ip, const PACK
 		pack.SetCMD( NEW_PLAYER_JOIN );
 		pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
 
-		m_network->Send( ip, pack );
+		m_network->SendTo( ip, pack );
 	}
 
 	Sleep( 2000 );
@@ -83,7 +83,7 @@ void Network::BoostServer::OtherMessageHandler( unsigned long ip, const PACKAGE&
 	// 其他，发送给玩家
 	for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
 	{
-		m_network->Send( iter->ip, p );
+		m_network->SendTo( iter->ip, p );
 	}
 	//m_network->Broadcast( p );
 }

@@ -12,9 +12,10 @@
 
 Network::PACKAGE::PACKAGE()
 {
-	m_length = 13;			
+	m_length = 4 * sizeof( int ) + 1;			
 	m_data[0] = '\0';
 	m_PackageID = -1;
+	m_magic_number = MagicNumber;
 }
 
 const char* Network::PACKAGE::GetData( int offsize ) const
@@ -83,4 +84,9 @@ int Network::PACKAGE::GetID() const
 void Network::PACKAGE::SetID( int id )
 {
 	m_PackageID = id;
+}
+
+unsigned int Network::PACKAGE::GetMagicNumber() const
+{
+	return m_magic_number;
 }

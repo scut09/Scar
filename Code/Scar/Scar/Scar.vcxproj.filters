@@ -473,6 +473,9 @@
     <ClInclude Include="CBillboardSceneNode.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="network_header.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">
