@@ -10,10 +10,10 @@
 #ifndef GameBag_h__
 #define GameBag_h__
 
+#include <irrlicht.h>
 
 namespace Network
 {
-
 	// 包类型
 	enum GameCMD
 	{
@@ -121,10 +121,13 @@ namespace Network
 	// 发射炮弹的数据包
 	struct BulletCreateBag
 	{
-		int		owner_index;
-		float		x;
-		float		y;
-		float		z;
+		int						owner_index;		// 发射玩家的id
+		int						type;				// 炮弹类型
+		int						bullet_index;		// 炮弹的id
+		irr::core::vector3df	start_point;		// 起点
+		irr::core::vector3df	end_point;			// 终点
+		unsigned int			life;				// 生命
+		//u32				start_time;
 		// type
 		// bullet index
 		// bullet target

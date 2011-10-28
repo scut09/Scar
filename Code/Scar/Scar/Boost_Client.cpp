@@ -7,9 +7,12 @@
 *********************************************************************/
 
 #include "Boost_Client.h"
-#include "GameBag.h"
 #include "MyIrrlichtEngine.h"
 #include "Frigate.h"
+#include "BulletNode.h"
+#include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "GameBag.h"
+#include <irrlicht.h>
 
 using namespace Network;
 
@@ -18,15 +21,15 @@ Network::BoostClient::BoostClient() : m_server_IP( 0 )
 	SaveLocalIPAddress();
 
 	RegisterMessageHandler( BROADCAST_ROOM, 
-		[this]( unsigned long ip, const PACKAGE& p ){ BroadcastRoomHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnBroadcastRoom( ip, p ); });
 	RegisterMessageHandler( ALLOW_JOIN_ROOM, 
-		[this]( unsigned long ip, const PACKAGE& p ){ AllowJoinRoomHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnAllowJoinRoom( ip, p ); });
 	RegisterMessageHandler( HERO_MOVE, 
-		[this]( unsigned long ip, const PACKAGE& p ){ HeroMoveHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnHeroMove( ip, p ); });
 	RegisterMessageHandler( HERO_ROTATE, 
-		[this]( unsigned long ip, const PACKAGE& p ){ HeroRotateHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnHeroRotate( ip, p ); });
 	RegisterMessageHandler( NEW_PLAYER_JOIN, 
-		[this]( unsigned long ip, const PACKAGE& p ){ NewPlayerJoinHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnNewPlayerJoin( ip, p ); });
 }
 
 void Network::BoostClient::QueryRoom()
@@ -69,6 +72,21 @@ void Network::BoostClient::SendHeroRot( int index, float x, float y, float z )
 	m_network->SendTo( m_server_IP, pack );
 }
 
+void Network::BoostClient::SendBullet( int index, int bullet_type, 
+	const irr::core::vector3df& start, const irr::core::vector3df& end, u32 life )
+{
+	BulletCreateBag bullet;
+	bullet.owner_index = m_index;
+	bullet.start_point = start;
+	bullet.end_point = end;
+	bullet.life = life;
+
+	PACKAGE pack;
+	pack.SetCMD( BULLET_CREATE );
+	pack.SetData( (char*)&bullet, sizeof( BulletCreateBag ) );
+
+	m_network->SendTo( m_server_IP, pack );
+}
 
 void Network::BoostClient::SaveLocalIPAddress()
 {
@@ -91,7 +109,7 @@ void Network::BoostClient::SaveLocalIPAddress()
 	}
 }
 
-void Network::BoostClient::BroadcastRoomHandler( unsigned long ip, const PACKAGE& p )
+void Network::BoostClient::OnBroadcastRoom( unsigned long ip, const PACKAGE& p )
 {
 	BroadcastRoomBag bag = *(BroadcastRoomBag*)p.GetData();
 	m_roomMap[ boost::asio::ip::address_v4( ip ).to_string() ] = bag;
@@ -110,7 +128,7 @@ void Network::BoostClient::BroadcastRoomHandler( unsigned long ip, const PACKAGE
 	//std::cout << "</current rooms>\n";
 }
 
-void Network::BoostClient::AllowJoinRoomHandler( unsigned long ip, const PACKAGE& p )
+void Network::BoostClient::OnAllowJoinRoom( unsigned long ip, const PACKAGE& p )
 {
 	std::cout << boost::asio::ip::address_v4( ip ).to_string() << " ==>BoostClient receives ALLOW_JOIN_ROOM\n";
 
@@ -122,7 +140,7 @@ void Network::BoostClient::AllowJoinRoomHandler( unsigned long ip, const PACKAGE
 	m_index = player.index;
 }
 
-void Network::BoostClient::HeroMoveHandler( unsigned long ip, const PACKAGE& p )
+void Network::BoostClient::OnHeroMove( unsigned long ip, const PACKAGE& p )
 {
 	HeroMove move;
 	move = *(HeroMove*)p.GetData();
@@ -137,7 +155,7 @@ void Network::BoostClient::HeroMoveHandler( unsigned long ip, const PACKAGE& p )
 	}
 }
 
-void Network::BoostClient::HeroRotateHandler( unsigned long ip, const PACKAGE& p )
+void Network::BoostClient::OnHeroRotate( unsigned long ip, const PACKAGE& p )
 {
 	HeroRotate rot;
 	rot = *(HeroRotate*)p.GetData();
@@ -152,7 +170,32 @@ void Network::BoostClient::HeroRotateHandler( unsigned long ip, const PACKAGE& p
 	}
 }
 
-void Network::BoostClient::NewPlayerJoinHandler( unsigned long ip, const PACKAGE& p )
+
+void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
+{
+	BulletCreateBag* bag;
+	bag = (BulletCreateBag*)p.GetData();
+	
+	auto bullet = new BulletNode( MyIrrlichtEngine::GetEngine()->GetSceneManager() );
+	bullet->setVisible( true );
+	bullet->setMaterialTexture( 0, MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
+
+	// 直飞和自删除动画
+	auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( 
+		bag->start_point, bag->end_point, bag->life, MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() );
+	auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bag->life );
+
+	// 帮子弹附上动画并发射出去
+	bullet->addAnimator( ani );
+	bullet->addAnimator( del );
+	del->drop();
+	ani->drop();
+}
+
+
+void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 {
 	OnePlayerInfoBag oneplayer;
 	oneplayer = *(OnePlayerInfoBag*)p.GetData();
@@ -187,7 +230,7 @@ void Network::BoostClient::Start( int listen_port, int target_port )
 	NetworkBase::Start( listen_port, target_port );
 }
 
-const std::map<std::string, BroadcastRoomBag>& Network::BoostClient::GetRooms() const
+const std::map<std::string, Network::BroadcastRoomBag>& Network::BoostClient::GetRooms() const
 {
 	return m_roomMap;
 }

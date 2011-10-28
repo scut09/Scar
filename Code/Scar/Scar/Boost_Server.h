@@ -39,8 +39,8 @@ namespace Network
 
 		// 消息处理函数
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
-		void QueryRoomHandler( unsigned long ip, const PACKAGE& p );
-		void RequestEnterRoomHandler( unsigned long ip, const PACKAGE& p );
+		void OnQueryRoom( unsigned long ip, const PACKAGE& p );
+		void OnRequestEnterRoom( unsigned long ip, const PACKAGE& p );
 
 	private:
 		std::list<PlayerInfo>					m_playerList;		// 玩家列表

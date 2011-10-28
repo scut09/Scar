@@ -18,6 +18,7 @@
 #include <map>
 #include <set>
 #include <vector>
+#include "GameBag.h"
 
 namespace Network
 {
@@ -40,25 +41,27 @@ namespace Network
 		virtual void Close();
 
 		// 消息处理函数
-		void BroadcastRoomHandler( unsigned long ip, const PACKAGE& p );
-		void AllowJoinRoomHandler( unsigned long ip, const PACKAGE& p );
-		void HeroMoveHandler( unsigned long ip, const PACKAGE& p );
-		void HeroRotateHandler( unsigned long ip, const PACKAGE& p );
-		void NewPlayerJoinHandler( unsigned long ip, const PACKAGE& p );
+		void OnBroadcastRoom( unsigned long ip, const PACKAGE& p );
+		void OnAllowJoinRoom( unsigned long ip, const PACKAGE& p );
+		void OnHeroMove( unsigned long ip, const PACKAGE& p );
+		void OnHeroRotate( unsigned long ip, const PACKAGE& p );
+		void OnNewPlayerJoin( unsigned long ip, const PACKAGE& p );
+		void OnBulletCreate( unsigned long ip, const PACKAGE& p );
 		// 其他消息处理
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 
 		// 打开客户端
 		virtual void Start( int listen_port, int target_port );
 
-		// 广播查询房间
-		void QueryRoom();
-		// 加入房间
-		void EnterRoom( const std::string& ip );
-		// 发送玩家移动
-		void SendHeroMove( int index, float x, float y, float z );
-		// 发送玩家摄像机旋转
-		void SendHeroRot( int index, float x, float y , float z );
+		
+		void QueryRoom();											// 广播查询房间		
+		void EnterRoom( const std::string& ip );					// 加入房间		
+		void SendHeroMove( int index, float x, float y, float z );	// 发送玩家移动		
+		void SendHeroRot( int index, float x, float y , float z );	// 发送玩家摄像机旋转
+		void SendBullet( int index, int bullet_type, 
+			const irr::core::vector3df& start, const irr::core::vector3df& end, u32 life );
+
+
 		// 获取房间列表
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const;
 		// 获取本地IP

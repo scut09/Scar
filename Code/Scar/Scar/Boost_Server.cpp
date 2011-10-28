@@ -4,12 +4,12 @@
 Network::BoostServer::BoostServer()
 {
 	RegisterMessageHandler( QUERY_ROOM, 
-		[this]( unsigned long ip, const PACKAGE& p ){ QueryRoomHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnQueryRoom( ip, p ); });
 	RegisterMessageHandler( REQUEST_ENTER_ROOM, 
-		[this]( unsigned long ip, const PACKAGE& p ){ RequestEnterRoomHandler( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnRequestEnterRoom( ip, p ); });
 }
 
-void Network::BoostServer::QueryRoomHandler( unsigned long ip, const PACKAGE& p )
+void Network::BoostServer::OnQueryRoom( unsigned long ip, const PACKAGE& p )
 {
 	PACKAGE pack;
 
@@ -26,7 +26,7 @@ void Network::BoostServer::QueryRoomHandler( unsigned long ip, const PACKAGE& p 
 	std::cout << ip::address_v4( ip ).to_string() << " BoostServer receives REQUEST_ROOM\n";
 }
 
-void Network::BoostServer::RequestEnterRoomHandler( unsigned long ip, const PACKAGE& p )
+void Network::BoostServer::OnRequestEnterRoom( unsigned long ip, const PACKAGE& p )
 {
 	if ( m_playerList.size() > 10 )	
 	{

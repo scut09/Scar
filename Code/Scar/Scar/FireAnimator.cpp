@@ -1,8 +1,11 @@
+#include "Boost_Client.h"
 #include "FireAnimator.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "IShip.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
+
+extern Network::BoostClient client;	// 测试用
 
 void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
@@ -46,6 +49,7 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				// 直飞和自删除动画
 				ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, ship->GetGuns()[i]->GetLife(), timeMs );
 				del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
+
 				// 帮子弹附上动画并发射出去
 				newBullet->addAnimator( ani );
 				newBullet->addAnimator( del );
@@ -61,6 +65,7 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				// 直飞和自删除动画
 				ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, ship->GetGuns()[i]->GetLife(), timeMs );
 				del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
+
 				// 帮子弹附上动画并发射出去
 				newBullet->addAnimator( ani );
 				newBullet->addAnimator( del );

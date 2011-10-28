@@ -19,9 +19,6 @@
 
 namespace Network
 {
-	using namespace boost;
-	using namespace boost::asio;
-	using namespace boost::asio::ip;
 
 	// 收到消息时的处理函数的类型
 	typedef std::function< void( unsigned long, const PACKAGE& ) >	MessageHandlerType;
@@ -73,6 +70,8 @@ namespace Network
 		// 同步tcp发送
 		virtual void TcpSendTo( int ip, int port, const PACKAGE& p )
 		{
+			using namespace boost::asio;
+
 			// 创建连接socket
 			ip::tcp::socket sock( io );
 			// ip
