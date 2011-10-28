@@ -238,27 +238,12 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		}
 	}*/
 
+
+
 	// 设置照相机节点旋转状态
 	vector3df relateRot = camera->getRotation();
 	vector3df currentRot = relateRot + RotChange/* + 旋转改变量*/;
 	camera->setRotation( currentRot );
-
-	// 设置照相机节点的位置
-	vector3df direction = currentRot.rotationToDirection();
-	direction.normalize();
-	vector3df movement = direction * Ship->GetVelocity()/* 再乘以一个时间系数 */;
-	camera->setPosition( camera->getPosition() + movement );
-	//camera->setPosition( camera->getPosition() + vector3df(0, 0, Ship->GetVelocity()) );
-
-	// 设置target的位置（X轴和Y轴）
-	direction = vector3df( currentRot.X, currentRot.Y, 0 );			// 先忽略Z轴旋转
-	direction = direction.rotationToDirection();					// 由角度求出位置向量
-	camera->setTarget( camera->getPosition() + direction );
-
-	// 修正镜头向上的方向
-	vector3df samePlane = camera->getTarget() + core::vector3df(1,0,0);
-	vector3df upVector = camera->getTarget().crossProduct(samePlane);
-	camera->setUpVector( upVector );
 
 	// 使用四元数完美解决万向锁，感谢熙狗
 	// 从欧拉角构造四元数
@@ -277,10 +262,34 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 			m2(j,i) = m[ 4*i + j ];
 		}
 	}
-	temp = ub::prod( temp, m2 );
 	// 设置镜头upVector
-	camera->setUpVector( vector3df( temp(0), temp(1), temp(2) ) );
 	// 注意：当上下翻转后，鼠标水平操控方向翻转
+	temp = ub::prod( temp, m2 );
+	camera->setUpVector( vector3df( temp(0), temp(1), temp(2) ) );
+	// 设置target的位置（X轴和Y轴）
+	temp(0) = 0; temp(1) = 0; temp(2) = 1; temp(3) = 1;
+	temp = ub::prod( temp, m2 );
+	vector3df direction = vector3df( temp(0), temp(1), temp(2) );
+	// 设置照相机节点的位置
+	vector3df movement = direction * Ship->GetVelocity()/* 再乘以一个时间系数 */;
+	camera->setPosition( camera->getPosition() + movement );
+	// 设置target的位置（X轴和Y轴）
+	camera->setTarget( camera->getPosition() + direction );
+
+	// 设置照相机节点的位置
+	//vector3df direction = currentRot.rotationToDirection();
+	//direction.normalize();
+	//vector3df movement = direction * Ship->GetVelocity()/* 再乘以一个时间系数 */;
+	//camera->setPosition( camera->getPosition() + movement );
+	//camera->setPosition( camera->getPosition() + vector3df(0, 0, Ship->GetVelocity()) );
+
+	//// 设置target的位置（X轴和Y轴）
+	//direction = vector3df( currentRot.X, currentRot.Y, currentRot.Z );			// 先忽略Z轴旋转
+	//direction = direction.rotationToDirection();					// 由角度求出位置向量
+	//camera->setTarget( camera->getPosition() + direction );
+
+
+	
 
 	// 设置镜头旋转（Z轴）y
 	//f32 zDeg = currentRot.Z;
