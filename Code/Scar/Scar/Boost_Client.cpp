@@ -30,6 +30,8 @@ Network::BoostClient::BoostClient() : m_server_IP( 0 )
 		[this]( unsigned long ip, const PACKAGE& p ){ OnHeroRotate( ip, p ); });
 	RegisterMessageHandler( NEW_PLAYER_JOIN, 
 		[this]( unsigned long ip, const PACKAGE& p ){ OnNewPlayerJoin( ip, p ); });
+	RegisterMessageHandler( BULLET_CREATE, 
+		[this]( unsigned long ip, const PACKAGE& p ){ OnBulletCreate( ip, p ); });
 }
 
 void Network::BoostClient::QueryRoom()
