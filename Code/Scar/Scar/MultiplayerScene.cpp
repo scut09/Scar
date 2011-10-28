@@ -120,11 +120,12 @@ void MultiplayerScene::Init()
 
 	// 创建飞船
 	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	//m_pCamera->addChild( cf1 );
-	cf1->setPosition( vector3df( 0, 0, 50 ) );
+	//cf1->setPosition( vector3df( 0, 0, 50 ) );
 	// 创建子弹
 	bullet = new BulletNode( smgr );
 	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
 	cf1->AddGun( bullet );
 	
 	// 创建火控
@@ -134,17 +135,20 @@ void MultiplayerScene::Init()
 
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-
 	m_pCamera = smgr->addCameraSceneNode();
 	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
 	m_pCamera->addAnimator( fpsAni );
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
-	m_pCamera->addAnimator( shakeAni );
-	shakeAni->drop();
-	m_pCamera->bindTargetAndRotation(true);*/
+	//auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
+	//m_pCamera->addAnimator( shakeAni );
+	//shakeAni->drop();
+
+	// 飞船跟随照相机
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -20 );
+	cf1->addAnimator( folowAni );
+	folowAni->drop();
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );

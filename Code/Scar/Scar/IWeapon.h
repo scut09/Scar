@@ -81,13 +81,7 @@ public:
 
 protected:
 	//! 复制IWeapon的属性给w，提供给派生类拷贝IWeapon的属性
-	virtual void CloneAttributeFrom( IWeapon* w )
-	{
-		Interval = w->Interval;
-		Velocity = w->Velocity;
-		Life = w->Life;
-		Damage = w->Damage;
-	}
+	virtual void CloneAttributeFrom( IWeapon* w );
 
 private:
 	//! 禁止使用CMeshSceneNode的clone函数

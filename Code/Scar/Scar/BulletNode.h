@@ -54,9 +54,9 @@ public:
 		if ( newParent )
 			nb->drop();
 
-		// 复制基本属性给新的MissileNode
-		CloneAttributeFrom( nb );
-
+		// 复制基本属性给新的BulletNode
+		nb->CloneAttributeFrom( this );
+		//CloneAttributeFrom( nb );
 		nb->setVisible( true );
 
 

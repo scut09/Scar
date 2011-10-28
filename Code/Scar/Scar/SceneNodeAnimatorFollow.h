@@ -20,10 +20,7 @@ class SceneNodeAnimatorFollow : public ISceneNodeAnimator
 	f32 Distance;			// ±£³ÖµÄ¾àÀë
 
 public:
-	SceneNodeAnimatorFollow( ISceneNode* tar, f32 distance = 0 )
-	{
-
-	}
+	SceneNodeAnimatorFollow( ISceneNode* tar, f32 distance = 0 );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

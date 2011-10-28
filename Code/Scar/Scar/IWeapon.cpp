@@ -86,3 +86,12 @@ void IWeapon::SetDamage( s32 damage )
 {
 	Damage = damage;
 }
+
+void IWeapon::CloneAttributeFrom( IWeapon* w )
+{
+	Interval = w->Interval;
+	Velocity = w->Velocity;
+	Life = w->Life;
+	Damage = w->Damage;
+	Remain = w->Remain;
+}
