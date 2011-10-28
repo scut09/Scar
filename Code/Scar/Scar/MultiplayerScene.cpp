@@ -342,7 +342,7 @@ void MultiplayerScene::Init()
 
 
 	// 创建并注册receiver的事件处理回调函数
-	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ fireAni, pEngine ]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ fireAni, pEngine ]( const SEvent& event )->void*
 	{	
 		fireAni->OnEvent( event );
 		//control.OnEvent( event );

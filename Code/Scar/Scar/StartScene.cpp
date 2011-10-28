@@ -98,7 +98,7 @@ void StartScene::Init()
 	////u->AddAnimator(alpani);
 	////alpani->drop();
 
-	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
 		uiManager->OnEvent( event );
 		return 0;
@@ -113,7 +113,7 @@ void StartScene::Release()
 	delete uiManager;
 
 	// 清除掉自己注册的回调函数，否则会因为引用销毁的东西而导致崩溃
-	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
 		return 0;
 	} );

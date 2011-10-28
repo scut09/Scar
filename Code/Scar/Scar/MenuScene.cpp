@@ -55,7 +55,7 @@ void MenuScene::Init()
 		PyErr_Print();
 	}
 
-	static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
 		uiManager->OnEvent( event );
 		return 0;
