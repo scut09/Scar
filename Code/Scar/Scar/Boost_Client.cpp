@@ -194,6 +194,9 @@ void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
 	bullet->addAnimator( del );
 	del->drop();
 	ani->drop();
+
+	bullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
+	bullet->setMaterialFlag( EMF_LIGHTING, false );
 }
 
 
