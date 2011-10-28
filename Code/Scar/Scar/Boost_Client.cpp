@@ -177,6 +177,8 @@ void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
 {
 	BulletCreateBag* bag;
 	bag = (BulletCreateBag*)p.GetData();
+
+	if ( bag->owner_index == m_index )	return;
 	
 	auto bullet = new BulletNode( MyIrrlichtEngine::GetEngine()->GetSceneManager() );
 	bullet->setVisible( true );
