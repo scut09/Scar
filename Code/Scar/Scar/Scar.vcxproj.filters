@@ -228,6 +228,9 @@
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp">
       <Filter>Control</Filter>
     </ClCompile>
+    <ClCompile Include="CBillboardSceneNode.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="NetworkBase.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CBillboardSceneNode.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

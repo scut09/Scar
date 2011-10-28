@@ -123,10 +123,10 @@ void MultiplayerScene::Init()
 	//m_pCamera->addChild( cf1 );
 	cf1->setPosition( vector3df( 0, 0, 50 ) );
 	// 创建子弹
-	bullet = new BulletNode( smgr->getMesh("../module/mayabottle.obj"), 0, smgr, -1,
-		vector3df(0,0,0), vector3df(0), vector3df(1) );
-	//bullet->setVisible( true );
+	bullet = new BulletNode( smgr );
+	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
 	cf1->AddGun( bullet );
+	
 	// 创建火控
 	auto fireAni = new FireAnimator();
 	cf1->addAnimator( fireAni );

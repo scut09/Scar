@@ -8,8 +8,6 @@
 
 #include "BlinkUIAnimator.h"
 
-#include "BulletNode.h"
-
 #include "DeletionUIAnimator.h"
 
 #include "GameScene.h"
@@ -147,35 +145,6 @@ struct BlinkUIAnimator_wrapper : BlinkUIAnimator, bp::wrapper< BlinkUIAnimator >
 
 };
 
-struct BulletNode_wrapper : BulletNode, bp::wrapper< BulletNode > {
-
-    BulletNode_wrapper(BulletNode const & arg )
-    : BulletNode( arg )
-      , bp::wrapper< BulletNode >(){
-        // copy constructor
-        
-    }
-
-    BulletNode_wrapper(::irr::scene::IMesh * mesh, ::irr::scene::ISceneNode * parent, ::irr::scene::ISceneManager * mgr, ::irr::s32 id, ::irr::core::vector3df const & position, ::irr::core::vector3df const & rotation, ::irr::core::vector3df const & scale )
-    : BulletNode( boost::python::ptr(mesh), boost::python::ptr(parent), boost::python::ptr(mgr), id, boost::ref(position), boost::ref(rotation), boost::ref(scale) )
-      , bp::wrapper< BulletNode >(){
-        // constructor
-    
-    }
-
-    virtual ::irr::scene::ISceneNode * Clone( ::irr::scene::ISceneNode * newParent, ::irr::scene::ISceneManager * newManager ) {
-        if( bp::override func_Clone = this->get_override( "Clone" ) )
-            return func_Clone( boost::python::ptr(newParent), boost::python::ptr(newManager) );
-        else{
-            return this->BulletNode::Clone( boost::python::ptr(newParent), boost::python::ptr(newManager) );
-        }
-    }
-    
-    ::irr::scene::ISceneNode * default_Clone( ::irr::scene::ISceneNode * newParent, ::irr::scene::ISceneManager * newManager ) {
-        return BulletNode::Clone( boost::python::ptr(newParent), boost::python::ptr(newManager) );
-    }
-
-};
 
 struct DeletionAnimator_wrapper : DeletionAnimator, bp::wrapper< DeletionAnimator > {
 
@@ -2860,13 +2829,6 @@ BOOST_PYTHON_MODULE( UI )
         }
     }
 
-    bp::class_< BulletNode_wrapper >( "BulletNode", bp::init< irr::scene::IMesh *, irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & >(( bp::arg("mesh"), bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position"), bp::arg("rotation"), bp::arg("scale") )) )    
-        .def( 
-            "Clone"
-            , (::irr::scene::ISceneNode * ( ::BulletNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::BulletNode::Clone)
-            , (::irr::scene::ISceneNode * ( BulletNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&BulletNode_wrapper::default_Clone)
-            , ( bp::arg("newParent"), bp::arg("newManager") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
 
     bp::class_< DeletionAnimator_wrapper, bp::bases< IUIAnimator > >( "DeletionAnimator", bp::init< irr::u32, irr::u32 >(( bp::arg("now"), bp::arg("time") )) )    
         .def( 

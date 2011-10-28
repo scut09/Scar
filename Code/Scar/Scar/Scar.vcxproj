@@ -84,6 +84,7 @@
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Battleship.cpp" />
+    <ClCompile Include="CBillboardSceneNode.cpp" />
     <ClCompile Include="CGUITTFont.cpp" />
     <ClCompile Include="Boost_Client.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="BulletNode.h" />
+    <ClInclude Include="CBillboardSceneNode.h" />
     <ClInclude Include="CGUITTFont.h" />
     <ClInclude Include="Boost_Client.h" />
     <ClInclude Include="Client.h" />

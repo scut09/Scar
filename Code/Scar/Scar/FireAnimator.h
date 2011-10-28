@@ -10,6 +10,7 @@
 *********************************************************************/
 
 #include "ISceneNode.h"
+#include <vector>
 using namespace irr;
 using namespace irr::core;
 using namespace irr::scene;
@@ -17,13 +18,11 @@ using namespace irr::scene;
 class FireAnimator : public ISceneNodeAnimator
 {
 	bool IsFire;
+	bool Initialized;
+	std::vector<u32> LastTimes;
 
 public:
-	FireAnimator()
-		: IsFire( false )
-	{
-
-	}
+	FireAnimator();
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

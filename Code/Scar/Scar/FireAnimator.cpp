@@ -5,22 +5,51 @@
 
 void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
+	IShip* ship = static_cast<IShip*>(node);
+
+	if ( !Initialized )
+	{
+		// 初始化每种武器的上次发射时间
+		for( u32 i = 0; i < ship->GetGuns().size(); i++ )
+		{
+			LastTimes.push_back( timeMs );
+		}
+		Initialized = true;
+	}
+
 	if ( IsFire )
 	{
-		IShip* ship = static_cast<IShip*>(node);
-		for( auto iter = ship->GetGuns().begin(); iter != ship->GetGuns().end(); ++iter )
+		//for( auto iter = ship->GetGuns().begin(); iter != ship->GetGuns().end(); ++iter )
+		//{
+		//	// 帮子弹附上动画并发射出去
+		//	auto newBullet = (*iter)->Clone(0,0);
+		//	newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
+		//	newBullet->setMaterialFlag( EMF_LIGHTING, false );
+		//	auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df(0), vector3df(0,0,100), (*iter)->GetLife(), timeMs );
+		//	newBullet->addAnimator( ani );
+		//	auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( (*iter)->GetLife() );
+		//	newBullet->addAnimator( del );
+		//	del->drop();
+		//	ani->drop();
+		//	//newBullet->drop();
+		//}
+		for( u32 i = 0; i < ship->GetGuns().size(); i++ )
 		{
-			irr::u32 time = 5000;
-
-			// 帮子弹附上动画并发射出去
-			auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df(0), vector3df(0,0,100), time, timeMs );
-			auto newBullet = (*iter)->Clone(0,0);
-			newBullet->addAnimator( ani );
-			auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( time );
-			newBullet->addAnimator( del );
-			del->drop();
-			ani->drop();
-			//newBullet->drop();
+			if ( timeMs - LastTimes[i] > ship->GetGuns()[i]->GetInterval() )
+			{
+				// 复制子弹
+				auto newBullet = ship->GetGuns()[i]->Clone( 0, 0 );
+				newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
+				newBullet->setMaterialFlag( EMF_LIGHTING, false );
+				// 帮子弹附上动画并发射出去
+				auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df(0), vector3df(0,0,100), ship->GetGuns()[i]->GetLife(), timeMs );
+				newBullet->addAnimator( ani );
+				auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
+				newBullet->addAnimator( del );
+				del->drop();
+				ani->drop();
+				LastTimes[i] = timeMs;
+			}
 		}
 	}
 }
@@ -54,4 +83,9 @@ bool FireAnimator::OnEvent( const SEvent& event )
 	}
 
 	return false;
+}
+
+FireAnimator::FireAnimator() : IsFire( false ), Initialized( false )
+{
+
 }
