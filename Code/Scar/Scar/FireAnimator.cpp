@@ -6,7 +6,7 @@
 
 void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
-	IShip* ship = static_cast<IShip*>(node);
+	IShip* ship = dynamic_cast<IShip*>(node);
 
 	if ( !Initialized )
 	{
