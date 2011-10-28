@@ -41,9 +41,9 @@ void Network::CNetwork::Start( INetworkCallbackType func )
 	m_func = func;
 
 	// 启动新线程来接受消息
-	m_socket_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Run, this ) ) );
+	m_socket_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::UDP_Listener, this ) ) );
 	// 启动新线程来处理消息
-	m_handle_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Handle, this ) ) );
+	m_handle_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::UDP_Handler, this ) ) );
 	//m_thread->join();
 }
 
@@ -72,11 +72,11 @@ void Network::CNetwork::Send( unsigned long ip, const PACKAGE& pack )
 }
 
 
-void Network::CNetwork::Handle()
+void Network::CNetwork::UDP_Handler()
 {
 	while ( 1 )
 	{
-		IP_Package p = m_packetBuffer.Get();
+		IP_Package p = m_udp_packetBuffer.Get();
 
 		// 调用回调函数处理收到消息
 		m_func( p.ip, p.pack );
@@ -86,7 +86,7 @@ void Network::CNetwork::Handle()
 }
 
 
-void Network::CNetwork::Run()
+void Network::CNetwork::UDP_Listener()
 {
 	//ip::udp::socket		m_receive_sock( io, boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), m_listen_port ) );		// 接受udp的socket
 	std::vector<char>	buf( 1472 );	// 缓冲区
@@ -111,7 +111,7 @@ void Network::CNetwork::Run()
 		pack = *(PACKAGE*)buf.data();
 
 		// 将数据包放入Buffer中
-		m_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
+		m_udp_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
 	}
 }
 

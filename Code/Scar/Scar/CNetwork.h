@@ -62,11 +62,21 @@ namespace Network
 
 	private:
 			
-		// 在新线程中运行，负责接受消息并调用回调函数处理消息
-		void Run();
+		// 在新线程中运行，负责接受UDP消息并调用回调函数处理消息
+		void UDP_Listener();
 
-		// 在新线程中处理消息队列中的数据
-		void Handle();
+		// 在新线程中处理UDP消息队列中的数据
+		void UDP_Handler();
+
+		void TCP_Listener()
+		{
+
+		}
+
+		void TCP_Handler()
+		{
+
+		}
 
 
 	private:
@@ -87,17 +97,18 @@ namespace Network
 
 
 	private:
-		Buffer<IP_Package>					m_packetBuffer;	// 包缓冲
-		INetworkCallbackType				m_func;			// 消息处理函数
-		int									m_listen_port;	// 监听的端口
-		int									m_target_port;	// 目标的端口
-		io_service							io;				// 前摄器模式
-		ip::udp::endpoint					m_broadcast_ep;	// 广播的地址
-		std::set<unsigned long>				m_broadcast_ip;	// 广播IP
-		std::shared_ptr<boost::thread>		m_handle_thread;// 接受消息的线程的指针
-		std::shared_ptr<boost::thread>		m_socket_thread;// 接受消息的线程的指针
-		std::shared_ptr<ip::udp::socket>	m_receive_sock; // 接受udp的socket
-		std::shared_ptr<ip::udp::socket>	m_send_sock;	// 发送的socket
+		Buffer<IP_Package>					m_tcp_packetBuffer;		// TCP包缓冲
+		Buffer<IP_Package>					m_udp_packetBuffer;		// UDP包缓冲
+		INetworkCallbackType				m_func;					// 消息处理函数
+		int									m_listen_port;			// 监听的端口
+		int									m_target_port;			// 目标的端口
+		io_service							io;						// 前摄器模式
+		ip::udp::endpoint					m_broadcast_ep;			// 广播的地址
+		std::set<unsigned long>				m_broadcast_ip;			// 广播IP
+		std::shared_ptr<boost::thread>		m_handle_thread;		// 接受消息的线程的指针
+		std::shared_ptr<boost::thread>		m_socket_thread;		// 接受消息的线程的指针
+		std::shared_ptr<ip::udp::socket>	m_receive_sock;			// 接受udp的socket
+		std::shared_ptr<ip::udp::socket>	m_send_sock;			// 发送的socket
 
 
 	};
