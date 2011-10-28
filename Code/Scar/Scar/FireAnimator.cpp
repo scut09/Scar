@@ -49,6 +49,9 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				// 直飞和自删除动画
 				ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, ship->GetGuns()[i]->GetLife(), timeMs );
 				del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
+				
+				// 测试发送炮弹数据
+				client.SendBullet( 0, 0, startPoint, endPoint, ship->GetGuns()[i]->GetLife() );
 
 				// 帮子弹附上动画并发射出去
 				newBullet->addAnimator( ani );
@@ -65,6 +68,9 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				// 直飞和自删除动画
 				ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, ship->GetGuns()[i]->GetLife(), timeMs );
 				del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
+
+				// 测试发送炮弹数据
+				client.SendBullet( 0, 0, startPoint, endPoint, ship->GetGuns()[i]->GetLife() );
 
 				// 帮子弹附上动画并发射出去
 				newBullet->addAnimator( ani );
