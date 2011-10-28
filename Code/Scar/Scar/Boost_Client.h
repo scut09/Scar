@@ -37,11 +37,7 @@ namespace Network
 			Close();
 		}
 
-		virtual void Close()
-		{
-			m_io_thread->interrupt();
-			NetworkBase::Close();
-		}
+		virtual void Close();
 
 		// 消息处理函数
 		void BroadcastRoomHandler( unsigned long ip, const PACKAGE& p );
@@ -51,9 +47,6 @@ namespace Network
 		void NewPlayerJoinHandler( unsigned long ip, const PACKAGE& p );
 		// 其他消息处理
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
-
-		// 使用TCP异步发送
-		void TcpSendTo( int ip, const PACKAGE& p );
 
 		// 打开客户端
 		virtual void Start( int listen_port, int target_port );
@@ -86,8 +79,6 @@ namespace Network
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 		std::set<std::string>					m_localIP;
 		unsigned long							m_server_IP;
-		io_service								io;
-		std::shared_ptr<boost::thread>			m_io_thread;
 	};
 
 

@@ -47,13 +47,14 @@ void Network::BoostServer::RequestEnterRoomHandler( unsigned long ip, const PACK
 	AllowJoinRoomBag allowBag( index, 0, 0, 0 );
 	pack.SetData( (char*)&allowBag, sizeof( AllowJoinRoomBag ) );
 
-	m_network->SendTo( ip, pack );
+	//m_network->SendTo( ip, pack );
+	TcpSendTo( ip, m_target_port, pack );
 
 	// 保存这个玩家信息
 	PlayerInfo player( index, ip );
 	m_playerList.push_back( player );
 
-	Sleep( 2000 );
+	//Sleep( 2000 );
 
 	// 发送已有玩家信息给新玩家，这个需要改进
 	for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
@@ -64,10 +65,11 @@ void Network::BoostServer::RequestEnterRoomHandler( unsigned long ip, const PACK
 		pack.SetCMD( NEW_PLAYER_JOIN );
 		pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
 
-		m_network->SendTo( ip, pack );
+		//m_network->SendTo( ip, pack );
+		TcpSendTo( ip, m_target_port, pack );
 	}
 
-	Sleep( 2000 );
+	//Sleep( 2000 );
 
 	OnePlayerInfoBag oneplayer;
 	oneplayer.player_index = index;
@@ -75,15 +77,35 @@ void Network::BoostServer::RequestEnterRoomHandler( unsigned long ip, const PACK
 	pack.SetCMD( NEW_PLAYER_JOIN );
 	pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
 
-	m_network->Broadcast( pack );
+	//m_network->Broadcast( pack );
+	TcpSendToPlayers( pack );
 }
 
 void Network::BoostServer::OtherMessageHandler( unsigned long ip, const PACKAGE& p )
 {
 	// 其他，发送给玩家
+	UdpSendToPlayers( p );
+}
+
+void Network::BoostServer::TcpSendToPlayers( const PACKAGE& p )
+{
+	for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
+	{
+		TcpSendTo( iter->ip, m_target_port, p );
+	}
+}
+
+void Network::BoostServer::UdpSendToPlayers( const PACKAGE& p )
+{
 	for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
 	{
 		m_network->SendTo( iter->ip, p );
 	}
-	//m_network->Broadcast( p );
+}
+
+void Network::BoostServer::Start( int listen_port, int target_port )
+{
+	m_target_port = target_port;
+
+	NetworkBase::Start( listen_port, target_port );
 }

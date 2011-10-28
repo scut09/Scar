@@ -31,6 +31,12 @@ namespace Network
 	public:
 		BoostServer();
 
+		virtual void Start( int listen_port, int target_port );
+
+		void TcpSendToPlayers( const PACKAGE& p );
+
+		void UdpSendToPlayers( const PACKAGE& p );
+
 		// 消息处理函数
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 		void QueryRoomHandler( unsigned long ip, const PACKAGE& p );
@@ -39,6 +45,7 @@ namespace Network
 	private:
 		std::list<PlayerInfo>					m_playerList;		// 玩家列表
 		std::set<std::string>					m_localIP;			// 本地IP
+		int										m_target_port;		// 目标端口号
 	};
 
 

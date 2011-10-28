@@ -26,6 +26,7 @@ namespace Network
 	// 收到消息时的处理函数的类型
 	typedef std::function< void( unsigned long, const PACKAGE& ) >	MessageHandlerType;
 
+
 	class NetworkBase
 	{
 	public:
@@ -68,6 +69,19 @@ namespace Network
 		}
 
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p )	{}
+
+		// 同步tcp发送
+		virtual void TcpSendTo( int ip, int port, const PACKAGE& p )
+		{
+			// 创建连接socket
+			ip::tcp::socket sock( io );
+			// ip
+			ip::tcp::endpoint ep( ip::address_v4( ip ), port );
+
+			// 同步发送
+			sock.connect( ep );
+			sock.write_some( buffer( (char*)&p, p.GetLength() ) );
+		}
 		 
 		//************************************
 		// 返回值:  void
@@ -83,7 +97,7 @@ namespace Network
 	protected:
 		std::shared_ptr<INetwork>				m_network;		// 底层网络支持
 		std::hash_map<int, MessageHandlerType>	m_handlerMap;	// 消息处理函数映射
-
+		io_service								io;		
 	};
 }
 

@@ -40,7 +40,8 @@ void Network::BoostClient::EnterRoom( const std::string& ip )
 {
 	PACKAGE pack;
 	pack.SetCMD( REQUEST_ENTER_ROOM );
-	m_network->SendTo( ip, pack );
+	//m_network->SendTo( ip, pack );
+	TcpSendTo( boost::asio::ip::address().from_string( ip ).to_v4().to_ulong(), m_target_port, pack );
 }
 
 void Network::BoostClient::SendHeroMove( int index, float x, float y, float z )
@@ -184,28 +185,6 @@ void Network::BoostClient::Start( int listen_port, int target_port )
 	m_target_port = target_port;
 
 	NetworkBase::Start( listen_port, target_port );
-
-	// 启动io异步等待的线程
-	m_io_thread = std::shared_ptr<boost::thread>( 
-		new boost::thread([this]()
-	{
-		while ( 1 )
-		{
-			try
-			{
-				using namespace boost::asio;
-
-				boost::this_thread::interruption_point();
-				this->io.run();
-				boost::thread::yield();
-				boost::thread::sleep( boost::get_system_time() + boost::posix_time::seconds( 1 ) );
-			}
-			catch ( std::exception& e )
-			{
-				std::cout << "==> Exception " << e.what() << std::endl;
-			}
-		}
-	}) );
 }
 
 const std::map<std::string, BroadcastRoomBag>& Network::BoostClient::GetRooms() const
@@ -218,33 +197,8 @@ const std::set<std::string>& Network::BoostClient::GetLocalIP() const
 	return m_localIP;
 }
 
-void Network::BoostClient::TcpSendTo( int ip, const PACKAGE& p )
+void Network::BoostClient::Close()
 {
-	using namespace boost::asio;			
-
-	// 创建连接socket
-	TCPSocketPointerType sock = TCPSocketPointerType( new ip::tcp::socket( io ) );
-	// ip
-	ip::tcp::endpoint ep( ip::address_v4( ip ), m_target_port );
-
-	// 拷贝PACKAGE到临时buffer中
-	std::shared_ptr< std::vector<char> > buf( new std::vector<char>( p.GetLength() ) );
-	int len = p.GetLength();
-	for ( int i = 0; i < len; i++ )
-	{
-		(*buf)[ i ] = ((char*)&p)[ i ];
-	}
-
-	// 连接服务端
-	sock->async_connect( ep, [ sock, buf ]( const boost::system::error_code& ec )
-	{
-		if ( ec )	return;
-
-		async_write( *sock, boost::asio::buffer( *buf ),
-			[](const boost::system::error_code& /*error*/, size_t bytes_transferred )
-		{
-			std::cout << "=> tcp send done, bytes= " << bytes_transferred << std::endl;
-		});
-	});
-
+	//m_io_thread->interrupt();
+	NetworkBase::Close();
 }
