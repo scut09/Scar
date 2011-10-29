@@ -39,6 +39,10 @@ IUIObject* root;	//测试用
 IUIObject* Cursor;	// 鼠标准心
 IUIObject* Speed1;	// 速度槽慢
 IUIObject* Speed2;	// 速度槽空
+IUIObject* Shield1;	// 护盾槽满
+IUIObject* Shield2;	// 护盾槽空
+IUIObject* Armor1;	// 护甲槽满
+IUIObject* Armor2;	// 护甲槽空
 IUIObject* Gradienter;	// 水平仪
 IShip* cf1;
 BulletNode* bullet;	// 子弹
@@ -94,11 +98,23 @@ void MultiplayerScene::Run()
 	auto CursorPos = MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl()->getPosition();
 	Cursor->SetPosition( vector2df( (f32)CursorPos.X, (f32)CursorPos.Y ) );
 
+	f32 ratio;
+	f32 border;
 	// 绘制速度槽
-	f32 ratio = cf1->GetVelocity() / cf1->GetMaxSpeed();
-	f32 border = 389 * ( 1 - ratio );
+	ratio = cf1->GetVelocity() / cf1->GetMaxSpeed();
+	border = 389 * ( 1 - ratio );
 	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
 	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );	
+	// 绘制护盾槽
+	ratio = 1;
+	border = 389 * ( 1 - ratio );
+	Shield1->SetSourceRect( vector2df( 0, border ), vector2df( 100, 389 ) );
+	Shield2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 100, border ) );
+	// 绘制护甲槽
+	ratio = 1;
+	border = 360 * ( 1 - ratio );
+	Armor1->SetSourceRect( vector2df( 0, border ), vector2df( 93, 360 ) );
+	Armor2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 93, border ) );
 
 	// 水平仪转动
 	Gradienter->SetRotation( m_pCamera->getRotation().Z );
@@ -140,9 +156,9 @@ void MultiplayerScene::Init()
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
+	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
-	shakeAni->drop();
+	shakeAni->drop();*/
 
 	// 飞船跟随照相机
 	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
@@ -163,7 +179,6 @@ void MultiplayerScene::Init()
 		ITexture* texture = pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") );
 		// 加载纹理
 		planet->setMaterialTexture( 0, texture );
-		texture->drop();
 
 		// 星球自转
 		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.003f, 0) );
@@ -190,7 +205,6 @@ void MultiplayerScene::Init()
 		// 加载纹理
 		ITexture* texture = pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") );
 		moon->setMaterialTexture( 0, texture );
-		texture->drop();
 
 		// 星球自转
 		auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
@@ -220,7 +234,6 @@ void MultiplayerScene::Init()
 	IAnimatedMesh* station_mesh = smgr->getMesh( _T("../modle/station/cs1.obj") );
 	//加载空间站模型
 	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( station_mesh );
-	station_mesh->drop();
 	if ( station )
 	{
 		// 设置名字
@@ -301,6 +314,12 @@ void MultiplayerScene::Init()
 	// 获取速度槽
 	Speed1 = uiManager->GetObjectByName( "speed1" );
 	Speed2 = uiManager->GetObjectByName( "speed2" );
+	// 获取护盾槽
+	Shield1 = uiManager->GetObjectByName( "shield1");
+	Shield2 = uiManager->GetObjectByName( "shield2");
+	// 获取护甲槽
+	Armor1 = uiManager->GetObjectByName( "armor1");
+	Armor2 = uiManager->GetObjectByName( "armor2");
 	// 获取水平仪
 	Gradienter = uiManager->GetObjectByName( "gradienter" );
 

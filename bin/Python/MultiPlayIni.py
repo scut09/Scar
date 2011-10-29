@@ -52,5 +52,26 @@ def GetRoot():
     speedBar2.SetName( "speed2" )
     Save( speedBar2 )
 
+    # 护盾槽满
+    shield1 = UIImage( root, 100, 389, 0, 0, vector2df( cenX - 232, cenY + 10 ) )
+    shield1.LoadImage("../media/UIResource/Game/shield_1.png")
+    shield1.SetName( "shield1" )
+    Save( shield1 )
+    # 护盾槽空
+    shield2 = UIImage( root, 100, 389, 0, 0, vector2df( cenX - 232, cenY + 10 ) )
+    shield2.LoadImage("../media/UIResource/Game/shield_2.png")
+    shield2.SetName( "shield2" )
+    Save( shield2 )
+
+    # 护甲槽满
+    armor1 = UIImage( root, 93, 360, 0, 0, vector2df( cenX - 214, cenY + 10 ) )
+    armor1.LoadImage("../media/UIResource/Game/armor_1.png")
+    armor1.SetName( "armor1" )
+    Save( armor1 )
+    # 护甲槽满
+    armor2 = UIImage( root, 93, 360, 0, 0, vector2df( cenX - 214, cenY + 10 ) )
+    armor2.LoadImage("../media/UIResource/Game/armor_2.png")
+    armor2.SetName( "armor2" )
+    Save( armor2 )
     return root
 
