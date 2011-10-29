@@ -211,15 +211,13 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 	{
 		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 
-		auto modelMan = MyIrrlichtEngine::GetEngine()->GetModelManager();
-
-		auto bottleNode = modelMan->AddSceneNodeFromMesh( _T("1") );
+		auto ship = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 
 		//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 		//m_pCamera->addChild( cf1 );
 		//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
 
-		m_players[ oneplayer.player_index ] = bottleNode;
+		m_players[ oneplayer.player_index ] = ship;
 
 		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}

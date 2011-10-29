@@ -120,6 +120,11 @@ void MultiplayerScene::Init()
 
 	// 创建飞船
 	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+
+	// 创建飞船
+	auto sh = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	
+
 	//cf1->setPosition( vector3df( 0, 0, 50 ) );
 	// 创建子弹
 	bullet = new BulletNode( smgr );
