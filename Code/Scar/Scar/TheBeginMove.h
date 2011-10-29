@@ -43,6 +43,8 @@ public:
 	TheBeginMove( vector3df thebeginpoint, vector3df theendpoint, u32 delay, u32 duration, int circle_n );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
+
+	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager/*=0*/ );
 };
 
 #endif // TheBeginMove_h__

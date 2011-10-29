@@ -1,8 +1,9 @@
 #include "TheBeginMove.h"
+#include <iostream>
 #include "ICameraSceneNode.h"
 
 TheBeginMove::TheBeginMove( vector3df thebeginpoint, vector3df theendpoint, u32 delay, u32 duration, int circle_n ):
-TheBeginPoint( thebeginpoint ),TheEndPoint( theendpoint ),Duration( Duration ), Circle_N( circle_n ),Delay( delay ),
+TheBeginPoint( thebeginpoint ),TheEndPoint( theendpoint ),Duration( duration ), Circle_N( circle_n ),Delay( delay ),
 Begin( 0 )
 {
 	M_y =( TheEndPoint.Y - TheBeginPoint.Y ) / Duration;
@@ -34,8 +35,13 @@ void TheBeginMove::animateNode( ISceneNode* node, u32 timeMs )
 		return;
 	}
 	camera -> setPosition( vector3df
-		( Center.X + Distance - M_Distance * t * sin( radian ) , 
+		( Center.X + (Distance - M_Distance * t) * sin( radian * t) , 
 		Center.Y + M_y * t , 
-		Center.Z + Distance - M_Distance * t * sin( radian ) ));
+		Center.Z + (Distance - M_Distance * t)  * cos( radian * t) ));	
 	camera ->setTarget(TheEndPoint);
+}
+
+ISceneNodeAnimator* TheBeginMove::createClone( ISceneNode* node, ISceneManager* newManager/*=0 */ )
+{
+	return new TheBeginMove( TheBeginPoint,  TheEndPoint,  Delay,  Duration,  Circle_N );
 }

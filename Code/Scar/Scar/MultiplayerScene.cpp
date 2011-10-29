@@ -23,6 +23,7 @@
 #include "UIManager.h"
 #include "Frigate.h"
 #include "BulletNode.h"
+#include "TheBeginMove.h"
 
 #include "irrKlang.h"
 using namespace irrklang;
@@ -157,9 +158,14 @@ void MultiplayerScene::Init()
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
+
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
+
+	auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
+	m_pCamera->addAnimator( BeginMove );
+	BeginMove->drop();
 
 	// ·É´¬¸úËæÕÕÏà»ú
 	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
