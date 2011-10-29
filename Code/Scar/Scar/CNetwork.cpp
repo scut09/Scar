@@ -1,8 +1,8 @@
 /********************************************************************
-    创建时间: 2011-10-26   2:40
-    文件名:   CNetwork.cpp
-    作者:     华亮 Cedric Porter [ Stupid ET ]	
-    说明:     底层网络支持的实现
+创建时间: 2011-10-26   2:40
+文件名:   CNetwork.cpp
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     底层网络支持的实现
 
 *********************************************************************/
 
@@ -114,56 +114,69 @@ void Network::CNetwork::UDP_Handler()
 
 void Network::CNetwork::UDP_Listener()
 {
-	//ip::udp::socket		m_receive_sock( io, boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), m_listen_port ) );		// 接受udp的socket
-	std::vector<char>	buf( BUFFER_SIZE );	// 缓冲区
-	system::error_code	ec;					// 错误码
-	ip::udp::endpoint	ep;					// 保存发送端的信息
-	PACKAGE				pack;				// 数据包
-
-	while ( 1 )
+	try
 	{
-		boost::this_thread::interruption_point();	// 中断点
+		std::vector<char>	buf( BUFFER_SIZE );	// 缓冲区
+		system::error_code	ec;					// 错误码
+		ip::udp::endpoint	ep;					// 保存发送端的信息
+		PACKAGE				pack;				// 数据包
 
-		// 阻塞接受消息
-		m_receive_sock->receive_from( buffer( buf ), ep, 0, ec );
-
-		if ( ec && ec != error::message_size )
+		while ( 1 )
 		{
-			std::cerr << "Error occurs in CNetwork::Run()\n";
-			//::system( "pause" );
-			continue;
-		}
+			boost::this_thread::interruption_point();	// 中断点
 
-		pack = *(PACKAGE*)buf.data();
+			// 阻塞接受消息
+			m_receive_sock->receive_from( buffer( buf ), ep, 0, ec );
 
-		// 校验包是否有效
-		if ( pack.GetMagicNumber() == MagicNumber )
-		{
-			// 将数据包放入Buffer中
-			m_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
+			if ( ec && ec != error::message_size )
+			{
+				std::cerr << "Error occurs in CNetwork::Run()\n";
+				//::system( "pause" );
+				continue;
+			}
+
+			pack = *(PACKAGE*)buf.data();
+
+			// 校验包是否有效
+			if ( pack.GetMagicNumber() == MagicNumber )
+			{
+				// 将数据包放入Buffer中
+				m_packetBuffer.Put( IP_Package( ep.address().to_v4().to_ulong(), pack ) );
+			}
 		}
+	}
+	catch ( std::exception& e)
+	{
+		std::cout << "CNetwork::UDP_Listener() " << e.what() << std::endl;
 	}
 }
 
 void Network::CNetwork::CreateBroadcastIPAddress()
 {
-	using namespace boost::asio::ip;
-	boost::asio::io_service io;
+	try
+	{
+		using namespace boost::asio::ip;
+		boost::asio::io_service io;
 
-	tcp::resolver resolver( io ); 
-	tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
-	tcp::resolver::iterator iter = resolver.resolve( query ); 
-	tcp::resolver::iterator end; 
+		tcp::resolver resolver( io ); 
+		tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
+		tcp::resolver::iterator iter = resolver.resolve( query ); 
+		tcp::resolver::iterator end; 
 
-	while ( iter != end ) 
-	{   
-		tcp::endpoint ep = *iter++;    
-		if ( ep.address().is_v4() )
-		{
-			unsigned long ip = ep.address().to_v4().to_ulong();
-			ip |= 0xff;				// 将IP地址最后的位置为255,以便广播
-			m_broadcast_ip.insert( ip );					
+		while ( iter != end ) 
+		{   
+			tcp::endpoint ep = *iter++;    
+			if ( ep.address().is_v4() )
+			{
+				unsigned long ip = ep.address().to_v4().to_ulong();
+				ip |= 0xff;				// 将IP地址最后的位置为255,以便广播
+				m_broadcast_ip.insert( ip );					
+			}
 		}
+	}
+	catch ( std::exception& e)
+	{
+		std::cout << "CNetwork::CreateBroadcastIPAddress() " << e.what() << std::endl;
 	}
 }
 

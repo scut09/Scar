@@ -30,6 +30,7 @@ namespace Network
 		BROADCAST_ROOM,		// 服务端广播自己创建了房间
 		ALLOW_JOIN_ROOM,	// 服务端允许玩家加入
 		NEW_PLAYER_JOIN		// 广播新玩家加入
+
 	};
 
 	// 由服务端发回的允许加入的数据包
@@ -133,6 +134,22 @@ namespace Network
 		// bullet target
 	};
 
+	struct PlayerDeath
+	{
+		int			index;
+
+	};
+
+	// 炮弹命中，由炮弹的主人发送到服务端，服务端再发送下来
+	struct BulletHittedBag
+	{
+		int				owner_index;			// 炮弹发射人的id
+		int				target_index;			// 被命中人的id
+
+		int				bullet_type;			// 炮弹类型
+	};
+
+	 
 
 }
 

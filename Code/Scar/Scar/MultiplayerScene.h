@@ -25,6 +25,11 @@ public:
 	{	
 	}
 
+	~MultiplayerScene()
+	{
+		Release();
+	}
+
 	virtual void Run();
 	virtual void Init();
 	virtual void Release();

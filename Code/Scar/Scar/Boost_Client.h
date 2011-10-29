@@ -47,6 +47,7 @@ namespace Network
 		void OnHeroRotate( unsigned long ip, const PACKAGE& p );
 		void OnNewPlayerJoin( unsigned long ip, const PACKAGE& p );
 		void OnBulletCreate( unsigned long ip, const PACKAGE& p );
+		void OnBulletHit( unsigned long ip, const PACKAGE& p );
 		// 其他消息处理
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 
@@ -58,9 +59,10 @@ namespace Network
 		void EnterRoom( const std::string& ip );					// 加入房间		
 		void SendHeroMove( int index, float x, float y, float z );	// 发送玩家移动		
 		void SendHeroRot( int index, float x, float y , float z );	// 发送玩家摄像机旋转
-		void SendBullet( int index, int bullet_type, 
-			const irr::core::vector3df& start, const irr::core::vector3df& end, u32 life );
-
+		void SendBullet( int index, int bullet_type,				// 发送发射炮弹的消息
+			const irr::core::vector3df& start, 
+			const irr::core::vector3df& end, u32 life );
+		void SendBulletHit( int owner_index, int target_index, int bullet_type );
 
 		// 获取房间列表
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const;

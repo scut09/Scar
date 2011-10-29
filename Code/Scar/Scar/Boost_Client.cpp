@@ -14,12 +14,16 @@
 #include "GameBag.h"
 #include <irrlicht.h>
 
+// 测试用
+extern IShip* cf1;
+
 using namespace Network;
 
 Network::BoostClient::BoostClient() : m_server_IP( 0 )
 {
 	SaveLocalIPAddress();
 
+	// 注册消息处理函数
 	RegisterMessageHandler( BROADCAST_ROOM, 
 		[this]( unsigned long ip, const PACKAGE& p ){ OnBroadcastRoom( ip, p ); });
 	RegisterMessageHandler( ALLOW_JOIN_ROOM, 
@@ -32,6 +36,8 @@ Network::BoostClient::BoostClient() : m_server_IP( 0 )
 		[this]( unsigned long ip, const PACKAGE& p ){ OnNewPlayerJoin( ip, p ); });
 	RegisterMessageHandler( BULLET_CREATE, 
 		[this]( unsigned long ip, const PACKAGE& p ){ OnBulletCreate( ip, p ); });
+	RegisterMessageHandler( BULLET_HIT,
+		[this]( unsigned long ip, const PACKAGE& p ){ OnBulletHit( ip, p ); });
 }
 
 void Network::BoostClient::QueryRoom()
@@ -89,6 +95,16 @@ void Network::BoostClient::SendBullet( int index, int bullet_type,
 
 	m_network->SendTo( m_server_IP, pack );
 }
+
+
+void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int bullet_type )
+{
+	BulletHittedBag bag;
+	bag.owner_index = owner_index;
+	bag.target_index = target_index;
+	bag.bullet_type = bullet_type;
+}
+
 
 void Network::BoostClient::SaveLocalIPAddress()
 {
@@ -211,15 +227,19 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 	{
 		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 
-		auto ship = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+		irr::scene::IAnimatedMesh* mesh = smgr->getMesh("../module/1234.obj");
+		auto ship = new CFrigate( mesh, 0, smgr, -1 );
+		mesh->drop();
 
-		//IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-		//m_pCamera->addChild( cf1 );
-		//cf1->setPosition( irr::core::vector3df( 0, 0, 50 ) );
+		ship->setID( oneplayer.player_index );
 
 		m_players[ oneplayer.player_index ] = ship;
 
 		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
+	}
+	else
+	{
+		cf1->setID( m_index );
 	}
 }
 
@@ -249,4 +269,25 @@ void Network::BoostClient::Close()
 {
 	//m_io_thread->interrupt();
 	NetworkBase::Close();
+}
+
+void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
+{
+	// 获取炮弹类型
+	BulletHittedBag* bag = (BulletHittedBag*)p.GetData();
+
+	ISceneManager* smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+
+	smgr->getSceneNodeFromId( bag->owner_index );
+
+	ISceneNode* target_node = smgr->getSceneNodeFromId( bag->target_index );
+
+	int damage = 100;
+
+	IShip *ship = dynamic_cast<IShip *>(target_node);
+	if (NULL != ship)
+	{
+		ship->SetCurrentLife( ship->GetCurrentLife() - damage );
+	}
+
 }

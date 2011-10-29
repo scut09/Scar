@@ -119,10 +119,9 @@ void MultiplayerScene::Init()
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
 	// 创建飞船
-	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-
-	// 创建飞船
-	auto sh = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	IAnimatedMesh* cf_mesh = smgr->getMesh( _T("../module/1234.obj") );
+	cf1 = new CFrigate( cf_mesh, 0, smgr, -1 );
+	cf_mesh->drop();
 	
 
 	//cf1->setPosition( vector3df( 0, 0, 50 ) );
@@ -161,8 +160,11 @@ void MultiplayerScene::Init()
 	{
 		// 设置名称
 		planet->setName( "planet1" );
+		ITexture* texture = pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") );
 		// 加载纹理
-		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
+		planet->setMaterialTexture( 0, texture );
+		texture->drop();
+
 		// 星球自转
 		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.003f, 0) );
 		planet->addAnimator( rot );
@@ -186,7 +188,10 @@ void MultiplayerScene::Init()
 		// 设置名称
 		moon->setName( "moon1" );
 		// 加载纹理
-		moon->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") ) );
+		ITexture* texture = pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") );
+		moon->setMaterialTexture( 0, texture );
+		texture->drop();
+
 		// 星球自转
 		auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
 		moon->addAnimator( rot );
@@ -212,8 +217,10 @@ void MultiplayerScene::Init()
 	fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
 		//fuck->setVolume( fuck->getVolume() - 10 );
 
+	IAnimatedMesh* station_mesh = smgr->getMesh( _T("../modle/station/cs1.obj") );
 	//加载空间站模型
-	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( station_mesh );
+	station_mesh->drop();
 	if ( station )
 	{
 		// 设置名字

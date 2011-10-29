@@ -45,6 +45,7 @@ public:
 		if ( !parent )
 		{
 			this->setParent( mgr->getRootSceneNode() );
+			drop();
 		}
 		Money = 0;
 		Energy = 1000;
