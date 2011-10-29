@@ -11,10 +11,12 @@
 #define CSceneNodeAnimatorCollisionResponse_h__
 
 #include <irrlicht.h>
+#include <functional>
 
 using namespace irr;
 using namespace scene;
 
+typedef std::function< void( ISceneNode* node, ISceneNode* target_node ) >	CollisionCallbackType;
 
 /*
 ** 名字：CSceneNodeAnimatorCollisionResponse
@@ -32,10 +34,17 @@ public:
 		ISceneNode* node,
 		ISceneManager* newManager = 0 );
 
+	// 设置碰撞时的回调函数
+	void SetCollisionCallback( CollisionCallbackType func )
+	{
+		Func = func;
+	}
+
 private:
 	ISceneCollisionManager*		CollisionMgr;
-	core::vector3df				LastPoint;
-	bool						FirstRun;
+	core::vector3df				LastPoint;			// 上次的点
+	bool						FirstRun;			// 是否第一次运行
+	CollisionCallbackType		Func;				// 碰撞时的回调
 };
 
 

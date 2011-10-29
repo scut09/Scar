@@ -119,7 +119,19 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 	CSceneNodeAnimatorMyCollisionResponse* coll = 
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
 
-	
+	// 添加碰撞响应函数
+	coll->SetCollisionCallback( []( ISceneNode* node, ISceneNode* target_node )
+	{
+		std::cout << "Ship hitted!\n";
+		IWeapon* weapon = dynamic_cast<IWeapon*>( node );
+
+		// 打中的是飞船
+		IShip *ship = dynamic_cast<IShip *>( target_node );
+		if (NULL != ship)
+		{
+			std::cout << "fuck Ship hitted!\n";
+		}
+	} );
 
 	newBullet->addAnimator( coll );
 	coll->drop();

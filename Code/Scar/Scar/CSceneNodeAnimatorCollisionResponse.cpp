@@ -9,12 +9,13 @@
 
 #include "CSceneNodeAnimatorCollisionResponse.h"
 #include <iostream>
+#include "IWeapon.h"
 
 
 CSceneNodeAnimatorMyCollisionResponse::CSceneNodeAnimatorMyCollisionResponse( ISceneCollisionManager* col ) : CollisionMgr( col )
 	, FirstRun( true )
 {
-
+	Func = []( ISceneNode*, ISceneNode* ) {};
 }
 
 void CSceneNodeAnimatorMyCollisionResponse::animateNode( ISceneNode* node, u32 timeMs )
@@ -36,7 +37,8 @@ void CSceneNodeAnimatorMyCollisionResponse::animateNode( ISceneNode* node, u32 t
 	ISceneNode* colNode = CollisionMgr->getSceneNodeAndCollisionPointFromRay( line, collisonPoint, tri );
 	if ( colNode )
 	{
-		std::cout << "haha\n";
+		Func( node, colNode );
+		//std::cout << "haha\n";
 	}
 
 	if ( line.getLength() > 3 )
