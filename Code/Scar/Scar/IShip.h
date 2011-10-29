@@ -25,6 +25,8 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
+// 创建完后自动加载到场景树中，并且将引用计数设置为1
+
 /*
 ** 名字：IShip
 ** 说明：舰船接口类，提供舰船的基本接口
@@ -45,7 +47,7 @@ public:
 		if ( !parent )
 		{
 			this->setParent( mgr->getRootSceneNode() );
-			drop();
+			drop();											// 已经加入场景树，自己的引用计数器减一
 		}
 		Money = 0;
 		Energy = 1000;
