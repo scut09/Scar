@@ -141,9 +141,9 @@ void MultiplayerScene::Init()
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	//auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
-	//m_pCamera->addAnimator( shakeAni );
-	//shakeAni->drop();
+	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
+	m_pCamera->addAnimator( shakeAni );
+	shakeAni->drop();*/
 
 	// 飞船跟随照相机
 	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
@@ -213,6 +213,7 @@ void MultiplayerScene::Init()
 	{
 		// 设置名字
 		station->setName( "station1" );
+		//station->setMaterialType( EMT_NORMAL_MAP_SOLID );
 		// 设置初始大小
 		//station->setScale( vector3df( .001f));
 		//station->setVisible(false);
@@ -221,6 +222,25 @@ void MultiplayerScene::Init()
 		//moon->addAnimator( sca );
 		//sca->drop();
 	}
+	//driver->setFog(video::SColor(0,138,125,81), video::EFT_FOG_LINEAR, 250, 1000, .003f, true, false);
+	//IAnimatedMesh* stationMesh = smgr->getMesh( "../modle/station/cs1.3ds" );
+	//ITexture* normalMap = driver->getTexture( "../modle/station/cs1_tex_ngs.jpg" );
+	//if ( normalMap )
+	//	driver->makeNormalMapTexture( normalMap, 9 );
+	//IMesh* tangentMesh = smgr->getMeshManipulator()->
+	//	createMeshWithTangents(stationMesh->getMesh(0));
+	//ISceneNode* station = smgr->addMeshSceneNode( tangentMesh );
+	//tangentMesh->drop();
+	//station->setMaterialTexture( 0, driver->getTexture( "../modle/station/cs1_tex_d.jpg"));
+	////station->getMaterial( 0 ).SpecularColor.set(0,0,0,0);
+	////station->getMaterial( 0 ).MaterialTypeParam = 0.035f;
+	////station->getMaterial( 0 ).AmbientColor.set(255);
+	////station->getMaterial( 0 ).DiffuseColor.set(255);
+	//station->setMaterialTexture( 1, normalMap );
+	////station->setMaterialFlag( EMF_FOG_ENABLE, true );
+	//station->setMaterialType( EMT_NORMAL_MAP_SOLID );
+	//station->setMaterialFlag( EMF_LIGHTING, true );
+	//smgr->addLightSceneNode( 0, vector3df(1000), SColorf(1), 10000.0f );
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );

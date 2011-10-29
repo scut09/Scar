@@ -104,10 +104,8 @@ public:
 		s32 MoveRadius;					// 准心移动半径
 
 		IShip* Ship;					// 操控的飞船
-		bool flag;						// 翻滚标志位
-		/*vector2d<f32> Vect;				// 记录当前鼠标的指向
-		s32 AcceFactor;					// 记录当前旋转变化因素
-		vector2d<s32> LastOffset;		// 记录上一次的指针偏移量 */
+		s32 RollFlag;					// 翻滚标志位 0无翻滚 1向左 2向右
+		f32 RollAng;					// 当前翻滚角度
 		s32 Count;						// 计数器
 };
 #endif

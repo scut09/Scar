@@ -30,7 +30,9 @@ CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl
 	AcceFactor = 10;*/
 	//Count = 0;
 
-	//flag = false;
+	// 初始化无翻滚
+	RollFlag = 0;
+	RollAng = 0;
 
 	// create key map
 	if (!keyMapArray || !keyMapSize)
@@ -177,8 +179,9 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	}
 	t = prod( t, bosMat );
 	rotAxis = vector3df( t(0), t(1), t(2) );
-	// 求变换矩阵
+	// 鼠标影响转动
 	f32 rotAng = (f32)CursorOffset.getLength() / (f32)MoveRadius * -2.0f /*系数相关*/;
+	// 求变换矩阵
 	rotAxisQuat = rotAxisQuat.fromAngleAxis( rotAng * DEGTORAD, rotAxis ); // 由刚才求得的旋转轴旋转特定角度
 	irrMat = rotAxisQuat.getMatrix();		
 	for ( int i=0; i<4; i++ )
@@ -188,7 +191,6 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 			bosMat(j,i) = irrMat[ 4*i + j ];
 		}
 	}
-	//rotAxisQuat.toEuler( RotChange );
 	// 求新的向前向量
 	t(0) = lastDirection.X; t(1) = lastDirection.Y; t(2) = lastDirection.Z; t(3) = 0;
 	t = prod( t, bosMat );
@@ -197,14 +199,38 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	t(0) = lastUpVector.X; t(1) = lastUpVector.Y; t(2) = lastUpVector.Z; t(3) = 0;
 	t = prod( t, bosMat );
 	vector3df newUpVector = vector3df( t(0), t(1), t(2) );
+	
+	// 根据速度移动飞船
+	vector3df movement = newDirection * Ship->GetVelocity() /* 再乘以时间*/;
+
+
+	// 翻滚动作
+	if ( RollAng != 0 )
+	{
+		rotAxisQuat = rotAxisQuat.fromAngleAxis( RollAng * DEGTORAD, newDirection );
+		irrMat = rotAxisQuat.getMatrix();
+		for ( int i=0; i<4; i++ )
+		{
+			for( int j=0; j<4; j++ )
+			{
+				bosMat(j,i) = irrMat[ 4*i + j ];
+			}
+		}
+		t(0)=newUpVector.X; t(1)=newUpVector.Y; t(2)=newUpVector.Z; t(3)=0;
+		t = prod( t, bosMat );
+		newUpVector = vector3df( t(0), t(1), t(2) );
+	}
+
+
 	// 求新的旋转角
 	vector3df newRotation;
+	//newRotation = ( newDirection - vector3df( 0,0,1 ) ).getHorizontalAngle();
 	rotAxisQuat = rotAxisQuat.rotationFromTo( vector3df(0,0,1), newDirection );
 	rotAxisQuat.toEuler( newRotation );
 	newRotation *= RADTODEG;
-	//newRotation += camera->getRotation();
-	// 根据速度移动飞船
-	vector3df movement = newDirection * Ship->GetVelocity() /* 再乘以时间*/;
+
+
+
 	// 更新照相机状态
 	camera->setPosition( camera->getPosition() + movement );
 	camera->setTarget( camera->getPosition() + newDirection );
@@ -246,8 +272,32 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	// 当A键按下时左侧翻
 	if ( CursorKeys[EKA_STRAFE_LEFT] )
 	{
-		/*if ( ! flag )
-			flag = true;*/
+		if ( RollAng < 4.5f )
+			RollAng += 0.15f;
+	}
+	// 当按下D键时右侧翻
+	if ( CursorKeys[EKA_STRAFE_RIGHT] )
+	{
+		if ( RollAng > -4.5f )
+			RollAng -= 0.15f;
+	}
+	// 当所有键弹起时恢复
+	if ( !CursorKeys[EKA_STRAFE_LEFT] && !CursorKeys[EKA_STRAFE_RIGHT] )
+	{
+		if ( RollAng > 0 )
+		{
+			RollAng -= 0.15f;
+			// 防止下溢
+			if ( RollAng < 0 )
+				RollAng = 0;
+		}	
+		else if ( RollAng < 0 )
+		{
+			RollAng += 0.15f;
+			// 防止上溢
+			if ( RollAng > 0 )
+				RollAng = 0;
+		}	
 	}
 
 }
