@@ -40,31 +40,14 @@ public:
 		irr::scene::ISceneManager* mgr,	s32 id,
 		const core::vector3df& position = core::vector3df(0,0,0),
 		const core::vector3df& rotation = core::vector3df(0,0,0),
-		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f) )
-		:
-	CAnimatedMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
-	{
-		if ( !parent )
-		{
-			this->setParent( mgr->getRootSceneNode() );
-			drop();											// 已经加入场景树，自己的引用计数器减一
-		}
-		Money = 0;
-		Energy = 1000;
-
-		// 创建碰撞的三角形选择器以支持碰撞检测	华亮 2011-10-29
-		scene::ITriangleSelector* selector = mgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)this );
-		this->setTriangleSelector(selector);
-		selector->drop();
-	}
+		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f) );
 
 protected:
 	vector3df          Speed;                  // 速度 
 	vector3df		   Acceleration;		   // 加速度
 	f32                MaxAcceleration;        // 最大加速度 
 	f32		           Sensitivity;	           // 灵敏度
-	f32                MaxLife;                // 最大生命值
-	f32                CurrentLife;            // 当前生命值
+	
 	f32                LifeAddPerGrade;        // 每等级增加生命
 	f32                Defence;                // 防御
 	std::wstring       Name;                   // 船的类型名字
@@ -85,6 +68,10 @@ protected:
 	u32					MissileEquitCount;		// 最大飞弹种类装备数量
 	std::vector< IWeapon* >		Guns;			// 主炮
 	std::vector< IWeapon* >		Missiles;		// 飞弹
+	f32					MaxShield;				// 最大护盾值
+	f32					CurrentShield;          // 当前护盾值
+	f32					MaxArmor;				// 最大护甲值
+	f32					CurrentArmor;			// 当前护甲值
 
 public:
 	
@@ -112,6 +99,20 @@ public:
 	//获取和修改飞船速率
 	virtual f32 GetVelocity() const { return Velocity; }
 	virtual void SetVelocity( f32 velocity ) { Velocity = velocity; }
+
+	//获取和修改飞船的护盾
+	void SetShield(const f32 shield);
+	const f32  GetShield()const;
+	void SetMaxShield(const f32& maxShield);
+	const f32  GetMaxShield()const;
+
+	//获取和设置飞船的护甲
+	const f32 GetMaxArmor() const;
+	void SetMaxArmor( f32 maxArmor );
+	const f32 GetArmor() const;
+	void SetArmor( f32 armor );
+
+	//////////////////////////////////////////////////////////////////////////////////////////
 
 	//获取和修改飞船的能量 
 	virtual void SetEnergy( const u32& en ){ Energy = en; }
@@ -164,21 +165,15 @@ public:
 	virtual void SetMaxAccleration( const f32& accl ){ MaxAcceleration = accl; }
 	virtual f32 GetMaxAccleration() const { return MaxAcceleration; }
 
-	//获取和修改飞船的当前生命值
-	virtual void SetCurrentLife(const f32 life){CurrentLife = life;}
-	virtual f32  GetCurrentLife()const{return CurrentLife;}
-
-	//获取和修改飞船的生命上限
-	virtual void SetMaxLife(const f32& maxlife){ MaxLife = maxlife; }
-	virtual f32  GetMaxLife()const { return MaxLife; }
+	
 
 	//获取和修改飞船的防御力
 	virtual void SetDefence( const f32 defence){ Defence = defence; }
 	virtual f32  GetDefence()const { return Defence; }
 
 	//获取和修改飞船的护盾类型
-	virtual void SetShield(const u32& shield){ Shield = shield; }
-	virtual u32  GetShield()const{return Shield; }
+	virtual void SetShieldType(const u32& shield){ Shield = shield; }
+	virtual u32  GetShieldType()const{return Shield; }
 
 	//获取和修改飞船的名字
 	virtual void SetName( const std::wstring& name ){ Name = name; }
@@ -189,22 +184,22 @@ public:
 	virtual f32  GetSensitivity()const { return Sensitivity;};
 	
 	//每秒恢复生命值
-	virtual void RecoverLifePerSecond(const u32& pass);
+	//virtual void RecoverLifePerSecond(const u32& pass);
 
 	//一次性恢复生命值
-	virtual void RecoverLifeOneTime(const u32&addlife );
+	//virtual void RecoverLifeOneTime(const u32&addlife );
 	
 	//每升一级增加生命上限
-	virtual void MaxLifeUpByGrade();
+	//virtual void MaxLifeUpByGrade();
 
 	//等级随着经验值的增加而增加
 	virtual void GradeUpByExperience();
 
 	//受到攻击，当前生命值损失
-	virtual void LifeDissolveByAttack(const u32&attack){CurrentLife-=(attack - Defence);}
+	//virtual void LifeDissolveByAttack(const u32&attack){CurrentShield-=(attack - Defence);}
 	
 	//飞船移动
-	virtual void Move(u32 time);
+	//virtual void Move(u32 time);
 
 	//刷新属性
 	virtual void RefreshAttrbutes( const u32& time);

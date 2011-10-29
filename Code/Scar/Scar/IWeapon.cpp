@@ -31,7 +31,7 @@ void IWeapon::OnCollision( scene::ISceneNode* target )
 	if ( typeid( *target ) == typeid( IShip ) )
 	{
 		IShip* ship = dynamic_cast<IShip*>( target );
-		ship->LifeDissolveByAttack( 10 );
+		//ship->LifeDissolveByAttack( 10 );
 	}
 
 	std::cout << "Hit\n";

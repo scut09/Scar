@@ -287,7 +287,7 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 	IShip *ship = dynamic_cast<IShip *>(target_node);
 	if (NULL != ship)
 	{
-		ship->SetCurrentLife( ship->GetCurrentLife() - damage );
+		//ship->SetCurrentLife( ship->GetCurrentLife() - damage );
 	}
 
 }

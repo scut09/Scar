@@ -106,12 +106,12 @@ void MultiplayerScene::Run()
 	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
 	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );	
 	// »æÖÆ»¤¶Ü²Û
-	ratio = 1;
+	ratio = cf1->GetShield() / cf1->GetMaxShield();
 	border = 389 * ( 1 - ratio );
 	Shield1->SetSourceRect( vector2df( 0, border ), vector2df( 100, 389 ) );
 	Shield2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 100, border ) );
 	// »æÖÆ»¤¼×²Û
-	ratio = 1;
+	ratio = cf1->GetArmor() / cf1->GetMaxArmor();
 	border = 360 * ( 1 - ratio );
 	Armor1->SetSourceRect( vector2df( 0, border ), vector2df( 93, 360 ) );
 	Armor2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 93, border ) );
@@ -162,7 +162,7 @@ void MultiplayerScene::Init()
 	shakeAni->drop();*/
 
 	// ·É´¬¸úËæÕÕÏà»ú
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
