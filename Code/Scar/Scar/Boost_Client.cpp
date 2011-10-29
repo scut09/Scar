@@ -103,6 +103,12 @@ void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int
 	bag.owner_index = owner_index;
 	bag.target_index = target_index;
 	bag.bullet_type = bullet_type;
+
+	PACKAGE p;
+	p.SetCMD( BULLET_HIT );
+	p.SetData( (char*)&bag, sizeof( PACKAGE ) );
+
+	TcpSendTo( m_server_IP, m_target_port, p );
 }
 
 
@@ -273,6 +279,7 @@ void Network::BoostClient::Close()
 
 void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 {
+	std::cout << "OnBulletHit\n";
 	// 获取炮弹类型
 	BulletHittedBag* bag = (BulletHittedBag*)p.GetData();
 
@@ -284,11 +291,13 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 
 	int damage = 100;
 
-	IShip *ship = dynamic_cast<IShip *>(target_node);
+	IShip *ship = dynamic_cast<IShip *>( target_node );
 	if (NULL != ship)
 	{
 		//ship->SetCurrentLife( ship->GetCurrentLife() - damage );
 		ship->SetShield( ship->GetShield() - damage );
+		std::cout << "ship\n";
+
 	}
 
 }

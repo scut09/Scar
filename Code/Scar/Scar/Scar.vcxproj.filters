@@ -52,6 +52,9 @@
     <Filter Include="ship">
       <UniqueIdentifier>{15d39265-faa4-4c32-92d4-93abe6367c1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{79159352-dd7d-41bf-b013-926685a87ca9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -499,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="CBoneSceneNode.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessMotionBlur.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

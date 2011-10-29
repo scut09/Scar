@@ -206,6 +206,7 @@
     <ClInclude Include="NetworkBase.h" />
     <ClInclude Include="NetworkPacket.h" />
     <ClInclude Include="network_header.h" />
+    <ClInclude Include="PostProcessMotionBlur.h" />
     <ClInclude Include="PythonManager.h" />
     <ClInclude Include="PythonModule.h" />
     <ClInclude Include="PythonWrapper.h" />

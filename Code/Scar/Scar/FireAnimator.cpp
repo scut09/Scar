@@ -123,7 +123,7 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 	// 添加碰撞响应函数
 	coll->SetCollisionCallback( []( ISceneNode* node, ISceneNode* target_node )	
 	{
-		std::cout << "Ship hitted!\n";
+		//std::cout << "Ship hitted!\n";
 		IWeapon* weapon = dynamic_cast<IWeapon*>( node );
 
 		// 打中的是飞船
@@ -131,6 +131,7 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 		if (NULL != ship)
 		{
 			std::cout << "fuck Ship hitted!\n";
+			client.SendBulletHit( client.m_index, ship->getID(), 0 );
 		}
 	} );
 
