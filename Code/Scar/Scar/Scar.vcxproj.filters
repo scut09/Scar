@@ -246,6 +246,9 @@
     <ClCompile Include="CBoneSceneNode.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="TheBeginMove.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="PostProcessMotionBlur.h">
       <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="TheBeginMove.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

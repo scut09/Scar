@@ -86,6 +86,7 @@ void MyIrrlichtEngine::Run()
 	gui::IGUIStaticText* statusText;
 	const int lwidth = size.Width - 20;
 	const int lheight = 16;
+	auto gui = m_pDevice->getGUIEnvironment();
 
 	core::rect<int> pos(10, size.Height-lheight-10, 10+lwidth, size.Height-10);
 	//m_pDevice->getGUIEnvironment()->addImage(pos);
@@ -123,6 +124,7 @@ void MyIrrlichtEngine::Run()
 		m_pDriver->beginScene( true, true, video::SColor( 255, 0, 0, 0 ) );
 
 		m_pSmgr->drawAll();	
+		gui->drawAll();
 		currentScene->Draw();
 
 		m_pDriver->endScene();

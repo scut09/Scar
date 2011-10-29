@@ -233,18 +233,19 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 	{
 		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 
-		irr::scene::IAnimatedMesh* mesh = smgr->getMesh("../module/1234.obj");
-		auto ship = new CFrigate( mesh, 0, smgr, -1 );
-		mesh->drop();
+		// 加载飞船，需要根据玩家飞船信息组装飞船
+		auto ship = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 
+		// 设置船的id
 		ship->setID( oneplayer.player_index );
-
+		// 保存玩家信息
 		m_players[ oneplayer.player_index ] = ship;
 
 		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}
 	else
 	{
+		// 设置自己的id
 		cf1->setID( m_index );
 	}
 }

@@ -138,8 +138,8 @@ void MultiplayerScene::Init()
 	// 创建飞船
 	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 
-	// 创建飞船
-	auto sh = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	//// 创建飞船
+	//auto sh = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 	
 
 	//cf1->setPosition( vector3df( 0, 0, 50 ) );
@@ -398,10 +398,15 @@ void MultiplayerScene::Init()
 	////	fire->setVisible(false);   //初始不可见
 	//	node->addChild( fire );
 	//}
+	auto gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+	
+	
+	auto box = gui->addEditBox( _T("ETETETETET"), core::rect<s32>( 0, 0, 100, 50 ) );
 
+	//auto as = core::rect<s32>;
 
 	// 创建并注册receiver的事件处理回调函数
-	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ fireAni, pEngine ]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ box, fireAni, pEngine ]( const SEvent& event )->void*
 	{	
 		fireAni->OnEvent( event );
 		//control.OnEvent( event );
@@ -413,6 +418,17 @@ void MultiplayerScene::Init()
 				pSoundEngine->play2D( fuck );
 			}
 		}*/
+		if ( event.KeyInput.Key == KEY_KEY_T )
+		{
+			box->setVisible( true );
+
+		
+		}
+		else if ( event.KeyInput.Key == KEY_ESCAPE )
+		{
+			box->setVisible( false );
+		}
+
 		return 0;
 	} );
 	
