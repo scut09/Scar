@@ -398,15 +398,16 @@ void MultiplayerScene::Init()
 	////	fire->setVisible(false);   //初始不可见
 	//	node->addChild( fire );
 	//}
-	auto gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 	
 	
-	auto box = gui->addEditBox( _T("ETETETETET"), core::rect<s32>( 0, 0, 100, 50 ) );
+	IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
+	box->setVisible( false );
 
 	//auto as = core::rect<s32>;
 
 	// 创建并注册receiver的事件处理回调函数
-	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ box, fireAni, pEngine ]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ gui, box, fireAni, pEngine ]( const SEvent& event )->void*
 	{	
 		fireAni->OnEvent( event );
 		//control.OnEvent( event );
@@ -421,12 +422,19 @@ void MultiplayerScene::Init()
 		if ( event.KeyInput.Key == KEY_KEY_T )
 		{
 			box->setVisible( true );
-
-		
+			gui->setFocus( box );		
+		}
+		else if ( event.KeyInput.Key == KEY_RETURN )
+		{
+			box->setVisible( false );
+			gui->setFocus( 0 );		
+			client.BroadcastMessage( client.m_index, box->getText() );
+			std::wcout << box->getText() << std::endl;
 		}
 		else if ( event.KeyInput.Key == KEY_ESCAPE )
 		{
 			box->setVisible( false );
+			gui->setFocus( 0 );		
 		}
 
 		return 0;

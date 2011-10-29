@@ -10,6 +10,7 @@
 #include "IUIObject.h"
 #include <boost/thread.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include "PostProcessMotionBlur.h"
 
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
@@ -88,15 +89,20 @@ void MyIrrlichtEngine::Run()
 	const int lheight = 16;
 	auto gui = m_pDevice->getGUIEnvironment();
 
-	core::rect<int> pos(10, size.Height-lheight-10, 10+lwidth, size.Height-10);
+	core::rect<int> pos( 10, size.Height - lheight - 10, 10 + lwidth, size.Height - 10 );
 	//m_pDevice->getGUIEnvironment()->addImage(pos);
-	statusText = m_pDevice->getGUIEnvironment()->addStaticText(L"Loading...",	pos, true);
-	statusText->setOverrideColor(video::SColor(255,205,200,200));
+	statusText = m_pDevice->getGUIEnvironment()->addStaticText( L"Loading...",	pos, true );
+	statusText->setOverrideColor( video::SColor( 255, 205, 200, 200 ) );
 
 	// 2D抗锯齿
 	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter = true;
 	m_pDriver->getMaterial2D().AntiAliasing = video::EAAM_FULL_BASIC;
 	//m_pDriver->enableMaterial2D();
+
+	// 运动模糊
+	f32	blurStrength = 0.5f;
+	IPostProcessMotionBlur *Blur = new IPostProcessMotionBlur( m_pSmgr->getRootSceneNode(), m_pSmgr, 201212 );   
+	Blur->initiate( m_pDriver->getScreenSize().Width, m_pDriver->getScreenSize().Height, blurStrength, m_pSmgr );   
 
 	while ( m_pDevice->run() )
 	{
@@ -120,14 +126,18 @@ void MyIrrlichtEngine::Run()
 		// 计算更新场景
 		currentScene->Run();
 
-		// 绘制场景
-		m_pDriver->beginScene( true, true, video::SColor( 255, 0, 0, 0 ) );
+		m_pDriver->beginScene( true, true, 0 );  //This time the setup is a little bit harder than normal.    
 
-		m_pSmgr->drawAll();	
+		Blur->render();                     //For to hold it simple you just have to call two functions:                              
+		m_pDriver->setRenderTarget( 0 );    //render(), which does the mainwork(blending the differen Frames together)         
+		Blur->renderFinal();                //and renderFinal(); which will render the result into the given renderTarget.
+
+		//m_pSmgr->drawAll();
 		gui->drawAll();
 		currentScene->Draw();
 
-		m_pDriver->endScene();
+		m_pDriver->endScene();               //remark, that Render() will automticly set the right Rendertargets. so no need setting                             
+
 
 		ClearDeletionList();	// 删除待删除队列中的东西，主要提供给自删除动画使用
 

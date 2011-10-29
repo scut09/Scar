@@ -16,6 +16,8 @@
 
 // 测试用
 extern IShip* cf1;
+IGUIEditBox* box = 0;
+
 
 using namespace Network;
 
@@ -38,6 +40,10 @@ Network::BoostClient::BoostClient() : m_server_IP( 0 )
 		[this]( unsigned long ip, const PACKAGE& p ){ OnBulletCreate( ip, p ); });
 	RegisterMessageHandler( BULLET_HIT,
 		[this]( unsigned long ip, const PACKAGE& p ){ OnBulletHit( ip, p ); });
+	RegisterMessageHandler( MESSAGE_BROADCAST,
+		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
+	RegisterMessageHandler( MESSAGE_TO,
+		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
 }
 
 void Network::BoostClient::QueryRoom()
@@ -106,7 +112,7 @@ void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int
 
 	PACKAGE p;
 	p.SetCMD( BULLET_HIT );
-	p.SetData( (char*)&bag, sizeof( PACKAGE ) );
+	p.SetData( (char*)&bag, sizeof( BulletHittedBag ) );
 
 	TcpSendTo( m_server_IP, m_target_port, p );
 }
@@ -290,7 +296,7 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 
 	ISceneNode* target_node = smgr->getSceneNodeFromId( bag->target_index );
 
-	int damage = 100;
+	int damage = 10;
 
 	IShip *ship = dynamic_cast<IShip *>( target_node );
 	if (NULL != ship)
@@ -301,4 +307,47 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 
 	}
 
+}
+
+void Network::BoostClient::OnMessage( unsigned long ip, const PACKAGE& p )
+{
+	BroadcastMessageBag* bag;
+	bag = (BroadcastMessageBag*)p.GetData();
+
+	bag->GetMsg();
+	bag->index;
+
+	if ( box == 0 )
+	{
+		box = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment()->addEditBox( _T(""), core::recti( 0, 100, 100, 130 ) );
+	}
+	box->setVisible( true );
+	box->setText( bag->GetMsg() );
+}
+
+
+void Network::BoostClient::SendMessageTo( int index, int target_index, const wchar_t* msg )
+{
+	BroadcastMessageBag bag;
+	bag.index = index;
+	bag.target_index = target_index;
+	bag.SetMsg( msg );
+
+	PACKAGE p;
+	p.SetCMD( MESSAGE_BROADCAST );
+	p.SetData( (char*)&bag, bag.GetLength() );
+	TcpSendTo( m_server_IP, m_target_port, p );
+}
+
+void Network::BoostClient::BroadcastMessage( int index, const wchar_t* msg )
+{
+	BroadcastMessageBag bag;
+	bag.index = index;
+	bag.target_index = -1;
+	bag.SetMsg( msg );
+
+	PACKAGE p;
+	p.SetCMD( MESSAGE_TO );
+	p.SetData( (char*)&bag, bag.GetLength() );
+	TcpSendTo( m_server_IP, m_target_port, p );
 }

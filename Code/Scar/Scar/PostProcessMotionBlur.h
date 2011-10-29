@@ -1,6 +1,5 @@
 #ifndef __POST_PROCESS_EFFECT_MOTION_BLUR__ 
 #define __POST_PROCESS_EFFECT_MOTION_BLUR__ 
-
 #include "irrlicht.h" 
 #include <cstdlib> 
 
@@ -92,10 +91,8 @@ public:
 		video::IVideoDriver* driver = smgr->getVideoDriver(); 
 		video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices(); 
 
-		
-
 		callback= new PPE_MotionBlur_callback(); 
-		callback->strength = strength; 
+		callback->strength=strength; 
 
 		Material.MaterialType=(E_MATERIAL_TYPE)gpu->addHighLevelShaderMaterial 
 			( 
@@ -109,19 +106,18 @@ public:
 			fragShader2.c_str(), "main", video::EPST_PS_1_1, 
 			NULL, (video::EMT_SOLID) 
 			); 
-		//next = driver->createRenderTargetTexture(core::dimension2d<s32>(sizeW,sizeH)); 
-		//prev = driver->createRenderTargetTexture(core::dimension2d<s32>(sizeW,sizeH)); 
-		//accum = driver->createRenderTargetTexture(core::dimension2d<s32>(sizeW,sizeH)); 
+		next = driver->addRenderTargetTexture(core::dimension2d<u32>(sizeW,sizeH)); 
+		prev = driver->addRenderTargetTexture(core::dimension2d<u32>(sizeW,sizeH)); 
+		accum = driver->addRenderTargetTexture(core::dimension2d<u32>(sizeW,sizeH)); 
 
-		//Material.Wireframe = false; 
-		//Material.Lighting = false; 
-		//Material.Textures[0]=next; 
-		//Material.Textures[1]=prev; 
+		Material.Wireframe = false; 
+		Material.Lighting = false; 
+		Material.setTexture( 0,	next );
+		Material.setTexture( 1, prev );
 
-
-		//Accum.Wireframe = false; 
-		//Accum.Lighting = false; 
-		//Accum.Textures[0]=accum; 
+		Accum.Wireframe = false; 
+		Accum.Lighting = false; 
+		Accum.setTexture( 0, accum );
 	} 
 
 

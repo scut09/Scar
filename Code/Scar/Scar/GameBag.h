@@ -33,6 +33,12 @@ namespace Network
 
 	};
 
+
+
+	/************************************************************************/
+	/* 房间信息                                                              */
+	/************************************************************************/
+
 	// 由服务端发回的允许加入的数据包
 	// 内容包括自己被分配的在游戏中的id，和初始坐标
 	struct AllowJoinRoomBag
@@ -47,6 +53,71 @@ namespace Network
 		{
 		}
 	};
+
+	// 由服务端广播发送的自己创建的房间的信息
+	struct BroadcastRoomBag
+	{
+		wchar_t		room_name[ 32 ];		// 64 B
+		int			player_number;			// 4 B
+		int			max_player_number;
+		char		map_name[ 64 ];
+	};
+
+
+	/************************************************************************/
+	/* 聊天信息                                                              */
+	/************************************************************************/
+
+	const int BROADCAST_MESSAGE_SIZE = 1024;							// 最大信息长度
+	const int BROADCAST_MESSAGE_INIT_LENGTH = sizeof( int ) * 2 + 1;	// 初始包长度
+
+
+	// 广播信息
+	struct BroadcastMessageBag
+	{
+	public:
+		int			index;				// 发送人的id
+		int			target_index;		// 目标的id，如果目标id为-1，则认为为群发
+
+	private:
+		wchar_t		m_msg[ BROADCAST_MESSAGE_SIZE ];	// 信息
+		int			m_len;									// 信息长度，这个变量不会被发送，只是用于发送时计算数据包的有效长度
+
+	public:
+		BroadcastMessageBag( int idx = -1, int targetindex = -1 )
+			: index( idx ), target_index( targetindex )
+		{
+			m_len = BROADCAST_MESSAGE_INIT_LENGTH;
+			m_msg[ 0 ] = 0;
+		}
+
+		int GetLength() const
+		{
+			return m_len;
+		}
+
+		void SetMsg( const wchar_t* msg )
+		{
+			int i = 0;
+			while ( msg[ i ] && i < BROADCAST_MESSAGE_SIZE )
+			{
+				m_msg[ i ] = msg[ i ];
+				i++;
+			}
+			m_msg[ i ] = 0;
+			m_len = BROADCAST_MESSAGE_INIT_LENGTH + i;
+		}
+
+		const wchar_t* GetMsg() const
+		{
+			return m_msg;
+		}
+	};
+	
+
+	/************************************************************************/
+	/* 玩家信息                                                              */
+	/************************************************************************/
 
 	// 一个玩家信息 56B
 	struct OnePlayerInfoBag
@@ -78,21 +149,23 @@ namespace Network
 		}
 	};
 
-
-	// 由服务端广播发送的自己创建的房间的信息
-	struct BroadcastRoomBag
-	{
-		wchar_t		room_name[ 32 ];		// 64 B
-		int			player_number;			// 4 B
-		int			max_player_number;
-		char		map_name[ 64 ];
-	}; 
-
 	struct BroadcastPlayerInfo
 	{
 		int		player_number;
 
 	};
+
+	struct PlayerDeath
+	{
+		int			index;
+
+	};
+
+
+
+	/************************************************************************/
+	/* 实时玩家数据                                                          */
+	/************************************************************************/
 
 	// 玩家移动的数据包
 	struct HeroMove
@@ -119,6 +192,12 @@ namespace Network
 		{ }
 	};
 
+
+
+	/************************************************************************/
+	/* 炮弹数据包                                                            */
+	/************************************************************************/
+
 	// 发射炮弹的数据包
 	struct BulletCreateBag
 	{
@@ -134,12 +213,6 @@ namespace Network
 		// bullet target
 	};
 
-	struct PlayerDeath
-	{
-		int			index;
-
-	};
-
 	// 炮弹命中，由炮弹的主人发送到服务端，服务端再发送下来
 	struct BulletHittedBag
 	{
@@ -148,6 +221,10 @@ namespace Network
 
 		int				bullet_type;			// 炮弹类型
 	};
+
+
+
+
 
 	 
 

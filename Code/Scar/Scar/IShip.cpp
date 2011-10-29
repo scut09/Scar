@@ -183,7 +183,7 @@ CAnimatedMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 	Money = 0;
 	Energy = 1000;
 
-	// 创建碰撞的三角形选择器以支持碰撞检测	华亮 2011-10-29
+	// 创建碰撞的三角形选择器以支持碰撞检测	[ 华亮 2011-10-29 ]
 	scene::ITriangleSelector* selector = mgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)this );
 	this->setTriangleSelector(selector);
 	selector->drop();
