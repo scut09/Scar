@@ -1,11 +1,13 @@
 #include "SceneNodeAnimatorFollow.h"
+#include "irrlicht.h"
 
 void SceneNodeAnimatorFollow::animateNode( ISceneNode* node, u32 timeMs )
 {
-	node->setRotation( Target->getRotation() );
-	vector3df direction = Target->getRotation().rotationToDirection().normalize();
+	ICameraSceneNode* camera = static_cast<ICameraSceneNode*>(Target);
+	node->setRotation( camera->getRotation() );
+	vector3df direction = camera->getTarget() - camera->getPosition();
 	vector3df offset = direction * Distance;
-	node->setPosition( Target->getPosition() + offset );
+	node->setPosition( camera->getPosition() + offset );
 	
 }
 

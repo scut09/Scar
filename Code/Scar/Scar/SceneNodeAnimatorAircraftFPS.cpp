@@ -10,6 +10,7 @@
 #include <iostream>
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/io.hpp>
+#include <boost/math/quaternion.hpp>
 namespace ub = boost::numeric::ublas;
 
 //! constructor
@@ -134,6 +135,15 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	f32 timeDiff = (f32) ( timeMs - LastAnimationTime );
 	LastAnimationTime = timeMs;
 
+	// 上帧镜头信息
+	vector3df relateRot = camera->getRotation();
+	vector3df lastUpVector = camera->getUpVector();
+	vector3df lastDirection = ( camera->getTarget() - camera->getPosition() ).normalize();
+	// 一些初始化变量
+	matrix4 irrMat;
+	ub::matrix<f32> bosMat(4,4);
+	ub::vector<f32> t(4);
+
 	// 鼠标控制
 	// 取得当前鼠标在屏幕上的位置以及离中心点的位移量
 	vector2d<s32> CursorOffset = CursorPos - CenterPos;
@@ -149,46 +159,60 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		CursorPos = newPos;
 		CursorControl->setPosition( newPos.X, newPos.Y );
 	}
-	// 杨成熙写的鼠标方向控制
-	//Count += 1;
-	//Count %= 100;
-	vector3df RotChange = vector3df(0);
-	//if ( ! flag )
-	//{
-	f32 horizonChange = 1;	// 当镜头上下翻转时鼠标水平操控方向也要翻转
-	if ( camera->getUpVector().Y < 0 )
-		horizonChange = -1;
-	f32 factor = 1.f;
-	//vector2d<f32>temvect ( (f32)CursorOffset.X, (f32)CursorOffset.Y );
-	//temvect.normalize();
-	/*bool vectchange = ( abs( Vect.X - temvect.X ) < 0.05f ) && ( abs( Vect.Y - temvect.Y ) < 0.05f );
-	if ( vectchange )
+	// 获取当前的旋转轴和旋转角
+	f32 tAng = (f32)CursorOffset.getAngle() - 90;
+	if ( tAng < 0 )
+		tAng += 360;
+	quaternion rotAxisQuat;
+	rotAxisQuat = rotAxisQuat.fromAngleAxis( tAng * DEGTORAD, lastDirection );
+	vector3df rotAxis = lastUpVector.crossProduct( lastDirection );
+	t(0) = rotAxis.X;  t(1) = rotAxis.Y;  t(2) = rotAxis.Z;  t(3) = 0;
+	irrMat = rotAxisQuat.getMatrix();
+	for ( int i=0; i<4; i++ )
 	{
-	if ( AcceFactor != 90 )
-	AcceFactor += 1;
-	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
-	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
-	if ( Count == 0 )
-	LastOffset = CursorOffset;
+		for( int j=0; j<4; j++ )
+		{
+			bosMat(j,i) = irrMat[ 4*i + j ];
+		}
 	}
-	else
+	t = prod( t, bosMat );
+	rotAxis = vector3df( t(0), t(1), t(2) );
+	// 求变换矩阵
+	f32 rotAng = (f32)CursorOffset.getLength() / (f32)MoveRadius * -2.0f /*系数相关*/;
+	rotAxisQuat = rotAxisQuat.fromAngleAxis( rotAng * DEGTORAD, rotAxis ); // 由刚才求得的旋转轴旋转特定角度
+	irrMat = rotAxisQuat.getMatrix();		
+	for ( int i=0; i<4; i++ )
 	{
-	if( AcceFactor != 5 )
-	{
-	RotChange.Y += (f32) horizonChange * ( LastOffset.X  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
-	RotChange.X += (f32) ( LastOffset.Y  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
-	AcceFactor -= 1;
+		for( int j=0; j<4; j++ )
+		{
+			bosMat(j,i) = irrMat[ 4*i + j ];
+		}
 	}
-	else
-	{
-	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
-	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor * sin( AcceFactor * DEGTORAD );
-	Vect = temvect;
-	}
-	}*/
-	RotChange.Y += (f32) horizonChange * ( CursorOffset.X  / (f32)MoveRadius ) / factor;
-	RotChange.X += (f32) ( CursorOffset.Y  / (f32)MoveRadius ) / factor;
-		//}
+	//rotAxisQuat.toEuler( RotChange );
+	// 求新的向前向量
+	t(0) = lastDirection.X; t(1) = lastDirection.Y; t(2) = lastDirection.Z; t(3) = 0;
+	t = prod( t, bosMat );
+	vector3df newDirection = vector3df( t(0), t(1), t(2) ).normalize();
+	// 求新的向上向量
+	t(0) = lastUpVector.X; t(1) = lastUpVector.Y; t(2) = lastUpVector.Z; t(3) = 0;
+	t = prod( t, bosMat );
+	vector3df newUpVector = vector3df( t(0), t(1), t(2) );
+	// 求新的旋转角
+	vector3df newRotation;
+	rotAxisQuat = rotAxisQuat.rotationFromTo( vector3df(0,0,1), newDirection );
+	rotAxisQuat.toEuler( newRotation );
+	newRotation *= RADTODEG;
+	//newRotation += camera->getRotation();
+	// 根据速度移动飞船
+	vector3df movement = newDirection * Ship->GetVelocity() /* 再乘以时间*/;
+	// 更新照相机状态
+	camera->setPosition( camera->getPosition() + movement );
+	camera->setTarget( camera->getPosition() + newDirection );
+	camera->setUpVector( newUpVector );
+	camera->setRotation( newRotation );
+	//std::cout<<std::endl;
+	//std::cout<<tAng<<std::endl;
+	//std::cout<< rotAxis.X << ","<< rotAxis.Y << ","<< rotAxis.Z << std::endl;
 
 	// 键盘控制
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
@@ -224,82 +248,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	{
 		/*if ( ! flag )
 			flag = true;*/
-		RotChange = vector3df( 0, 0, 15 );
 	}
-	/*if ( flag )
-	{
-		RotChange = vector3df( 0, 0, -15 );
-		Count += 1;
-		camera->setPosition( camera->getPosition() + vector3df( -50, 0, 0 ) );
-		if ( Count == 24 )
-		{
-			flag = false;
-			Count = 0;
-		}
-	}*/
-
-
-
-	// 设置照相机节点旋转状态
-	vector3df relateRot = camera->getRotation();
-	vector3df currentRot = relateRot + RotChange/* + 旋转改变量*/;
-	camera->setRotation( currentRot );
-
-	// 使用四元数完美解决万向锁，感谢熙狗
-	// 从欧拉角构造四元数
-	irr::core::quaternion quar( vector3df( currentRot.X * DEGTORAD, currentRot.Y * DEGTORAD, currentRot.Z * DEGTORAD ) );
-	// 从四元数构造旋转矩阵
-	matrix4 m = quar.getMatrix();
-	// 镜头upVector初始为( 0, 1, 0 )
-	ub::vector<f32> temp(4);
-	temp(0) = 0; temp(1) = 1; temp(2) = 0; temp(3) = 1;
-	// 使用boost库进行向量和矩阵相乘
-	ub::matrix<f32> m2(4,4);
-	for ( int i=0; i<4; i++ )
-	{
-		for( int j=0; j<4; j++ )
-		{
-			m2(j,i) = m[ 4*i + j ];
-		}
-	}
-	// 设置镜头upVector
-	// 注意：当上下翻转后，鼠标水平操控方向翻转
-	temp = ub::prod( temp, m2 );
-	camera->setUpVector( vector3df( temp(0), temp(1), temp(2) ) );
-	// 设置target的位置（X轴和Y轴）
-	temp(0) = 0; temp(1) = 0; temp(2) = 1; temp(3) = 1;
-	temp = ub::prod( temp, m2 );
-	vector3df direction = vector3df( temp(0), temp(1), temp(2) );
-	// 设置照相机节点的位置
-	vector3df movement = direction * Ship->GetVelocity()/* 再乘以一个时间系数 */;
-	camera->setPosition( camera->getPosition() + movement );
-	// 设置target的位置（X轴和Y轴）
-	camera->setTarget( camera->getPosition() + direction );
-
-	// 设置照相机节点的位置
-	//vector3df direction = currentRot.rotationToDirection();
-	//direction.normalize();
-	//vector3df movement = direction * Ship->GetVelocity()/* 再乘以一个时间系数 */;
-	//camera->setPosition( camera->getPosition() + movement );
-	//camera->setPosition( camera->getPosition() + vector3df(0, 0, Ship->GetVelocity()) );
-
-	//// 设置target的位置（X轴和Y轴）
-	//direction = vector3df( currentRot.X, currentRot.Y, currentRot.Z );			// 先忽略Z轴旋转
-	//direction = direction.rotationToDirection();					// 由角度求出位置向量
-	//camera->setTarget( camera->getPosition() + direction );
-
-
-	
-
-	// 设置镜头旋转（Z轴）y
-	//f32 zDeg = currentRot.Z;
-	////if ( (s32)currentRot.Y % 360 >= 90 )
-	////zDeg *= -1;
-	//vector3df upVector = vector3df( 0, 1, 0 );
-	//upVector.rotateXYBy( zDeg );
-	//camera->setUpVector( upVector );
-	/*std::cout<<camera->getUpVector().X<<","<<camera->getUpVector().Y<<","<<camera->getUpVector().Z<<"\t";
-	std::cout<<zDeg<<std::endl;*/
 
 }
 

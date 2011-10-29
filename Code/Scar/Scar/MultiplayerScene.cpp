@@ -146,7 +146,7 @@ void MultiplayerScene::Init()
 	//shakeAni->drop();
 
 	// ·É´¬¸úËæÕÕÏà»ú
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -20 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
