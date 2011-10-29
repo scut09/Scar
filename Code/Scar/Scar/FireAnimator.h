@@ -20,9 +20,10 @@ class FireAnimator : public ISceneNodeAnimator
 	bool IsFire;
 	bool Initialized;
 	std::vector<u32> LastTimes;
+	ICameraSceneNode* Camera;
 
 public:
-	FireAnimator();
+	FireAnimator( ICameraSceneNode* camera );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

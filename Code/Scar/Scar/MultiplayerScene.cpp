@@ -127,11 +127,6 @@ void MultiplayerScene::Init()
 	bullet->SetVelocity( 1000 );
 	bullet->SetInterval( 100 );
 	cf1->AddGun( bullet );
-	
-	// 创建火控
-	auto fireAni = new FireAnimator();
-	cf1->addAnimator( fireAni );
-	fireAni->drop();
 
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
@@ -146,9 +141,14 @@ void MultiplayerScene::Init()
 	shakeAni->drop();*/
 
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
+
+	// 创建火控
+	auto fireAni = new FireAnimator( m_pCamera );
+	cf1->addAnimator( fireAni );
+	fireAni->drop();
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5 );

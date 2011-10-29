@@ -33,9 +33,10 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				//ISceneNode* newBullet;
 				f32 distance = ship->GetGuns()[i]->GetVelocity() * ship->GetGuns()[i]->GetLife() / 1000.0f;  // 计算发射距离
 				// 计算当前飞船姿态
-				vector3df direction = ship->getRotation().rotationToDirection().normalize(); // 计算发射方向
-				vector3df upVector = ship->getRotation().rotationToDirection( vector3df(0,1,0) ).normalize();
-				vector3df horiVector = ship->getRotation().rotationToDirection( vector3df(1,0,0) ).normalize();
+				vector3df direction = ( Camera->getTarget() - Camera->getPosition() ).normalize(); // 计算发射方向
+				vector3df upVector = Camera->getUpVector();
+				upVector.normalize();
+				vector3df horiVector = ( upVector.crossProduct( direction ) ).normalize();
 				// 左炮管偏移
 				vector3df leftOffset = direction * 10 + upVector * -5 + horiVector * -5;
 				// 右炮管偏移
@@ -91,7 +92,7 @@ bool FireAnimator::OnEvent( const SEvent& event )
 	return false;
 }
 
-FireAnimator::FireAnimator() : IsFire( false ), Initialized( false )
+FireAnimator::FireAnimator( ICameraSceneNode* camera ) : IsFire( false ), Initialized( false ), Camera( camera )
 {
 
 }
