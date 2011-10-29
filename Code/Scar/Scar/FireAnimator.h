@@ -30,6 +30,8 @@ public:
 
 	virtual bool OnEvent( const SEvent& event );
 
+	static void AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs );
+
 };
 
 #endif // FireAnimator_h__

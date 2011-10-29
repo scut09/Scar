@@ -1,6 +1,7 @@
 #include "Boost_Client.h"
 #include "FireAnimator.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "CSceneNodeAnimatorCollisionResponse.h"
 #include "IShip.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
@@ -27,9 +28,9 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 		{
 			if ( timeMs - LastTimes[i] > ship->GetGuns()[i]->GetInterval() )
 			{
-				CSceneNodeAnimatorSelfDelFlyStraight* ani;
-				ISceneNodeAnimator* del;
-				ISceneNode* newBullet;
+				//CSceneNodeAnimatorSelfDelFlyStraight* ani;
+				//ISceneNodeAnimator* del;
+				//ISceneNode* newBullet;
 				f32 distance = ship->GetGuns()[i]->GetVelocity() * ship->GetGuns()[i]->GetLife() / 1000.0f;  // 计算发射距离
 				// 计算当前飞船姿态
 				vector3df direction = ship->getRotation().rotationToDirection().normalize(); // 计算发射方向
@@ -41,42 +42,18 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				vector3df rightOffset = direction * 10 + upVector * -5 + horiVector * 5;
 				// (左)
 				vector3df startPoint = ship->getPosition() + leftOffset; // 炮弹飞行起点
-				vector3df endPoint = startPoint + direction * distance; // 飞行终止点				
-				// 复制子弹(左)
-				newBullet = ship->GetGuns()[i]->Clone( 0, 0 );
-				newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
-				newBullet->setMaterialFlag( EMF_LIGHTING, false );
-				// 直飞和自删除动画
-				ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, ship->GetGuns()[i]->GetLife(), timeMs );
-				del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
-				
-				// 测试发送炮弹数据
-				client.SendBullet( 0, 0, startPoint, endPoint, ship->GetGuns()[i]->GetLife() );
+				vector3df endPoint = startPoint + direction * distance; // 飞行终止点		
 
-				// 帮子弹附上动画并发射出去
-				newBullet->addAnimator( ani );
-				newBullet->addAnimator( del );
-				del->drop();
-				ani->drop();
+				// 复制子弹(左)
+				AddBulletToScene( ship->GetGuns()[i], startPoint, endPoint, timeMs );				
+
 				//(右)
 				startPoint = ship->getPosition() + rightOffset; // 炮弹飞行起点
 				endPoint = startPoint + direction * distance; // 飞行终止点	
+
 				// 复制子弹(右)
-				newBullet = ship->GetGuns()[i]->Clone( 0, 0 );
-				newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
-				newBullet->setMaterialFlag( EMF_LIGHTING, false );
-				// 直飞和自删除动画
-				ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, ship->GetGuns()[i]->GetLife(), timeMs );
-				del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( ship->GetGuns()[i]->GetLife() );
+				AddBulletToScene( ship->GetGuns()[i], startPoint, endPoint, timeMs );				
 
-				// 测试发送炮弹数据
-				client.SendBullet( 0, 0, startPoint, endPoint, ship->GetGuns()[i]->GetLife() );
-
-				// 帮子弹附上动画并发射出去
-				newBullet->addAnimator( ani );
-				newBullet->addAnimator( del );
-				del->drop();
-				ani->drop();
 				LastTimes[i] = timeMs;
 			}
 		}
@@ -117,4 +94,24 @@ bool FireAnimator::OnEvent( const SEvent& event )
 FireAnimator::FireAnimator() : IsFire( false ), Initialized( false )
 {
 
+}
+
+void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs )
+{
+	// 复制子弹(左)
+	ISceneNode* newBullet = bullet->Clone( 0, 0 );
+	newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
+	newBullet->setMaterialFlag( EMF_LIGHTING, false );
+	// 直飞和自删除动画
+	auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, bullet->GetLife(), timeMs );
+	auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bullet->GetLife() );
+
+	// 测试发送炮弹数据
+	client.SendBullet( 0, 0, startPoint, endPoint, bullet->GetLife() );
+
+	// 帮子弹附上动画并发射出去
+	newBullet->addAnimator( ani );
+	newBullet->addAnimator( del );
+	del->drop();
+	ani->drop();
 }

@@ -213,7 +213,13 @@ void MultiplayerScene::Init()
 	{
 		// 设置名字
 		station->setName( "station1" );
-		//station->setMaterialType( EMT_NORMAL_MAP_SOLID );
+
+		//// 创建碰撞的三角形选择器以支持碰撞检测
+		//scene::ITriangleSelector* selector = 
+		//	MyIrrlichtEngine::GetEngine()->GetSceneManager()->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)station );
+		//station->setTriangleSelector(selector);
+		//selector->drop();
+
 		// 设置初始大小
 		//station->setScale( vector3df( .001f));
 		//station->setVisible(false);
