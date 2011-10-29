@@ -161,7 +161,7 @@ void Network::CNetwork::CreateBroadcastIPAddress()
 		if ( ep.address().is_v4() )
 		{
 			unsigned long ip = ep.address().to_v4().to_ulong();
-			ip |= 0xff;				// 将IP地址最后的位置为255,以便广播
+			ip |= 0xffff;				// 将IP地址最后的位置为255,以便广播
 			m_broadcast_ip.insert( ip );					
 		}
 	}
