@@ -32,7 +32,7 @@ public:
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 
-	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager=0 );
+	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager/*=0*/ );
 
 };
 

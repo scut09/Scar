@@ -141,12 +141,12 @@ void MultiplayerScene::Init()
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 8000, 1.2f );
+	auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
-	shakeAni->drop();*/
+	shakeAni->drop();
 
 	// ·É´¬¸úËæÕÕÏà»ú
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
