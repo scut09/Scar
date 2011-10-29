@@ -20,8 +20,6 @@ class MySceneNodeAnimatorShake : public ISceneNodeAnimator
 	u32 Begin;
 	u32 Delay;
 	u32 Duration;
-	vector3df Origin;			// 摄像机原始角度
-	vector3df LastOffset;		// 上次抖动改变角度
 	f32 AmpFrom;				// 振幅 角度
 	f32 AmpTo;					// 振幅 角度
 	f32 AmpFactor;				
@@ -35,6 +33,5 @@ public:
 	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager/*=0*/ );
 
 };
-
 
 #endif // MySceneNodeAnimatorShake_h__
