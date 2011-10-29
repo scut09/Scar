@@ -84,7 +84,9 @@
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Battleship.cpp" />
+    <ClCompile Include="CAnimatedMeshSceneNode.cpp" />
     <ClCompile Include="CBillboardSceneNode.cpp" />
+    <ClCompile Include="CBoneSceneNode.cpp" />
     <ClCompile Include="CGUITTFont.cpp" />
     <ClCompile Include="Boost_Client.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -92,6 +94,8 @@
     <ClCompile Include="CNetwork.cpp" />
     <ClCompile Include="Cruiseship.cpp" />
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp" />
+    <ClCompile Include="CShadowVolumeSceneNode.cpp" />
+    <ClCompile Include="CSkinnedMesh.cpp" />
     <ClCompile Include="FireAnimator.cpp" />
     <ClCompile Include="Frigate.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
@@ -151,7 +155,9 @@
     <ClInclude Include="BlinkUIAnimator.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="BulletNode.h" />
+    <ClInclude Include="CAnimatedMeshSceneNode.h" />
     <ClInclude Include="CBillboardSceneNode.h" />
+    <ClInclude Include="CBoneSceneNode.h" />
     <ClInclude Include="CGUITTFont.h" />
     <ClInclude Include="Boost_Client.h" />
     <ClInclude Include="Client.h" />
@@ -161,6 +167,8 @@
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h" />
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h" />
     <ClInclude Include="CSceneNodeAutoTrackAnimator.h" />
+    <ClInclude Include="CShadowVolumeSceneNode.h" />
+    <ClInclude Include="CSkinnedMesh.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="EventListener.h" />

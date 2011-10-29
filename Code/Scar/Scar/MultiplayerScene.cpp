@@ -208,7 +208,7 @@ void MultiplayerScene::Init()
 		//fuck->setVolume( fuck->getVolume() - 10 );
 
 	//加载空间站模型
-	IMeshSceneNode* station = smgr->addMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
 	if ( station )
 	{
 		// 设置名字
@@ -216,7 +216,7 @@ void MultiplayerScene::Init()
 
 		//// 创建碰撞的三角形选择器以支持碰撞检测
 		//scene::ITriangleSelector* selector = 
-		//	MyIrrlichtEngine::GetEngine()->GetSceneManager()->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)station );
+		//	MyIrrlichtEngine::GetEngine()->GetSceneManager()->createTriangleSelector( station );
 		//station->setTriangleSelector(selector);
 		//selector->drop();
 

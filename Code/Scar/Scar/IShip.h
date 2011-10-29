@@ -12,7 +12,7 @@
 #ifndef IShip_h__
 #define IShip_h__
 
-#include "CMeshSceneNode.h"
+#include "CAnimatedMeshSceneNode.h"
 #include <string>
 #include "IWeapon.h"
 #include <vector>
@@ -30,17 +30,17 @@ using namespace gui;
 ** 说明：舰船接口类，提供舰船的基本接口
 **
 */
-class IShip : public irr::scene::CMeshSceneNode
+class IShip : public irr::scene::CAnimatedMeshSceneNode
 {
 public:
 	
-	IShip( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
+	IShip( irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent,
 		irr::scene::ISceneManager* mgr,	s32 id,
 		const core::vector3df& position = core::vector3df(0,0,0),
 		const core::vector3df& rotation = core::vector3df(0,0,0),
 		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f) )
 		:
-	CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
+	CAnimatedMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 	{
 		if ( !parent )
 		{

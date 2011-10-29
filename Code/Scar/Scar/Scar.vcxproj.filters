@@ -231,6 +231,18 @@
     <ClCompile Include="CBillboardSceneNode.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="CAnimatedMeshSceneNode.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CShadowVolumeSceneNode.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkinnedMesh.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoneSceneNode.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -475,6 +487,18 @@
     </ClInclude>
     <ClInclude Include="network_header.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimatedMeshSceneNode.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CShadowVolumeSceneNode.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkinnedMesh.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoneSceneNode.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

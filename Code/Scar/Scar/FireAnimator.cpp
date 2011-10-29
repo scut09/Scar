@@ -115,4 +115,12 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 	newBullet->addAnimator( del );
 	del->drop();
 	ani->drop();
+
+	CSceneNodeAnimatorMyCollisionResponse* coll = 
+		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
+
+	
+
+	newBullet->addAnimator( coll );
+	coll->drop();
 }
