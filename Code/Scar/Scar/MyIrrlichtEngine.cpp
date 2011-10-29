@@ -93,6 +93,9 @@ void MyIrrlichtEngine::Run()
 	//m_pDevice->getGUIEnvironment()->addImage(pos);
 	statusText = m_pDevice->getGUIEnvironment()->addStaticText( L"Loading...",	pos, true );
 	statusText->setOverrideColor( video::SColor( 255, 205, 200, 200 ) );
+	IGUIFont* font = gui->getFont( _T("../media/msyh.ttf") );
+
+	statusText->setOverrideFont( font );
 
 	// 2D¿¹¾â³Ý
 	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter = true;
@@ -127,15 +130,15 @@ void MyIrrlichtEngine::Run()
 		currentScene->Run();
 
 		m_pDriver->beginScene( true, true, 0 );  //This time the setup is a little bit harder than normal.    
+		{
+			Blur->render();                     //For to hold it simple you just have to call two functions:                              
+			m_pDriver->setRenderTarget( 0 );    //render(), which does the mainwork(blending the differen Frames together)         
+			Blur->renderFinal();                //and renderFinal(); which will render the result into the given renderTarget.
 
-		Blur->render();                     //For to hold it simple you just have to call two functions:                              
-		m_pDriver->setRenderTarget( 0 );    //render(), which does the mainwork(blending the differen Frames together)         
-		Blur->renderFinal();                //and renderFinal(); which will render the result into the given renderTarget.
-
-		//m_pSmgr->drawAll();
-		gui->drawAll();
-		currentScene->Draw();
-
+			//m_pSmgr->drawAll();
+			gui->drawAll();
+			currentScene->Draw();
+		}
 		m_pDriver->endScene();               //remark, that Render() will automticly set the right Rendertargets. so no need setting                             
 
 
