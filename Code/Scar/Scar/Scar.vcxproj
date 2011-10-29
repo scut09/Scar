@@ -136,6 +136,7 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="TheBeginMove.cpp" />
     <ClCompile Include="TimelagUIAnimator.cpp" />
     <ClCompile Include="Toolkit.cpp" />
     <ClCompile Include="TranslateUIAnimator.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
     <ClInclude Include="IUIAnimator.h" />
+    <ClInclude Include="TheBeginMove.h" />
     <ClInclude Include="TimelagUIAnimator.h" />
     <ClInclude Include="Toolkit.h" />
     <ClInclude Include="TranslateUIAnimator.h" />
