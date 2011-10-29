@@ -288,6 +288,7 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 	if (NULL != ship)
 	{
 		//ship->SetCurrentLife( ship->GetCurrentLife() - damage );
+		ship->SetShield( ship->GetShield() - damage );
 	}
 
 }
