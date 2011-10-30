@@ -131,11 +131,17 @@ void MyIrrlichtEngine::Run()
 
 		m_pDriver->beginScene( true, true, 0 );  //This time the setup is a little bit harder than normal.    
 		{
-			Blur->render();                     //For to hold it simple you just have to call two functions:                              
-			m_pDriver->setRenderTarget( 0 );    //render(), which does the mainwork(blending the differen Frames together)         
-			Blur->renderFinal();                //and renderFinal(); which will render the result into the given renderTarget.
+			if ( m_bMotionBlur )
+			{
+				Blur->render();                     //For to hold it simple you just have to call two functions:                              
+				m_pDriver->setRenderTarget( 0 );    //render(), which does the mainwork(blending the differen Frames together)         
+				Blur->renderFinal();                //and renderFinal(); which will render the result into the given renderTarget.
+			}
+			else
+			{
+				m_pSmgr->drawAll();
+			}
 
-			//m_pSmgr->drawAll();
 			gui->drawAll();
 			currentScene->Draw();
 		}
@@ -234,6 +240,11 @@ void MyIrrlichtEngine::ClearDeletionList()
 		m_GameSceneDeletionList.clear();
 	}
 
+}
+
+void MyIrrlichtEngine::SetMotionBlur( bool bOpen /*= true */ )
+{
+	m_bMotionBlur = bOpen;
 }
 
 //AnimationManager* MyIrrlichtEngine::GetAnimationManager()

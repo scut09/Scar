@@ -405,6 +405,9 @@ void MultiplayerScene::Init()
 
 	//auto as = core::rect<s32>;
 
+	MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+
+
 	// 创建并注册receiver的事件处理回调函数
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ gui, box, fireAni, pEngine ]( const SEvent& event )->void*
 	{	
@@ -434,6 +437,14 @@ void MultiplayerScene::Init()
 		{
 			box->setVisible( false );
 			gui->setFocus( 0 );		
+		}
+		else if ( event.KeyInput.Key == KEY_KEY_I )
+		{
+			MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+		}
+		else if ( event.KeyInput.Key == KEY_KEY_O )
+		{
+			MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
 		}
 
 		return 0;

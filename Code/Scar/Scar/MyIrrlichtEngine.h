@@ -41,8 +41,10 @@ private:
 	static MyIrrlichtEngine*		m_pIrrlichtEngine;	// 单例模式，唯一的引擎
 	EngineRunCallbackFuncType		m_runCallbackFunc;  // 每次帧运行时都会调用的回调函数
 
+	bool							m_bMotionBlur;		// 是否开启运动模糊
+
 	// 禁止直接创建实例
-	MyIrrlichtEngine() : m_lastUpdateTime( 0 ) {}
+	MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( false ) {}
 
 private:
 	ModelManager					m_ModelManager;
@@ -75,6 +77,9 @@ public:
 	IrrlichtDevice*	GetDevice();
 
 	ModelManager* GetModelManager();
+
+	// 设置是否开启运动模糊
+	void SetMotionBlur( bool bOpen = true );
 
 	//AnimationManager* GetAnimationManager();	// 历史问题，动画管理交给
 
