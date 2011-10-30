@@ -107,6 +107,9 @@ void MyIrrlichtEngine::Run()
 	IPostProcessMotionBlur *Blur = new IPostProcessMotionBlur( m_pSmgr->getRootSceneNode(), m_pSmgr, 201212 );   
 	Blur->initiate( m_pDriver->getScreenSize().Width, m_pDriver->getScreenSize().Height, blurStrength, m_pSmgr );   
 
+	// 保存原始材质，以便在绘制2D时恢复原始的材质坐标映射
+	auto oldMaterial = m_pDriver->getMaterial2D();
+
 	while ( m_pDevice->run() )
 	{
 		if ( ! m_pDevice->isWindowActive() )	continue;
@@ -142,6 +145,7 @@ void MyIrrlichtEngine::Run()
 				m_pSmgr->drawAll();
 			}
 
+			m_pDriver->setMaterial( oldMaterial );
 			gui->drawAll();
 			currentScene->Draw();
 		}

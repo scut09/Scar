@@ -1,8 +1,8 @@
 /********************************************************************
-    创建时间: 2011-10-8   16:01
-    文件名:   MultiplayerScene.cpp
-    作者:     华亮 Cedric Porter [ Stupid ET ]	
-    说明:     多人游戏场景
+创建时间: 2011-10-8   16:01
+文件名:   MultiplayerScene.cpp
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     多人游戏场景
 
 *********************************************************************/
 
@@ -139,7 +139,7 @@ void MultiplayerScene::Init()
 
 	//// 创建飞船
 	//auto sh = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	
+
 
 	//cf1->setPosition( vector3df( 0, 0, 50 ) );
 	// 创建子弹
@@ -231,7 +231,7 @@ void MultiplayerScene::Init()
 
 	pSoundEngine = createIrrKlangDevice();
 	fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
-		//fuck->setVolume( fuck->getVolume() - 10 );
+	//fuck->setVolume( fuck->getVolume() - 10 );
 
 	//加载空间站模型
 	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
@@ -338,7 +338,7 @@ void MultiplayerScene::Init()
 	}
 
 
-//	m_pAnimationMan = pEngine->GetAnimationManager();
+	//	m_pAnimationMan = pEngine->GetAnimationManager();
 
 
 
@@ -378,7 +378,7 @@ void MultiplayerScene::Init()
 	//	return 0;
 	//} );
 
-	
+
 	//CFlame flame;
 	//auto fire = flame.createFlame(
 	//	MyIrrlichtEngine::GetEngine()->GetDevice(), 
@@ -398,8 +398,8 @@ void MultiplayerScene::Init()
 	//	node->addChild( fire );
 	//}
 	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
-	
-	
+
+
 	IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
 	box->setVisible( false );
 
@@ -416,40 +416,42 @@ void MultiplayerScene::Init()
 		//pEngine;		// 引擎指针
 		/*if (event.EventType == EET_KEY_INPUT_EVENT )
 		{
-			if (event.KeyInput.Key == KEY_KEY_W )
-			{
-				pSoundEngine->play2D( fuck );
-			}
+		if (event.KeyInput.Key == KEY_KEY_W )
+		{
+		pSoundEngine->play2D( fuck );
+		}
 		}*/
-		if ( event.KeyInput.Key == KEY_KEY_T )
+		if ( event.KeyInput.PressedDown )
 		{
-			box->setVisible( true );
-			gui->setFocus( box );		
+			if ( event.KeyInput.Key == KEY_KEY_T )
+			{
+				box->setVisible( true );
+				gui->setFocus( box );		
+			}
+			else if ( event.KeyInput.Key == KEY_RETURN )
+			{
+				box->setVisible( false );
+				gui->setFocus( 0 );		
+				client.BroadcastMessage( client.m_index, box->getText() );
+				std::wcout << box->getText() << std::endl;
+			}
+			else if ( event.KeyInput.Key == KEY_ESCAPE )
+			{
+				box->setVisible( false );
+				gui->setFocus( 0 );		
+			}
+			else if ( event.KeyInput.Key == KEY_KEY_I )
+			{
+				MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+			}
+			else if ( event.KeyInput.Key == KEY_KEY_O )
+			{
+				MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
+			}
 		}
-		else if ( event.KeyInput.Key == KEY_RETURN )
-		{
-			box->setVisible( false );
-			gui->setFocus( 0 );		
-			client.BroadcastMessage( client.m_index, box->getText() );
-			std::wcout << box->getText() << std::endl;
-		}
-		else if ( event.KeyInput.Key == KEY_ESCAPE )
-		{
-			box->setVisible( false );
-			gui->setFocus( 0 );		
-		}
-		else if ( event.KeyInput.Key == KEY_KEY_I )
-		{
-			MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
-		}
-		else if ( event.KeyInput.Key == KEY_KEY_O )
-		{
-			MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
-		}
-
 		return 0;
 	} );
-	
+
 
 	client.QueryRoom();
 
@@ -464,7 +466,7 @@ void MultiplayerScene::Release()
 	m_pCamera->remove();
 	m_pSkyBox->remove();
 
-//	m_pAnimationMan->RemoveAll();
+	//	m_pAnimationMan->RemoveAll();
 
 	m_pModelMan->DeleteAll();
 
