@@ -290,22 +290,26 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 	// 获取炮弹类型
 	BulletHittedBag* bag = (BulletHittedBag*)p.GetData();
 
-	ISceneManager* smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
-
-	smgr->getSceneNodeFromId( bag->owner_index );
-
-	ISceneNode* target_node = smgr->getSceneNodeFromId( bag->target_index );
-
-	int damage = 10;
-
-	IShip *ship = dynamic_cast<IShip *>( target_node );
-	if (NULL != ship)
+	if ( 0 <= bag->target_index && bag->target_index < 100 )
 	{
-		//ship->SetCurrentLife( ship->GetCurrentLife() - damage );
-		ship->SetShield( ship->GetShield() - damage );
-		std::cout << "ship\n";
+		ISceneManager* smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 
+		smgr->getSceneNodeFromId( bag->owner_index );
+
+		ISceneNode* target_node = smgr->getSceneNodeFromId( bag->target_index );
+
+		int damage = 10;
+
+		IShip *ship = dynamic_cast<IShip *>( target_node );
+		if (NULL != ship)
+		{
+			//ship->SetCurrentLife( ship->GetCurrentLife() - damage );
+			ship->SetShield( ship->GetShield() - damage );
+			std::cout << "ship SetShield\n";
+		}
 	}
+
+
 
 }
 
