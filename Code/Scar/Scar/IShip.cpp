@@ -228,3 +228,13 @@ void IShip::SetArmor( f32 armor )
 {
 	CurrentArmor = armor;
 }
+
+void IShip::SetEnergy( const u32& en )
+{
+	Energy = en;
+}
+
+const u32 IShip::GetEnergy() const
+{
+	return Energy;
+}

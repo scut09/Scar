@@ -112,11 +112,11 @@ public:
 	const f32 GetArmor() const;
 	void SetArmor( f32 armor );
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-
 	//获取和修改飞船的能量 
-	virtual void SetEnergy( const u32& en ){ Energy = en; }
-	virtual u32   GetEnergy() const { return Energy;}
+	void SetEnergy( const u32& en );
+	const u32 GetEnergy() const;
+
+	//////////////////////////////////////////////////////////////////////////////////////////
 
 	//获取和修改飞船的金钱
 	virtual void SetMoney( const u32& money) { Money  = money; }

@@ -20,6 +20,7 @@
 
 #include "RelateCameraAnimatorStay.h"
 #include "RelateCameraAnimatorMove.h"
+#include "TheBeginMove.h"
 
 #include "SceneNodeAnimatorAircraftFPS.h"
 #include "SceneNodeAnimatorFollow.h"
