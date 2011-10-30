@@ -323,6 +323,13 @@ void Network::BoostClient::OnMessage( unsigned long ip, const PACKAGE& p )
 	}
 	box->setVisible( true );
 	box->setText( bag->GetMsg() );
+
+	// 两秒后隐藏
+	boost::thread t( []()
+	{
+		boost::thread::sleep( boost::get_system_time() + boost::posix_time::seconds( 2 ) );
+		box->setVisible( false );
+	} );
 }
 
 

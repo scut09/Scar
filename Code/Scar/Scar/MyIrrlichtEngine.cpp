@@ -145,7 +145,7 @@ void MyIrrlichtEngine::Run()
 				m_pSmgr->drawAll();
 			}
 
-			m_pDriver->setMaterial( oldMaterial );
+			m_pDriver->setMaterial( oldMaterial );		// »Ö¸´Ô­Ê¼ÌùÍ¼Ó³Éä
 			gui->drawAll();
 			currentScene->Draw();
 		}

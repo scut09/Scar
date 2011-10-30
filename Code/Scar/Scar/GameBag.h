@@ -68,8 +68,8 @@ namespace Network
 	/* 聊天信息                                                              */
 	/************************************************************************/
 
-	const int BROADCAST_MESSAGE_SIZE = 1024;							// 最大信息长度
-	const int BROADCAST_MESSAGE_INIT_LENGTH = sizeof( int ) * 2 + 1;	// 初始包长度
+	const int BROADCAST_MESSAGE_SIZE = 1024;											// 最大信息长度
+	const int BROADCAST_MESSAGE_INIT_LENGTH = sizeof( int ) * 2 + sizeof( wchar_t );	// 初始包长度
 
 
 	// 广播信息
@@ -105,7 +105,7 @@ namespace Network
 				i++;
 			}
 			m_msg[ i ] = 0;
-			m_len = BROADCAST_MESSAGE_INIT_LENGTH + i;
+			m_len = BROADCAST_MESSAGE_INIT_LENGTH + i * sizeof( wchar_t );
 		}
 
 		const wchar_t* GetMsg() const

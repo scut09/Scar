@@ -425,6 +425,7 @@ void MultiplayerScene::Init()
 		{
 			if ( event.KeyInput.Key == KEY_KEY_T )
 			{
+				box->setText( _T("") );
 				box->setVisible( true );
 				gui->setFocus( box );		
 			}
