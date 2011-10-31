@@ -221,21 +221,114 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		newUpVector = vector3df( t(0), t(1), t(2) );
 	}
 
+	//// 求新的旋转角
+	//// 求pitch角，xz平面的法线为0,1,0
+	//vector3df upNormal = vector3df( 0, 1, 0 );
+	//f32 pitch = acos(upNormal.dotProduct( newDirection ) / newDirection.getLength()) * RADTODEG;
+	//pitch = 90 - pitch;
+	//if ( newDirection.Z < 0 )
+	//	pitch = 180 - pitch;
+	//else if( newDirection.Y < 0 )
+	//	pitch = 360 + pitch;
+	//// 求yaw角，yz平面的法线为-1,0,0
+	//vector3df yzNormal = vector3df( -1, 0, 0 );
+	//f32 yaw = acos( yzNormal.dotProduct( newDirection) / newDirection.getLength() ) * RADTODEG;
+	//yaw = 90 - yaw; 
+	//if ( newDirection.Z < 0 )
+	//	yaw = 180 - yaw;
+	//else if( newDirection.X > 0 )
+	//	yaw = 360 + yaw;
+	//// 求roll角，xy平面的法线为0,0,1
+	//vector3df xyNormal = vector3df( 0, 1, 1 );
+	//f32 roll = acos( xyNormal.dotProduct( newUpVector) / newUpVector.getLength() ) * RADTODEG;
+	//if ( newUpVector.X < 0 )
+	//	roll = 360 - roll;
+	//std::cout<<roll<<std::endl;
 
-	// 求新的旋转角
-	vector3df newRotation;
-	//newRotation = ( newDirection - vector3df( 0,0,1 ) ).getHorizontalAngle();
-	rotAxisQuat = rotAxisQuat.rotationFromTo( vector3df(0,0,1), newDirection );
-	rotAxisQuat.toEuler( newRotation );
-	newRotation *= RADTODEG;
+	//vector3df newRotation = vector3df( -pitch, -yaw, -roll );
 
-
-
+	////newRotation = ( newDirection - vector3df( 0,0,1 ) ).getHorizontalAngle();
+	//rotAxisQuat = rotAxisQuat.rotationFromTo( vector3df(0,0,1), newDirection );
+	//rotAxisQuat.toEuler( newRotation );
+	//newRotation *= RADTODEG;
+	quaternion q;
+	q = q.rotationFromTo( vector3df(0,0,1), newDirection );
+	f32 q1 = q.X; f32 q2 = q.Y; f32 q3 = q.Z; f32 q4 = q.W;
+	ub::matrix<f32> A(3,3);
+	A(0,0) = q1*q1 - q2*q2 - q3*q3 + q4*q4;
+	A(0,1) = 2*( q1*q2 + q3*q4 );
+	A(0,2) = 2*( q1*q3 - q2*q4 );
+	A(1,0) = 2*( q1*q2 - q3*q4 );
+	A(1,1) = -q1*q1 + q2*q2 - q3*q3 + q4*q4;
+	A(1,2) = 2*( q2*q3 + q1*q4 );
+	A(2,0) = 2*( q1*q3 + q2*q4 );
+	A(2,1) = 2*( q2*q3 - q1*q4 );
+	A(2,2) = -q1*q1 - q2*q2 + q3*q3 + q4*q4; 
+	f32 pitch, yaw, roll;
+	f32 sx,sy,sz,cx,cy,cz;
+	//A1
+	if( A(2,2) > 0 )
+		pitch = atan( A(1,2)/A(2,2) );
+	else
+		pitch = PI*sin(A(1,2)) + atan( A(1,2)/A(2,2) );
+	yaw = asin( -A(0,2) );
+	if( A(0,0) > 0 )
+		roll = atan( A(0,1)/A(0,0) );
+	else
+		roll = PI*sin( A(0,1) ) + atan( A(0,1)/A(0,0) );
+	vector3df A1 = vector3df( pitch*RADTODEG, yaw*RADTODEG, roll*RADTODEG );
+	//Q1
+	quaternion Q1;
+	sx=sin(pitch/2.f); sy=sin(yaw/2.f); sz=sin(roll/2.f);
+	cx=cos(pitch/2.f); cy=cos(yaw/2.f); cz=cos(roll/2.f);
+	Q1.X = cz*sx*cy - sz*cx*sy;
+	Q1.Y = sz*sx*cy - cz*cx*sy;
+	Q1.Z = -cz*sx*sy + sz*cx*cy;
+	Q1.W = sz*sx*sy + cz*cx*sy;
+	//A2
+	if( A(2,2) < 0 )
+		pitch = atan( A(1,2)/A(2,2) );
+	else
+		pitch = -PI*sin(A(1,2)) + atan( A(1,2)/A(2,2) );
+	yaw = -PI*sin(A(0,2)) - asin( -A(0,2) );
+	if( A(0,0) < 0 )
+		roll = atan( A(0,1)/A(0,0) );
+	else
+		roll = -PI*sin( A(0,1) ) + atan( A(0,1)/A(0,0) );
+	vector3df A2 = vector3df( pitch*RADTODEG, yaw*RADTODEG, roll*RADTODEG );
+	//Q2
+	quaternion Q2;
+	sx=sin(pitch/2.f); sy=sin(yaw/2.f); sz=sin(roll/2.f);
+	cx=cos(pitch/2.f); cy=cos(yaw/2.f); cz=cos(roll/2.f);
+	Q2.X = cz*sx*cy - sz*cx*sy;
+	Q2.Y = sz*sx*cy - cz*cx*sy;
+	Q2.Z = -cz*sx*sy + sz*cx*cy;
+	Q2.W = sz*sx*sy + cz*cx*sy;
+	//R
+	vector3df R = relateRot;
+	f32 tVal;
+	vector3df Final;
+	//|Q-Q1|
+	tVal = sqrt(pow(q.X-Q1.X,2) + pow(q.Y-Q1.Y,2) + pow(q.Z-Q1.Z,2) + pow(q.W-Q1.W,2));
+	if( tVal >= 1e-8 )
+		Final = A2;//A2
+	else
+	{
+		tVal = sqrt(pow(q.X-Q2.X,2) + pow(q.Y-Q2.Y,2) + pow(q.Z-Q2.Z,2) + pow(q.W-Q2.W,2));
+		if( tVal >= 1e-8 )
+			Final = A1;//A1
+		else if( (A1-R).getLength() >= (A2-R).getLength() )
+			Final = A2;//A2
+		else
+			Final = A1;//A1
+	}
+	camera->setRotation( Final );
+	
 	// 更新照相机状态
 	camera->setPosition( camera->getPosition() + movement );
 	camera->setTarget( camera->getPosition() + newDirection );
 	camera->setUpVector( newUpVector );
-	camera->setRotation( newRotation );
+	//camera->setRotation( newDirection.getHorizontalAngle() );
 	//std::cout<<std::endl;
 	//std::cout<<tAng<<std::endl;
 	//std::cout<< rotAxis.X << ","<< rotAxis.Y << ","<< rotAxis.Z << std::endl;

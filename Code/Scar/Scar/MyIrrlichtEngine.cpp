@@ -84,18 +84,17 @@ void MyIrrlichtEngine::Run()
 	s32 now = 0;
 	s32 lastfps = 0;
 	s32 sceneStartTime = m_pDevice->getTimer()->getTime();
-	gui::IGUIStaticText* statusText;
+	//gui::IGUIStaticText* statusText;
 	const int lwidth = size.Width - 20;
 	const int lheight = 16;
 	auto gui = m_pDevice->getGUIEnvironment();
 
-	core::rect<int> pos( 10, size.Height - lheight - 10, 10 + lwidth, size.Height - 10 );
-	//m_pDevice->getGUIEnvironment()->addImage(pos);
-	statusText = m_pDevice->getGUIEnvironment()->addStaticText( L"Loading...",	pos, true );
-	statusText->setOverrideColor( video::SColor( 255, 205, 200, 200 ) );
-	IGUIFont* font = gui->getFont( _T("../media/msyh.ttf") );
-
-	statusText->setOverrideFont( font );
+	//core::rect<int> pos( 10, size.Height - lheight - 10, 10 + lwidth, size.Height - 10 );
+	////m_pDevice->getGUIEnvironment()->addImage(pos);
+	//statusText = m_pDevice->getGUIEnvironment()->addStaticText( L"Loading...",	pos, true );
+	//statusText->setOverrideColor( video::SColor( 255, 205, 200, 200 ) );
+	//IGUIFont* font = gui->getFont( _T("../media/msyh.ttf") );
+	//statusText->setOverrideFont( font );
 
 	// 2D¿¹¾â³Ý
 	m_pDriver->getMaterial2D().TextureLayer[0].BilinearFilter = true;
@@ -103,7 +102,7 @@ void MyIrrlichtEngine::Run()
 	//m_pDriver->enableMaterial2D();
 
 	// ÔË¶¯Ä£ºý
-	f32	blurStrength = 0.5f;
+	f32	blurStrength = 0.3f;
 	IPostProcessMotionBlur *Blur = new IPostProcessMotionBlur( m_pSmgr->getRootSceneNode(), m_pSmgr, 201212 );   
 	Blur->initiate( m_pDriver->getScreenSize().Width, m_pDriver->getScreenSize().Height, blurStrength, m_pSmgr );   
 
@@ -161,7 +160,7 @@ void MyIrrlichtEngine::Run()
 			m_pDriver->getName(), m_pDriver->getFPS(),
 			m_pDriver->getPrimitiveCountDrawn(1) * (1.f / 1000000.f));
 
-		statusText->setText(tmp);
+		//statusText->setText(tmp);
 		if ( nowfps != lastfps )
 		{
 			m_pDevice->setWindowCaption(tmp);

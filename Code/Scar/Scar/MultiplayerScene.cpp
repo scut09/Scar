@@ -23,6 +23,7 @@
 #include "UIManager.h"
 #include "Frigate.h"
 #include "BulletNode.h"
+#include "Toolkit.h"
 
 #include "irrKlang.h"
 using namespace irrklang;
@@ -44,8 +45,15 @@ IUIObject* Shield2;	// 护盾槽空
 IUIObject* Armor1;	// 护甲槽满
 IUIObject* Armor2;	// 护甲槽空
 IUIObject* Gradienter;	// 水平仪
+IUIObject* target1;	//目标圈——友军
+IUIObject* lock1;	//锁定框——已锁定
+IUIObject* indicator1;	// 敌军指示
 IShip* cf1;
+IShip* npc;
 BulletNode* bullet;	// 子弹
+
+Toolkit* toolkit;
+Node2DInfo info2D;
 
 ISoundEngine* pSoundEngine;
 ISoundSource* fuck;
@@ -118,6 +126,39 @@ void MultiplayerScene::Run()
 
 	// 水平仪转动
 	Gradienter->SetRotation( m_pCamera->getRotation().Z );
+
+	// 测试用圈圈圈住目标
+	 if ( toolkit->GetNode2DInfo( npc, &info2D ) )
+	 {
+		 f32 sca = info2D.height / 60.0f;
+		 if ( sca > 1.2f )
+			 sca = 1.2f;
+		 else if ( sca < 0.5f )
+			 sca = 0.5f;
+		 target1->SetPosition( info2D.pos );
+		 target1->SetScale( vector2df(sca) );
+		 lock1->SetPosition( info2D.pos );
+		 lock1->SetScale( vector2df(sca) );
+		 target1->SetVisible( true );
+		 lock1->SetVisible( true );
+	 }
+	 else
+	 {
+		  target1->SetVisible( false );
+		  lock1->SetVisible( false );
+	 }
+	 // 测试用箭头标记地方位置
+	 vector3df t1 = npc->getPosition() - m_pCamera->getPosition();
+	 t1 = (m_pCamera->getTarget() - m_pCamera->getPosition()).crossProduct( t1 );
+	/* quaternion q1;
+	 q1.rotationFromTo( m_pCamera->getUpVector(), t1 );
+	 f32 ang = 2*acos(q1.W)*RADTODEG;*/
+	 //ang = -ang;
+	 f32 ang = ( t1.dotProduct( m_pCamera->getUpVector() ) ) / ( t1.getLength() * m_pCamera->getUpVector().getLength() );
+	 ang = acos(ang) * RADTODEG + 90;
+	 //std::cout<< ang << std::endl;
+	 indicator1->SetRotation( ang );
+	 
 }
 
 void MultiplayerScene::Init()
@@ -135,16 +176,9 @@ void MultiplayerScene::Init()
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
 	// 创建飞船
-	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );	
 
-	auto NPC = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-
-
-	//// 创建飞船
-	//auto sh = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-
-
-	//cf1->setPosition( vector3df( 0, 0, 50 ) );
+	//cf1->setPosition( vector3df( 0, 0, 50 ) );rt
 	// 创建子弹
 	bullet = new BulletNode( smgr );
 	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
@@ -160,19 +194,23 @@ void MultiplayerScene::Init()
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
-
-	auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
+	// 开场动画
+	/*auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
 	m_pCamera->addAnimator( BeginMove );
-	BeginMove->drop();
+	BeginMove->drop();*/
 
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
+
+	// 创建npc飞船
+	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	npc->setPosition( vector3df(0,0,50) );
+	toolkit = new Toolkit( m_pCamera, driver );
 
 	// 创建火控
 	auto fireAni = new FireAnimator( m_pCamera );
@@ -313,6 +351,10 @@ void MultiplayerScene::Init()
 	{
 		PyErr_Print();
 	}
+	//// 文字显示
+	UIStaticText* text = new UIStaticText( uiManager->GetRoot(), 100, 200, L"我草草草草草草", SColor(255) );
+	text->SetPosition( vector2df(300,300) );
+	//uiManager->GetRoot()->AddChild( text );
 	// 获取鼠标准心
 	Cursor = uiManager->GetObjectByName("cursor");
 	// 获取速度槽
@@ -326,6 +368,12 @@ void MultiplayerScene::Init()
 	Armor2 = uiManager->GetObjectByName( "armor2");
 	// 获取水平仪
 	Gradienter = uiManager->GetObjectByName( "gradienter" );
+	// 获取目标圈
+	target1 = uiManager->GetObjectByName( "target1" );
+	// 获取锁定圈——已锁定
+	lock1 = uiManager->GetObjectByName( "lock1" );
+	// 获取敌军指示
+	indicator1 = uiManager->GetObjectByName( "indicator1" );
 
 	try
 	{

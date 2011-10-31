@@ -19,7 +19,7 @@ struct Node2DInfo
 {
 	s32 width;
 	s32 height;
-	position2d<s32> pos;
+	position2d<f32> pos;
 };
 
 
