@@ -19,14 +19,20 @@ Toolkit::~Toolkit(void)
 /************************************************************************/
 bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 {
+	core::aabbox3df ViewBox = m_pCamara->getViewFrustum()->getBoundingBox();
+	if (!ViewBox.isPointInside(pNode->getAbsolutePosition()))
+	{
+		return false;
+	}
+	
 	// 计算三维物体在屏幕上的坐标
 	position2d<f32> screamPoint;
 	if ( !To2DScreamPos(pNode->getPosition(), &(screamPoint)) )
 	{
 		return false;
 	}
-	pNode2DInfo->pos.X = (s32)screamPoint.X;
-	pNode2DInfo->pos.Y = (s32)screamPoint.Y;
+	pNode2DInfo->pos.X = screamPoint.X;
+	pNode2DInfo->pos.Y = screamPoint.Y;
 	s32 width, height;
 	f32 xMax, xMin, yMax, yMin;
 	xMin = xMax = yMin = yMax = 0;

@@ -512,6 +512,9 @@
     <ClInclude Include="TheBeginMove.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="PlanetAtmosphere.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">

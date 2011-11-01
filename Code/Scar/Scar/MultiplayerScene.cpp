@@ -62,6 +62,8 @@ bool bRunOnce = true;
 
 void MultiplayerScene::Run()
 {
+	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+	IVideoDriver* driver = pEngine->GetVideoDriver();
 	if ( bRunOnce )
 	{
 		bRunOnce = false;
@@ -130,6 +132,7 @@ void MultiplayerScene::Run()
 	// 测试用圈圈圈住目标
 	 if ( toolkit->GetNode2DInfo( npc, &info2D ) )
 	 {
+		 indicator1->SetVisible( false );
 		 f32 sca = info2D.height / 60.0f;
 		 if ( sca > 1.2f )
 			 sca = 1.2f;
@@ -146,18 +149,16 @@ void MultiplayerScene::Run()
 	 {
 		  target1->SetVisible( false );
 		  lock1->SetVisible( false );
-	 }
-	 // 测试用箭头标记地方位置
-	 vector3df t1 = npc->getPosition() - m_pCamera->getPosition();
-	 t1 = (m_pCamera->getTarget() - m_pCamera->getPosition()).crossProduct( t1 );
-	/* quaternion q1;
-	 q1.rotationFromTo( m_pCamera->getUpVector(), t1 );
-	 f32 ang = 2*acos(q1.W)*RADTODEG;*/
-	 //ang = -ang;
-	 f32 ang = ( t1.dotProduct( m_pCamera->getUpVector() ) ) / ( t1.getLength() * m_pCamera->getUpVector().getLength() );
-	 ang = acos(ang) * RADTODEG + 90;
-	 //std::cout<< ang << std::endl;
-	 indicator1->SetRotation( ang );
+		  indicator1->SetVisible( true );
+		  // 测试用箭头标记地方位置
+		  vector2df screenPos;
+		  toolkit->To2DScreamPos( (npc->getPosition() - m_pCamera->getPosition()), &screenPos );
+		  vector2df screenVec = screenPos - vector2df( driver->getScreenSize().Width / 2.f, driver->getScreenSize().Height / 2.f );
+		  f32 ang = (f32)screenVec.getAngle();
+		  ang = -(ang-90);
+		  //std::cout<< ang << std::endl;
+		  indicator1->SetRotation( ang );
+	 } 
 	 
 }
 
@@ -203,7 +204,7 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 

@@ -30,8 +30,6 @@ public:
 	Toolkit(ICameraSceneNode* pCamara, IVideoDriver* pDriver);
 	~Toolkit(void);
 	bool GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo);
-
-private:
 	bool To2DScreamPos(vector3df v, position2d<f32>* p);
 
 private:
