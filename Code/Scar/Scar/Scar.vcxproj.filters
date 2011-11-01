@@ -521,9 +521,6 @@
     <ClInclude Include="TheBeginMove.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="PlanetAtmosphere.h">
-      <Filter>Shader</Filter>
-    </ClInclude>
     <ClInclude Include="SceneNodeShader.h">
       <Filter>Shader</Filter>
     </ClInclude>

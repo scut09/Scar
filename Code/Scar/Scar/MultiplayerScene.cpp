@@ -24,7 +24,7 @@
 #include "Frigate.h"
 #include "BulletNode.h"
 #include "Toolkit.h"
-#include "PlanetAtmosphere.h"
+#include "SceneNodeShader.h"
 #include "MySceneManager.h"
 #include "irrKlang.h"
 using namespace irrklang;
@@ -58,6 +58,9 @@ Node2DInfo info2D;
 
 ISoundEngine* pSoundEngine;
 ISoundSource* fuck;
+
+//测试用shader
+SceneNodeShader* shader;
 
 bool bRunOnce = true;
 
@@ -173,6 +176,7 @@ void MultiplayerScene::Init()
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	m_pModelMan = pEngine->GetModelManager();
 	auto driver = pEngine->GetVideoDriver();
+	shader = new SceneNodeShader();
 
 	// 隐藏鼠标
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
@@ -220,7 +224,7 @@ void MultiplayerScene::Init()
 	fireAni->drop();
 
 	//加载行星
-	auto planet = smgr->addSphereSceneNode( 4e5 );
+	auto planet = smgr->addSphereSceneNode( 4e5, 64 );
 	if ( planet )
 	{
 		// 设置名称
@@ -232,8 +236,7 @@ void MultiplayerScene::Init()
 		planet->addAnimator( rot );
 		rot->drop();
 		// Shader
-		PlanetAtmosphere plShader;
-		plShader.Apply( planet );
+		shader->ApplyShaderToSceneNode( planet, 0, "" );
 		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
 		//// 缩放动画
