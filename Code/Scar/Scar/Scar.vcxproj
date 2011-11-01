@@ -101,6 +101,7 @@
     <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
+    <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySceneNodeAnimatorCallFunc.cpp" />
     <ClCompile Include="MySceneNodeAnimatorMove.cpp" />
     <ClCompile Include="MySceneNodeAnimatorScale.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="MyIReferenceCounted.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
+    <ClInclude Include="MySceneManager.h" />
     <ClInclude Include="MySceneNodeAnimatorCallFunc.h" />
     <ClInclude Include="MySceneNodeAnimatorMove.h" />
     <ClInclude Include="MySceneNodeAnimatorScale.h" />
