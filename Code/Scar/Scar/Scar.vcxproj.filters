@@ -55,6 +55,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{79159352-dd7d-41bf-b013-926685a87ca9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\shaders">
+      <UniqueIdentifier>{5f7363fe-adcf-43c5-931d-766376297638}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -248,6 +251,12 @@
     </ClCompile>
     <ClCompile Include="TheBeginMove.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="MySceneManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodeShader.cpp">
+      <Filter>Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -515,6 +524,12 @@
     <ClInclude Include="PlanetAtmosphere.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="MySceneManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNodeShader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">
@@ -552,6 +567,9 @@
     </None>
     <None Include="..\..\..\bin\Python\WEB.py">
       <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\ShaderTest.txt">
+      <Filter>Shader\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

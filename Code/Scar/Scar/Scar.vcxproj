@@ -134,6 +134,7 @@
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp" />
     <ClCompile Include="Boost_Server.cpp" />
     <ClCompile Include="SceneNodeAnimatorFollow.cpp" />
+    <ClCompile Include="SceneNodeShader.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
     <ClCompile Include="StartScene.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h" />
     <ClInclude Include="Boost_Server.h" />
     <ClInclude Include="SceneNodeAnimatorFollow.h" />
+    <ClInclude Include="SceneNodeShader.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="StartScene.h" />
@@ -251,6 +253,7 @@
     <None Include="..\..\..\bin\Python\StartScene.py" />
     <None Include="..\..\..\bin\Python\UILoader.py" />
     <None Include="..\..\..\bin\Python\WEB.py" />
+    <None Include="..\..\..\bin\Shader\ShaderTest.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
