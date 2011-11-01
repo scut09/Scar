@@ -337,11 +337,8 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	////////////////////////////////////////
 	// 华亮 2011-11-1 设置相机的旋转角以备飞机使用
-
-	const vector3df toTarget( camera->getTarget() - camera->getPosition() );
-	vector3df requiredRotation = toTarget.getHorizontalAngle();
-	//f32 angel = fmodf( newUpVector.getHorizontalAngle().X, 360.f );
-	camera->setRotation( requiredRotation );
+	vector3df toTarget( camera->getTarget() - camera->getPosition() );
+	camera->setRotation( toTarget.getHorizontalAngle() );
 	/////////////////////////////////////////////////////////////
 
 	
@@ -351,10 +348,13 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	//static int iii = 0;
 	//if ( iii++ % 20 == 0 )
 	//{
-	//	auto newUpAngleRotati = newUpVector.getHorizontalAngle();
-	//	PRINT_POS( requiredRotation );
-	//	PRINT_POS( newUpAngleRotati );
-	//	PRINT_POS( newUpVector );
+	//	auto pos = toTarget.getSphericalCoordinateAngles();
+	//	PRINT_POS( pos );
+
+	//	//auto newUpAngleRotati = newUpVector.getHorizontalAngle();
+	//	//PRINT_POS( requiredRotation );
+	//	//PRINT_POS( newUpAngleRotati );
+	//	//PRINT_POS( newUpVector );
 	//}
 
 
