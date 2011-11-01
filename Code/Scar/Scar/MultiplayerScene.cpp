@@ -24,6 +24,7 @@
 #include "Frigate.h"
 #include "BulletNode.h"
 #include "Toolkit.h"
+#include "PlanetAtmosphere.h"
 
 #include "irrKlang.h"
 using namespace irrklang;
@@ -230,6 +231,9 @@ void MultiplayerScene::Init()
 		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.003f, 0) );
 		planet->addAnimator( rot );
 		rot->drop();
+		// Shader
+		PlanetAtmosphere plShader;
+		plShader.Apply( planet );
 		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
 		//// 缩放动画
@@ -276,26 +280,26 @@ void MultiplayerScene::Init()
 	//fuck->setVolume( fuck->getVolume() - 10 );
 
 	//加载空间站模型
-	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-	if ( station )
-	{
-		// 设置名字
-		station->setName( "station1" );
+	//IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
+	//if ( station )
+	//{
+	//	// 设置名字
+	//	station->setName( "station1" );
 
-		//// 创建碰撞的三角形选择器以支持碰撞检测
-		//scene::ITriangleSelector* selector = 
-		//	MyIrrlichtEngine::GetEngine()->GetSceneManager()->createTriangleSelector( station );
-		//station->setTriangleSelector(selector);
-		//selector->drop();
+	//	//// 创建碰撞的三角形选择器以支持碰撞检测
+	//	//scene::ITriangleSelector* selector = 
+	//	//	MyIrrlichtEngine::GetEngine()->GetSceneManager()->createTriangleSelector( station );
+	//	//station->setTriangleSelector(selector);
+	//	//selector->drop();
 
-		// 设置初始大小
-		//station->setScale( vector3df( .001f));
-		//station->setVisible(false);
-		// 缩放动画
-		//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
-		//moon->addAnimator( sca );
-		//sca->drop();
-	}
+	//	// 设置初始大小
+	//	//station->setScale( vector3df( .001f));
+	//	//station->setVisible(false);
+	//	// 缩放动画
+	//	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
+	//	//moon->addAnimator( sca );
+	//	//sca->drop();
+	//}
 	//driver->setFog(video::SColor(0,138,125,81), video::EFT_FOG_LINEAR, 250, 1000, .003f, true, false);
 	//IAnimatedMesh* stationMesh = smgr->getMesh( "../modle/station/cs1.3ds" );
 	//ITexture* normalMap = driver->getTexture( "../modle/station/cs1_tex_ngs.jpg" );
