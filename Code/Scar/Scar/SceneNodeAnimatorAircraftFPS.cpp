@@ -345,17 +345,17 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	/////////////////////////////////////////////////////////////
 
 	
-	core::vector3df p = camera->getTarget() - camera->getPosition();
-	p.getHorizontalAngle();
+	//core::vector3df p = camera->getTarget() - camera->getPosition();
+	//p.getHorizontalAngle();
 
-	static int iii = 0;
-	if ( iii++ % 20 == 0 )
-	{
-		auto newUpAngleRotati = newUpVector.getHorizontalAngle();
-		PRINT_POS( requiredRotation );
-		PRINT_POS( newUpAngleRotati );
-		PRINT_POS( newUpVector );
-	}
+	//static int iii = 0;
+	//if ( iii++ % 20 == 0 )
+	//{
+	//	auto newUpAngleRotati = newUpVector.getHorizontalAngle();
+	//	PRINT_POS( requiredRotation );
+	//	PRINT_POS( newUpAngleRotati );
+	//	PRINT_POS( newUpVector );
+	//}
 
 
 	//std::cout << "dot " << newUpVector.dotProduct( camera->getTarget() - camera->getPosition() ) << std::endl;
