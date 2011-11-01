@@ -252,11 +252,11 @@
     <ClCompile Include="TheBeginMove.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="MySceneManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="SceneNodeShader.cpp">
       <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MySceneManager.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -524,11 +524,11 @@
     <ClInclude Include="PlanetAtmosphere.h">
       <Filter>Shader</Filter>
     </ClInclude>
-    <ClInclude Include="MySceneManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="SceneNodeShader.h">
       <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MySceneManager.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

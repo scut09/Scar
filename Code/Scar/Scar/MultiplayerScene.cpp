@@ -25,7 +25,7 @@
 #include "BulletNode.h"
 #include "Toolkit.h"
 #include "PlanetAtmosphere.h"
-
+#include "MySceneManager.h"
 #include "irrKlang.h"
 using namespace irrklang;
 

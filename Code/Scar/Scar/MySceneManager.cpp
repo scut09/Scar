@@ -3,5 +3,8 @@
 
 MySceneManager::MySceneManager()
 {
-	smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+	auto pEngine = MyIrrlichtEngine::GetEngine();
+	smgr	= pEngine->GetSceneManager();
+	driver	= pEngine->GetVideoDriver();
+	timer	= pEngine->GetDevice()->getTimer();
 }
