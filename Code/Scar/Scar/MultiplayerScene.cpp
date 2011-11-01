@@ -205,7 +205,7 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// ·É´¬¸úËæÕÕÏà»ú
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 

@@ -11,6 +11,9 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/math/quaternion.hpp>
+
+#define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
+
 namespace ub = boost::numeric::ublas;
 
 //! constructor
@@ -251,83 +254,111 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	//rotAxisQuat = rotAxisQuat.rotationFromTo( vector3df(0,0,1), newDirection );
 	//rotAxisQuat.toEuler( newRotation );
 	//newRotation *= RADTODEG;
-	quaternion q;
-	q = q.rotationFromTo( vector3df(0,0,1), newDirection );
-	f32 q1 = q.X; f32 q2 = q.Y; f32 q3 = q.Z; f32 q4 = q.W;
-	ub::matrix<f32> A(3,3);
-	A(0,0) = q1*q1 - q2*q2 - q3*q3 + q4*q4;
-	A(0,1) = 2*( q1*q2 + q3*q4 );
-	A(0,2) = 2*( q1*q3 - q2*q4 );
-	A(1,0) = 2*( q1*q2 - q3*q4 );
-	A(1,1) = -q1*q1 + q2*q2 - q3*q3 + q4*q4;
-	A(1,2) = 2*( q2*q3 + q1*q4 );
-	A(2,0) = 2*( q1*q3 + q2*q4 );
-	A(2,1) = 2*( q2*q3 - q1*q4 );
-	A(2,2) = -q1*q1 - q2*q2 + q3*q3 + q4*q4; 
-	f32 pitch, yaw, roll;
-	f32 sx,sy,sz,cx,cy,cz;
-	//A1
-	if( A(2,2) > 0 )
-		pitch = atan( A(1,2)/A(2,2) );
-	else
-		pitch = PI*sin(A(1,2)) + atan( A(1,2)/A(2,2) );
-	yaw = asin( -A(0,2) );
-	if( A(0,0) > 0 )
-		roll = atan( A(0,1)/A(0,0) );
-	else
-		roll = PI*sin( A(0,1) ) + atan( A(0,1)/A(0,0) );
-	vector3df A1 = vector3df( pitch*RADTODEG, yaw*RADTODEG, roll*RADTODEG );
-	//Q1
-	quaternion Q1;
-	sx=sin(pitch/2.f); sy=sin(yaw/2.f); sz=sin(roll/2.f);
-	cx=cos(pitch/2.f); cy=cos(yaw/2.f); cz=cos(roll/2.f);
-	Q1.X = cz*sx*cy - sz*cx*sy;
-	Q1.Y = sz*sx*cy - cz*cx*sy;
-	Q1.Z = -cz*sx*sy + sz*cx*cy;
-	Q1.W = sz*sx*sy + cz*cx*sy;
-	//A2
-	if( A(2,2) < 0 )
-		pitch = atan( A(1,2)/A(2,2) );
-	else
-		pitch = -PI*sin(A(1,2)) + atan( A(1,2)/A(2,2) );
-	yaw = -PI*sin(A(0,2)) - asin( -A(0,2) );
-	if( A(0,0) < 0 )
-		roll = atan( A(0,1)/A(0,0) );
-	else
-		roll = -PI*sin( A(0,1) ) + atan( A(0,1)/A(0,0) );
-	vector3df A2 = vector3df( pitch*RADTODEG, yaw*RADTODEG, roll*RADTODEG );
-	//Q2
-	quaternion Q2;
-	sx=sin(pitch/2.f); sy=sin(yaw/2.f); sz=sin(roll/2.f);
-	cx=cos(pitch/2.f); cy=cos(yaw/2.f); cz=cos(roll/2.f);
-	Q2.X = cz*sx*cy - sz*cx*sy;
-	Q2.Y = sz*sx*cy - cz*cx*sy;
-	Q2.Z = -cz*sx*sy + sz*cx*cy;
-	Q2.W = sz*sx*sy + cz*cx*sy;
-	//R
-	vector3df R = relateRot;
-	f32 tVal;
-	vector3df Final;
-	//|Q-Q1|
-	tVal = sqrt(pow(q.X-Q1.X,2) + pow(q.Y-Q1.Y,2) + pow(q.Z-Q1.Z,2) + pow(q.W-Q1.W,2));
-	if( tVal >= 1e-8 )
-		Final = A2;//A2
-	else
-	{
-		tVal = sqrt(pow(q.X-Q2.X,2) + pow(q.Y-Q2.Y,2) + pow(q.Z-Q2.Z,2) + pow(q.W-Q2.W,2));
-		if( tVal >= 1e-8 )
-			Final = A1;//A1
-		else if( (A1-R).getLength() >= (A2-R).getLength() )
-			Final = A2;//A2
-		else
-			Final = A1;//A1
-	}
-	camera->setRotation( Final );
+
+	//quaternion q;
+	//q = q.rotationFromTo( vector3df(0,0,1), newDirection );
+	//f32 q1 = q.X; f32 q2 = q.Y; f32 q3 = q.Z; f32 q4 = q.W;
+	//ub::matrix<f32> A(3,3);
+	//A(0,0) = q1*q1 - q2*q2 - q3*q3 + q4*q4;
+	//A(0,1) = 2*( q1*q2 + q3*q4 );
+	//A(0,2) = 2*( q1*q3 - q2*q4 );
+	//A(1,0) = 2*( q1*q2 - q3*q4 );
+	//A(1,1) = -q1*q1 + q2*q2 - q3*q3 + q4*q4;
+	//A(1,2) = 2*( q2*q3 + q1*q4 );
+	//A(2,0) = 2*( q1*q3 + q2*q4 );
+	//A(2,1) = 2*( q2*q3 - q1*q4 );
+	//A(2,2) = -q1*q1 - q2*q2 + q3*q3 + q4*q4; 
+	//f32 pitch, yaw, roll;
+	//f32 sx,sy,sz,cx,cy,cz;
+	////A1
+	//if( A(2,2) > 0 )
+	//	pitch = atan( A(1,2)/A(2,2) );
+	//else
+	//	pitch = PI*sin(A(1,2)) + atan( A(1,2)/A(2,2) );
+	//yaw = asin( -A(0,2) );
+	//if( A(0,0) > 0 )
+	//	roll = atan( A(0,1)/A(0,0) );
+	//else
+	//	roll = PI*sin( A(0,1) ) + atan( A(0,1)/A(0,0) );
+	//vector3df A1 = vector3df( pitch*RADTODEG, yaw*RADTODEG, roll*RADTODEG );
+	////Q1
+	//quaternion Q1;
+	//sx=sin(pitch/2.f); sy=sin(yaw/2.f); sz=sin(roll/2.f);
+	//cx=cos(pitch/2.f); cy=cos(yaw/2.f); cz=cos(roll/2.f);
+	//Q1.X = cz*sx*cy - sz*cx*sy;
+	//Q1.Y = sz*sx*cy - cz*cx*sy;
+	//Q1.Z = -cz*sx*sy + sz*cx*cy;
+	//Q1.W = sz*sx*sy + cz*cx*sy;
+	////A2
+	//if( A(2,2) < 0 )
+	//	pitch = atan( A(1,2)/A(2,2) );
+	//else
+	//	pitch = -PI*sin(A(1,2)) + atan( A(1,2)/A(2,2) );
+	//yaw = -PI*sin(A(0,2)) - asin( -A(0,2) );
+	//if( A(0,0) < 0 )
+	//	roll = atan( A(0,1)/A(0,0) );
+	//else
+	//	roll = -PI*sin( A(0,1) ) + atan( A(0,1)/A(0,0) );
+	//vector3df A2 = vector3df( pitch*RADTODEG, yaw*RADTODEG, roll*RADTODEG );
+	////Q2
+	//quaternion Q2;
+	//sx=sin(pitch/2.f); sy=sin(yaw/2.f); sz=sin(roll/2.f);
+	//cx=cos(pitch/2.f); cy=cos(yaw/2.f); cz=cos(roll/2.f);
+	//Q2.X = cz*sx*cy - sz*cx*sy;
+	//Q2.Y = sz*sx*cy - cz*cx*sy;
+	//Q2.Z = -cz*sx*sy + sz*cx*cy;
+	//Q2.W = sz*sx*sy + cz*cx*sy;
+	////R
+	//vector3df R = relateRot;
+	//f32 tVal;
+	//vector3df Final;
+	////|Q-Q1|
+	//tVal = sqrt(pow(q.X-Q1.X,2) + pow(q.Y-Q1.Y,2) + pow(q.Z-Q1.Z,2) + pow(q.W-Q1.W,2));
+	//if( tVal >= 1e-8 )
+	//	Final = A2;//A2
+	//else
+	//{
+	//	tVal = sqrt(pow(q.X-Q2.X,2) + pow(q.Y-Q2.Y,2) + pow(q.Z-Q2.Z,2) + pow(q.W-Q2.W,2));
+	//	if( tVal >= 1e-8 )
+	//		Final = A1;//A1
+	//	else if( (A1-R).getLength() >= (A2-R).getLength() )
+	//		Final = A2;//A2
+	//	else
+	//		Final = A1;//A1
+	//}
+
+	//camera->setRotation( Final );
+
 	
 	// 更新照相机状态
 	camera->setPosition( camera->getPosition() + movement );
 	camera->setTarget( camera->getPosition() + newDirection );
 	camera->setUpVector( newUpVector );
+
+	////////////////////////////////////////
+	// 华亮 2011-11-1 设置相机的旋转角以备飞机使用
+
+	const vector3df toTarget( camera->getTarget() - camera->getPosition() );
+	vector3df requiredRotation = toTarget.getHorizontalAngle();
+	//f32 angel = fmodf( newUpVector.getHorizontalAngle().X, 360.f );
+	camera->setRotation( requiredRotation );
+	/////////////////////////////////////////////////////////////
+
+	
+	core::vector3df p = camera->getTarget() - camera->getPosition();
+	p.getHorizontalAngle();
+
+	static int iii = 0;
+	if ( iii++ % 20 == 0 )
+	{
+		auto newUpAngleRotati = newUpVector.getHorizontalAngle();
+		PRINT_POS( requiredRotation );
+		PRINT_POS( newUpAngleRotati );
+		PRINT_POS( newUpVector );
+	}
+
+
+	//std::cout << "dot " << newUpVector.dotProduct( camera->getTarget() - camera->getPosition() ) << std::endl;
 	//camera->setRotation( newDirection.getHorizontalAngle() );
 	//std::cout<<std::endl;
 	//std::cout<<tAng<<std::endl;
