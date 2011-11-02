@@ -168,7 +168,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		LastAnimationTime = timeMs;
 
 		// 不需要绑定旋转和target
-		camera->bindTargetAndRotation( true );
+		camera->bindTargetAndRotation( false );
 		
 		// 初始化完成
 		firstUpdate = false;

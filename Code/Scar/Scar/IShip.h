@@ -84,6 +84,7 @@ public:
 		const u32& shield=1, const u32& currentgrade=0, const u32& nextgrade=1, const u32&maxgrade=10, const f32& inertance=1,
 		const f32& recoverLife=10, const f32& experience=0, const f32& experiencetograde=100 );
 
+
 	//获取和设置飞船的主炮
 	const std::vector< IWeapon* >& GetGuns() const;
 	void AddGun( IWeapon* gun );
