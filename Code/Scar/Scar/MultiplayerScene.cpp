@@ -64,6 +64,46 @@ SceneNodeShader* shader;
 
 bool bRunOnce = true;
 
+// CallBacks
+// 通用型Shader回调函数
+// 内含世界矩阵，投影矩阵，纹理，时钟
+class GeneralCallBack : public video::IShaderConstantSetCallBack
+{
+	virtual void OnSetConstants( IMaterialRendererServices* services, s32 userData ) 
+	{
+		IVideoDriver* driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
+		ISceneManager* smgr = MyIrrlichtEngine::GetEngine()->GetDevice()->getSceneManager();
+
+		//世界投影矩阵
+		matrix4 worldViewProj;
+		worldViewProj = driver->getTransform( ETS_PROJECTION );
+		worldViewProj *= driver->getTransform( ETS_VIEW );
+		worldViewProj *= driver->getTransform( ETS_WORLD );
+		services->setVertexShaderConstant( "WorldViewProj", worldViewProj.pointer(), 16);
+
+		//世界矩阵逆矩阵
+		matrix4 invWorld = driver->getTransform( ETS_WORLD );
+		invWorld.makeInverse();
+		services->setVertexShaderConstant( "InvWorld", invWorld.pointer(), 16);
+
+		//世界矩阵转置矩阵
+		matrix4 transWorld = driver->getTransform( ETS_WORLD );
+		transWorld = transWorld.getTransposed();
+		services->setVertexShaderConstant( "TransWorld", transWorld.pointer(), 16);
+
+		//纹理, 最多支持四重纹理
+		int d[]   = {0, 1, 2, 3};      //Sampler2d IDs
+		services->setPixelShaderConstant("TextureL0",(float*)&d[0],1);
+		services->setPixelShaderConstant("TextureL1",(float*)&d[1],1);
+		services->setPixelShaderConstant("TextureL2",(float*)&d[2],1);
+		services->setPixelShaderConstant("TextureL3",(float*)&d[3],1);
+
+		//时钟
+		f32 timeMs = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+		services->setVertexShaderConstant( "TimeMs", (f32*)&timeMs, 1);
+	}
+};
+
 void MultiplayerScene::Run()
 {
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
@@ -166,16 +206,6 @@ void MultiplayerScene::Run()
 	 
 }
 
-class MyCallBack : public video::IShaderConstantSetCallBack
-{
-	virtual void OnSetConstants( IMaterialRendererServices* services, s32 userData ) 
-	{
-		vector3df cameraPos = MyIrrlichtEngine::GetEngine()->GetSceneManager()->getActiveCamera()->getPosition();
-		services->setVertexShaderConstant( "v3CameraPos", reinterpret_cast<f32*>(&cameraPos), 3 );
-	}
-
-};
-
 void MultiplayerScene::Init()
 {
 	server.Start( 1990, 2012 );
@@ -241,12 +271,15 @@ void MultiplayerScene::Init()
 		planet->setName( "planet1" );
 		// 加载纹理
 		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
+		planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/citylights.jpg") ) );
+		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/cloud.jpg") ) );
 		// 星球自转
-		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.003f, 0) );
+		auto rot = smgr->createRotationAnimator( vector3df( 0, 1.f, 0) );
 		planet->addAnimator( rot );
 		rot->drop();
 		// Shader
-		shader->ApplyShaderToSceneNode( planet, 0, "" );
+		GeneralCallBack* cb = new GeneralCallBack();
+		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
 		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
 		//// 缩放动画

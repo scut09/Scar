@@ -254,6 +254,8 @@
     <None Include="..\..\..\bin\Python\WEB.py" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
+    <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />
+    <None Include="..\..\..\bin\Shader\PlanetGroundV.txt" />
     <None Include="..\..\..\bin\Shader\ShaderTest.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

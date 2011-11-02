@@ -1,0 +1,29 @@
+
+uniform mat4 WorldViewProj;
+vec3 LightDirection = vec3( -1.0, 0.0, 0.0 ); //uniform vec3 SunPosition;
+uniform mat4 InvWorld;
+uniform mat4 TransWorld;
+
+varying vec4 DiffLight;
+varying vec4 AmbiLight;
+varying vec4 Light;
+
+void main(void)
+{
+	gl_Position = WorldViewProj * gl_Vertex;
+
+
+	// 计算散射光
+	vec4 N = normalize(InvWorld * vec4(gl_Normal, 0.0));
+	vec4 L = vec4( LightDirection, 0.0 );
+	float NdotL = dot(N, L);
+	DiffLight = vec4(max(0.0, NdotL));
+	// 计算全局光
+	AmbiLight = vec4(0.15);
+	// 计算总光照
+	Light = DiffLight + AmbiLight;
+	
+	gl_TexCoord[0] = gl_MultiTexCoord0;
+	gl_TexCoord[1] = gl_MultiTexCoord1;
+	gl_TexCoord[2] = gl_MultiTexCoord2;
+}

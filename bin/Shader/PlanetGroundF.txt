@@ -1,0 +1,19 @@
+//uniform sampler2D Ground;
+//uniform sampler2D Cloud;
+//uniform sampler2D CityLight;
+
+uniform sampler2D TextureL0; //Ground
+uniform sampler2D TextureL1; //CityLight
+uniform sampler2D TextureL2; //Cloud
+
+varying vec4 DiffLight;
+varying vec4 AmbiLight;
+varying vec4 Light;
+
+void main(void)
+{
+	vec3 GroundColor = texture2D( TextureL0, vec2(gl_TexCoord[0]) ).rgb;
+	vec3 CityLightColor = texture2D( TextureL1, vec2(gl_TexCoord[1]) ).rgb;
+	vec3 CloudColor = texture2D( TextureL2, vec2(gl_TexCoord[0]) ).rgb;
+	gl_FragColor = vec4( GroundColor, 1.0 ) * Light;
+}
