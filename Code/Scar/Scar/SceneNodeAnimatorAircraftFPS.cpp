@@ -15,6 +15,52 @@
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
 namespace ub = boost::numeric::ublas;
+using core::vector3df;
+//
+//vector3df GetRotationFrom( const vector3df& direction, const vector3df& upVector )
+//{
+//	f32 X = direction.X; 
+//	f32 Y = direction.Y;
+//	f32 Z = direction.Z;
+//
+//	vector3df angle;
+//
+//	const f64 tmp = (atan2((f64)X, (f64)Z) * RADTODEG64);
+//	angle.Y = (f32)tmp;
+//
+//	if (angle.Y < 0)
+//		angle.Y += 360;
+//	if (angle.Y >= 360)
+//		angle.Y -= 360;
+//
+//	const f64 z1 = core::squareroot(X*X + Z*Z);
+//
+//	angle.X = (f32)(atan2((f64)z1, (f64)Y) * RADTODEG64 - 90.0);
+//
+//	if (angle.X < 0)
+//		angle.X += 360;
+//	if (angle.X >= 360)
+//		angle.X -= 360;
+//
+//	f64 temp = upVector.dotProduct( vector3df( 0, 1, 0 ) );
+//	temp /= upVector.getLength();
+//
+//	temp = acos( temp ) * RADTODEG64;
+//
+//	/*f32 y = core::abs_( upVector.Y );
+//	f64 temp = core::squareroot( upVector.X*upVector.X + upVector.Y*upVector.Y + upVector.Z*upVector.Z );
+//	temp = y / temp;*/
+//	angle.Z = (f32)temp;	//(asin( temp ) * RADTODEG64 - 90.);
+//
+//	if (angle.Z < 0)
+//		angle.Z += 360;
+//	if (angle.Z >= 360)
+//		angle.Z -= 360;
+//
+//	return angle;
+//};
+
+
 
 //! constructor
 CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl,
@@ -122,7 +168,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		LastAnimationTime = timeMs;
 
 		// 不需要绑定旋转和target
-		camera->bindTargetAndRotation( false );
+		camera->bindTargetAndRotation( true );
 		
 		// 初始化完成
 		firstUpdate = false;
@@ -168,6 +214,8 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	f32 tAng = (f32)CursorOffset.getAngle() - 90;
 	if ( tAng < 0 )
 		tAng += 360;
+	//std::cout << "cursor angle " << tAng << std::endl;
+
 	quaternion rotAxisQuat;
 	rotAxisQuat = rotAxisQuat.fromAngleAxis( tAng * DEGTORAD, lastDirection );
 	vector3df rotAxis = lastUpVector.crossProduct( lastDirection );
@@ -329,40 +377,23 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	//camera->setRotation( Final );
 
+
+	
+		
+	
 	
 	// 更新照相机状态
 	camera->setPosition( camera->getPosition() + movement );
 	camera->setTarget( camera->getPosition() + newDirection );
 	camera->setUpVector( newUpVector );
 
-	////////////////////////////////////////
-	// 华亮 2011-11-1 设置相机的旋转角以备飞机使用
-	vector3df toTarget( camera->getTarget() - camera->getPosition() );
-	camera->setRotation( toTarget.getHorizontalAngle() );
-	/////////////////////////////////////////////////////////////
+	//core::matrix4 matrix = camera->getViewMatrix();
+	//matrix.buildCameraLookAtMatrixLH( camera->getPosition(), camera->getTarget(), camera->getUpVector() );
 
-	
-	//core::vector3df p = camera->getTarget() - camera->getPosition();
-	//p.getHorizontalAngle();
+	//camera->setRotation( matrix.getRotationDegrees() * -1 );
+	//camera->setRotation( GetRotationFrom( newDirection, newUpVector ) );
 
-	//static int iii = 0;
-	//if ( iii++ % 20 == 0 )
-	//{
-	//	auto pos = toTarget.getSphericalCoordinateAngles();
-	//	PRINT_POS( pos );
-
-	//	//auto newUpAngleRotati = newUpVector.getHorizontalAngle();
-	//	//PRINT_POS( requiredRotation );
-	//	//PRINT_POS( newUpAngleRotati );
-	//	//PRINT_POS( newUpVector );
-	//}
-
-
-	//std::cout << "dot " << newUpVector.dotProduct( camera->getTarget() - camera->getPosition() ) << std::endl;
-	//camera->setRotation( newDirection.getHorizontalAngle() );
-	//std::cout<<std::endl;
-	//std::cout<<tAng<<std::endl;
-	//std::cout<< rotAxis.X << ","<< rotAxis.Y << ","<< rotAxis.Z << std::endl;
+	//PRINT_POS( camera->getRotation() );
 
 	// 键盘控制
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
