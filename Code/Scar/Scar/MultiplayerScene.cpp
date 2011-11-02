@@ -66,13 +66,27 @@ bool bRunOnce = true;
 
 // CallBacks
 // 通用型Shader回调函数
+// 需传入参数：目标节点
 // 内含世界矩阵，投影矩阵，纹理，时钟
 class GeneralCallBack : public video::IShaderConstantSetCallBack
 {
+	ISceneNode* Node;
+
+public:
+	GeneralCallBack( ISceneNode* node )
+		: Node( node )
+	{
+
+	}
+private:
 	virtual void OnSetConstants( IMaterialRendererServices* services, s32 userData ) 
 	{
 		IVideoDriver* driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
 		ISceneManager* smgr = MyIrrlichtEngine::GetEngine()->GetDevice()->getSceneManager();
+
+		//节点变换矩阵
+		matrix4 transMatrix = Node->getAbsoluteTransformation();
+		services->setVertexShaderConstant( "TransMatrix", transMatrix.pointer(), 16);
 
 		//世界投影矩阵
 		matrix4 worldViewProj;
@@ -99,7 +113,7 @@ class GeneralCallBack : public video::IShaderConstantSetCallBack
 		services->setPixelShaderConstant("TextureL3",(float*)&d[3],1);
 
 		//时钟
-		f32 timeMs = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+		f32 timeMs = (f32)MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 		services->setVertexShaderConstant( "TimeMs", (f32*)&timeMs, 1);
 	}
 };
@@ -270,15 +284,15 @@ void MultiplayerScene::Init()
 		// 设置名称
 		planet->setName( "planet1" );
 		// 加载纹理
-		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
-		planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/citylights.jpg") ) );
-		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/cloud.jpg") ) );
+		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet7.jpg") ) );
+		planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
+		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/c.png") ) );
 		// 星球自转
-		auto rot = smgr->createRotationAnimator( vector3df( 0, 1.f, 0) );
+		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
 		planet->addAnimator( rot );
 		rot->drop();
 		// Shader
-		GeneralCallBack* cb = new GeneralCallBack();
+		GeneralCallBack* cb = new GeneralCallBack( planet );
 		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
 		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
@@ -412,10 +426,6 @@ void MultiplayerScene::Init()
 	{
 		PyErr_Print();
 	}
-	//// 文字显示
-	UIStaticText* text = new UIStaticText( uiManager->GetRoot(), 100, 200, L"我草草草草草草", SColor(255) );
-	text->SetPosition( vector2df(300,300) );
-	//uiManager->GetRoot()->AddChild( text );
 	// 获取鼠标准心
 	Cursor = uiManager->GetObjectByName("cursor");
 	// 获取速度槽

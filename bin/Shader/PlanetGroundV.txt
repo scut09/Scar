@@ -3,6 +3,7 @@ uniform mat4 WorldViewProj;
 vec3 LightDirection = vec3( -1.0, 0.0, 0.0 ); //uniform vec3 SunPosition;
 uniform mat4 InvWorld;
 uniform mat4 TransWorld;
+uniform mat4 TransMatrix;
 
 varying vec4 DiffLight;
 varying vec4 AmbiLight;
@@ -14,12 +15,12 @@ void main(void)
 
 
 	// 计算散射光
-	vec4 N = normalize(InvWorld * vec4(gl_Normal, 0.0));
+	vec4 N = normalize( TransMatrix * vec4(gl_Normal, 0.0));
 	vec4 L = vec4( LightDirection, 0.0 );
 	float NdotL = dot(N, L);
 	DiffLight = vec4(max(0.0, NdotL));
 	// 计算全局光
-	AmbiLight = vec4(0.15);
+	AmbiLight = vec4(0.05);
 	// 计算总光照
 	Light = DiffLight + AmbiLight;
 	
