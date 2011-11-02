@@ -166,6 +166,16 @@ void MultiplayerScene::Run()
 	 
 }
 
+class MyCallBack : public video::IShaderConstantSetCallBack
+{
+	virtual void OnSetConstants( IMaterialRendererServices* services, s32 userData ) 
+	{
+		vector3df cameraPos = MyIrrlichtEngine::GetEngine()->GetSceneManager()->getActiveCamera()->getPosition();
+		services->setVertexShaderConstant( "v3CameraPos", reinterpret_cast<f32*>(&cameraPos), 3 );
+	}
+
+};
+
 void MultiplayerScene::Init()
 {
 	server.Start( 1990, 2012 );
@@ -209,7 +219,7 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// ·É´¬¸úËæÕÕÏà»ú
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
@@ -248,6 +258,16 @@ void MultiplayerScene::Init()
 		planet->addAnimator( relstayAni );
 		relstayAni->drop();
 	}
+	// ÐÐÐÇ´óÆøÈ¦
+	//ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.1e5, 64, planet );
+	//if ( planetAtmos )
+	//{
+	//	MyCallBack* mc = new MyCallBack();
+	//	// Shader
+	//	shader->ApplyShaderToSceneNode( planetAtmos, mc, "Shader/PlanetAtmosV.txt", "",EMT_TRANSPARENT_ADD_COLOR );
+	//	mc->drop();
+	//}
+
 
 	//¼ÓÔØÎÀÐÇ
 	auto moon = smgr->addSphereSceneNode( 1e5 );

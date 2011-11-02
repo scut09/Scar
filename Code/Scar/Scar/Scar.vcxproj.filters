@@ -568,5 +568,11 @@
     <None Include="..\..\..\bin\Shader\ShaderTest.txt">
       <Filter>Shader\shaders</Filter>
     </None>
+    <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt">
+      <Filter>Shader\shaders</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt">
+      <Filter>Shader\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
