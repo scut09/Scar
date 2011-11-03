@@ -37,6 +37,8 @@ namespace Network
 		// 发送，输入数字形式的ip		
 		virtual void SendTo( unsigned long ip, const PACKAGE& pack ) = 0;
 
+		virtual void TcpSendTo( unsigned long ip, int port, const PACKAGE& p ) = 0;
+
 		// 支持多网卡的广播
 		virtual void Broadcast( const PACKAGE& pack ) = 0;		
 

@@ -31,7 +31,7 @@ namespace Network
 	public:
 		BoostServer();
 
-		virtual void Start( int listen_port, int target_port );
+		virtual void Start( int listen_port, int target_port, int pool_size = 5 );
 
 		void TcpSendToPlayers( const PACKAGE& p );
 

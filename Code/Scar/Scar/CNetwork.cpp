@@ -1,8 +1,8 @@
-/********************************************************************
-´´½¨Ê±¼ä: 2011-10-26   2:40
-ÎÄ¼şÃû:   CNetwork.cpp
-×÷Õß:     »ªÁÁ Cedric Porter [ Stupid ET ]	
-ËµÃ÷:     µ×²ãÍøÂçÖ§³ÖµÄÊµÏÖ
+ï»¿/********************************************************************
+åˆ›å»ºæ—¶é—´: 2011-10-26   2:40
+æ–‡ä»¶å:   CNetwork.cpp
+ä½œè€…:     åäº® Cedric Porter [ Stupid ET ]	
+è¯´æ˜:     åº•å±‚ç½‘ç»œæ”¯æŒçš„å®ç°
 
 *********************************************************************/
 
@@ -10,30 +10,30 @@
 #include "CNetwork.h"
 #include <iostream>
 
-Network::CNetwork::CNetwork( int listen_port, int target_port )
+Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 	: m_listen_port( listen_port )
 	, m_target_port( target_port )
 	, m_broadcast_ep( ip::address::from_string( "255.255.255.255" ), target_port )
-	, m_pool( 2 )		//  Á½¸öpool
+	, m_pool( pool_size )		//  ä¸¤ä¸ªpool
 {
-	// ³õÊ¼»¯·¢ËÍµÄsocket
+	// åˆå§‹åŒ–å‘é€çš„socket
 	m_send_sock = std::shared_ptr<boost::asio::ip::udp::socket>( new boost::asio::ip::udp::socket( m_pool.get_io_service() ) );
 
 	m_send_sock->open( ip::udp::v4() );
-	// ÔÊĞí¹ã²¥
+	// å…è®¸å¹¿æ’­
 	socket_base::broadcast option( true );
 	m_send_sock->set_option( option );
 
-	// Îª²»Í¬µÄÍø¿¨´´½¨¹ã²¥µÄµØÖ·
+	// ä¸ºä¸åŒçš„ç½‘å¡åˆ›å»ºå¹¿æ’­çš„åœ°å€
 	CreateBroadcastIPAddress();
 
 	
-	// ´´½¨½ÓÊÜµÄudp socket
+	// åˆ›å»ºæ¥å—çš„udp socket
 	m_receive_sock = std::shared_ptr<boost::asio::ip::udp::socket>(
 		new boost::asio::ip::udp::socket( m_pool.get_io_service(),
 		boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), listen_port ) ) );
 
-	// ´´½¨tcpµÄacceptor
+	// åˆ›å»ºtcpçš„acceptor
 	m_acceptor = std::shared_ptr<ip::tcp::acceptor>( 
 		new ip::tcp::acceptor( m_pool.get_io_service(),
 		ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) );
@@ -48,10 +48,10 @@ Network::CNetwork::~CNetwork()
 
 void Network::CNetwork::Start( INetworkCallbackType func )
 {
-	// ±£´æÏûÏ¢´¦Àíº¯Êı
+	// ä¿å­˜æ¶ˆæ¯å¤„ç†å‡½æ•°
 	m_func = func;
 
-	// Æô¶¯ĞÂÏß³ÌÀ´´¦ÀíÏûÏ¢
+	// å¯åŠ¨æ–°çº¿ç¨‹æ¥å¤„ç†æ¶ˆæ¯
 	m_handle_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Message_Handler, this ) ) );
 
 	StartTCP();	
@@ -97,10 +97,10 @@ void Network::CNetwork::Message_Handler()
 	{
 		IP_Package p = m_packetBuffer.Get();
 
-		// µ÷ÓÃ»Øµ÷º¯Êı´¦ÀíÊÕµ½ÏûÏ¢
+		// è°ƒç”¨å›è°ƒå‡½æ•°å¤„ç†æ”¶åˆ°æ¶ˆæ¯
 		m_func( p.ip, p.pack );
 
-		boost::this_thread::interruption_point();	// ÖĞ¶Ïµã
+		boost::this_thread::interruption_point();	// ä¸­æ–­ç‚¹
 	}
 }
 
@@ -122,7 +122,7 @@ void Network::CNetwork::CreateBroadcastIPAddress()
 			if ( ep.address().is_v4() )
 			{
 				unsigned long ip = ep.address().to_v4().to_ulong();
-				ip |= 0xff;				// ½«IPµØÖ·×îºóµÄÎ»ÖÃÎª255,ÒÔ±ã¹ã²¥
+				ip |= 0xff;				// å°†IPåœ°å€æœ€åçš„ä½ç½®ä¸º255,ä»¥ä¾¿å¹¿æ’­
 				m_broadcast_ip.insert( ip );					
 			}
 		}
@@ -146,7 +146,7 @@ void Network::CNetwork::StartTCP()
 {
 	TCPSocketPointerType sock( new ip::tcp::socket( m_pool.get_io_service() ) );
 
-	// Òì²½acceptor
+	// å¼‚æ­¥acceptor
 	m_acceptor->async_accept( *sock, 
 		boost::bind( &CNetwork::TCPAcceptHandler, this, placeholders::error, sock ) );
 }
@@ -155,12 +155,12 @@ void Network::CNetwork::TCPAcceptHandler( const boost::system::error_code& ec, T
 {
 	if ( ec )	return;
 
-	// Îªµ±Ç°socket´´½¨»º³å
+	// ä¸ºå½“å‰socketåˆ›å»ºç¼“å†²
 	std::shared_ptr< std::vector<char> > buf( new std::vector<char>( BUFFER_SIZE, 0 ) );
-	// Òì²½¶ÁÈ¡
+	// å¼‚æ­¥è¯»å–
 	sock->async_read_some( buffer( *buf ), boost::bind( &CNetwork::TCPReadHandler, this, placeholders::error, sock, buf ) );
-	// ¼ÌĞøµÈ´ıÆäËûÁ¬½Ó
-	StartTCP();
+
+	StartTCP();		// å†æ¬¡å¼€å¯TCPç›‘å¬ï¼Œç»§ç»­ç­‰å¾…å…¶ä»–è¿æ¥
 }
 
 void Network::CNetwork::TCPReadHandler( const boost::system::error_code& ec, 
@@ -170,14 +170,14 @@ void Network::CNetwork::TCPReadHandler( const boost::system::error_code& ec,
 
 	PACKAGE pack = *(PACKAGE*)buf->data();
 
-	// Ğ£Ñé°üÊÇ·ñÓĞĞ§
+	// æ ¡éªŒåŒ…æ˜¯å¦æœ‰æ•ˆ
 	if ( pack.GetMagicNumber() == MagicNumber )
 	{
-		// ½«Êı¾İ°ü·ÅÈëBufferÖĞ
+		// å°†æ•°æ®åŒ…æ”¾å…¥Bufferä¸­
 		m_packetBuffer.Put( IP_Package( sock->remote_endpoint().address().to_v4().to_ulong(), pack ) );
 	}
 
-	// ¼ÌĞø¶ÁÈ¡
+	// ç»§ç»­è¯»å–
 	sock->async_read_some( buffer( *buf ), boost::bind( &CNetwork::TCPReadHandler, this, placeholders::error, sock, buf ) );
 
 	std::cout << "==> TCP receives from " << sock->remote_endpoint().address().to_string() << std::endl;
@@ -203,14 +203,40 @@ void Network::CNetwork::UDPReadhandler( const boost::system::error_code& error, 
 	{
 		PACKAGE* pack = (PACKAGE*)(*buf).data();
 
-		// Ğ£Ñé°üÊÇ·ñÓĞĞ§
+		// æ ¡éªŒåŒ…æ˜¯å¦æœ‰æ•ˆ
 		if ( pack->GetMagicNumber() == MagicNumber )
 		{
-			// ½«Êı¾İ°ü·ÅÈëBufferÖĞ
+			// å°†æ•°æ®åŒ…æ”¾å…¥Bufferä¸­
 			m_packetBuffer.Put( IP_Package( ep->address().to_v4().to_ulong(), *pack ) );
 		}
 
-		StartUDP();
+		StartUDP();		// å†æ¬¡å¼€å¯UDPç›‘å¬
 	}
+}
+
+void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p )
+{
+	using namespace boost::asio;
+
+	ip::tcp::endpoint ep( ip::address_v4( ip ), port );
+
+	std::shared_ptr<PACKAGE> pack( new PACKAGE( p ) );
+	std::shared_ptr<ip::tcp::socket> sock( new ip::tcp::socket( m_pool.get_io_service() ) );
+
+	sock->async_connect( ep,
+		boost::bind( &CNetwork::connect_handler, this, placeholders::error, sock, pack ) );
+
+
+}
+
+void Network::CNetwork::connect_handler( const boost::system::error_code& ec,
+	std::shared_ptr<boost::asio::ip::tcp::socket> sock, std::shared_ptr<PACKAGE> pack )
+{
+	if ( ec )
+	{
+		return;
+	}
+
+	sock->write_some( buffer( (char*)&*pack, pack->GetLength() ) );
 }
 

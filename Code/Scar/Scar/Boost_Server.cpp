@@ -107,11 +107,11 @@ void Network::BoostServer::UdpSendToPlayers( const PACKAGE& p )
 	}
 }
 
-void Network::BoostServer::Start( int listen_port, int target_port )
+void Network::BoostServer::Start( int listen_port, int target_port, int pool_size )
 {
 	m_target_port = target_port;
 
-	NetworkBase::Start( listen_port, target_port );
+	NetworkBase::Start( listen_port, target_port, pool_size );
 }
 
 

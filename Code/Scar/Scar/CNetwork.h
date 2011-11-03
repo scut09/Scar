@@ -55,10 +55,16 @@ namespace Network
 
 	typedef std::shared_ptr<boost::asio::ip::tcp::socket> TCPSocketPointerType;
 
+
+	/*
+	** 名字：
+	** 说明：
+	**
+	*/
 	class CNetwork : public INetwork
 	{
 	public:
-		CNetwork( int listen_port, int target_port );
+		CNetwork( int listen_port, int target_port, int pool_size = 2 );
 
 		~CNetwork();
 
@@ -76,6 +82,12 @@ namespace Network
 
 		// 支持多网卡的广播
 		virtual void Broadcast( const PACKAGE& pack );
+
+		// 同步tcp发送
+		virtual void TcpSendTo( unsigned long ip, int port, const PACKAGE& p );
+
+		void connect_handler( const boost::system::error_code& ec,
+			std::shared_ptr<ip::tcp::socket> sock, std::shared_ptr<PACKAGE> pack );
 
 	private:
 		// 在新线程中处理消息队列中的数据

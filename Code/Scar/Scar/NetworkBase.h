@@ -48,10 +48,10 @@ namespace Network
 		// 参数:    int target_port		// 发送时的目标端口号
 		// 描述：   打开服务器
 		//************************************
-		virtual void Start( int listen_port, int target_port )
+		virtual void Start( int listen_port, int target_port, int pool_size = 2 )
 		{
 			// 创建网络
-			m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port ) );
+			m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port, pool_size ) );
 			// 注册接受回调函数
 			m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
 			{
@@ -70,16 +70,7 @@ namespace Network
 		// 同步tcp发送
 		virtual void TcpSendTo( unsigned long ip, int port, const PACKAGE& p )
 		{
-			using namespace boost::asio;
-
-			// 创建连接socket
-			ip::tcp::socket sock( io );
-			// ip
-			ip::tcp::endpoint ep( ip::address_v4( ip ), port );
-
-			// 同步发送
-			sock.connect( ep );
-			sock.write_some( buffer( (char*)&p, p.GetLength() ) );
+			m_network->TcpSendTo( ip, port, p );
 		}
 		 
 		//************************************
@@ -96,7 +87,6 @@ namespace Network
 	protected:
 		std::shared_ptr<INetwork>				m_network;		// 底层网络支持
 		std::hash_map<int, MessageHandlerType>	m_handlerMap;	// 消息处理函数映射
-		io_service								io;		
 	};
 }
 
