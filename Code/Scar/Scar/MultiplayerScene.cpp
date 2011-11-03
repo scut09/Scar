@@ -274,7 +274,7 @@ void MultiplayerScene::Init()
 
 	// 创建npc飞船
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	npc->setPosition( vector3df(0,0,5000) );
+	npc->setPosition( vector3df(0,0,50) );
 	toolkit = new Toolkit( m_pCamera, driver );
 
 	// 创建火控
