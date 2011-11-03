@@ -27,6 +27,10 @@
 #include "SceneNodeShader.h"
 #include "MySceneManager.h"
 #include "irrKlang.h"
+
+#define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
+
+
 using namespace irrklang;
 
 Network::BoostServer server;
@@ -63,7 +67,6 @@ ISoundSource* fuck;
 SceneNodeShader* shader;
 
 bool bRunOnce = true;
-
 // CallBacks
 // 通用型Shader回调函数
 // 需传入参数：目标节点
@@ -185,7 +188,9 @@ void MultiplayerScene::Run()
 	Armor2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 93, border ) );
 
 	// 水平仪转动
-	Gradienter->SetRotation( m_pCamera->getRotation().Z );
+	core::vector3df vec( 0, 1, 0 );
+	f32 rott = (f32)acos( ( m_pCamera->getUpVector().dotProduct( vector3df( 0, 1, 0 ) ) ) / m_pCamera->getUpVector().getLength() ) * RADTODEG;
+	Gradienter->SetRotation( rott );
 
 	// 测试用圈圈圈住目标
 	 if ( toolkit->GetNode2DInfo( npc, &info2D ) )
@@ -269,7 +274,7 @@ void MultiplayerScene::Init()
 
 	// 创建npc飞船
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	npc->setPosition( vector3df(0,0,50) );
+	npc->setPosition( vector3df(0,0,5000) );
 	toolkit = new Toolkit( m_pCamera, driver );
 
 	// 创建火控
@@ -284,9 +289,9 @@ void MultiplayerScene::Init()
 		// 设置名称
 		planet->setName( "planet1" );
 		// 加载纹理
-		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet7.jpg") ) );
+		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet5.jpg") ) );
 		planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
-		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/c.png") ) );
+		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
 		// 星球自转
 		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
 		planet->addAnimator( rot );
@@ -294,6 +299,7 @@ void MultiplayerScene::Init()
 		// Shader
 		GeneralCallBack* cb = new GeneralCallBack( planet );
 		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
+		cb->drop();
 		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
 		//// 缩放动画
@@ -309,10 +315,10 @@ void MultiplayerScene::Init()
 	//ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.1e5, 64, planet );
 	//if ( planetAtmos )
 	//{
-	//	MyCallBack* mc = new MyCallBack();
+	//	GeneralCallBack* cb = new GeneralCallBack( planetAtmos );
 	//	// Shader
-	//	shader->ApplyShaderToSceneNode( planetAtmos, mc, "Shader/PlanetAtmosV.txt", "",EMT_TRANSPARENT_ADD_COLOR );
-	//	mc->drop();
+	//	shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.txt", "Shader/PlanetAtmosF.txt",EMT_TRANSPARENT_ADD_COLOR );
+	//	cb->drop();
 	//}
 
 

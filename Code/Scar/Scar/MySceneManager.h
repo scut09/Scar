@@ -29,7 +29,7 @@ public:
 	{
 		IWeapon* bullet = new BulletNode( smgr );
 		bullet->setMaterialTexture( 0, driver->getTexture( textureFileName ) );
-		bullet->SetVelocity( velocity );
+		bullet->SetVelocity( (f32)velocity );
 		bullet->SetInterval( interval );
 
 		return bullet;
