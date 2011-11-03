@@ -188,6 +188,7 @@
     <ClInclude Include="IMissile.h" />
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="INetwork.h" />
+    <ClInclude Include="io_service_pool.h" />
     <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="IShip.h" />

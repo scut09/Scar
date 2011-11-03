@@ -1,6 +1,10 @@
 #include "Boost_Server.h"
 #include "GameBag.h"
 
+#pragma warning(push)              // 仅禁用此头文件
+#pragma warning(disable:4996)
+
+
 Network::BoostServer::BoostServer()
 {
 	RegisterMessageHandler( QUERY_ROOM, 
@@ -109,3 +113,6 @@ void Network::BoostServer::Start( int listen_port, int target_port )
 
 	NetworkBase::Start( listen_port, target_port );
 }
+
+
+#pragma warning(pop)              // 恢复最初的警告级别

@@ -21,6 +21,7 @@
 #include <list>
 #include <vector>
 #include "network_header.h"
+#include "io_service_pool.h"
 
 namespace Network
 {
@@ -77,20 +78,23 @@ namespace Network
 		virtual void Broadcast( const PACKAGE& pack );
 
 	private:
-			
-		// 在新线程中运行，负责接受UDP消息并调用回调函数处理消息
-		void UDP_Listener();
+		// 在新线程中处理消息队列中的数据
+		void Message_Handler();
 
-		// 在新线程中处理UDP消息队列中的数据
-		void UDP_Handler();
-
+		// TCP监听
 		void StartTCP();
-
 		// 有新tcp连接上时保存这个socket
 		void TCPAcceptHandler( const boost::system::error_code& ec, TCPSocketPointerType sock );
-
 		// TCP收到消息
 		void TCPReadHandler( const boost::system::error_code& ec, TCPSocketPointerType sock, std::shared_ptr< std::vector<char> > buf );
+		
+		// UDP监听
+		void StartUDP();
+		// UDP处理函数
+		void UDPReadhandler(const boost::system::error_code& error,
+			std::size_t /*bytes_transferred*/, std::shared_ptr<ip::udp::endpoint> ep, 
+			std::shared_ptr< std::vector<char> > buf );
+
 
 	private:
 		// 创建每个网卡的自己的IP,以便于多网卡广播
@@ -102,16 +106,14 @@ namespace Network
 		INetworkCallbackType				m_func;					// 消息处理函数
 		int									m_listen_port;			// 监听的端口
 		int									m_target_port;			// 目标的端口
-		io_service							io;						// 前摄器模式
 		ip::udp::endpoint					m_broadcast_ep;			// 广播的地址
 		std::set<unsigned long>				m_broadcast_ip;			// 广播IP
 		std::shared_ptr<boost::thread>		m_handle_thread;		// 处理消息的线程的指针
-		std::shared_ptr<boost::thread>		m_socket_thread;		// 接受消息的线程的指针
 		std::shared_ptr<boost::thread>		m_io_thread;			// io的线程的指针
 		std::shared_ptr<ip::udp::socket>	m_receive_sock;			// 接受udp的socket
 		std::shared_ptr<ip::udp::socket>	m_send_sock;			// 发送的socket
 		std::shared_ptr<ip::tcp::acceptor>	m_acceptor;				// tcp的acceptor
-
+		io_service_pool						m_pool;					// io_service pool
 
 	};
 }
