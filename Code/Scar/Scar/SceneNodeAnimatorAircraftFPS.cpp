@@ -228,6 +228,23 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	camera->setTarget( camera->getPosition() + newDirection );
 	camera->setUpVector( newUpVector );
 
+	vector3df up = camera->getUpVector();
+	vector3df dir = camera->getTarget() - camera->getPosition();
+	vector3df x = up.crossProduct( dir );
+	up.normalize();	dir.normalize();	x.normalize();
+
+	core::matrix4 mat;
+	f32 m[ 16 ];
+	m[ 0 ] = x.X;	m[ 1 ] = up.X;		m[ 2 ] = dir.X;		m[ 3 ] = 0;	
+	m[ 4 ] = x.Y;	m[ 5 ] = up.Y;		m[ 6 ] = dir.Y;		m[ 7 ] = 0;
+	m[ 8 ] = x.Z;	m[ 9 ] = up.Z;		m[ 10 ] = dir.Z;	m[ 11 ] = 0;
+	m[ 12 ] = 0;	m[ 13 ] = 0;	m[ 14 ] = 0;		m[ 15 ] = 1;
+	mat.setM( m );
+	mat.makeInverse();
+
+	// 设置飞船的旋转角
+	camera->setRotation( mat.getRotationDegrees() );
+
 	// 键盘控制
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
 	if ( CursorKeys[EKA_MOVE_FORWARD] )
