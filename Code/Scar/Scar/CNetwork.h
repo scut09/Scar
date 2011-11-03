@@ -20,6 +20,7 @@
 #include <string>
 #include <list>
 #include <vector>
+#include <hash_map>
 #include "network_header.h"
 #include "io_service_pool.h"
 
@@ -54,11 +55,11 @@ namespace Network
 	};
 
 	typedef std::shared_ptr<boost::asio::ip::tcp::socket> TCPSocketPointerType;
-
+	typedef std::hash_map< unsigned long, std::shared_ptr<boost::asio::ip::tcp::socket> > TCP_IP_Socket_MapType;
 
 	/*
-	** 名字：
-	** 说明：
+	** 名字：CNetwork
+	** 说明：提供基本网络功能
 	**
 	*/
 	class CNetwork : public INetwork
@@ -86,7 +87,7 @@ namespace Network
 		// 同步tcp发送
 		virtual void TcpSendTo( unsigned long ip, int port, const PACKAGE& p );
 
-		void connect_handler( const boost::system::error_code& ec,
+		void tcp_write_handler( const boost::system::error_code& ec,
 			std::shared_ptr<ip::tcp::socket> sock, std::shared_ptr<PACKAGE> pack );
 
 	private:
@@ -126,6 +127,7 @@ namespace Network
 		std::shared_ptr<ip::udp::socket>	m_send_sock;			// 发送的socket
 		std::shared_ptr<ip::tcp::acceptor>	m_acceptor;				// tcp的acceptor
 		io_service_pool						m_pool;					// io_service pool
+		TCP_IP_Socket_MapType				m_ip_socketMap;			// ip和tcp socket的映射
 
 	};
 }

@@ -14,7 +14,7 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 	: m_listen_port( listen_port )
 	, m_target_port( target_port )
 	, m_broadcast_ep( ip::address::from_string( "255.255.255.255" ), target_port )
-	, m_pool( pool_size )		//  两个pool
+	, m_pool( pool_size )		
 {
 	// 初始化发送的socket
 	m_send_sock = std::shared_ptr<boost::asio::ip::udp::socket>( new boost::asio::ip::udp::socket( m_pool.get_io_service() ) );
@@ -38,6 +38,7 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 		new ip::tcp::acceptor( m_pool.get_io_service(),
 		ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) );
 
+	// 创建io_service_pool异步完成的等待线程
 	m_io_thread = std::shared_ptr<thread>( new thread( boost::bind( &io_service_pool::run, &m_pool ) ) );
 }
 
@@ -168,13 +169,13 @@ void Network::CNetwork::TCPReadHandler( const boost::system::error_code& ec,
 {
 	if ( ec )	return;
 
-	PACKAGE pack = *(PACKAGE*)buf->data();
+	PACKAGE* pack = (PACKAGE*)(*buf).data();
 
 	// 校验包是否有效
-	if ( pack.GetMagicNumber() == MagicNumber )
+	if ( pack->GetMagicNumber() == MagicNumber )
 	{
 		// 将数据包放入Buffer中
-		m_packetBuffer.Put( IP_Package( sock->remote_endpoint().address().to_v4().to_ulong(), pack ) );
+		m_packetBuffer.Put( IP_Package( sock->remote_endpoint().address().to_v4().to_ulong(), *pack ) );
 	}
 
 	// 继续读取
@@ -218,25 +219,50 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 {
 	using namespace boost::asio;
 
+	// 数据包，复制到堆里，供异步使用
+	std::shared_ptr<PACKAGE> pack( new PACKAGE( p ) );
+
+	// 对方端点
 	ip::tcp::endpoint ep( ip::address_v4( ip ), port );
 
-	std::shared_ptr<PACKAGE> pack( new PACKAGE( p ) );
-	std::shared_ptr<ip::tcp::socket> sock( new ip::tcp::socket( m_pool.get_io_service() ) );
+	std::shared_ptr<ip::tcp::socket> sock;	
 
-	sock->async_connect( ep,
-		boost::bind( &CNetwork::connect_handler, this, placeholders::error, sock, pack ) );
+	// 查找是否有已连接的tcp
+	TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
+	if ( iter == m_ip_socketMap.end() )
+	{
+		sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
+		m_ip_socketMap[ ip ] = sock;
 
+		// 连接
+		sock->connect( ep );
+	}
+
+	m_ip_socketMap[ ip ]->async_write_some( 
+		buffer( (char*)&*pack, pack->GetLength() )
+		, boost::bind( &CNetwork::tcp_write_handler, this, placeholders::error, sock, pack ) );
 
 }
 
-void Network::CNetwork::connect_handler( const boost::system::error_code& ec,
+void Network::CNetwork::tcp_write_handler( const boost::system::error_code& ec,
 	std::shared_ptr<boost::asio::ip::tcp::socket> sock, std::shared_ptr<PACKAGE> pack )
 {
-	if ( ec )
+	if ( ec && ec == boost::asio::error::eof )
 	{
+		// 出错，重发
+		unsigned long ip = sock->remote_endpoint().address().to_v4().to_ulong();
+		unsigned short port = sock->remote_endpoint().port();
+
+		TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
+		if ( iter != m_ip_socketMap.end() )
+		{
+			m_ip_socketMap.erase( iter );	// 将原来的sock移除
+		}
+
+		TcpSendTo( ip, port, *pack );
+
+		std::cout << "Network::CNetwork::connect_handler error\n";
 		return;
 	}
-
-	sock->write_some( buffer( (char*)&*pack, pack->GetLength() ) );
 }
 
