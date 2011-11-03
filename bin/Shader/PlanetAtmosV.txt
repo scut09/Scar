@@ -1,87 +1,40 @@
-//
-// Atmospheric scattering vertex shader
-//
-// Author: Sean O'Neil
-//
-// Copyright (c) 2004 Sean O'Neil
-//
 
-//vec3 v3CameraPos = vec3(0.0, 0.0, 0.0);		// The camera's current position
-uniform vec3 v3CameraPos;
-vec3 v3LightPos = vec3(-1.0, 0.0, 0.0);		// The direction vector to the light source
-vec3 v3InvWavelength = vec3( 1.0/pow(0.65,4.0), 1.0/pow(0.57,4.0), 1.0/pow(0.475,4.0));	// 1 / pow(wavelength, 4) for the red, green, and blue channels
-float fCameraHeight = 8e5;	// The camera's current height
-float fCameraHeight2 = pow(8e5, 2.0);	// fCameraHeight^2
-float fOuterRadius = 4.1e5;		// The outer (atmosphere) radius
-float fOuterRadius2 = pow( fOuterRadius, 2.0 );	// fOuterRadius^2
-float fInnerRadius = 3e5;		// The inner (planetary) radius
-float fInnerRadius2 = pow( fInnerRadius, 2.0 );	// fInnerRadius^2
-float fKrESun = 0.0025 * 15.0;			// Kr * ESun
-float fKmESun = 0.0015 * 15.0;			// Km * ESun
-float fKr4PI = 0.0025 * 4.0 * 3.1415;			// Kr * 4 * PI
-float fKm4PI = 0.0015 * 4.0 * 3.1415;			// Km * 4 * PI
-float fScale = 1 / (fOuterRadius - fInnerRadius) ;			// 1 / (fOuterRadius - fInnerRadius)
-float fScaleDepth = 0.25;		// The scale depth (i.e. the altitude at which the atmosphere's average density is found)
-float fScaleOverScaleDepth = fScale / fScaleDepth;	// fScale / fScaleDepth
+uniform mat4 WorldViewProj;
+vec3 LightDirection = vec3( -1.0, 0.0, 0.0 ); //uniform vec3 SunPosition;
+uniform mat4 TransMatrix;
+uniform vec3 AbsPos;
+uniform vec3 CameraPos;
 
-int nSamples = 2;
-float fSamples = 2;
-
-varying vec3 v3Direction;
-
-
-float scale(float fCos)
-{
-	float x = 1.0 - fCos;
-	return fScaleDepth * exp(-0.00287 + x*(0.459 + x*(3.83 + x*(-6.80 + x*5.25))));
-}
+varying vec4 DiffLight;
+varying vec4 NewDiff;
+varying float NdotVtoC;
+varying vec4 High;
+varying vec4 Low;
 
 void main(void)
 {
-	// Get the ray from the camera to the vertex and its length (which is the far point of the ray passing through the atmosphere)
-	vec3 v3Pos = gl_Vertex.xyz;
-	vec3 v3Ray = v3Pos - v3CameraPos;
-	float fFar = length(v3Ray);
-	v3Ray /= fFar;
+	//高光
+	High = vec4(2);
+	//色调
+	Low = vec4( 0.9, 0.7, 0.35, 1 );
 
-	// Calculate the closest intersection of the ray with the outer atmosphere (which is the near point of the ray passing through the atmosphere)
-	float B = 2.0 * dot(v3CameraPos, v3Ray);
-	float C = fCameraHeight2 - fOuterRadius2;
-	float fDet = max(0.0, B*B - 4.0 * C);
-	float fNear = 0.5 * (-B - sqrt(fDet));
+	gl_Position = WorldViewProj * gl_Vertex;
+	
+	// 计算散射光
+	vec4 N = normalize( TransMatrix * vec4(gl_Normal, 0.0));
+	vec4 L = vec4( LightDirection, 0.0 );
+	float NdotL = dot(N, L);
+	DiffLight = vec4( max( NdotL, 0) );
 
-	// Calculate the ray's starting position, then calculate its scattering offset
-	vec3 v3Start = v3CameraPos + v3Ray * fNear;
-	fFar -= fNear;
-	float fStartAngle = dot(v3Ray, v3Start) / fOuterRadius;
-	float fStartDepth = exp(-1.0 / fScaleDepth);
-	float fStartOffset = fStartDepth*scale(fStartAngle);
+	// 计算顶点到镜头的方向向量
+	vec4 Vertex = TransMatrix * gl_Vertex;
+	vec4 VtoC = normalize(vec4(CameraPos, 0) - Vertex);
+	// 计算方向向量与法线的夹角，只有大于90度时才渲染
+	NdotVtoC = dot(N, VtoC);
 
-	// Initialize the scattering loop variables
-	//gl_FrontColor = vec4(0.0, 0.0, 0.0, 0.0);
-	float fSampleLength = fFar / fSamples;
-	float fScaledLength = fSampleLength * fScale;
-	vec3 v3SampleRay = v3Ray * fSampleLength;
-	vec3 v3SamplePoint = v3Start + v3SampleRay * 0.5;
+	// 计算摄像机向量与大气层夹角
+	vec4 E = normalize(vec4( (AbsPos - CameraPos), 0 ));
+	float NdotE = dot(N, E);
 
-	// Now loop through the sample rays
-	vec3 v3FrontColor = vec3(0.0, 0.0, 0.0);
-	for(int i=0; i<nSamples; i++)
-	{
-		float fHeight = length(v3SamplePoint);
-		float fDepth = exp(fScaleOverScaleDepth * (fInnerRadius - fHeight));
-		float fLightAngle = dot(v3LightPos, v3SamplePoint) / fHeight;
-		float fCameraAngle = dot(v3Ray, v3SamplePoint) / fHeight;
-		float fScatter = (fStartOffset + fDepth*(scale(fLightAngle) - scale(fCameraAngle)));
-		vec3 v3Attenuate = exp(-fScatter * (v3InvWavelength * fKr4PI + fKm4PI));
-		v3FrontColor += v3Attenuate * (fDepth * fScaledLength);
-		v3SamplePoint += v3SampleRay;
-	}
-
-	// Finally, scale the Mie and Rayleigh colors and set up the varying variables for the pixel shader
-	gl_FrontSecondaryColor.rgb = v3FrontColor * fKmESun;
-	gl_FrontColor.rgb = v3FrontColor * (v3InvWavelength * fKrESun);
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	v3Direction = v3CameraPos - v3Pos;
+	NewDiff = vec4(max((NdotL + NdotE), -1)) + vec4(1);
 }
-

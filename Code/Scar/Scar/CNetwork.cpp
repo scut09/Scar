@@ -71,6 +71,7 @@ void Network::CNetwork::Close()
 		m_receive_sock->close();
 		m_handle_thread->interrupt();
 		m_handle_thread->join();
+		m_acceptor.reset();
 		m_handle_thread.reset();
 		m_io_thread.reset();
 	}

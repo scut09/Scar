@@ -1,25 +1,33 @@
-//
-// Atmospheric scattering fragment shader
-//
-// Author: Sean O'Neil
-//
-// Copyright (c) 2004 Sean O'Neil
-//
 
-vec3 v3LightPos = vec3( -1.0, 0.0, 0.0 );
-float g = -0.95;
-float g2 = pow( -0.95, 2.0 );
-
-varying vec3 v3Direction;
-
+varying vec4 DiffLight;
+varying vec4 NewDiff;
+varying float NdotVtoC;
+varying vec4 High;
+varying vec4 Low;
 
 void main (void)
 {
-	float fCos = dot(v3LightPos, v3Direction) / length(v3Direction);
-	float fRayleighPhase = 0.75 * (1.0 + fCos*fCos);
-	float fMiePhase = 1.5 * ((1.0 - g2) / (2.0 + g2)) * (1.0 + fCos*fCos) / pow(1.0 + g2 - 2.0*g*fCos, 1.5);
-	gl_FragColor = fRayleighPhase * gl_Color + fMiePhase * gl_SecondaryColor;
-	//gl_FragColor = gl_SecondaryColor;
-	//gl_FragColor.a = gl_FragColor.b;
+	// 羽化边缘
+	float factor;
+	if (NdotVtoC > -0.18)
+	{
+		factor = -.5 * NdotVtoC;
+	}
+	else if (NdotVtoC > -0.25 )
+	{
+		factor = -NdotVtoC;
+	}
+	else
+	{
+		factor = 1 + 2*NdotVtoC;
+	}
+
+	//根据角度计算大气颜色
+	vec4 Color = High * DiffLight + Low * (vec4(1) - DiffLight);
+
+	// 根据光照条件和色调绘制大气圈
+	gl_FragColor = Color * NewDiff * factor;
+
+	//gl_FragColor = vec4(1) * NewDiff;
 }
 

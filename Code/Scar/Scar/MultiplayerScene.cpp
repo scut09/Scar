@@ -91,6 +91,10 @@ private:
 		matrix4 transMatrix = Node->getAbsoluteTransformation();
 		services->setVertexShaderConstant( "TransMatrix", transMatrix.pointer(), 16);
 
+		//节点绝对坐标
+		vector3df absPos = Node->getAbsolutePosition();
+		services->setVertexShaderConstant( "AbsPos", reinterpret_cast<f32*>(&absPos), 3);
+
 		//世界投影矩阵
 		matrix4 worldViewProj;
 		worldViewProj = driver->getTransform( ETS_PROJECTION );
@@ -114,6 +118,10 @@ private:
 		services->setPixelShaderConstant("TextureL1",(float*)&d[1],1);
 		services->setPixelShaderConstant("TextureL2",(float*)&d[2],1);
 		services->setPixelShaderConstant("TextureL3",(float*)&d[3],1);
+
+		//摄像机坐标
+		vector3df cameraPos = smgr->getActiveCamera()->getAbsolutePosition();
+		services->setVertexShaderConstant( "CameraPos", reinterpret_cast<f32*>(&cameraPos), 3);
 
 		//时钟
 		f32 timeMs = (f32)MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
@@ -268,7 +276,7 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
@@ -312,14 +320,17 @@ void MultiplayerScene::Init()
 		relstayAni->drop();
 	}
 	// 行星大气圈
-	//ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.1e5, 64, planet );
-	//if ( planetAtmos )
-	//{
-	//	GeneralCallBack* cb = new GeneralCallBack( planetAtmos );
-	//	// Shader
-	//	shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.txt", "Shader/PlanetAtmosF.txt",EMT_TRANSPARENT_ADD_COLOR );
-	//	cb->drop();
-	//}
+	ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.2e5, 64, planet );
+	if ( planetAtmos )
+	{
+		planetAtmos->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+		planetAtmos->setMaterialFlag( EMF_FRONT_FACE_CULLING, true );
+		//planetAtmos->setMaterialFlag( EMF_ZBUFFER, false );
+		GeneralCallBack* cb = new GeneralCallBack( planetAtmos );
+		// Shader
+		shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.txt", "Shader/PlanetAtmosF.txt",EMT_TRANSPARENT_ADD_COLOR );
+		cb->drop();
+	}
 
 
 	//加载卫星
@@ -376,25 +387,7 @@ void MultiplayerScene::Init()
 	//	//moon->addAnimator( sca );
 	//	//sca->drop();
 	//}
-	//driver->setFog(video::SColor(0,138,125,81), video::EFT_FOG_LINEAR, 250, 1000, .003f, true, false);
-	//IAnimatedMesh* stationMesh = smgr->getMesh( "../modle/station/cs1.3ds" );
-	//ITexture* normalMap = driver->getTexture( "../modle/station/cs1_tex_ngs.jpg" );
-	//if ( normalMap )
-	//	driver->makeNormalMapTexture( normalMap, 9 );
-	//IMesh* tangentMesh = smgr->getMeshManipulator()->
-	//	createMeshWithTangents(stationMesh->getMesh(0));
-	//ISceneNode* station = smgr->addMeshSceneNode( tangentMesh );
-	//tangentMesh->drop();
-	//station->setMaterialTexture( 0, driver->getTexture( "../modle/station/cs1_tex_d.jpg"));
-	////station->getMaterial( 0 ).SpecularColor.set(0,0,0,0);
-	////station->getMaterial( 0 ).MaterialTypeParam = 0.035f;
-	////station->getMaterial( 0 ).AmbientColor.set(255);
-	////station->getMaterial( 0 ).DiffuseColor.set(255);
-	//station->setMaterialTexture( 1, normalMap );
-	////station->setMaterialFlag( EMF_FOG_ENABLE, true );
-	//station->setMaterialType( EMT_NORMAL_MAP_SOLID );
-	//station->setMaterialFlag( EMF_LIGHTING, true );
-	//smgr->addLightSceneNode( 0, vector3df(1000), SColorf(1), 10000.0f );
+
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );
