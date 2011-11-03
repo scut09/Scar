@@ -68,7 +68,7 @@ namespace Network
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p )	{}
 
 		// Í¬²½tcp·¢ËÍ
-		virtual void TcpSendTo( int ip, int port, const PACKAGE& p )
+		virtual void TcpSendTo( unsigned long ip, int port, const PACKAGE& p )
 		{
 			using namespace boost::asio;
 
