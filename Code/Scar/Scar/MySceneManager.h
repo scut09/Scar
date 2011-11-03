@@ -25,12 +25,12 @@ public:
 		return node;
 	}
 
-	IWeapon* addBulletSceneNode( wchar_t* textureFileName, int velocity = 1000, int interval = 100 )
+	IWeapon* addBulletSceneNode( wchar_t* textureFileName, int velocity = 1000, u32 interval = 100 )
 	{
 		IWeapon* bullet = new BulletNode( smgr );
 		bullet->setMaterialTexture( 0, driver->getTexture( textureFileName ) );
 		bullet->SetVelocity( (f32)velocity );
-		bullet->SetInterval( interval );
+		bullet->SetInterval( interval ); 
 
 		return bullet;
 	}
@@ -50,7 +50,8 @@ public:
 		const core::vector3df& endPoint, u32 timeForWay )
 	{
 		
-		ISceneNodeAnimator* animator = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, timeForWay, timer->getTime() );
+		ISceneNodeAnimator* animator = new CSceneNodeAnimatorSelfDelFlyStraight( 
+			startPoint, endPoint, timeForWay, timer->getTime() );
 		return animator;
 	}
 
