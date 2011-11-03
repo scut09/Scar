@@ -123,9 +123,9 @@ namespace Network
 		std::set<unsigned long>				m_broadcast_ip;			// 广播IP
 		std::shared_ptr<boost::thread>		m_handle_thread;		// 处理消息的线程的指针
 		std::shared_ptr<boost::thread>		m_io_thread;			// io的线程的指针
-		std::shared_ptr<ip::udp::socket>	m_receive_sock;			// 接受udp的socket
-		std::shared_ptr<ip::udp::socket>	m_send_sock;			// 发送的socket
-		std::shared_ptr<ip::tcp::acceptor>	m_acceptor;				// tcp的acceptor
+		ip::udp::socket*	m_receive_sock;			// 接受udp的socket
+		ip::udp::socket*	m_send_sock;			// 发送的socket
+		ip::tcp::acceptor*	m_acceptor;				// tcp的acceptor
 		io_service_pool						m_pool;					// io_service pool
 		TCP_IP_Socket_MapType				m_ip_socketMap;			// ip和tcp socket的映射
 

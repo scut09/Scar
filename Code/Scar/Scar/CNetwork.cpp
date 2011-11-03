@@ -17,7 +17,8 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 	, m_pool( pool_size )		
 {
 	// 初始化发送的socket
-	m_send_sock = std::shared_ptr<boost::asio::ip::udp::socket>( new boost::asio::ip::udp::socket( m_pool.get_io_service() ) );
+	m_send_sock = //std::shared_ptr<boost::asio::ip::udp::socket>( 
+		new boost::asio::ip::udp::socket( m_pool.get_io_service() );// );
 
 	m_send_sock->open( ip::udp::v4() );
 	// 允许广播
@@ -29,14 +30,14 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 
 	
 	// 创建接受的udp socket
-	m_receive_sock = std::shared_ptr<boost::asio::ip::udp::socket>(
+	m_receive_sock = //std::shared_ptr<boost::asio::ip::udp::socket>(
 		new boost::asio::ip::udp::socket( m_pool.get_io_service(),
-		boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), listen_port ) ) );
+		boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), listen_port ) );// );
 
 	// 创建tcp的acceptor
-	m_acceptor = std::shared_ptr<ip::tcp::acceptor>( 
-		new ip::tcp::acceptor( m_pool.get_io_service(),
-		ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) );
+	m_acceptor //= std::shared_ptr<ip::tcp::acceptor>( 
+		= new ip::tcp::acceptor( m_pool.get_io_service(),
+		ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) ;//);
 
 	// 创建io_service_pool异步完成的等待线程
 	m_io_thread = std::shared_ptr<thread>( new thread( boost::bind( &io_service_pool::run, &m_pool ) ) );
@@ -66,14 +67,19 @@ void Network::CNetwork::Close()
 	{
 		m_pool.stop();
 		m_io_thread->interrupt();
-		m_acceptor->close();
 		m_send_sock->close();
 		m_receive_sock->close();
 		m_handle_thread->interrupt();
 		m_handle_thread->join();
-		m_acceptor.reset();
-		m_handle_thread.reset();
-		m_io_thread.reset();
+		m_acceptor->close();
+
+		delete m_send_sock;
+		delete m_receive_sock;
+		delete m_acceptor;
+
+		//m_acceptor.reset();
+		//m_handle_thread.reset();
+		//m_io_thread.reset();
 	}
 	catch ( const std::exception& e )
 	{
