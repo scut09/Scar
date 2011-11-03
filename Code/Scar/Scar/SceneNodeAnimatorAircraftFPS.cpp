@@ -228,6 +228,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	camera->setTarget( camera->getPosition() + newDirection );
 	camera->setUpVector( newUpVector );
 
+	// 计算摄像机的旋转矩阵
 	vector3df up = camera->getUpVector();
 	vector3df dir = camera->getTarget() - camera->getPosition();
 	vector3df x = up.crossProduct( dir );
@@ -240,9 +241,9 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	m[ 8 ] = x.Z;	m[ 9 ] = up.Z;		m[ 10 ] = dir.Z;	m[ 11 ] = 0;
 	m[ 12 ] = 0;	m[ 13 ] = 0;	m[ 14 ] = 0;		m[ 15 ] = 1;
 	mat.setM( m );
-	mat.makeInverse();
+	mat.makeInverse();	// 变为逆矩阵
 
-	// 设置飞船的旋转角
+	// 设置摄像机的旋转角
 	camera->setRotation( mat.getRotationDegrees() );
 
 	// 键盘控制
