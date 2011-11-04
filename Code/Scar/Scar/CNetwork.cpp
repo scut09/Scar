@@ -226,8 +226,6 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 {
 	using namespace boost::asio;
 
-	
-
 	// 数据包，复制到堆里，供异步使用
 	std::shared_ptr<PACKAGE> pack( new PACKAGE( p ) );
 
@@ -257,9 +255,11 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 
 	sock = m_ip_socketMap[ ip ];
 
-	sock->async_write_some( 
-		buffer( (char*)&*pack, pack->GetLength() )
-		, boost::bind( &CNetwork::tcp_write_handler, this, placeholders::error, sock, pack ) );
+	sock->write_some( buffer( (char*)&*pack, pack->GetLength() ) );
+
+	//sock->async_write_some( 
+	//	buffer( (char*)&*pack, pack->GetLength() )
+	//	, boost::bind( &CNetwork::tcp_write_handler, this, placeholders::error, sock, pack ) );
 
 }
 

@@ -159,7 +159,7 @@ void MultiplayerScene::Run()
 		if ( iter == rooms.end() )
 			client.EnterRoom( *localIP.begin() );		
 
-		Sleep( 10000 );
+		Sleep( 2000 );
 
 		//client.Send( "192.168.1.121" );
 
