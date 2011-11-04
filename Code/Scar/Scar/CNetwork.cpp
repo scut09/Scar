@@ -90,12 +90,20 @@ void Network::CNetwork::Close()
 
 void Network::CNetwork::SendTo( const std::string& ip, const PACKAGE& pack )
 {
-	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address::from_string( ip ), m_target_port ) );
+	if ( ip != "" )
+	{
+		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), 
+			ip::udp::endpoint( ip::address::from_string( ip ), m_target_port ) );
+	}
 }
 
 void Network::CNetwork::SendTo( unsigned long ip, const PACKAGE& pack )
 {
-	m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
+	if ( ip )
+	{
+		m_send_sock->send_to( buffer( (char*)&pack, pack.GetLength() ), 
+			ip::udp::endpoint( ip::address_v4( ip ), m_target_port ) );
+	}
 }
 
 
@@ -234,29 +242,29 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 
 	std::shared_ptr<ip::tcp::socket> sock;	
 
-	// 查找是否有已连接的tcp
-	TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
-	if ( iter == m_ip_socketMap.end() )
-	{
-		sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
-		m_ip_socketMap[ ip ] = sock;
+	//// 查找是否有已连接的tcp
+	//TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
+	//if ( iter == m_ip_socketMap.end() )
+	//{
+	//	sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
+	//	m_ip_socketMap[ ip ] = sock;
 
-		try
-		{
-			// 连接
-			sock->connect( ep );
-		}
-		catch ( std::exception& e )
-		{
-			std::cout << e.what() << std::endl;
-		}
+	//	try
+	//	{
+	//		// 连接
+	//		sock->connect( ep );
+	//	}
+	//	catch ( std::exception& e )
+	//	{
+	//		std::cout << e.what() << std::endl;
+	//	}
+	//}
 
-	}
-
-	sock = m_ip_socketMap[ ip ];
+	//sock = m_ip_socketMap[ ip ];
 
 	try
 	{
+		sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
 		sock->write_some( buffer( (char*)&p, p.GetLength() ) );
 	}
 	catch ( std::exception& e )
