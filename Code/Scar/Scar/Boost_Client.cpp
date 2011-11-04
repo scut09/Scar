@@ -13,6 +13,8 @@
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "GameBag.h"
 #include <irrlicht.h>
+#include "PlayerManager.h"
+
 
 // 测试用
 extern IShip* cf1;

@@ -175,81 +175,17 @@ void MultiplayerScene::Run()
 
 	}
 
-
-
 	auto pos = m_pCamera->getPosition();
 	client->SendHeroMove( client->m_index, pos.X, pos.Y, pos.Z );
 	auto rot = m_pCamera->getRotation();
 	client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
 
+	playerManager->Update();
 
-	// 准心追随鼠标
-	auto CursorPos = MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl()->getPosition();
-	Cursor->SetPosition( vector2df( (f32)CursorPos.X, (f32)CursorPos.Y ) );
-
-	f32 ratio;
-	f32 border;
-	// 绘制速度槽
-	ratio = cf1->GetVelocity() / cf1->GetMaxSpeed();
-	border = 389 * ( 1 - ratio );
-	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
-	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );	
-	// 绘制护盾槽
-	ratio = cf1->GetShield() / cf1->GetMaxShield();
-	border = 389 * ( 1 - ratio );
-	Shield1->SetSourceRect( vector2df( 0, border ), vector2df( 100, 389 ) );
-	Shield2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 100, border ) );
-	// 绘制护甲槽
-	ratio = cf1->GetArmor() / cf1->GetMaxArmor();
-	border = 360 * ( 1 - ratio );
-	Armor1->SetSourceRect( vector2df( 0, border ), vector2df( 93, 360 ) );
-	Armor2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 93, border ) );
-
-	// 水平仪转动
-	core::vector3df vec( 0, 1, 0 );
-	f32 rott = (f32)acos( ( m_pCamera->getUpVector().dotProduct( vector3df( 0, 1, 0 ) ) ) / m_pCamera->getUpVector().getLength() ) * RADTODEG;
-	Gradienter->SetRotation( rott );
-
-	// 测试用圈圈圈住目标
-	 if ( toolkit->GetNode2DInfo( npc, &info2D ) )
-	 {
-		 indicator1->SetVisible( false );
-		 f32 sca = info2D.height / 60.0f;
-		 if ( sca > 1.2f )
-			 sca = 1.2f;
-		 else if ( sca < 0.5f )
-			 sca = 0.5f;
-		 target1->SetPosition( info2D.pos );
-		 target1->SetScale( vector2df(sca) );
-		 lock1->SetPosition( info2D.pos );
-		 lock1->SetScale( vector2df(sca) );
-		 target1->SetVisible( true );
-		 lock1->SetVisible( true );
-	 }
-	 else
-	 {
-		  target1->SetVisible( false );
-		  lock1->SetVisible( false );
-		  indicator1->SetVisible( true );
-		  // 测试用箭头标记地方位置
-		  vector2df screenPos;
-		  toolkit->To2DScreamPos( (npc->getPosition() - m_pCamera->getPosition()), &screenPos );
-		  vector2df screenVec = screenPos - vector2df( driver->getScreenSize().Width / 2.f, driver->getScreenSize().Height / 2.f );
-		  f32 ang = (f32)screenVec.getAngle();
-		  ang = -(ang-90);
-		  //std::cout<< ang << std::endl;
-		  indicator1->SetRotation( ang );
-	 } 
-	 
 }
 
 void MultiplayerScene::Init()
 {
-	playerManager = new PlayerManager;
-	client = new Network::BoostClient( playerManager );
-	server.Start( 1990, 2012 );
-	client->Start( 2012, 1990 );
-
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
@@ -300,10 +236,7 @@ void MultiplayerScene::Init()
 	npc->setPosition( vector3df(0,0,50) );
 	toolkit = new Toolkit( m_pCamera, driver );
 
-	// 创建火控
-	auto fireAni = new FireAnimator( m_pCamera, client );
-	cf1->addAnimator( fireAni );
-	fireAni->drop();
+
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5, 64 );
@@ -436,6 +369,7 @@ void MultiplayerScene::Init()
 	lsn->setLightData( light1 );
 	lsn->setRotation( vector3df( 0, 90, 0 ) );
 
+
 	// 加载UI界面
 	uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
 	try
@@ -454,25 +388,21 @@ void MultiplayerScene::Init()
 	{
 		PyErr_Print();
 	}
-	// 获取鼠标准心
-	Cursor = uiManager->GetObjectByName("cursor");
-	// 获取速度槽
-	Speed1 = uiManager->GetObjectByName( "speed1" );
-	Speed2 = uiManager->GetObjectByName( "speed2" );
-	// 获取护盾槽
-	Shield1 = uiManager->GetObjectByName( "shield1");
-	Shield2 = uiManager->GetObjectByName( "shield2");
-	// 获取护甲槽
-	Armor1 = uiManager->GetObjectByName( "armor1");
-	Armor2 = uiManager->GetObjectByName( "armor2");
-	// 获取水平仪
-	Gradienter = uiManager->GetObjectByName( "gradienter" );
-	// 获取目标圈
-	target1 = uiManager->GetObjectByName( "target1" );
-	// 获取锁定圈——已锁定
-	lock1 = uiManager->GetObjectByName( "lock1" );
-	// 获取敌军指示
-	indicator1 = uiManager->GetObjectByName( "indicator1" );
+
+	playerManager = new PlayerManager( uiManager, cf1 );
+	playerManager->AddPlayer( 101, npc );
+
+	client = new Network::BoostClient( playerManager );
+	server.Start( 1990, 2012 );
+	client->Start( 2012, 1990 );
+
+	// 创建火控
+	auto fireAni = new FireAnimator( m_pCamera, client );
+	cf1->addAnimator( fireAni );
+	fireAni->drop();
+
+	client->QueryRoom();
+
 
 	try
 	{
@@ -487,27 +417,6 @@ void MultiplayerScene::Init()
 		PyErr_Print();
 	}
 
-
-	//	m_pAnimationMan = pEngine->GetAnimationManager();
-
-
-
-	//// 加载模型和动画
-	//auto bottleNode = m_pModelMan->AddSceneNodeFromMesh( _T("bottle") );
-
-	////ISceneNodeAnimator* anim = new CSceneNodeAnimatorSelfDelFlyStraight( vector3df( 0, 0, 0 ),
-	////	vector3df( 0, 1000, 1000 ), 5000, pEngine->GetDevice()->getTimer()->getTime() );
-	//ISceneNodeAnimator* anim = new CSceneNodeAnimatorAutoTrack( smgr );
-	//bottleNode->addAnimator( anim );
-	//anim->drop();
-
-	//for ( auto iter = m_pModelMan->GetISceneNodeList().begin(); iter != m_pModelMan->GetISceneNodeList().end(); ++iter )
-	//{
-	//	ISceneNodeAnimator* anim = new Chuoyanshuxing( smgr );
-	//	(*iter)->addAnimator( anim );
-	//	//(*iter)->setScale( vector3df( 1000, 1000, 1000 ) );
-	//	anim->drop();
-	//}
 
 	// 天空盒
 	m_pSkyBox = smgr->addSkyBoxSceneNode(
@@ -530,34 +439,6 @@ void MultiplayerScene::Init()
 	}
 	
 
-
-	//// 注册引擎回调函数
-	//pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
-	//{
-	//	scene.Run();
-
-	//	return 0;
-	//} );
-
-
-	//CFlame flame;
-	//auto fire = flame.createFlame(
-	//	MyIrrlichtEngine::GetEngine()->GetDevice(), 
-	//	"../media/particle.bmp"
-	//	);
-	//node->addChild( fire );
-
-	//创建边上的粒子****************
-	//for (int i = 0;i < 24;i++)
-	//{
-	//	CFlame flame;
-	//	auto fire = flame.createFlame(
-	//		MyIrrlichtEngine::GetEngine()->GetDevice(), 
-	//		"../media/particle.bmp"
-	//		);
-	////	fire->setVisible(false);   //初始不可见
-	//	node->addChild( fire );
-	//}
 	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 
 
@@ -615,7 +496,6 @@ void MultiplayerScene::Init()
 	} );
 
 
-	client->QueryRoom();
 
 
 }

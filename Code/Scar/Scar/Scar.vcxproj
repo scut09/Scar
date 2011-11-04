@@ -123,6 +123,7 @@
     <ClCompile Include="ModuleControl.cpp" />
     <ClCompile Include="MultiplayerScene.cpp" />
     <ClCompile Include="MyIrrlichtEngine.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonUINew.cpp" />

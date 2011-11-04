@@ -19,7 +19,8 @@
 #include <set>
 #include <vector>
 #include "GameBag.h"
-#include "PlayerManager.h"
+
+class PlayerManager;
 
 namespace Network
 {
