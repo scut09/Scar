@@ -287,6 +287,9 @@ void MultiplayerScene::Init()
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
+	// 测试用光源
+	//ISceneNode* tLight = smgr->addLightSceneNode( m_pCamera );
+
 	// 创建npc飞船
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 	npc->setPosition( vector3df(0,0,50) );
@@ -375,26 +378,39 @@ void MultiplayerScene::Init()
 	//fuck->setVolume( fuck->getVolume() - 10 );
 
 	//加载空间站模型
-	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../model/station/cs1.obj") ) );
-	if ( station )
+
+	IMesh* stationMesh = smgr->getMesh( _T("../model/station/cs1.obj") );
+	if ( stationMesh )
 	{
-		// 设置名字
+		IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(stationMesh, true);
+		IMeshSceneNode* station = smgr->addMeshSceneNode( tangentMesh );
 		station->setName( "station1" );
-		station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_l.png")) );
-		//station->
+		station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
 		GeneralCallBack* cb = new GeneralCallBack( station );
 		shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.txt", "Shader/cs_1F.txt" );
 		cb->drop();
-
-
-	//	// 设置初始大小
-	//	//station->setScale( vector3df( .001f));
-	//	//station->setVisible(false);
-	//	// 缩放动画
-	//	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
-	//	//moon->addAnimator( sca );
-	//	//sca->drop();
 	}
+	
+	//IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../model/station/cs1.obj") ) );
+	//if ( station )
+	//{
+	//	// 设置名字
+	//	station->setName( "station1" );
+	//	station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
+	//	//station->
+	//	GeneralCallBack* cb = new GeneralCallBack( station );
+	//	shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.txt", "Shader/cs_1F.txt" );
+	//	cb->drop();
+
+
+	////	// 设置初始大小
+	////	//station->setScale( vector3df( .001f));
+	////	//station->setVisible(false);
+	////	// 缩放动画
+	////	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
+	////	//moon->addAnimator( sca );
+	////	//sca->drop();
+	//}
 
 
 	////加载太阳
@@ -499,7 +515,7 @@ void MultiplayerScene::Init()
 	if (m_pSkyBox)
 	{
 		//不知道为什么把天空盒设小一点反而不会出黑边
-		//m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
+		m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
 		//shader
 		/*std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
 		SMaterial mat = m_pSkyBox->getMaterial(1);
