@@ -29,7 +29,15 @@ public:
 
 	void Draw();
 
+	virtual IUIObject* Clone()
+	{
+		UIImage* btn = new UIImage( Parent, 0, 0 );
+		btn->CloneMembersFrom( this );
 
+		btn->UpdateAbsolutePosition();
+
+		return btn;
+	}
 };
 
 #endif

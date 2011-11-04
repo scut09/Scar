@@ -22,6 +22,18 @@ public:
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>(1,1) );
 
+	virtual IUIObject* Clone()
+	{
+		UIButton* btn = new UIButton( Parent, 0, 0 );
+		btn->CloneMembersFrom( this );
+
+		btn->IsMouseIn = IsMouseIn;
+
+		btn->UpdateAbsolutePosition();
+
+		return btn;
+	}
+
 	virtual void Draw();
 
 	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event );

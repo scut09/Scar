@@ -19,6 +19,7 @@
 #include <set>
 #include <vector>
 #include "GameBag.h"
+#include "PlayerManager.h"
 
 namespace Network
 {
@@ -31,7 +32,7 @@ namespace Network
 	class BoostClient : public NetworkBase
 	{
 	public:
-		BoostClient();
+		BoostClient( PlayerManager*	playerManager );
 
 		~BoostClient()
 		{
@@ -101,6 +102,8 @@ namespace Network
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 		std::set<std::string>					m_localIP;
 		unsigned long							m_server_IP;
+
+		PlayerManager*							m_playerManager;
 	};
 
 

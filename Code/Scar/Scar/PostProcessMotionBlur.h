@@ -5,13 +5,14 @@
 
 using namespace std; 
 using namespace irr; 
-using namespace core; 
 using namespace scene; 
 using namespace video; 
 using namespace io; 
 using namespace gui; 
 
-
+using core::vector3df;
+using core::aabbox3df;
+using core::dimension2df;
 
 class PPE_MotionBlur_callback: public video::IShaderConstantSetCallBack 
 { 

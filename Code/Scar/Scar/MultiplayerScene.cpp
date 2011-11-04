@@ -9,6 +9,7 @@
 #include "Boost_Client.h"
 #include "Boost_Server.h"
 #include "GameBag.h"
+#include "PlayerManager.h"
 
 #include "MultiplayerScene.h"
 #include "PythonManager.h"
@@ -35,7 +36,9 @@ using namespace irrklang;
 
 Network::BoostServer server;
 
-Network::BoostClient client;
+Network::BoostClient* client;
+
+PlayerManager*			playerManager;
 
 //scene::ISceneNode* node;
 UIManager* uiManager; //测试用
@@ -139,8 +142,8 @@ void MultiplayerScene::Run()
 
 		Sleep( 1500 );
 
-		auto rooms = client.GetRooms();
-		auto localIP = client.GetLocalIP();
+		auto rooms = client->GetRooms();
+		auto localIP = client->GetLocalIP();
 
 		auto iter = rooms.begin();
 		for ( ; iter != rooms.end(); ++iter )
@@ -151,33 +154,33 @@ void MultiplayerScene::Run()
 			if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )		// 非本机IP
 			{	
 				std::cout << "enter " << iter->first << std::endl;
-				client.EnterRoom( iter->first );
+				client->EnterRoom( iter->first );
 				break;
 			}
 		}
 
 		if ( iter == rooms.end() )
-			client.EnterRoom( *localIP.begin() );		
+			client->EnterRoom( *localIP.begin() );		
 
 		Sleep( 2000 );
 
-		//client.Send( "192.168.1.121" );
+		//client->Send( "192.168.1.121" );
 
-		while ( -11 == client.m_index )
+		while ( -11 == client->m_index )
 		{
 			Sleep( 500 );
 		}
 
-		std::cout << "m_index " << client.m_index << std::endl;
+		std::cout << "m_index " << client->m_index << std::endl;
 
 	}
 
 
 
 	auto pos = m_pCamera->getPosition();
-	client.SendHeroMove( client.m_index, pos.X, pos.Y, pos.Z );
+	client->SendHeroMove( client->m_index, pos.X, pos.Y, pos.Z );
 	auto rot = m_pCamera->getRotation();
-	client.SendHeroRot( client.m_index, rot.X, rot.Y, rot.Z );
+	client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
 
 
 	// 准心追随鼠标
@@ -242,8 +245,10 @@ void MultiplayerScene::Run()
 
 void MultiplayerScene::Init()
 {
+	playerManager = new PlayerManager;
+	client = new Network::BoostClient( playerManager );
 	server.Start( 1990, 2012 );
-	client.Start( 2012, 1990 );
+	client->Start( 2012, 1990 );
 
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
@@ -296,7 +301,7 @@ void MultiplayerScene::Init()
 	toolkit = new Toolkit( m_pCamera, driver );
 
 	// 创建火控
-	auto fireAni = new FireAnimator( m_pCamera );
+	auto fireAni = new FireAnimator( m_pCamera, client );
 	cf1->addAnimator( fireAni );
 	fireAni->drop();
 
@@ -589,7 +594,7 @@ void MultiplayerScene::Init()
 			{
 				box->setVisible( false );
 				gui->setFocus( 0 );		
-				client.BroadcastMessage( client.m_index, box->getText() );
+				client->BroadcastMessage( client->m_index, box->getText() );
 				std::wcout << box->getText() << std::endl;
 			}
 			else if ( event.KeyInput.Key == KEY_ESCAPE )
@@ -610,7 +615,7 @@ void MultiplayerScene::Init()
 	} );
 
 
-	client.QueryRoom();
+	client->QueryRoom();
 
 
 }
@@ -620,7 +625,7 @@ void MultiplayerScene::Release()
 	if ( uiManager )
 		delete uiManager;
 
-	client.Close();
+	client->Close();
 	server.Close();
 
 	m_pCamera->remove();

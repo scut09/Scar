@@ -1,9 +1,9 @@
 /********************************************************************
-    创建时间: 2011-10-13   14:36
-    文件名:   IUIObject.h
-    作者:     华亮 屠文翔
-    说明:     IUIObject接口，2D场景节点的接口。
-			我们可以为实现IUIObject接口的类添加IUIAnimator动画以实现动画
+创建时间: 2011-10-13   14:36
+文件名:   IUIObject.h
+作者:     华亮 屠文翔
+说明:     IUIObject接口，2D场景节点的接口。
+我们可以为实现IUIObject接口的类添加IUIAnimator动画以实现动画
 
 *********************************************************************/
 
@@ -23,6 +23,7 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/io.hpp>
 #include <hash_map>
+#include <boost/foreach.hpp>
 
 
 using namespace irr;
@@ -89,13 +90,66 @@ protected:
 	bool IsPointInSquare( s32 x, s32 y );		// 判断点是否在矩形区域内
 	bool IsPointInCircle( s32 x, s32 y );		// 判断点是否在圆形区域内
 
-									
+
 public:
 
 	IUIObject( IUIObject* parent, s32 width, s32 height, s32 order = 0, int shape = SQUARE,
 		const vector2d<f32>& position = vector2d<f32>( 0, 0 ),
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) );
+
+	// 从obj克隆成员变量到自己
+	virtual void CloneMembersFrom( IUIObject* toCopyFrom )
+	{
+		// 复制动画
+		BOOST_FOREACH( IUIAnimator* ani, Animators )
+		{
+			IUIAnimator* a = ani->Clone();
+			if ( a )
+			{
+				AddAnimator( a );
+				a->drop();
+			}
+		}
+
+		// 复制孩子
+		BOOST_FOREACH( IUIObject* child, Children )
+		{
+			IUIObject* object = child->Clone();
+			AddChild( object );
+			object->drop();
+		}
+
+		SetParent( toCopyFrom->Parent );		
+
+		Order		= toCopyFrom->Order;			
+		IsVisible	= toCopyFrom->IsVisible;		
+		Driver		= toCopyFrom->Driver;	
+
+		Image		= toCopyFrom->Image;
+		Image->grab();
+
+		RelativeAlpha			= toCopyFrom->RelativeAlpha;				
+		RelativeTranslation		= toCopyFrom->RelativeTranslation;		
+		RelativeRotation		= toCopyFrom->RelativeRotation;			
+		RelativeScale			= toCopyFrom->RelativeScale;				
+		AbsoluteTransformation	= toCopyFrom->AbsoluteTransformation;	
+
+		FuncMap			= toCopyFrom->FuncMap;	
+		Name			= toCopyFrom->Name;				
+		LeftTop			= toCopyFrom->LeftTop;					
+		RightBottom		= toCopyFrom->RightBottom;		
+		bAntiAliasing	= toCopyFrom->bAntiAliasing;
+		Shape			= toCopyFrom->Shape;						
+
+		for ( int i = 0; i < 4; i++ )
+		{
+			DestinationQuadrangle[ i ] = toCopyFrom->DestinationQuadrangle[ i ];
+		}
+
+	}
+
+	virtual IUIObject* Clone() = 0;
 
 	void SetAntiAliasing( bool bAnti = true )
 	{
@@ -180,17 +234,17 @@ public:
 	}
 
 	// 获取当前节点绝对透明度
-	 virtual f32 GetAbsoluteAlpha() const
-	 {
-		 f32 absalp = RelativeAlpha;
-		 IUIObject* p = Parent;
-		 while( p != NULL )
-		 {
-			 absalp *= p->RelativeAlpha / 255.f;
-			 p = p->Parent;
-		 }
-		 return absalp;
-	 }
+	virtual f32 GetAbsoluteAlpha() const
+	{
+		f32 absalp = RelativeAlpha;
+		IUIObject* p = Parent;
+		while( p != NULL )
+		{
+			absalp *= p->RelativeAlpha / 255.f;
+			p = p->Parent;
+		}
+		return absalp;
+	}
 
 	// 绘制当前节点
 	virtual void Draw() = 0;
@@ -311,7 +365,7 @@ public:
 	//	}
 	//}
 
-/////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////
 public:
 	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event ) {}
 

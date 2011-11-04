@@ -9,6 +9,7 @@
 using namespace irr;
 using namespace scene;
 
+using core::vector3df;
 
 
 class Chuoyanshuxing : public scene::ISceneNodeAnimator

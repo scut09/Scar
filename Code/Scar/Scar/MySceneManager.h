@@ -35,12 +35,6 @@ public:
 		return bullet;
 	}
 
-	ISceneNodeAnimator* createFireAnimator()
-	{
-		ISceneNodeAnimator* animator = new FireAnimator( smgr->getActiveCamera() );
-		return animator;
-	}
-
 	// 内部使用，不导出
 	//ISceneNodeAnimator* createCallbackCollsionResponseAnimator()
 	//{

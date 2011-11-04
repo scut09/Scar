@@ -11,10 +11,11 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace core;
 using namespace scene;
 
-
+using core::vector3df;
+using core::aabbox3df;
+using core::dimension2df;
 
 class ModuleControl
 {

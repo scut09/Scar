@@ -1,12 +1,11 @@
 #include "Boost_Client.h"
 #include "FireAnimator.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
-#include "CSceneNodeAnimatorCollisionResponse.h"
 #include "IShip.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
+#include "Boost_Client.h"
 
-extern Network::BoostClient client;	// 测试用
 
 void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
@@ -92,9 +91,9 @@ bool FireAnimator::OnEvent( const SEvent& event )
 	return false;
 }
 
-FireAnimator::FireAnimator( ICameraSceneNode* camera ) : IsFire( false ), Initialized( false ), Camera( camera )
+FireAnimator::FireAnimator( ICameraSceneNode* camera, Network::BoostClient* cl ) 
+	: IsFire( false ), Initialized( false ), Camera( camera ), client( cl )
 {
-
 }
 
 void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs )
@@ -108,7 +107,7 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 	auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bullet->GetLife() );
 
 	// 测试发送炮弹数据
-	client.SendBullet( 0, 0, startPoint, endPoint, bullet->GetLife() );
+	client->SendBullet( 0, 0, startPoint, endPoint, bullet->GetLife() );
 
 	// 帮子弹附上动画并发射出去
 	newBullet->addAnimator( ani );
@@ -119,9 +118,8 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 	CSceneNodeAnimatorMyCollisionResponse* coll = 
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
 
-	
 	// 添加碰撞响应函数
-	coll->SetCollisionCallback( []( ISceneNode* node, ISceneNode* target_node )	
+	coll->SetCollisionCallback( [this]( ISceneNode* node, ISceneNode* target_node )	
 	{
 		//std::cout << "Ship hitted!\n";
 		IWeapon* weapon = dynamic_cast<IWeapon*>( node );
@@ -131,7 +129,7 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 		if (NULL != ship)
 		{
 			std::cout << "fuck Ship hitted!\n";
-			client.SendBulletHit( client.m_index, ship->getID(), 0 );
+			client->SendBulletHit( client->m_index, ship->getID(), 0 );
 		}
 	} );
 

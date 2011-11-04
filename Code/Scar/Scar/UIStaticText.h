@@ -34,6 +34,11 @@ private:
 	u32 FontSize;
 	IGUIEnvironment* Guienv;
 	IGUIFont* Font;
+
+	virtual IUIObject* Clone()
+	{
+		return NULL;
+	}
 };
 
 #endif // UIStaticText_h__

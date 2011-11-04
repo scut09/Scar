@@ -11,15 +11,19 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace core;
 using namespace scene;
 using namespace video;
+
+using core::vector3df;
+using core::aabbox3df;
+using core::dimension2df;
+using core::position2df;
 
 struct Node2DInfo
 {
 	s32 width;
 	s32 height;
-	position2d<f32> pos;
+	core::position2df pos;
 };
 
 
@@ -30,7 +34,7 @@ public:
 	Toolkit(ICameraSceneNode* pCamara, IVideoDriver* pDriver);
 	~Toolkit(void);
 	bool GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo);
-	bool To2DScreamPos(vector3df v, position2d<f32>* p);
+	bool To2DScreamPos(vector3df v, core::position2df* p);
 
 private:
 	ICameraSceneNode*	m_pCamara;

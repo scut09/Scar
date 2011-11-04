@@ -10,7 +10,10 @@
 *********************************************************************/
 
 #include "ISceneNode.h"
+#include "CSceneNodeAnimatorCollisionResponse.h"
 #include <vector>
+#include "Boost_Client.h"
+
 using namespace irr;
 using namespace irr::core;
 using namespace irr::scene;
@@ -19,11 +22,12 @@ class FireAnimator : public ISceneNodeAnimator
 {
 	bool IsFire;
 	bool Initialized;
-	std::vector<u32> LastTimes;
-	ICameraSceneNode* Camera;
+	std::vector<u32>		LastTimes;
+	ICameraSceneNode*		Camera;
+	Network::BoostClient*	client;
 
 public:
-	FireAnimator( ICameraSceneNode* camera );
+	FireAnimator( ICameraSceneNode* camera, Network::BoostClient* cl );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 
@@ -31,7 +35,7 @@ public:
 
 	virtual bool OnEvent( const SEvent& event );
 
-	static void AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs );
+	void AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs );
 
 };
 

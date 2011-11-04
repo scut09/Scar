@@ -19,11 +19,14 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
+
+using core::vector3df;
+using core::aabbox3df;
+using core::dimension2df;
 
 // 创建完后自动加载到场景树中，并且将引用计数设置为1
 

@@ -13,7 +13,6 @@
 
 
 using namespace irr;
-using namespace core;
 using namespace scene;
 
 class BuildSpaceStation 

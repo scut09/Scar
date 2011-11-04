@@ -25,6 +25,8 @@ IUIObject::~IUIObject()
 	{
 		(*iter)->drop();
 	}
+
+	Image->drop();
 }
 
 void IUIObject::DrawTree()
@@ -169,9 +171,15 @@ void IUIObject::remove()
 //×°ÔØÍ¼Æ¬
 void IUIObject::LoadImage( char * filename )
 {
+	if ( Image )
+	{
+		Image->drop();
+	}
+
 	Image = Driver->getTexture( filename );
 	if ( Image )
 	{
+		Image->grab();
 		LeftTop = vector2df( 0, 0 );
 		RightBottom = vector2df( (f32)Image->getSize().Width, (f32)Image->getSize().Height );
 	}

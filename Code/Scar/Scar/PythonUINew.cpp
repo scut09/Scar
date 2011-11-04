@@ -235,6 +235,11 @@ struct IUIObject_wrapper : IUIObject, bp::wrapper< IUIObject > {
     
     }
 
+	virtual IUIObject* Clone()
+	{
+		return NULL;
+	}
+
     virtual void AddAnimator( ::IUIAnimator * ani ) {
         if( bp::override func_AddAnimator = this->get_override( "AddAnimator" ) )
             func_AddAnimator( boost::python::ptr(ani) );
@@ -2027,6 +2032,11 @@ struct UIStaticText_wrapper : UIStaticText, bp::wrapper< UIStaticText > {
         // copy constructor
         
     }
+
+	virtual IUIObject* Clone()
+	{
+		return NULL;
+	}
 
     UIStaticText_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 hegit, ::irr::core::stringw text, ::irr::video::SColor color, ::irr::u32 fontsize=14, bool hcenter=false, bool vcenter=false, ::irr::s32 order=0, int shape=int(::SQUARE), ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f), bool Isvisible=true )
     : UIStaticText( boost::python::ptr(parent), width, hegit, text, color, fontsize, hcenter, vcenter, order, shape, boost::ref(position), rotdeg, boost::ref(scale), Isvisible )

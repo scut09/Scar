@@ -4,11 +4,14 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
+
+using core::vector3df;
+using core::aabbox3df;
+using core::dimension2df;
 
 class CFlame
 {

@@ -26,7 +26,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 	}
 	
 	// 计算三维物体在屏幕上的坐标
-	position2d<f32> screamPoint;
+	position2df screamPoint;
 	if ( !To2DScreamPos(pNode->getPosition(), &(screamPoint)) )
 	{
 		return false;
@@ -48,7 +48,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 	}
 
 	vector3df pEdges[8];
-	position2d<f32> pEdgesPos[8];
+	position2df pEdgesPos[8];
 	// 去物体的包围盒，用于计算物体在屏幕上的2D大小
 	pNode->getTransformedBoundingBox().getEdges(pEdges);
 	
@@ -98,7 +98,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
    描述：通过3D坐标计算出其屏幕坐标
 */
 /************************************************************************/
-bool Toolkit::To2DScreamPos(vector3df v, position2d<f32>* p)
+bool Toolkit::To2DScreamPos(vector3df v, position2df* p)
 {
 	s32 width, height;
 
@@ -111,8 +111,8 @@ bool Toolkit::To2DScreamPos(vector3df v, position2d<f32>* p)
 	in[2] = v.Z;
 	in[3] = 1.0;
 	 
-	matrix4 ModleView;
-	matrix4 Project;
+	core::matrix4 ModleView;
+	core::matrix4 Project;
 
 	// 得到照相机的坐标矩阵
 	ModleView = m_pCamara->getViewMatrix();
