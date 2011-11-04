@@ -250,12 +250,14 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 		// 保存玩家信息
 		m_players[ oneplayer.player_index ] = ship;
 
+		m_playerManager->AddPlayer( ship->getID(), ship );
+
 		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}
 	else
 	{
-		// 设置自己的id
-		cf1->setID( m_index );
+		// 设置自己的id		
+		m_playerManager->m_playerHelper.PlayerShip->setID( m_index );
 	}
 }
 

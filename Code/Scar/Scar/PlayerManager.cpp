@@ -168,14 +168,28 @@ void PlayerManager::Update()
 void PlayerManager::AddPlayer( int id, IShip* player_node )
 {
 	m_playerList[ id ] = player_node;
+	player_node->grab();
 }
 
 void PlayerManager::RemovePlayer( int id )
 {
-	m_playerList.erase( id );
+	auto iter = m_playerList.find( id );
+	if ( iter != m_playerList.end() )
+	{
+		iter->second->drop();
+		m_playerList.erase( iter );
+	}
 }
 
 const PlayerMapType& PlayerManager::GetPlayers() const
 {
 	return m_playerList;
+}
+
+PlayerManager::~PlayerManager()
+{
+	for ( auto iter = m_playerList.begin(); iter != m_playerList.end(); ++iter )
+	{
+		iter->second->drop();
+	}
 }

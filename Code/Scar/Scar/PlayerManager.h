@@ -89,6 +89,8 @@ public:
 	
 	PlayerManager( UIManager* uiManager, IShip* player_ship );
 
+	~PlayerManager();
+
 	// Ìí¼ÓÍæ¼Ò
 	void AddPlayer( int id, IShip* player_node );
 
