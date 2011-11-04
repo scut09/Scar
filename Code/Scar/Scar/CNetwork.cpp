@@ -255,7 +255,7 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 
 	sock = m_ip_socketMap[ ip ];
 
-	sock->write_some( buffer( (char*)&*pack, pack->GetLength() ) );
+	sock->write_some( buffer( (char*)&p, p.GetLength() ) );
 
 	//sock->async_write_some( 
 	//	buffer( (char*)&*pack, pack->GetLength() )
