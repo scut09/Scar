@@ -111,7 +111,7 @@ void MyIrrlichtEngine::Run()
 
 	while ( m_pDevice->run() )
 	{
-		if ( ! m_pDevice->isWindowActive() )	continue;
+		//if ( ! m_pDevice->isWindowActive() )	continue;
 
 		if ( currentScene == NULL )		return;		// 无场景，结束游戏循环
 
