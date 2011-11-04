@@ -68,6 +68,9 @@ public:
 
 };
 
+typedef std::map<int, IShip*>		PlayerMapType;
+
+
 /*
 ** 名字：PlayerManager
 ** 说明：玩家管理
@@ -76,7 +79,6 @@ public:
 class PlayerManager
 {
 public:
-	typedef std::map<int, IShip*>		PlayerMapType;
 
 	PlayerMapType	m_playerList;		// 玩家列表
 
@@ -88,22 +90,13 @@ public:
 	PlayerManager( UIManager* uiManager, IShip* player_ship );
 
 	// 添加玩家
-	void AddPlayer( int id, IShip* player_node )
-	{
-		m_playerList[ id ] = player_node;
-	}
+	void AddPlayer( int id, IShip* player_node );
 
 	// 移除玩家
-	void RemovePlayer( int id )
-	{
-		m_playerList.erase( id );
-	}
+	void RemovePlayer( int id );
 
 	// 获取玩家列表
-	const PlayerMapType& GetPlayers() const
-	{
-		return m_playerList;
-	}
+	const PlayerMapType& GetPlayers() const;
 
 
 	void Update();

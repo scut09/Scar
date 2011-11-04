@@ -99,55 +99,7 @@ public:
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) );
 
 	// 从obj克隆成员变量到自己
-	virtual void CloneMembersFrom( IUIObject* toCopyFrom )
-	{
-		// 复制动画
-		BOOST_FOREACH( IUIAnimator* ani, Animators )
-		{
-			IUIAnimator* a = ani->Clone();
-			if ( a )
-			{
-				AddAnimator( a );
-				a->drop();
-			}
-		}
-
-		// 复制孩子
-		BOOST_FOREACH( IUIObject* child, Children )
-		{
-			IUIObject* object = child->Clone();
-			AddChild( object );
-			object->drop();
-		}
-
-		SetParent( toCopyFrom->Parent );		
-
-		Order		= toCopyFrom->Order;			
-		IsVisible	= toCopyFrom->IsVisible;		
-		Driver		= toCopyFrom->Driver;	
-
-		Image		= toCopyFrom->Image;
-		Image->grab();
-
-		RelativeAlpha			= toCopyFrom->RelativeAlpha;				
-		RelativeTranslation		= toCopyFrom->RelativeTranslation;		
-		RelativeRotation		= toCopyFrom->RelativeRotation;			
-		RelativeScale			= toCopyFrom->RelativeScale;				
-		AbsoluteTransformation	= toCopyFrom->AbsoluteTransformation;	
-
-		FuncMap			= toCopyFrom->FuncMap;	
-		Name			= toCopyFrom->Name;				
-		LeftTop			= toCopyFrom->LeftTop;					
-		RightBottom		= toCopyFrom->RightBottom;		
-		bAntiAliasing	= toCopyFrom->bAntiAliasing;
-		Shape			= toCopyFrom->Shape;						
-
-		for ( int i = 0; i < 4; i++ )
-		{
-			DestinationQuadrangle[ i ] = toCopyFrom->DestinationQuadrangle[ i ];
-		}
-
-	}
+	virtual void CloneMembersFrom( IUIObject* toCopyFrom );
 
 	virtual IUIObject* Clone() = 0;
 

@@ -27,6 +27,7 @@ PlayerHelper::PlayerHelper( UIManager* uiManager, IShip* player_ship )
 	Gradienter = m_uiManager->GetObjectByName( "gradienter" );
 	// 获取目标圈
 	ShipTip = m_uiManager->GetObjectByName( "target1" );
+	ShipTip->SetVisible( false );
 	// 获取锁定圈——已锁定
 	lock1 = m_uiManager->GetObjectByName( "lock1" );
 	// 获取敌军指示
@@ -40,7 +41,7 @@ void PlayerHelper::UpdateShipTip( IShip* ship )
 	if ( iter == m_ship_targetMap.end() )
 	{
 		// 还未创建提示框，那么就创建一个新的
-		shipTip = ShipTip;//->Clone();
+		shipTip = ShipTip->Clone();
 
 		m_ship_targetMap[ ship ] = shipTip;
 
@@ -162,4 +163,19 @@ void PlayerManager::Update()
 	{
 		m_playerHelper.UpdateShipTip( iter->second );
 	}
+}
+
+void PlayerManager::AddPlayer( int id, IShip* player_node )
+{
+	m_playerList[ id ] = player_node;
+}
+
+void PlayerManager::RemovePlayer( int id )
+{
+	m_playerList.erase( id );
+}
+
+const PlayerMapType& PlayerManager::GetPlayers() const
+{
+	return m_playerList;
 }

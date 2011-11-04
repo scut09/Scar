@@ -45,19 +45,9 @@ UIManager* uiManager; //测试用
 
 IUIObject* root;	//测试用
 
-IUIObject* Cursor;	// 鼠标准心
-IUIObject* Speed1;	// 速度槽慢
-IUIObject* Speed2;	// 速度槽空
-IUIObject* Shield1;	// 护盾槽满
-IUIObject* Shield2;	// 护盾槽空
-IUIObject* Armor1;	// 护甲槽满
-IUIObject* Armor2;	// 护甲槽空
-IUIObject* Gradienter;	// 水平仪
-IUIObject* target1;	//目标圈——友军
-IUIObject* lock1;	//锁定框——已锁定
-IUIObject* indicator1;	// 敌军指示
 IShip* cf1;
-IShip* npc;
+
+
 BulletNode* bullet;	// 子弹
 
 Toolkit* toolkit;
@@ -231,10 +221,7 @@ void MultiplayerScene::Init()
 	// 测试用光源
 	//ISceneNode* tLight = smgr->addLightSceneNode( m_pCamera );
 
-	// 创建npc飞船
-	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	npc->setPosition( vector3df(0,0,50) );
-	toolkit = new Toolkit( m_pCamera, driver );
+
 
 
 
@@ -390,7 +377,15 @@ void MultiplayerScene::Init()
 	}
 
 	playerManager = new PlayerManager( uiManager, cf1 );
+
+	// 创建npc飞船
+	IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	npc->setPosition( vector3df(0,0,50) );
 	playerManager->AddPlayer( 101, npc );
+
+	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	npc->setPosition( vector3df(0,0,250) );
+	playerManager->AddPlayer( 102, npc );
 
 	client = new Network::BoostClient( playerManager );
 	server.Start( 1990, 2012 );

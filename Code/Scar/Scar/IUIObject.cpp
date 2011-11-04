@@ -418,3 +418,52 @@ IUIObject* IUIObject::GetParent() const
 {
 	return Parent;
 }
+
+void IUIObject::CloneMembersFrom( IUIObject* toCopyFrom )
+{
+	BOOST_FOREACH( IUIAnimator* ani, Animators )
+	{
+		IUIAnimator* a = ani->Clone();
+		if ( a )
+		{
+			AddAnimator( a );
+			a->drop();
+		}
+	}
+
+	BOOST_FOREACH( IUIObject* child, Children )
+	{
+		IUIObject* object = child->Clone();
+		AddChild( object );
+		object->drop();
+	}
+
+	//toCopyFrom->Parent->AddChild( this );
+
+	//SetParent( toCopyFrom->Parent );		
+
+	Order		= toCopyFrom->Order;			
+	IsVisible	= toCopyFrom->IsVisible;		
+	Driver		= toCopyFrom->Driver;	
+
+	Image		= toCopyFrom->Image;
+	Image->grab();
+
+	RelativeAlpha			= toCopyFrom->RelativeAlpha;				
+	RelativeTranslation		= toCopyFrom->RelativeTranslation;		
+	RelativeRotation		= toCopyFrom->RelativeRotation;			
+	RelativeScale			= toCopyFrom->RelativeScale;				
+	AbsoluteTransformation	= toCopyFrom->AbsoluteTransformation;	
+
+	FuncMap			= toCopyFrom->FuncMap;	
+	Name			= toCopyFrom->Name;				
+	LeftTop			= toCopyFrom->LeftTop;					
+	RightBottom		= toCopyFrom->RightBottom;		
+	bAntiAliasing	= toCopyFrom->bAntiAliasing;
+	Shape			= toCopyFrom->Shape;						
+
+	for ( int i = 0; i < 4; i++ )
+	{
+		DestinationQuadrangle[ i ] = toCopyFrom->DestinationQuadrangle[ i ];
+	}
+}
