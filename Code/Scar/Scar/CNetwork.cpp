@@ -265,6 +265,7 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 	try
 	{
 		sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
+		sock->connect( ep );
 		sock->write_some( buffer( (char*)&p, p.GetLength() ) );
 	}
 	catch ( std::exception& e )
