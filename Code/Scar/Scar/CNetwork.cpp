@@ -242,41 +242,42 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 
 	std::shared_ptr<ip::tcp::socket> sock;	
 
-	//// 查找是否有已连接的tcp
-	//TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
-	//if ( iter == m_ip_socketMap.end() )
-	//{
-	//	sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
-	//	m_ip_socketMap[ ip ] = sock;
-
-	//	try
-	//	{
-	//		// 连接
-	//		sock->connect( ep );
-	//	}
-	//	catch ( std::exception& e )
-	//	{
-	//		std::cout << e.what() << std::endl;
-	//	}
-	//}
-
-	//sock = m_ip_socketMap[ ip ];
-
-	try
+	// 查找是否有已连接的tcp
+	TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
+	if ( iter == m_ip_socketMap.end() )
 	{
 		sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
-		sock->connect( ep );
-		sock->write_some( buffer( (char*)&p, p.GetLength() ) );
+		m_ip_socketMap[ ip ] = sock;
+
+		try
+		{
+			// 连接
+			sock->connect( ep );
+		}
+		catch ( std::exception& e )
+		{
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	sock = m_ip_socketMap[ ip ];
+
+	sock->async_write_some( 
+		buffer( (char*)&*pack, pack->GetLength() )
+		, boost::bind( &CNetwork::tcp_write_handler, this, placeholders::error, sock, pack ) );
+
+
+	
+	/*try
+	{
+	sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
+	sock->connect( ep );
+	sock->write_some( buffer( (char*)&p, p.GetLength() ) );
 	}
 	catch ( std::exception& e )
 	{
-		std::cout << e.what() << std::endl;
-	}
-
-	//sock->async_write_some( 
-	//	buffer( (char*)&*pack, pack->GetLength() )
-	//	, boost::bind( &CNetwork::tcp_write_handler, this, placeholders::error, sock, pack ) );
-
+	std::cout << e.what() << std::endl;
+	}*/
 }
 
 void Network::CNetwork::tcp_write_handler( const boost::system::error_code& ec,

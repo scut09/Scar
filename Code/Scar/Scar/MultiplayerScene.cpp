@@ -137,7 +137,7 @@ void MultiplayerScene::Run()
 	{
 		bRunOnce = false;
 
-		Sleep( 1000 );
+		Sleep( 1500 );
 
 		auto rooms = client.GetRooms();
 		auto localIP = client.GetLocalIP();
@@ -163,7 +163,7 @@ void MultiplayerScene::Run()
 
 		//client.Send( "192.168.1.121" );
 
-		while ( ! client.m_index )
+		while ( -11 == client.m_index )
 		{
 			Sleep( 500 );
 		}
