@@ -253,11 +253,15 @@
     <None Include="..\..\..\bin\Python\StartScene.py" />
     <None Include="..\..\..\bin\Python\UILoader.py" />
     <None Include="..\..\..\bin\Python\WEB.py" />
+    <None Include="..\..\..\bin\Shader\cs_1F.txt" />
+    <None Include="..\..\..\bin\Shader\cs_1V.txt" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundV.txt" />
     <None Include="..\..\..\bin\Shader\ShaderTest.txt" />
+    <None Include="..\..\..\bin\Shader\universeF.txt" />
+    <None Include="..\..\..\bin\Shader\universeV.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -58,6 +58,15 @@
     <Filter Include="Shader\shaders">
       <UniqueIdentifier>{5f7363fe-adcf-43c5-931d-766376297638}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\shaders\station">
+      <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\shaders\planet">
+      <UniqueIdentifier>{1fe8dcc9-72be-4da2-ae88-221e187695e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\shaders\universe">
+      <UniqueIdentifier>{186a82c2-7c73-48ab-9333-15e2d2ba6676}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -571,17 +580,29 @@
     <None Include="..\..\..\bin\Shader\ShaderTest.txt">
       <Filter>Shader\shaders</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt">
-      <Filter>Shader\shaders</Filter>
+    <None Include="..\..\..\bin\Shader\cs_1F.txt">
+      <Filter>Shader\shaders\station</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\cs_1V.txt">
+      <Filter>Shader\shaders\station</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt">
-      <Filter>Shader\shaders</Filter>
-    </None>
-    <None Include="..\..\..\bin\Shader\PlanetGroundF.txt">
-      <Filter>Shader\shaders</Filter>
+      <Filter>Shader\shaders\planet</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\PlanetGroundV.txt">
-      <Filter>Shader\shaders</Filter>
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetGroundF.txt">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\universeF.txt">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\universeV.txt">
+      <Filter>Shader\shaders\planet</Filter>
     </None>
   </ItemGroup>
 </Project>

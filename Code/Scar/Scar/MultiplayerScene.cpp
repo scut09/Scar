@@ -260,11 +260,11 @@ void MultiplayerScene::Init()
 	cf1->AddGun( bullet );
 
 	//  加入摄像机
-	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	/*m_pCamera = smgr->addCameraSceneNode();
 	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
 	m_pCamera->addAnimator( fpsAni );
-	fpsAni->drop();
+	fpsAni->drop();*/
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
@@ -364,20 +364,21 @@ void MultiplayerScene::Init()
 
 	pSoundEngine = createIrrKlangDevice();
 	fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
+
 	//fuck->setVolume( fuck->getVolume() - 10 );
 
 	//加载空间站模型
-	//IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../modle/station/cs1.obj") ) );
-	//if ( station )
-	//{
-	//	// 设置名字
-	//	station->setName( "station1" );
+	IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../model/station/cs1.obj") ) );
+	if ( station )
+	{
+		// 设置名字
+		station->setName( "station1" );
+		station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_l.png")) );
+		//station->
+		GeneralCallBack* cb = new GeneralCallBack( station );
+		shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.txt", "Shader/cs_1F.txt" );
+		cb->drop();
 
-	//	//// 创建碰撞的三角形选择器以支持碰撞检测
-	//	//scene::ITriangleSelector* selector = 
-	//	//	MyIrrlichtEngine::GetEngine()->GetSceneManager()->createTriangleSelector( station );
-	//	//station->setTriangleSelector(selector);
-	//	//selector->drop();
 
 	//	// 设置初始大小
 	//	//station->setScale( vector3df( .001f));
@@ -386,7 +387,7 @@ void MultiplayerScene::Init()
 	//	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
 	//	//moon->addAnimator( sca );
 	//	//sca->drop();
-	//}
+	}
 
 
 	////加载太阳
@@ -488,8 +489,22 @@ void MultiplayerScene::Init()
 		driver->getTexture( _T("../media/Space/c07_rt.jpg") ),
 		driver->getTexture( _T("../media/Space/c07_ft.jpg") ),
 		driver->getTexture( _T("../media/Space/c07_bk.jpg") ));	
-	//不知道为什么把天空盒设小一点反而不会出黑边
-	m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
+	if (m_pSkyBox)
+	{
+		//不知道为什么把天空盒设小一点反而不会出黑边
+		//m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
+		//shader
+		/*std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
+		SMaterial mat = m_pSkyBox->getMaterial(1);
+		mat.setTexture( 0, 0 );
+		mat.MaterialType = (E_MATERIAL_TYPE)driver->getGPUProgrammingServices()->addHighLevelShaderMaterialFromFiles(
+			"Shader/universeV.txt", "main", EVST_VS_1_1, "Shader/universeF.txt");*/
+		/*GeneralCallBack* cb = new GeneralCallBack(m_pSkyBox);
+		shader->ApplyShaderToSceneNode( m_pSkyBox, cb, "", "Shader/universeF.txt" );
+		cb->drop();*/
+	}
+	
+
 
 	//// 注册引擎回调函数
 	//pEngine->SetCallbackFunc( [ &scene ]( void* engine )->void*
