@@ -163,9 +163,16 @@ void MultiplayerScene::Run()
 
 		//client.Send( "192.168.1.121" );
 
+		while ( ! client.m_index )
+		{
+			Sleep( 500 );
+		}
+
 		std::cout << "m_index " << client.m_index << std::endl;
 
 	}
+
+
 
 	auto pos = m_pCamera->getPosition();
 	client.SendHeroMove( client.m_index, pos.X, pos.Y, pos.Z );
