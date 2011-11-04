@@ -192,6 +192,8 @@ CAnimatedMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 void IShip::SetShield( const f32 shield )
 {
 	CurrentShield = shield;
+	if ( CurrentShield < 0 )
+		CurrentShield = 0;
 }
 
 const f32 IShip::GetShield() const
