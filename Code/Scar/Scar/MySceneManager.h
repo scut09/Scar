@@ -93,7 +93,8 @@ public:
 		return animator;
 	}
 
-	ISceneNodeAnimator* createTheBeginMoveAnimator( vector3df thebeginpoint, vector3df theendpoint, u32 delay, u32 duration, int circle_n )
+	ISceneNodeAnimator* createTheBeginMoveAnimator( vector3df thebeginpoint, vector3df theendpoint,
+		u32 delay, u32 duration, int circle_n )
 	{
 		ISceneNodeAnimator* animator = new TheBeginMove( thebeginpoint, theendpoint, delay, duration, circle_n );
 		return animator;

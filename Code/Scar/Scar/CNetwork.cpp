@@ -40,7 +40,7 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 		ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) ;//);
 
 	// 创建io_service_pool异步完成的等待线程
-	m_io_thread = std::shared_ptr<thread>( new thread( boost::bind( &io_service_pool::run, &m_pool ) ) );
+	m_io_thread.reset( new thread( boost::bind( &io_service_pool::run, &m_pool ) ) );
 }
 
 Network::CNetwork::~CNetwork()
@@ -54,7 +54,7 @@ void Network::CNetwork::Start( INetworkCallbackType func )
 	m_func = func;
 
 	// 启动新线程来处理消息
-	m_handle_thread = std::shared_ptr<thread>( new thread( bind( &CNetwork::Message_Handler, this ) ) );
+	m_handle_thread.reset( new thread( bind( &CNetwork::Message_Handler, this ) ) );
 
 	StartTCP();	
 	StartUDP();
