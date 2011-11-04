@@ -1,5 +1,15 @@
 
+uniform sampler2D TextureL0; //Ìì¿Õ
+uniform sampler2D TextureL1; //¾²Ö¹µÄÐÇÐÇ
+uniform sampler2D TextureL2;
+
+uniform float TimeMs;
+
 void main()
 {
-	gl_FragColor = vec4(1);
+	float t = TimeMs / 50000.0;
+
+	vec4 Sky = texture2D( TextureL0, vec2(gl_TexCoord[0]) );
+	vec4 Stars = texture2D( TextureL1, vec2(gl_TexCoord[0]) );
+	gl_FragColor = Sky + Stars * 0.7;
 }

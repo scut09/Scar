@@ -599,10 +599,10 @@
       <Filter>Shader\shaders\planet</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\universeF.txt">
-      <Filter>Shader\shaders\planet</Filter>
+      <Filter>Shader\shaders\universe</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\universeV.txt">
-      <Filter>Shader\shaders\planet</Filter>
+      <Filter>Shader\shaders\universe</Filter>
     </None>
   </ItemGroup>
 </Project>

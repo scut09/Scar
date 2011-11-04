@@ -267,11 +267,11 @@ void MultiplayerScene::Init()
 	cf1->AddGun( bullet );
 
 	//  加入摄像机
-	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();
+	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	/*m_pCamera = smgr->addCameraSceneNode();
 	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
 	m_pCamera->addAnimator( fpsAni );
-	fpsAni->drop();
+	fpsAni->drop();*/
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
@@ -517,14 +517,11 @@ void MultiplayerScene::Init()
 		//不知道为什么把天空盒设小一点反而不会出黑边
 		m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
 		//shader
-		/*std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
-		SMaterial mat = m_pSkyBox->getMaterial(1);
-		mat.setTexture( 0, 0 );
-		mat.MaterialType = (E_MATERIAL_TYPE)driver->getGPUProgrammingServices()->addHighLevelShaderMaterialFromFiles(
-			"Shader/universeV.txt", "main", EVST_VS_1_1, "Shader/universeF.txt");*/
-		/*GeneralCallBack* cb = new GeneralCallBack(m_pSkyBox);
-		shader->ApplyShaderToSceneNode( m_pSkyBox, cb, "", "Shader/universeF.txt" );
-		cb->drop();*/
+		//std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
+		m_pSkyBox->setMaterialTexture( 1, driver->getTexture("../media/Space/stars.png") );
+		GeneralCallBack* cb = new GeneralCallBack(m_pSkyBox);
+		shader->ApplyShaderToSceneNode( m_pSkyBox, cb, "Shader/universeV.txt", "Shader/universeF.txt" );
+		cb->drop();
 	}
 	
 
