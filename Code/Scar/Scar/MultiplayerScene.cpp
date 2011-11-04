@@ -260,11 +260,11 @@ void MultiplayerScene::Init()
 	cf1->AddGun( bullet );
 
 	//  ¼ÓÈëÉãÏñ»ú
-	m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	/*m_pCamera = smgr->addCameraSceneNode();
+	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	m_pCamera = smgr->addCameraSceneNode();
 	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
 	m_pCamera->addAnimator( fpsAni );
-	fpsAni->drop();*/
+	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
@@ -599,6 +599,9 @@ void MultiplayerScene::Release()
 {
 	if ( uiManager )
 		delete uiManager;
+
+	client.Close();
+	server.Close();
 
 	m_pCamera->remove();
 	m_pSkyBox->remove();
