@@ -14,6 +14,7 @@
 #include <list>
 #include "def.h"
 #include "ModelManager.h"
+#include <sstream>
 //#include "IMovable.h"
 //#include "AnimationManager.h"
 #include "GameScene.h"
@@ -62,6 +63,8 @@ public:
 	static IEventReceiver*			pEventReceiver;	// 消息处理者
 	static bool						bFullScreen;	// 是否全屏
 	static GameScene*				currentScene;	// 当前场景
+
+	static std::stringstream		Console_Buffer;	
 
 public:
 

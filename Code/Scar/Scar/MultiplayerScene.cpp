@@ -121,6 +121,34 @@ private:
 	}
 };
 
+irr::gui::IGUIStaticText* console;
+void UpdateConsole()
+{
+	std::string buf = MyIrrlichtEngine::Console_Buffer.str();
+	if ( buf.empty() )	
+		return;
+
+	std::wstring str( buf.begin(), buf.end() );
+	str = console->getText() + str;
+	std::size_t remain = 800;
+	if ( str.length() > remain )
+	{
+		std::size_t pos = str.length() - remain;
+		while ( pos )
+		{
+			if ( str[ pos ] == _T('\n') )
+			{
+				break;
+			}
+			pos--;
+		}
+		str = str.substr( pos );
+	}
+	console->setText( str.c_str() );
+	MyIrrlichtEngine::Console_Buffer.clear();
+}
+
+
 void MultiplayerScene::Run()
 {
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
@@ -151,7 +179,7 @@ void MultiplayerScene::Run()
 		if ( iter == rooms.end() )
 			client->EnterRoom( *localIP.begin() );		
 
-		Sleep( 2000 );
+		//Sleep( 2000 );
 
 		//client->Send( "192.168.1.121" );
 
@@ -171,6 +199,7 @@ void MultiplayerScene::Run()
 
 	playerManager->Update();
 
+	UpdateConsole();
 }
 
 void MultiplayerScene::Init()
@@ -443,16 +472,32 @@ void MultiplayerScene::Init()
 	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 
 
+	IGUISkin* skin = gui->getSkin();
+	IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
+	if (font)
+		skin->setFont(font);
+
+	skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
+
 	IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
+
+
+	console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
+
+
+//	gui->addScrollBar( false, core::recti( 0, 0, 200, 200 ), console );
+
 	box->setVisible( false );
 
 	//auto as = core::rect<s32>;
 
 	MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
 
+	console->setText( _T("Press F1 to show or close this box" ) );
 
 	// 创建并注册receiver的事件处理回调函数
-	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [ gui, box, fireAni, pEngine ]( const SEvent& event )->void*
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
+		[ gui, box, fireAni, pEngine ]( const SEvent& event )->void*
 	{	
 		fireAni->OnEvent( event );
 		//control.OnEvent( event );
@@ -491,6 +536,15 @@ void MultiplayerScene::Init()
 			else if ( event.KeyInput.Key == KEY_KEY_O )
 			{
 				MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
+			}
+			else if ( event.KeyInput.Key == KEY_F1 )
+			{
+				console->setVisible( ! console->isVisible() );
+				if ( console->isVisible() )
+				{
+					UpdateConsole();
+					//gui->setFocus( console );
+				}
 			}
 		}
 		return 0;

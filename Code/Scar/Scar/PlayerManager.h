@@ -100,8 +100,9 @@ public:
 	// 获取玩家列表
 	const PlayerMapType& GetPlayers() const;
 
-
 	void Update();
+
+	//void SetLockShip( )
 
 };
 

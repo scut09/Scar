@@ -14,7 +14,9 @@
 #include "StartScene.h"
 #include "PythonManager.h"
 #include <iostream>
-
+#include <string>
+#include <fstream>
+#include <sstream>
 
 scene::ISceneNode* Test( scene::ISceneNode* node )
 {
@@ -90,7 +92,6 @@ void InitScene()
 	}
 }
 
-
 int main()
 {
 	Py_Initialize(); 
@@ -105,14 +106,16 @@ int main()
 
 	// 初始化引擎
 	MyIrrlichtEngine::pEventReceiver = &receiver;
-	MyIrrlichtEngine::screen_width = 800;
-	MyIrrlichtEngine::screen_height = 600;
+	MyIrrlichtEngine::screen_width = 1366;
+	MyIrrlichtEngine::screen_height = 768;
 	MyIrrlichtEngine::bFullScreen = false;
 
 	// 创建引擎，并获取引擎指针
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
+	//std::string buf;
+	std::streambuf *default_buf = std::cout.rdbuf( MyIrrlichtEngine::Console_Buffer.rdbuf() );
 	
 	AddPythonPath();	// 添加Python路径
 	
@@ -122,6 +125,9 @@ int main()
 	pEngine->Run();
 
 	pEngine->GetDevice()->drop();
+
+	std::cout.rdbuf( default_buf );
+	//std::cout <<  MyIrrlichtEngine::Console_Buffer.str();
 
 	//Py_Finalize();
 	return 0;

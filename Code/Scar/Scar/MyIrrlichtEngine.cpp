@@ -22,6 +22,8 @@ int MyIrrlichtEngine::screen_height = 640;
 bool MyIrrlichtEngine::bFullScreen = false;
 GameScene* MyIrrlichtEngine::currentScene = NULL;
 
+std::stringstream MyIrrlichtEngine::Console_Buffer;	// »º´æ
+
 
 /*
 ** Ãû×Ö£ºMyIrrlichtEngine::GetEngine()
