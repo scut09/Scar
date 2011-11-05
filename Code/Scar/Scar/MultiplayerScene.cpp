@@ -186,7 +186,20 @@ void MultiplayerScene::Init()
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
 	// 创建飞船
-	IShip* cf1 = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );	
+	IShip* cf1;
+	IMesh* cf1Mesh = smgr->getMesh( _T("../model/ship/cf1.obj") )->getMesh(0);
+	if ( cf1Mesh )
+	{
+		IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
+		cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
+		cf1->setName( "cf1" );
+		cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+		//cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
+		GeneralCallBack* cb = new GeneralCallBack( cf1 );
+		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.txt", "Shader/cf_1F.txt" );
+		cb->drop();
+		tangentMesh->drop();
+	}
 
 	//cf1->setPosition( vector3df( 0, 0, 50 ) );rt
 	// 创建子弹
@@ -213,7 +226,7 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
@@ -306,6 +319,7 @@ void MultiplayerScene::Init()
 		GeneralCallBack* cb = new GeneralCallBack( station );
 		shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.txt", "Shader/cs_1F.txt" );
 		cb->drop();
+		tangentMesh->drop();
 	}
 	
 	//IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../model/station/cs1.obj") ) );

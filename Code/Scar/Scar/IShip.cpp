@@ -172,8 +172,8 @@ void IShip::RemoveMissles()
 	Missiles.clear();
 }
 
-IShip::IShip( irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent, irr::scene::ISceneManager* mgr, s32 id, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f) */ ) :
-CAnimatedMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
+IShip::IShip( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, irr::scene::ISceneManager* mgr, s32 id, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f) */ ) :
+CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 {
 	if ( !parent )
 	{
@@ -184,7 +184,7 @@ CAnimatedMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
 	Energy = 1000;
 
 	// 创建碰撞的三角形选择器以支持碰撞检测	[ 华亮 2011-10-29 ]
-	scene::ITriangleSelector* selector = mgr->createTriangleSelector( (scene::IAnimatedMeshSceneNode*)this );
+	scene::ITriangleSelector* selector = mgr->createTriangleSelector( mesh, (ISceneNode*)this );
 	this->setTriangleSelector(selector);
 	selector->drop();
 }

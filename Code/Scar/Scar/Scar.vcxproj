@@ -255,6 +255,8 @@
     <None Include="..\..\..\bin\Python\StartScene.py" />
     <None Include="..\..\..\bin\Python\UILoader.py" />
     <None Include="..\..\..\bin\Python\WEB.py" />
+    <None Include="..\..\..\bin\Shader\cf_1F.txt" />
+    <None Include="..\..\..\bin\Shader\cf_1V.txt" />
     <None Include="..\..\..\bin\Shader\cs_1F.txt" />
     <None Include="..\..\..\bin\Shader\cs_1V.txt" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt" />

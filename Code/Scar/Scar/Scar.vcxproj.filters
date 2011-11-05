@@ -67,6 +67,9 @@
     <Filter Include="Shader\shaders\universe">
       <UniqueIdentifier>{186a82c2-7c73-48ab-9333-15e2d2ba6676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\shaders\ship">
+      <UniqueIdentifier>{c68d2c0a-2873-4013-a0fb-6456a37bd8a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -609,6 +612,12 @@
     </None>
     <None Include="..\..\..\bin\Shader\universeV.txt">
       <Filter>Shader\shaders\universe</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\cf_1F.txt">
+      <Filter>Shader\shaders\ship</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\cf_1V.txt">
+      <Filter>Shader\shaders\ship</Filter>
     </None>
   </ItemGroup>
 </Project>
