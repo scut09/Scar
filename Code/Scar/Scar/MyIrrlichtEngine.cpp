@@ -147,8 +147,8 @@ void MyIrrlichtEngine::Run()
 			}
 
 			m_pDriver->setMaterial( oldMaterial );		// »Ö¸´Ô­Ê¼ÌùÍ¼Ó³Éä
-			gui->drawAll();
 			currentScene->Draw();
+			gui->drawAll();
 		}
 		m_pDriver->endScene();               //remark, that Render() will automticly set the right Rendertargets. so no need setting                             
 
