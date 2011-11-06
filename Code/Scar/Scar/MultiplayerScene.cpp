@@ -28,6 +28,7 @@
 #include "SceneNodeShader.h"
 #include "MySceneManager.h"
 #include "irrKlang.h"
+#include "SpriteFlame.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -124,6 +125,7 @@ private:
 irr::gui::IGUIStaticText* console;
 void UpdateConsole()
 {
+	if ( ! console->isVisible() )	return;
 	std::string buf = MyIrrlichtEngine::Console_Buffer.str();
 	if ( buf.empty() )	
 		return;
@@ -225,12 +227,19 @@ void MultiplayerScene::Init()
 		cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 		//cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
 		GeneralCallBack* cb = new GeneralCallBack( cf1 );
-		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.txt", "Shader/cf_1F.txt" );
+		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
 		cb->drop();
 		tangentMesh->drop();
 	}
+	cf1->setPosition( vector3df(0,-40,0));
+	
+	// 飞船尾焰
+	SpriteFlame* spf = new SpriteFlame();
+	spf->SetOffset( vector3df( -6, 0, -22 ) );
+	spf->AddFlameToShip( cf1, smgr );
+	spf->SetOffset( vector3df( 6, 0, -22 ) );
+	spf->AddFlameToShip( cf1, smgr );
 
-	//cf1->setPosition( vector3df( 0, 0, 50 ) );rt
 	// 创建子弹
 	bullet = new BulletNode( smgr );
 	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
@@ -255,9 +264,9 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	/*auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
-	folowAni->drop();
+	folowAni->drop();*/
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5, 64 );
@@ -346,7 +355,7 @@ void MultiplayerScene::Init()
 		station->setName( "station1" );
 		station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
 		GeneralCallBack* cb = new GeneralCallBack( station );
-		shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.txt", "Shader/cs_1F.txt" );
+		shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.vert", "Shader/cs_1F.frag" );
 		cb->drop();
 		tangentMesh->drop();
 	}
@@ -426,6 +435,25 @@ void MultiplayerScene::Init()
 	server.Start( 1990, 2012 );
 	client->Start( 2012, 1990 );
 
+	// 测试粒子系统
+	/*IParticleSystemSceneNode* ps  = smgr->addParticleSystemSceneNode(false, cf1);
+	IParticleBoxEmitter* em = ps->createBoxEmitter( aabbox3df(-3,0,-3,3,1,3), vector3df(0,0.3f,0),
+		80, 100, 
+		SColor(0,255,255,255), SColor(0,255,255,255),
+		400, 1100);
+	em->setMinStartSize( dimension2df(30.f, 40.f));
+	em->setMaxStartSize( dimension2df(30,40) );
+	ps->setEmitter( em );
+	em->drop();
+	IParticleAffector* af = ps->createFadeOutParticleAffector();
+	ps->addAffector( af );
+	af->drop();
+	ps->setMaterialFlag( EMF_LIGHTING, false );
+	ps->setMaterialFlag( EMF_ZWRITE_ENABLE, false );
+	ps->setMaterialTexture( 0, driver->getTexture("../media/fireball.bmp") );
+	ps->setMaterialType( EMT_TRANSPARENT_VERTEX_ALPHA );*/
+
+
 	// 创建火控
 	auto fireAni = new FireAnimator( m_pCamera, client );
 	cf1->addAnimator( fireAni );
@@ -483,6 +511,7 @@ void MultiplayerScene::Init()
 
 
 	console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
+	console->setVisible(false);
 
 
 //	gui->addScrollBar( false, core::recti( 0, 0, 200, 200 ), console );

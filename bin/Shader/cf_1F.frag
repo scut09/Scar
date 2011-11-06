@@ -12,5 +12,5 @@ void main()
 	vec4 Skin = texture2D( TextureL0, vec2(gl_TexCoord[0]));
 
 	gl_FragColor = Skin * Light;
-	//gl_FragColor = vec4(0) ;//* vec4(2.783133, 4.680723, 7, 1);
+	gl_FragColor += Skin.a * vec4(2.783133, 4.680723, 7, 1);
 } 

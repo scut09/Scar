@@ -97,6 +97,7 @@
     <ClCompile Include="CShadowVolumeSceneNode.cpp" />
     <ClCompile Include="CSkinnedMesh.cpp" />
     <ClCompile Include="FireAnimator.cpp" />
+    <ClCompile Include="FlameAnimator.cpp" />
     <ClCompile Include="Frigate.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
     <ClCompile Include="IShip.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="SceneNodeShader.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SpaceStation.cpp" />
+    <ClCompile Include="SpriteFlame.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TheBeginMove.cpp" />
     <ClCompile Include="TimelagUIAnimator.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="FireAnimator.h" />
     <ClInclude Include="Flame.h" />
+    <ClInclude Include="FlameAnimator.h" />
     <ClInclude Include="FlyBehavior.h" />
     <ClInclude Include="Frigate.h" />
     <ClInclude Include="GameBag.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="SceneNodeShader.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SpaceStation.h" />
+    <ClInclude Include="SpriteFlame.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TestAnimator.h" />
     <ClInclude Include="IUIAnimator.h" />
@@ -255,10 +259,10 @@
     <None Include="..\..\..\bin\Python\StartScene.py" />
     <None Include="..\..\..\bin\Python\UILoader.py" />
     <None Include="..\..\..\bin\Python\WEB.py" />
-    <None Include="..\..\..\bin\Shader\cf_1F.txt" />
-    <None Include="..\..\..\bin\Shader\cf_1V.txt" />
-    <None Include="..\..\..\bin\Shader\cs_1F.txt" />
-    <None Include="..\..\..\bin\Shader\cs_1V.txt" />
+    <None Include="..\..\..\bin\Shader\cf_1F.frag" />
+    <None Include="..\..\..\bin\Shader\cf_1V.vert" />
+    <None Include="..\..\..\bin\Shader\cs_1F.frag" />
+    <None Include="..\..\..\bin\Shader\cs_1V.vert" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />
@@ -266,6 +270,7 @@
     <None Include="..\..\..\bin\Shader\ShaderTest.txt" />
     <None Include="..\..\..\bin\Shader\universeF.txt" />
     <None Include="..\..\..\bin\Shader\universeV.txt" />
+    <None Include="..\..\..\bin\Shader\Flame.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

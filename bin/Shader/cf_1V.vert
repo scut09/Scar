@@ -18,9 +18,9 @@ void main()
 	vec4 N = normalize( TransMatrix * vec4( vec3(1,1,-1)*gl_Normal, 0.0));
 	vec4 L = vec4( LightDirection, 0.0 );
 	float NdotL = dot(N, L);
-	DiffLight = vec4(max(0.0, NdotL));
+	DiffLight = vec4(max(0.0, NdotL)) * vec4(0.7);
 	// 计算全局光
-	AmbiLight = vec4(0.05);
+	AmbiLight = vec4(0.3);
 	// 计算总光照
 	Light = DiffLight + AmbiLight;
 

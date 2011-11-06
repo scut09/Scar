@@ -70,6 +70,12 @@
     <Filter Include="Shader\shaders\ship">
       <UniqueIdentifier>{c68d2c0a-2873-4013-a0fb-6456a37bd8a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{dd7155d5-1d7b-429c-a98b-152df10db916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\shaders\flame">
+      <UniqueIdentifier>{66b86707-2745-435c-bcac-42b608eae35f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,9 +125,6 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Flame.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AlphaChangeUIAnimator.cpp">
       <Filter>UI\UIAnimators</Filter>
@@ -273,6 +276,15 @@
     <ClCompile Include="PlayerManager.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Flame.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteFlame.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="FlameAnimator.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -355,9 +367,6 @@
     </ClInclude>
     <ClInclude Include="UIManager.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Flame.h">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="AlphaChangeUIAnimator.h">
       <Filter>UI\UIAnimators</Filter>
@@ -548,6 +557,15 @@
     <ClInclude Include="PlayerManager.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Flame.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteFlame.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="FlameAnimator.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">
@@ -589,12 +607,6 @@
     <None Include="..\..\..\bin\Shader\ShaderTest.txt">
       <Filter>Shader\shaders</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\cs_1F.txt">
-      <Filter>Shader\shaders\station</Filter>
-    </None>
-    <None Include="..\..\..\bin\Shader\cs_1V.txt">
-      <Filter>Shader\shaders\station</Filter>
-    </None>
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt">
       <Filter>Shader\shaders\planet</Filter>
     </None>
@@ -613,11 +625,20 @@
     <None Include="..\..\..\bin\Shader\universeV.txt">
       <Filter>Shader\shaders\universe</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\cf_1F.txt">
+    <None Include="..\..\..\bin\Shader\cs_1V.vert">
+      <Filter>Shader\shaders\station</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\cs_1F.frag">
+      <Filter>Shader\shaders\station</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\cf_1F.frag">
       <Filter>Shader\shaders\ship</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\cf_1V.txt">
+    <None Include="..\..\..\bin\Shader\cf_1V.vert">
       <Filter>Shader\shaders\ship</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\Flame.frag">
+      <Filter>Shader\shaders\flame</Filter>
     </None>
   </ItemGroup>
 </Project>

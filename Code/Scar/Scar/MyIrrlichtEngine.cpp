@@ -119,11 +119,11 @@ void MyIrrlichtEngine::Run()
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 
-		if ( now - m_lastUpdateTime < frameTime )	// 控制帧率
-		{
-			boost::thread::sleep( boost::get_system_time() + boost::posix_time::milliseconds( 2 ) );
-			continue;
-		}
+		//if ( now - m_lastUpdateTime < frameTime )	// 控制帧率
+		//{
+		//	boost::thread::sleep( boost::get_system_time() + boost::posix_time::milliseconds( 2 ) );
+		//	continue;
+		//}
 
 		// 运行注册的回调函数
 		m_runCallbackFunc( (void*)this );
