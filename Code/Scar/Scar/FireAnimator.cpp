@@ -9,7 +9,8 @@
 
 void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
-	IShip* ship = dynamic_cast<IShip*>(node);
+	IShip* ship = Ship;
+	ICameraSceneNode* Camera = static_cast<ICameraSceneNode*>( node );
 
 	if ( !Initialized )
 	{
@@ -91,8 +92,8 @@ bool FireAnimator::OnEvent( const SEvent& event )
 	return false;
 }
 
-FireAnimator::FireAnimator( ICameraSceneNode* camera, Network::BoostClient* cl ) 
-	: IsFire( false ), Initialized( false ), Camera( camera ), client( cl )
+FireAnimator::FireAnimator( IShip* ship, Network::BoostClient* cl ) 
+	: IsFire( false ), Initialized( false ), client( cl ), Ship( ship )
 {
 }
 
@@ -106,9 +107,6 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 	auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( startPoint, endPoint, bullet->GetLife(), timeMs );
 	auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bullet->GetLife() );
 
-	// 测试发送炮弹数据
-	client->SendBullet( 0, 0, startPoint, endPoint, bullet->GetLife() );
-
 	// 帮子弹附上动画并发射出去
 	newBullet->addAnimator( ani );
 	newBullet->addAnimator( del );
@@ -117,6 +115,10 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 
 	CSceneNodeAnimatorMyCollisionResponse* coll = 
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
+
+	// 测试发送炮弹数据
+	if ( client )
+		client->SendBullet( 0, 0, startPoint, endPoint, bullet->GetLife() );
 
 	// 添加碰撞响应函数
 	coll->SetCollisionCallback( [this]( ISceneNode* node, ISceneNode* target_node )	
@@ -129,7 +131,8 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 		if (NULL != ship)
 		{
 			std::cout << "fuck Ship hitted!\n";
-			client->SendBulletHit( client->m_index, ship->getID(), 0 );
+			if ( client )
+				client->SendBulletHit( client->m_index, ship->getID(), 0 );
 		}
 	} );
 

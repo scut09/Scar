@@ -240,3 +240,8 @@ const u32 IShip::GetEnergy() const
 {
 	return Energy;
 }
+
+IShip::~IShip()
+{
+	RemoveGuns();
+}

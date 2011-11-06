@@ -29,6 +29,7 @@
 #include "MySceneManager.h"
 #include "irrKlang.h"
 #include "SpriteFlame.h"
+#include "IRobot.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -46,7 +47,7 @@ UIManager* uiManager; //测试用
 
 IUIObject* root;	//测试用
 
-
+IRobot* robot;
 
 BulletNode* bullet;	// 子弹
 
@@ -202,6 +203,8 @@ void MultiplayerScene::Run()
 	playerManager->Update();
 
 	UpdateConsole();
+
+	robot->Update();
 }
 
 void MultiplayerScene::Init()
@@ -215,6 +218,7 @@ void MultiplayerScene::Init()
 
 	// 隐藏鼠标
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
+
 
 	// 创建飞船
 	IShip* cf1;
@@ -255,6 +259,7 @@ void MultiplayerScene::Init()
 	fpsAni->drop();
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
+	
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
@@ -264,9 +269,9 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// 飞船跟随照相机
-	/*auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
 	cf1->addAnimator( folowAni );
-	folowAni->drop();*/
+	folowAni->drop();
 
 	//加载行星
 	auto planet = smgr->addSphereSceneNode( 4e5, 64 );
@@ -423,13 +428,31 @@ void MultiplayerScene::Init()
 	playerManager = new PlayerManager( uiManager, cf1 );
 
 	// 创建npc飞船
-	IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	npc->setPosition( vector3df(0,0,50) );
-	playerManager->AddPlayer( 101, npc );
+	//IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	//npc->setPosition( vector3df(0,0,50) );
+	//playerManager->AddPlayer( 101, npc );
 
-	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	npc->setPosition( vector3df(0,0,250) );
-	playerManager->AddPlayer( 102, npc );
+	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+	//npc->setPosition( vector3df(0,0,250) );
+	//playerManager->AddPlayer( 102, npc );
+
+	// 飞船跟随照相机
+	playerManager->AddPlayer( cf1->getID(), cf1 );
+
+	IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+	playerManager->AddPlayer( npc->getID(), npc );
+	npc->AddGun( bullet );
+	bullet->drop();
+	robot = new IRobot( npc, playerManager, &server );
+	auto fireAni2 = new FireAnimator( npc, 0 );
+	robot->addAnimator( fireAni2 );
+	fireAni2->drop();
+	robot->setPosition( vector3df(-80.f, -180.f, 240.f) );
+
+	auto run = smgr->createFlyStraightAnimator( vector3df( 100, 0, -1000 ), vector3df( -100, 0, 2000 ), 15000, true, true );
+	robot->addAnimator( run );
+	run->drop();
+
 
 	client = new Network::BoostClient( playerManager );
 	server.Start( 1990, 2012 );
@@ -455,8 +478,8 @@ void MultiplayerScene::Init()
 
 
 	// 创建火控
-	auto fireAni = new FireAnimator( m_pCamera, client );
-	cf1->addAnimator( fireAni );
+	auto fireAni = new FireAnimator( cf1, client );
+	m_pCamera->addAnimator( fireAni );
 	fireAni->drop();
 
 	client->QueryRoom();
@@ -526,9 +549,10 @@ void MultiplayerScene::Init()
 
 	// 创建并注册receiver的事件处理回调函数
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
-		[ gui, box, fireAni, pEngine ]( const SEvent& event )->void*
+		[ gui, box, pEngine ]( const SEvent& event )->void*
 	{	
-		fireAni->OnEvent( event );
+	//	fireAni->OnEvent( event );
+
 		//control.OnEvent( event );
 		//pEngine;		// 引擎指针
 		/*if (event.EventType == EET_KEY_INPUT_EVENT )

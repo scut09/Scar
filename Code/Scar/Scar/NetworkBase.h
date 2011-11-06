@@ -16,6 +16,7 @@
 #include <boost/thread.hpp>
 #include "NetworkPacket.h"
 #include "INetwork.h"
+#include "CNetwork.h"
 
 namespace Network
 {

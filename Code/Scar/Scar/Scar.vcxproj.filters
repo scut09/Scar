@@ -76,6 +76,9 @@
     <Filter Include="Shader\shaders\flame">
       <UniqueIdentifier>{66b86707-2745-435c-bcac-42b608eae35f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{86ebcfd3-26ae-4116-9745-6b1692194f81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -284,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="FlameAnimator.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraSceneNode.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="IRobot.cpp">
+      <Filter>AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -565,6 +574,12 @@
     </ClInclude>
     <ClInclude Include="FlameAnimator.h">
       <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="IRobot.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraSceneNode.h">
+      <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

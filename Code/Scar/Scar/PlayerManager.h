@@ -18,6 +18,7 @@
 #include "Toolkit.h"
 #include <boost/foreach.hpp>
 #include "UIManager.h"
+#include <vector>
 
 
 using scene::ISceneNode;
@@ -86,6 +87,7 @@ public:
 
 	UIManager*		m_uiManager;
 
+	std::vector<IShip*> m_players;
 	
 	PlayerManager( UIManager* uiManager, IShip* player_ship );
 
@@ -98,7 +100,7 @@ public:
 	void RemovePlayer( int id );
 
 	// 获取玩家列表
-	const PlayerMapType& GetPlayers() const;
+	const std::vector<IShip*>& GetPlayers() const;
 
 	void Update();
 

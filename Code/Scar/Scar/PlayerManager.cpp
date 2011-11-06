@@ -36,6 +36,8 @@ PlayerHelper::PlayerHelper( UIManager* uiManager, IShip* player_ship )
 
 void PlayerHelper::UpdateShipTip( IShip* ship )
 {
+	if ( ship == PlayerShip )	return;
+
 	IUIObject* shipTip;
 	auto iter = m_ship_targetMap.find( ship );
 	if ( iter == m_ship_targetMap.end() )
@@ -168,6 +170,7 @@ void PlayerManager::Update()
 void PlayerManager::AddPlayer( int id, IShip* player_node )
 {
 	m_playerList[ id ] = player_node;
+	m_players.push_back( player_node );
 	player_node->grab();
 }
 
@@ -177,13 +180,22 @@ void PlayerManager::RemovePlayer( int id )
 	if ( iter != m_playerList.end() )
 	{
 		iter->second->drop();
+		// ´ÓvectorÒÆ³ı	
+		 auto i = m_players.begin();
+		for ( ; i != m_players.end(); ++i )
+		{
+			if ( *i == iter->second )
+				break;
+		}
+		m_players.erase( i );
+		
 		m_playerList.erase( iter );
 	}
 }
 
-const PlayerMapType& PlayerManager::GetPlayers() const
+const std::vector<IShip*>& PlayerManager::GetPlayers() const
 {
-	return m_playerList;
+	return m_players;
 }
 
 PlayerManager::~PlayerManager()

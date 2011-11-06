@@ -13,6 +13,7 @@
 #include "CSceneNodeAnimatorCollisionResponse.h"
 #include <vector>
 #include "Boost_Client.h"
+#include "IShip.h"
 
 using namespace irr;
 using namespace irr::core;
@@ -23,13 +24,18 @@ class FireAnimator : public ISceneNodeAnimator
 	bool IsFire;
 	bool Initialized;
 	std::vector<u32>		LastTimes;
-	ICameraSceneNode*		Camera;
 	Network::BoostClient*	client;
+	IShip*					Ship;
 
 public:
-	FireAnimator( ICameraSceneNode* camera, Network::BoostClient* cl );
+	FireAnimator( IShip* ship, Network::BoostClient* cl );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
+
+	virtual bool isEventReceiverEnabled() const
+	{
+		return true;
+	}
 
 	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager=0 );
 

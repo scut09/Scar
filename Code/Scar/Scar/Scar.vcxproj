@@ -87,6 +87,7 @@
     <ClCompile Include="CAnimatedMeshSceneNode.cpp" />
     <ClCompile Include="CBillboardSceneNode.cpp" />
     <ClCompile Include="CBoneSceneNode.cpp" />
+    <ClCompile Include="CCameraSceneNode.cpp" />
     <ClCompile Include="CGUITTFont.cpp" />
     <ClCompile Include="Boost_Client.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="FlameAnimator.cpp" />
     <ClCompile Include="Frigate.cpp" />
     <ClCompile Include="huoyanshuxing.cpp" />
+    <ClCompile Include="IRobot.cpp" />
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="CAnimatedMeshSceneNode.h" />
     <ClInclude Include="CBillboardSceneNode.h" />
     <ClInclude Include="CBoneSceneNode.h" />
+    <ClInclude Include="CCameraSceneNode.h" />
     <ClInclude Include="CGUITTFont.h" />
     <ClInclude Include="Boost_Client.h" />
     <ClInclude Include="Client.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="IMovable.h" />
     <ClInclude Include="INetwork.h" />
     <ClInclude Include="io_service_pool.h" />
+    <ClInclude Include="IRobot.h" />
     <ClInclude Include="ISceneNodeAnimatorFinishing.h" />
     <ClInclude Include="IServer.h" />
     <ClInclude Include="IShip.h" />

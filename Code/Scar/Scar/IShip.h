@@ -78,7 +78,7 @@ protected:
 
 public:
 	
-	virtual ~IShip(void){};
+	virtual ~IShip();
 
 	//初始化飞船的属性参数
 	virtual void initShip(const std::wstring& name,const f32& maxspeed=10, const vector3df& speed=vector3df(0,1,0), 
