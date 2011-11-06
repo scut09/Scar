@@ -203,7 +203,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	vector3df newUpVector = vector3df( t(0), t(1), t(2) );
 	
 	// 根据速度移动飞船
-	vector3df movement = newDirection * Ship->GetVelocity() /* 再乘以时间*/;
+	vector3df movement = vector3df(0);//newDirection * Ship->GetVelocity() /* 再乘以时间*/;
 
 
 	// 翻滚动作

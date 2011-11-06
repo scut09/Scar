@@ -1,6 +1,7 @@
 #include "SpriteFlame.h"
 #include "SceneNodeShader.h"
 #include "MyIrrlichtEngine.h"
+#include "FlameAnimator.h"
 
 
 SpriteFlame::SpriteFlame( vector3df offset /*= vector3df(0,0,-30)*/, vector3df color /*= vector3df(1, 0.8f, 0.1f)*/, vector3df hicolor /*= vector3df(0.8f) */ )
@@ -40,12 +41,11 @@ void SpriteFlame::AddFlameToShip( IShip* ship, ISceneManager* smgr )
 	// 创建Shader回调函数
 	class FlameCallBack : public IShaderConstantSetCallBack
 	{
-		IShip* cb_ship;
 		vector3df cb_color;
 		vector3df cb_hicolor;
 	public:
-		FlameCallBack( IShip* s, vector3df col, vector3df hicol )
-			: cb_ship( s ), cb_color( col ), cb_hicolor( hicol )
+		FlameCallBack( vector3df col, vector3df hicol )
+			: cb_color( col ), cb_hicolor( hicol )
 		{
 
 		}
@@ -75,10 +75,6 @@ void SpriteFlame::AddFlameToShip( IShip* ship, ISceneManager* smgr )
 			//火焰颜色
 			services->setPixelShaderConstant("LoColor", reinterpret_cast<f32*>(&cb_color), 3);
 			services->setPixelShaderConstant("HiColor", reinterpret_cast<f32*>(&cb_hicolor), 3);
-
-			//当前速度与最大速度之比
-			f32 speedRatio = cb_ship->GetVelocity() / cb_ship->GetMaxSpeed();
-			services->setPixelShaderConstant("SpeedRatio", (float*)&speedRatio, 1);
 		}
 	};
 
@@ -87,16 +83,22 @@ void SpriteFlame::AddFlameToShip( IShip* ship, ISceneManager* smgr )
 	// 创建尾焰节点
 	ISceneNode* flame = smgr->addMeshSceneNode( smgr->getMesh("../media/Flame/tree2.3ds"), ship,
 		-1, Offset );
-	flame->setScale( vector3df(5,5,20) );
+	flame->setScale( vector3df(8,8,20) );
 	flame->setMaterialFlag( EMF_LIGHTING, false );
 	flame->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 	flame->setMaterialTexture( 0, driver->getTexture("../media/Flame/outburst13.tga") );
-	//flame->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );
+	flame->setMaterialTexture( 1, driver->getTexture("../media/Flame/flame.tga") );
+	
+	// 根据飞船速度来改变尾焰大小
+	FlameAnimator* fla = new FlameAnimator( ship, Offset );
+	flame->addAnimator( fla );
+	fla->drop();
 
+	// 使用纹理来模拟粒子效果
 	video::IGPUProgrammingServices* gpu = MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getGPUProgrammingServices();
 	if( gpu )
 	{
-		FlameCallBack* cb = new FlameCallBack( ship, Color, HiColor );
+		FlameCallBack* cb = new FlameCallBack( Color, HiColor );
 		auto newMaterialType = gpu->addHighLevelShaderMaterialFromFiles( ShaderFileV,"VertexMain",EVST_VS_1_1,
 			ShaderFileF,"PixelMain",EPST_PS_1_1, cb, EMT_TRANSPARENT_ADD_COLOR );
 		flame->setMaterialType( (video::E_MATERIAL_TYPE)newMaterialType );
