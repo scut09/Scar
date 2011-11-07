@@ -48,14 +48,15 @@ void RobotShip::Update()
 	case Attack:	// 攻击状态
 		if ( IShip* ship = SearchTarget( 2500 ) )
 		{
-			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 2000 )
+			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 500 )
 			{
-				DoPress( KEY_KEY_S );
+				DoUnpress( KEY_KEY_W );
+				DoPress( KEY_KEY_S );	// 按下减速
 			}
-			//else
-			//{
-			//	DoUnpress( KEY_KEY_S );
-			//}
+			else
+			{
+				DoUnpress( KEY_KEY_S );	// 松开减速
+			}
 
 			if ( fireOnce )
 			{
