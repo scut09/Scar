@@ -8,7 +8,7 @@ RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBa
 
 void RobotShip::Update()
 {
-	if ( RobotShip_->GetShield() < 1 )	return;	// นามห
+	if ( RobotShip_->GetShield() <= 5 )	return;	// นามห
 
 	SendMove( getPosition() );
 
