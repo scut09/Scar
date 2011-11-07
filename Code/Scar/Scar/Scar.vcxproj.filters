@@ -297,6 +297,9 @@
     <ClCompile Include="MultiPrepareScene.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="RobotShip.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

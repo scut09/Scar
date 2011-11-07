@@ -134,6 +134,7 @@
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RelateCameraAnimatorMove.cpp" />
     <ClCompile Include="RelateCameraAnimatorStay.cpp" />
+    <ClCompile Include="RobotShip.cpp" />
     <ClCompile Include="RotateUIAnimator.cpp" />
     <ClCompile Include="ScaleUIAnimator.cpp" />
     <ClCompile Include="SceneNodeAnimatorAircraftFPS.cpp" />

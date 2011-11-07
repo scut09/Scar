@@ -11,8 +11,6 @@
 
 #include "IRobot.h"
 
-
-
 class RobotShip : public IRobot
 {
 public:
@@ -23,58 +21,14 @@ public:
 	};
 
 public:
-	RobotShip( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server )
-		: IRobot( ship, mgr, server )
-	{
-		State = Idle;
-	}
+	RobotShip( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server );
 
-	virtual void Update()
-	{
-		SendMove( getPosition() );
-
-		u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
-		this->OnAnimate( time );
-
-		PACKAGE p;
-
-		static bool fireOnce = true;
-
-		switch ( State )
-		{
-			// ¿ÕÏÐ×´Ì¬
-		case Idle:			
-			if ( IShip* ship = SearchTarget() )
-			{
-				State = Fire;
-
-				setTarget( ship->getPosition() );
-
-				SendRotate( getRotation() );
-			}
-			// ¹¥»÷×´Ì¬
-		case Fire:
-			if ( IShip* ship = SearchTarget() )
-			{
-				if ( fireOnce )
-				{
-					fireOnce = false;
-
-					DoLeftButtonDown();	// °´ÏÂ¿ª»ð°´¼ü
-				}
-			}
-			else
-			{
-				State = Idle;
-				fireOnce = true;
-
-				DoLeftButtonUp();		// ËÉ¿ª¿ª»ð°´¼ü
-			}
-		}
-	}
+	virtual void Update();
 
 private:
 	RobotState		State;
+	bool			fireOnce;
+
 
 };
 #endif // RobotShip_h__
