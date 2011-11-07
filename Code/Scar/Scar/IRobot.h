@@ -5,6 +5,9 @@
     说明:     AI机器人
 
 *********************************************************************/
+#ifndef IRobot_h__
+#define IRobot_h__
+
 
 #include "CCameraSceneNode.h"
 #include "NetworkBase.h"
@@ -22,33 +25,59 @@ using namespace Network;
 class IRobot : public irr::scene::CCameraSceneNode
 {
 public:
-
-	enum RobotState
-	{
-		Fire,
-		Idle
-	};
-
+	//************************************
+	// 返回值:  
+	// 参数:    IShip * ship								自己控制的船
+	// 参数:    PlayerManager * mgr						包含所有玩家信息的玩家管理类
+	// 参数:    std::shared_ptr<NetworkBase> server		服务端指针
+	// 描述：   ctor
+	//************************************
 	IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server );
 
-	void Update();
+	// 更新自己
+	virtual void Update() = 0;
 
+protected:
+	// 发送自己的移动信息
 	void SendMove( const vector3df& pos );
-
+	// 发送自己的旋转信息
 	void SendRotate( const core::vector3df& rot );
 
+	// 模拟左键按下
 	void DoLeftButtonDown();
-
+	// 模拟左键弹起
 	void DoLeftButtonUp();
+	// 模拟按下向前移动
+	void DoPressMoveForward()
+	{
+		SEvent ev;
+		ev.EventType = EET_KEY_INPUT_EVENT;
+		ev.KeyInput.Key = KEY_KEY_W;
+		ev.KeyInput.PressedDown = true;
 
-	IShip* SearchTarget();
+		OnEvent( ev );
+	}
+	// 模拟弹起向前移动
+	void DoUnpressMoveForward()
+	{
+		SEvent ev;
+		ev.EventType = EET_KEY_INPUT_EVENT;
+		ev.KeyInput.Key = KEY_KEY_W;
+		ev.KeyInput.PressedDown = false;
 
-	RobotState		State;
+		OnEvent( ev );
+	}
 
-	IShip*			RobotShip;
-	PlayerManager*	Manager;
-	std::shared_ptr<NetworkBase>	Server;
+	// 搜索目标
+	virtual IShip* SearchTarget( int range = 3500 );
+
+protected:
+
+	IShip*							RobotShip;		// 自己控制的船
+	PlayerManager*					Manager;		// 玩家飞船管理类
+	std::shared_ptr<NetworkBase>	Server;			// 服务端
 };
 
 
 
+#endif // IRobot_h__

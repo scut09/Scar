@@ -8,7 +8,6 @@ IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> se
 	, Manager( mgr )
 	, Server( server )
 {
-	State = Idle;
 
 	std::shared_ptr<RobotClient> robotClient = std::shared_ptr<RobotClient>( new RobotClient( server ) );
 	robotClient->SetID( ship->getID() );
@@ -18,47 +17,9 @@ IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> se
 
 }
 
-void IRobot::Update()
-{
-	SendMove( getPosition() );
 
-	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
-	this->OnAnimate( time );
 
-	PACKAGE p;
-
-	static bool fireOnce = true;
-
-	switch ( State )
-	{
-	case Idle:			
-		if ( SearchTarget() )
-			State = Fire;
-
-	case Fire:
-		if ( SearchTarget() )
-		{
-			if ( fireOnce )
-			{
-				fireOnce = false;
-
-				DoLeftButtonDown();
-			}
-
-		}
-		else
-		{
-			State = Idle;
-			fireOnce = true;
-
-			DoLeftButtonUp();
-		}
-	}
-
-	//Server->OnReceive( 0, p );
-}
-
-IShip* IRobot::SearchTarget()
+IShip* IRobot::SearchTarget( int range )
 {
 	auto players = Manager->GetPlayers();
 	for ( auto player = players.begin(); player != players.end(); ++player )
@@ -66,13 +27,8 @@ IShip* IRobot::SearchTarget()
 		if ( *player == RobotShip )	continue;
 
 		core::vector3df dir = (*player)->getPosition() - RobotShip->getPosition();
-		if ( dir.getLength() < 3500 )
+		if ( dir.getLength() < range )
 		{
-			core::vector3df pos = (*player)->getPosition();
-			this->setTarget( (*player)->getPosition() );
-
-			SendRotate( pos );
-
 			return *player;
 		}
 	}

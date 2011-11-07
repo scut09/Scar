@@ -31,6 +31,7 @@
 #include "irrKlang.h"
 #include "SpriteFlame.h"
 #include "IRobot.h"
+#include "RobotShip.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -427,7 +428,7 @@ void MultiplayerScene::Init()
 	playerManager->AddPlayer( npc->getID(), npc );
 	npc->AddGun( bullet );
 	bullet->drop();
-	robot = new IRobot( npc, playerManager, server );
+	robot = new RobotShip( npc, playerManager, server );
 
 	robot->setPosition( vector3df(-80.f, -180.f, 240.f) );
 

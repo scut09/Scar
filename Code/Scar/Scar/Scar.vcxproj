@@ -228,6 +228,8 @@
     <ClInclude Include="PythonWrapper.h" />
     <ClInclude Include="RelateCameraAnimatorMove.h" />
     <ClInclude Include="RelateCameraAnimatorStay.h" />
+    <ClInclude Include="RobotManager.h" />
+    <ClInclude Include="RobotShip.h" />
     <ClInclude Include="Robot_Client.h" />
     <ClInclude Include="RotateUIAnimator.h" />
     <ClInclude Include="ScaleUIAnimator.h" />
