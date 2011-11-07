@@ -587,6 +587,9 @@
     <ClInclude Include="MultiPrepareScene.h">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="Robot_Client.h">
+      <Filter>AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">

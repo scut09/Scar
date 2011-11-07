@@ -8,6 +8,7 @@
 
 #include "Boost_Client.h"
 #include "Boost_Server.h"
+#include "Robot_Client.h"
 #include "GameBag.h"
 #include "PlayerManager.h"
 
@@ -36,9 +37,9 @@
 
 using namespace irrklang;
 
-Network::BoostServer server;
 
-Network::BoostClient* client;
+std::shared_ptr<Network::BoostClient> client;
+std::shared_ptr<Network::BoostServer> server;
 
 PlayerManager*			playerManager;
 
@@ -230,10 +231,10 @@ void MultiplayerScene::Init()
 		//cf1 = new CFrigate( cf1Mesh, 0, smgr, -1 );	
 	//	cf1->setName( "cf1" );
 	//	//cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
-		GeneralCallBack* cb = new GeneralCallBack( cf1 );
-		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-		cb->drop();
-		tangentMesh->drop();
+		//GeneralCallBack* cb = new GeneralCallBack( cf1 );
+		//shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+		//cb->drop();
+		//tangentMesh->drop();
 	}
 	//cf1->setPosition( vector3df(0,-40,0)); 
 	
@@ -413,16 +414,23 @@ void MultiplayerScene::Init()
 	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
 	//npc->setPosition( vector3df(0,0,250) );
 	//playerManager->AddPlayer( 102, npc );
+	server = std::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+	client = std::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
 
-	// ·É´¬¸úËæÕÕÏà»ú
+	server->Start( 1990, 2012 );
+	client->Start( 2012, 1990 );
+
+
 	playerManager->AddPlayer( cf1->getID(), cf1 );
 
 	IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
 	playerManager->AddPlayer( npc->getID(), npc );
 	npc->AddGun( bullet );
 	bullet->drop();
-	robot = new IRobot( npc, playerManager, &server );
-	auto fireAni2 = new FireAnimator( npc, 0 );
+	robot = new IRobot( npc, playerManager, server );
+	std::shared_ptr<RobotClient> robotClient = std::shared_ptr<RobotClient>( new RobotClient( server ) );
+	robotClient->SetID( npc->getID() );
+	auto fireAni2 = new FireAnimator( npc, robotClient );
 	robot->addAnimator( fireAni2 );
 	fireAni2->drop();
 	robot->setPosition( vector3df(-80.f, -180.f, 240.f) );
@@ -432,9 +440,7 @@ void MultiplayerScene::Init()
 	run->drop();
 
 
-	client = new Network::BoostClient( playerManager );
-	server.Start( 1990, 2012 );
-	client->Start( 2012, 1990 );
+
 
 	// ²âÊÔÁ£×ÓÏµÍ³
 	/*IParticleSystemSceneNode* ps  = smgr->addParticleSystemSceneNode(false, cf1);
@@ -592,7 +598,7 @@ void MultiplayerScene::Release()
 		delete uiManager;
 
 	client->Close();
-	server.Close();
+	server->Close();
 
 	m_pCamera->remove();
 	m_pSkyBox->remove();

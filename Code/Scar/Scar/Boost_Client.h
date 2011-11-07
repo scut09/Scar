@@ -11,6 +11,8 @@
 
 
 #include "CNetwork.h"
+#include "GameBag.h"
+#include "IClient.h"
 #include "IShip.h"
 #include "NetworkBase.h"
 #include "NetworkPacket.h"
@@ -18,7 +20,6 @@
 #include <map>
 #include <set>
 #include <vector>
-#include "GameBag.h"
 
 class PlayerManager;
 
@@ -30,7 +31,7 @@ namespace Network
 
 	struct BroadcastRoomBag;
 
-	class BoostClient : public NetworkBase
+	class BoostClient : public NetworkBase, public IClient
 	{
 	public:
 		BoostClient( PlayerManager*	playerManager );
@@ -79,9 +80,15 @@ namespace Network
 			const irr::core::vector3df& end, u32 life );
 		
 
+		void SetID( int id )
+		{
+			m_index = id;
+		}
 
-
-
+		int GetID() const
+		{
+			return m_index;
+		}
 
 		// 获取房间列表
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const;

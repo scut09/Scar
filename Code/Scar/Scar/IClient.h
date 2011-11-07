@@ -1,76 +1,60 @@
-///********************************************************************
-//创建时间: 2011:9:27   14:53
-//文件名:   IClient.h
-//作者:     华亮 Cedric Porter [ Stupid ET ]	
-//说明:     客户端接口。客户端端应该继承IClient并实现IClient的接口，
-//		系统其他部分针对IClient接口编程  
-//
-//*********************************************************************/
-//
-//#ifndef _ICLIENT_H_
-//#define _ICLIENT_H_
-//
-//#include <functional>
-//#include <string>
-//#include <list>
-//
-//namespace Network
-//{
-//	/*
-//	** 名字：ServerInfo
-//	** 说明：由IClient返回的当前局域网服务器的信息
-//	**
-//	*/
-//	struct ServerInfo
-//	{
-//		std::wstring ip;
-//		std::wstring roomName;
-//		int			maxPlayerNumber;
-//		int			currentPlayerNumber;
-//	};
-//
-//	typedef std::function< void*( void* ) > IClientOnMsgCallbackFuncType;
-//	typedef std::list< ServerInfo > ServerInfoList;
-//
-//	/*
-//	** 名字：IClient
-//	** 说明：网络客户端接口
-//	**
-//	*/
-//	class IClient
-//	{
-//	public:
-//		virtual ~IClient() {}
-//
-//		//************************************
-//		// 函数名:  IClient::SearchGameRoom
-//		// 返回值:  ServerInfoList
-//		// 函数修饰:
-//		// 描述：   查找当前局域网的服务器，我们先暂定端口号为 54321
-//		//************************************
-//		virtual ServerInfoList SearchGameRoom() = 0;
-//
-//		//************************************
-//		// 函数名:  IClient::EnterGameRoom
-//		// 返回值:  int
-//		// 参数:    const std::wstring & ip
-//		// 函数修饰:
-//		// 描述：   加入服务器
-//		//************************************
-//		virtual int EnterGameRoom( const std::wstring& ip ) = 0;
-//
-//		//************************************
-//		// 函数名:  IClient::SetOnMsgCallbackFunc
-//		// 返回值:  void
-//		// 参数:    IClientOnMsgCallbackFuncType func
-//		// 函数修饰:
-//		// 描述：   设置消息到达时的回调处理函数，每次在客户端消息到达时，客户端都应调用
-//		//			此函数设置的回调函数来处理消息。
-//		//************************************
-//		virtual void SetOnMsgCallbackFunc( IClientOnMsgCallbackFuncType func ) = 0;
-//	};
-//
-//}
-//
-//
-//#endif
+/********************************************************************
+创建时间: 2011:9:27   14:53
+文件名:   IClient.h
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     客户端接口。客户端端应该继承IClient并实现IClient的接口，
+		系统其他部分针对IClient接口编程  
+
+*********************************************************************/
+
+#ifndef _ICLIENT_H_
+#define _ICLIENT_H_
+
+#include <functional>
+#include <string>
+#include <list>
+#include <irrlicht.h>
+
+namespace Network
+{
+	
+
+	/*
+	** 名字：IClient
+	** 说明：网络客户端接口
+	**
+	*/
+	class IClient
+	{
+	public:
+		virtual ~IClient() {}
+
+		virtual int GetID() const = 0;
+		virtual void SetID( int id ) = 0;
+
+		// 广播查询房间	
+		virtual void QueryRoom() {}		
+		// 加入房间	
+		virtual void EnterRoom( const std::string& ip ) {}		
+		// 发送玩家移动	
+		virtual void SendHeroMove( int index, float x, float y, float z )	{}	
+		// 发送玩家摄像机旋转
+		virtual void SendHeroRot( int index, float x, float y , float z )	{}
+		// 发送消息给一个人	
+		virtual void SendMessageTo( int index, int target_index, const wchar_t* msg ) {}
+		// 群发发送消息
+		virtual void BroadcastMessage( int index, const wchar_t* msg ) {}
+
+		// 发送炮弹命中消息，所有的炮弹命中都是由发射人判断，命中就发送给服务端
+		virtual void SendBulletHit( int owner_index, int target_index, int bullet_type ) {}
+		// 发送发射炮弹的消息
+		virtual void SendBullet( int index, int bullet_type,				
+			const irr::core::vector3df& start, 
+			const irr::core::vector3df& end, irr::u32 life ) {}
+
+	};
+
+}
+
+
+#endif

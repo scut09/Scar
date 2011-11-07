@@ -14,7 +14,11 @@
 using namespace Network;
 
 
-
+/*
+** 名字：
+** 说明：为什么要继承irr::scene::CCameraSceneNode，这个是历史遗留问题导致，因为之前很多东西是和摄像机绑定在一起的
+**
+*/
 class IRobot : public irr::scene::CCameraSceneNode
 {
 public:
@@ -25,9 +29,17 @@ public:
 		Idle
 	};
 
-	IRobot( IShip* ship, PlayerManager* mgr, NetworkBase* server );
+	IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server );
 
 	void Update();
+
+	void SendMove( const vector3df& pos );
+
+	void SendRotate( const core::vector3df& rot );
+
+	void DoLeftButtonDown();
+
+	void DoLeftButtonUp();
 
 	IShip* SearchTarget();
 
@@ -35,7 +47,7 @@ public:
 
 	IShip*			RobotShip;
 	PlayerManager*	Manager;
-	NetworkBase*	Server;
+	std::shared_ptr<NetworkBase>	Server;
 };
 
 

@@ -1,11 +1,15 @@
 #include "Boost_Client.h"
-#include "FireAnimator.h"
+#include "Boost_Client.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "FireAnimator.h"
 #include "IShip.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
-#include "Boost_Client.h"
 
+FireAnimator::FireAnimator( IShip* ship, std::shared_ptr<Network::IClient> client ) 
+	: IsFire( false ), Initialized( false ), Client( client ), Ship( ship )
+{
+}
 
 void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
@@ -92,10 +96,7 @@ bool FireAnimator::OnEvent( const SEvent& event )
 	return false;
 }
 
-FireAnimator::FireAnimator( IShip* ship, Network::BoostClient* cl ) 
-	: IsFire( false ), Initialized( false ), client( cl ), Ship( ship )
-{
-}
+
 
 void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs )
 {
@@ -117,8 +118,7 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
 
 	// ²âÊÔ·¢ËÍÅÚµ¯Êý¾Ý
-	if ( client )
-		client->SendBullet( 0, 0, startPoint, endPoint, bullet->GetLife() );
+	Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
 
 	// Ìí¼ÓÅö×²ÏìÓ¦º¯Êý
 	coll->SetCollisionCallback( [this]( ISceneNode* node, ISceneNode* target_node )	
@@ -131,8 +131,7 @@ void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoin
 		if (NULL != ship)
 		{
 			std::cout << "fuck Ship hitted!\n";
-			if ( client )
-				client->SendBulletHit( client->m_index, ship->getID(), 0 );
+			Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
 		}
 	} );
 

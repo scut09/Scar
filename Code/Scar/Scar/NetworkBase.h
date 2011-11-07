@@ -11,7 +11,7 @@
 
 #include <functional>
 #include <hash_map>
-#include <boost/asio.hpp>
+#include "network_header.h"
 #include <boost/smart_ptr.hpp>
 #include <boost/thread.hpp>
 #include "NetworkPacket.h"

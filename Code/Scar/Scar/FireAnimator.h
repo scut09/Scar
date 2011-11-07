@@ -12,7 +12,7 @@
 #include "ISceneNode.h"
 #include "CSceneNodeAnimatorCollisionResponse.h"
 #include <vector>
-#include "Boost_Client.h"
+#include "IClient.h"
 #include "IShip.h"
 
 using namespace irr;
@@ -24,11 +24,11 @@ class FireAnimator : public ISceneNodeAnimator
 	bool IsFire;
 	bool Initialized;
 	std::vector<u32>		LastTimes;
-	Network::BoostClient*	client;
+	std::shared_ptr<Network::IClient>		Client;
 	IShip*					Ship;
 
 public:
-	FireAnimator( IShip* ship, Network::BoostClient* cl );
+	FireAnimator( IShip* ship, std::shared_ptr<Network::IClient> client );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

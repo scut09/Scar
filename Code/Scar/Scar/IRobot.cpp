@@ -1,7 +1,7 @@
 #include "IRobot.h"
 #include "MyIrrlichtEngine.h"
 
-IRobot::IRobot( IShip* ship, PlayerManager* mgr, Network::NetworkBase* server ) : CCameraSceneNode( 0, 0, -1 )
+IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server ) : CCameraSceneNode( 0, 0, -1 )
 	, RobotShip( ship )
 	, Manager( mgr )
 	, Server( server )
@@ -11,8 +11,7 @@ IRobot::IRobot( IShip* ship, PlayerManager* mgr, Network::NetworkBase* server ) 
 
 void IRobot::Update()
 {
-	RobotShip->setPosition( getPosition() );
-	RobotShip->setRotation( getRotation() );
+	SendMove( getPosition() );
 
 	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 	this->OnAnimate( time );
@@ -34,12 +33,7 @@ void IRobot::Update()
 			{
 				fireOnce = false;
 
-				SEvent ev;
-
-				ev.EventType = EET_MOUSE_INPUT_EVENT;
-				ev.MouseInput.Event = EMIE_LMOUSE_PRESSED_DOWN;	
-
-				OnEvent( ev );
+				DoLeftButtonDown();
 			}
 
 		}
@@ -48,13 +42,7 @@ void IRobot::Update()
 			State = Idle;
 			fireOnce = true;
 
-			SEvent ev;
-
-			ev.EventType = EET_MOUSE_INPUT_EVENT;
-			ev.MouseInput.Event = EMIE_LMOUSE_LEFT_UP;
-
-			OnEvent( ev );
-
+			DoLeftButtonUp();
 		}
 	}
 
@@ -74,14 +62,54 @@ IShip* IRobot::SearchTarget()
 			core::vector3df pos = (*player)->getPosition();
 			this->setTarget( (*player)->getPosition() );
 
-			PACKAGE pack;
-			pack.SetCMD( HERO_ROTATE );
-			HeroRotate rot( RobotShip->getID(), pos.X, pos.Y, pos.Z );
-			pack.SetData( (char*)&rot, sizeof( HeroRotate ) );
-			Server->OnReceive( 0, pack );
+			SendRotate( pos );
 
 			return *player;
 		}
 	}
 	return NULL;
+}
+
+void IRobot::SendMove( const vector3df& pos )
+{
+	RobotShip->setPosition( getPosition() );
+
+	PACKAGE pack;
+	pack.SetCMD( HERO_MOVE );
+	HeroMove move( RobotShip->getID(), pos.X, pos.Y, pos.Z );
+	pack.SetData( (char*)&move, sizeof( HeroMove ) );
+
+	Server->OnReceive( 0, pack );
+}
+
+void IRobot::SendRotate( const core::vector3df& rot )
+{
+	RobotShip->setRotation( getRotation() );
+
+	PACKAGE pack;
+	pack.SetCMD( HERO_ROTATE );
+	HeroRotate rotate( RobotShip->getID(), rot.X, rot.Y, rot.Z );
+	pack.SetData( (char*)&rotate, sizeof( HeroRotate ) );
+
+	Server->OnReceive( 0, pack );
+}
+
+void IRobot::DoLeftButtonUp()
+{
+	SEvent ev;
+
+	ev.EventType = EET_MOUSE_INPUT_EVENT;
+	ev.MouseInput.Event = EMIE_LMOUSE_LEFT_UP;
+
+	OnEvent( ev );
+}
+
+void IRobot::DoLeftButtonDown()
+{
+	SEvent ev;
+
+	ev.EventType = EET_MOUSE_INPUT_EVENT;
+	ev.MouseInput.Event = EMIE_LMOUSE_PRESSED_DOWN;	
+
+	OnEvent( ev );
 }
