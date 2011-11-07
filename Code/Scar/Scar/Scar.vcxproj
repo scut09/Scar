@@ -104,6 +104,7 @@
     <ClCompile Include="IRobot.cpp" />
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
+    <ClCompile Include="MultiPrepareScene.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySceneNodeAnimatorCallFunc.cpp" />
     <ClCompile Include="MySceneNodeAnimatorMove.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="MissileNode.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />
+    <ClInclude Include="MultiPrepareScene.h" />
     <ClInclude Include="MyIReferenceCounted.h" />
     <ClInclude Include="MyIrrlichtEngine.h" />
     <ClInclude Include="ModuleControl.h" />
@@ -271,7 +273,8 @@
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundV.txt" />
-    <None Include="..\..\..\bin\Shader\ShaderTest.txt" />
+    <None Include="..\..\..\bin\Shader\SunF.frag" />
+    <None Include="..\..\..\bin\Shader\SunV.vert" />
     <None Include="..\..\..\bin\Shader\universeF.txt" />
     <None Include="..\..\..\bin\Shader\universeV.txt" />
     <None Include="..\..\..\bin\Shader\Flame.frag" />

@@ -14,6 +14,9 @@ def CreateGameScenes():
 
     multiMenu = MenuScene( "MultiMenuIni" )
     SaveScenes( "multiMenu", multiMenu )
+
+    #multiPrepare = MenuScene( "MultiPrepare" )
+    #SaveScenes( "multiPrepare", multiPrepare
     
     start = StartScene()
     SaveScenes( "start", start )
