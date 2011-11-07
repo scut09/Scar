@@ -33,6 +33,8 @@ namespace Network
 		// 收到消息时的响应函数
 		virtual void OnReceive( unsigned long ip, const PACKAGE& p )
 		{
+			boost::mutex::scoped_lock lock( m_handlerMutex );
+
 			auto funcIter = m_handlerMap.find( p.GetCMD() );
 			if ( funcIter != m_handlerMap.end() )
 			{
@@ -88,6 +90,7 @@ namespace Network
 	protected:
 		std::shared_ptr<INetwork>				m_network;		// 底层网络支持
 		std::hash_map<int, MessageHandlerType>	m_handlerMap;	// 消息处理函数映射
+		boost::mutex							m_handlerMutex;
 	};
 }
 

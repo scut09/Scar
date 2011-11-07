@@ -239,19 +239,20 @@ void MultiplayerScene::Init()
 	}
 	//cf1->setPosition( vector3df(0,-40,0)); 
 	
-	// ·É´¬Î²Ñæ
-	/*SpriteFlame* spf = new SpriteFlame();
-	spf->SetOffset( vector3df( -6, 0, -22 ) );
-	spf->AddFlameToShip( cf1, smgr );
-	spf->SetOffset( vector3df( 6, 0, -22 ) );
-	spf->AddFlameToShip( cf1, smgr );*/
+	 //·É´¬Î²Ñæ
+	SpriteFlame spf;
+	spf.SetOffset( vector3df( -6, 0, -22 ) );
+	spf.AddFlameToShip( cf1, smgr );
+	spf.SetOffset( vector3df( 6, 0, -22 ) );
+	spf.AddFlameToShip( cf1, smgr );
 
 	// ´´½¨×Óµ¯
-	bullet = new BulletNode( smgr );
+	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
 	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
 	bullet->SetVelocity( 1000 );
 	bullet->SetInterval( 100 );
 	cf1->AddGun( bullet );
+	bullet->drop();
 
 	//  ¼ÓÈëÉãÏñ»ú
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
@@ -422,18 +423,37 @@ void MultiplayerScene::Init()
 	std::shared_ptr<RobotShip> robot;
 	// robot 1
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+	npc->SetMaxSpeed( 2 );
+	spf.SetOffset( vector3df( -6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	spf.SetOffset( vector3df( 6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
 	npc->AddGun( bullet );
+	bullet->drop();	
 	robot = std::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
 	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	robotManager.AddRobot( robot );
 	// robot 2
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+	npc->SetMaxSpeed( 2 );
+	spf.SetOffset( vector3df( -6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	spf.SetOffset( vector3df( 6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
 	npc->AddGun( bullet );
+	bullet->drop();	
 	robot = std::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
 	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	robotManager.AddRobot( robot );
 
-	bullet->drop();
 
 
 

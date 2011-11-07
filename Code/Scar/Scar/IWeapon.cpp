@@ -18,7 +18,7 @@ IWeapon::IWeapon( irr::scene::ISceneManager* mgr,
 	video::SColor colorBottom/*=video::SColor(0xFFFFFFFF)*/ )
 	: CBillboardSceneNode( parent, mgr, id, position, size, colorTop, colorBottom )
 {
-		setParent( mgr->getRootSceneNode() );
+		setParent( parent );
 		setVisible( false );
 
 		Interval = 250;

@@ -25,6 +25,16 @@ void RobotShip::Update()
 		{
 			State = Track;		// ½øÈë×·×Ù×´Ì¬
 		}
+		//{
+		//	DoPress( KEY_KEY_W );
+		//	if ( getPosition().Z > 5000 || getPosition().Z < -5000 )
+		//	{
+		//		auto t = getTarget();
+		//		t.Z = -t.Z;
+		//		setTarget( t );
+		//		SendRotate( getRotation() );
+		//	}
+		//}
 		break;
 
 	case Track:		// ×·×Ù×´Ì¬
@@ -48,7 +58,7 @@ void RobotShip::Update()
 	case Attack:	// ¹¥»÷×´Ì¬
 		if ( IShip* ship = SearchTarget( 2500 ) )
 		{
-			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 500 )
+			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 200 )
 			{
 				DoUnpress( KEY_KEY_W );
 				DoPress( KEY_KEY_S );	// °´ÏÂ¼õËÙ
