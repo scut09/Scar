@@ -15,7 +15,26 @@
 class RobotManager
 {
 public:
+	void AddRobot( std::shared_ptr<IRobot> robot )
+	{
+		Robots.push_back( robot	 );
+	}
 
+	void RemoveRobot( std::shared_ptr<IRobot> robot )
+	{
+		Robots.remove( robot );
+	}
+
+	void Update()
+	{
+		for ( auto iter = Robots.begin(); iter != Robots.end(); ++iter )
+		{
+			(*iter)->Update();
+		}
+	}
+
+private:
+	std::list<std::shared_ptr<IRobot> > Robots;
 };
 
 

@@ -32,6 +32,7 @@
 #include "SpriteFlame.h"
 #include "IRobot.h"
 #include "RobotShip.h"
+#include "RobotManager.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -49,8 +50,6 @@ UIManager* uiManager; //测试用
 
 IUIObject* root;	//测试用
 
-IRobot* robot;
-
 BulletNode* bullet;	// 子弹
 
 Toolkit* toolkit;
@@ -61,6 +60,7 @@ ISoundSource* fuck;
 
 //测试用shader
 SceneNodeShader* shader;
+RobotManager robotManager;
 
 bool bRunOnce = true;
 // CallBacks
@@ -206,7 +206,7 @@ void MultiplayerScene::Run()
 
 	UpdateConsole();
 
-	robot->Update();
+	robotManager.Update();
 }
 
 void MultiplayerScene::Init()
@@ -407,14 +407,9 @@ void MultiplayerScene::Init()
 
 	playerManager = new PlayerManager( uiManager, cf1 );
 
-	// 创建npc飞船
-	//IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	//npc->setPosition( vector3df(0,0,50) );
-	//playerManager->AddPlayer( 101, npc );
+	playerManager->AddPlayer( cf1->getID(), cf1 );
 
-	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
-	//npc->setPosition( vector3df(0,0,250) );
-	//playerManager->AddPlayer( 102, npc );
+
 	server = std::shared_ptr<Network::BoostServer>( new Network::BoostServer );
 	client = std::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
 
@@ -422,19 +417,24 @@ void MultiplayerScene::Init()
 	client->Start( 2012, 1990 );
 
 
-	playerManager->AddPlayer( cf1->getID(), cf1 );
-
-	IShip* npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
-	playerManager->AddPlayer( npc->getID(), npc );
+	// 添加robot
+	IShip* npc;
+	std::shared_ptr<RobotShip> robot;
+	// robot 1
+	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
 	npc->AddGun( bullet );
+	robot = std::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	robotManager.AddRobot( robot );
+	// robot 2
+	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+	npc->AddGun( bullet );
+	robot = std::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	robotManager.AddRobot( robot );
+
 	bullet->drop();
-	robot = new RobotShip( npc, playerManager, server );
 
-	robot->setPosition( vector3df(-80.f, -180.f, 240.f) );
-
-	auto run = smgr->createFlyStraightAnimator( vector3df( 100, 0, -1000 ), vector3df( -100, 0, 2000 ), 15000, true, true );
-	robot->addAnimator( run );
-	run->drop();
 
 
 

@@ -16,8 +16,9 @@ class RobotShip : public IRobot
 public:
 	enum RobotState
 	{
-		Fire,
-		Idle
+		Idle,		// ¿ÕÏÐ×´Ì¬
+		Track,		// ¸ú×Ù×´Ì¬
+		Attack		// ¹¥»÷×´Ì¬
 	};
 
 public:

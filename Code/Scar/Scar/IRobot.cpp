@@ -2,19 +2,30 @@
 #include "MyIrrlichtEngine.h"
 #include "Robot_Client.h"
 #include "FireAnimator.h"
+#include "SceneNodeAnimatorAircraftFPS.h"
+#include "MyIrrlichtEngine.h"
 
 IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server ) : CCameraSceneNode( 0, 0, -1 )
-	, RobotShip( ship )
+	, RobotShip_( ship )
 	, Manager( mgr )
 	, Server( server )
 {
-
+	// 创建机器人客户端
 	std::shared_ptr<RobotClient> robotClient = std::shared_ptr<RobotClient>( new RobotClient( server ) );
-	robotClient->SetID( ship->getID() );
-	auto fireAni2 = new FireAnimator( ship, robotClient );
+	robotClient->SetID( RobotShip_->getID() );
+
+	// 添加飞行行为
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl(), RobotShip_ );
+	addAnimator( fpsAni );
+	fpsAni->drop();
+
+	// 添加攻击行为
+	auto fireAni2 = new FireAnimator( RobotShip_, robotClient );
 	addAnimator( fireAni2 );
 	fireAni2->drop();
 
+	// 添加飞船到玩家管理类
+	mgr->AddPlayer( RobotShip_->getID(), RobotShip_ );
 }
 
 
@@ -24,11 +35,13 @@ IShip* IRobot::SearchTarget( int range )
 	auto players = Manager->GetPlayers();
 	for ( auto player = players.begin(); player != players.end(); ++player )
 	{
-		if ( *player == RobotShip )	continue;
+		if ( *player == RobotShip_ || (*player)->getID() > 50 )	continue;
 
-		core::vector3df dir = (*player)->getPosition() - RobotShip->getPosition();
+		core::vector3df dir = (*player)->getPosition() - RobotShip_->getPosition();
 		if ( dir.getLength() < range )
 		{
+			setTarget( (*player)->getPosition() );
+			SendRotate( getRotation() );
 			return *player;
 		}
 	}
@@ -37,11 +50,11 @@ IShip* IRobot::SearchTarget( int range )
 
 void IRobot::SendMove( const vector3df& pos )
 {
-	RobotShip->setPosition( getPosition() );
+	RobotShip_->setPosition( getPosition() );
 
 	PACKAGE pack;
 	pack.SetCMD( HERO_MOVE );
-	HeroMove move( RobotShip->getID(), pos.X, pos.Y, pos.Z );
+	HeroMove move( RobotShip_->getID(), pos.X, pos.Y, pos.Z );
 	pack.SetData( (char*)&move, sizeof( HeroMove ) );
 
 	Server->OnReceive( 0, pack );
@@ -49,11 +62,11 @@ void IRobot::SendMove( const vector3df& pos )
 
 void IRobot::SendRotate( const core::vector3df& rot )
 {
-	RobotShip->setRotation( getRotation() );
+	RobotShip_->setRotation( getRotation() );
 
 	PACKAGE pack;
 	pack.SetCMD( HERO_ROTATE );
-	HeroRotate rotate( RobotShip->getID(), rot.X, rot.Y, rot.Z );
+	HeroRotate rotate( RobotShip_->getID(), rot.X, rot.Y, rot.Z );
 	pack.SetData( (char*)&rotate, sizeof( HeroRotate ) );
 
 	Server->OnReceive( 0, pack );

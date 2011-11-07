@@ -47,33 +47,34 @@ protected:
 	void DoLeftButtonDown();
 	// 模拟左键弹起
 	void DoLeftButtonUp();
-	// 模拟按下向前移动
-	void DoPressMoveForward()
+	// 模拟按下键盘
+	void DoPress( EKEY_CODE key )
 	{
 		SEvent ev;
 		ev.EventType = EET_KEY_INPUT_EVENT;
-		ev.KeyInput.Key = KEY_KEY_W;
+		ev.KeyInput.Key = key;
 		ev.KeyInput.PressedDown = true;
 
 		OnEvent( ev );
 	}
-	// 模拟弹起向前移动
-	void DoUnpressMoveForward()
+	// 模拟弹起键盘
+	void DoUnpress( EKEY_CODE key )
 	{
 		SEvent ev;
 		ev.EventType = EET_KEY_INPUT_EVENT;
-		ev.KeyInput.Key = KEY_KEY_W;
+		ev.KeyInput.Key = key;
 		ev.KeyInput.PressedDown = false;
 
 		OnEvent( ev );
 	}
+	
 
 	// 搜索目标
 	virtual IShip* SearchTarget( int range = 3500 );
 
 protected:
 
-	IShip*							RobotShip;		// 自己控制的船
+	IShip*							RobotShip_;		// 自己控制的船
 	PlayerManager*					Manager;		// 玩家飞船管理类
 	std::shared_ptr<NetworkBase>	Server;			// 服务端
 };

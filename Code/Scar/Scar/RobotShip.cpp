@@ -8,6 +8,8 @@ RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBa
 
 void RobotShip::Update()
 {
+	if ( RobotShip_->GetShield() < 1 )	return;	// ¹ÒÁË
+
 	SendMove( getPosition() );
 
 	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
@@ -15,23 +17,46 @@ void RobotShip::Update()
 
 	PACKAGE p;
 
-
 	switch ( State )
 	{
-		// ¿ÕÏÐ×´Ì¬
-	case Idle:			
-		if ( IShip* ship = SearchTarget( 500 ) )
+		
+	case Idle:		// ¿ÕÏÐ×´Ì¬	
+		if ( IShip* ship = SearchTarget( 5000 ) )
 		{
-			State = Fire;		// ½øÈë¿ª»ð×´Ì¬
-
-			setTarget( ship->getPosition() );
-
-			SendRotate( getRotation() );
+			State = Track;		// ½øÈë×·×Ù×´Ì¬
 		}
-		// ¹¥»÷×´Ì¬
-	case Fire:
-		if ( IShip* ship = SearchTarget( 500 ) )
+		break;
+
+	case Track:		// ×·×Ù×´Ì¬
+		if ( IShip* ship = SearchTarget( 3000 ) )
 		{
+			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 2500 )
+			{
+				State = Attack;		// ½øÈë¿ª»ð×´Ì¬
+				DoUnpress( KEY_KEY_W );
+			}
+
+			DoPress( KEY_KEY_W );
+		}
+		else
+		{
+			State = Idle;		// »Øµ½¿ÕÏÐ×´Ì¬
+			DoUnpress( KEY_KEY_W );
+		}
+		break;
+		
+	case Attack:	// ¹¥»÷×´Ì¬
+		if ( IShip* ship = SearchTarget( 2500 ) )
+		{
+			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 2000 )
+			{
+				DoPress( KEY_KEY_S );
+			}
+			//else
+			//{
+			//	DoUnpress( KEY_KEY_S );
+			//}
+
 			if ( fireOnce )
 			{
 				fireOnce = false;
@@ -46,5 +71,6 @@ void RobotShip::Update()
 
 			DoLeftButtonUp();		// ËÉ¿ª¿ª»ð°´¼ü
 		}
+		break;
 	}
 }
