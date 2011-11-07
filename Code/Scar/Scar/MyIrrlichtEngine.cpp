@@ -42,6 +42,7 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 		param.AntiAlias = 2;
 		param.EventReceiver = pEventReceiver;
 		param.DriverType = driverType;
+		param.Fullscreen = bFullScreen;
 
 		auto pDevice = irr::createDeviceEx( param );
 
