@@ -227,22 +227,22 @@ void MultiplayerScene::Init()
 	{
 		IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
 		cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
-		cf1->setName( "cf1" );
-		cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-		//cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
+		//cf1 = new CFrigate( cf1Mesh, 0, smgr, -1 );	
+	//	cf1->setName( "cf1" );
+	//	//cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
 		GeneralCallBack* cb = new GeneralCallBack( cf1 );
 		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
 		cb->drop();
 		tangentMesh->drop();
 	}
-	cf1->setPosition( vector3df(0,-40,0));
+	//cf1->setPosition( vector3df(0,-40,0)); 
 	
 	// 飞船尾焰
-	SpriteFlame* spf = new SpriteFlame();
+	/*SpriteFlame* spf = new SpriteFlame();
 	spf->SetOffset( vector3df( -6, 0, -22 ) );
 	spf->AddFlameToShip( cf1, smgr );
 	spf->SetOffset( vector3df( 6, 0, -22 ) );
-	spf->AddFlameToShip( cf1, smgr );
+	spf->AddFlameToShip( cf1, smgr );*/
 
 	// 创建子弹
 	bullet = new BulletNode( smgr );
@@ -364,28 +364,6 @@ void MultiplayerScene::Init()
 		cb->drop();
 		tangentMesh->drop();
 	}
-	
-	//IAnimatedMeshSceneNode* station = smgr->addAnimatedMeshSceneNode( smgr->getMesh( _T("../model/station/cs1.obj") ) );
-	//if ( station )
-	//{
-	//	// 设置名字
-	//	station->setName( "station1" );
-	//	station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
-	//	//station->
-	//	GeneralCallBack* cb = new GeneralCallBack( station );
-	//	shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.txt", "Shader/cs_1F.txt" );
-	//	cb->drop();
-
-
-	////	// 设置初始大小
-	////	//station->setScale( vector3df( .001f));
-	////	//station->setVisible(false);
-	////	// 缩放动画
-	////	//auto sca = new MySceneNodeAnimatorLogScale( 5000, 5000, vector3df( 1.999f ), 500 );
-	////	//moon->addAnimator( sca );
-	////	//sca->drop();
-	//}
-
 
 	////加载太阳
 	//auto sun = smgr->addSphereSceneNode( 200000 );

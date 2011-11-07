@@ -294,6 +294,9 @@
     <ClCompile Include="IRobot.cpp">
       <Filter>AI</Filter>
     </ClCompile>
+    <ClCompile Include="MultiPrepareScene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -581,6 +584,9 @@
     <ClInclude Include="CCameraSceneNode.h">
       <Filter>AI</Filter>
     </ClInclude>
+    <ClInclude Include="MultiPrepareScene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\a.py">
@@ -619,9 +625,6 @@
     <None Include="..\..\..\bin\Python\WEB.py">
       <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\ShaderTest.txt">
-      <Filter>Shader\shaders</Filter>
-    </None>
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt">
       <Filter>Shader\shaders\planet</Filter>
     </None>
@@ -654,6 +657,12 @@
     </None>
     <None Include="..\..\..\bin\Shader\Flame.frag">
       <Filter>Shader\shaders\flame</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\SunF.frag">
+      <Filter>Shader\shaders\universe</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\SunV.vert">
+      <Filter>Shader\shaders\universe</Filter>
     </None>
   </ItemGroup>
 </Project>
