@@ -1,5 +1,7 @@
 #include "IRobot.h"
 #include "MyIrrlichtEngine.h"
+#include "Robot_Client.h"
+#include "FireAnimator.h"
 
 IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server ) : CCameraSceneNode( 0, 0, -1 )
 	, RobotShip( ship )
@@ -7,6 +9,13 @@ IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> se
 	, Server( server )
 {
 	State = Idle;
+
+	std::shared_ptr<RobotClient> robotClient = std::shared_ptr<RobotClient>( new RobotClient( server ) );
+	robotClient->SetID( ship->getID() );
+	auto fireAni2 = new FireAnimator( ship, robotClient );
+	addAnimator( fireAni2 );
+	fireAni2->drop();
+
 }
 
 void IRobot::Update()

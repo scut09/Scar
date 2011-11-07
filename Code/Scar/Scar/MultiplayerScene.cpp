@@ -428,11 +428,7 @@ void MultiplayerScene::Init()
 	npc->AddGun( bullet );
 	bullet->drop();
 	robot = new IRobot( npc, playerManager, server );
-	std::shared_ptr<RobotClient> robotClient = std::shared_ptr<RobotClient>( new RobotClient( server ) );
-	robotClient->SetID( npc->getID() );
-	auto fireAni2 = new FireAnimator( npc, robotClient );
-	robot->addAnimator( fireAni2 );
-	fireAni2->drop();
+
 	robot->setPosition( vector3df(-80.f, -180.f, 240.f) );
 
 	auto run = smgr->createFlyStraightAnimator( vector3df( 100, 0, -1000 ), vector3df( -100, 0, 2000 ), 15000, true, true );
