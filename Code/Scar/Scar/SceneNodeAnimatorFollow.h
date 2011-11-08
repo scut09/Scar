@@ -14,13 +14,13 @@ using namespace irr;
 using namespace irr::core;
 using namespace irr::scene;
 
-class SceneNodeAnimatorFollow : public ISceneNodeAnimator
+class CSceneNodeAnimatorCameraFollowShip : public ISceneNodeAnimator
 {
 	ISceneNode* Target;		// 跟随的目标
-	f32 Distance;			// 保持的距离
+	f32			Distance;	// 保持的距离
 
 public:
-	SceneNodeAnimatorFollow( ISceneNode* tar, f32 distance = 0 );
+	CSceneNodeAnimatorCameraFollowShip( ISceneNode* tar, f32 distance = 0 );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

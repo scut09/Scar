@@ -21,7 +21,7 @@ public:
 	public:
 
 		//! Constructor
-		CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl, IShip* ship,
+		CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl,
 			SKeyMap* keyMapArray=0, u32 keyMapSize=0 );
 
 		//! Destructor
@@ -103,7 +103,7 @@ public:
 		vector2d<s32> CursorPos;		// 鼠标当前位置
 		s32 MoveRadius;					// 准心移动半径
 
-		IShip* Ship;					// 操控的飞船
+		//IShip* Ship;					// 操控的飞船
 		s32 RollFlag;					// 翻滚标志位 0无翻滚 1向左 2向右
 		f32 RollAng;					// 当前翻滚角度
 		s32 Count;						// 计数器

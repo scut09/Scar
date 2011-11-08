@@ -76,6 +76,9 @@
     <Filter Include="Shader\station">
       <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{283c6e85-dea7-472a-864b-72f5bdfa7acf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -258,9 +261,6 @@
     <ClCompile Include="MySceneManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
     <ClCompile Include="Flame.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
@@ -278,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="RobotShip.cpp">
       <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHelper.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -521,9 +527,6 @@
     <ClInclude Include="io_service_pool.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="Flame.h">
       <Filter>Particle</Filter>
     </ClInclude>
@@ -547,6 +550,21 @@
     </ClInclude>
     <ClInclude Include="RobotShip.h">
       <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayer.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHelper.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="HumanPlayer.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AgentPlayer.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "RobotShip.h"
-
+#include "MyIrrlichtEngine.h"
 
 RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
 	: IRobot( ship, mgr, server ), State( Idle ), fireOnce( true )

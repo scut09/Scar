@@ -11,6 +11,8 @@
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
+#include "PlayerHelper.h"
+#include "PlayerManager.h"
 
 class MultiplayerScene : public GameScene
 {
@@ -18,6 +20,7 @@ class MultiplayerScene : public GameScene
 	scene::ICameraSceneNode*	m_pCamera;
 	scene::ISceneNode*			m_pSkyBox;
 	ModelManager*				m_pModelMan;
+
 
 
 public:

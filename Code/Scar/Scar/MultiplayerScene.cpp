@@ -33,6 +33,7 @@
 #include "UIManager.h"
 #include "irrKlang.h"
 #include <iostream>
+#include "HumanPlayer.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -63,6 +64,9 @@ ISoundSource* fuck;
 //测试用shader
 SceneNodeShader* shader;
 RobotManager robotManager;
+
+boost::shared_ptr<PlayerHelper>		m_playerHelper;
+boost::shared_ptr<PlayerManager>	m_playerManager;
 
 bool bRunOnce = true;
 // CallBacks
@@ -207,11 +211,13 @@ void MultiplayerScene::Run()
 	auto rot = m_pCamera->getRotation();
 	client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
 
-	playerManager->Update();
+	//playerManager->Update();
 
 	UpdateConsole();
 
-	robotManager.Update();
+	m_playerHelper->Update();
+
+	//robotManager.Update();
 }
 
 void MultiplayerScene::Init()
@@ -244,7 +250,7 @@ void MultiplayerScene::Init()
 	}
 	//cf1->setPosition( vector3df(0,-40,0)); 
 
-	
+	//m_playerHelper.LoadPlayerShip( boost::shared_ptr<)
 	
 	 //飞船尾焰
 	SpriteFlame spf;
@@ -264,23 +270,30 @@ void MultiplayerScene::Init()
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 	m_pCamera = smgr->addCameraSceneNode();
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl(), cf1 );
-	m_pCamera->addAnimator( fpsAni );
+	cf1->setPosition( m_pCamera->getPosition() );
+	cf1->setUpVector( m_pCamera->getUpVector() );
+	cf1->setTarget( m_pCamera->getTarget() );
+
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+	cf1->addAnimator( fpsAni );
 	fpsAni->drop();
+
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
 	
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
+
 	// 开场动画
 	auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
 	m_pCamera->addAnimator( BeginMove );
 	BeginMove->drop();
 
+	//m_pCamera->setParent( cf1 );
 	// 飞船跟随照相机
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
-	cf1->addAnimator( folowAni );
+	auto folowAni = new CSceneNodeAnimatorCameraFollowShip( cf1, -40 );
+	m_pCamera->addAnimator( folowAni );
 	folowAni->drop();
 
 	//加载行星
@@ -393,6 +406,8 @@ void MultiplayerScene::Init()
 	lsn->setLightData( light1 );
 	lsn->setRotation( vector3df( 0, 90, 0 ) );
 
+	m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+	m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 
 	// 加载UI界面
 	uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
@@ -407,15 +422,22 @@ void MultiplayerScene::Init()
 		IUIObject* r = extract<IUIObject*>( root ); 
 		uiManager->SetRoot( r );
 		//r->drop();	// 使用Python对象不用内存管理
+		m_playerHelper->LoadHelperUI( uiManager );
+		m_playerHelper->LoadPlayerManager( &*m_playerManager );
 	}
 	catch ( ... )
 	{
 		PyErr_Print();
 	}
 
-	playerManager = new PlayerManager( uiManager, cf1 );
+	boost::shared_ptr<HumanPlayer>	humanPlayer( new HumanPlayer );
+	humanPlayer->SetShip( cf1 );
+	m_playerHelper->LoadPlayer( humanPlayer );
+	m_playerManager->AddPlayer( humanPlayer );
 
-	playerManager->AddPlayer( cf1->getID(), cf1 );
+	//playerManager = new PlayerManager( uiManager, cf1 );
+
+	//playerManager->AddPlayer( cf1->getID(), cf1 );
 
 	try
 	{
@@ -431,41 +453,41 @@ void MultiplayerScene::Init()
 	client->Start( 2012, 1990 );
 
 
-	// 添加robot
-	IShip* npc;
-	boost::shared_ptr<RobotShip> robot;
-	// robot 1
-	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
-	npc->SetMaxSpeed( 0 );
-	spf.SetOffset( vector3df( -6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	spf.SetOffset( vector3df( 6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	bullet->SetVelocity( 1000 );
-	bullet->SetInterval( 100 );
-	npc->AddGun( bullet );
-	bullet->drop();	
-	robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
-	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	robotManager.AddRobot( robot );
-	// robot 2
-	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
-	npc->SetMaxSpeed( 0 );
-	spf.SetOffset( vector3df( -6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	spf.SetOffset( vector3df( 6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	bullet->SetVelocity( 1000 );
-	bullet->SetInterval( 100 );
-	npc->AddGun( bullet );
-	bullet->drop();	
-	robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
-	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	robotManager.AddRobot( robot );
+	//// 添加robot
+	//IShip* npc;
+	//boost::shared_ptr<RobotShip> robot;
+	//// robot 1
+	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+	//npc->SetMaxSpeed( 0 );
+	//spf.SetOffset( vector3df( -6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//spf.SetOffset( vector3df( 6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	//bullet->SetVelocity( 1000 );
+	//bullet->SetInterval( 100 );
+	//npc->AddGun( bullet );
+	//bullet->drop();	
+	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	//robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	//robotManager.AddRobot( robot );
+	//// robot 2
+	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+	//npc->SetMaxSpeed( 0 );
+	//spf.SetOffset( vector3df( -6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//spf.SetOffset( vector3df( 6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	//bullet->SetVelocity( 1000 );
+	//bullet->SetInterval( 100 );
+	//npc->AddGun( bullet );
+	//bullet->drop();	
+	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	//robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	//robotManager.AddRobot( robot );
 
 
 
@@ -563,9 +585,10 @@ void MultiplayerScene::Init()
 
 	// 创建并注册receiver的事件处理回调函数
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
-		[ gui, box, pEngine ]( const SEvent& event )->void*
+		[ this, fpsAni, gui, box, pEngine ]( const SEvent& event )->void*
 	{	
-	//	fireAni->OnEvent( event );
+		//fpsAni->OnEvent( event );
+		m_playerManager->OnEvent( event );
 
 		//control.OnEvent( event );
 		//pEngine;		// 引擎指针

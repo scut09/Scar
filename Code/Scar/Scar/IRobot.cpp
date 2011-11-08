@@ -14,10 +14,10 @@ IRobot::IRobot( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> 
 	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( server ) );
 	robotClient->SetID( RobotShip_->getID() );
 
-	// 添加飞行行为
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl(), RobotShip_ );
-	addAnimator( fpsAni );
-	fpsAni->drop();
+	//// 添加飞行行为
+	//auto fpsAni = new CSceneNodeAnimatorAircraftFPS( MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl(), RobotShip_ );
+	//addAnimator( fpsAni );
+	//fpsAni->drop();
 
 	// 添加攻击行为
 	auto fireAni2 = new FireAnimator( RobotShip_, robotClient );
@@ -25,26 +25,26 @@ IRobot::IRobot( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> 
 	fireAni2->drop();
 
 	// 添加飞船到玩家管理类
-	mgr->AddPlayer( RobotShip_->getID(), RobotShip_ );
+//	mgr->AddPlayer( RobotShip_->getID(), RobotShip_ );
 }
 
 
 
 IShip* IRobot::SearchTarget( int range )
 {
-	auto players = Manager->GetPlayers();
-	for ( auto player = players.begin(); player != players.end(); ++player )
-	{
-		if ( *player == RobotShip_ || (*player)->getID() > 50 )	continue;
+	//auto players = Manager->GetPlayers();
+	//for ( auto player = players.begin(); player != players.end(); ++player )
+	//{
+	//	if ( *player == RobotShip_ || (*player)->getID() > 50 )	continue;
 
-		core::vector3df dir = (*player)->getPosition() - RobotShip_->getPosition();
-		if ( dir.getLength() < range )
-		{
-			setTarget( (*player)->getPosition() );
-			SendRotate( getRotation() );
-			return *player;
-		}
-	}
+	//	core::vector3df dir = (*player)->getPosition() - RobotShip_->getPosition();
+	//	if ( dir.getLength() < range )
+	//	{
+	//		setTarget( (*player)->getPosition() );
+	//		SendRotate( getRotation() );
+	//		return *player;
+	//	}
+	//}
 	return NULL;
 }
 

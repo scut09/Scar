@@ -76,6 +76,46 @@ protected:
 	f32					MaxArmor;				// 最大护甲值
 	f32					CurrentArmor;			// 当前护甲值
 
+	/************************************************************************/
+	/* 提供控制模型的辅助信息                                                 */
+	/************************************************************************/
+	core::vector3df Target;
+	core::vector3df UpVector;
+
+public:
+	virtual void setTarget(const core::vector3df& pos)
+	{
+		Target = pos;
+	}
+
+	virtual const core::vector3df& getTarget() const
+	{
+		return Target;
+	}
+
+	virtual void setUpVector(const core::vector3df& pos)
+	{
+		UpVector = pos;
+	}
+
+	virtual const core::vector3df& getUpVector() const
+	{
+		return UpVector;
+	}
+
+	bool OnEvent(const SEvent& event)
+	{
+		// send events to event receiving animators
+		ISceneNodeAnimatorList::Iterator ait = Animators.begin();
+
+		for (; ait != Animators.end(); ++ait)
+			if ((*ait)->isEventReceiverEnabled() && (*ait)->OnEvent(event))
+				return true;
+
+		// if nobody processed the event, return false
+		return false;
+	}
+
 public:
 	
 	virtual ~IShip();

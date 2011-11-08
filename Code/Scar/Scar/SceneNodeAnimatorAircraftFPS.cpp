@@ -19,8 +19,8 @@ using core::vector3df;
 
 //! constructor
 CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl* cursorControl,
-	IShip* ship, SKeyMap* keyMapArray, u32 keyMapSize)
-	: CursorControl(cursorControl), Ship(ship),
+	SKeyMap* keyMapArray, u32 keyMapSize)
+	: CursorControl(cursorControl), 
 	LastAnimationTime(0), firstUpdate(true)
 {
 
@@ -98,17 +98,18 @@ bool CSceneNodeAnimatorAircraftFPS::OnEvent(const SEvent& evt)
 
 void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 {
-	if (!node || node->getType() != ESNT_CAMERA)
-		return;
+	//if (!node || node->getType() != ESNT_CAMERA)
+	//	return;
 
-	ICameraSceneNode* camera = static_cast<ICameraSceneNode*>(node);
+	//ICameraSceneNode* camera = static_cast<ICameraSceneNode*>(node);
+	IShip* ship = static_cast<IShip*>( node );
 
 	// 在这里面做初始化工作
 	if (firstUpdate)
 	{
 		// 鼠标位置初始为屏幕中心
-		camera->updateAbsolutePosition();
-		if (CursorControl && camera)
+	//	camera->updateAbsolutePosition();
+		if (CursorControl && ship)
 		{
 			CursorControl->setPosition(0.5f, 0.5f);
 			CursorPos = CenterPos = CursorControl->getPosition();
@@ -119,28 +120,28 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		LastAnimationTime = timeMs;
 
 		// 不需要绑定旋转和target
-		camera->bindTargetAndRotation( false );
+	//	camera->bindTargetAndRotation( false );
 		
 		// 初始化完成
 		firstUpdate = false;
 	}
 
 	// If the camera isn't the active camera, and receiving input, then don't process it.
-	if(!camera->isInputReceiverEnabled())
-		return;
+	//if(!camera->isInputReceiverEnabled())
+	//	return;
 
-	scene::ISceneManager * smgr = camera->getSceneManager();
-	if(smgr && smgr->getActiveCamera() != camera)
-		return;
+	scene::ISceneManager * smgr = ship->getSceneManager();
+	//if(smgr && smgr->getActiveCamera() != camera)
+	//	return;
 
 	// get time
 	f32 timeDiff = (f32) ( timeMs - LastAnimationTime );
 	LastAnimationTime = timeMs;
 
 	// 上帧镜头信息
-	vector3df relateRot = camera->getRotation();
-	vector3df lastUpVector = camera->getUpVector();
-	vector3df lastDirection = ( camera->getTarget() - camera->getPosition() ).normalize();
+	vector3df relateRot = ship->getRotation();
+	vector3df lastUpVector = ship->getUpVector();
+	vector3df lastDirection = ( ship->getTarget() - ship->getPosition() ).normalize();
 	// 一些初始化变量
 	matrix4 irrMat;
 	ub::matrix<f32> bosMat(4,4);
@@ -203,7 +204,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	vector3df newUpVector = vector3df( t(0), t(1), t(2) );
 	
 	// 根据速度移动飞船
-	vector3df movement = newDirection * Ship->GetVelocity() /* 再乘以时间*/;
+	vector3df movement = newDirection * ship->GetVelocity() /* 再乘以时间*/;
 
 
 	// 翻滚动作
@@ -224,13 +225,13 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	}
 	
 	// 更新照相机状态
-	camera->setPosition( camera->getPosition() + movement );
-	camera->setTarget( camera->getPosition() + newDirection );
-	camera->setUpVector( newUpVector );
+	ship->setPosition( ship->getPosition() + movement );
+	ship->setTarget( ship->getPosition() + newDirection );
+	ship->setUpVector( newUpVector );
 
 	// 计算摄像机的旋转矩阵
-	vector3df up = camera->getUpVector();
-	vector3df dir = camera->getTarget() - camera->getPosition();
+	vector3df up = ship->getUpVector();
+	vector3df dir = ship->getTarget() - ship->getPosition();
 	vector3df x = up.crossProduct( dir );
 	up.normalize();	dir.normalize();	x.normalize();
 
@@ -244,36 +245,36 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	mat.makeInverse();	// 变为逆矩阵
 
 	// 设置摄像机的旋转角
-	camera->setRotation( mat.getRotationDegrees() );
+	ship->setRotation( mat.getRotationDegrees() );
 
 	// 键盘控制
 	// 当W键按下时加速，当W键弹起时速度缓慢回落
 	if ( CursorKeys[EKA_MOVE_FORWARD] )
 	{
-		if ( Ship->GetVelocity() < Ship->GetMaxSpeed() )
+		if ( ship->GetVelocity() < ship->GetMaxSpeed() )
 		{
-			f32 current = ( Ship->GetMaxSpeed() - Ship->GetVelocity() ) / 100.0f/*灵敏度相关*/ + Ship->GetVelocity();
-			Ship->SetVelocity( current );
+			f32 current = ( ship->GetMaxSpeed() - ship->GetVelocity() ) / 100.0f/*灵敏度相关*/ + ship->GetVelocity();
+			ship->SetVelocity( current );
 		}
 		// 防止上溢
-		if ( Ship->GetVelocity() > Ship->GetMaxSpeed() )
-			Ship->SetVelocity( Ship->GetMaxSpeed() );
+		if ( ship->GetVelocity() > ship->GetMaxSpeed() )
+			ship->SetVelocity( ship->GetMaxSpeed() );
 	}
-	else if ( Ship->GetVelocity() > 0 )
+	else if ( ship->GetVelocity() > 0 )
 	{
-		Ship->SetVelocity( Ship->GetVelocity() - 0.005f/*灵敏度相关*/ );
+		ship->SetVelocity( ship->GetVelocity() - 0.005f/*灵敏度相关*/ );
 		// 防止下溢
-		if ( Ship->GetVelocity() < 0 )
-			Ship->SetVelocity( 0 );
+		if ( ship->GetVelocity() < 0 )
+			ship->SetVelocity( 0 );
 	}
 	// 当S键按下时减速
 	if ( CursorKeys[EKA_MOVE_BACKWARD] )
 	{
-		if ( Ship->GetVelocity() > 0 )
-			Ship->SetVelocity( Ship->GetVelocity() - 0.01f/*灵敏度相关*/ );
+		if ( ship->GetVelocity() > 0 )
+			ship->SetVelocity( ship->GetVelocity() - 0.01f/*灵敏度相关*/ );
 		// 防止下溢
-		if ( Ship->GetVelocity() < 0 )
-			Ship->SetVelocity( 0 );
+		if ( ship->GetVelocity() < 0 )
+			ship->SetVelocity( 0 );
 	}
 	// 当A键按下时左侧翻
 	if ( CursorKeys[EKA_STRAFE_LEFT] )
@@ -345,7 +346,7 @@ void CSceneNodeAnimatorAircraftFPS::setKeyMap(SKeyMap *map, u32 count)
 ISceneNodeAnimator* CSceneNodeAnimatorAircraftFPS::createClone(ISceneNode* node, ISceneManager* newManager)
 {
 	CSceneNodeAnimatorAircraftFPS * newAnimator =
-		new CSceneNodeAnimatorAircraftFPS(CursorControl, Ship, 0, 0);
+		new CSceneNodeAnimatorAircraftFPS(CursorControl, 0, 0);
 	newAnimator->setKeyMap(KeyMap);
 	return newAnimator;
 }
