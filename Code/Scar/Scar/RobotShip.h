@@ -22,7 +22,7 @@ public:
 	};
 
 public:
-	RobotShip( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server );
+	RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server );
 
 	virtual void Update();
 

@@ -273,6 +273,14 @@
     <None Include="..\..\..\bin\Shader\cf_1V.vert" />
     <None Include="..\..\..\bin\Shader\cs_1F.frag" />
     <None Include="..\..\..\bin\Shader\cs_1V.vert" />
+    <None Include="..\..\..\bin\Shader\MenuAtmos.frag" />
+    <None Include="..\..\..\bin\Shader\MenuAtmos.vert" />
+    <None Include="..\..\..\bin\Shader\MenuPlanetGround.frag" />
+    <None Include="..\..\..\bin\Shader\MenuPlanetGround.vert" />
+    <None Include="..\..\..\bin\Shader\MenuShip.frag" />
+    <None Include="..\..\..\bin\Shader\MenuShip.vert" />
+    <None Include="..\..\..\bin\Shader\MenuSun.frag" />
+    <None Include="..\..\..\bin\Shader\MenuSunFlare.frag" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />

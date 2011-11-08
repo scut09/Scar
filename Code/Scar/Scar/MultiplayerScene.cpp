@@ -6,33 +6,33 @@
 
 *********************************************************************/
 
-#include "Boost_Client.h"
-#include "Boost_Server.h"
-#include "Robot_Client.h"
-#include "GameBag.h"
-#include "PlayerManager.h"
 
-#include "MultiplayerScene.h"
-#include "PythonManager.h"
-#include "EngineHeader.h"
-#include <iostream>
-#include "FlyBehavior.h"
-#include "CSceneNodeAnimatorSelfDelFlyStraight.h"
-#include "Flame.h"
 #include "AllAnimators.h"
 #include "AllUIObjects.h"
+#include "Boost_Client.h"
+#include "Boost_Server.h"
+#include "BulletNode.h"
+#include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "EngineHeader.h"
+#include "Flame.h"
+#include "FlyBehavior.h"
+#include "Frigate.h"
+#include "GameBag.h"
+#include "IRobot.h"
+#include "MultiplayerScene.h"
+#include "MySceneManager.h"
+#include "PlayerManager.h"
+#include "PythonManager.h"
+#include "RobotManager.h"
+#include "RobotShip.h"
+#include "Robot_Client.h"
+#include "SceneNodeShader.h"
+#include "SpriteFlame.h"
+#include "Toolkit.h"
 #include "UIAnimators.h"
 #include "UIManager.h"
-#include "Frigate.h"
-#include "BulletNode.h"
-#include "Toolkit.h"
-#include "SceneNodeShader.h"
-#include "MySceneManager.h"
 #include "irrKlang.h"
-#include "SpriteFlame.h"
-#include "IRobot.h"
-#include "RobotShip.h"
-#include "RobotManager.h"
+#include <iostream>
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -40,8 +40,10 @@
 using namespace irrklang;
 
 
-std::shared_ptr<Network::BoostClient> client;
-std::shared_ptr<Network::BoostServer> server;
+//boost::shared_ptr<Network::BoostClient> client;
+boost::shared_ptr<Network::BoostClient> client;
+
+boost::shared_ptr<Network::BoostServer> server;
 
 PlayerManager*			playerManager;
 
@@ -238,6 +240,8 @@ void MultiplayerScene::Init()
 		//tangentMesh->drop();
 	}
 	//cf1->setPosition( vector3df(0,-40,0)); 
+
+	
 	
 	 //·É´¬Î²Ñæ
 	SpriteFlame spf;
@@ -410,9 +414,16 @@ void MultiplayerScene::Init()
 
 	playerManager->AddPlayer( cf1->getID(), cf1 );
 
+	try
+	{
+		server = boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
+	}
+	catch ( std::exception& e )
+	{
+		std::cerr << e.what() << std::endl;
+	}
 
-	server = std::shared_ptr<Network::BoostServer>( new Network::BoostServer );
-	client = std::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
 
 	server->Start( 1990, 2012 );
 	client->Start( 2012, 1990 );
@@ -420,7 +431,7 @@ void MultiplayerScene::Init()
 
 	// Ìí¼Órobot
 	IShip* npc;
-	std::shared_ptr<RobotShip> robot;
+	boost::shared_ptr<RobotShip> robot;
 	// robot 1
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
 	npc->SetMaxSpeed( 2 );
@@ -434,7 +445,7 @@ void MultiplayerScene::Init()
 	bullet->SetInterval( 100 );
 	npc->AddGun( bullet );
 	bullet->drop();	
-	robot = std::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
 	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	robotManager.AddRobot( robot );
 	// robot 2
@@ -450,7 +461,7 @@ void MultiplayerScene::Init()
 	bullet->SetInterval( 100 );
 	npc->AddGun( bullet );
 	bullet->drop();	
-	robot = std::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
 	robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	robotManager.AddRobot( robot );
 

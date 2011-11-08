@@ -17,7 +17,7 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 	, m_pool( pool_size )		
 {
 	// 初始化发送的socket
-	m_send_sock = //std::shared_ptr<boost::asio::ip::udp::socket>( 
+	m_send_sock = //boost::shared_ptr<boost::asio::ip::udp::socket>( 
 		new boost::asio::ip::udp::socket( m_pool.get_io_service() );// );
 
 	m_send_sock->open( ip::udp::v4() );
@@ -30,12 +30,12 @@ Network::CNetwork::CNetwork( int listen_port, int target_port, int pool_size )
 
 	
 	// 创建接受的udp socket
-	m_receive_sock = //std::shared_ptr<boost::asio::ip::udp::socket>(
+	m_receive_sock = //boost::shared_ptr<boost::asio::ip::udp::socket>(
 		new boost::asio::ip::udp::socket( m_pool.get_io_service(),
 		boost::asio::ip::udp::endpoint( boost::asio::ip::udp::v4(), listen_port ) );// );
 
 	// 创建tcp的acceptor
-	m_acceptor //= std::shared_ptr<ip::tcp::acceptor>( 
+	m_acceptor //= boost::shared_ptr<ip::tcp::acceptor>( 
 		= new ip::tcp::acceptor( m_pool.get_io_service(),
 		ip::tcp::endpoint( ip::tcp::v4(), listen_port ) ) ;//);
 
@@ -172,7 +172,7 @@ void Network::CNetwork::TCPAcceptHandler( const boost::system::error_code& ec, T
 	if ( ec )	return;
 
 	// 为当前socket创建缓冲
-	std::shared_ptr< std::vector<char> > buf( new std::vector<char>( BUFFER_SIZE, 0 ) );
+	boost::shared_ptr< std::vector<char> > buf( new std::vector<char>( BUFFER_SIZE, 0 ) );
 	// 异步读取
 	sock->async_read_some( buffer( *buf ), boost::bind( &CNetwork::TCPReadHandler, this, placeholders::error, sock, buf ) );
 
@@ -180,7 +180,7 @@ void Network::CNetwork::TCPAcceptHandler( const boost::system::error_code& ec, T
 }
 
 void Network::CNetwork::TCPReadHandler( const boost::system::error_code& ec, 
-	TCPSocketPointerType sock, std::shared_ptr< std::vector<char> > buf )
+	TCPSocketPointerType sock, boost::shared_ptr< std::vector<char> > buf )
 {
 	if ( ec )	return;
 
@@ -201,8 +201,8 @@ void Network::CNetwork::TCPReadHandler( const boost::system::error_code& ec,
 
 void Network::CNetwork::StartUDP()
 {
-	std::shared_ptr<ip::udp::endpoint> ep( new ip::udp::endpoint );
-	std::shared_ptr< std::vector<char> > buf( new std::vector<char>( BUFFER_SIZE, 0 ) );
+	boost::shared_ptr<ip::udp::endpoint> ep( new ip::udp::endpoint );
+	boost::shared_ptr< std::vector<char> > buf( new std::vector<char>( BUFFER_SIZE, 0 ) );
 
 	m_receive_sock->async_receive_from(
 		boost::asio::buffer( *buf ), *ep,
@@ -213,7 +213,7 @@ void Network::CNetwork::StartUDP()
 		buf ) );
 }
 
-void Network::CNetwork::UDPReadhandler( const boost::system::error_code& error, std::size_t /*bytes_transferred*/, std::shared_ptr<boost::asio::ip::udp::endpoint> ep, std::shared_ptr< std::vector<char> > buf )
+void Network::CNetwork::UDPReadhandler( const boost::system::error_code& error, std::size_t /*bytes_transferred*/, boost::shared_ptr<boost::asio::ip::udp::endpoint> ep, boost::shared_ptr< std::vector<char> > buf )
 {
 	if (!error || error == boost::asio::error::message_size)
 	{
@@ -235,18 +235,18 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 	using namespace boost::asio;
 
 	// 数据包，复制到堆里，供异步使用
-	std::shared_ptr<PACKAGE> pack( new PACKAGE( p ) );
+	boost::shared_ptr<PACKAGE> pack( new PACKAGE( p ) );
 
 	// 对方端点
 	ip::tcp::endpoint ep( ip::address_v4( ip ), port );
 
-	std::shared_ptr<ip::tcp::socket> sock;	
+	boost::shared_ptr<ip::tcp::socket> sock;	
 
 	// 查找是否有已连接的tcp
 	TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
 	if ( iter == m_ip_socketMap.end() )
 	{
-		sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
+		sock = boost::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
 		m_ip_socketMap[ ip ] = sock;
 
 		try
@@ -270,7 +270,7 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 	
 	/*try
 	{
-	sock = std::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
+	sock = boost::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
 	sock->connect( ep );
 	sock->write_some( buffer( (char*)&p, p.GetLength() ) );
 	}
@@ -281,7 +281,7 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 }
 
 void Network::CNetwork::tcp_write_handler( const boost::system::error_code& ec,
-	std::shared_ptr<boost::asio::ip::tcp::socket> sock, std::shared_ptr<PACKAGE> pack )
+	boost::shared_ptr<boost::asio::ip::tcp::socket> sock, boost::shared_ptr<PACKAGE> pack )
 {
 	if ( ec && ec == boost::asio::error::eof )
 	{

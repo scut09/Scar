@@ -12,11 +12,13 @@
 
 #include "GameScene.h"
 #include "MyIrrlichtEngine.h"
+#include "UIManager.h"
 
 class MultiPrepareScene : public GameScene
 {
 	scene::ICameraSceneNode*	m_pCamera;
 	scene::ISceneNode*			m_pSkyBox;
+	UIManager*					uiManager;
 
 public:
 	MultiPrepareScene() : m_pCamera( 0 )

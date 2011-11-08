@@ -29,10 +29,10 @@ public:
 	// 返回值:  
 	// 参数:    IShip * ship								自己控制的船
 	// 参数:    PlayerManager * mgr						包含所有玩家信息的玩家管理类
-	// 参数:    std::shared_ptr<NetworkBase> server		服务端指针
+	// 参数:    boost::shared_ptr<NetworkBase> server		服务端指针
 	// 描述：   ctor
 	//************************************
-	IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server );
+	IRobot( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server );
 
 	// 更新自己
 	virtual void Update() = 0;
@@ -76,7 +76,7 @@ protected:
 
 	IShip*							RobotShip_;		// 自己控制的船
 	PlayerManager*					Manager;		// 玩家飞船管理类
-	std::shared_ptr<NetworkBase>	Server;			// 服务端
+	boost::shared_ptr<NetworkBase>	Server;			// 服务端
 };
 
 

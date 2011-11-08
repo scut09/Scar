@@ -54,7 +54,7 @@ namespace Network
 		virtual void Start( int listen_port, int target_port, int pool_size = 2 )
 		{
 			// 创建网络
-			m_network = std::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port, pool_size ) );
+			m_network = boost::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port, pool_size ) );
 			// 注册接受回调函数
 			m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
 			{
@@ -88,7 +88,7 @@ namespace Network
 		}
 
 	protected:
-		std::shared_ptr<INetwork>				m_network;		// 底层网络支持
+		boost::shared_ptr<INetwork>				m_network;		// 底层网络支持
 		std::hash_map<int, MessageHandlerType>	m_handlerMap;	// 消息处理函数映射
 		boost::mutex							m_handlerMutex;
 	};

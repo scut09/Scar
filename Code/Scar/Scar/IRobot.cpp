@@ -5,13 +5,13 @@
 #include "SceneNodeAnimatorAircraftFPS.h"
 #include "MyIrrlichtEngine.h"
 
-IRobot::IRobot( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server ) : CCameraSceneNode( 0, 0, -1 )
+IRobot::IRobot( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server ) : CCameraSceneNode( 0, 0, -1 )
 	, RobotShip_( ship )
 	, Manager( mgr )
 	, Server( server )
 {
 	// 创建机器人客户端
-	std::shared_ptr<RobotClient> robotClient = std::shared_ptr<RobotClient>( new RobotClient( server ) );
+	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( server ) );
 	robotClient->SetID( RobotShip_->getID() );
 
 	// 添加飞行行为

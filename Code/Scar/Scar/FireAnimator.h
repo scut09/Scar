@@ -9,6 +9,7 @@
 	ÃèÊö:		¿ØÖÆ·É´¬¿ª»ð
 *********************************************************************/
 
+#include <boost/smart_ptr.hpp>
 #include "ISceneNode.h"
 #include "CSceneNodeAnimatorCollisionResponse.h"
 #include <vector>
@@ -24,11 +25,11 @@ class FireAnimator : public ISceneNodeAnimator
 	bool IsFire;
 	bool Initialized;
 	std::vector<u32>		LastTimes;
-	std::shared_ptr<Network::IClient>		Client;
+	boost::shared_ptr<Network::IClient>		Client;
 	IShip*					Ship;
 
 public:
-	FireAnimator( IShip* ship, std::shared_ptr<Network::IClient> client );
+	FireAnimator( IShip* ship, boost::shared_ptr<Network::IClient> client );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

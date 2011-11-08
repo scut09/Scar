@@ -58,9 +58,6 @@
     <Filter Include="Shader\shaders">
       <UniqueIdentifier>{5f7363fe-adcf-43c5-931d-766376297638}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\shaders\station">
-      <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\shaders\planet">
       <UniqueIdentifier>{1fe8dcc9-72be-4da2-ae88-221e187695e3}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="AI">
       <UniqueIdentifier>{86ebcfd3-26ae-4116-9745-6b1692194f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\station">
+      <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -656,10 +656,10 @@
       <Filter>Shader\shaders\universe</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\cs_1V.vert">
-      <Filter>Shader\shaders\station</Filter>
+      <Filter>Shader\station</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\cs_1F.frag">
-      <Filter>Shader\shaders\station</Filter>
+      <Filter>Shader\station</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\cf_1F.frag">
       <Filter>Shader\shaders\ship</Filter>
@@ -675,6 +675,30 @@
     </None>
     <None Include="..\..\..\bin\Shader\SunV.vert">
       <Filter>Shader\shaders\universe</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuPlanetGround.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuPlanetGround.vert">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuAtmos.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuAtmos.vert">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuSun.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuSunFlare.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuShip.frag">
+      <Filter>Shader\station</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\MenuShip.vert">
+      <Filter>Shader\station</Filter>
     </None>
   </ItemGroup>
 </Project>

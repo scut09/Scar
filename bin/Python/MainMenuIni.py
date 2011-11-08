@@ -33,6 +33,7 @@ def GetRoot():
     bgPosX = 340 + 470
     bgPosY = 0 + 512
     bg = CreateBg()
+    bg.SetVisible( False );
     bg.SetScale( vector2df( RatioX, RatioY ) )
     bg.SetPosition( vector2df( bgPosX * RatioX, bgPosY * RatioY ) )
 
@@ -49,6 +50,7 @@ def CreateLogo():
     logo = UIImage( None, 350, 92 )
     Save( logo )
     logo.LoadImage( "../media/UIResource/Menu/logo_1.png" )
+    logo.SetAntiAliasing()
     return logo
 
 ######################################################
@@ -57,8 +59,8 @@ def CreateLogo():
 def CreateBg():
     bg = UIImage( None, 940, 1024, -1 )
     Save( bg )
-    bg.LoadImage( "../media/UIResource/Menu/bg_1.jpg" )
-    bg.SetAlpha( 0 )
+    '''bg.LoadImage( "../media/UIResource/Menu/bg_1.jpg" )
+    bg.SetAlpha( 0 )'''
     return bg
 
 ######################################################
@@ -106,7 +108,7 @@ def CreateMenu():
 ######################################################  
 def LoadStartAnimation( root ):
     dua = 400
-    bg = root.GetChildren()[0]
+    #bg = root.GetChildren()[0]
     menu = root.GetChildren()[1]
     btn1 = menu.GetChildren()[0]
     btn2 = menu.GetChildren()[1]
@@ -162,13 +164,13 @@ def LoadStartAnimation( root ):
     AniList.append( sca1 )
 
     #背景显示动画
-    alphaUp = AlphaChangeUIAnimator(
+    '''alphaUp = AlphaChangeUIAnimator(
         Timer().GetRealTime() + 400,
         1000,
         0,
         255 )
     AniList.append( alphaUp )
-    bg.AddAnimator( alphaUp )
+    bg.AddAnimator( alphaUp )'''
 
     return root
 

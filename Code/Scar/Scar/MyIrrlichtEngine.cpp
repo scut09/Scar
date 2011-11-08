@@ -19,7 +19,7 @@ IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
 int MyIrrlichtEngine::screen_width = 1000;
 int MyIrrlichtEngine::screen_height = 640;
 // 全屏设置，默认为窗口
-bool MyIrrlichtEngine::bFullScreen = false;
+bool MyIrrlichtEngine::bFullScreen = true;
 GameScene* MyIrrlichtEngine::currentScene = NULL;
 
 std::stringstream MyIrrlichtEngine::Console_Buffer;	// 缓存

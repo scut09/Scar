@@ -1,6 +1,3 @@
-//uniform sampler2D Ground;
-//uniform sampler2D Cloud;
-//uniform sampler2D CityLight;
 
 uniform sampler2D TextureL0; //Ground
 uniform sampler2D TextureL1; //CityLight

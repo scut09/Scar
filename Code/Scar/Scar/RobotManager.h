@@ -15,12 +15,12 @@
 class RobotManager
 {
 public:
-	void AddRobot( std::shared_ptr<IRobot> robot )
+	void AddRobot( boost::shared_ptr<IRobot> robot )
 	{
 		Robots.push_back( robot	 );
 	}
 
-	void RemoveRobot( std::shared_ptr<IRobot> robot )
+	void RemoveRobot( boost::shared_ptr<IRobot> robot )
 	{
 		Robots.remove( robot );
 	}
@@ -34,7 +34,7 @@ public:
 	}
 
 private:
-	std::list<std::shared_ptr<IRobot> > Robots;
+	std::list<boost::shared_ptr<IRobot> > Robots;
 };
 
 

@@ -1,14 +1,14 @@
 #include "RobotShip.h"
 
 
-RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, std::shared_ptr<NetworkBase> server )
+RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
 	: IRobot( ship, mgr, server ), State( Idle ), fireOnce( true )
 {
 }
 
 void RobotShip::Update()
 {
-	if ( RobotShip_->GetShield() <= 5 )	return;	// นามห
+	if ( RobotShip_->GetShield() < 1 )	return;	// นามห
 
 	SendMove( getPosition() );
 

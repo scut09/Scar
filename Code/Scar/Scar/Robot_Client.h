@@ -20,10 +20,10 @@ using namespace Network;
 class RobotClient : public Network::IClient
 {
 	int								m_index;
-	std::shared_ptr<NetworkBase>	Server;
+	boost::shared_ptr<NetworkBase>	Server;
 
 public:
-	RobotClient( std::shared_ptr<NetworkBase> server ) : Server( server )
+	RobotClient( boost::shared_ptr<NetworkBase> server ) : Server( server )
 	{
 
 	}

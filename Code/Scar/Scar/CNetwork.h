@@ -54,8 +54,8 @@ namespace Network
 		{}
 	};
 
-	typedef std::shared_ptr<boost::asio::ip::tcp::socket> TCPSocketPointerType;
-	typedef std::hash_map< unsigned long, std::shared_ptr<boost::asio::ip::tcp::socket> > TCP_IP_Socket_MapType;
+	typedef boost::shared_ptr<boost::asio::ip::tcp::socket> TCPSocketPointerType;
+	typedef std::hash_map< unsigned long, boost::shared_ptr<boost::asio::ip::tcp::socket> > TCP_IP_Socket_MapType;
 
 	/*
 	** 名字：CNetwork
@@ -88,7 +88,7 @@ namespace Network
 		virtual void TcpSendTo( unsigned long ip, int port, const PACKAGE& p );
 
 		void tcp_write_handler( const boost::system::error_code& ec,
-			std::shared_ptr<ip::tcp::socket> sock, std::shared_ptr<PACKAGE> pack );
+			boost::shared_ptr<ip::tcp::socket> sock, boost::shared_ptr<PACKAGE> pack );
 
 	private:
 		// 在新线程中处理消息队列中的数据
@@ -99,14 +99,14 @@ namespace Network
 		// 有新tcp连接上时保存这个socket
 		void TCPAcceptHandler( const boost::system::error_code& ec, TCPSocketPointerType sock );
 		// TCP收到消息
-		void TCPReadHandler( const boost::system::error_code& ec, TCPSocketPointerType sock, std::shared_ptr< std::vector<char> > buf );
+		void TCPReadHandler( const boost::system::error_code& ec, TCPSocketPointerType sock, boost::shared_ptr< std::vector<char> > buf );
 		
 		// UDP监听
 		void StartUDP();
 		// UDP处理函数
 		void UDPReadhandler(const boost::system::error_code& error,
-			std::size_t /*bytes_transferred*/, std::shared_ptr<ip::udp::endpoint> ep, 
-			std::shared_ptr< std::vector<char> > buf );
+			std::size_t /*bytes_transferred*/, boost::shared_ptr<ip::udp::endpoint> ep, 
+			boost::shared_ptr< std::vector<char> > buf );
 
 
 	private:
@@ -121,8 +121,8 @@ namespace Network
 		int									m_target_port;			// 目标的端口
 		ip::udp::endpoint					m_broadcast_ep;			// 广播的地址
 		std::set<unsigned long>				m_broadcast_ip;			// 广播IP
-		std::shared_ptr<boost::thread>		m_handle_thread;		// 处理消息的线程的指针
-		std::shared_ptr<boost::thread>		m_io_thread;			// io的线程的指针
+		boost::shared_ptr<boost::thread>		m_handle_thread;		// 处理消息的线程的指针
+		boost::shared_ptr<boost::thread>		m_io_thread;			// io的线程的指针
 		ip::udp::socket*					m_receive_sock;			// 接受udp的socket
 		ip::udp::socket*					m_send_sock;			// 发送的socket
 		ip::tcp::acceptor*					m_acceptor;				// tcp的acceptor

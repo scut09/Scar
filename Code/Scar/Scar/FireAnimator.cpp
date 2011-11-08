@@ -6,7 +6,7 @@
 #include "MyIrrlichtEngine.h"
 #include <iostream>
 
-FireAnimator::FireAnimator( IShip* ship, std::shared_ptr<Network::IClient> client ) 
+FireAnimator::FireAnimator( IShip* ship, boost::shared_ptr<Network::IClient> client ) 
 	: IsFire( false ), Initialized( false ), Client( client ), Ship( ship )
 {
 }
