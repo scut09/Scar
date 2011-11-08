@@ -2038,8 +2038,8 @@ struct UIStaticText_wrapper : UIStaticText, bp::wrapper< UIStaticText > {
 		return NULL;
 	}
 
-    UIStaticText_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 hegit, ::irr::core::stringw text, ::irr::video::SColor color, ::irr::u32 fontsize=14, bool hcenter=false, bool vcenter=false, ::irr::s32 order=0, int shape=int(::SQUARE), ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f), bool Isvisible=true )
-    : UIStaticText( boost::python::ptr(parent), width, hegit, text, color, fontsize, hcenter, vcenter, order, shape, boost::ref(position), rotdeg, boost::ref(scale), Isvisible )
+    UIStaticText_wrapper(::IUIObject * parent, ::irr::s32 width, ::irr::s32 hegit, ::std::wstring text, ::irr::video::SColor color, ::irr::u32 fontsize=14, bool hcenter=false, bool vcenter=false, ::irr::s32 order=0, int shape=int(::SQUARE), ::irr::core::vector2d< float > const & position=irr::core::vector2d<float>(0.0f, 0.0f), ::irr::f32 rotdeg=0, ::irr::core::vector2d< float > const & scale=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f), bool Isvisible=true )
+    : UIStaticText( boost::python::ptr(parent), width, hegit, text.c_str(), color, fontsize, hcenter, vcenter, order, shape, boost::ref(position), rotdeg, boost::ref(scale), Isvisible )
       , bp::wrapper< UIStaticText >(){
         // constructor
     
@@ -3658,7 +3658,7 @@ BOOST_PYTHON_MODULE( UI )
             , (void ( ::IUIObject::* )(  ) )(&::IUIObject::remove)
             , (void ( UIImage_wrapper::* )(  ) )(&UIImage_wrapper::default_remove) );
 
-    bp::class_< UIStaticText_wrapper, bp::bases< IUIObject > >( "UIStaticText", bp::init< IUIObject *, irr::s32, irr::s32, irr::core::stringw, irr::video::SColor, bp::optional< irr::u32, bool, bool, irr::s32, int, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const &, bool > >(( bp::arg("parent"), bp::arg("width"), bp::arg("hegit"), bp::arg("text"), bp::arg("color"), bp::arg("fontsize")=(::irr::u32)(14), bp::arg("hcenter")=(bool)(false), bp::arg("vcenter")=(bool)(false), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=int(::SQUARE), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f), bp::arg("Isvisible")=(bool)(true) )) )    
+    bp::class_< UIStaticText_wrapper, bp::bases< IUIObject > >( "UIStaticText", bp::init< IUIObject *, irr::s32, irr::s32, std::wstring, irr::video::SColor, bp::optional< irr::u32, bool, bool, irr::s32, int, irr::core::vector2d< float > const &, irr::f32, irr::core::vector2d< float > const &, bool > >(( bp::arg("parent"), bp::arg("width"), bp::arg("hegit"), bp::arg("text"), bp::arg("color"), bp::arg("fontsize")=(::irr::u32)(14), bp::arg("hcenter")=(bool)(false), bp::arg("vcenter")=(bool)(false), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=int(::SQUARE), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f), bp::arg("Isvisible")=(bool)(true) )) )    
         .def( 
             "Draw"
             , (void ( ::UIStaticText::* )(  ) )(&::UIStaticText::Draw)

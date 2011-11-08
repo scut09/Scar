@@ -234,13 +234,13 @@ void MultiplayerScene::Init()
 	{
 		IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
 		cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
-		//cf1 = new CFrigate( cf1Mesh, 0, smgr, -1 );	
-	//	cf1->setName( "cf1" );
-	//	//cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
-		//GeneralCallBack* cb = new GeneralCallBack( cf1 );
-		//shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-		//cb->drop();
-		//tangentMesh->drop();
+		cf1->setName( "cf1" );
+		cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
+		cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+		GeneralCallBack* cb = new GeneralCallBack( cf1 );
+		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+		cb->drop();
+		tangentMesh->drop();
 	}
 	//cf1->setPosition( vector3df(0,-40,0)); 
 
@@ -279,7 +279,7 @@ void MultiplayerScene::Init()
 	BeginMove->drop();*/
 
 	// ∑…¥¨∏˙ÀÊ’’œ‡ª˙
-	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, 40 );
+	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
 	cf1->addAnimator( folowAni );
 	folowAni->drop();
 
@@ -327,7 +327,7 @@ void MultiplayerScene::Init()
 
 
 	//º”‘ÿŒ¿–«
-	auto moon = smgr->addSphereSceneNode( 1e5 );
+	auto moon = smgr->addSphereSceneNode( 1e5, 64 );
 	if ( moon )
 	{
 		// …Ë÷√√˚≥∆
@@ -436,7 +436,7 @@ void MultiplayerScene::Init()
 	boost::shared_ptr<RobotShip> robot;
 	// robot 1
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
-	npc->SetMaxSpeed( 2 );
+	npc->SetMaxSpeed( 0 );
 	spf.SetOffset( vector3df( -6, 0, -22 ) );
 	spf.AddFlameToShip( npc, smgr );
 	spf.SetOffset( vector3df( 6, 0, -22 ) );
@@ -452,7 +452,7 @@ void MultiplayerScene::Init()
 	robotManager.AddRobot( robot );
 	// robot 2
 	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
-	npc->SetMaxSpeed( 2 );
+	npc->SetMaxSpeed( 0 );
 	spf.SetOffset( vector3df( -6, 0, -22 ) );
 	spf.AddFlameToShip( npc, smgr );
 	spf.SetOffset( vector3df( 6, 0, -22 ) );

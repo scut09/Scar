@@ -52,9 +52,10 @@ def GetRoot():
     speedBar2.SetName( "speed2" )
     Save( speedBar2 )
     # 速度显示文字
-    '''speedText = UIStaticText( root, 100, 20, "我了个大区", SColor(255,255,255) )
+    speedText = UIStaticText( root, 100, 20, u"速度:", SColor(255,255,255,255), 18 )
     speedText.SetName( "speedText" )
-    Save( speedText )'''
+    speedText.SetPosition( vector2df( cenX + 200, cenY + 14 ) )
+    Save( speedText )
 
     # 能量槽满
     energy1 = UIImage( root, 94, 363, 0, 0, vector2df( cenX + 214, cenY - 10 ) )
@@ -77,6 +78,11 @@ def GetRoot():
     shield2.LoadImage("../media/UIResource/Game/shield_2.png")
     shield2.SetName( "shield2" )
     Save( shield2 )
+    # 护盾显示文字
+    shieldText = UIStaticText( root, 100, 20, u"护盾:", SColor(255,255,255,255), 18 )
+    shieldText.SetName( "shieldText" )
+    shieldText.SetPosition( vector2df( cenX - 200, cenY + 14 ) )
+    Save( shieldText )
 
     # 护甲槽满
     armor1 = UIImage( root, 93, 360, 0, 0, vector2df( cenX - 214, cenY + 10 ) )
@@ -88,6 +94,11 @@ def GetRoot():
     armor2.LoadImage("../media/UIResource/Game/armor_2.png")
     armor2.SetName( "armor2" )
     Save( armor2 )
+    # 护甲显示文字
+    armorText = UIStaticText( root, 100, 20, u"护甲:", SColor(255,255,255,255), 18 )
+    armorText.SetName( "armorText" )
+    armorText.SetPosition( vector2df( cenX - 200, cenY - 14 ) )
+    Save( armorText )
 
 
     #以下的这些不会在一开始就出现在屏幕上，供复制用

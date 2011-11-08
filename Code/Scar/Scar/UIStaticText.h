@@ -27,6 +27,9 @@ public:
 		const vector2d<f32>& scale = vector2d<f32>(1,1),
 		bool Isvisible = true);
 	virtual void Draw();
+
+	void SetText( const stringw& text );
+	stringw GetText() const;
 private:
 	stringw Text;
 	bool HorizontalCenter,VerticalCenter;

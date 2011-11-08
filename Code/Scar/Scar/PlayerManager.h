@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include "UIManager.h"
 #include <vector>
-
+#include "AllUIObjects.h"
 
 using scene::ISceneNode;
 
@@ -34,17 +34,20 @@ public:
 	Toolkit*	toolkit;	// 辅助工具
 	Node2DInfo	info2D;
 
-	IUIObject*	Cursor;		// 鼠标准心
-	IUIObject*	Speed1;		// 速度槽慢
-	IUIObject*	Speed2;		// 速度槽空
-	IUIObject*	Shield1;	// 护盾槽满
-	IUIObject*	Shield2;	// 护盾槽空
-	IUIObject*	Armor1;		// 护甲槽满
-	IUIObject*	Armor2;		// 护甲槽空
-	IUIObject*	Gradienter;	// 水平仪
-	IUIObject*	ShipTip;	// 目标圈——友军
-	IUIObject*	lock1;		// 锁定框——已锁定
-	IUIObject*	indicator1;	// 敌军指示
+	IUIObject*		Cursor;		// 鼠标准心
+	IUIObject*		Speed1;		// 速度槽慢
+	IUIObject*		Speed2;		// 速度槽空
+	UIStaticText*	SpeedText;	// 速度文字
+	IUIObject*		Shield1;	// 护盾槽满
+	IUIObject*		Shield2;	// 护盾槽空
+	UIStaticText*	ShieldText;	// 护盾文字
+	IUIObject*		Armor1;		// 护甲槽满
+	IUIObject*		Armor2;		// 护甲槽空
+	UIStaticText*	ArmorText;	// 护甲文字
+	IUIObject*		Gradienter;	// 水平仪
+	IUIObject*		ShipTip;	// 目标圈——友军
+	IUIObject*		lock1;		// 锁定框——已锁定
+	IUIObject*		indicator1;	// 敌军指示
 
 	IShip*		PlayerShip;	// 玩家自己的飞船
 

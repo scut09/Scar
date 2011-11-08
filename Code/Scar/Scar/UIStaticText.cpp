@@ -42,3 +42,13 @@ void UIStaticText::Draw()
 
 	Font->draw( Text, intrec, Color, HorizontalCenter, VerticalCenter);
 }
+
+void UIStaticText::SetText( const stringw& text )
+{
+	Text = text;
+}
+
+irr::core::stringw UIStaticText::GetText() const
+{
+	return Text;
+}
