@@ -123,23 +123,31 @@ void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int
 
 void Network::BoostClient::SaveLocalIPAddress()
 {
-	using namespace boost::asio::ip;
-	boost::asio::io_service io;
+	try
+	{
+		using namespace boost::asio::ip;
+		boost::asio::io_service io;
 
-	tcp::resolver resolver( io ); 
-	tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
-	tcp::resolver::iterator iter = resolver.resolve( query ); 
-	tcp::resolver::iterator end; 
+		tcp::resolver resolver( io ); 
+		tcp::resolver::query query( boost::asio::ip::host_name(), "" ); 
+		tcp::resolver::iterator iter = resolver.resolve( query ); 
+		tcp::resolver::iterator end; 
 
-	while ( iter != end ) 
-	{   
-		tcp::endpoint ep = *iter++;    
-		if ( ep.address().is_v4() )
-		{
-			m_localIP.insert( ep.address().to_string() );
-			std::cout << ep.address().to_string() << std::endl;
+		while ( iter != end ) 
+		{   
+			tcp::endpoint ep = *iter++;    
+			if ( ep.address().is_v4() )
+			{
+				m_localIP.insert( ep.address().to_string() );
+				std::cout << ep.address().to_string() << std::endl;
+			}
 		}
 	}
+	catch ( std::exception& e )
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	
 }
 
 void Network::BoostClient::OnBroadcastRoom( unsigned long ip, const PACKAGE& p )

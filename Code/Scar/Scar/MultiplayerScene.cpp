@@ -183,8 +183,11 @@ void MultiplayerScene::Run()
 			}
 		}
 
-		if ( iter == rooms.end() )
-			client->EnterRoom( *localIP.begin() );		
+		if ( iter == rooms.end()  ) 
+			if ( ! localIP.empty() )
+				client->EnterRoom( *localIP.begin() );		
+			else
+				client->EnterRoom( "127.0.0.1" );
 
 		//Sleep( 2000 );
 
@@ -423,7 +426,6 @@ void MultiplayerScene::Init()
 	{
 		std::cerr << e.what() << std::endl;
 	}
-
 
 	server->Start( 1990, 2012 );
 	client->Start( 2012, 1990 );
