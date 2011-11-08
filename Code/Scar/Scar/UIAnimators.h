@@ -10,7 +10,6 @@
 #include "ScaleUIAnimator.h"
 #include "AlphaChangeUIAnimator.h"
 #include "DeletionUIAnimator.h"
-#include "BlinkUIAnimator.h"
 #include "TimelagUIAnimator.h"
 
 #endif // UIAnimators_h__

@@ -37,9 +37,6 @@
     <Filter Include="UI">
       <UniqueIdentifier>{d494017d-63bf-400a-924f-03aa78a57adf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Old Animation">
-      <UniqueIdentifier>{90a42469-8204-419c-81d6-2a44c5e244f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Animation">
       <UniqueIdentifier>{b95af60f-a58e-4ce0-abed-b20b87ed9ebf}</UniqueIdentifier>
     </Filter>
@@ -93,12 +90,6 @@
     <ClCompile Include="ModuleControl.cpp">
       <Filter>Control</Filter>
     </ClCompile>
-    <ClCompile Include="FlyBehavior.cpp">
-      <Filter>Old Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="IMissile.cpp">
-      <Filter>Models</Filter>
-    </ClCompile>
     <ClCompile Include="ModelManager.cpp">
       <Filter>Models</Filter>
     </ClCompile>
@@ -150,9 +141,6 @@
     <ClCompile Include="CSceneNodeAutoTrackAnimator.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="BlinkUIAnimator.cpp">
-      <Filter>UI\UIAnimators</Filter>
-    </ClCompile>
     <ClCompile Include="UIImage.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -175,9 +163,6 @@
       <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="IShip.cpp">
-      <Filter>Models</Filter>
-    </ClCompile>
-    <ClCompile Include="SpaceStation.cpp">
       <Filter>Models</Filter>
     </ClCompile>
     <ClCompile Include="CSceneNodeAnimatorCollisionResponse.cpp">
@@ -218,9 +203,6 @@
     </ClCompile>
     <ClCompile Include="UIStaticText.cpp">
       <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="MySceneNodeAnimatorMove.cpp">
-      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="NetworkPacket.cpp">
       <Filter>Network</Filter>
@@ -294,9 +276,6 @@
     <ClCompile Include="IRobot.cpp">
       <Filter>AI</Filter>
     </ClCompile>
-    <ClCompile Include="MultiPrepareScene.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="RobotShip.cpp">
       <Filter>AI</Filter>
     </ClCompile>
@@ -317,12 +296,6 @@
     <ClInclude Include="AnimationManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="FlyBehavior.h">
-      <Filter>Old Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="IFly.h">
-      <Filter>Old Animation</Filter>
-    </ClInclude>
     <ClInclude Include="def.h">
       <Filter>Utility</Filter>
     </ClInclude>
@@ -332,16 +305,7 @@
     <ClInclude Include="IServer.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="IMovable.h">
-      <Filter>Old Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="IAircraft.h">
-      <Filter>Models</Filter>
-    </ClInclude>
     <ClInclude Include="Aircraft.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="IMissile.h">
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="PythonModule.h">
@@ -372,9 +336,6 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="CSceneNodeAnimatorSelfDelFlyStraight.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="TestAnimator.h">
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="IUIObject.h">
@@ -416,9 +377,6 @@
     <ClInclude Include="MyIReferenceCounted.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="BlinkUIAnimator.h">
-      <Filter>UI\UIAnimators</Filter>
-    </ClInclude>
     <ClInclude Include="base.h">
       <Filter>Python</Filter>
     </ClInclude>
@@ -438,9 +396,6 @@
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="IShip.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="SpaceStation.h">
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="IWeapon.h">
@@ -487,9 +442,6 @@
     </ClInclude>
     <ClInclude Include="UIStaticText.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="MySceneNodeAnimatorMove.h">
-      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="NetworkPacket.h">
       <Filter>Network</Filter>
@@ -586,9 +538,6 @@
     </ClInclude>
     <ClInclude Include="CCameraSceneNode.h">
       <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiPrepareScene.h">
-      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="Robot_Client.h">
       <Filter>AI</Filter>

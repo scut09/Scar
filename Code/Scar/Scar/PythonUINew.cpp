@@ -6,8 +6,6 @@
 
 #include "AlphaChangeUIAnimator.h"
 
-#include "BlinkUIAnimator.h"
-
 #include "DeletionUIAnimator.h"
 
 #include "GameScene.h"
@@ -99,48 +97,6 @@ struct AlphaChangeUIAnimator_wrapper : AlphaChangeUIAnimator, bp::wrapper< Alpha
     
     bool default_animateUIObject( ::IUIObject * node, ::irr::u32 timeMS ) {
         return AlphaChangeUIAnimator::animateUIObject( boost::python::ptr(node), timeMS );
-    }
-
-};
-
-struct BlinkUIAnimator_wrapper : BlinkUIAnimator, bp::wrapper< BlinkUIAnimator > {
-
-    BlinkUIAnimator_wrapper(BlinkUIAnimator const & arg )
-    : BlinkUIAnimator( arg )
-      , bp::wrapper< BlinkUIAnimator >(){
-        // copy constructor
-        
-    }
-
-    BlinkUIAnimator_wrapper(::irr::core::vector2d< float > const & offset )
-    : BlinkUIAnimator( boost::ref(offset) )
-      , bp::wrapper< BlinkUIAnimator >(){
-        // constructor
-    
-    }
-
-    virtual ::BlinkUIAnimator * Clone(  ) {
-        if( bp::override func_Clone = this->get_override( "Clone" ) )
-            return func_Clone(  );
-        else{
-            return this->BlinkUIAnimator::Clone(  );
-        }
-    }
-    
-    ::BlinkUIAnimator * default_Clone(  ) {
-        return BlinkUIAnimator::Clone( );
-    }
-
-    virtual bool animateUIObject( ::IUIObject * node, ::irr::u32 timeMS ) {
-        if( bp::override func_animateUIObject = this->get_override( "animateUIObject" ) )
-            return func_animateUIObject( boost::python::ptr(node), timeMS );
-        else{
-            return this->BlinkUIAnimator::animateUIObject( boost::python::ptr(node), timeMS );
-        }
-    }
-    
-    bool default_animateUIObject( ::IUIObject * node, ::irr::u32 timeMS ) {
-        return BlinkUIAnimator::animateUIObject( boost::python::ptr(node), timeMS );
     }
 
 };
@@ -2808,36 +2764,7 @@ BOOST_PYTHON_MODULE( UI )
             , (bool ( AlphaChangeUIAnimator_wrapper::* )( ::IUIObject *,::irr::u32 ) )(&AlphaChangeUIAnimator_wrapper::default_animateUIObject)
             , ( bp::arg("node"), bp::arg("timeMS") ) );
 
-    { //::BlinkUIAnimator
-        typedef bp::class_< BlinkUIAnimator_wrapper, bp::bases< IUIAnimator > > BlinkUIAnimator_exposer_t;
-        BlinkUIAnimator_exposer_t BlinkUIAnimator_exposer = BlinkUIAnimator_exposer_t( "BlinkUIAnimator", bp::init< irr::core::vector2d< float > const & >(( bp::arg("offset") )) );
-        bp::scope BlinkUIAnimator_scope( BlinkUIAnimator_exposer );
-        bp::implicitly_convertible< irr::core::vector2d< float > const &, BlinkUIAnimator >();
-        { //::BlinkUIAnimator::Clone
-        
-            typedef ::BlinkUIAnimator * ( ::BlinkUIAnimator::*Clone_function_type )(  ) ;
-            typedef ::BlinkUIAnimator * ( BlinkUIAnimator_wrapper::*default_Clone_function_type )(  ) ;
-            
-            BlinkUIAnimator_exposer.def( 
-                "Clone"
-                , Clone_function_type(&::BlinkUIAnimator::Clone)
-                , default_Clone_function_type(&BlinkUIAnimator_wrapper::default_Clone)
-                    , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::BlinkUIAnimator::animateUIObject
-        
-            typedef bool ( ::BlinkUIAnimator::*animateUIObject_function_type )( ::IUIObject *,::irr::u32 ) ;
-            typedef bool ( BlinkUIAnimator_wrapper::*default_animateUIObject_function_type )( ::IUIObject *,::irr::u32 ) ;
-            
-            BlinkUIAnimator_exposer.def( 
-                "animateUIObject"
-                , animateUIObject_function_type(&::BlinkUIAnimator::animateUIObject)
-                , default_animateUIObject_function_type(&BlinkUIAnimator_wrapper::default_animateUIObject)
-                , ( bp::arg("node"), bp::arg("timeMS") ) );
-        
-        }
-    }
+  
 
 
     bp::class_< DeletionAnimator_wrapper, bp::bases< IUIAnimator > >( "DeletionAnimator", bp::init< irr::u32, irr::u32 >(( bp::arg("now"), bp::arg("time") )) )    

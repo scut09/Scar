@@ -274,9 +274,9 @@ void MultiplayerScene::Init()
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
 	// 开场动画
-	/*auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
+	auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
 	m_pCamera->addAnimator( BeginMove );
-	BeginMove->drop();*/
+	BeginMove->drop();
 
 	// 飞船跟随照相机
 	auto folowAni = new SceneNodeAnimatorFollow( m_pCamera, -40 );
