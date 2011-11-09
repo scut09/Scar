@@ -71,9 +71,12 @@ int main()
 	// 启动引擎
 	pEngine->Run();
 
-	pEngine->GetDevice()->drop();
-
+	irr::IrrlichtDevice* device = pEngine->GetDevice();
+	// 先销毁我们的包装引擎
 	MyIrrlichtEngine::DestoryEngine();
+	// 销毁Irricht引擎
+	device->drop();
+
 
 	std::cout.rdbuf( default_buf );
 	//std::cout <<  MyIrrlichtEngine::Console_Buffer.str();

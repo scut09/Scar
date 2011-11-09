@@ -31,6 +31,21 @@
 
 using namespace irrklang;
 
+template< class T >
+struct Fuck
+{
+	T data;
+	Fuck( T d ) : data( d ) {}
+};
+
+MultiplayerScene::~MultiplayerScene()
+{
+	Release();
+
+	// Test
+	new Fuck< boost::shared_ptr<Network::BoostClient> >( client );
+	new Fuck< boost::shared_ptr<Network::BoostServer> >( server );
+}
 
 
 void MultiplayerScene::Run()
@@ -521,12 +536,7 @@ void MultiplayerScene::Release()
 	client->Close();
 	server->Close();
 
-	m_pCamera->remove();
-	m_pSkyBox->remove();
-
 	//	m_pAnimationMan->RemoveAll();
-
-	m_pModelMan->DeleteAll();
 
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
