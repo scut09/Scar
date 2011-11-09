@@ -153,28 +153,28 @@ void PlayerHelper::UpdateLock()
 void PlayerHelper::LoadHelperUI( UIManager* uiManager )
 {
 	// 获取鼠标准心
-	Cursor = uiManager->GetObjectByName("cursor");
+	Cursor = uiManager->GetUIObjectByName("cursor");
 	// 获取速度槽
-	Speed1 = uiManager->GetObjectByName( "speed1" );
-	Speed2 = uiManager->GetObjectByName( "speed2" );
+	Speed1 = uiManager->GetUIObjectByName( "speed1" );
+	Speed2 = uiManager->GetUIObjectByName( "speed2" );
 	//SpeedText = new UIStaticText( uiManager->GetRoot(), 100, 100, L"速度：", irr::video::SColor(255,255,255,255), 20 );
 	//SpeedText->SetPosition( vector2df( 200, 200 ) );
-	SpeedText = (UIStaticText*)uiManager->GetObjectByName( "speedText" );
+	SpeedText = (UIStaticText*)uiManager->GetUIObjectByName( "speedText" );
 	// 获取护盾槽
-	Shield1 = uiManager->GetObjectByName( "shield1" );
-	Shield2 = uiManager->GetObjectByName( "shield2" );
-	ShieldText = (UIStaticText*)uiManager->GetObjectByName( "speedText" );
+	Shield1 = uiManager->GetUIObjectByName( "shield1" );
+	Shield2 = uiManager->GetUIObjectByName( "shield2" );
+	ShieldText = (UIStaticText*)uiManager->GetUIObjectByName( "speedText" );
 	// 获取护甲槽
-	Armor1 = uiManager->GetObjectByName( "armor1" );
-	Armor2 = uiManager->GetObjectByName( "armor2" );
-	ArmorText = (UIStaticText*)uiManager->GetObjectByName( "armorText" );
+	Armor1 = uiManager->GetUIObjectByName( "armor1" );
+	Armor2 = uiManager->GetUIObjectByName( "armor2" );
+	ArmorText = (UIStaticText*)uiManager->GetUIObjectByName( "armorText" );
 	// 获取水平仪
-	Gradienter = uiManager->GetObjectByName( "gradienter" );
+	Gradienter = uiManager->GetUIObjectByName( "gradienter" );
 	// 获取目标圈
-	ShipTip = uiManager->GetObjectByName( "target1" );
+	ShipTip = uiManager->GetUIObjectByName( "target1" );
 	ShipTip->SetVisible( false );
 	// 获取锁定圈——已锁定
-	lock1 = uiManager->GetObjectByName( "lock1" );
+	lock1 = uiManager->GetUIObjectByName( "lock1" );
 	// 获取敌军指示
-	indicator1 = uiManager->GetObjectByName( "indicator1" );
+	indicator1 = uiManager->GetUIObjectByName( "indicator1" );
 }

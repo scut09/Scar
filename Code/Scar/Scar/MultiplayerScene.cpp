@@ -416,8 +416,8 @@ void MultiplayerScene::Init()
 		object GetRoot = UILoader.attr( "GetRoot" );
 		object root = GetRoot();
 
-		IUIObject* r = extract<IUIObject*>( root ); 
-		uiManager->SetRoot( r );
+		//IUIObject* r = extract<IUIObject*>( root ); 
+		//uiManager->SetRoot( r );
 		//r->drop();	// 使用Python对象不用内存管理
 		m_playerHelper->LoadHelperUI( uiManager );
 		m_playerHelper->LoadPlayerManager( &*m_playerManager );
@@ -664,6 +664,7 @@ void MultiplayerScene::Release()
 
 void MultiplayerScene::Draw()
 {
-	uiManager->RunTree();
+	//uiManager->RunTree();
+	uiManager->DrawAll();
 }
 
