@@ -532,7 +532,7 @@ struct IUIObject_wrapper : IUIObject, bp::wrapper< IUIObject > {
 
 };
 
-BOOST_PYTHON_MODULE(pyplusplus){
+BOOST_PYTHON_MODULE( UI ){
     { //::std::vector< IUIObject* >
         typedef bp::class_< std::vector< IUIObject* > > vector_less__IUIObject_ptr___greater__exposer_t;
         vector_less__IUIObject_ptr___greater__exposer_t vector_less__IUIObject_ptr___greater__exposer = vector_less__IUIObject_ptr___greater__exposer_t( "vector_less__IUIObject_ptr___greater_" );
@@ -569,7 +569,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
         .def( 
             "Clone"
             , bp::pure_virtual( (::IUIAnimator * ( ::IUIAnimator::* )(  ) )(&::IUIAnimator::Clone) )
-                /* undefined call policies */ )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "animateUIObject"
             , bp::pure_virtual( (bool ( ::IUIAnimator::* )( ::IUIObject *,::irr::u32 ) )(&::IUIAnimator::animateUIObject) )
@@ -594,7 +594,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
         .def( 
             "Clone"
             , bp::pure_virtual( (::IUIObject * ( ::IUIObject::* )(  ) )(&::IUIObject::Clone) )
-                /* undefined call policies */ )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "CloneMembersFrom"
             , (void ( ::IUIObject::* )( ::IUIObject * ) )(&::IUIObject::CloneMembersFrom)
@@ -647,7 +647,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
             "GetParent"
             , (::IUIObject * ( ::IUIObject::* )(  ) const)(&::IUIObject::GetParent)
             , (::IUIObject * ( IUIObject_wrapper::* )(  ) const)(&IUIObject_wrapper::default_GetParent)
-                /* undefined call policies */ )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetPosition"
             , (::irr::core::vector2d< float > const & ( ::IUIObject::* )(  ) const)(&::IUIObject::GetPosition)
@@ -677,7 +677,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
             , (::IUIObject * ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::HitTest)
             , (::IUIObject * ( IUIObject_wrapper::* )( ::irr::s32,::irr::s32 ) )(&IUIObject_wrapper::default_HitTest)
             , ( bp::arg("x"), bp::arg("y") )
-                /* undefined call policies */ )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "IsPointIn"
             , (bool ( ::IUIObject::* )( ::irr::s32,::irr::s32 ) )(&::IUIObject::IsPointIn)
@@ -842,7 +842,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "AddUIButton"
                 , AddUIButton_function_type( &::UIManager::AddUIButton )
                 , ( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=int(::SQUARE), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::AddUIImage
@@ -853,7 +853,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "AddUIImage"
                 , AddUIImage_function_type( &::UIManager::AddUIImage )
                 , ( bp::arg("parent"), bp::arg("width"), bp::arg("height"), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=int(::SQUARE), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::AddUIStaticText
@@ -864,7 +864,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "AddUIStaticText"
                 , AddUIStaticText_function_type( &::UIManager::AddUIStaticText )
                 , ( bp::arg("parent"), bp::arg("width"), bp::arg("hegit"), bp::arg("text"), bp::arg("color"), bp::arg("fontsize")=(::irr::u32)(14), bp::arg("hcenter")=(bool)(false), bp::arg("vcenter")=(bool)(false), bp::arg("order")=(::irr::s32)(0), bp::arg("shape")=int(::SQUARE), bp::arg("position")=irr::core::vector2d<float>(0.0f, 0.0f), bp::arg("rotdeg")=0, bp::arg("scale")=irr::core::vector2d<float>(1.0e+0f, 1.0e+0f), bp::arg("Isvisible")=(bool)(true) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::Clear
@@ -884,7 +884,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "CreateAnimatorAlphaChange"
                 , CreateAnimatorAlphaChange_function_type( &::UIManager::CreateAnimatorAlphaChange )
                 , ( bp::arg("begin"), bp::arg("duration"), bp::arg("srcalpha"), bp::arg("taralpha"), bp::arg("loop")=(bool)(false) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::CreateAnimatorDeletion
@@ -895,7 +895,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "CreateAnimatorDeletion"
                 , CreateAnimatorDeletion_function_type( &::UIManager::CreateAnimatorDeletion )
                 , ( bp::arg("now"), bp::arg("time") )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::CreateAnimatorRotation
@@ -906,7 +906,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "CreateAnimatorRotation"
                 , CreateAnimatorRotation_function_type( &::UIManager::CreateAnimatorRotation )
                 , ( bp::arg("begin"), bp::arg("duration"), bp::arg("angle"), bp::arg("loop")=(bool)(false) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::CreateAnimatorScale
@@ -917,7 +917,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "CreateAnimatorScale"
                 , CreateAnimatorScale_function_type( &::UIManager::CreateAnimatorScale )
                 , ( bp::arg("begin"), bp::arg("duration"), bp::arg("scale"), bp::arg("loop")=(bool)(false) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::CreateAnimatorTimelag
@@ -928,7 +928,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "CreateAnimatorTimelag"
                 , CreateAnimatorTimelag_function_type( &::UIManager::CreateAnimatorTimelag )
                 , ( bp::arg("begin"), bp::arg("duration"), bp::arg("moduleName"), bp::arg("funName"), bp::arg("loop")=(bool)(false) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::CreateAnimatorTranslation
@@ -939,7 +939,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "CreateAnimatorTranslation"
                 , CreateAnimatorTranslation_function_type( &::UIManager::CreateAnimatorTranslation )
                 , ( bp::arg("begin"), bp::arg("duration"), bp::arg("offset"), bp::arg("loop")=(bool)(false) )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::DrawAll
@@ -959,7 +959,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "GetObjectByName"
                 , GetObjectByName_function_type( &::UIManager::GetObjectByName )
                 , ( bp::arg("name"), bp::arg("node")=bp::object() )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::GetRoot
@@ -969,7 +969,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
             UIManager_exposer.def( 
                 "GetRoot"
                 , GetRoot_function_type( &::UIManager::GetRoot )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::GetRootUIObject
@@ -979,7 +979,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
             UIManager_exposer.def( 
                 "GetRootUIObject"
                 , GetRootUIObject_function_type( &::UIManager::GetRootUIObject )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::GetUIObjectByName
@@ -990,7 +990,7 @@ BOOST_PYTHON_MODULE(pyplusplus){
                 "GetUIObjectByName"
                 , GetUIObjectByName_function_type( &::UIManager::GetUIObjectByName )
                 , ( bp::arg("name") )
-                    /* undefined call policies */ );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::UIManager::OnEvent
