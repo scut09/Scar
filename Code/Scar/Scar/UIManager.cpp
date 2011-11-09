@@ -1,20 +1,20 @@
 #include "UIManager.h"
 #include <iostream>
 
-
+//
 //响应事件
 void UIManager::OnEvent( const SEvent& event )
 {
 	if ( Root )
 		Root->OnEvent( event );
 }
-
-//获取根节点
-IUIObject* UIManager::GetRoot()
-{
-	return Root;
-}
-
+//
+////获取根节点
+//IUIObject* UIManager::GetRoot()
+//{
+//	return Root;
+//}
+//
 //运行树
 void UIManager::RunTree()
 {
@@ -24,19 +24,19 @@ void UIManager::RunTree()
 		Root->DrawTree();
 	}
 }
-
-//向树中增加节点
-bool UIManager::AddUINode( IUIObject* node, IUIObject* parent )
-{
-	parent->AddChild(node);
-	node->drop();
-	return true;
-}
+//
+////向树中增加节点
+//bool UIManager::AddUINode( IUIObject* node, IUIObject* parent )
+//{
+//	parent->AddChild(node);
+//	node->drop();
+//	return true;
+//}
 
 IUIObject* UIManager::GetObjectByName( const std::string& name, IUIObject* node )
 {
-	if ( !node )
-		node = this->GetRoot();
+	if ( node == NULL )
+		node = Root;
 
 	if ( node->GetName() == name )
 		return node;
