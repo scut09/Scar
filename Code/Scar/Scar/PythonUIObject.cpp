@@ -962,16 +962,16 @@ BOOST_PYTHON_MODULE( UI ){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
-        { //::UIManager::GetRoot
-        
-            typedef ::IUIObject * ( ::UIManager::*GetRoot_function_type )(  ) ;
-            
-            UIManager_exposer.def( 
-                "GetRoot"
-                , GetRoot_function_type( &::UIManager::GetRoot )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
+        //{ //::UIManager::GetRoot
+        //
+        //    typedef ::IUIObject * ( ::UIManager::*GetRoot_function_type )(  ) ;
+        //    
+        //    UIManager_exposer.def( 
+        //        "GetRoot"
+        //        , GetRoot_function_type( &::UIManager::GetRoot )
+        //        , bp::return_value_policy< bp::reference_existing_object >() );
+        //
+        //}
         { //::UIManager::GetRootUIObject
         
             typedef ::IUIObject * ( ::UIManager::*GetRootUIObject_function_type )(  ) ;
@@ -1003,24 +1003,24 @@ BOOST_PYTHON_MODULE( UI ){
                 , ( bp::arg("event") ) );
         
         }
-        { //::UIManager::RunTree
-        
-            typedef void ( ::UIManager::*RunTree_function_type )(  ) ;
-            
-            UIManager_exposer.def( 
-                "RunTree"
-                , RunTree_function_type( &::UIManager::RunTree ) );
-        
-        }
-        { //::UIManager::SetRoot
-        
-            typedef bool ( ::UIManager::*SetRoot_function_type )( ::IUIObject * ) ;
-            
-            UIManager_exposer.def( 
-                "SetRoot"
-                , SetRoot_function_type( &::UIManager::SetRoot )
-                , ( bp::arg("root") ) );
-        
-        }
+        //{ //::UIManager::RunTree
+        //
+        //    typedef void ( ::UIManager::*RunTree_function_type )(  ) ;
+        //    
+        //    UIManager_exposer.def( 
+        //        "RunTree"
+        //        , RunTree_function_type( &::UIManager::RunTree ) );
+        //
+        //}
+        //{ //::UIManager::SetRoot
+        //
+        //    typedef bool ( ::UIManager::*SetRoot_function_type )( ::IUIObject * ) ;
+        //    
+        //    UIManager_exposer.def( 
+        //        "SetRoot"
+        //        , SetRoot_function_type( &::UIManager::SetRoot )
+        //        , ( bp::arg("root") ) );
+        //
+        //}
     }
 }

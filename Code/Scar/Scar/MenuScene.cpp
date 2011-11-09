@@ -18,7 +18,7 @@ void MenuScene::Run()
 
 			object UILoader = import( SceneName.c_str() );
 			object LoadStartAnimation = UILoader.attr( "LoadStartAnimation" );
-			IUIObject* root = uiManager->GetRoot();
+			IUIObject* root = uiManager->GetRootUIObject();
 			LoadStartAnimation( boost::ref( root ) );
 
 			//r->drop();	// 使用Python对象不用内存管理

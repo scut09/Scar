@@ -5,8 +5,7 @@
 //响应事件
 void UIManager::OnEvent( const SEvent& event )
 {
-	if ( Root )
-		Root->OnEvent( event );
+	RootUIObject->OnEvent( event );
 }
 //
 ////获取根节点
@@ -16,14 +15,14 @@ void UIManager::OnEvent( const SEvent& event )
 //}
 //
 //运行树
-void UIManager::RunTree()
-{
-	if ( Root )
-	{
-		Root->OnAnimate(Timer->getRealTime());
-		Root->DrawTree();
-	}
-}
+//void UIManager::RunTree()
+//{
+//	if ( Root )
+//	{
+//		Root->OnAnimate(Timer->getRealTime());
+//		Root->DrawTree();
+//	}
+//}
 //
 ////向树中增加节点
 //bool UIManager::AddUINode( IUIObject* node, IUIObject* parent )
@@ -35,8 +34,8 @@ void UIManager::RunTree()
 
 IUIObject* UIManager::GetObjectByName( const std::string& name, IUIObject* node )
 {
-	if ( node == NULL )
-		node = Root;
+	//if ( node == NULL )
+	//	node = Root;
 
 	if ( node->GetName() == name )
 		return node;

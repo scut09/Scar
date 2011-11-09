@@ -17,7 +17,7 @@ private:
 
 
 public:
-	UIManager( ITimer* timer ) : Timer(timer), Root(NULL)
+	UIManager( ITimer* timer ) : Timer(timer)
 	{
 		RootUIObject = new UIImage( 0, 0, 0 );
 	}
@@ -160,26 +160,26 @@ public:
 	/************************************************************************/
 	/* 历史遗留，即将被删除                                                  */
 	/************************************************************************/
-	bool SetRoot( IUIObject* root )
-	{
-		//root->grab();
-		//if ( Root )
-		//	Root->drop();
-		Root = root;
-		return true;
-	}
+	//bool SetRoot( IUIObject* root )
+	//{
+	//	//root->grab();
+	//	//if ( Root )
+	//	//	Root->drop();
+	//	Root = root;
+	//	return true;
+	//}
 
-	IUIObject* GetRoot()
-	{
-		return Root;
-	}
+	//IUIObject* GetRoot()
+	//{
+	//	return Root;
+	//}
 
-	//运行UI树
-	void RunTree();
+	////运行UI树
+	//void RunTree();
 
 
-private:
-	IUIObject*	Root;				//UI树根节点
+//private:
+//	IUIObject*	Root;				//UI树根节点
 
 
 
