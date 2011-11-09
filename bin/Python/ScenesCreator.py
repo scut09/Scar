@@ -3,6 +3,7 @@
 # 说明：提供创建场景，切换场景，删除场景的方法
 #
 from UI import *
+from GameSceneModule import *
 from Engine import *
 
 ScenesDict = dict() 
@@ -26,7 +27,7 @@ def CreateGameScenes():
     
     start.Scenes[ 0 ] = multi
     
-    ChangeGameScene( mainMenu )
+    ChangeGameScene( multi )
 
 def GetScene( name ):
     '输入一个场景的名字，返回一个场景对象'
