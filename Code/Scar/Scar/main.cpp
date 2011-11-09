@@ -73,6 +73,8 @@ int main()
 
 	pEngine->GetDevice()->drop();
 
+	MyIrrlichtEngine::DestoryEngine();
+
 	std::cout.rdbuf( default_buf );
 	//std::cout <<  MyIrrlichtEngine::Console_Buffer.str();
 

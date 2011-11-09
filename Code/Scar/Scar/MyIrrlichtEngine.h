@@ -85,6 +85,8 @@ public:
 	// 获取引擎指针
 	static MyIrrlichtEngine* GetEngine();
 
+	static void DestoryEngine();
+
 	scene::ISceneManager* GetSceneManager();
 
 	scene::ISceneCollisionManager* GetCollisionManager();

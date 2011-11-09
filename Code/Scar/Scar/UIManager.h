@@ -19,11 +19,17 @@ private:
 public:
 	UIManager( ITimer* timer ) : Timer(timer)
 	{
+		if ( Timer )
+			Timer->grab();
+
 		RootUIObject = new UIImage( 0, 0, 0 );
 	}
 
 	~UIManager()
 	{
+		if ( Timer )
+			Timer->drop();
+
 		RootUIObject->drop();
 	}
 

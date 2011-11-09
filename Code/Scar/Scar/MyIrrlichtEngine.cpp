@@ -253,6 +253,15 @@ void MyIrrlichtEngine::SetMotionBlur( bool bOpen /*= true */ )
 	m_bMotionBlur = bOpen;
 }
 
+void MyIrrlichtEngine::DestoryEngine()
+{
+	if ( m_pIrrlichtEngine )
+	{
+		delete m_pIrrlichtEngine;
+		m_pIrrlichtEngine = NULL;
+	}
+}
+
 //AnimationManager* MyIrrlichtEngine::GetAnimationManager()
 //{
 //	return &m_AnimationManager;
