@@ -60,6 +60,9 @@ protected:
 	};
 
 protected:
+	dimension2df                Size;           // 元件的大小
+	rect<f32>*                  ClipRect;       // 元件裁剪区域 
+
 	std::vector< IUIAnimator* >	Animators;		// 动画列表
 	std::vector< IUIObject* >	Children;		// 子节点列表
 	IUIObject*					Parent;			// 父节点指针
@@ -316,6 +319,91 @@ public:
 	//		(*iter)->OnEvent( event );
 	//	}
 	//}
+
+	//////////////////////////////////////////////////////////////////////////
+	//谢骏飞
+	//对裁剪区域变量的操作 
+	virtual void SetClipRect( rect<f32>&clipRect )
+	{
+		if (!ClipRect)
+		{
+			ClipRect = new rect<f32>(clipRect);
+		}
+		else *ClipRect = clipRect;
+	}
+	virtual rect<f32>* GetClipRect() const
+	{
+		return ClipRect;
+	}
+	virtual void RemoveClipRect()
+	{
+		if ( ClipRect )
+		{
+			delete ClipRect;
+			ClipRect = NULL;
+		}
+	}
+
+	//获取建模时的元件大小
+	virtual dimension2df GetOriginSize() const
+	{
+		return Size;
+	}
+	//获取元件的大小
+	virtual dimension2df GetSize()const 
+	{
+		dimension2df w ;
+		vector2df absoluteScale = RelativeScale ;
+
+		for( auto iter = GetParent(); iter != NULL; iter = (iter)->GetParent() )
+		{
+			absoluteScale *= iter->GetScale();
+		}
+		w.Width = Size.Width * absoluteScale.X;
+		w.Height = Size.Height * absoluteScale.Y;
+		return w;
+	}
+
+	const matrix<f32>& GetAbsoluteMax() 
+	{
+
+		IUIObject * par = GetParent();
+		if ( par )
+		{
+			par->GetAbsoluteMax();
+
+		}
+		UpdateAbsolutePosition();
+
+		return AbsoluteTransformation;
+
+	}
+	//获取绝对裁剪区域
+	virtual rect<f32> GetAbsoluteClipRect() 
+	{
+		rect<f32> re;
+		if ( ClipRect == NULL )
+		{
+			return re;
+		}
+		matrix<f32> mat = GetAbsoluteMax();
+		ub::vector<f32> temp(3);
+		temp(2) = 1;
+		temp(0) = ClipRect->UpperLeftCorner.X;
+		temp(1) = ClipRect->UpperLeftCorner.Y;
+		temp = prod( temp, mat );
+		re.UpperLeftCorner.X = temp(0);
+		re.UpperLeftCorner.Y = temp(1);
+		temp( 0) = ClipRect->LowerRightCorner.X;
+		temp(1 ) = ClipRect->LowerRightCorner.Y;
+		temp = prod( temp, mat );
+		re.LowerRightCorner.X = temp(0);
+		re.LowerRightCorner.Y = temp( 1 );
+		return  re;
+
+
+	}
+	//////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////////////////
 public:

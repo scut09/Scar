@@ -101,7 +101,7 @@ public:
 	/************************************************************************/
 
 	// 创建平移动画
-	IUIAnimator* CreateAnimatorTranslation( u32 begin, u32 duration, const vector2d<s32>& offset, bool loop = false )
+	IUIAnimator* CreateAnimatorTranslation( u32 begin, u32 duration, const vector2df& offset, bool loop = false )
 	{
 		return new TranslateUIAnimator( begin, duration, offset, loop );
 	}

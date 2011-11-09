@@ -21,8 +21,6 @@ class MenuScene : public GameScene
 
 	IUIObject* root;
 
-	UIManager* uiManager;
-
 	std::string SceneName;
 
 	bool	IsFirstRun;

@@ -18,7 +18,11 @@ void UIImage::Draw()
 		return;*/
 
 	if (Image==NULL)
+	{
 		return;
+
+	}
+		
 	int h = Image->getSize().Height;
 	int w = Image->getSize().Width;
 	rect<s32>SrcRect( (s32)LeftTop.X, (s32)LeftTop.Y, (s32)RightBottom.X, (s32)RightBottom.Y );
@@ -26,14 +30,7 @@ void UIImage::Draw()
 	vector2d<s32> intDstQuar[4];
 	ub::vector<f32> temp(3);
 	temp(2) = 1;
-	//std::cout<<AbsoluteTransformation<<std::endl;
-	/*for( int i=0; i<4; i++)
-	{
-		temp(0) = DestinationQuadrangle[i].X;
-		temp(1) = DestinationQuadrangle[i].Y;
-		temp = prod( temp, AbsoluteTransformation );
-		intDstQuar[i].set( (s32)temp(0), (s32)temp(1) );
-	}*/
+
 	temp(0) = DestinationQuadrangle[0].X + LeftTop.X;
 	temp(1) = DestinationQuadrangle[0].Y + LeftTop.Y;
 	temp = prod( temp, AbsoluteTransformation );
@@ -61,7 +58,14 @@ void UIImage::Draw()
 	{
 		Driver->enableMaterial2D();
 	}
-	Driver->draw2DImage( Image, intDstQuar, SrcRect, 0, colors/*&SColor(Alpha,255,255,255)*/, true );
+	rect<s32> * clipre = NULL;
+	if ( ClipRect )
+	{
+		rect<f32> t= GetAbsoluteClipRect();
+		rect<s32> re = rect<s32>( ( s32)t.UpperLeftCorner.X,( s32)t.UpperLeftCorner.Y,( s32)t.LowerRightCorner.X,( s32)t.LowerRightCorner.Y);
+		clipre = &re;
+	}
+	Driver->draw2DImage( Image, intDstQuar, SrcRect, clipre, colors/*&SColor(Alpha,255,255,255)*/, true );
 	if ( bAntiAliasing )
 	{
 		Driver->enableMaterial2D( false );

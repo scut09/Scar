@@ -23,7 +23,12 @@ public:
 		f32 rotdeg = 0,
 		const vector2d<f32>& scale = vector2d<f32>( 1.f, 1.f ) ) 
 		: IUIObject( parent, width, height, order, shape, position, rotdeg, scale )
-	{}
+	{
+		if ( parent )
+		{
+			parent->AddChild( this );
+		}
+	}
 
 	~UIImage();
 

@@ -18,7 +18,7 @@ void MenuScene::Run()
 
 			object UILoader = import( SceneName.c_str() );
 			object LoadStartAnimation = UILoader.attr( "LoadStartAnimation" );
-			IUIObject* root = uiManager->GetRootUIObject();
+			IUIObject* root = pEngine->GetUIManager()->GetRootUIObject();
 			LoadStartAnimation( boost::ref( root ) );
 
 			//r->drop();	// 使用Python对象不用内存管理
@@ -103,7 +103,8 @@ void MenuScene::Init()
 
 	std::cout << "===> " << this->SceneName << " construction" << std::endl;
 
-	uiManager = new UIManager(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer());
+	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
+
 
 	try
 	{
@@ -124,7 +125,7 @@ void MenuScene::Init()
 
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
-		uiManager->OnEvent( event );
+		pEngine->GetUIManager()->OnEvent( event );
 		return 0;
 	} );
 
@@ -134,7 +135,7 @@ void MenuScene::Release()
 {
 	std::cout << "===> " << this->SceneName << " destruction" << std::endl;
 
-	delete uiManager;
+
 	//uiManager = NULL;
 
 	//try
@@ -153,8 +154,7 @@ void MenuScene::Release()
 
 void MenuScene::Draw()
 {
-	if ( uiManager )
-		uiManager->DrawAll();
+	pEngine->GetUIManager()->DrawAll();
 }
 
 void MenuScene::ShaderCallBack::OnSetConstants( IMaterialRendererServices* services, s32 userData )

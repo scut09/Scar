@@ -238,6 +238,8 @@ Parent(NULL), Order(order), AbsoluteTransformation( 3, 3 ), Image( 0 ), Shape( s
 	// 默认不适用反锯齿
 	bAntiAliasing = false;
 
+	ClipRect = NULL;
+	Size = dimension2df( ( f32 )width , ( f32 )height );
 	UpdateAbsolutePosition();
 }
 

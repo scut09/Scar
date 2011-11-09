@@ -8,5 +8,6 @@
 #include "UIImage.h"
 #include "UIButton.h"
 #include "UIStaticText.h"
-
+#include "UIBar.h"
+#include "UIBox.h"
 #endif // AllUIObjects_h__

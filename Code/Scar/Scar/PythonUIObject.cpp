@@ -933,7 +933,7 @@ BOOST_PYTHON_MODULE( UI ){
         }
         { //::UIManager::CreateAnimatorTranslation
         
-            typedef ::IUIAnimator * ( ::UIManager::*CreateAnimatorTranslation_function_type )( ::irr::u32,::irr::u32,::irr::core::vector2d< int > const &,bool ) ;
+            typedef ::IUIAnimator * ( ::UIManager::*CreateAnimatorTranslation_function_type )( ::irr::u32,::irr::u32,::irr::core::vector2df const &,bool ) ;
             
             UIManager_exposer.def( 
                 "CreateAnimatorTranslation"
