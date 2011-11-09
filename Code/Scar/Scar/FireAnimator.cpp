@@ -6,20 +6,20 @@
 #include "MyIrrlichtEngine.h"
 #include <iostream>
 
-FireAnimator::FireAnimator( IShip* ship, boost::shared_ptr<Network::IClient> client ) 
-	: IsFire( false ), Initialized( false ), Client( client ), Ship( ship )
+ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client ) 
+	: IsFire( false ), Initialized( false ), Client( client )
 {
 }
 
-void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
+void ShipFireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 {
-	IShip* ship = Ship;
-	ICameraSceneNode* Camera = static_cast<ICameraSceneNode*>( node );
+	IShip* Ship = static_cast<IShip*>( node );
+	//ICameraSceneNode* ship = static_cast<ICameraSceneNode*>( node );
 
 	if ( !Initialized )
 	{
 		// 初始化每种武器的上次发射时间
-		for( u32 i = 0; i < ship->GetGuns().size(); i++ )
+		for( u32 i = 0; i < Ship->GetGuns().size(); i++ )
 		{
 			LastTimes.push_back( timeMs );
 		}
@@ -28,17 +28,17 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 
 	if ( IsFire )
 	{
-		for( u32 i = 0; i < ship->GetGuns().size(); i++ )
+		for( u32 i = 0; i < Ship->GetGuns().size(); i++ )
 		{
-			if ( timeMs - LastTimes[i] > ship->GetGuns()[i]->GetInterval() )
+			if ( timeMs - LastTimes[i] > Ship->GetGuns()[i]->GetInterval() )
 			{
 				//CSceneNodeAnimatorSelfDelFlyStraight* ani;
 				//ISceneNodeAnimator* del;
 				//ISceneNode* newBullet;
-				f32 distance = ship->GetGuns()[i]->GetVelocity() * ship->GetGuns()[i]->GetLife() / 1000.0f;  // 计算发射距离
+				f32 distance = Ship->GetGuns()[i]->GetVelocity() * Ship->GetGuns()[i]->GetLife() / 1000.0f;  // 计算发射距离
 				// 计算当前飞船姿态
-				vector3df direction = ( Camera->getTarget() - Camera->getPosition() ).normalize(); // 计算发射方向
-				vector3df upVector = Camera->getUpVector();
+				vector3df direction = ( Ship->getTarget() - Ship->getPosition() ).normalize(); // 计算发射方向
+				vector3df upVector = Ship->getUpVector();
 				upVector.normalize();
 				vector3df horiVector = ( upVector.crossProduct( direction ) ).normalize();
 				// 左炮管偏移
@@ -46,18 +46,18 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				// 右炮管偏移
 				vector3df rightOffset = direction * 10 + upVector * -5 + horiVector * 5;
 				// (左)
-				vector3df startPoint = ship->getPosition() + leftOffset; // 炮弹飞行起点
+				vector3df startPoint = Ship->getPosition() + leftOffset; // 炮弹飞行起点
 				vector3df endPoint = startPoint + direction * distance; // 飞行终止点		
 
 				// 复制子弹(左)
-				AddBulletToScene( ship->GetGuns()[i], startPoint, endPoint, timeMs );				
+				AddBulletToScene( Ship->GetGuns()[i], startPoint, endPoint, timeMs );				
 
 				//(右)
-				startPoint = ship->getPosition() + rightOffset; // 炮弹飞行起点
+				startPoint = Ship->getPosition() + rightOffset; // 炮弹飞行起点
 				endPoint = startPoint + direction * distance; // 飞行终止点	
 
 				// 复制子弹(右)
-				AddBulletToScene( ship->GetGuns()[i], startPoint, endPoint, timeMs );				
+				AddBulletToScene( Ship->GetGuns()[i], startPoint, endPoint, timeMs );				
 
 				LastTimes[i] = timeMs;
 			}
@@ -65,12 +65,12 @@ void FireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 	}
 }
 
-ISceneNodeAnimator* FireAnimator::createClone( ISceneNode* node, ISceneManager* newManager/*=0 */ )
+ISceneNodeAnimator* ShipFireAnimator::createClone( ISceneNode* node, ISceneManager* newManager/*=0 */ )
 {
 	throw std::exception("The method or operation is not implemented.");
 }
 
-bool FireAnimator::OnEvent( const SEvent& event )
+bool ShipFireAnimator::OnEvent( const SEvent& event )
 {
 	switch(event.EventType)
 	{
@@ -98,7 +98,7 @@ bool FireAnimator::OnEvent( const SEvent& event )
 
 
 
-void FireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs )
+void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs )
 {
 	// 复制子弹(左)
 	ISceneNode* newBullet = bullet->Clone( 0, 0 );

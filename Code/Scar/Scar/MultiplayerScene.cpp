@@ -23,7 +23,7 @@
 #include "MySceneManager.h"
 #include "PlayerManager.h"
 #include "PythonManager.h"
-#include "RobotManager.h"
+//#include "RobotManager.h"
 #include "RobotShip.h"
 #include "Robot_Client.h"
 #include "SceneNodeShader.h"
@@ -63,7 +63,7 @@ ISoundSource* fuck;
 
 //≤‚ ‘”√shader
 SceneNodeShader* shader;
-RobotManager robotManager;
+//RobotManager robotManager;
 
 boost::shared_ptr<PlayerHelper>		m_playerHelper;
 boost::shared_ptr<PlayerManager>	m_playerManager;
@@ -430,8 +430,7 @@ void MultiplayerScene::Init()
 		PyErr_Print();
 	}
 
-	boost::shared_ptr<HumanPlayer>	humanPlayer( new HumanPlayer );
-	humanPlayer->SetShip( cf1 );
+	boost::shared_ptr<HumanPlayer>	humanPlayer( new HumanPlayer( cf1 ) );
 	m_playerHelper->LoadPlayer( humanPlayer );
 	m_playerManager->AddPlayer( humanPlayer );
 
@@ -514,8 +513,8 @@ void MultiplayerScene::Init()
 
 
 	// ¥¥Ω®ªøÿ
-	auto fireAni = new FireAnimator( cf1, client );
-	m_pCamera->addAnimator( fireAni );
+	auto fireAni = new ShipFireAnimator( client );
+	cf1->addAnimator( fireAni );
 	fireAni->drop();
 
 	client->QueryRoom();

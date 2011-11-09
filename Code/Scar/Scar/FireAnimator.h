@@ -20,16 +20,15 @@ using namespace irr;
 using namespace irr::core;
 using namespace irr::scene;
 
-class FireAnimator : public ISceneNodeAnimator
+class ShipFireAnimator : public ISceneNodeAnimator
 {
 	bool IsFire;
 	bool Initialized;
 	std::vector<u32>		LastTimes;
 	boost::shared_ptr<Network::IClient>		Client;
-	IShip*					Ship;
 
 public:
-	FireAnimator( IShip* ship, boost::shared_ptr<Network::IClient> client );
+	ShipFireAnimator( boost::shared_ptr<Network::IClient> client );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

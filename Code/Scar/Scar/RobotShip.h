@@ -9,9 +9,9 @@
 #ifndef RobotShip_h__
 #define RobotShip_h__
 
-#include "IRobot.h"
+#include "IAgentPlayer.h"
 
-class RobotShip : public IRobot
+class RobotShip : public IAgentPlayer
 {
 public:
 	enum RobotState
@@ -22,7 +22,7 @@ public:
 	};
 
 public:
-	RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server );
+	RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<Network::NetworkBase> server );
 
 	virtual void Update();
 

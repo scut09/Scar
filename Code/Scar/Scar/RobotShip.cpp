@@ -1,27 +1,31 @@
 #include "RobotShip.h"
 #include "MyIrrlichtEngine.h"
 
+using namespace Network;
+
 RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
-	: IRobot( ship, mgr, server ), State( Idle ), fireOnce( true )
+	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true )
 {
 }
 
 void RobotShip::Update()
 {
-	if ( RobotShip_->GetShield() < 1 )	return;	// ¹ÒÁË
+	if ( PlayerShip->GetShield() < 1 )	return;	// ¹ÒÁË
 
-	SendMove( getPosition() );
+	SendMove( PlayerShip->getPosition() );
 
 	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
-	this->OnAnimate( time );
+	//this->OnAnimate( time );
 
 	PACKAGE p;
+	boost::shared_ptr<IPlayer>	player;
+
 
 	switch ( State )
 	{
 		
 	case Idle:		// ¿ÕÏÐ×´Ì¬	
-		if ( IShip* ship = SearchTarget( 5000 ) )
+		if ( SearchTarget( player, 5000 ) )
 		{
 			State = Track;		// ½øÈë×·×Ù×´Ì¬
 		}
@@ -38,9 +42,10 @@ void RobotShip::Update()
 		break;
 
 	case Track:		// ×·×Ù×´Ì¬
-		if ( IShip* ship = SearchTarget( 3000 ) )
+		if ( SearchTarget( player, 3000 ) )
 		{
-			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 2500 )
+			IShip* ship = player->GetShip();
+			if ( ( ship->getPosition() - PlayerShip->getPosition() ).getLength() < 2500 )
 			{
 				State = Attack;		// ½øÈë¿ª»ð×´Ì¬
 				DoUnpress( KEY_KEY_W );
@@ -56,9 +61,11 @@ void RobotShip::Update()
 		break;
 		
 	case Attack:	// ¹¥»÷×´Ì¬
-		if ( IShip* ship = SearchTarget( 2500 ) )
+		if ( SearchTarget( player, 2500 ) )
 		{
-			if ( ( ship->getPosition() - RobotShip_->getPosition() ).getLength() < 200 )
+			IShip* ship = player->GetShip();
+
+			if ( ( ship->getPosition() - PlayerShip->getPosition() ).getLength() < 200 )
 			{
 				DoUnpress( KEY_KEY_W );
 				DoPress( KEY_KEY_S );	// °´ÏÂ¼õËÙ

@@ -70,14 +70,14 @@
     <Filter Include="Shader\shaders\flame">
       <UniqueIdentifier>{66b86707-2745-435c-bcac-42b608eae35f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI">
-      <UniqueIdentifier>{86ebcfd3-26ae-4116-9745-6b1692194f81}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\station">
       <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Player">
       <UniqueIdentifier>{283c6e85-dea7-472a-864b-72f5bdfa7acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\AI">
+      <UniqueIdentifier>{86ebcfd3-26ae-4116-9745-6b1692194f81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -271,19 +271,22 @@
       <Filter>Particle</Filter>
     </ClCompile>
     <ClCompile Include="CCameraSceneNode.cpp">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClCompile>
     <ClCompile Include="IRobot.cpp">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClCompile>
     <ClCompile Include="RobotShip.cpp">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClCompile>
     <ClCompile Include="PlayerManager.cpp">
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHelper.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="IAgentPlayer.cpp">
+      <Filter>Player\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -537,19 +540,19 @@
       <Filter>Particle</Filter>
     </ClInclude>
     <ClInclude Include="IRobot.h">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClInclude>
     <ClInclude Include="CCameraSceneNode.h">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClInclude>
     <ClInclude Include="Robot_Client.h">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClInclude>
     <ClInclude Include="RobotManager.h">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClInclude>
     <ClInclude Include="RobotShip.h">
-      <Filter>AI</Filter>
+      <Filter>Player\AI</Filter>
     </ClInclude>
     <ClInclude Include="PlayerManager.h">
       <Filter>Player</Filter>
@@ -563,8 +566,8 @@
     <ClInclude Include="HumanPlayer.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="AgentPlayer.h">
-      <Filter>Player</Filter>
+    <ClInclude Include="IAgentPlayer.h">
+      <Filter>Player\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

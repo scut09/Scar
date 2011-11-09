@@ -21,9 +21,10 @@
 class IPlayer /*: public irr::IReferenceCounted*/
 {
 public:
-	IPlayer() : PlayerShip( NULL )
+	IPlayer( IShip* playerShip ) : PlayerShip( playerShip )
 	{
-
+		if ( PlayerShip )
+			PlayerShip->grab();
 	}
 
 	virtual ~IPlayer()
@@ -34,7 +35,7 @@ public:
 
 	}
 
-	void SetShip( IShip* ship )
+	virtual void SetShip( IShip* ship )
 	{
 		if ( PlayerShip )
 			PlayerShip->drop();
@@ -44,47 +45,51 @@ public:
 			PlayerShip->grab();
 	}
 
-	IShip* GetShip() const
+	virtual IShip* GetShip() const
 	{
 		return PlayerShip;
 	}
 
-	void SetKill( int kill )
+	// 设置击杀数
+	virtual void SetKill( int kill )
 	{
 		KillCount = kill;
 	}
 
-	int GetKill() const
+	virtual int GetKill() const
 	{
 		return KillCount;
 	}
 
-	void SetDeath( int death )
+	// 设置死亡数
+	virtual void SetDeath( int death )
 	{
 		DeathCount = death;
 	}
 
-	int GetDeath() const
+	virtual int GetDeath() const
 	{
 		return DeathCount;
 	}
 
-	void SetID( int id )
+	// 设置玩家的ID
+	virtual void SetID( int id )
 	{
 		ID = id;
 	}
 
-	int GetID() const
+	virtual int GetID() const
 	{
 		return ID;
 	}
 
-	void SetName( const std::wstring& name )
+	// 设置玩家的名称
+	virtual void SetName( const std::wstring& name )
 	{
 		Name = name;
 	}
 
-	const std::wstring& GetName() const
+	virtual const std::wstring& GetName() const
 	{
 		return Name;
 	}

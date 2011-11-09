@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IAgentPlayer.cpp" />
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Battleship.cpp" />
@@ -151,7 +152,7 @@
     <ClCompile Include="UIStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AgentPlayer.h" />
+    <ClInclude Include="IAgentPlayer.h" />
     <ClInclude Include="Aircraft.h" />
     <ClInclude Include="AllAnimators.h" />
     <ClInclude Include="AlphaChangeUIAnimator.h" />

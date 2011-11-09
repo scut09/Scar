@@ -14,6 +14,11 @@
 class HumanPlayer : public IPlayer
 {
 public:
+	HumanPlayer( IShip* ship ) : IPlayer( ship )
+	{
+
+	}
+
 	virtual void Update()
 	{
 		// Do nothing, because human player will control the ship

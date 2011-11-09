@@ -17,7 +17,7 @@ PlayerHelper::PlayerHelper()
 
 void PlayerHelper::UpdateShipTip( IShip* ship )
 {
-	if ( ship == Player->GetShip() )	return;
+	if ( ship == Player->GetShip() )	return;	// 如果是自己的船，不需要被框住
 
 	IUIObject* shipTip;
 	auto iter = m_ship_targetMap.find( ship );
@@ -99,10 +99,12 @@ void PlayerHelper::Update()
 	f32 rott = (f32)acos( ( Camera->getUpVector().dotProduct( vector3df( 0, 1, 0 ) ) ) / Camera->getUpVector().getLength() ) * RADTODEG;
 	Gradienter->SetRotation( rott );
 
+	auto playerList = m_playerManager->GetPlayers();
+
 	// 更新飞船提示框
-	for ( auto iter = m_ship_targetMap.begin(); iter != m_ship_targetMap.end(); ++iter )
+	for ( auto iter = playerList.begin(); iter != playerList.end(); ++iter )
 	{
-		UpdateShipTip( iter->first );
+		UpdateShipTip( (*iter)->GetShip() );
 	}
 
 	// 更新锁定框
