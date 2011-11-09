@@ -9,7 +9,7 @@ using namespace Network;
 
 
 IAgentPlayer::IAgentPlayer( IShip* playerShip, PlayerManager* mgr, boost::shared_ptr<Network::NetworkBase> server )
-	: IPlayer( playerShip ), Manager( mgr )
+	: IPlayer( playerShip ), Manager( mgr ), Server( server )
 {
 	// 创建机器人客户端
 	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( server ) );

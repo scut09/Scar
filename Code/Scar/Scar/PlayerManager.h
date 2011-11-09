@@ -32,7 +32,9 @@ public:
 	{
 		for ( PlayerListType::iterator iter = PlayerList.begin(); iter != PlayerList.end(); ++iter )
 		{
-			(*iter)->OnEvent( event );
+			// 人类玩家才需要接收外部产生的消息
+			if ( ! (*iter)->IsRobot() )
+				(*iter)->OnEvent( event );
 		}
 	}
 
@@ -57,7 +59,11 @@ public:
 
 	void Update()
 	{
-
+		for ( PlayerListType::iterator iter = PlayerList.begin(); iter != PlayerList.end(); ++iter )
+		{
+			if ( (*iter)->IsRobot() )	// 机器人才需要更新
+				(*iter)->Update();
+		}
 	}
 
 	// 获取玩家列表

@@ -23,7 +23,8 @@ class IAgentPlayer : public IPlayer
 public:
 	IAgentPlayer( IShip* playerShip, PlayerManager* mgr, boost::shared_ptr<Network::NetworkBase> server );
 
-	virtual bool IsRobot()
+	// 是否为机器人
+	virtual bool IsRobot() const
 	{
 		return true;
 	}

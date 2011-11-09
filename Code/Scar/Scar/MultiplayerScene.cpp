@@ -46,8 +46,6 @@ boost::shared_ptr<Network::BoostClient> client;
 
 boost::shared_ptr<Network::BoostServer> server;
 
-PlayerManager*			playerManager;
-
 //scene::ISceneNode* node;
 UIManager* uiManager; //²âÊÔÓÃ
 
@@ -216,6 +214,8 @@ void MultiplayerScene::Run()
 	UpdateConsole();
 
 	m_playerHelper->Update();
+
+	m_playerManager->Update();
 
 	//robotManager.Update();
 }
@@ -441,7 +441,7 @@ void MultiplayerScene::Init()
 	try
 	{
 		server = boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
-		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
+		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
 	}
 	catch ( std::exception& e )
 	{
@@ -458,6 +458,7 @@ void MultiplayerScene::Init()
 	//// robot 1
 	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
 	//npc->SetMaxSpeed( 0 );
+	//npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	//spf.SetOffset( vector3df( -6, 0, -22 ) );
 	//spf.AddFlameToShip( npc, smgr );
 	//spf.SetOffset( vector3df( 6, 0, -22 ) );
@@ -468,9 +469,8 @@ void MultiplayerScene::Init()
 	//bullet->SetInterval( 100 );
 	//npc->AddGun( bullet );
 	//bullet->drop();	
-	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
-	//robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	//robotManager.AddRobot( robot );
+	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, &*m_playerManager, server ) );
+	//m_playerManager->AddPlayer( robot );
 	//// robot 2
 	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
 	//npc->SetMaxSpeed( 0 );
@@ -484,7 +484,7 @@ void MultiplayerScene::Init()
 	//bullet->SetInterval( 100 );
 	//npc->AddGun( bullet );
 	//bullet->drop();	
-	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, playerManager, server ) );
+	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, &*m_playerManager, server ) );
 	//robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	//robotManager.AddRobot( robot );
 
