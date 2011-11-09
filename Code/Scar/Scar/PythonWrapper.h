@@ -241,6 +241,8 @@ f32 Int2Float( s32 s );
 class UIManager;
 UIManager* GetUIManager();
 
+class GameSceneManager;
+GameSceneManager* GetGameSceneManager();
 
 #endif // PythonWrapper_h__
 

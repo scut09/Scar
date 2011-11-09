@@ -275,5 +275,6 @@ def OnBtn2Click( node ):
     btn2.AddAnimator( tim1 )
     tim1.drop()
 
-def JumpToMultiMenu():        
-    ChangeGameScene( GetScene( 'multiMenu' ) )
+def JumpToMultiMenu():
+    sceneMgr = GetGameSceneManager()
+    ChangeGameScene( sceneMgr.GetSceneByName( 'multiMenu' ) )

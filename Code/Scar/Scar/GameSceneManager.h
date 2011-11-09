@@ -44,7 +44,7 @@ public:
 	GameScene* AddMenuScene( const std::string& menusceneName );
 
 	// 添加多人游戏场景
-	GameScene* AddMutilplayerScene();
+	GameScene* AddMultiplayerScene();
 
 	// 添加开始场景，暂时没用
 	GameScene* AddStartScene();

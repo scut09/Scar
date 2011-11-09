@@ -11,6 +11,7 @@
 #include "MyIrrlichtEngine.h"
 #include <boost/thread.hpp>
 #include "EventListener.h"
+#include "GameSceneManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -116,5 +117,10 @@ irr::f32 Int2Float( s32 s )
 UIManager* GetUIManager()
 {
 	return &*MyIrrlichtEngine::GetEngine()->GetUIManager();
+}
+
+GameSceneManager* GetGameSceneManager()
+{
+	return MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
 }
 

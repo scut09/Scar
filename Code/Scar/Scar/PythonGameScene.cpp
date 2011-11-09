@@ -2,42 +2,13 @@
 
 #include "def.h"
 
-#include "boost/python/suite/indexing/vector_indexing_suite.hpp"
-
-#include "AlphaChangeUIAnimator.h"
-
-#include "DeletionUIAnimator.h"
-
 #include "GameScene.h"
 
-#include "IUIAnimator.h"
+#include "GameSceneManager.h"
 
-#include "IUIObject.h"
-
-#include "MenuScene.h"
-
-#include "MultiplayerScene.h"
-
-#include "MyIReferenceCounted.h"
-
-#include "RotateUIAnimator.h"
-
-#include "ScaleUIAnimator.h"
-
-#include "StartScene.h"
-
-#include "TranslateUIAnimator.h"
-
-#include "UIAnimators.h"
-
-#include "UIButton.h"
-
-#include "UIImage.h"
-
-#include "UIStaticText.h"
+#include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 
 namespace bp = boost::python;
-
 
 struct GameScene_wrapper : GameScene, bp::wrapper< GameScene > {
 
@@ -77,243 +48,17 @@ struct GameScene_wrapper : GameScene, bp::wrapper< GameScene > {
 
 };
 
-
-struct MenuScene_wrapper : MenuScene, bp::wrapper< MenuScene > {
-
-    MenuScene_wrapper(MenuScene const & arg )
-    : MenuScene( arg )
-      , bp::wrapper< MenuScene >(){
-        // copy constructor
-        
-    }
-
-    MenuScene_wrapper(::std::string const & sceneName )
-    : MenuScene( sceneName )
-      , bp::wrapper< MenuScene >(){
-        // constructor
-    
-    }
-
-    virtual void Draw(  ) {
-        if( bp::override func_Draw = this->get_override( "Draw" ) )
-            func_Draw(  );
-        else{
-            this->MenuScene::Draw(  );
-        }
-    }
-    
-    void default_Draw(  ) {
-        MenuScene::Draw( );
-    }
-
-    virtual void Init(  ) {
-        if( bp::override func_Init = this->get_override( "Init" ) )
-            func_Init(  );
-        else{
-            this->MenuScene::Init(  );
-        }
-    }
-    
-    void default_Init(  ) {
-        MenuScene::Init( );
-    }
-
-    virtual void Release(  ) {
-        if( bp::override func_Release = this->get_override( "Release" ) )
-            func_Release(  );
-        else{
-            this->MenuScene::Release(  );
-        }
-    }
-    
-    void default_Release(  ) {
-        MenuScene::Release( );
-    }
-
-    virtual void Run(  ) {
-        if( bp::override func_Run = this->get_override( "Run" ) )
-            func_Run(  );
-        else{
-            this->MenuScene::Run(  );
-        }
-    }
-    
-    void default_Run(  ) {
-        MenuScene::Run( );
-    }
-
-};
-
-struct MultiplayerScene_wrapper : MultiplayerScene, bp::wrapper< MultiplayerScene > {
-
-    MultiplayerScene_wrapper(MultiplayerScene const & arg )
-    : MultiplayerScene( arg )
-      , bp::wrapper< MultiplayerScene >(){
-        // copy constructor
-        
-    }
-
-    MultiplayerScene_wrapper( )
-    : MultiplayerScene( )
-      , bp::wrapper< MultiplayerScene >(){
-        // null constructor
-    
-    }
-
-    virtual void Draw(  ) {
-        if( bp::override func_Draw = this->get_override( "Draw" ) )
-            func_Draw(  );
-        else{
-            this->MultiplayerScene::Draw(  );
-        }
-    }
-    
-    void default_Draw(  ) {
-        MultiplayerScene::Draw( );
-    }
-
-    virtual void Init(  ) {
-        if( bp::override func_Init = this->get_override( "Init" ) )
-            func_Init(  );
-        else{
-            this->MultiplayerScene::Init(  );
-        }
-    }
-    
-    void default_Init(  ) {
-        MultiplayerScene::Init( );
-    }
-
-    virtual void Release(  ) {
-        if( bp::override func_Release = this->get_override( "Release" ) )
-            func_Release(  );
-        else{
-            this->MultiplayerScene::Release(  );
-        }
-    }
-    
-    void default_Release(  ) {
-        MultiplayerScene::Release( );
-    }
-
-    virtual void Run(  ) {
-        if( bp::override func_Run = this->get_override( "Run" ) )
-            func_Run(  );
-        else{
-            this->MultiplayerScene::Run(  );
-        }
-    }
-    
-    void default_Run(  ) {
-        MultiplayerScene::Run( );
-    }
-
-};
-
-struct StartScene_wrapper : StartScene, bp::wrapper< StartScene > {
-
-    StartScene_wrapper(StartScene const & arg )
-    : StartScene( arg )
-      , bp::wrapper< StartScene >(){
-        // copy constructor
-        
-    }
-
-    StartScene_wrapper( )
-    : StartScene( )
-      , bp::wrapper< StartScene >(){
-        // null constructor
-    
-    }
-
-    virtual void Draw(  ) {
-        if( bp::override func_Draw = this->get_override( "Draw" ) )
-            func_Draw(  );
-        else{
-            this->StartScene::Draw(  );
-        }
-    }
-    
-    void default_Draw(  ) {
-        StartScene::Draw( );
-    }
-
-    virtual void Init(  ) {
-        if( bp::override func_Init = this->get_override( "Init" ) )
-            func_Init(  );
-        else{
-            this->StartScene::Init(  );
-        }
-    }
-    
-    void default_Init(  ) {
-        StartScene::Init( );
-    }
-
-    virtual void Release(  ) {
-        if( bp::override func_Release = this->get_override( "Release" ) )
-            func_Release(  );
-        else{
-            this->StartScene::Release(  );
-        }
-    }
-    
-    void default_Release(  ) {
-        StartScene::Release( );
-    }
-
-    virtual void Run(  ) {
-        if( bp::override func_Run = this->get_override( "Run" ) )
-            func_Run(  );
-        else{
-            this->StartScene::Run(  );
-        }
-    }
-    
-    void default_Run(  ) {
-        StartScene::Run( );
-    }
-
-};
-
-BOOST_PYTHON_MODULE( GameSceneModule )
-{
-	/*
-	bp::enum_< irr::gui::EGUI_BUTTON_STATE>("EGUI_BUTTON_STATE")
-	.value("EGBS_BUTTON_UP", irr::gui::EGBS_BUTTON_UP)
-	.value("EGBS_BUTTON_DOWN", irr::gui::EGBS_BUTTON_DOWN)
-	.value("EGBS_BUTTON_MOUSE_OVER", irr::gui::EGBS_BUTTON_MOUSE_OVER)
-	.value("EGBS_BUTTON_MOUSE_OFF", irr::gui::EGBS_BUTTON_MOUSE_OFF)
-	.value("EGBS_BUTTON_FOCUSED", irr::gui::EGBS_BUTTON_FOCUSED)
-	.value("EGBS_BUTTON_NOT_FOCUSED", irr::gui::EGBS_BUTTON_NOT_FOCUSED)
-	.value("EGBS_COUNT", irr::gui::EGBS_COUNT)
-	.export_values()
-	;
-
-	bp::enum_< SHAPE_FLAGS>("SHAPE_FLAGS")
-	.value("SQUARE", SQUARE)
-	.value("CIRCLE", CIRCLE)
-	.value("TRIANGLE", TRIANGLE)
-	.export_values()
-	;
-
-	bp::class_< Scar::IReferenceCounted >( "IReferenceCounted", bp::init< >() )    
-	.def( 
-	"drop"
-	, (bool ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::drop ) )    
-	.def( 
-	"getReferenceCount"
-	, (::irr::s32 ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::getReferenceCount ) )    
-	.def( 
-	"grab"
-	, (void ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::grab ) );*/
-
+BOOST_PYTHON_MODULE( GameSceneModule ){
     bp::class_< GameScene_wrapper, boost::noncopyable >( "GameScene", bp::init< >() )    
 		.def_readwrite( "Scenes", &GameScene_wrapper::Scenes )
         .def( 
             "Draw"
             , (void ( ::GameScene::* )(  ) )(&::GameScene::Draw)
             , (void ( GameScene_wrapper::* )(  ) )(&GameScene_wrapper::default_Draw) )    
+        .def( 
+            "GetName"
+            , (::std::string const & ( ::GameScene::* )(  ) const)( &::GameScene::GetName )
+            , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "Init"
             , bp::pure_virtual( (void ( ::GameScene::* )(  ) )(&::GameScene::Init) ) )    
@@ -322,96 +67,39 @@ BOOST_PYTHON_MODULE( GameSceneModule )
             , bp::pure_virtual( (void ( ::GameScene::* )(  ) )(&::GameScene::Release) ) )    
         .def( 
             "Run"
-            , bp::pure_virtual( (void ( ::GameScene::* )(  ) )(&::GameScene::Run) ) );
+            , bp::pure_virtual( (void ( ::GameScene::* )(  ) )(&::GameScene::Run) ) )    
+        .def( 
+            "SetName"
+            , (void ( ::GameScene::* )( ::std::string const & ) )( &::GameScene::SetName )
+            , ( bp::arg("name") ) )    
+        .def_readwrite( "Name", &GameScene::Name );
 
-
-    { //::MenuScene
-        typedef bp::class_< MenuScene_wrapper, bp::bases< GameScene > > MenuScene_exposer_t;
-        MenuScene_exposer_t MenuScene_exposer = MenuScene_exposer_t( "MenuScene", bp::init< std::string const & >(( bp::arg("sceneName") )) );
-        bp::scope MenuScene_scope( MenuScene_exposer );
-        bp::implicitly_convertible< std::string const &, MenuScene >();
-        { //::MenuScene::Draw
-        
-            typedef void ( ::MenuScene::*Draw_function_type )(  ) ;
-            typedef void ( MenuScene_wrapper::*default_Draw_function_type )(  ) ;
-            
-            MenuScene_exposer.def( 
-                "Draw"
-                , Draw_function_type(&::MenuScene::Draw)
-                , default_Draw_function_type(&MenuScene_wrapper::default_Draw) );
-        
-        }
-        { //::MenuScene::Init
-        
-            typedef void ( ::MenuScene::*Init_function_type )(  ) ;
-            typedef void ( MenuScene_wrapper::*default_Init_function_type )(  ) ;
-            
-            MenuScene_exposer.def( 
-                "Init"
-                , Init_function_type(&::MenuScene::Init)
-                , default_Init_function_type(&MenuScene_wrapper::default_Init) );
-        
-        }
-        { //::MenuScene::Release
-        
-            typedef void ( ::MenuScene::*Release_function_type )(  ) ;
-            typedef void ( MenuScene_wrapper::*default_Release_function_type )(  ) ;
-            
-            MenuScene_exposer.def( 
-                "Release"
-                , Release_function_type(&::MenuScene::Release)
-                , default_Release_function_type(&MenuScene_wrapper::default_Release) );
-        
-        }
-        { //::MenuScene::Run
-        
-            typedef void ( ::MenuScene::*Run_function_type )(  ) ;
-            typedef void ( MenuScene_wrapper::*default_Run_function_type )(  ) ;
-            
-            MenuScene_exposer.def( 
-                "Run"
-                , Run_function_type(&::MenuScene::Run)
-                , default_Run_function_type(&MenuScene_wrapper::default_Run) );
-        
-        }
-    }
-
-    bp::class_< MultiplayerScene_wrapper, bp::bases< GameScene > >( "MultiplayerScene", bp::init< >() )    
+    bp::class_< GameSceneManager, boost::noncopyable >( "GameSceneManager", bp::no_init )    
+        .def( bp::init< >() )    
         .def( 
-            "Draw"
-            , (void ( ::MultiplayerScene::* )(  ) )(&::MultiplayerScene::Draw)
-            , (void ( MultiplayerScene_wrapper::* )(  ) )(&MultiplayerScene_wrapper::default_Draw) )    
+            "AddMenuScene"
+            , (::GameScene * ( ::GameSceneManager::* )( ::std::string const & ) )( &::GameSceneManager::AddMenuScene )
+            , ( bp::arg("menusceneName") )
+             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "Init"
-            , (void ( ::MultiplayerScene::* )(  ) )(&::MultiplayerScene::Init)
-            , (void ( MultiplayerScene_wrapper::* )(  ) )(&MultiplayerScene_wrapper::default_Init) )    
+            "AddMultiplayerScene"
+            , (::GameScene * ( ::GameSceneManager::* )(  ) )( &::GameSceneManager::AddMultiplayerScene )
+             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "Release"
-            , (void ( ::MultiplayerScene::* )(  ) )(&::MultiplayerScene::Release)
-            , (void ( MultiplayerScene_wrapper::* )(  ) )(&MultiplayerScene_wrapper::default_Release) )    
+            "AddStartScene"
+            , (::GameScene * ( ::GameSceneManager::* )(  ) )( &::GameSceneManager::AddStartScene )
+             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "Run"
-            , (void ( ::MultiplayerScene::* )(  ) )(&::MultiplayerScene::Run)
-            , (void ( MultiplayerScene_wrapper::* )(  ) )(&MultiplayerScene_wrapper::default_Run) );
-
-
-    bp::class_< StartScene_wrapper, bp::bases< GameScene > >( "StartScene", bp::init< >() )    
+            "GetCurrentGameScene"
+            , (::GameScene * ( ::GameSceneManager::* )(  ) )( &::GameSceneManager::GetCurrentGameScene )
+             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "Draw"
-            , (void ( ::StartScene::* )(  ) )(&::StartScene::Draw)
-            , (void ( StartScene_wrapper::* )(  ) )(&StartScene_wrapper::default_Draw) )    
+            "GetSceneByName"
+            , (::GameScene * ( ::GameSceneManager::* )( ::std::string const & ) )( &::GameSceneManager::GetSceneByName )
+            , ( bp::arg("name") )
+             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "Init"
-            , (void ( ::StartScene::* )(  ) )(&::StartScene::Init)
-            , (void ( StartScene_wrapper::* )(  ) )(&StartScene_wrapper::default_Init) )    
-        .def( 
-            "Release"
-            , (void ( ::StartScene::* )(  ) )(&::StartScene::Release)
-            , (void ( StartScene_wrapper::* )(  ) )(&StartScene_wrapper::default_Release) )    
-        .def( 
-            "Run"
-            , (void ( ::StartScene::* )(  ) )(&::StartScene::Run)
-            , (void ( StartScene_wrapper::* )(  ) )(&StartScene_wrapper::default_Run) );
-
- 
+            "SetCurrentGameScene"
+            , (void ( ::GameSceneManager::* )( ::GameScene * ) )( &::GameSceneManager::SetCurrentGameScene )
+            , ( bp::arg("scene") ) );
 }

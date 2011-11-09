@@ -70,7 +70,7 @@ GameScene* GameSceneManager::AddMenuScene( const std::string& sceneName )
 	return scene;
 }
 
-GameScene* GameSceneManager::AddMutilplayerScene()
+GameScene* GameSceneManager::AddMultiplayerScene()
 {
 	GameScene* scene = new MultiplayerScene;
 	Scenes.push_back( scene );

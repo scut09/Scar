@@ -12,6 +12,7 @@
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include "IUIObject.h"
 #include "UIManager.h"
+#include "GameSceneManager.h"
 
 BOOST_PYTHON_MODULE( Engine )
 {
@@ -50,10 +51,6 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "z", &PythonVector3df::z );
 
 
-	//class_< PythonVector2df >( "vector2df", "fake vector2df", init< f32, f32 >() )
-	//	.def_readwrite( "x", &PythonVector2df::x )
-	//	.def_readwrite( "y", &PythonVector2df::y );
-
 	class_< irr::core::vector2d<s32> >( "vector2d", "fake vector2d<s32>", init< s32, s32 >() )
 		.def_readwrite( "X", &irr::core::vector2d<s32>::X )
 		.def_readwrite( "Y", &irr::core::vector2d<s32>::Y )
@@ -64,8 +61,6 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "Y", &irr::core::vector2d<f32>::Y )
 		;
 
-	//class_< irr::video::IVideoDriver >( "IVideoDriver", "fake IVideoDriver" )
-	//	;	
 
 	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" )
 		.def( "SetPosition", &PythonSceneNode::SetPosition )
@@ -78,7 +73,6 @@ BOOST_PYTHON_MODULE( Engine )
 		.def( "Drop", &PythonSceneNode::Drop )
 		.def( "Remove", &PythonSceneNode::Remove );
 
-	//class_< AnimationManager >( "AnimationManager", "Animation" );
 
 	class_< AnimatorWrapper >( "Animator", "fake Animator" )
 		.def( "Drop", &AnimatorWrapper::Drop );
@@ -99,7 +93,11 @@ BOOST_PYTHON_MODULE( Engine )
 
 	def( "Int2Float", Int2Float, args( "s" ), "I 2 F" );
 
-	//UIManager* GetUIManager();
 	def( "GetUIManager", GetUIManager, return_value_policy< reference_existing_object >() );
+
+	def( "GetGameSceneManager", GetGameSceneManager, return_value_policy< reference_existing_object >() );
+
+
+	
 
 }
