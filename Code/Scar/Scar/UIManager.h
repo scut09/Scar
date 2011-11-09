@@ -66,7 +66,10 @@ public:
 		if ( ! parent )
 			parent = RootUIObject;
 
-		return new UIImage( parent, width, height, order, shape, position, rotdeg, scale );
+		IUIObject* obj = new UIImage( parent, width, height, order, shape, position, rotdeg, scale );
+		obj->drop();
+
+		return obj;
 	}
 
 	IUIObject* AddUIButton( IUIObject* parent, s32 width, s32 height, s32 order = 0, int shape = SQUARE,
@@ -77,7 +80,10 @@ public:
 		if ( ! parent )
 			parent = RootUIObject;
 
-		return new UIButton( parent, width, height, order, shape, position, rotdeg, scale );
+		IUIObject* obj = new UIButton( parent, width, height, order, shape, position, rotdeg, scale );
+		obj->drop();
+
+		return obj;
 	}
 
 	IUIObject* AddUIStaticText( IUIObject* parent, s32 width, s32 hegit,
@@ -95,8 +101,11 @@ public:
 		if ( ! parent )
 			parent = RootUIObject;
 
-		return new UIStaticText( parent, width, hegit, text.c_str(), color, fontsize,
+		IUIObject* obj = new UIStaticText( parent, width, hegit, text.c_str(), color, fontsize,
 			hcenter, vcenter, order, shape, position, rotdeg, scale, Isvisible );
+		obj->drop();
+
+		return obj;
 	}
 
 

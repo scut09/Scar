@@ -39,16 +39,6 @@ BOOST_PYTHON_MODULE( Engine )
 	boost::python::class_<std::vector<IUIObject*> >("IUIObjects")
 		.def(boost::python::vector_indexing_suite<std::vector<IUIObject*> >());
 
-//	class_< irr::video::SColor >( "SColor", "SColor" );
-//	SColor() 
-
-//	SColor (u32 a, u32 r, u32 g, u32 b)
-//		: color(((a & 0xff)<<24) | ((r & 0xff)<<16) | ((g & 0xff)<<8) | (b & 0xff)) {}
-
-//	SColor(u32 clr)
-//		: color(clr) {}
-
-
 	class_< PythonSLight >( "SLight", "fake SLight" )
 		.def_readwrite( "AmbientColor", &PythonSLight::AmbientColor )
 		.def_readwrite( "DiffuseColor", &PythonSLight::DiffuseColor )

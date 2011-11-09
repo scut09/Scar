@@ -10,6 +10,7 @@
 #define GameScene_h__
 
 #include <vector>
+#include <string>
 
 /*
 ** 名字：GameScene
@@ -26,7 +27,18 @@ public:
 
 	std::vector<GameScene*> Scenes;
 
-	
+	std::string	Name;
+
+	const std::string& GetName() const
+	{
+		return Name;
+	}
+
+	void SetName( const std::string& name )
+	{
+		Name = name;
+	}
+
 	//************************************
 	// 函数名:  GameScene::Run
 	// 返回值:  void

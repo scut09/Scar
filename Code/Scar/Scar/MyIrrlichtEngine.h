@@ -19,6 +19,7 @@
 //#include "AnimationManager.h"
 #include "GameScene.h"
 #include "UIManager.h"
+#include "GameSceneManager.h"
 
 class IUIObject;
 
@@ -47,8 +48,7 @@ private:
 
 	boost::shared_ptr<UIManager>	m_currentUIManager;	// 2D的UIManager
 
-	// 禁止直接创建实例
-	MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( false ) {}
+	GameSceneManager*				m_gameSceneMgr;		// 场景管理类
 
 private:
 	ModelManager					m_ModelManager;
@@ -59,28 +59,40 @@ private:
 															// 使用它可以让我们实现通过IUIAnimator来删除IUIObject
 	std::list<GameScene*>			m_GameSceneDeletionList;// 延迟场景删除
 
-
 public:
 	static int						screen_width;	// 屏幕宽度
 	static int						screen_height;	// 屏幕高度
 	static IEventReceiver*			pEventReceiver;	// 消息处理者
 	static bool						bFullScreen;	// 是否全屏
-	static GameScene*				currentScene;	// 当前场景
+	//static GameScene*				currentScene;	// 当前场景
 
 	static std::stringstream		Console_Buffer;	
 
+private:
+	// 禁止直接创建实例
+	MyIrrlichtEngine();
+
 public:
 
+	~MyIrrlichtEngine();
+
+	// 设置当前UI管理类
 	void SetUIManager( boost::shared_ptr<UIManager> mgr )
 	{
 		m_currentUIManager = mgr;
 	}
 
+	// 获取当前UI管理类
 	boost::shared_ptr<UIManager> GetUIManager() const
 	{
 		return m_currentUIManager;
 	}
 
+	// 获取场景管类
+	GameSceneManager* GetGameSceneManager() const
+	{
+		return m_gameSceneMgr;
+	}
 
 	// 获取引擎指针
 	static MyIrrlichtEngine* GetEngine();

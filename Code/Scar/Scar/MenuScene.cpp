@@ -37,6 +37,7 @@ void MenuScene::Init()
 	using namespace scene;
 	using namespace video;
 	using namespace core;
+
 	pEngine = MyIrrlichtEngine::GetEngine();
 	driver = pEngine->GetVideoDriver();
 	smgr = pEngine->GetSceneManager();

@@ -291,6 +291,9 @@
     <ClCompile Include="PythonGameScene.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="GameSceneManager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

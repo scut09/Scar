@@ -96,31 +96,10 @@ irr::video::IVideoDriver* MyEngine::GetDriver()
 	return m_driver;
 }
 
-boost::mutex ChangeGameSceneMutex;
 
 void ChangeGameScene( GameScene* scene )
 {
-	boost::mutex::scoped_lock lock( ChangeGameSceneMutex );
-
-	if ( MyIrrlichtEngine::currentScene )
-	{
-		//MyIrrlichtEngine::currentScene->Release();
-		// 延迟删除
-		MyIrrlichtEngine::GetEngine()->AddToDeletionQueue( MyIrrlichtEngine::currentScene );
-		// 清除掉自己注册的回调函数，否则会因为引用销毁的东西而导致崩溃
-		static_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( 
-			[]( const SEvent& event )->void*
-		{	
-			return 0;
-		} );
-	}
-
-	MyIrrlichtEngine::currentScene = scene;
-
-	if ( MyIrrlichtEngine::currentScene )
-	{
-		MyIrrlichtEngine::currentScene->Init();
-	}
+	MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->SetCurrentGameScene( scene );
 }
 
 irr::s32 Float2Int( f32 f )

@@ -20,9 +20,20 @@ int MyIrrlichtEngine::screen_width = 1000;
 int MyIrrlichtEngine::screen_height = 640;
 // 全屏设置，默认为窗口
 bool MyIrrlichtEngine::bFullScreen = true;
-GameScene* MyIrrlichtEngine::currentScene = NULL;
 
 std::stringstream MyIrrlichtEngine::Console_Buffer;	// 缓存
+
+
+MyIrrlichtEngine::MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( false )
+{
+	m_gameSceneMgr = new GameSceneManager;
+}
+
+
+MyIrrlichtEngine::~MyIrrlichtEngine()
+{
+	delete m_gameSceneMgr;
+}
 
 
 /*
@@ -52,11 +63,13 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 		// 隐藏鼠标
 		//pDevice->getCursorControl()->setVisible( false );
 
+		// 一些初始化工作
 		m_pIrrlichtEngine = new MyIrrlichtEngine;
 		m_pIrrlichtEngine->m_pDevice = pDevice;
 		m_pIrrlichtEngine->m_pDriver = pDevice->getVideoDriver();
 		m_pIrrlichtEngine->m_pSmgr = pDevice->getSceneManager();
 		m_pIrrlichtEngine->m_pColMan = m_pIrrlichtEngine->m_pSmgr->getSceneCollisionManager();
+		m_pIrrlichtEngine->m_currentUIManager = boost::shared_ptr<UIManager>( new UIManager( pDevice->getTimer() ) );
 
 		m_pIrrlichtEngine->m_runCallbackFunc = []( void* )->void* { return 0; };
 	}
@@ -116,7 +129,7 @@ void MyIrrlichtEngine::Run()
 	{
 		//if ( ! m_pDevice->isWindowActive() )	continue;
 
-		if ( currentScene == NULL )		return;		// 无场景，结束游戏循环
+		if ( m_gameSceneMgr->GetCurrentGameScene() == NULL )		return;		// 无场景，结束游戏循环
 
 		u32 now = m_pDevice->getTimer()->getRealTime();
 
@@ -132,7 +145,7 @@ void MyIrrlichtEngine::Run()
 		//m_AnimationManager.Run();
 
 		// 计算更新场景
-		currentScene->Run();
+		m_gameSceneMgr->GetCurrentGameScene()->Run();
 
 		m_pDriver->beginScene( true, true, 0 );  //This time the setup is a little bit harder than normal.    
 		{
@@ -148,7 +161,7 @@ void MyIrrlichtEngine::Run()
 			}
 
 			m_pDriver->setMaterial( oldMaterial );		// 恢复原始贴图映射
-			currentScene->Draw();
+			m_gameSceneMgr->GetCurrentGameScene()->Draw();
 			gui->drawAll();
 		}
 		m_pDriver->endScene();               //remark, that Render() will automticly set the right Rendertargets. so no need setting                             
