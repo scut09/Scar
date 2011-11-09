@@ -276,37 +276,37 @@ struct StartScene_wrapper : StartScene, bp::wrapper< StartScene > {
 
 };
 
-BOOST_PYTHON_MODULE( Menu )
+BOOST_PYTHON_MODULE( GameSceneModule )
 {
-   
-    bp::enum_< irr::gui::EGUI_BUTTON_STATE>("EGUI_BUTTON_STATE")
-        .value("EGBS_BUTTON_UP", irr::gui::EGBS_BUTTON_UP)
-        .value("EGBS_BUTTON_DOWN", irr::gui::EGBS_BUTTON_DOWN)
-        .value("EGBS_BUTTON_MOUSE_OVER", irr::gui::EGBS_BUTTON_MOUSE_OVER)
-        .value("EGBS_BUTTON_MOUSE_OFF", irr::gui::EGBS_BUTTON_MOUSE_OFF)
-        .value("EGBS_BUTTON_FOCUSED", irr::gui::EGBS_BUTTON_FOCUSED)
-        .value("EGBS_BUTTON_NOT_FOCUSED", irr::gui::EGBS_BUTTON_NOT_FOCUSED)
-        .value("EGBS_COUNT", irr::gui::EGBS_COUNT)
-        .export_values()
-        ;
+	/*
+	bp::enum_< irr::gui::EGUI_BUTTON_STATE>("EGUI_BUTTON_STATE")
+	.value("EGBS_BUTTON_UP", irr::gui::EGBS_BUTTON_UP)
+	.value("EGBS_BUTTON_DOWN", irr::gui::EGBS_BUTTON_DOWN)
+	.value("EGBS_BUTTON_MOUSE_OVER", irr::gui::EGBS_BUTTON_MOUSE_OVER)
+	.value("EGBS_BUTTON_MOUSE_OFF", irr::gui::EGBS_BUTTON_MOUSE_OFF)
+	.value("EGBS_BUTTON_FOCUSED", irr::gui::EGBS_BUTTON_FOCUSED)
+	.value("EGBS_BUTTON_NOT_FOCUSED", irr::gui::EGBS_BUTTON_NOT_FOCUSED)
+	.value("EGBS_COUNT", irr::gui::EGBS_COUNT)
+	.export_values()
+	;
 
-    bp::enum_< SHAPE_FLAGS>("SHAPE_FLAGS")
-        .value("SQUARE", SQUARE)
-        .value("CIRCLE", CIRCLE)
-        .value("TRIANGLE", TRIANGLE)
-        .export_values()
-        ;
+	bp::enum_< SHAPE_FLAGS>("SHAPE_FLAGS")
+	.value("SQUARE", SQUARE)
+	.value("CIRCLE", CIRCLE)
+	.value("TRIANGLE", TRIANGLE)
+	.export_values()
+	;
 
-    bp::class_< Scar::IReferenceCounted >( "IReferenceCounted", bp::init< >() )    
-        .def( 
-            "drop"
-            , (bool ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::drop ) )    
-        .def( 
-            "getReferenceCount"
-            , (::irr::s32 ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::getReferenceCount ) )    
-        .def( 
-            "grab"
-            , (void ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::grab ) );
+	bp::class_< Scar::IReferenceCounted >( "IReferenceCounted", bp::init< >() )    
+	.def( 
+	"drop"
+	, (bool ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::drop ) )    
+	.def( 
+	"getReferenceCount"
+	, (::irr::s32 ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::getReferenceCount ) )    
+	.def( 
+	"grab"
+	, (void ( ::Scar::IReferenceCounted::* )(  ) const)( &::Scar::IReferenceCounted::grab ) );*/
 
     bp::class_< GameScene_wrapper, boost::noncopyable >( "GameScene", bp::init< >() )    
 		.def_readwrite( "Scenes", &GameScene_wrapper::Scenes )

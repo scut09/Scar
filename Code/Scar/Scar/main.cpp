@@ -36,8 +36,17 @@ int main()
 	if ( ! Py_IsInitialized() )	return -1;
 
 	// 初始化Python模块
-	initEngine();
-	initUI();
+	try
+	{
+		initEngine();
+		initUI();
+		initGameSceneModule();
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
+
 
 	// 创建引擎事件接收器
 	MyEventReceiver receiver;

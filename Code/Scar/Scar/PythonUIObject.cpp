@@ -533,19 +533,19 @@ struct IUIObject_wrapper : IUIObject, bp::wrapper< IUIObject > {
 };
 
 BOOST_PYTHON_MODULE( UI ){
-    { //::std::vector< IUIObject* >
-        typedef bp::class_< std::vector< IUIObject* > > vector_less__IUIObject_ptr___greater__exposer_t;
-        vector_less__IUIObject_ptr___greater__exposer_t vector_less__IUIObject_ptr___greater__exposer = vector_less__IUIObject_ptr___greater__exposer_t( "vector_less__IUIObject_ptr___greater_" );
-        bp::scope vector_less__IUIObject_ptr___greater__scope( vector_less__IUIObject_ptr___greater__exposer );
-        vector_less__IUIObject_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IUIObject* > >() );
-    }
+    //{ //::std::vector< IUIObject* >
+    //    typedef bp::class_< std::vector< IUIObject* > > vector_less__IUIObject_ptr___greater__exposer_t;
+    //    vector_less__IUIObject_ptr___greater__exposer_t vector_less__IUIObject_ptr___greater__exposer = vector_less__IUIObject_ptr___greater__exposer_t( "vector_less__IUIObject_ptr___greater_" );
+    //    bp::scope vector_less__IUIObject_ptr___greater__scope( vector_less__IUIObject_ptr___greater__exposer );
+    //    vector_less__IUIObject_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IUIObject* > >() );
+    //}
 
-    { //::std::vector< IUIAnimator* >
-        typedef bp::class_< std::vector< IUIAnimator* > > vector_less__IUIAnimator_ptr___greater__exposer_t;
-        vector_less__IUIAnimator_ptr___greater__exposer_t vector_less__IUIAnimator_ptr___greater__exposer = vector_less__IUIAnimator_ptr___greater__exposer_t( "vector_less__IUIAnimator_ptr___greater_" );
-        bp::scope vector_less__IUIAnimator_ptr___greater__scope( vector_less__IUIAnimator_ptr___greater__exposer );
-        vector_less__IUIAnimator_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IUIAnimator* > >() );
-    }
+    //{ //::std::vector< IUIAnimator* >
+    //    typedef bp::class_< std::vector< IUIAnimator* > > vector_less__IUIAnimator_ptr___greater__exposer_t;
+    //    vector_less__IUIAnimator_ptr___greater__exposer_t vector_less__IUIAnimator_ptr___greater__exposer = vector_less__IUIAnimator_ptr___greater__exposer_t( "vector_less__IUIAnimator_ptr___greater_" );
+    //    bp::scope vector_less__IUIAnimator_ptr___greater__scope( vector_less__IUIAnimator_ptr___greater__exposer );
+    //    vector_less__IUIAnimator_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IUIAnimator* > >() );
+    //}
 
     bp::enum_< SHAPE_FLAGS>("SHAPE_FLAGS")
         .value("SQUARE", SQUARE)
