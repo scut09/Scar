@@ -113,8 +113,8 @@ void MenuScene::Init()
 		object GetRoot = UILoader.attr( "GetRoot" );
 		object root = GetRoot();
 
-		IUIObject* r = extract<IUIObject*>( root ); 
-		uiManager->SetRoot( r );
+		//IUIObject* r = extract<IUIObject*>( root ); 
+		//uiManager->SetRoot( r );
 		//r->drop();	// 使用Python对象不用内存管理
 	}
 	catch ( ... )
@@ -154,7 +154,7 @@ void MenuScene::Release()
 void MenuScene::Draw()
 {
 	if ( uiManager )
-		uiManager->RunTree();
+		uiManager->DrawAll();
 }
 
 void MenuScene::ShaderCallBack::OnSetConstants( IMaterialRendererServices* services, s32 userData )
