@@ -15,8 +15,10 @@ IAgentPlayer::IAgentPlayer( IShip* playerShip, PlayerManager* mgr, boost::shared
 	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( server ) );
 	robotClient->SetID( GetID() );
 
+
+
 	// 添加飞行行为
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl() );
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( NULL );
 	PlayerShip->addAnimator( fpsAni );
 	fpsAni->drop();
 

@@ -51,10 +51,10 @@ public:
 	}
 
 private:
-	IUIObject* Root;				//UI树根节点
-	IUIObject* Focus;			//被激活的UI节点
-	IUIObject* Over;				//当前鼠标滑过节点
-	ITimer* Timer;				//Timer
+	IUIObject*	Root;				//UI树根节点
+	IUIObject*	Focus;				//被激活的UI节点
+	IUIObject*	Over;				//当前鼠标滑过节点
+	ITimer*		Timer;				//Timer
 
 
 

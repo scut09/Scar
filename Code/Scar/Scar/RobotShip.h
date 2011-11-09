@@ -11,7 +11,7 @@
 
 #include "IAgentPlayer.h"
 
-class RobotShip : public IAgentPlayer
+class ShipAgentPlayer : public IAgentPlayer
 {
 public:
 	enum RobotState
@@ -22,7 +22,7 @@ public:
 	};
 
 public:
-	RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<Network::NetworkBase> server );
+	ShipAgentPlayer( IShip* ship, PlayerManager* mgr, boost::shared_ptr<Network::NetworkBase> server );
 
 	virtual void Update();
 

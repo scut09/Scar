@@ -3,12 +3,12 @@
 
 using namespace Network;
 
-RobotShip::RobotShip( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
+ShipAgentPlayer::ShipAgentPlayer( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
 	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true )
 {
 }
 
-void RobotShip::Update()
+void ShipAgentPlayer::Update()
 {
 	if ( PlayerShip->GetShield() < 1 )	return;	// ¹ÒÁË
 
@@ -42,7 +42,7 @@ void RobotShip::Update()
 		break;
 
 	case Track:		// ×·×Ù×´Ì¬
-		if ( SearchTarget( player, 3000 ) )
+		if ( SearchTarget( player, 2500 ) )
 		{
 			IShip* ship = player->GetShip();
 			if ( ( ship->getPosition() - PlayerShip->getPosition() ).getLength() < 2500 )

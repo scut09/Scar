@@ -59,6 +59,30 @@
 //	}
 //}
 
+
+IShip::IShip( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, irr::scene::ISceneManager* mgr,
+	s32 id, const core::vector3df& position /*= core::vector3df(0,0,0)*/,
+	const core::vector3df& rotation /*= core::vector3df(0,0,0)*/,
+	const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f) */ ) 
+	: CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
+	, UpVector( core::vector3df( 0.f, 1.f, 0.f ) )
+	, Target( core::vector3df( 0.f, 0.f, 100.f ) )
+{
+	if ( !parent )
+	{
+		this->setParent( mgr->getRootSceneNode() );
+		drop();											// 已经加入场景树，自己的引用计数器减一
+	}
+	Money = 0;
+	Energy = 1000;
+
+	// 创建碰撞的三角形选择器以支持碰撞检测	[ 华亮 2011-10-29 ]
+	scene::ITriangleSelector* selector = mgr->createTriangleSelector( mesh, (ISceneNode*)this );
+	this->setTriangleSelector(selector);
+	selector->drop();
+}
+
+
 void IShip::GradeUpByExperience()
 {
 	if (Experience>=ExperienceToGrade)
@@ -172,22 +196,6 @@ void IShip::RemoveMissles()
 	Missiles.clear();
 }
 
-IShip::IShip( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, irr::scene::ISceneManager* mgr, s32 id, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f) */ ) :
-CMeshSceneNode( mesh, parent, mgr, id, position, rotation, scale )
-{
-	if ( !parent )
-	{
-		this->setParent( mgr->getRootSceneNode() );
-		drop();											// 已经加入场景树，自己的引用计数器减一
-	}
-	Money = 0;
-	Energy = 1000;
-
-	// 创建碰撞的三角形选择器以支持碰撞检测	[ 华亮 2011-10-29 ]
-	scene::ITriangleSelector* selector = mgr->createTriangleSelector( mesh, (ISceneNode*)this );
-	this->setTriangleSelector(selector);
-	selector->drop();
-}
 
 void IShip::SetShield( const f32 shield )
 {

@@ -160,7 +160,8 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		CursorOffset.Y  = (s32)( CursorOffset.Y * factor );
 		newPos = CursorOffset + CenterPos;
 		CursorPos = newPos;
-		CursorControl->setPosition( newPos.X, newPos.Y );
+		if ( CursorControl )
+			CursorControl->setPosition( newPos.X, newPos.Y );
 	}
 	// 获取当前的旋转轴和旋转角
 	f32 tAng = (f32)CursorOffset.getAngle() - 90;

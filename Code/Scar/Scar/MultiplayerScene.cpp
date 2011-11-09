@@ -209,7 +209,6 @@ void MultiplayerScene::Run()
 	auto rot = m_pCamera->getRotation();
 	client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
 
-	//playerManager->Update();
 
 	UpdateConsole();
 
@@ -217,7 +216,6 @@ void MultiplayerScene::Run()
 
 	m_playerManager->Update();
 
-	//robotManager.Update();
 }
 
 void MultiplayerScene::Init()
@@ -269,10 +267,7 @@ void MultiplayerScene::Init()
 
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();
-	cf1->setPosition( m_pCamera->getPosition() );
-	cf1->setUpVector( m_pCamera->getUpVector() );
-	cf1->setTarget( m_pCamera->getTarget() );
+	m_pCamera = smgr->addCameraSceneNode();;
 
 	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 	cf1->addAnimator( fpsAni );
@@ -452,41 +447,42 @@ void MultiplayerScene::Init()
 	client->Start( 2012, 1990 );
 
 
-	//// 添加robot
-	//IShip* npc;
-	//boost::shared_ptr<RobotShip> robot;
-	//// robot 1
-	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
-	//npc->SetMaxSpeed( 0 );
-	//npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	//spf.SetOffset( vector3df( -6, 0, -22 ) );
-	//spf.AddFlameToShip( npc, smgr );
-	//spf.SetOffset( vector3df( 6, 0, -22 ) );
-	//spf.AddFlameToShip( npc, smgr );
-	//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	//bullet->SetVelocity( 1000 );
-	//bullet->SetInterval( 100 );
-	//npc->AddGun( bullet );
-	//bullet->drop();	
-	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, &*m_playerManager, server ) );
-	//m_playerManager->AddPlayer( robot );
-	//// robot 2
-	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
-	//npc->SetMaxSpeed( 0 );
-	//spf.SetOffset( vector3df( -6, 0, -22 ) );
-	//spf.AddFlameToShip( npc, smgr );
-	//spf.SetOffset( vector3df( 6, 0, -22 ) );
-	//spf.AddFlameToShip( npc, smgr );
-	//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	//bullet->SetVelocity( 1000 );
-	//bullet->SetInterval( 100 );
-	//npc->AddGun( bullet );
-	//bullet->drop();	
-	//robot = boost::shared_ptr<RobotShip>( new RobotShip( npc, &*m_playerManager, server ) );
-	//robot->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	//robotManager.AddRobot( robot );
+	// 添加robot
+	IShip* npc;
+	boost::shared_ptr<ShipAgentPlayer> robot;
+	// robot 1
+	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+	npc->SetMaxSpeed( 2 );
+	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	spf.SetOffset( vector3df( -6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	spf.SetOffset( vector3df( 6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
+	npc->AddGun( bullet );
+	bullet->drop();	
+	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+	m_playerManager->AddPlayer( robot );
+	// robot 2
+	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+	npc->SetMaxSpeed( 2 );
+	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	spf.SetOffset( vector3df( -6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	spf.SetOffset( vector3df( 6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
+	npc->AddGun( bullet );
+	bullet->drop();	
+	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+	m_playerManager->AddPlayer( robot );
+
 
 
 
