@@ -10,7 +10,7 @@ def GetRoot():
     uiManager = GetUIManager()
     
     # 场景根节点
-    root = uiManager.AddUIImage( None, 0, 0 )
+    root = uiManager.AddUIImage( uiManager.GetRootUIObject(), 0, 0 )
     #Save( root )
 
     # 活动范围圈

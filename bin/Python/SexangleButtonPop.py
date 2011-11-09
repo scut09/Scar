@@ -7,27 +7,20 @@ from UILoader import *
 # 保存这个按钮的动画
 NodeAnimatorDict = dict()
 
-def SaveAnimators( node, aniList ):
-    '保存动画的引用，防止被Python回收'
-    global NodeAnimatorDict
-    NodeAnimatorDict[ node ] = aniList
-    
-def DeleteAnimators( node ):
-    '删除动画，回收内存'
-    global NodeAnimatorDict
-    NodeAnimatorDict[ node ] = []   # 清空回收这个节点的动画
 
 # 添加按钮默认样式容器
 def BtnDefault():
-    n = UIImage( None, 0, 0, 0 )
-    Save( n )
+    uiManager = GetUIManager()
+    n = uiManager.AddUIImage( None, 0, 0, 0 )
+    #Save( n )
     #n.SetVisible( False )
     return n
 
 # 添加按钮鼠标悬停样式容器
 def BtnOver():
-    n = UIImage( None, 0, 0, 1 )
-    Save( n )
+    uiManager = GetUIManager()
+    n = uiManager.AddUIImage( None, 0, 0, 1 )
+    #Save( n )
     #n.SetVisible( False )
     n.SetAlpha( 0 )
     return n
@@ -50,48 +43,48 @@ def OnMenuButtonMouseMoveIn( node ):
 
     # 删除所有动画
     DeleteNodeAnimators( node ) # 通知节点在C++中将它们的动画列表清空
-    DeleteAnimators( node )     # 回收所有节点内存
-
+  
+  uiManager = GetUIManager()
     aniList = []
     
-    alphaUp = AlphaChangeUIAnimator(
+    alphaUp = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         duration,
         0,
         255 )
     aniList.append( alphaUp )
-    alphaDown = AlphaChangeUIAnimator(
+    alphaDown = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         duration,
         255,
         0 )
     aniList.append( alphaDown )
-    move1 = TranslateUIAnimator(
+    move1 = uiManager.CreateAnimatorTranslation(
         Timer().GetRealTime(),
         duration,
         vector2d( 260, 0 ) )
     aniList.append( move1 )
     move2 = move1.Clone()    
-    #Save( move2 )
-    squareAlpha = AlphaChangeUIAnimator(
+    ##Save( move2 )
+    squareAlpha = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         duration,
         0,
         255 )
     aniList.append( squareAlpha )
-    squareScale = ScaleUIAnimator(
+    squareScale = uiManager.CreateAnimatorScale(
         Timer().GetRealTime(),
         duration,
         vector2df( 1.9, 1 ) )
     aniList.append( squareScale )
     
-    squareTrans = TranslateUIAnimator(
+    squareTrans = uiManager.CreateAnimatorTranslation(
         Timer().GetRealTime(),
         duration,
         vector2d( 100, 0 ) )
     aniList.append( squareTrans )
 
-    SaveAnimators( node, aniList )  # 保存一个节点下的所有动画，以便后期删除
+    #SaveAnimators( node, aniList )  # 保存一个节点下的所有动画，以便后期删除
     
     node.GetChildren()[1].GetChildren()[0].SetScale( vector2df( 0.1, 1 ) )
     node.GetChildren()[1].GetChildren()[0].SetPosition( vector2df( 100, 0 ) )
@@ -99,13 +92,19 @@ def OnMenuButtonMouseMoveIn( node ):
     node.GetChildren()[1].GetChildren()[1].SetPosition( vector2df( 66, -15 ) )    
     
     node.GetChildren()[0].AddAnimator( alphaDown )
+    alphaDown.drop()
     node.GetChildren()[1].AddAnimator( alphaUp )
+    alphaUp.drop()
     node.GetChildren()[0].GetChildren()[0].AddAnimator( move1 )
+    move1.drop()
     node.GetChildren()[1].GetChildren()[1].AddAnimator( move2 )
     move2.drop()
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
+    squareAlpha.drop()
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
+    squareScale.drop()
     node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
+    squareTrans.drop()
     #node.GetAnimators().clear()
 
 
@@ -115,24 +114,23 @@ def OnMenuButtonMouseMoveOut( node ):
     
     # 删除所有动画
     DeleteNodeAnimators( node )    
-    DeleteAnimators( node )
-
+    uiManager = GetUIManager()
     aniList = []
     
-    alphaUp = AlphaChangeUIAnimator(
+    alphaUp = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         duration,
         0,
         255 )
     aniList.append( alphaUp )
-    alphaDown = AlphaChangeUIAnimator(
+    alphaDown = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         duration,
         255,
         0 )
     aniList.append( alphaDown )
     
-    move1 = TranslateUIAnimator(
+    move1 = uiManager.CreateAnimatorTranslation(
         Timer().GetRealTime(),
         duration,
         vector2d(
@@ -141,18 +139,18 @@ def OnMenuButtonMouseMoveOut( node ):
     aniList.append( move1 )
     # 对于所有的由C++创建出来的对象，在AddAnimator后都要调用drop()，否则会内存泄露
     move2 = move1.Clone()       
-    squareAlpha = AlphaChangeUIAnimator(
+    squareAlpha = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         duration,
         255,
         0 )
     aniList.append( squareAlpha )
-    squareScale = ScaleUIAnimator(
+    squareScale = uiManager.CreateAnimatorScale(
         Timer().GetRealTime(),
         duration,
         vector2df( 0.1, 1 ) )
     aniList.append( squareScale )
-    squareTrans = TranslateUIAnimator(
+    squareTrans = uiManager.CreateAnimatorTranslation(
         Timer().GetRealTime(),
         duration,
         vector2d(
@@ -160,17 +158,24 @@ def OnMenuButtonMouseMoveOut( node ):
             0 ) )
     aniList.append( squareTrans )
 
-    SaveAnimators( node, aniList )  # 保存一个节点下的所有动画，以便后期删除    
+    #SaveAnimators( node, aniList )  # 保存一个节点下的所有动画，以便后期删除    
     
     node.GetChildren()[0].AddAnimator( alphaUp )
+    alphaUp.drop()
     node.GetChildren()[1].AddAnimator( alphaDown )
+    alphaDown.drop()
     node.GetChildren()[0].GetChildren()[0].AddAnimator( move1 )
+    move1.drop()
     node.GetChildren()[1].GetChildren()[1].AddAnimator( move2 )
-    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
-    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
-    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
-
     move2.drop()
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareAlpha )
+    squareAlpha.drop()
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareScale )
+    squareScale.drop()
+    node.GetChildren()[1].GetChildren()[0].AddAnimator( squareTrans )
+    squareTrans.drop()
+
+    
 
 
     
@@ -183,13 +188,14 @@ def OnMenuLeftButtonUp( node ):
 
 # 组装主菜单六边形按钮
 def MainMenuBtn( titleIndex ):
-    btn = UIButton(
+    uiManager  = GetUIManager()
+    btn = uiManager.AddUIButton(
         None,
         210, 210,
         0,
         1
         )
-    Save( btn )
+    #Save( btn )
 
     # btn children list
     btnChildren = []
@@ -203,38 +209,38 @@ def MainMenuBtn( titleIndex ):
     btn.AddChild( default )
     btn.AddChild( over )
 
-    default1 = UIImage( None, 210, 210, 0 )
-    Save( default1 )    
+    default1 = uiManager.AddUIImage( None, 210, 210, 0 )
+    #Save( default1 )    
     default1.LoadImage( "../media/UIResource/Menu/b_1_b.png" )
     default.AddChild( default1 )
     btnChildren.append( default1 )
 
-    default2 = UIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
-    Save( default2 )
+    default2 = uiManager.AddUIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
+    #Save( default2 )
     default2.LoadImage( "../media/UIResource/Menu/b_2_b.png" )
     default.AddChild( default2 )
     btnChildren.append( default2 )
 
-    defaultTitle = UIImage( None, 96, 60, 1 )
-    Save( defaultTitle )
+    defaultTitle = uiManager.AddUIImage( None, 96, 60, 1 )
+    #Save( defaultTitle )
     defaultTitle.LoadImage( BtnTitle[ titleIndex ] )
     default.AddChild( defaultTitle )
     btnChildren.append( defaultTitle )
     
-    over1 = UIImage( None, 210, 210, 0 )
-    Save( over1 )
+    over1 = uiManager.AddUIImage( None, 210, 210, 0 )
+    #Save( over1 )
     over1.LoadImage( "../media/UIResource/Menu/b_1_y.png" )
     over.AddChild( over1 )
     btnChildren.append( over1 )
 
-    over2 = UIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
-    Save( over2 )
+    over2 = uiManager.AddUIImage( None, 105, 187, -1, 0, vector2df( 66, -15 ) )
+    #Save( over2 )
     over2.LoadImage( "../media/UIResource/Menu/b_2_y.png" )
     over.AddChild( over2 )
     btnChildren.append( over2 )
 
-    over3 = UIImage( None, 291, 83, -2, 0, vector2df( 200, 20 ) )
-    Save( over3 )
+    over3 = uiManager.AddUIImage( None, 291, 83, -2, 0, vector2df( 200, 20 ) )
+    #Save( over3 )
     over3.LoadImage( "../media/UIResource/Menu/b_3.png" )
     over3.SetAlpha( 0 )
     over3.SetScale( vector2df( 0.1, 1 ) )
@@ -242,8 +248,8 @@ def MainMenuBtn( titleIndex ):
     over.AddChild( over3 )
     btnChildren.append( over3 )
 
-    overTitle = UIImage( None, 96, 60, 1 )
-    Save( overTitle )
+    overTitle = uiManager.AddUIImage( None, 96, 60, 1 )
+    #Save( overTitle )
     overTitle.LoadImage( BtnTitle[ titleIndex ] )
     over.AddChild( overTitle )
     btnChildren.append( overTitle )
@@ -253,7 +259,7 @@ def MainMenuBtn( titleIndex ):
     btn.AddFunc( "OnMouseLeftButtonUp", "OnMenuLeftButtonUp", "SexangleButtonPop" )
 
     # 保存一个节点的所有孩子，以便于删除一个节点和它的所有孩子的动画
-    SaveNodeChilren( btn, btnChildren )
+    #SaveNodeChilren( btn, btnChildren )
     
     return btn
 

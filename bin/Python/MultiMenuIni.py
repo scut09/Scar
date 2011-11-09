@@ -5,15 +5,15 @@ import ScenesCreator
 RatioX = ScreenWidth / 1280.0
 RatioY = ScreenHeight / 1024.0
 AniList = [] #用以保存动画
-Save( AniList )
+#Save( AniList )
 
 def GetRoot():
     global RatioX
     global RatioY
-
+    uiManager = GetUIManager()
     # 场景根节点
-    root = UIImage( None, 0, 0 )
-    Save( root )
+    root = uiManager.AddUIImage( None, 0, 0 )
+    #Save( root )
 
     # 左上角Logo
     logoPosX = 79 + 175
@@ -38,24 +38,27 @@ def GetRoot():
     root.AddChild( menu )
     root.AddChild( logo )
 
+    root.SetName( "Root" )
+
     return root
 ######################################################
 # 组装菜单项
 ######################################################
 def CreateMenu():
-    menu = UIImage( None, 0, 0 )
-    Save( menu )
+    uiManager = GetUIManager()
+    menu = uiManager.AddUIImage( None, 0, 0 )
+    #Save( menu )
     #第一个按钮的位置
     posX = 100
     posY = 240
     img = SexangleButton.MainMenuButtonSelected( "多人" )
-    Save( img )
+    #Save( img )
     btn1 = SexangleButton.MainMenuBtn( "新建" )
-    Save( btn1 )
+    #Save( btn1 )
     btn2 = SexangleButton.MainMenuBtn( "加入" )
-    Save( btn2 )
+    #Save( btn2 )
     btn3 = SexangleButton.MainMenuBtn( "返回" )
-    Save( btn3 )
+    #Save( btn3 )
     menu.AddChild( img )
     menu.AddChild( btn1 )
     menu.AddChild( btn2 )
@@ -78,8 +81,9 @@ def CreateMenu():
 # 左上角LOGO
 ######################################################
 def CreateLogo():
-    logo = UIImage( None, 350, 92 )
-    Save( logo )
+    uiManager = GetUIManager()
+    logo = uiManager.AddUIImage( None, 350, 92 )
+    #Save( logo )
     logo.LoadImage( "../media/UIResource/Menu/logo_1.png" )
     return logo
 
@@ -87,8 +91,9 @@ def CreateLogo():
 # 组装背景
 ######################################################
 def CreateBg():
-    bg = UIImage( None, 940, 1024, -1 )
-    Save( bg )
+    uiManager = GetUIManager()
+    bg = uiManager.AddUIImage( None, 940, 1024, -1 )
+    #Save( bg )
     bg.LoadImage( "../media/UIResource/Menu/bg_1.jpg" )
     return bg
 
@@ -96,6 +101,9 @@ def CreateBg():
 # 场景装载时动画
 ######################################################
 def LoadStartAnimation( root ):
+    uiManager = GetUIManager()
+    root = uiManager.GetUIObjectByName( "Root" )
+    
     dua = 400
     menu = root.GetChildren()[1]
     btn1 = menu.GetChildren()[0]
@@ -104,15 +112,15 @@ def LoadStartAnimation( root ):
     btn4 = menu.GetChildren()[3]
 
     # 按钮出现动画
-    rot1 = RotateUIAnimator(
+    rot1 = uiManager.CreateAnimatorRotation(
         Timer().GetRealTime(),
         dua,
         360 )
-    sca1 = ScaleUIAnimator(
+    sca1 = uiManager.CreateAnimatorScale(
         Timer().GetRealTime(),
         dua,
         vector2df( 1.9, 1.9 ) )
-    alp1 = AlphaChangeUIAnimator(
+    alp1 = uiManager.CreateAnimatorAlphaChange(
         Timer().GetRealTime(),
         dua,
         0,
