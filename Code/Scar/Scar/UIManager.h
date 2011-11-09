@@ -5,6 +5,7 @@
 #include "IUIObject.h"
 #include "UIAnimators.h"
 #include "AllUIObjects.h"
+#include <string>
 
 using namespace irr;
 
@@ -74,7 +75,7 @@ public:
 	}
 
 	IUIObject* AddUIStaticText( IUIObject* parent, s32 width, s32 hegit,
-		stringw text,
+		std::wstring text,
 		SColor color,
 		u32 fontsize = 14,
 		bool hcenter = false,
@@ -88,7 +89,7 @@ public:
 		if ( ! parent )
 			parent = RootUIObject;
 
-		return new UIStaticText( parent, width, hegit, text, color, fontsize,
+		return new UIStaticText( parent, width, hegit, text.c_str(), color, fontsize,
 			hcenter, vcenter, order, shape, position, rotdeg, scale, Isvisible );
 	}
 

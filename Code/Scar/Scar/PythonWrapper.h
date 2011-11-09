@@ -229,6 +229,7 @@ public:
 	irr::video::IVideoDriver* GetDriver();
 };
 
+// 提供给切换场景使用
 class GameScene;
 void ChangeGameScene( GameScene* scene );
 
@@ -236,6 +237,10 @@ void ChangeGameScene( GameScene* scene );
 s32 Float2Int( f32 f );
 
 f32 Int2Float( s32 s );
+
+class UIManager;
+UIManager* GetUIManager();
+
 
 #endif // PythonWrapper_h__
 

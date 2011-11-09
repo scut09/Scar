@@ -858,7 +858,7 @@ BOOST_PYTHON_MODULE( UI ){
         }
         { //::UIManager::AddUIStaticText
         
-            typedef ::IUIObject * ( ::UIManager::*AddUIStaticText_function_type )( ::IUIObject *,::irr::s32,::irr::s32,::irr::core::stringw,::irr::video::SColor,::irr::u32,bool,bool,::irr::s32,int,::irr::core::vector2d< float > const &,::irr::f32,::irr::core::vector2d< float > const &,bool ) ;
+            typedef ::IUIObject * ( ::UIManager::*AddUIStaticText_function_type )( ::IUIObject *,::irr::s32,::irr::s32,::std::wstring,::irr::video::SColor,::irr::u32,bool,bool,::irr::s32,int,::irr::core::vector2d< float > const &,::irr::f32,::irr::core::vector2d< float > const &,bool ) ;
             
             UIManager_exposer.def( 
                 "AddUIStaticText"

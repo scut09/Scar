@@ -18,6 +18,7 @@
 //#include "IMovable.h"
 //#include "AnimationManager.h"
 #include "GameScene.h"
+#include "UIManager.h"
 
 class IUIObject;
 
@@ -44,6 +45,8 @@ private:
 
 	bool							m_bMotionBlur;		// 是否开启运动模糊
 
+	UIManager*						m_currentUIManager;
+
 	// 禁止直接创建实例
 	MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( false ) {}
 
@@ -67,6 +70,17 @@ public:
 	static std::stringstream		Console_Buffer;	
 
 public:
+
+	void SetUIManager( UIManager* mgr )
+	{
+		m_currentUIManager = mgr;
+	}
+
+	UIManager* GetUIManager() const
+	{
+		return m_currentUIManager;
+	}
+
 
 	// 获取引擎指针
 	static MyIrrlichtEngine* GetEngine();

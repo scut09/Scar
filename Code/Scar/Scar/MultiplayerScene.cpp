@@ -406,6 +406,8 @@ void MultiplayerScene::Init()
 
 	// ¼ÓÔØUI½çÃæ
 	uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
+	pEngine->SetUIManager( uiManager );
+
 	try
 	{
 		using namespace boost::python;

@@ -11,6 +11,7 @@
 #include "GameScene.h"
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include "IUIObject.h"
+#include "UIManager.h"
 
 BOOST_PYTHON_MODULE( Engine )
 {
@@ -107,5 +108,8 @@ BOOST_PYTHON_MODULE( Engine )
 	def( "Float2Int", Float2Int, args("f"), "f 2 I" );
 
 	def( "Int2Float", Int2Float, args( "s" ), "I 2 F" );
+
+	//UIManager* GetUIManager();
+	def( "GetUIManager", GetUIManager, return_value_policy< reference_existing_object >() );
 
 }
