@@ -47,7 +47,6 @@ boost::shared_ptr<Network::BoostClient> client;
 boost::shared_ptr<Network::BoostServer> server;
 
 //scene::ISceneNode* node;
-UIManager* uiManager; //测试用
 
 IUIObject* root;	//测试用
 
@@ -405,8 +404,7 @@ void MultiplayerScene::Init()
 	m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 
 	// 加载UI界面
-	uiManager = new UIManager( pEngine->GetDevice()->getTimer() );
-	pEngine->SetUIManager( uiManager );
+	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
 
 	try
 	{
@@ -419,7 +417,7 @@ void MultiplayerScene::Init()
 		//IUIObject* r = extract<IUIObject*>( root ); 
 		//uiManager->SetRoot( r );
 		//r->drop();	// 使用Python对象不用内存管理
-		m_playerHelper->LoadHelperUI( uiManager );
+		m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 		m_playerHelper->LoadPlayerManager( &*m_playerManager );
 	}
 	catch ( ... )
@@ -644,9 +642,6 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
-	if ( uiManager )
-		delete uiManager;
-
 	client->Close();
 	server->Close();
 
@@ -665,6 +660,6 @@ void MultiplayerScene::Release()
 void MultiplayerScene::Draw()
 {
 	//uiManager->RunTree();
-	uiManager->DrawAll();
+	MyIrrlichtEngine::GetEngine()->GetUIManager()->DrawAll();
 }
 

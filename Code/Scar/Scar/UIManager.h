@@ -140,11 +140,8 @@ public:
 	// 绘制所有的UI树上的节点
 	void DrawAll()
 	{
-		if ( RootUIObject )
-		{
-			RootUIObject->OnAnimate( Timer->getRealTime() );
-			RootUIObject->DrawTree();
-		}
+		RootUIObject->OnAnimate( Timer->getRealTime() );
+		RootUIObject->DrawTree();		
 	}
 
 

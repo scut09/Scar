@@ -150,7 +150,7 @@ void PlayerHelper::UpdateLock()
 	} 
 }
 
-void PlayerHelper::LoadHelperUI( UIManager* uiManager )
+void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 {
 	// 获取鼠标准心
 	Cursor = uiManager->GetUIObjectByName("cursor");

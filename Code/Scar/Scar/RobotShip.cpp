@@ -12,7 +12,7 @@ void ShipAgentPlayer::Update()
 {
 	if ( PlayerShip->GetShield() < 1 )	return;	// นามห
 
-	SendMove( PlayerShip->getPosition() );
+	//SendMove( PlayerShip->getPosition() );
 
 	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 	//this->OnAnimate( time );

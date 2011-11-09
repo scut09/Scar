@@ -45,7 +45,7 @@ private:
 
 	bool							m_bMotionBlur;		// 是否开启运动模糊
 
-	UIManager*						m_currentUIManager;
+	boost::shared_ptr<UIManager>	m_currentUIManager;	// 2D的UIManager
 
 	// 禁止直接创建实例
 	MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( false ) {}
@@ -71,12 +71,12 @@ public:
 
 public:
 
-	void SetUIManager( UIManager* mgr )
+	void SetUIManager( boost::shared_ptr<UIManager> mgr )
 	{
 		m_currentUIManager = mgr;
 	}
 
-	UIManager* GetUIManager() const
+	boost::shared_ptr<UIManager> GetUIManager() const
 	{
 		return m_currentUIManager;
 	}

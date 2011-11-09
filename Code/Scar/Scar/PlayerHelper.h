@@ -43,7 +43,7 @@ public:
 	}
 
 	// 
-	void LoadHelperUI( UIManager* uiManager );
+	void LoadHelperUI( boost::shared_ptr<UIManager> uiManager );
 
 
 private:

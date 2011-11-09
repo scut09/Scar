@@ -136,6 +136,6 @@ irr::f32 Int2Float( s32 s )
 
 UIManager* GetUIManager()
 {
-	return MyIrrlichtEngine::GetEngine()->GetUIManager();
+	return &*MyIrrlichtEngine::GetEngine()->GetUIManager();
 }
 
