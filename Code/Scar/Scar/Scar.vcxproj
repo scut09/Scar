@@ -127,7 +127,8 @@
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
-    <ClCompile Include="PythonUINew.cpp" />
+    <ClCompile Include="PythonGameScene.cpp" />
+    <ClCompile Include="PythonUIObject.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RelateCameraAnimatorMove.cpp" />
     <ClCompile Include="RelateCameraAnimatorStay.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="UIStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="IAgentPlayer.h" />
     <ClInclude Include="Aircraft.h" />
     <ClInclude Include="AllAnimators.h" />

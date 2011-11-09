@@ -210,9 +210,6 @@
     <ClCompile Include="NetworkPacket.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="PythonUINew.cpp">
-      <Filter>Python</Filter>
-    </ClCompile>
     <ClCompile Include="Boost_Client.cpp">
       <Filter>Network</Filter>
     </ClCompile>
@@ -287,6 +284,12 @@
     </ClCompile>
     <ClCompile Include="IAgentPlayer.cpp">
       <Filter>Player\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonUIObject.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonGameScene.cpp">
+      <Filter>Python</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -568,6 +571,9 @@
     </ClInclude>
     <ClInclude Include="IAgentPlayer.h">
       <Filter>Player\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneManager.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
