@@ -294,6 +294,9 @@
     <ClCompile Include="GameSceneManager.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="PythonSceneMgr.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -678,6 +681,18 @@
     </None>
     <None Include="..\..\..\bin\Shader\MenuShip.vert">
       <Filter>Shader\station</Filter>
+    </None>
+    <None Include="py++forUIObject.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="py++forSceneManager.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="py++forScene.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="py++.py">
+      <Filter>Python\py</Filter>
     </None>
   </ItemGroup>
 </Project>

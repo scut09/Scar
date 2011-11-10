@@ -2,13 +2,16 @@
 #define MySceneManager_h__
 
 #include <irrlicht.h>
-#include "AllAnimators.h"
-#include "Frigate.h"
-#include "BulletNode.h"
+#include "IUIAnimator.h"
+#include <string>
+#include "IShip.h"
+#include "RelateCameraAnimatorMove.h"
+#include "MySceneNodeAnimatorScale.h"
 
 using namespace irr;
 using scene::ISceneNode;
 using scene::ISceneNodeAnimator;
+using scene::IAnimatedMesh;
 
 class MySceneManager
 {
@@ -106,7 +109,7 @@ public:
 	// Î²Ñæ¶¯»­
 	ISceneNodeAnimator* createFollowFlameAnimator()
 	{
-		ISceneNodeAnimator* animator = new Chuoyanshuxing( smgr );
+		ISceneNodeAnimator* animator = 0;//= new Chuoyanshuxing( smgr );
 		return animator;
 	}
 
@@ -120,7 +123,7 @@ public:
 	ISceneNodeAnimator* createRelateCameraMoveAnimator( u32 delay, u32 duration, ICameraSceneNode* camera, 
 		vector3df start, vector3df end, RM_MOVE_TYPE moveType = RM_MT_LINER, f32 factor = 0 )
 	{
-		ISceneNodeAnimator* animator = new RelateCameraAnimatorMove( delay, duration, camera, start, end, moveType, factor );
+		ISceneNodeAnimator* animator = 0;// = new RelateCameraAnimatorMove( delay, duration, camera, start, end, moveType, factor );
 		return animator;
 	}
 

@@ -41,6 +41,7 @@ int main()
 		initEngine();
 		initUI();
 		initGameSceneModule();
+		initPythonSceneMgr();
 	}
 	catch ( ... )
 	{

@@ -54,7 +54,7 @@
       <AdditionalIncludeDirectories>../../include;../Python/include;../../boost-1_47/include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS /bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +129,7 @@
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonGameScene.cpp" />
+    <ClCompile Include="PythonSceneMgr.cpp" />
     <ClCompile Include="PythonUIObject.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RelateCameraAnimatorMove.cpp" />
@@ -283,6 +284,10 @@
     <None Include="..\..\..\bin\Shader\universeF.txt" />
     <None Include="..\..\..\bin\Shader\universeV.txt" />
     <None Include="..\..\..\bin\Shader\Flame.frag" />
+    <None Include="py++.py" />
+    <None Include="py++forScene.py" />
+    <None Include="py++forSceneManager.py" />
+    <None Include="py++forUIObject.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

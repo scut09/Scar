@@ -29,10 +29,10 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "green", &PythonSColor::green )
 		.def_readwrite( "blue", &PythonSColor::blue );
 
-	class_< irr::video::SColor >( "SColor", "Fuck" )    
-		.def( init< u32, u32, u32, u32 >( args( "a", "r", "g", "b" ) ) )
-		.def( init< u32 >( arg( "clr" ) ) )
-		;
+	//class_< irr::video::SColor >( "SColor", "Fuck" )    
+	//	.def( init< u32, u32, u32, u32 >( args( "a", "r", "g", "b" ) ) )
+	//	.def( init< u32 >( arg( "clr" ) ) )
+	//	;
 
 	boost::python::class_<std::vector<GameScene*> >("GameScenes")
 		.def(boost::python::vector_indexing_suite<std::vector<GameScene*> >());

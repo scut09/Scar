@@ -1,6 +1,8 @@
 #include "MySceneManager.h"
 #include "MyIrrlichtEngine.h"
-
+#include "Frigate.h"
+#include "BulletNode.h"	
+#include "AllAnimators.h"
 MySceneManager::MySceneManager()
 {
 	auto pEngine = MyIrrlichtEngine::GetEngine();
