@@ -5,6 +5,7 @@
 #
 from UI import *
 from Engine import *
+from PythonSceneMgr import *
 # 加载其他Python模块，尽量不使用from ... import *，除非是通用的工具函数，
 # 否则使用import
 from ScenesCreator import *
