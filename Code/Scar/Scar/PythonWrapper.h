@@ -244,5 +244,8 @@ UIManager* GetUIManager();
 class GameSceneManager;
 GameSceneManager* GetGameSceneManager();
 
+class MySceneManager;
+MySceneManager* GetMySceneManager();
+
 #endif // PythonWrapper_h__
 

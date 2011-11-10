@@ -13,26 +13,27 @@
 #include "IUIObject.h"
 #include "UIManager.h"
 #include "GameSceneManager.h"
+#include "MySceneManager.h"
 
 BOOST_PYTHON_MODULE( Engine )
 {
 	using namespace boost::python;
 
-	class_< ModelManagerWrapper >( "ModelMan", "Help to load model" )
-		.def( "AddMesh", &ModelManagerWrapper::AddMesh, (arg("meshID"), ("meshFilename"), ("textureFilename")) )
-		.def( "AddSceneNodeByMeshID", &ModelManagerWrapper::AddSceneNodeByMeshID, arg("meshID"), arg("bTestCollision") = false )
-		.def( "AddLight", &ModelManagerWrapper::AddLight, (arg("light"), ("x"), ("y"), ("z")) );
+	//class_< ModelManagerWrapper >( "ModelMan", "Help to load model" )
+	//	.def( "AddMesh", &ModelManagerWrapper::AddMesh, (arg("meshID"), ("meshFilename"), ("textureFilename")) )
+	//	.def( "AddSceneNodeByMeshID", &ModelManagerWrapper::AddSceneNodeByMeshID, arg("meshID"), arg("bTestCollision") = false )
+	//	.def( "AddLight", &ModelManagerWrapper::AddLight, (arg("light"), ("x"), ("y"), ("z")) );
 
-	class_< PythonSColor >( "SColorFake", "fake SColor" )
-		.def_readwrite( "alpha", &PythonSColor::alpha )
-		.def_readwrite( "red", &PythonSColor::red )
-		.def_readwrite( "green", &PythonSColor::green )
-		.def_readwrite( "blue", &PythonSColor::blue );
+	//class_< PythonSColor >( "SColorFake", "fake SColor" )
+	//	.def_readwrite( "alpha", &PythonSColor::alpha )
+	//	.def_readwrite( "red", &PythonSColor::red )
+	//	.def_readwrite( "green", &PythonSColor::green )
+	//	.def_readwrite( "blue", &PythonSColor::blue );
 
-	//class_< irr::video::SColor >( "SColor", "Fuck" )    
-	//	.def( init< u32, u32, u32, u32 >( args( "a", "r", "g", "b" ) ) )
-	//	.def( init< u32 >( arg( "clr" ) ) )
-	//	;
+	class_< irr::video::SColor >( "SColor", "Fuck" )    
+		.def( init< u32, u32, u32, u32 >( args( "a", "r", "g", "b" ) ) )
+		.def( init< u32 >( arg( "clr" ) ) )
+		;
 
 	boost::python::class_<std::vector<GameScene*> >("GameScenes")
 		.def(boost::python::vector_indexing_suite<std::vector<GameScene*> >());
@@ -40,15 +41,20 @@ BOOST_PYTHON_MODULE( Engine )
 	boost::python::class_<std::vector<IUIObject*> >("IUIObjects")
 		.def(boost::python::vector_indexing_suite<std::vector<IUIObject*> >());
 
-	class_< PythonSLight >( "SLight", "fake SLight" )
-		.def_readwrite( "AmbientColor", &PythonSLight::AmbientColor )
-		.def_readwrite( "DiffuseColor", &PythonSLight::DiffuseColor )
-		.def_readwrite( "SpecularColor", &PythonSLight::SpecularColor );
+	//class_< PythonSLight >( "SLight", "fake SLight" )
+	//	.def_readwrite( "AmbientColor", &PythonSLight::AmbientColor )
+	//	.def_readwrite( "DiffuseColor", &PythonSLight::DiffuseColor )
+	//	.def_readwrite( "SpecularColor", &PythonSLight::SpecularColor );
 
-	class_< PythonVector3df >( "vector3df", "fake vector3df", init< f32, f32, f32 >() )
-		.def_readwrite( "x", &PythonVector3df::x )
-		.def_readwrite( "y", &PythonVector3df::y )
-		.def_readwrite( "z", &PythonVector3df::z );
+	//class_< irr::core::vector3df >( "vector3df", "fake vector3df", init< f32, f32, f32 >() )
+	//	.def_readwrite( "X", &irr::core::vector3df::X )
+	//	.def_readwrite( "Y", &irr::core::vector3df::Y )
+	//	.def_readwrite( "Z", &irr::core::vector3df::Z );
+
+	class_< irr::core::vector3di >( "vector3di", "fake vector3df", init< s32, s32, s32 >() )
+		.def_readwrite( "X", &irr::core::vector3di::X )
+		.def_readwrite( "Y", &irr::core::vector3di::Y )
+		.def_readwrite( "Z", &irr::core::vector3di::Z );
 
 
 	class_< irr::core::vector2d<s32> >( "vector2d", "fake vector2d<s32>", init< s32, s32 >() )
@@ -72,23 +78,23 @@ BOOST_PYTHON_MODULE( Engine )
 		;
 
 
-	class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" )
-		.def( "SetPosition", &PythonSceneNode::SetPosition )
-		.def( "GetPosition", &PythonSceneNode::GetPosition )
-		.def( "SetRotation", &PythonSceneNode::SetRotation )
-		.def( "GetRotation", &PythonSceneNode::GetRotation )
-		.def( "AddAnimator", &PythonSceneNode::AddAnimator )
-		.def( "RemoveAnimator", &PythonSceneNode::RemoveAnimator )
-		.def( "Grab", &PythonSceneNode::Grab )
-		.def( "Drop", &PythonSceneNode::Drop )
-		.def( "Remove", &PythonSceneNode::Remove );
+	//class_< PythonSceneNode >( "ISceneNode", "fake ISceneNode" )
+	//	.def( "SetPosition", &PythonSceneNode::SetPosition )
+	//	.def( "GetPosition", &PythonSceneNode::GetPosition )
+	//	.def( "SetRotation", &PythonSceneNode::SetRotation )
+	//	.def( "GetRotation", &PythonSceneNode::GetRotation )
+	//	.def( "AddAnimator", &PythonSceneNode::AddAnimator )
+	//	.def( "RemoveAnimator", &PythonSceneNode::RemoveAnimator )
+	//	.def( "Grab", &PythonSceneNode::Grab )
+	//	.def( "Drop", &PythonSceneNode::Drop )
+	//	.def( "Remove", &PythonSceneNode::Remove );
 
 
-	class_< AnimatorWrapper >( "Animator", "fake Animator" )
+	/*class_< AnimatorWrapper >( "Animator", "fake Animator" )
 		.def( "Drop", &AnimatorWrapper::Drop );
 
 	class_< AnimationManagerWrapper >( "AnimationManager", "fake AnimationManager" )
-		.def( "CreateFlyStraightAutoDelAnimator", &AnimationManagerWrapper::CreateFlyStraightAutoDelAnimator );
+		.def( "CreateFlyStraightAutoDelAnimator", &AnimationManagerWrapper::CreateFlyStraightAutoDelAnimator );*/
 
 	class_< TimerWrapper >( "Timer", "fake Timer" )
 		.def( "GetRealTime", &TimerWrapper::GetRealTime )
@@ -107,6 +113,7 @@ BOOST_PYTHON_MODULE( Engine )
 
 	def( "GetGameSceneManager", GetGameSceneManager, return_value_policy< reference_existing_object >() );
 
+	def( "GetMySceneManager", GetMySceneManager, return_value_policy< reference_existing_object >() );
 
 	
 

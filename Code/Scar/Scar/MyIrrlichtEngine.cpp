@@ -33,6 +33,7 @@ MyIrrlichtEngine::MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( fal
 MyIrrlichtEngine::~MyIrrlichtEngine()
 {
 	delete m_gameSceneMgr;
+	delete m_MySceneManager;
 }
 
 
@@ -70,6 +71,8 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 		m_pIrrlichtEngine->m_pSmgr = pDevice->getSceneManager();
 		m_pIrrlichtEngine->m_pColMan = m_pIrrlichtEngine->m_pSmgr->getSceneCollisionManager();
 		m_pIrrlichtEngine->m_currentUIManager = boost::shared_ptr<UIManager>( new UIManager( pDevice->getTimer() ) );
+
+		m_pIrrlichtEngine->m_MySceneManager = new MySceneManager;	// 一定要在这个创建，因为MySceneManager会在构造时直接使用MyIrrlichtEngine
 
 		m_pIrrlichtEngine->m_runCallbackFunc = []( void* )->void* { return 0; };
 	}

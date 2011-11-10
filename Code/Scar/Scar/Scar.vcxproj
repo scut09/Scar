@@ -254,7 +254,7 @@
     <None Include="..\..\..\bin\Python\a.py" />
     <None Include="..\..\..\bin\Python\client.py" />
     <None Include="..\..\..\bin\Python\MainMenuIni.py" />
-    <None Include="..\..\..\bin\Python\ModelLoader.py" />
+    <None Include="..\..\..\bin\Python\MapV1.py" />
     <None Include="..\..\..\bin\Python\MouseEventHandler.py" />
     <None Include="..\..\..\bin\Python\scene.py" />
     <None Include="..\..\..\bin\Python\setup.py" />

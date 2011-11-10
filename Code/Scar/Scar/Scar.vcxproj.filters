@@ -592,9 +592,6 @@
     <None Include="..\..\..\bin\Python\MainMenuIni.py">
       <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\Python\ModelLoader.py">
-      <Filter>Python\py</Filter>
-    </None>
     <None Include="..\..\..\bin\Python\MouseEventHandler.py">
       <Filter>Python\py</Filter>
     </None>
@@ -692,6 +689,9 @@
       <Filter>Python\py</Filter>
     </None>
     <None Include="py++.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\MapV1.py">
       <Filter>Python\py</Filter>
     </None>
   </ItemGroup>

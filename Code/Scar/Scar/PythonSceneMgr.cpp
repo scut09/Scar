@@ -6109,706 +6109,992 @@ struct ISceneNodeAnimatorFactory_wrapper : irr::scene::ISceneNodeAnimatorFactory
 };
 
 
-namespace irr{ namespace core{ 
-pyplusplus::containers::static_sized::const_array_1_t< float, 17 >
-fast_atof_table_wrapper(){
-    return pyplusplus::containers::static_sized::const_array_1_t< float, 17 >( ::irr::core::fast_atof_table );
-}
-}}
+//namespace irr{ namespace core{ 
+//pyplusplus::containers::static_sized::const_array_1_t< float, 17 >
+//fast_atof_table_wrapper(){
+//    return pyplusplus::containers::static_sized::const_array_1_t< float, 17 >( ::irr::core::fast_atof_table );
+//}
+//}}
 
 BOOST_PYTHON_MODULE(PythonSceneMgr){
-    { //::std::vector< IWeapon* >
-        typedef bp::class_< std::vector< IWeapon* > > vector_less__IWeapon_ptr___greater__exposer_t;
-        vector_less__IWeapon_ptr___greater__exposer_t vector_less__IWeapon_ptr___greater__exposer = vector_less__IWeapon_ptr___greater__exposer_t( "vector_less__IWeapon_ptr___greater_" );
-        bp::scope vector_less__IWeapon_ptr___greater__scope( vector_less__IWeapon_ptr___greater__exposer );
-        vector_less__IWeapon_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IWeapon* > >() );
-    }
+    //{ //::std::vector< IWeapon* >
+    //    typedef bp::class_< std::vector< IWeapon* > > vector_less__IWeapon_ptr___greater__exposer_t;
+    //    vector_less__IWeapon_ptr___greater__exposer_t vector_less__IWeapon_ptr___greater__exposer = vector_less__IWeapon_ptr___greater__exposer_t( "vector_less__IWeapon_ptr___greater_" );
+    //    bp::scope vector_less__IWeapon_ptr___greater__scope( vector_less__IWeapon_ptr___greater__exposer );
+    //    vector_less__IWeapon_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IWeapon* > >() );
+    //}
 
-    bp::enum_< irr::video::ECOLOR_FORMAT>("ECOLOR_FORMAT")
-        .value("ECF_A1R5G5B5", irr::video::ECF_A1R5G5B5)
-        .value("ECF_R5G6B5", irr::video::ECF_R5G6B5)
-        .value("ECF_R8G8B8", irr::video::ECF_R8G8B8)
-        .value("ECF_A8R8G8B8", irr::video::ECF_A8R8G8B8)
-        .value("ECF_R16F", irr::video::ECF_R16F)
-        .value("ECF_G16R16F", irr::video::ECF_G16R16F)
-        .value("ECF_A16B16G16R16F", irr::video::ECF_A16B16G16R16F)
-        .value("ECF_R32F", irr::video::ECF_R32F)
-        .value("ECF_G32R32F", irr::video::ECF_G32R32F)
-        .value("ECF_A32B32G32R32F", irr::video::ECF_A32B32G32R32F)
-        .value("ECF_UNKNOWN", irr::video::ECF_UNKNOWN)
-        .export_values()
-        ;
-
-  
-
-
-    bp::enum_< irr::core::EIntersectionRelation3D>("EIntersectionRelation3D")
-        .value("ISREL3D_FRONT", irr::core::ISREL3D_FRONT)
-        .value("ISREL3D_BACK", irr::core::ISREL3D_BACK)
-        .value("ISREL3D_PLANAR", irr::core::ISREL3D_PLANAR)
-        .value("ISREL3D_SPANNING", irr::core::ISREL3D_SPANNING)
-        .value("ISREL3D_CLIPPED", irr::core::ISREL3D_CLIPPED)
-        .export_values()
-        ;
+	/*bp::enum_< irr::video::ECOLOR_FORMAT>("ECOLOR_FORMAT")
+	.value("ECF_A1R5G5B5", irr::video::ECF_A1R5G5B5)
+	.value("ECF_R5G6B5", irr::video::ECF_R5G6B5)
+	.value("ECF_R8G8B8", irr::video::ECF_R8G8B8)
+	.value("ECF_A8R8G8B8", irr::video::ECF_A8R8G8B8)
+	.value("ECF_R16F", irr::video::ECF_R16F)
+	.value("ECF_G16R16F", irr::video::ECF_G16R16F)
+	.value("ECF_A16B16G16R16F", irr::video::ECF_A16B16G16R16F)
+	.value("ECF_R32F", irr::video::ECF_R32F)
+	.value("ECF_G32R32F", irr::video::ECF_G32R32F)
+	.value("ECF_A32B32G32R32F", irr::video::ECF_A32B32G32R32F)
+	.value("ECF_UNKNOWN", irr::video::ECF_UNKNOWN)
+	.export_values()
+	;
 
 
 
 
-    bp::enum_< irr::io::ETEXT_FORMAT>("ETEXT_FORMAT")
-        .value("ETF_ASCII", irr::io::ETF_ASCII)
-        .value("ETF_UTF8", irr::io::ETF_UTF8)
-        .value("ETF_UTF16_BE", irr::io::ETF_UTF16_BE)
-        .value("ETF_UTF16_LE", irr::io::ETF_UTF16_LE)
-        .value("ETF_UTF32_BE", irr::io::ETF_UTF32_BE)
-        .value("ETF_UTF32_LE", irr::io::ETF_UTF32_LE)
-        .export_values()
-        ;
-
-    bp::enum_< irr::io::EXML_NODE>("EXML_NODE")
-        .value("EXN_NONE", irr::io::EXN_NONE)
-        .value("EXN_ELEMENT", irr::io::EXN_ELEMENT)
-        .value("EXN_ELEMENT_END", irr::io::EXN_ELEMENT_END)
-        .value("EXN_TEXT", irr::io::EXN_TEXT)
-        .value("EXN_COMMENT", irr::io::EXN_COMMENT)
-        .value("EXN_CDATA", irr::io::EXN_CDATA)
-        .value("EXN_UNKNOWN", irr::io::EXN_UNKNOWN)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_ALPHA_SOURCE>("E_ALPHA_SOURCE")
-        .value("EAS_NONE", irr::video::EAS_NONE)
-        .value("EAS_VERTEX_COLOR", irr::video::EAS_VERTEX_COLOR)
-        .value("EAS_TEXTURE", irr::video::EAS_TEXTURE)
-        .export_values()
-        ;
+	bp::enum_< irr::core::EIntersectionRelation3D>("EIntersectionRelation3D")
+	.value("ISREL3D_FRONT", irr::core::ISREL3D_FRONT)
+	.value("ISREL3D_BACK", irr::core::ISREL3D_BACK)
+	.value("ISREL3D_PLANAR", irr::core::ISREL3D_PLANAR)
+	.value("ISREL3D_SPANNING", irr::core::ISREL3D_SPANNING)
+	.value("ISREL3D_CLIPPED", irr::core::ISREL3D_CLIPPED)
+	.export_values()
+	;
 
 
 
-    bp::enum_< irr::video::E_ANTI_ALIASING_MODE>("E_ANTI_ALIASING_MODE")
-        .value("EAAM_OFF", irr::video::EAAM_OFF)
-        .value("EAAM_SIMPLE", irr::video::EAAM_SIMPLE)
-        .value("EAAM_QUALITY", irr::video::EAAM_QUALITY)
-        .value("EAAM_LINE_SMOOTH", irr::video::EAAM_LINE_SMOOTH)
-        .value("EAAM_POINT_SMOOTH", irr::video::EAAM_POINT_SMOOTH)
-        .value("EAAM_FULL_BASIC", irr::video::EAAM_FULL_BASIC)
-        .value("EAAM_ALPHA_TO_COVERAGE", irr::video::EAAM_ALPHA_TO_COVERAGE)
-        .export_values()
-        ;
 
-    bp::enum_< irr::io::E_ATTRIBUTE_READ_WRITE_FLAGS>("E_ATTRIBUTE_READ_WRITE_FLAGS")
-        .value("EARWF_FOR_FILE", irr::io::EARWF_FOR_FILE)
-        .value("EARWF_FOR_EDITOR", irr::io::EARWF_FOR_EDITOR)
-        .value("EARWF_USE_RELATIVE_PATHS", irr::io::EARWF_USE_RELATIVE_PATHS)
-        .export_values()
-        ;
+	bp::enum_< irr::io::ETEXT_FORMAT>("ETEXT_FORMAT")
+	.value("ETF_ASCII", irr::io::ETF_ASCII)
+	.value("ETF_UTF8", irr::io::ETF_UTF8)
+	.value("ETF_UTF16_BE", irr::io::ETF_UTF16_BE)
+	.value("ETF_UTF16_LE", irr::io::ETF_UTF16_LE)
+	.value("ETF_UTF32_BE", irr::io::ETF_UTF32_BE)
+	.value("ETF_UTF32_LE", irr::io::ETF_UTF32_LE)
+	.export_values()
+	;
 
-    bp::enum_< irr::io::E_ATTRIBUTE_TYPE>("E_ATTRIBUTE_TYPE")
-        .value("EAT_INT", irr::io::EAT_INT)
-        .value("EAT_FLOAT", irr::io::EAT_FLOAT)
-        .value("EAT_STRING", irr::io::EAT_STRING)
-        .value("EAT_BOOL", irr::io::EAT_BOOL)
-        .value("EAT_ENUM", irr::io::EAT_ENUM)
-        .value("EAT_COLOR", irr::io::EAT_COLOR)
-        .value("EAT_COLORF", irr::io::EAT_COLORF)
-        .value("EAT_VECTOR3D", irr::io::EAT_VECTOR3D)
-        .value("EAT_POSITION2D", irr::io::EAT_POSITION2D)
-        .value("EAT_VECTOR2D", irr::io::EAT_VECTOR2D)
-        .value("EAT_RECT", irr::io::EAT_RECT)
-        .value("EAT_MATRIX", irr::io::EAT_MATRIX)
-        .value("EAT_QUATERNION", irr::io::EAT_QUATERNION)
-        .value("EAT_BBOX", irr::io::EAT_BBOX)
-        .value("EAT_PLANE", irr::io::EAT_PLANE)
-        .value("EAT_TRIANGLE3D", irr::io::EAT_TRIANGLE3D)
-        .value("EAT_LINE2D", irr::io::EAT_LINE2D)
-        .value("EAT_LINE3D", irr::io::EAT_LINE3D)
-        .value("EAT_STRINGWARRAY", irr::io::EAT_STRINGWARRAY)
-        .value("EAT_FLOATARRAY", irr::io::EAT_FLOATARRAY)
-        .value("EAT_INTARRAY", irr::io::EAT_INTARRAY)
-        .value("EAT_BINARY", irr::io::EAT_BINARY)
-        .value("EAT_TEXTURE", irr::io::EAT_TEXTURE)
-        .value("EAT_USER_POINTER", irr::io::EAT_USER_POINTER)
-        .value("EAT_COUNT", irr::io::EAT_COUNT)
-        .value("EAT_UNKNOWN", irr::io::EAT_UNKNOWN)
-        .export_values()
-        ;
+	bp::enum_< irr::io::EXML_NODE>("EXML_NODE")
+	.value("EXN_NONE", irr::io::EXN_NONE)
+	.value("EXN_ELEMENT", irr::io::EXN_ELEMENT)
+	.value("EXN_ELEMENT_END", irr::io::EXN_ELEMENT_END)
+	.value("EXN_TEXT", irr::io::EXN_TEXT)
+	.value("EXN_COMMENT", irr::io::EXN_COMMENT)
+	.value("EXN_CDATA", irr::io::EXN_CDATA)
+	.value("EXN_UNKNOWN", irr::io::EXN_UNKNOWN)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_BLEND_FACTOR>("E_BLEND_FACTOR")
-        .value("EBF_ZERO", irr::video::EBF_ZERO)
-        .value("EBF_ONE", irr::video::EBF_ONE)
-        .value("EBF_DST_COLOR", irr::video::EBF_DST_COLOR)
-        .value("EBF_ONE_MINUS_DST_COLOR", irr::video::EBF_ONE_MINUS_DST_COLOR)
-        .value("EBF_SRC_COLOR", irr::video::EBF_SRC_COLOR)
-        .value("EBF_ONE_MINUS_SRC_COLOR", irr::video::EBF_ONE_MINUS_SRC_COLOR)
-        .value("EBF_SRC_ALPHA", irr::video::EBF_SRC_ALPHA)
-        .value("EBF_ONE_MINUS_SRC_ALPHA", irr::video::EBF_ONE_MINUS_SRC_ALPHA)
-        .value("EBF_DST_ALPHA", irr::video::EBF_DST_ALPHA)
-        .value("EBF_ONE_MINUS_DST_ALPHA", irr::video::EBF_ONE_MINUS_DST_ALPHA)
-        .value("EBF_SRC_ALPHA_SATURATE", irr::video::EBF_SRC_ALPHA_SATURATE)
-        .export_values()
-        ;
-
-    bp::enum_< irr::scene::E_BONE_ANIMATION_MODE>("E_BONE_ANIMATION_MODE")
-        .value("EBAM_AUTOMATIC", irr::scene::EBAM_AUTOMATIC)
-        .value("EBAM_ANIMATED", irr::scene::EBAM_ANIMATED)
-        .value("EBAM_UNANIMATED", irr::scene::EBAM_UNANIMATED)
-        .value("EBAM_COUNT", irr::scene::EBAM_COUNT)
-        .export_values()
-        ;
-
-    bp::enum_< irr::scene::E_BONE_SKINNING_SPACE>("E_BONE_SKINNING_SPACE")
-        .value("EBSS_LOCAL", irr::scene::EBSS_LOCAL)
-        .value("EBSS_GLOBAL", irr::scene::EBSS_GLOBAL)
-        .value("EBSS_COUNT", irr::scene::EBSS_COUNT)
-        .export_values()
-        ;
-
-    bp::enum_< irr::scene::E_BUFFER_TYPE>("E_BUFFER_TYPE")
-        .value("EBT_NONE", irr::scene::EBT_NONE)
-        .value("EBT_VERTEX", irr::scene::EBT_VERTEX)
-        .value("EBT_INDEX", irr::scene::EBT_INDEX)
-        .value("EBT_VERTEX_AND_INDEX", irr::scene::EBT_VERTEX_AND_INDEX)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_COLOR_MATERIAL>("E_COLOR_MATERIAL")
-        .value("ECM_NONE", irr::video::ECM_NONE)
-        .value("ECM_DIFFUSE", irr::video::ECM_DIFFUSE)
-        .value("ECM_AMBIENT", irr::video::ECM_AMBIENT)
-        .value("ECM_EMISSIVE", irr::video::ECM_EMISSIVE)
-        .value("ECM_SPECULAR", irr::video::ECM_SPECULAR)
-        .value("ECM_DIFFUSE_AND_AMBIENT", irr::video::ECM_DIFFUSE_AND_AMBIENT)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_COLOR_PLANE>("E_COLOR_PLANE")
-        .value("ECP_NONE", irr::video::ECP_NONE)
-        .value("ECP_ALPHA", irr::video::ECP_ALPHA)
-        .value("ECP_RED", irr::video::ECP_RED)
-        .value("ECP_GREEN", irr::video::ECP_GREEN)
-        .value("ECP_BLUE", irr::video::ECP_BLUE)
-        .value("ECP_RGB", irr::video::ECP_RGB)
-        .value("ECP_ALL", irr::video::ECP_ALL)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_COMPARISON_FUNC>("E_COMPARISON_FUNC")
-        .value("ECFN_NEVER", irr::video::ECFN_NEVER)
-        .value("ECFN_LESSEQUAL", irr::video::ECFN_LESSEQUAL)
-        .value("ECFN_EQUAL", irr::video::ECFN_EQUAL)
-        .value("ECFN_LESS", irr::video::ECFN_LESS)
-        .value("ECFN_NOTEQUAL", irr::video::ECFN_NOTEQUAL)
-        .value("ECFN_GREATEREQUAL", irr::video::ECFN_GREATEREQUAL)
-        .value("ECFN_GREATER", irr::video::ECFN_GREATER)
-        .value("ECFN_ALWAYS", irr::video::ECFN_ALWAYS)
-        .export_values()
-        ;
-
-    bp::enum_< irr::scene::E_CULLING_TYPE>("E_CULLING_TYPE")
-        .value("EAC_OFF", irr::scene::EAC_OFF)
-        .value("EAC_BOX", irr::scene::EAC_BOX)
-        .value("EAC_FRUSTUM_BOX", irr::scene::EAC_FRUSTUM_BOX)
-        .value("EAC_FRUSTUM_SPHERE", irr::scene::EAC_FRUSTUM_SPHERE)
-        .export_values()
-        ;
-
-    bp::enum_< irr::scene::E_DEBUG_SCENE_TYPE>("E_DEBUG_SCENE_TYPE")
-        .value("EDS_OFF", irr::scene::EDS_OFF)
-        .value("EDS_BBOX", irr::scene::EDS_BBOX)
-        .value("EDS_NORMALS", irr::scene::EDS_NORMALS)
-        .value("EDS_SKELETON", irr::scene::EDS_SKELETON)
-        .value("EDS_MESH_WIRE_OVERLAY", irr::scene::EDS_MESH_WIRE_OVERLAY)
-        .value("EDS_HALF_TRANSPARENCY", irr::scene::EDS_HALF_TRANSPARENCY)
-        .value("EDS_BBOX_BUFFERS", irr::scene::EDS_BBOX_BUFFERS)
-        .value("EDS_BBOX_ALL", irr::scene::EDS_BBOX_ALL)
-        .value("EDS_FULL", irr::scene::EDS_FULL)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_ALPHA_SOURCE>("E_ALPHA_SOURCE")
+	.value("EAS_NONE", irr::video::EAS_NONE)
+	.value("EAS_VERTEX_COLOR", irr::video::EAS_VERTEX_COLOR)
+	.value("EAS_TEXTURE", irr::video::EAS_TEXTURE)
+	.export_values()
+	;
 
 
 
-    bp::enum_< irr::scene::E_HARDWARE_MAPPING>("E_HARDWARE_MAPPING")
-        .value("EHM_NEVER", irr::scene::EHM_NEVER)
-        .value("EHM_STATIC", irr::scene::EHM_STATIC)
-        .value("EHM_DYNAMIC", irr::scene::EHM_DYNAMIC)
-        .value("EHM_STREAM", irr::scene::EHM_STREAM)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_ANTI_ALIASING_MODE>("E_ANTI_ALIASING_MODE")
+	.value("EAAM_OFF", irr::video::EAAM_OFF)
+	.value("EAAM_SIMPLE", irr::video::EAAM_SIMPLE)
+	.value("EAAM_QUALITY", irr::video::EAAM_QUALITY)
+	.value("EAAM_LINE_SMOOTH", irr::video::EAAM_LINE_SMOOTH)
+	.value("EAAM_POINT_SMOOTH", irr::video::EAAM_POINT_SMOOTH)
+	.value("EAAM_FULL_BASIC", irr::video::EAAM_FULL_BASIC)
+	.value("EAAM_ALPHA_TO_COVERAGE", irr::video::EAAM_ALPHA_TO_COVERAGE)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_INDEX_TYPE>("E_INDEX_TYPE")
-        .value("EIT_16BIT", irr::video::EIT_16BIT)
-        .value("EIT_32BIT", irr::video::EIT_32BIT)
-        .export_values()
-        ;
+	bp::enum_< irr::io::E_ATTRIBUTE_READ_WRITE_FLAGS>("E_ATTRIBUTE_READ_WRITE_FLAGS")
+	.value("EARWF_FOR_FILE", irr::io::EARWF_FOR_FILE)
+	.value("EARWF_FOR_EDITOR", irr::io::EARWF_FOR_EDITOR)
+	.value("EARWF_USE_RELATIVE_PATHS", irr::io::EARWF_USE_RELATIVE_PATHS)
+	.export_values()
+	;
 
-    bp::enum_< irr::scene::E_INTERPOLATION_MODE>("E_INTERPOLATION_MODE")
-        .value("EIM_CONSTANT", irr::scene::EIM_CONSTANT)
-        .value("EIM_LINEAR", irr::scene::EIM_LINEAR)
-        .value("EIM_COUNT", irr::scene::EIM_COUNT)
-        .export_values()
-        ;
+	bp::enum_< irr::io::E_ATTRIBUTE_TYPE>("E_ATTRIBUTE_TYPE")
+	.value("EAT_INT", irr::io::EAT_INT)
+	.value("EAT_FLOAT", irr::io::EAT_FLOAT)
+	.value("EAT_STRING", irr::io::EAT_STRING)
+	.value("EAT_BOOL", irr::io::EAT_BOOL)
+	.value("EAT_ENUM", irr::io::EAT_ENUM)
+	.value("EAT_COLOR", irr::io::EAT_COLOR)
+	.value("EAT_COLORF", irr::io::EAT_COLORF)
+	.value("EAT_VECTOR3D", irr::io::EAT_VECTOR3D)
+	.value("EAT_POSITION2D", irr::io::EAT_POSITION2D)
+	.value("EAT_VECTOR2D", irr::io::EAT_VECTOR2D)
+	.value("EAT_RECT", irr::io::EAT_RECT)
+	.value("EAT_MATRIX", irr::io::EAT_MATRIX)
+	.value("EAT_QUATERNION", irr::io::EAT_QUATERNION)
+	.value("EAT_BBOX", irr::io::EAT_BBOX)
+	.value("EAT_PLANE", irr::io::EAT_PLANE)
+	.value("EAT_TRIANGLE3D", irr::io::EAT_TRIANGLE3D)
+	.value("EAT_LINE2D", irr::io::EAT_LINE2D)
+	.value("EAT_LINE3D", irr::io::EAT_LINE3D)
+	.value("EAT_STRINGWARRAY", irr::io::EAT_STRINGWARRAY)
+	.value("EAT_FLOATARRAY", irr::io::EAT_FLOATARRAY)
+	.value("EAT_INTARRAY", irr::io::EAT_INTARRAY)
+	.value("EAT_BINARY", irr::io::EAT_BINARY)
+	.value("EAT_TEXTURE", irr::io::EAT_TEXTURE)
+	.value("EAT_USER_POINTER", irr::io::EAT_USER_POINTER)
+	.value("EAT_COUNT", irr::io::EAT_COUNT)
+	.value("EAT_UNKNOWN", irr::io::EAT_UNKNOWN)
+	.export_values()
+	;
 
-    bp::enum_< irr::scene::E_JOINT_UPDATE_ON_RENDER>("E_JOINT_UPDATE_ON_RENDER")
-        .value("EJUOR_NONE", irr::scene::EJUOR_NONE)
-        .value("EJUOR_READ", irr::scene::EJUOR_READ)
-        .value("EJUOR_CONTROL", irr::scene::EJUOR_CONTROL)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_BLEND_FACTOR>("E_BLEND_FACTOR")
+	.value("EBF_ZERO", irr::video::EBF_ZERO)
+	.value("EBF_ONE", irr::video::EBF_ONE)
+	.value("EBF_DST_COLOR", irr::video::EBF_DST_COLOR)
+	.value("EBF_ONE_MINUS_DST_COLOR", irr::video::EBF_ONE_MINUS_DST_COLOR)
+	.value("EBF_SRC_COLOR", irr::video::EBF_SRC_COLOR)
+	.value("EBF_ONE_MINUS_SRC_COLOR", irr::video::EBF_ONE_MINUS_SRC_COLOR)
+	.value("EBF_SRC_ALPHA", irr::video::EBF_SRC_ALPHA)
+	.value("EBF_ONE_MINUS_SRC_ALPHA", irr::video::EBF_ONE_MINUS_SRC_ALPHA)
+	.value("EBF_DST_ALPHA", irr::video::EBF_DST_ALPHA)
+	.value("EBF_ONE_MINUS_DST_ALPHA", irr::video::EBF_ONE_MINUS_DST_ALPHA)
+	.value("EBF_SRC_ALPHA_SATURATE", irr::video::EBF_SRC_ALPHA_SATURATE)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_LIGHT_TYPE>("E_LIGHT_TYPE")
-        .value("ELT_POINT", irr::video::ELT_POINT)
-        .value("ELT_SPOT", irr::video::ELT_SPOT)
-        .value("ELT_DIRECTIONAL", irr::video::ELT_DIRECTIONAL)
-        .export_values()
-        ;
+	bp::enum_< irr::scene::E_BONE_ANIMATION_MODE>("E_BONE_ANIMATION_MODE")
+	.value("EBAM_AUTOMATIC", irr::scene::EBAM_AUTOMATIC)
+	.value("EBAM_ANIMATED", irr::scene::EBAM_ANIMATED)
+	.value("EBAM_UNANIMATED", irr::scene::EBAM_UNANIMATED)
+	.value("EBAM_COUNT", irr::scene::EBAM_COUNT)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_LOST_RESSOURCE>("E_LOST_RESSOURCE")
-        .value("ELR_DEVICE", irr::video::ELR_DEVICE)
-        .value("ELR_TEXTURES", irr::video::ELR_TEXTURES)
-        .value("ELR_RTTS", irr::video::ELR_RTTS)
-        .value("ELR_HW_BUFFERS", irr::video::ELR_HW_BUFFERS)
-        .export_values()
-        ;
+	bp::enum_< irr::scene::E_BONE_SKINNING_SPACE>("E_BONE_SKINNING_SPACE")
+	.value("EBSS_LOCAL", irr::scene::EBSS_LOCAL)
+	.value("EBSS_GLOBAL", irr::scene::EBSS_GLOBAL)
+	.value("EBSS_COUNT", irr::scene::EBSS_COUNT)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_MATERIAL_FLAG>("E_MATERIAL_FLAG")
-        .value("EMF_WIREFRAME", irr::video::EMF_WIREFRAME)
-        .value("EMF_POINTCLOUD", irr::video::EMF_POINTCLOUD)
-        .value("EMF_GOURAUD_SHADING", irr::video::EMF_GOURAUD_SHADING)
-        .value("EMF_LIGHTING", irr::video::EMF_LIGHTING)
-        .value("EMF_ZBUFFER", irr::video::EMF_ZBUFFER)
-        .value("EMF_ZWRITE_ENABLE", irr::video::EMF_ZWRITE_ENABLE)
-        .value("EMF_BACK_FACE_CULLING", irr::video::EMF_BACK_FACE_CULLING)
-        .value("EMF_FRONT_FACE_CULLING", irr::video::EMF_FRONT_FACE_CULLING)
-        .value("EMF_BILINEAR_FILTER", irr::video::EMF_BILINEAR_FILTER)
-        .value("EMF_TRILINEAR_FILTER", irr::video::EMF_TRILINEAR_FILTER)
-        .value("EMF_ANISOTROPIC_FILTER", irr::video::EMF_ANISOTROPIC_FILTER)
-        .value("EMF_FOG_ENABLE", irr::video::EMF_FOG_ENABLE)
-        .value("EMF_NORMALIZE_NORMALS", irr::video::EMF_NORMALIZE_NORMALS)
-        .value("EMF_TEXTURE_WRAP", irr::video::EMF_TEXTURE_WRAP)
-        .value("EMF_ANTI_ALIASING", irr::video::EMF_ANTI_ALIASING)
-        .value("EMF_COLOR_MASK", irr::video::EMF_COLOR_MASK)
-        .value("EMF_COLOR_MATERIAL", irr::video::EMF_COLOR_MATERIAL)
-        .export_values()
-        ;
+	bp::enum_< irr::scene::E_BUFFER_TYPE>("E_BUFFER_TYPE")
+	.value("EBT_NONE", irr::scene::EBT_NONE)
+	.value("EBT_VERTEX", irr::scene::EBT_VERTEX)
+	.value("EBT_INDEX", irr::scene::EBT_INDEX)
+	.value("EBT_VERTEX_AND_INDEX", irr::scene::EBT_VERTEX_AND_INDEX)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_MATERIAL_TYPE>("E_MATERIAL_TYPE")
-        .value("EMT_SOLID", irr::video::EMT_SOLID)
-        .value("EMT_SOLID_2_LAYER", irr::video::EMT_SOLID_2_LAYER)
-        .value("EMT_LIGHTMAP", irr::video::EMT_LIGHTMAP)
-        .value("EMT_LIGHTMAP_ADD", irr::video::EMT_LIGHTMAP_ADD)
-        .value("EMT_LIGHTMAP_M2", irr::video::EMT_LIGHTMAP_M2)
-        .value("EMT_LIGHTMAP_M4", irr::video::EMT_LIGHTMAP_M4)
-        .value("EMT_LIGHTMAP_LIGHTING", irr::video::EMT_LIGHTMAP_LIGHTING)
-        .value("EMT_LIGHTMAP_LIGHTING_M2", irr::video::EMT_LIGHTMAP_LIGHTING_M2)
-        .value("EMT_LIGHTMAP_LIGHTING_M4", irr::video::EMT_LIGHTMAP_LIGHTING_M4)
-        .value("EMT_DETAIL_MAP", irr::video::EMT_DETAIL_MAP)
-        .value("EMT_SPHERE_MAP", irr::video::EMT_SPHERE_MAP)
-        .value("EMT_REFLECTION_2_LAYER", irr::video::EMT_REFLECTION_2_LAYER)
-        .value("EMT_TRANSPARENT_ADD_COLOR", irr::video::EMT_TRANSPARENT_ADD_COLOR)
-        .value("EMT_TRANSPARENT_ALPHA_CHANNEL", irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL)
-        .value("EMT_TRANSPARENT_ALPHA_CHANNEL_REF", irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF)
-        .value("EMT_TRANSPARENT_VERTEX_ALPHA", irr::video::EMT_TRANSPARENT_VERTEX_ALPHA)
-        .value("EMT_TRANSPARENT_REFLECTION_2_LAYER", irr::video::EMT_TRANSPARENT_REFLECTION_2_LAYER)
-        .value("EMT_NORMAL_MAP_SOLID", irr::video::EMT_NORMAL_MAP_SOLID)
-        .value("EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR", irr::video::EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR)
-        .value("EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA", irr::video::EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA)
-        .value("EMT_PARALLAX_MAP_SOLID", irr::video::EMT_PARALLAX_MAP_SOLID)
-        .value("EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR", irr::video::EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR)
-        .value("EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA", irr::video::EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA)
-        .value("EMT_ONETEXTURE_BLEND", irr::video::EMT_ONETEXTURE_BLEND)
-        .value("EMT_FORCE_32BIT", irr::video::EMT_FORCE_32BIT)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_COLOR_MATERIAL>("E_COLOR_MATERIAL")
+	.value("ECM_NONE", irr::video::ECM_NONE)
+	.value("ECM_DIFFUSE", irr::video::ECM_DIFFUSE)
+	.value("ECM_AMBIENT", irr::video::ECM_AMBIENT)
+	.value("ECM_EMISSIVE", irr::video::ECM_EMISSIVE)
+	.value("ECM_SPECULAR", irr::video::ECM_SPECULAR)
+	.value("ECM_DIFFUSE_AND_AMBIENT", irr::video::ECM_DIFFUSE_AND_AMBIENT)
+	.export_values()
+	;
 
-    bp::enum_< irr::scene::E_MESH_WRITER_FLAGS>("E_MESH_WRITER_FLAGS")
-        .value("EMWF_NONE", irr::scene::EMWF_NONE)
-        .value("EMWF_WRITE_LIGHTMAPS", irr::scene::EMWF_WRITE_LIGHTMAPS)
-        .value("EMWF_WRITE_COMPRESSED", irr::scene::EMWF_WRITE_COMPRESSED)
-        .value("EMWF_WRITE_BINARY", irr::scene::EMWF_WRITE_BINARY)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_COLOR_PLANE>("E_COLOR_PLANE")
+	.value("ECP_NONE", irr::video::ECP_NONE)
+	.value("ECP_ALPHA", irr::video::ECP_ALPHA)
+	.value("ECP_RED", irr::video::ECP_RED)
+	.value("ECP_GREEN", irr::video::ECP_GREEN)
+	.value("ECP_BLUE", irr::video::ECP_BLUE)
+	.value("ECP_RGB", irr::video::ECP_RGB)
+	.value("ECP_ALL", irr::video::ECP_ALL)
+	.export_values()
+	;
 
-    bp::enum_< irr::video::E_MODULATE_FUNC>("E_MODULATE_FUNC")
-        .value("EMFN_MODULATE_1X", irr::video::EMFN_MODULATE_1X)
-        .value("EMFN_MODULATE_2X", irr::video::EMFN_MODULATE_2X)
-        .value("EMFN_MODULATE_4X", irr::video::EMFN_MODULATE_4X)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_COMPARISON_FUNC>("E_COMPARISON_FUNC")
+	.value("ECFN_NEVER", irr::video::ECFN_NEVER)
+	.value("ECFN_LESSEQUAL", irr::video::ECFN_LESSEQUAL)
+	.value("ECFN_EQUAL", irr::video::ECFN_EQUAL)
+	.value("ECFN_LESS", irr::video::ECFN_LESS)
+	.value("ECFN_NOTEQUAL", irr::video::ECFN_NOTEQUAL)
+	.value("ECFN_GREATEREQUAL", irr::video::ECFN_GREATEREQUAL)
+	.value("ECFN_GREATER", irr::video::ECFN_GREATER)
+	.value("ECFN_ALWAYS", irr::video::ECFN_ALWAYS)
+	.export_values()
+	;
 
+	bp::enum_< irr::scene::E_CULLING_TYPE>("E_CULLING_TYPE")
+	.value("EAC_OFF", irr::scene::EAC_OFF)
+	.value("EAC_BOX", irr::scene::EAC_BOX)
+	.value("EAC_FRUSTUM_BOX", irr::scene::EAC_FRUSTUM_BOX)
+	.value("EAC_FRUSTUM_SPHERE", irr::scene::EAC_FRUSTUM_SPHERE)
+	.export_values()
+	;
 
-
-    bp::enum_< irr::video::E_TEXTURE_CLAMP>("E_TEXTURE_CLAMP")
-        .value("ETC_REPEAT", irr::video::ETC_REPEAT)
-        .value("ETC_CLAMP", irr::video::ETC_CLAMP)
-        .value("ETC_CLAMP_TO_EDGE", irr::video::ETC_CLAMP_TO_EDGE)
-        .value("ETC_CLAMP_TO_BORDER", irr::video::ETC_CLAMP_TO_BORDER)
-        .value("ETC_MIRROR", irr::video::ETC_MIRROR)
-        .value("ETC_MIRROR_CLAMP", irr::video::ETC_MIRROR_CLAMP)
-        .value("ETC_MIRROR_CLAMP_TO_EDGE", irr::video::ETC_MIRROR_CLAMP_TO_EDGE)
-        .value("ETC_MIRROR_CLAMP_TO_BORDER", irr::video::ETC_MIRROR_CLAMP_TO_BORDER)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_TEXTURE_CREATION_FLAG>("E_TEXTURE_CREATION_FLAG")
-        .value("ETCF_ALWAYS_16_BIT", irr::video::ETCF_ALWAYS_16_BIT)
-        .value("ETCF_ALWAYS_32_BIT", irr::video::ETCF_ALWAYS_32_BIT)
-        .value("ETCF_OPTIMIZED_FOR_QUALITY", irr::video::ETCF_OPTIMIZED_FOR_QUALITY)
-        .value("ETCF_OPTIMIZED_FOR_SPEED", irr::video::ETCF_OPTIMIZED_FOR_SPEED)
-        .value("ETCF_CREATE_MIP_MAPS", irr::video::ETCF_CREATE_MIP_MAPS)
-        .value("ETCF_NO_ALPHA_CHANNEL", irr::video::ETCF_NO_ALPHA_CHANNEL)
-        .value("ETCF_ALLOW_NON_POWER_2", irr::video::ETCF_ALLOW_NON_POWER_2)
-        .value("ETCF_FORCE_32_BIT_DO_NOT_USE", irr::video::ETCF_FORCE_32_BIT_DO_NOT_USE)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_TRANSFORMATION_STATE>("E_TRANSFORMATION_STATE")
-        .value("ETS_VIEW", irr::video::ETS_VIEW)
-        .value("ETS_WORLD", irr::video::ETS_WORLD)
-        .value("ETS_PROJECTION", irr::video::ETS_PROJECTION)
-        .value("ETS_TEXTURE_0", irr::video::ETS_TEXTURE_0)
-        .value("ETS_TEXTURE_1", irr::video::ETS_TEXTURE_1)
-        .value("ETS_TEXTURE_2", irr::video::ETS_TEXTURE_2)
-        .value("ETS_TEXTURE_3", irr::video::ETS_TEXTURE_3)
-        .value("ETS_COUNT", irr::video::ETS_COUNT)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_VERTEX_SHADER_TYPE>("E_VERTEX_SHADER_TYPE")
-        .value("EVST_VS_1_1", irr::video::EVST_VS_1_1)
-        .value("EVST_VS_2_0", irr::video::EVST_VS_2_0)
-        .value("EVST_VS_2_a", irr::video::EVST_VS_2_a)
-        .value("EVST_VS_3_0", irr::video::EVST_VS_3_0)
-        .value("EVST_VS_4_0", irr::video::EVST_VS_4_0)
-        .value("EVST_VS_4_1", irr::video::EVST_VS_4_1)
-        .value("EVST_VS_5_0", irr::video::EVST_VS_5_0)
-        .value("EVST_COUNT", irr::video::EVST_COUNT)
-        .export_values()
-        ;
-
-    bp::enum_< irr::video::E_VERTEX_TYPE>("E_VERTEX_TYPE")
-        .value("EVT_STANDARD", irr::video::EVT_STANDARD)
-        .value("EVT_2TCOORDS", irr::video::EVT_2TCOORDS)
-        .value("EVT_TANGENTS", irr::video::EVT_TANGENTS)
-        .export_values()
-        ;
+	bp::enum_< irr::scene::E_DEBUG_SCENE_TYPE>("E_DEBUG_SCENE_TYPE")
+	.value("EDS_OFF", irr::scene::EDS_OFF)
+	.value("EDS_BBOX", irr::scene::EDS_BBOX)
+	.value("EDS_NORMALS", irr::scene::EDS_NORMALS)
+	.value("EDS_SKELETON", irr::scene::EDS_SKELETON)
+	.value("EDS_MESH_WIRE_OVERLAY", irr::scene::EDS_MESH_WIRE_OVERLAY)
+	.value("EDS_HALF_TRANSPARENCY", irr::scene::EDS_HALF_TRANSPARENCY)
+	.value("EDS_BBOX_BUFFERS", irr::scene::EDS_BBOX_BUFFERS)
+	.value("EDS_BBOX_ALL", irr::scene::EDS_BBOX_ALL)
+	.value("EDS_FULL", irr::scene::EDS_FULL)
+	.export_values()
+	;
 
 
 
-    bp::enum_< irr::core::eAllocStrategy>("eAllocStrategy")
-        .value("ALLOC_STRATEGY_SAFE", irr::core::ALLOC_STRATEGY_SAFE)
-        .value("ALLOC_STRATEGY_DOUBLE", irr::core::ALLOC_STRATEGY_DOUBLE)
-        .value("ALLOC_STRATEGY_SQRT", irr::core::ALLOC_STRATEGY_SQRT)
-        .export_values()
-        ;
+	bp::enum_< irr::scene::E_HARDWARE_MAPPING>("E_HARDWARE_MAPPING")
+	.value("EHM_NEVER", irr::scene::EHM_NEVER)
+	.value("EHM_STATIC", irr::scene::EHM_STATIC)
+	.value("EHM_DYNAMIC", irr::scene::EHM_DYNAMIC)
+	.value("EHM_STREAM", irr::scene::EHM_STREAM)
+	.export_values()
+	;
 
-    bp::enum_< irr::core::eLocaleID>("eLocaleID")
-        .value("IRR_LOCALE_ANSI", irr::core::IRR_LOCALE_ANSI)
-        .value("IRR_LOCALE_GERMAN", irr::core::IRR_LOCALE_GERMAN)
-        .export_values()
-        ;
+	bp::enum_< irr::video::E_INDEX_TYPE>("E_INDEX_TYPE")
+	.value("EIT_16BIT", irr::video::EIT_16BIT)
+	.value("EIT_32BIT", irr::video::EIT_32BIT)
+	.export_values()
+	;
+
+	bp::enum_< irr::scene::E_INTERPOLATION_MODE>("E_INTERPOLATION_MODE")
+	.value("EIM_CONSTANT", irr::scene::EIM_CONSTANT)
+	.value("EIM_LINEAR", irr::scene::EIM_LINEAR)
+	.value("EIM_COUNT", irr::scene::EIM_COUNT)
+	.export_values()
+	;
+
+	bp::enum_< irr::scene::E_JOINT_UPDATE_ON_RENDER>("E_JOINT_UPDATE_ON_RENDER")
+	.value("EJUOR_NONE", irr::scene::EJUOR_NONE)
+	.value("EJUOR_READ", irr::scene::EJUOR_READ)
+	.value("EJUOR_CONTROL", irr::scene::EJUOR_CONTROL)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_LIGHT_TYPE>("E_LIGHT_TYPE")
+	.value("ELT_POINT", irr::video::ELT_POINT)
+	.value("ELT_SPOT", irr::video::ELT_SPOT)
+	.value("ELT_DIRECTIONAL", irr::video::ELT_DIRECTIONAL)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_LOST_RESSOURCE>("E_LOST_RESSOURCE")
+	.value("ELR_DEVICE", irr::video::ELR_DEVICE)
+	.value("ELR_TEXTURES", irr::video::ELR_TEXTURES)
+	.value("ELR_RTTS", irr::video::ELR_RTTS)
+	.value("ELR_HW_BUFFERS", irr::video::ELR_HW_BUFFERS)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_MATERIAL_FLAG>("E_MATERIAL_FLAG")
+	.value("EMF_WIREFRAME", irr::video::EMF_WIREFRAME)
+	.value("EMF_POINTCLOUD", irr::video::EMF_POINTCLOUD)
+	.value("EMF_GOURAUD_SHADING", irr::video::EMF_GOURAUD_SHADING)
+	.value("EMF_LIGHTING", irr::video::EMF_LIGHTING)
+	.value("EMF_ZBUFFER", irr::video::EMF_ZBUFFER)
+	.value("EMF_ZWRITE_ENABLE", irr::video::EMF_ZWRITE_ENABLE)
+	.value("EMF_BACK_FACE_CULLING", irr::video::EMF_BACK_FACE_CULLING)
+	.value("EMF_FRONT_FACE_CULLING", irr::video::EMF_FRONT_FACE_CULLING)
+	.value("EMF_BILINEAR_FILTER", irr::video::EMF_BILINEAR_FILTER)
+	.value("EMF_TRILINEAR_FILTER", irr::video::EMF_TRILINEAR_FILTER)
+	.value("EMF_ANISOTROPIC_FILTER", irr::video::EMF_ANISOTROPIC_FILTER)
+	.value("EMF_FOG_ENABLE", irr::video::EMF_FOG_ENABLE)
+	.value("EMF_NORMALIZE_NORMALS", irr::video::EMF_NORMALIZE_NORMALS)
+	.value("EMF_TEXTURE_WRAP", irr::video::EMF_TEXTURE_WRAP)
+	.value("EMF_ANTI_ALIASING", irr::video::EMF_ANTI_ALIASING)
+	.value("EMF_COLOR_MASK", irr::video::EMF_COLOR_MASK)
+	.value("EMF_COLOR_MATERIAL", irr::video::EMF_COLOR_MATERIAL)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_MATERIAL_TYPE>("E_MATERIAL_TYPE")
+	.value("EMT_SOLID", irr::video::EMT_SOLID)
+	.value("EMT_SOLID_2_LAYER", irr::video::EMT_SOLID_2_LAYER)
+	.value("EMT_LIGHTMAP", irr::video::EMT_LIGHTMAP)
+	.value("EMT_LIGHTMAP_ADD", irr::video::EMT_LIGHTMAP_ADD)
+	.value("EMT_LIGHTMAP_M2", irr::video::EMT_LIGHTMAP_M2)
+	.value("EMT_LIGHTMAP_M4", irr::video::EMT_LIGHTMAP_M4)
+	.value("EMT_LIGHTMAP_LIGHTING", irr::video::EMT_LIGHTMAP_LIGHTING)
+	.value("EMT_LIGHTMAP_LIGHTING_M2", irr::video::EMT_LIGHTMAP_LIGHTING_M2)
+	.value("EMT_LIGHTMAP_LIGHTING_M4", irr::video::EMT_LIGHTMAP_LIGHTING_M4)
+	.value("EMT_DETAIL_MAP", irr::video::EMT_DETAIL_MAP)
+	.value("EMT_SPHERE_MAP", irr::video::EMT_SPHERE_MAP)
+	.value("EMT_REFLECTION_2_LAYER", irr::video::EMT_REFLECTION_2_LAYER)
+	.value("EMT_TRANSPARENT_ADD_COLOR", irr::video::EMT_TRANSPARENT_ADD_COLOR)
+	.value("EMT_TRANSPARENT_ALPHA_CHANNEL", irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL)
+	.value("EMT_TRANSPARENT_ALPHA_CHANNEL_REF", irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF)
+	.value("EMT_TRANSPARENT_VERTEX_ALPHA", irr::video::EMT_TRANSPARENT_VERTEX_ALPHA)
+	.value("EMT_TRANSPARENT_REFLECTION_2_LAYER", irr::video::EMT_TRANSPARENT_REFLECTION_2_LAYER)
+	.value("EMT_NORMAL_MAP_SOLID", irr::video::EMT_NORMAL_MAP_SOLID)
+	.value("EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR", irr::video::EMT_NORMAL_MAP_TRANSPARENT_ADD_COLOR)
+	.value("EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA", irr::video::EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA)
+	.value("EMT_PARALLAX_MAP_SOLID", irr::video::EMT_PARALLAX_MAP_SOLID)
+	.value("EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR", irr::video::EMT_PARALLAX_MAP_TRANSPARENT_ADD_COLOR)
+	.value("EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA", irr::video::EMT_PARALLAX_MAP_TRANSPARENT_VERTEX_ALPHA)
+	.value("EMT_ONETEXTURE_BLEND", irr::video::EMT_ONETEXTURE_BLEND)
+	.value("EMT_FORCE_32BIT", irr::video::EMT_FORCE_32BIT)
+	.export_values()
+	;
+
+	bp::enum_< irr::scene::E_MESH_WRITER_FLAGS>("E_MESH_WRITER_FLAGS")
+	.value("EMWF_NONE", irr::scene::EMWF_NONE)
+	.value("EMWF_WRITE_LIGHTMAPS", irr::scene::EMWF_WRITE_LIGHTMAPS)
+	.value("EMWF_WRITE_COMPRESSED", irr::scene::EMWF_WRITE_COMPRESSED)
+	.value("EMWF_WRITE_BINARY", irr::scene::EMWF_WRITE_BINARY)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_MODULATE_FUNC>("E_MODULATE_FUNC")
+	.value("EMFN_MODULATE_1X", irr::video::EMFN_MODULATE_1X)
+	.value("EMFN_MODULATE_2X", irr::video::EMFN_MODULATE_2X)
+	.value("EMFN_MODULATE_4X", irr::video::EMFN_MODULATE_4X)
+	.export_values()
+	;
 
 
 
-    { //::irr::core::vector3d< float >
-        typedef bp::class_< irr::core::vector3d< float > > vector3df_exposer_t;
-        vector3df_exposer_t vector3df_exposer = vector3df_exposer_t( "vector3df", bp::init< >() );
-        bp::scope vector3df_scope( vector3df_exposer );
-        vector3df_exposer.def( bp::init< float, float, float >(( bp::arg("nx"), bp::arg("ny"), bp::arg("nz") )) );
-        vector3df_exposer.def( bp::init< float >(( bp::arg("n") )) );
-        bp::implicitly_convertible< float, irr::core::vector3d< float > >();
-        vector3df_exposer.def( bp::init< irr::core::vector3d< float > const & >(( bp::arg("other") )) );
-        { //::irr::core::vector3d< float >::crossProduct
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > ( exported_class_t::*crossProduct_function_type )( ::irr::core::vector3d< float > const & ) const;
-            
-            vector3df_exposer.def( 
-                "crossProduct"
-                , crossProduct_function_type( &::irr::core::vector3d< float >::crossProduct )
-                , ( bp::arg("p") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::dotProduct
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef float ( exported_class_t::*dotProduct_function_type )( ::irr::core::vector3d< float > const & ) const;
-            
-            vector3df_exposer.def( 
-                "dotProduct"
-                , dotProduct_function_type( &::irr::core::vector3d< float >::dotProduct )
-                , ( bp::arg("other") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::equals
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef bool ( exported_class_t::*equals_function_type )( ::irr::core::vector3d< float > const &,float const ) const;
-            
-            vector3df_exposer.def( 
-                "equals"
-                , equals_function_type( &::irr::core::vector3d< float >::equals )
-                , ( bp::arg("other"), bp::arg("tolerance")=( irr::core::ROUNDING_ERROR_f32 ) ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getAs4Values
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef void ( exported_class_t::*getAs4Values_function_type )( float * ) const;
-            
-            vector3df_exposer.def( 
-                "getAs4Values"
-                , getAs4Values_function_type( &::irr::core::vector3d< float >::getAs4Values )
-                , ( bp::arg("array") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getDistanceFrom
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef float ( exported_class_t::*getDistanceFrom_function_type )( ::irr::core::vector3d< float > const & ) const;
-            
-            vector3df_exposer.def( 
-                "getDistanceFrom"
-                , getDistanceFrom_function_type( &::irr::core::vector3d< float >::getDistanceFrom )
-                , ( bp::arg("other") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getDistanceFromSQ
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef float ( exported_class_t::*getDistanceFromSQ_function_type )( ::irr::core::vector3d< float > const & ) const;
-            
-            vector3df_exposer.def( 
-                "getDistanceFromSQ"
-                , getDistanceFromSQ_function_type( &::irr::core::vector3d< float >::getDistanceFromSQ )
-                , ( bp::arg("other") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getHorizontalAngle
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > ( exported_class_t::*getHorizontalAngle_function_type )(  ) const;
-            
-            vector3df_exposer.def( 
-                "getHorizontalAngle"
-                , getHorizontalAngle_function_type( &::irr::core::vector3d< float >::getHorizontalAngle ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getInterpolated
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > ( exported_class_t::*getInterpolated_function_type )( ::irr::core::vector3d< float > const &,::irr::f64 ) const;
-            
-            vector3df_exposer.def( 
-                "getInterpolated"
-                , getInterpolated_function_type( &::irr::core::vector3d< float >::getInterpolated )
-                , ( bp::arg("other"), bp::arg("d") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getInterpolated_quadratic
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > ( exported_class_t::*getInterpolated_quadratic_function_type )( ::irr::core::vector3d< float > const &,::irr::core::vector3d< float > const &,::irr::f64 ) const;
-            
-            vector3df_exposer.def( 
-                "getInterpolated_quadratic"
-                , getInterpolated_quadratic_function_type( &::irr::core::vector3d< float >::getInterpolated_quadratic )
-                , ( bp::arg("v2"), bp::arg("v3"), bp::arg("d") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getLength
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef float ( exported_class_t::*getLength_function_type )(  ) const;
-            
-            vector3df_exposer.def( 
-                "getLength"
-                , getLength_function_type( &::irr::core::vector3d< float >::getLength ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getLengthSQ
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef float ( exported_class_t::*getLengthSQ_function_type )(  ) const;
-            
-            vector3df_exposer.def( 
-                "getLengthSQ"
-                , getLengthSQ_function_type( &::irr::core::vector3d< float >::getLengthSQ ) );
-        
-        }
-        { //::irr::core::vector3d< float >::getSphericalCoordinateAngles
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > ( exported_class_t::*getSphericalCoordinateAngles_function_type )(  ) ;
-            
-            vector3df_exposer.def( 
-                "getSphericalCoordinateAngles"
-                , getSphericalCoordinateAngles_function_type( &::irr::core::vector3d< float >::getSphericalCoordinateAngles ) );
-        
-        }
-        { //::irr::core::vector3d< float >::interpolate
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*interpolate_function_type )( ::irr::core::vector3d< float > const &,::irr::core::vector3d< float > const &,::irr::f64 ) ;
-            
-            vector3df_exposer.def( 
-                "interpolate"
-                , interpolate_function_type( &::irr::core::vector3d< float >::interpolate )
-                , ( bp::arg("a"), bp::arg("b"), bp::arg("d") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::irr::core::vector3d< float >::invert
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*invert_function_type )(  ) ;
-            
-            vector3df_exposer.def( 
-                "invert"
-                , invert_function_type( &::irr::core::vector3d< float >::invert )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::irr::core::vector3d< float >::isBetweenPoints
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef bool ( exported_class_t::*isBetweenPoints_function_type )( ::irr::core::vector3d< float > const &,::irr::core::vector3d< float > const & ) const;
-            
-            vector3df_exposer.def( 
-                "isBetweenPoints"
-                , isBetweenPoints_function_type( &::irr::core::vector3d< float >::isBetweenPoints )
-                , ( bp::arg("begin"), bp::arg("end") ) );
-        
-        }
-        { //::irr::core::vector3d< float >::normalize
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*normalize_function_type )(  ) ;
-            
-            vector3df_exposer.def( 
-                "normalize"
-                , normalize_function_type( &::irr::core::vector3d< float >::normalize )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        vector3df_exposer.def( bp::self != bp::self );
-        vector3df_exposer.def( bp::self * bp::self );
-        vector3df_exposer.def( bp::self * bp::other< float >() );
-        vector3df_exposer.def( bp::self *= bp::self );
-        vector3df_exposer.def( bp::self *= bp::other< float >() );
-        vector3df_exposer.def( bp::self + bp::self );
-        vector3df_exposer.def( bp::self + bp::other< float >() );
-        vector3df_exposer.def( bp::self += bp::self );
-        vector3df_exposer.def( bp::self += bp::other< float >() );
-        vector3df_exposer.def( -bp::self );
-        vector3df_exposer.def( bp::self - bp::self );
-        vector3df_exposer.def( bp::self - bp::other< float >() );
-        vector3df_exposer.def( bp::self -= bp::self );
-        vector3df_exposer.def( bp::self -= bp::other< float >() );
-        vector3df_exposer.def( bp::self / bp::self );
-        vector3df_exposer.def( bp::self / bp::other< float >() );
-        vector3df_exposer.def( bp::self /= bp::self );
-        vector3df_exposer.def( bp::self /= bp::other< float >() );
-        vector3df_exposer.def( bp::self < bp::self );
-        vector3df_exposer.def( bp::self <= bp::self );
-        { //::irr::core::vector3d< float >::operator=
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*assign_function_type )( ::irr::core::vector3d< float > const & ) ;
-            
-            vector3df_exposer.def( 
-                "assign"
-                , assign_function_type( &::irr::core::vector3d< float >::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        vector3df_exposer.def( bp::self == bp::self );
-        vector3df_exposer.def( bp::self > bp::self );
-        vector3df_exposer.def( bp::self >= bp::self );
-        { //::irr::core::vector3d< float >::rotateXYBy
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef void ( exported_class_t::*rotateXYBy_function_type )( ::irr::f64,::irr::core::vector3d< float > const & ) ;
-            
-            vector3df_exposer.def( 
-                "rotateXYBy"
-                , rotateXYBy_function_type( &::irr::core::vector3d< float >::rotateXYBy )
-                , ( bp::arg("degrees"), bp::arg("center")=irr::core::vector3df() ) );
-        
-        }
-        { //::irr::core::vector3d< float >::rotateXZBy
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef void ( exported_class_t::*rotateXZBy_function_type )( ::irr::f64,::irr::core::vector3d< float > const & ) ;
-            
-            vector3df_exposer.def( 
-                "rotateXZBy"
-                , rotateXZBy_function_type( &::irr::core::vector3d< float >::rotateXZBy )
-                , ( bp::arg("degrees"), bp::arg("center")=irr::core::vector3df() ) );
-        
-        }
-        { //::irr::core::vector3d< float >::rotateYZBy
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef void ( exported_class_t::*rotateYZBy_function_type )( ::irr::f64,::irr::core::vector3d< float > const & ) ;
-            
-            vector3df_exposer.def( 
-                "rotateYZBy"
-                , rotateYZBy_function_type( &::irr::core::vector3d< float >::rotateYZBy )
-                , ( bp::arg("degrees"), bp::arg("center")=irr::core::vector3df() ) );
-        
-        }
-        { //::irr::core::vector3d< float >::rotationToDirection
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > ( exported_class_t::*rotationToDirection_function_type )( ::irr::core::vector3d< float > const & ) const;
-            
-            vector3df_exposer.def( 
-                "rotationToDirection"
-                , rotationToDirection_function_type( &::irr::core::vector3d< float >::rotationToDirection )
-                , ( bp::arg("forwards")=irr::core::vector3df(0, 0, 1) ) );
-        
-        }
-        { //::irr::core::vector3d< float >::set
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*set_function_type )( float const,float const,float const ) ;
-            
-            vector3df_exposer.def( 
-                "set"
-                , set_function_type( &::irr::core::vector3d< float >::set )
-                , ( bp::arg("nx"), bp::arg("ny"), bp::arg("nz") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::irr::core::vector3d< float >::set
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*set_function_type )( ::irr::core::vector3d< float > const & ) ;
-            
-            vector3df_exposer.def( 
-                "set"
-                , set_function_type( &::irr::core::vector3d< float >::set )
-                , ( bp::arg("p") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::irr::core::vector3d< float >::setLength
-        
-            typedef irr::core::vector3d< float > exported_class_t;
-            typedef ::irr::core::vector3d< float > & ( exported_class_t::*setLength_function_type )( float ) ;
-            
-            vector3df_exposer.def( 
-                "setLength"
-                , setLength_function_type( &::irr::core::vector3d< float >::setLength )
-                , ( bp::arg("newlength") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        vector3df_exposer.def_readwrite( "X", &irr::core::vector3d< float >::X );
-        vector3df_exposer.def_readwrite( "Y", &irr::core::vector3d< float >::Y );
-        vector3df_exposer.def_readwrite( "Z", &irr::core::vector3d< float >::Z );
-    }
+	bp::enum_< irr::video::E_TEXTURE_CLAMP>("E_TEXTURE_CLAMP")
+	.value("ETC_REPEAT", irr::video::ETC_REPEAT)
+	.value("ETC_CLAMP", irr::video::ETC_CLAMP)
+	.value("ETC_CLAMP_TO_EDGE", irr::video::ETC_CLAMP_TO_EDGE)
+	.value("ETC_CLAMP_TO_BORDER", irr::video::ETC_CLAMP_TO_BORDER)
+	.value("ETC_MIRROR", irr::video::ETC_MIRROR)
+	.value("ETC_MIRROR_CLAMP", irr::video::ETC_MIRROR_CLAMP)
+	.value("ETC_MIRROR_CLAMP_TO_EDGE", irr::video::ETC_MIRROR_CLAMP_TO_EDGE)
+	.value("ETC_MIRROR_CLAMP_TO_BORDER", irr::video::ETC_MIRROR_CLAMP_TO_BORDER)
+	.export_values()
+	;
 
+	bp::enum_< irr::video::E_TEXTURE_CREATION_FLAG>("E_TEXTURE_CREATION_FLAG")
+	.value("ETCF_ALWAYS_16_BIT", irr::video::ETCF_ALWAYS_16_BIT)
+	.value("ETCF_ALWAYS_32_BIT", irr::video::ETCF_ALWAYS_32_BIT)
+	.value("ETCF_OPTIMIZED_FOR_QUALITY", irr::video::ETCF_OPTIMIZED_FOR_QUALITY)
+	.value("ETCF_OPTIMIZED_FOR_SPEED", irr::video::ETCF_OPTIMIZED_FOR_SPEED)
+	.value("ETCF_CREATE_MIP_MAPS", irr::video::ETCF_CREATE_MIP_MAPS)
+	.value("ETCF_NO_ALPHA_CHANNEL", irr::video::ETCF_NO_ALPHA_CHANNEL)
+	.value("ETCF_ALLOW_NON_POWER_2", irr::video::ETCF_ALLOW_NON_POWER_2)
+	.value("ETCF_FORCE_32_BIT_DO_NOT_USE", irr::video::ETCF_FORCE_32_BIT_DO_NOT_USE)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_TRANSFORMATION_STATE>("E_TRANSFORMATION_STATE")
+	.value("ETS_VIEW", irr::video::ETS_VIEW)
+	.value("ETS_WORLD", irr::video::ETS_WORLD)
+	.value("ETS_PROJECTION", irr::video::ETS_PROJECTION)
+	.value("ETS_TEXTURE_0", irr::video::ETS_TEXTURE_0)
+	.value("ETS_TEXTURE_1", irr::video::ETS_TEXTURE_1)
+	.value("ETS_TEXTURE_2", irr::video::ETS_TEXTURE_2)
+	.value("ETS_TEXTURE_3", irr::video::ETS_TEXTURE_3)
+	.value("ETS_COUNT", irr::video::ETS_COUNT)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_VERTEX_SHADER_TYPE>("E_VERTEX_SHADER_TYPE")
+	.value("EVST_VS_1_1", irr::video::EVST_VS_1_1)
+	.value("EVST_VS_2_0", irr::video::EVST_VS_2_0)
+	.value("EVST_VS_2_a", irr::video::EVST_VS_2_a)
+	.value("EVST_VS_3_0", irr::video::EVST_VS_3_0)
+	.value("EVST_VS_4_0", irr::video::EVST_VS_4_0)
+	.value("EVST_VS_4_1", irr::video::EVST_VS_4_1)
+	.value("EVST_VS_5_0", irr::video::EVST_VS_5_0)
+	.value("EVST_COUNT", irr::video::EVST_COUNT)
+	.export_values()
+	;
+
+	bp::enum_< irr::video::E_VERTEX_TYPE>("E_VERTEX_TYPE")
+	.value("EVT_STANDARD", irr::video::EVT_STANDARD)
+	.value("EVT_2TCOORDS", irr::video::EVT_2TCOORDS)
+	.value("EVT_TANGENTS", irr::video::EVT_TANGENTS)
+	.export_values()
+	;
+
+
+
+	bp::enum_< irr::core::eAllocStrategy>("eAllocStrategy")
+	.value("ALLOC_STRATEGY_SAFE", irr::core::ALLOC_STRATEGY_SAFE)
+	.value("ALLOC_STRATEGY_DOUBLE", irr::core::ALLOC_STRATEGY_DOUBLE)
+	.value("ALLOC_STRATEGY_SQRT", irr::core::ALLOC_STRATEGY_SQRT)
+	.export_values()
+	;
+
+	bp::enum_< irr::core::eLocaleID>("eLocaleID")
+	.value("IRR_LOCALE_ANSI", irr::core::IRR_LOCALE_ANSI)
+	.value("IRR_LOCALE_GERMAN", irr::core::IRR_LOCALE_GERMAN)
+	.export_values()
+	;*/
+
+
+
+	{ //::irr::core::vector3d< float >
+		typedef bp::class_< irr::core::vector3d< float > > vector3df_exposer_t;
+		vector3df_exposer_t vector3df_exposer = vector3df_exposer_t( "vector3df", bp::init< >() );
+		bp::scope vector3df_scope( vector3df_exposer );
+		vector3df_exposer.def( bp::init< float, float, float >(( bp::arg("nx"), bp::arg("ny"), bp::arg("nz") )) );
+		vector3df_exposer.def( bp::init< float >(( bp::arg("n") )) );
+		bp::implicitly_convertible< float, irr::core::vector3d< float > >();
+		vector3df_exposer.def( bp::init< irr::core::vector3d< float > const & >(( bp::arg("other") )) );
+		{ //::irr::core::vector3d< float >::crossProduct
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > ( exported_class_t::*crossProduct_function_type )( ::irr::core::vector3d< float > const & ) const;
+
+			vector3df_exposer.def( 
+				"crossProduct"
+				, crossProduct_function_type( &::irr::core::vector3d< float >::crossProduct )
+				, ( bp::arg("p") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::dotProduct
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef float ( exported_class_t::*dotProduct_function_type )( ::irr::core::vector3d< float > const & ) const;
+
+			vector3df_exposer.def( 
+				"dotProduct"
+				, dotProduct_function_type( &::irr::core::vector3d< float >::dotProduct )
+				, ( bp::arg("other") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::equals
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef bool ( exported_class_t::*equals_function_type )( ::irr::core::vector3d< float > const &,float const ) const;
+
+			vector3df_exposer.def( 
+				"equals"
+				, equals_function_type( &::irr::core::vector3d< float >::equals )
+				, ( bp::arg("other"), bp::arg("tolerance")=( irr::core::ROUNDING_ERROR_f32 ) ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getAs4Values
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef void ( exported_class_t::*getAs4Values_function_type )( float * ) const;
+
+			vector3df_exposer.def( 
+				"getAs4Values"
+				, getAs4Values_function_type( &::irr::core::vector3d< float >::getAs4Values )
+				, ( bp::arg("array") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getDistanceFrom
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef float ( exported_class_t::*getDistanceFrom_function_type )( ::irr::core::vector3d< float > const & ) const;
+
+			vector3df_exposer.def( 
+				"getDistanceFrom"
+				, getDistanceFrom_function_type( &::irr::core::vector3d< float >::getDistanceFrom )
+				, ( bp::arg("other") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getDistanceFromSQ
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef float ( exported_class_t::*getDistanceFromSQ_function_type )( ::irr::core::vector3d< float > const & ) const;
+
+			vector3df_exposer.def( 
+				"getDistanceFromSQ"
+				, getDistanceFromSQ_function_type( &::irr::core::vector3d< float >::getDistanceFromSQ )
+				, ( bp::arg("other") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getHorizontalAngle
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > ( exported_class_t::*getHorizontalAngle_function_type )(  ) const;
+
+			vector3df_exposer.def( 
+				"getHorizontalAngle"
+				, getHorizontalAngle_function_type( &::irr::core::vector3d< float >::getHorizontalAngle ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getInterpolated
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > ( exported_class_t::*getInterpolated_function_type )( ::irr::core::vector3d< float > const &,::irr::f64 ) const;
+
+			vector3df_exposer.def( 
+				"getInterpolated"
+				, getInterpolated_function_type( &::irr::core::vector3d< float >::getInterpolated )
+				, ( bp::arg("other"), bp::arg("d") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getInterpolated_quadratic
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > ( exported_class_t::*getInterpolated_quadratic_function_type )( ::irr::core::vector3d< float > const &,::irr::core::vector3d< float > const &,::irr::f64 ) const;
+
+			vector3df_exposer.def( 
+				"getInterpolated_quadratic"
+				, getInterpolated_quadratic_function_type( &::irr::core::vector3d< float >::getInterpolated_quadratic )
+				, ( bp::arg("v2"), bp::arg("v3"), bp::arg("d") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getLength
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef float ( exported_class_t::*getLength_function_type )(  ) const;
+
+			vector3df_exposer.def( 
+				"getLength"
+				, getLength_function_type( &::irr::core::vector3d< float >::getLength ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getLengthSQ
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef float ( exported_class_t::*getLengthSQ_function_type )(  ) const;
+
+			vector3df_exposer.def( 
+				"getLengthSQ"
+				, getLengthSQ_function_type( &::irr::core::vector3d< float >::getLengthSQ ) );
+
+		}
+		{ //::irr::core::vector3d< float >::getSphericalCoordinateAngles
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > ( exported_class_t::*getSphericalCoordinateAngles_function_type )(  ) ;
+
+			vector3df_exposer.def( 
+				"getSphericalCoordinateAngles"
+				, getSphericalCoordinateAngles_function_type( &::irr::core::vector3d< float >::getSphericalCoordinateAngles ) );
+
+		}
+		{ //::irr::core::vector3d< float >::interpolate
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*interpolate_function_type )( ::irr::core::vector3d< float > const &,::irr::core::vector3d< float > const &,::irr::f64 ) ;
+
+			vector3df_exposer.def( 
+				"interpolate"
+				, interpolate_function_type( &::irr::core::vector3d< float >::interpolate )
+				, ( bp::arg("a"), bp::arg("b"), bp::arg("d") )
+				, bp::return_value_policy< bp::reference_existing_object >() );
+
+		}
+		{ //::irr::core::vector3d< float >::invert
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*invert_function_type )(  ) ;
+
+			vector3df_exposer.def( 
+				"invert"
+				, invert_function_type( &::irr::core::vector3d< float >::invert )
+				, bp::return_value_policy< bp::reference_existing_object >() );
+
+		}
+		{ //::irr::core::vector3d< float >::isBetweenPoints
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef bool ( exported_class_t::*isBetweenPoints_function_type )( ::irr::core::vector3d< float > const &,::irr::core::vector3d< float > const & ) const;
+
+			vector3df_exposer.def( 
+				"isBetweenPoints"
+				, isBetweenPoints_function_type( &::irr::core::vector3d< float >::isBetweenPoints )
+				, ( bp::arg("begin"), bp::arg("end") ) );
+
+		}
+		{ //::irr::core::vector3d< float >::normalize
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*normalize_function_type )(  ) ;
+
+			vector3df_exposer.def( 
+				"normalize"
+				, normalize_function_type( &::irr::core::vector3d< float >::normalize )
+				, bp::return_value_policy< bp::reference_existing_object >() );
+
+		}
+		vector3df_exposer.def( bp::self != bp::self );
+		vector3df_exposer.def( bp::self * bp::self );
+		vector3df_exposer.def( bp::self * bp::other< float >() );
+		vector3df_exposer.def( bp::self *= bp::self );
+		vector3df_exposer.def( bp::self *= bp::other< float >() );
+		vector3df_exposer.def( bp::self + bp::self );
+		vector3df_exposer.def( bp::self + bp::other< float >() );
+		vector3df_exposer.def( bp::self += bp::self );
+		vector3df_exposer.def( bp::self += bp::other< float >() );
+		vector3df_exposer.def( -bp::self );
+		vector3df_exposer.def( bp::self - bp::self );
+		vector3df_exposer.def( bp::self - bp::other< float >() );
+		vector3df_exposer.def( bp::self -= bp::self );
+		vector3df_exposer.def( bp::self -= bp::other< float >() );
+		vector3df_exposer.def( bp::self / bp::self );
+		vector3df_exposer.def( bp::self / bp::other< float >() );
+		vector3df_exposer.def( bp::self /= bp::self );
+		vector3df_exposer.def( bp::self /= bp::other< float >() );
+		vector3df_exposer.def( bp::self < bp::self );
+		vector3df_exposer.def( bp::self <= bp::self );
+		{ //::irr::core::vector3d< float >::operator=
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*assign_function_type )( ::irr::core::vector3d< float > const & ) ;
+
+			vector3df_exposer.def( 
+				"assign"
+				, assign_function_type( &::irr::core::vector3d< float >::operator= )
+				, ( bp::arg("other") )
+				, bp::return_self< >() );
+
+		}
+		vector3df_exposer.def( bp::self == bp::self );
+		vector3df_exposer.def( bp::self > bp::self );
+		vector3df_exposer.def( bp::self >= bp::self );
+		{ //::irr::core::vector3d< float >::rotateXYBy
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef void ( exported_class_t::*rotateXYBy_function_type )( ::irr::f64,::irr::core::vector3d< float > const & ) ;
+
+			vector3df_exposer.def( 
+				"rotateXYBy"
+				, rotateXYBy_function_type( &::irr::core::vector3d< float >::rotateXYBy )
+				, ( bp::arg("degrees"), bp::arg("center")=irr::core::vector3df() ) );
+
+		}
+		{ //::irr::core::vector3d< float >::rotateXZBy
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef void ( exported_class_t::*rotateXZBy_function_type )( ::irr::f64,::irr::core::vector3d< float > const & ) ;
+
+			vector3df_exposer.def( 
+				"rotateXZBy"
+				, rotateXZBy_function_type( &::irr::core::vector3d< float >::rotateXZBy )
+				, ( bp::arg("degrees"), bp::arg("center")=irr::core::vector3df() ) );
+
+		}
+		{ //::irr::core::vector3d< float >::rotateYZBy
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef void ( exported_class_t::*rotateYZBy_function_type )( ::irr::f64,::irr::core::vector3d< float > const & ) ;
+
+			vector3df_exposer.def( 
+				"rotateYZBy"
+				, rotateYZBy_function_type( &::irr::core::vector3d< float >::rotateYZBy )
+				, ( bp::arg("degrees"), bp::arg("center")=irr::core::vector3df() ) );
+
+		}
+		{ //::irr::core::vector3d< float >::rotationToDirection
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > ( exported_class_t::*rotationToDirection_function_type )( ::irr::core::vector3d< float > const & ) const;
+
+			vector3df_exposer.def( 
+				"rotationToDirection"
+				, rotationToDirection_function_type( &::irr::core::vector3d< float >::rotationToDirection )
+				, ( bp::arg("forwards")=irr::core::vector3df(0, 0, 1) ) );
+
+		}
+		{ //::irr::core::vector3d< float >::set
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*set_function_type )( float const,float const,float const ) ;
+
+			vector3df_exposer.def( 
+				"set"
+				, set_function_type( &::irr::core::vector3d< float >::set )
+				, ( bp::arg("nx"), bp::arg("ny"), bp::arg("nz") )
+				, bp::return_value_policy< bp::reference_existing_object >() );
+
+		}
+		{ //::irr::core::vector3d< float >::set
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*set_function_type )( ::irr::core::vector3d< float > const & ) ;
+
+			vector3df_exposer.def( 
+				"set"
+				, set_function_type( &::irr::core::vector3d< float >::set )
+				, ( bp::arg("p") )
+				, bp::return_value_policy< bp::reference_existing_object >() );
+
+		}
+		{ //::irr::core::vector3d< float >::setLength
+
+			typedef irr::core::vector3d< float > exported_class_t;
+			typedef ::irr::core::vector3d< float > & ( exported_class_t::*setLength_function_type )( float ) ;
+
+			vector3df_exposer.def( 
+				"setLength"
+				, setLength_function_type( &::irr::core::vector3d< float >::setLength )
+				, ( bp::arg("newlength") )
+				, bp::return_value_policy< bp::reference_existing_object >() );
+
+		}
+		vector3df_exposer.def_readwrite( "X", &irr::core::vector3d< float >::X );
+		vector3df_exposer.def_readwrite( "Y", &irr::core::vector3d< float >::Y );
+		vector3df_exposer.def_readwrite( "Z", &irr::core::vector3d< float >::Z );
+	}
+
+
+	bp::class_< IReferenceCounted_wrapper >( "IReferenceCounted", bp::init< >() )    
+		.def( 
+		"drop"
+		, (bool ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::drop ) )    
+		.def( 
+		"getDebugName"
+		, (::irr::c8 const * ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::getDebugName ) )    
+		.def( 
+		"getReferenceCount"
+		, (::irr::s32 ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::getReferenceCount ) )    
+		.def( 
+		"grab"
+		, (void ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::grab ) )    
+		.def( 
+		"setDebugName"
+		, (void ( IReferenceCounted_wrapper::* )( ::irr::c8 const * ) )(&IReferenceCounted_wrapper::setDebugName)
+		, ( bp::arg("newName") ) );
+
+	bp::class_< irr::SKeyMap >( "SKeyMap" )    
+		.def_readwrite( "Action", &irr::SKeyMap::Action )    
+		.def_readwrite( "KeyCode", &irr::SKeyMap::KeyCode );
+
+
+
+	bp::class_< irr::io::SAttributeReadWriteOptions >( "SAttributeReadWriteOptions", bp::init< >() )    
+		.def_readwrite( "Flags", &irr::io::SAttributeReadWriteOptions::Flags );
+
+	bp::class_< IAttributeExchangingObject_wrapper, bp::bases< irr::IReferenceCounted > >( "IAttributeExchangingObject" )    
+		.def( 
+		"deserializeAttributes"
+		, (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
+		, (void ( IAttributeExchangingObject_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&IAttributeExchangingObject_wrapper::default_deserializeAttributes)
+		, ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
+		.def( 
+		"serializeAttributes"
+		, (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
+		, (void ( IAttributeExchangingObject_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&IAttributeExchangingObject_wrapper::default_serializeAttributes)
+		, ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
+		.def( 
+		"setDebugName"
+		, (void ( IAttributeExchangingObject_wrapper::* )( ::irr::c8 const * ) )(&IAttributeExchangingObject_wrapper::setDebugName)
+		, ( bp::arg("newName") ) );
+
+	bp::class_< ISceneNode_wrapper, bp::bases< irr::io::IAttributeExchangingObject >, boost::noncopyable >( "ISceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, bp::optional< irr::s32, irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
+		.def( 
+		"OnAnimate"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
+		, (void ( ISceneNode_wrapper::* )( ::irr::u32 ) )(&ISceneNode_wrapper::default_OnAnimate)
+		, ( bp::arg("timeMs") ) )    
+		.def( 
+		"OnRegisterSceneNode"
+		, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
+		, (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_OnRegisterSceneNode) )    
+		.def( 
+		"addAnimator"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ISceneNode_wrapper::default_addAnimator)
+		, ( bp::arg("animator") ) )    
+		.def( 
+		"addChild"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ISceneNode_wrapper::default_addChild)
+		, ( bp::arg("child") ) )    
+		.def( 
+		"clone"
+		, (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
+		, (::irr::scene::ISceneNode * ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ISceneNode_wrapper::default_clone)
+		, ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"cloneMembers"
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ISceneNode_wrapper::cloneMembers)
+		, ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
+		.def( 
+		"deserializeAttributes"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
+		, (void ( ISceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNode_wrapper::default_deserializeAttributes)
+		, ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
+		.def( 
+		"getAbsolutePosition"
+		, (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
+		, (::irr::core::vector3df ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getAbsolutePosition) )    
+		.def( 
+		"getAbsoluteTransformation"
+		, (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getAnimators"
+		, (::irr::core::list<irr::scene::ISceneNodeAnimator*> const & ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getAnimators )
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getAutomaticCulling"
+		, (::irr::scene::E_CULLING_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getAutomaticCulling ) )    
+		.def( 
+		"getBoundingBox"
+		, bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getChildren"
+		, (::irr::core::list<irr::scene::ISceneNode*> const & ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getChildren )
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getID"
+		, (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
+		, (::irr::s32 ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getID) )    
+		.def( 
+		"getMaterial"
+		, (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
+		, ( bp::arg("num") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getMaterialCount"
+		, (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
+		, (::irr::u32 ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getMaterialCount) )    
+		.def( 
+		"getName"
+		, (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
+		, (::irr::c8 const * ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getName) )    
+		.def( 
+		"getParent"
+		, (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getParent )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getPosition"
+		, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getRelativeTransformation"
+		, (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
+		, (::irr::core::matrix4 ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getRelativeTransformation) )    
+		.def( 
+		"getRotation"
+		, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getScale"
+		, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
+		, bp::return_value_policy< bp::copy_const_reference >() )    
+		.def( 
+		"getSceneManager"
+		, (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
+		, (::irr::scene::ISceneManager * ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getSceneManager)
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getTransformedBoundingBox"
+		, (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
+		, (::irr::core::aabbox3d< float > const ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getTransformedBoundingBox) )    
+		.def( 
+		"getTriangleSelector"
+		, (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
+		, (::irr::scene::ITriangleSelector * ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getTriangleSelector)
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getType"
+		, (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
+		, (::irr::scene::ESCENE_NODE_TYPE ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getType) )    
+		.def( 
+		"isDebugDataVisible"
+		, (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::isDebugDataVisible ) )    
+		.def( 
+		"isDebugObject"
+		, (bool ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::isDebugObject ) )    
+		.def( 
+		"isTrulyVisible"
+		, (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
+		, (bool ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_isTrulyVisible) )    
+		.def( 
+		"isVisible"
+		, (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
+		, (bool ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_isVisible) )    
+		.def( 
+		"remove"
+		, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
+		, (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_remove) )    
+		.def( 
+		"removeAll"
+		, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
+		, (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_removeAll) )    
+		.def( 
+		"removeAnimator"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ISceneNode_wrapper::default_removeAnimator)
+		, ( bp::arg("animator") ) )    
+		.def( 
+		"removeAnimators"
+		, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
+		, (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_removeAnimators) )    
+		.def( 
+		"removeChild"
+		, (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
+		, (bool ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ISceneNode_wrapper::default_removeChild)
+		, ( bp::arg("child") ) )    
+		.def( 
+		"render"
+		, bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
+		.def( 
+		"serializeAttributes"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
+		, (void ( ISceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNode_wrapper::default_serializeAttributes)
+		, ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
+		.def( 
+		"setAutomaticCulling"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::E_CULLING_TYPE ) )( &::irr::scene::ISceneNode::setAutomaticCulling )
+		, ( bp::arg("state") ) )    
+		.def( 
+		"setDebugDataVisible"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
+		, (void ( ISceneNode_wrapper::* )( ::irr::s32 ) )(&ISceneNode_wrapper::default_setDebugDataVisible)
+		, ( bp::arg("state") ) )    
+		.def( 
+		"setID"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
+		, (void ( ISceneNode_wrapper::* )( ::irr::s32 ) )(&ISceneNode_wrapper::default_setID)
+		, ( bp::arg("id") ) )    
+		.def( 
+		"setIsDebugObject"
+		, (void ( ::irr::scene::ISceneNode::* )( bool ) )( &::irr::scene::ISceneNode::setIsDebugObject )
+		, ( bp::arg("debugObject") ) )    
+		.def( 
+		"setMaterialFlag"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::video::E_MATERIAL_FLAG,bool ) )( &::irr::scene::ISceneNode::setMaterialFlag )
+		, ( bp::arg("flag"), bp::arg("newvalue") ) )    
+		.def( 
+		"setMaterialTexture"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::u32,::irr::video::ITexture * ) )( &::irr::scene::ISceneNode::setMaterialTexture )
+		, ( bp::arg("textureLayer"), bp::arg("texture") ) )    
+		.def( 
+		"setMaterialType"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::video::E_MATERIAL_TYPE ) )( &::irr::scene::ISceneNode::setMaterialType )
+		, ( bp::arg("newType") ) )    
+		.def( 
+		"setName"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
+		, (void ( ISceneNode_wrapper::* )( ::irr::c8 const * ) )(&ISceneNode_wrapper::default_setName)
+		, ( bp::arg("name") ) )    
+		.def( 
+		"setName"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
+		, (void ( ISceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&ISceneNode_wrapper::default_setName)
+		, ( bp::arg("name") ) )    
+		.def( 
+		"setParent"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ISceneNode_wrapper::default_setParent)
+		, ( bp::arg("newParent") ) )    
+		.def( 
+		"setPosition"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
+		, (void ( ISceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ISceneNode_wrapper::default_setPosition)
+		, ( bp::arg("newpos") ) )    
+		.def( 
+		"setRotation"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setRotation)
+		, (void ( ISceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ISceneNode_wrapper::default_setRotation)
+		, ( bp::arg("rotation") ) )    
+		.def( 
+		"setScale"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
+		, (void ( ISceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ISceneNode_wrapper::default_setScale)
+		, ( bp::arg("scale") ) )    
+		.def( 
+		"setSceneManager"
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&ISceneNode_wrapper::setSceneManager)
+		, ( bp::arg("newManager") ) )    
+		.def( 
+		"setTriangleSelector"
+		, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
+		, (void ( ISceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&ISceneNode_wrapper::default_setTriangleSelector)
+		, ( bp::arg("selector") ) )    
+		.def( 
+		"setVisible"
+		, (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
+		, (void ( ISceneNode_wrapper::* )( bool ) )(&ISceneNode_wrapper::default_setVisible)
+		, ( bp::arg("isVisible") ) )    
+		.def( 
+		"updateAbsolutePosition"
+		, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
+		, (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_updateAbsolutePosition) )    
+		.def( 
+		"setDebugName"
+		, (void ( ISceneNode_wrapper::* )( ::irr::c8 const * ) )(&ISceneNode_wrapper::setDebugName)
+		, ( bp::arg("newName") ) )
+		;
+
+		
     bp::class_< IShip_wrapper >( "IShip", bp::init< irr::scene::IMesh *, irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("mesh"), bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
         .def( 
             "AddGun"
@@ -7230,904 +7516,8 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 
 
 
-    bp::class_< IReferenceCounted_wrapper >( "IReferenceCounted", bp::init< >() )    
-        .def( 
-            "drop"
-            , (bool ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::drop ) )    
-        .def( 
-            "getDebugName"
-            , (::irr::c8 const * ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::getDebugName ) )    
-        .def( 
-            "getReferenceCount"
-            , (::irr::s32 ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::getReferenceCount ) )    
-        .def( 
-            "grab"
-            , (void ( ::irr::IReferenceCounted::* )(  ) const)( &::irr::IReferenceCounted::grab ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IReferenceCounted_wrapper::* )( ::irr::c8 const * ) )(&IReferenceCounted_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< irr::SKeyMap >( "SKeyMap" )    
-        .def_readwrite( "Action", &irr::SKeyMap::Action )    
-        .def_readwrite( "KeyCode", &irr::SKeyMap::KeyCode );
-
   
 
-    bp::class_< irr::io::SAttributeReadWriteOptions >( "SAttributeReadWriteOptions", bp::init< >() )    
-        .def_readwrite( "Flags", &irr::io::SAttributeReadWriteOptions::Flags );
-
-    bp::class_< IAttributeExchangingObject_wrapper, bp::bases< irr::IReferenceCounted > >( "IAttributeExchangingObject" )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
-            , (void ( IAttributeExchangingObject_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&IAttributeExchangingObject_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
-            , (void ( IAttributeExchangingObject_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&IAttributeExchangingObject_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAttributeExchangingObject_wrapper::* )( ::irr::c8 const * ) )(&IAttributeExchangingObject_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< ISceneNode_wrapper, bp::bases< irr::io::IAttributeExchangingObject >, boost::noncopyable >( "ISceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, bp::optional< irr::s32, irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
-        .def( 
-            "OnAnimate"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
-            , (void ( ISceneNode_wrapper::* )( ::irr::u32 ) )(&ISceneNode_wrapper::default_OnAnimate)
-            , ( bp::arg("timeMs") ) )    
-        .def( 
-            "OnRegisterSceneNode"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
-            , (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_OnRegisterSceneNode) )    
-        .def( 
-            "addAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ISceneNode_wrapper::default_addAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "addChild"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ISceneNode_wrapper::default_addChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "clone"
-            , (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
-            , (::irr::scene::ISceneNode * ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ISceneNode_wrapper::default_clone)
-            , ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "cloneMembers"
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ISceneNode_wrapper::cloneMembers)
-            , ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
-            , (void ( ISceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNode_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getAbsolutePosition"
-            , (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
-            , (::irr::core::vector3df ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getAbsolutePosition) )    
-        .def( 
-            "getAbsoluteTransformation"
-            , (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getAnimators"
-            , (::irr::core::list<irr::scene::ISceneNodeAnimator*> const & ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getAnimators )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getAutomaticCulling"
-            , (::irr::scene::E_CULLING_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getAutomaticCulling ) )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getChildren"
-            , (::irr::core::list<irr::scene::ISceneNode*> const & ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getChildren )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getID"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
-            , (::irr::s32 ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getID) )    
-        .def( 
-            "getMaterial"
-            , (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
-            , ( bp::arg("num") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialCount"
-            , (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
-            , (::irr::u32 ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getMaterialCount) )    
-        .def( 
-            "getName"
-            , (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
-            , (::irr::c8 const * ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getName) )    
-        .def( 
-            "getParent"
-            , (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::getParent )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getPosition"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getRelativeTransformation"
-            , (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
-            , (::irr::core::matrix4 ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getRelativeTransformation) )    
-        .def( 
-            "getRotation"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getScale"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getSceneManager"
-            , (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
-            , (::irr::scene::ISceneManager * ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getSceneManager)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransformedBoundingBox"
-            , (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
-            , (::irr::core::aabbox3d< float > const ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getTransformedBoundingBox) )    
-        .def( 
-            "getTriangleSelector"
-            , (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
-            , (::irr::scene::ITriangleSelector * ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getTriangleSelector)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
-            , (::irr::scene::ESCENE_NODE_TYPE ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_getType) )    
-        .def( 
-            "isDebugDataVisible"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::isDebugDataVisible ) )    
-        .def( 
-            "isDebugObject"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)( &::irr::scene::ISceneNode::isDebugObject ) )    
-        .def( 
-            "isTrulyVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
-            , (bool ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_isTrulyVisible) )    
-        .def( 
-            "isVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
-            , (bool ( ISceneNode_wrapper::* )(  ) const)(&ISceneNode_wrapper::default_isVisible) )    
-        .def( 
-            "remove"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
-            , (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_remove) )    
-        .def( 
-            "removeAll"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
-            , (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_removeAll) )    
-        .def( 
-            "removeAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ISceneNode_wrapper::default_removeAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "removeAnimators"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
-            , (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_removeAnimators) )    
-        .def( 
-            "removeChild"
-            , (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
-            , (bool ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ISceneNode_wrapper::default_removeChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "render"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
-            , (void ( ISceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNode_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setAutomaticCulling"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::E_CULLING_TYPE ) )( &::irr::scene::ISceneNode::setAutomaticCulling )
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setDebugDataVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
-            , (void ( ISceneNode_wrapper::* )( ::irr::s32 ) )(&ISceneNode_wrapper::default_setDebugDataVisible)
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setID"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
-            , (void ( ISceneNode_wrapper::* )( ::irr::s32 ) )(&ISceneNode_wrapper::default_setID)
-            , ( bp::arg("id") ) )    
-        .def( 
-            "setIsDebugObject"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )( &::irr::scene::ISceneNode::setIsDebugObject )
-            , ( bp::arg("debugObject") ) )    
-        .def( 
-            "setMaterialFlag"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::video::E_MATERIAL_FLAG,bool ) )( &::irr::scene::ISceneNode::setMaterialFlag )
-            , ( bp::arg("flag"), bp::arg("newvalue") ) )    
-        .def( 
-            "setMaterialTexture"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32,::irr::video::ITexture * ) )( &::irr::scene::ISceneNode::setMaterialTexture )
-            , ( bp::arg("textureLayer"), bp::arg("texture") ) )    
-        .def( 
-            "setMaterialType"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::video::E_MATERIAL_TYPE ) )( &::irr::scene::ISceneNode::setMaterialType )
-            , ( bp::arg("newType") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( ISceneNode_wrapper::* )( ::irr::c8 const * ) )(&ISceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( ISceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&ISceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setParent"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ISceneNode_wrapper::default_setParent)
-            , ( bp::arg("newParent") ) )    
-        .def( 
-            "setPosition"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
-            , (void ( ISceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ISceneNode_wrapper::default_setPosition)
-            , ( bp::arg("newpos") ) )    
-        .def( 
-            "setRotation"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setRotation)
-            , (void ( ISceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ISceneNode_wrapper::default_setRotation)
-            , ( bp::arg("rotation") ) )    
-        .def( 
-            "setScale"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
-            , (void ( ISceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ISceneNode_wrapper::default_setScale)
-            , ( bp::arg("scale") ) )    
-        .def( 
-            "setSceneManager"
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&ISceneNode_wrapper::setSceneManager)
-            , ( bp::arg("newManager") ) )    
-        .def( 
-            "setTriangleSelector"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
-            , (void ( ISceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&ISceneNode_wrapper::default_setTriangleSelector)
-            , ( bp::arg("selector") ) )    
-        .def( 
-            "setVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
-            , (void ( ISceneNode_wrapper::* )( bool ) )(&ISceneNode_wrapper::default_setVisible)
-            , ( bp::arg("isVisible") ) )    
-        .def( 
-            "updateAbsolutePosition"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
-            , (void ( ISceneNode_wrapper::* )(  ) )(&ISceneNode_wrapper::default_updateAbsolutePosition) )    
-        .def( 
-            "setDebugName"
-            , (void ( ISceneNode_wrapper::* )( ::irr::c8 const * ) )(&ISceneNode_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-
-
-    { //::irr::video::SColor
-        typedef bp::class_< irr::video::SColor > SColor_exposer_t;
-        SColor_exposer_t SColor_exposer = SColor_exposer_t( "SColor", bp::init< >() );
-        bp::scope SColor_scope( SColor_exposer );
-        SColor_exposer.def( bp::init< irr::u32, irr::u32, irr::u32, irr::u32 >(( bp::arg("a"), bp::arg("r"), bp::arg("g"), bp::arg("b") )) );
-        SColor_exposer.def( bp::init< irr::u32 >(( bp::arg("clr") )) );
-        bp::implicitly_convertible< irr::u32, irr::video::SColor >();
-        { //::irr::video::SColor::getAlpha
-        
-            typedef ::irr::u32 ( ::irr::video::SColor::*getAlpha_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getAlpha"
-                , getAlpha_function_type( &::irr::video::SColor::getAlpha ) );
-        
-        }
-        { //::irr::video::SColor::getAverage
-        
-            typedef ::irr::u32 ( ::irr::video::SColor::*getAverage_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getAverage"
-                , getAverage_function_type( &::irr::video::SColor::getAverage ) );
-        
-        }
-        { //::irr::video::SColor::getBlue
-        
-            typedef ::irr::u32 ( ::irr::video::SColor::*getBlue_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getBlue"
-                , getBlue_function_type( &::irr::video::SColor::getBlue ) );
-        
-        }
-        { //::irr::video::SColor::getGreen
-        
-            typedef ::irr::u32 ( ::irr::video::SColor::*getGreen_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getGreen"
-                , getGreen_function_type( &::irr::video::SColor::getGreen ) );
-        
-        }
-        { //::irr::video::SColor::getInterpolated
-        
-            typedef ::irr::video::SColor ( ::irr::video::SColor::*getInterpolated_function_type )( ::irr::video::SColor const &,::irr::f32 ) const;
-            
-            SColor_exposer.def( 
-                "getInterpolated"
-                , getInterpolated_function_type( &::irr::video::SColor::getInterpolated )
-                , ( bp::arg("other"), bp::arg("d") ) );
-        
-        }
-        { //::irr::video::SColor::getInterpolated_quadratic
-        
-            typedef ::irr::video::SColor ( ::irr::video::SColor::*getInterpolated_quadratic_function_type )( ::irr::video::SColor const &,::irr::video::SColor const &,::irr::f32 ) const;
-            
-            SColor_exposer.def( 
-                "getInterpolated_quadratic"
-                , getInterpolated_quadratic_function_type( &::irr::video::SColor::getInterpolated_quadratic )
-                , ( bp::arg("c1"), bp::arg("c2"), bp::arg("d") ) );
-        
-        }
-        { //::irr::video::SColor::getLightness
-        
-            typedef ::irr::f32 ( ::irr::video::SColor::*getLightness_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getLightness"
-                , getLightness_function_type( &::irr::video::SColor::getLightness ) );
-        
-        }
-        { //::irr::video::SColor::getLuminance
-        
-            typedef ::irr::f32 ( ::irr::video::SColor::*getLuminance_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getLuminance"
-                , getLuminance_function_type( &::irr::video::SColor::getLuminance ) );
-        
-        }
-        { //::irr::video::SColor::getRed
-        
-            typedef ::irr::u32 ( ::irr::video::SColor::*getRed_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "getRed"
-                , getRed_function_type( &::irr::video::SColor::getRed ) );
-        
-        }
-        SColor_exposer.def( bp::self != bp::self );
-        SColor_exposer.def( bp::self + bp::self );
-        SColor_exposer.def( bp::self < bp::self );
-        SColor_exposer.def( bp::self == bp::self );
-        { //::irr::video::SColor::set
-        
-            typedef void ( ::irr::video::SColor::*set_function_type )( ::irr::u32,::irr::u32,::irr::u32,::irr::u32 ) ;
-            
-            SColor_exposer.def( 
-                "set"
-                , set_function_type( &::irr::video::SColor::set )
-                , ( bp::arg("a"), bp::arg("r"), bp::arg("g"), bp::arg("b") ) );
-        
-        }
-        { //::irr::video::SColor::set
-        
-            typedef void ( ::irr::video::SColor::*set_function_type )( ::irr::u32 ) ;
-            
-            SColor_exposer.def( 
-                "set"
-                , set_function_type( &::irr::video::SColor::set )
-                , ( bp::arg("col") ) );
-        
-        }
-        { //::irr::video::SColor::setAlpha
-        
-            typedef void ( ::irr::video::SColor::*setAlpha_function_type )( ::irr::u32 ) ;
-            
-            SColor_exposer.def( 
-                "setAlpha"
-                , setAlpha_function_type( &::irr::video::SColor::setAlpha )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::irr::video::SColor::setBlue
-        
-            typedef void ( ::irr::video::SColor::*setBlue_function_type )( ::irr::u32 ) ;
-            
-            SColor_exposer.def( 
-                "setBlue"
-                , setBlue_function_type( &::irr::video::SColor::setBlue )
-                , ( bp::arg("b") ) );
-        
-        }
-        { //::irr::video::SColor::setGreen
-        
-            typedef void ( ::irr::video::SColor::*setGreen_function_type )( ::irr::u32 ) ;
-            
-            SColor_exposer.def( 
-                "setGreen"
-                , setGreen_function_type( &::irr::video::SColor::setGreen )
-                , ( bp::arg("g") ) );
-        
-        }
-        { //::irr::video::SColor::setRed
-        
-            typedef void ( ::irr::video::SColor::*setRed_function_type )( ::irr::u32 ) ;
-            
-            SColor_exposer.def( 
-                "setRed"
-                , setRed_function_type( &::irr::video::SColor::setRed )
-                , ( bp::arg("r") ) );
-        
-        }
-        { //::irr::video::SColor::toA1R5G5B5
-        
-            typedef ::irr::u16 ( ::irr::video::SColor::*toA1R5G5B5_function_type )(  ) const;
-            
-            SColor_exposer.def( 
-                "toA1R5G5B5"
-                , toA1R5G5B5_function_type( &::irr::video::SColor::toA1R5G5B5 ) );
-        
-        }
-        { //::irr::video::SColor::toOpenGLColor
-        
-            typedef void ( ::irr::video::SColor::*toOpenGLColor_function_type )( ::irr::u8 * ) const;
-            
-            SColor_exposer.def( 
-                "toOpenGLColor"
-                , toOpenGLColor_function_type( &::irr::video::SColor::toOpenGLColor )
-                , ( bp::arg("dest") ) );
-        
-        }
-        SColor_exposer.def_readwrite( "color", &irr::video::SColor::color );
-    }
-
-    { //::irr::video::SColorf
-        typedef bp::class_< irr::video::SColorf > SColorf_exposer_t;
-        SColorf_exposer_t SColorf_exposer = SColorf_exposer_t( "SColorf", bp::init< >() );
-        bp::scope SColorf_scope( SColorf_exposer );
-        SColorf_exposer.def( bp::init< irr::f32, irr::f32, irr::f32, bp::optional< irr::f32 > >(( bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a")=1.0e+0f )) );
-        SColorf_exposer.def( bp::init< irr::video::SColor >(( bp::arg("c") )) );
-        bp::implicitly_convertible< irr::video::SColor, irr::video::SColorf >();
-        { //::irr::video::SColorf::getAlpha
-        
-            typedef ::irr::f32 ( ::irr::video::SColorf::*getAlpha_function_type )(  ) const;
-            
-            SColorf_exposer.def( 
-                "getAlpha"
-                , getAlpha_function_type( &::irr::video::SColorf::getAlpha ) );
-        
-        }
-        { //::irr::video::SColorf::getBlue
-        
-            typedef ::irr::f32 ( ::irr::video::SColorf::*getBlue_function_type )(  ) const;
-            
-            SColorf_exposer.def( 
-                "getBlue"
-                , getBlue_function_type( &::irr::video::SColorf::getBlue ) );
-        
-        }
-        { //::irr::video::SColorf::getGreen
-        
-            typedef ::irr::f32 ( ::irr::video::SColorf::*getGreen_function_type )(  ) const;
-            
-            SColorf_exposer.def( 
-                "getGreen"
-                , getGreen_function_type( &::irr::video::SColorf::getGreen ) );
-        
-        }
-        { //::irr::video::SColorf::getInterpolated
-        
-            typedef ::irr::video::SColorf ( ::irr::video::SColorf::*getInterpolated_function_type )( ::irr::video::SColorf const &,::irr::f32 ) const;
-            
-            SColorf_exposer.def( 
-                "getInterpolated"
-                , getInterpolated_function_type( &::irr::video::SColorf::getInterpolated )
-                , ( bp::arg("other"), bp::arg("d") ) );
-        
-        }
-        { //::irr::video::SColorf::getInterpolated_quadratic
-        
-            typedef ::irr::video::SColorf ( ::irr::video::SColorf::*getInterpolated_quadratic_function_type )( ::irr::video::SColorf const &,::irr::video::SColorf const &,::irr::f32 ) const;
-            
-            SColorf_exposer.def( 
-                "getInterpolated_quadratic"
-                , getInterpolated_quadratic_function_type( &::irr::video::SColorf::getInterpolated_quadratic )
-                , ( bp::arg("c1"), bp::arg("c2"), bp::arg("d") ) );
-        
-        }
-        { //::irr::video::SColorf::getRed
-        
-            typedef ::irr::f32 ( ::irr::video::SColorf::*getRed_function_type )(  ) const;
-            
-            SColorf_exposer.def( 
-                "getRed"
-                , getRed_function_type( &::irr::video::SColorf::getRed ) );
-        
-        }
-        { //::irr::video::SColorf::set
-        
-            typedef void ( ::irr::video::SColorf::*set_function_type )( ::irr::f32,::irr::f32,::irr::f32 ) ;
-            
-            SColorf_exposer.def( 
-                "set"
-                , set_function_type( &::irr::video::SColorf::set )
-                , ( bp::arg("rr"), bp::arg("gg"), bp::arg("bb") ) );
-        
-        }
-        { //::irr::video::SColorf::set
-        
-            typedef void ( ::irr::video::SColorf::*set_function_type )( ::irr::f32,::irr::f32,::irr::f32,::irr::f32 ) ;
-            
-            SColorf_exposer.def( 
-                "set"
-                , set_function_type( &::irr::video::SColorf::set )
-                , ( bp::arg("aa"), bp::arg("rr"), bp::arg("gg"), bp::arg("bb") ) );
-        
-        }
-        { //::irr::video::SColorf::setColorComponentValue
-        
-            typedef void ( ::irr::video::SColorf::*setColorComponentValue_function_type )( ::irr::s32,::irr::f32 ) ;
-            
-            SColorf_exposer.def( 
-                "setColorComponentValue"
-                , setColorComponentValue_function_type( &::irr::video::SColorf::setColorComponentValue )
-                , ( bp::arg("index"), bp::arg("value") ) );
-        
-        }
-        { //::irr::video::SColorf::toSColor
-        
-            typedef ::irr::video::SColor ( ::irr::video::SColorf::*toSColor_function_type )(  ) const;
-            
-            SColorf_exposer.def( 
-                "toSColor"
-                , toSColor_function_type( &::irr::video::SColorf::toSColor ) );
-        
-        }
-        SColorf_exposer.def_readwrite( "a", &irr::video::SColorf::a );
-        SColorf_exposer.def_readwrite( "b", &irr::video::SColorf::b );
-        SColorf_exposer.def_readwrite( "g", &irr::video::SColorf::g );
-        SColorf_exposer.def_readwrite( "r", &irr::video::SColorf::r );
-    }
-
-
-
-    bp::class_< IWeapon_wrapper, bp::bases< IWeaponCollisionCallback >, boost::noncopyable >( "IWeapon", bp::init< irr::scene::ISceneManager *, bp::optional< irr::scene::ISceneNode *, irr::s32, irr::core::vector3df const &, irr::core::dimension2d< float > const &, irr::video::SColor, irr::video::SColor > >(( bp::arg("mgr"), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("size")=irr::core::dimension2d<float>( 5.f, 5.f ), bp::arg("colorTop")=irr::video::SColor(4294967295u), bp::arg("colorBottom")=irr::video::SColor(4294967295u) )) )    
-        .def( 
-            "Clone"
-            , bp::pure_virtual( (::irr::scene::ISceneNode * ( ::IWeapon::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::IWeapon::Clone) )
-            , ( bp::arg("newParent"), bp::arg("newManager") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "CloneAttributeFrom"
-            , (void ( IWeapon_wrapper::* )( ::IWeapon * ) )(&IWeapon_wrapper::default_CloneAttributeFrom)
-            , ( bp::arg("w") ) )    
-        .def( 
-            "GetDamage"
-            , (::irr::s32 const ( ::IWeapon::* )(  ) const)( &::IWeapon::GetDamage ) )    
-        .def( 
-            "GetInterval"
-            , (::irr::u32 const ( ::IWeapon::* )(  ) const)( &::IWeapon::GetInterval ) )    
-        .def( 
-            "GetLife"
-            , (::irr::u32 const ( ::IWeapon::* )(  ) const)( &::IWeapon::GetLife ) )    
-        .def( 
-            "GetRemain"
-            , (::irr::s32 const ( ::IWeapon::* )(  ) const)( &::IWeapon::GetRemain ) )    
-        .def( 
-            "GetVelocity"
-            , (::irr::f32 const ( ::IWeapon::* )(  ) const)( &::IWeapon::GetVelocity ) )    
-        .def( 
-            "OnCollision"
-            , (void ( ::IWeapon::* )( ::irr::scene::ISceneNode * ) )(&::IWeapon::OnCollision)
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IWeapon_wrapper::default_OnCollision)
-            , ( bp::arg("target") ) )    
-        .def( 
-            "SetDamage"
-            , (void ( ::IWeapon::* )( ::irr::s32 ) )( &::IWeapon::SetDamage )
-            , ( bp::arg("damage") ) )    
-        .def( 
-            "SetInterval"
-            , (void ( ::IWeapon::* )( ::irr::u32 ) )( &::IWeapon::SetInterval )
-            , ( bp::arg("interval") ) )    
-        .def( 
-            "SetLife"
-            , (void ( ::IWeapon::* )( ::irr::u32 ) )( &::IWeapon::SetLife )
-            , ( bp::arg("life") ) )    
-        .def( 
-            "SetRemain"
-            , (void ( ::IWeapon::* )( ::irr::s32 ) )( &::IWeapon::SetRemain )
-            , ( bp::arg("num") ) )    
-        .def( 
-            "SetVelocity"
-            , (void ( ::IWeapon::* )( ::irr::f32 ) )( &::IWeapon::SetVelocity )
-            , ( bp::arg("velocity") ) )    
-        .def( 
-            "OnAnimate"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
-            , (void ( IWeapon_wrapper::* )( ::irr::u32 ) )(&IWeapon_wrapper::default_OnAnimate)
-            , ( bp::arg("timeMs") ) )    
-        .def( 
-            "addAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IWeapon_wrapper::default_addAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "addChild"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IWeapon_wrapper::default_addChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "cloneMembers"
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&IWeapon_wrapper::cloneMembers)
-            , ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
-        .def( 
-            "getAbsolutePosition"
-            , (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
-            , (::irr::core::vector3df ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getAbsolutePosition) )    
-        .def( 
-            "getAbsoluteTransformation"
-            , (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getID"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
-            , (::irr::s32 ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getID) )    
-        .def( 
-            "getName"
-            , (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
-            , (::irr::c8 const * ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getName) )    
-        .def( 
-            "getPosition"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getRelativeTransformation"
-            , (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
-            , (::irr::core::matrix4 ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getRelativeTransformation) )    
-        .def( 
-            "getRotation"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getScale"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getSceneManager"
-            , (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
-            , (::irr::scene::ISceneManager * ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getSceneManager)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransformedBoundingBox"
-            , (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
-            , (::irr::core::aabbox3d< float > const ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getTransformedBoundingBox) )    
-        .def( 
-            "getTriangleSelector"
-            , (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
-            , (::irr::scene::ITriangleSelector * ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_getTriangleSelector)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "isTrulyVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
-            , (bool ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_isTrulyVisible) )    
-        .def( 
-            "isVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
-            , (bool ( IWeapon_wrapper::* )(  ) const)(&IWeapon_wrapper::default_isVisible) )    
-        .def( 
-            "remove"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
-            , (void ( IWeapon_wrapper::* )(  ) )(&IWeapon_wrapper::default_remove) )    
-        .def( 
-            "removeAll"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
-            , (void ( IWeapon_wrapper::* )(  ) )(&IWeapon_wrapper::default_removeAll) )    
-        .def( 
-            "removeAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IWeapon_wrapper::default_removeAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "removeAnimators"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
-            , (void ( IWeapon_wrapper::* )(  ) )(&IWeapon_wrapper::default_removeAnimators) )    
-        .def( 
-            "removeChild"
-            , (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
-            , (bool ( IWeapon_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IWeapon_wrapper::default_removeChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "setDebugDataVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
-            , (void ( IWeapon_wrapper::* )( ::irr::s32 ) )(&IWeapon_wrapper::default_setDebugDataVisible)
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IWeapon_wrapper::* )( ::irr::c8 const * ) )(&IWeapon_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setID"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
-            , (void ( IWeapon_wrapper::* )( ::irr::s32 ) )(&IWeapon_wrapper::default_setID)
-            , ( bp::arg("id") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IWeapon_wrapper::* )( ::irr::c8 const * ) )(&IWeapon_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IWeapon_wrapper::* )( ::irr::core::stringc const & ) )(&IWeapon_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setParent"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IWeapon_wrapper::default_setParent)
-            , ( bp::arg("newParent") ) )    
-        .def( 
-            "setPosition"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
-            , (void ( IWeapon_wrapper::* )( ::irr::core::vector3df const & ) )(&IWeapon_wrapper::default_setPosition)
-            , ( bp::arg("newpos") ) )    
-        .def( 
-            "setRotation"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setRotation)
-            , (void ( IWeapon_wrapper::* )( ::irr::core::vector3df const & ) )(&IWeapon_wrapper::default_setRotation)
-            , ( bp::arg("rotation") ) )    
-        .def( 
-            "setScale"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
-            , (void ( IWeapon_wrapper::* )( ::irr::core::vector3df const & ) )(&IWeapon_wrapper::default_setScale)
-            , ( bp::arg("scale") ) )    
-        .def( 
-            "setSceneManager"
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ISceneManager * ) )(&IWeapon_wrapper::setSceneManager)
-            , ( bp::arg("newManager") ) )    
-        .def( 
-            "setTriangleSelector"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
-            , (void ( IWeapon_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&IWeapon_wrapper::default_setTriangleSelector)
-            , ( bp::arg("selector") ) )    
-        .def( 
-            "setVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
-            , (void ( IWeapon_wrapper::* )( bool ) )(&IWeapon_wrapper::default_setVisible)
-            , ( bp::arg("isVisible") ) )    
-        .def( 
-            "updateAbsolutePosition"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
-            , (void ( IWeapon_wrapper::* )(  ) )(&IWeapon_wrapper::default_updateAbsolutePosition) );
-
-    bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )    
-        .def( 
-            "addBillboardSceneNode"
-            , (::irr::scene::IBillboardSceneNode * ( ::MySceneManager::* )( ::irr::scene::ISceneNode *,::irr::core::dimension2d< float > const &,::irr::core::vector3df const &,::irr::s32,::irr::video::SColor,::irr::video::SColor ) )( &::MySceneManager::addBillboardSceneNode )
-            , ( bp::arg("parent")=bp::object(), bp::arg("size")=irr::core::dimension2d<float>(10.0f, 10.0f), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("colorTop")=4294967295u, bp::arg("colorBottom")=4294967295u )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "addBulletSceneNode"
-            , (::IWeapon * ( ::MySceneManager::* )( wchar_t *,int,::irr::u32 ) )( &::MySceneManager::addBulletSceneNode )
-            , ( bp::arg("textureFileName"), bp::arg("velocity")=(int)(1000), bp::arg("interval")=(::irr::u32)(100) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "addFrigateSceneNode"
-            , (::IShip * ( ::MySceneManager::* )( wchar_t *,int ) )( &::MySceneManager::addFrigateSceneNode )
-            , ( bp::arg("meshFileName"), bp::arg("id")=(int)(-0x00000000000000001) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "addParticleSystemSceneNode"
-            , (::irr::scene::IParticleSystemSceneNode * ( ::MySceneManager::* )( bool,::irr::scene::ISceneNode *,::irr::s32,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const & ) )( &::MySceneManager::addParticleSystemSceneNode )
-            , ( bp::arg("withDefaultEmitter")=(bool)(true), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "addSkyBoxSceneNode"
-            , (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::scene::ISceneNode *,::irr::s32 ) )( &::MySceneManager::addSkyBoxSceneNode )
-            , ( bp::arg("top"), bp::arg("bottom"), bp::arg("left"), bp::arg("right"), bp::arg("front"), bp::arg("back"), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createAutoTrackAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::scene::ISceneNode * ) )( &::MySceneManager::createAutoTrackAnimator )
-            , ( bp::arg("target") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createCollisionResponseAnimator"
-            , (::irr::scene::ISceneNodeAnimatorCollisionResponse * ( ::MySceneManager::* )( ::irr::scene::ITriangleSelector *,::irr::scene::ISceneNode *,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::f32 ) )( &::MySceneManager::createCollisionResponseAnimator )
-            , ( bp::arg("world"), bp::arg("sceneNode"), bp::arg("ellipsoidRadius")=irr::core::vector3d<float>(3.0e+1f, 6.0e+1f, 3.0e+1f), bp::arg("gravityPerSecond")=irr::core::vector3d<float>(0.0f, -1.0e+1f, 0.0f), bp::arg("ellipsoidTranslation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("slidingValue")=5.000000237487256526947021484375e-4f )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createDeleteAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32 ) )( &::MySceneManager::createDeleteAnimator )
-            , ( bp::arg("timeMs") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createFlyCircleAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::f32,::irr::f32,::irr::core::vector3df const &,::irr::f32,::irr::f32 ) )( &::MySceneManager::createFlyCircleAnimator )
-            , ( bp::arg("center")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("radius")=1.0e+2f, bp::arg("speed")=1.000000047497451305389404296875e-3f, bp::arg("direction")=irr::core::vector3d<float>(0.0f, 1.0e+0f, 0.0f), bp::arg("startPosition")=0.0f, bp::arg("radiusEllipsoid")=0.0f )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createFlyStraightAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32,bool,bool ) )( &::MySceneManager::createFlyStraightAnimator )
-            , ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay"), bp::arg("loop")=(bool)(false), bp::arg("pingpong")=(bool)(false) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createFollowFlameAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )(  ) )( &::MySceneManager::createFollowFlameAnimator )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createFollowSplineAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::s32,::irr::core::array< irr::core::vector3d< float >, irr::core::irrAllocator< irr::core::vector3d< float > > > const &,::irr::f32,::irr::f32,bool,bool ) )( &::MySceneManager::createFollowSplineAnimator )
-            , ( bp::arg("startTime"), bp::arg("points"), bp::arg("speed")=1.0e+0f, bp::arg("tightness")=5.0e-1f, bp::arg("loop")=(bool)(true), bp::arg("pingpong")=(bool)(false) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createRelateCameraMoveAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,::irr::core::vector3df,::RM_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createRelateCameraMoveAnimator )
-            , ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("start"), bp::arg("end"), bp::arg("moveType")=::RM_MT_LINER, bp::arg("factor")=0 )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createRelateCameraStayAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,bool ) )( &::MySceneManager::createRelateCameraStayAnimator )
-            , ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("position"), bp::arg("loop")=(bool)(true) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createRotationAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const & ) )( &::MySceneManager::createRotationAnimator )
-            , ( bp::arg("rotationSpeed") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createScaleAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::core::vector3df,::AS_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createScaleAnimator )
-            , ( bp::arg("delay"), bp::arg("duration"), bp::arg("scale"), bp::arg("type")=::AS_MT_LINER, bp::arg("factor")=0 )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createSelfDelFlyStraightAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32 ) )( &::MySceneManager::createSelfDelFlyStraightAnimator )
-            , ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createShakeAnimatorAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::f32,::irr::f32 ) )( &::MySceneManager::createShakeAnimatorAnimator )
-            , ( bp::arg("delay"), bp::arg("duration"), bp::arg("ampFrom"), bp::arg("ampTo")=0 )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createTextureAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::array< irr::video::ITexture*, irr::core::irrAllocator< irr::video::ITexture* > > const &,::irr::s32,bool ) )( &::MySceneManager::createTextureAnimator )
-            , ( bp::arg("textures"), bp::arg("timePerFrame"), bp::arg("loop")=(bool)(true) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createTheBeginMoveAnimator"
-            , (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df,::irr::core::vector3df,::irr::u32,::irr::u32,int ) )( &::MySceneManager::createTheBeginMoveAnimator )
-            , ( bp::arg("thebeginpoint"), bp::arg("theendpoint"), bp::arg("delay"), bp::arg("duration"), bp::arg("circle_n") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMesh"
-            , (::irr::scene::IAnimatedMesh * ( ::MySceneManager::* )( ::std::wstring const & ) )( &::MySceneManager::getMesh )
-            , ( bp::arg("filename") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getRootSceneNode"
-            , (::irr::scene::ISceneNode * ( ::MySceneManager::* )(  ) )( &::MySceneManager::getRootSceneNode )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getSceneNodeFromId"
-            , (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::s32,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromId )
-            , ( bp::arg("id"), bp::arg("start")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getSceneNodeFromName"
-            , (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::c8 const *,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromName )
-            , ( bp::arg("name"), bp::arg("start")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() );
 
 
 
@@ -8228,2032 +7618,7 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 
 	
 
-    bp::class_< IAttributes_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "IAttributes" )    
-        .def( 
-            "addArray"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::array< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > >, irr::core::irrAllocator< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > > > > const & ) )(&::irr::io::IAttributes::addArray) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addBinary"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,void *,::irr::s32 ) )(&::irr::io::IAttributes::addBinary) )
-            , ( bp::arg("attributeName"), bp::arg("data"), bp::arg("dataSizeInBytes") ) )    
-        .def( 
-            "addBool"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,bool ) )(&::irr::io::IAttributes::addBool) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addBox3d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::aabbox3df ) )(&::irr::io::IAttributes::addBox3d) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addColor"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::video::SColor ) )(&::irr::io::IAttributes::addColor) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addColorf"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::video::SColorf ) )(&::irr::io::IAttributes::addColorf) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addEnum"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::c8 const *,::irr::c8 const * const * ) )(&::irr::io::IAttributes::addEnum) )
-            , ( bp::arg("attributeName"), bp::arg("enumValue"), bp::arg("enumerationLiterals") ) )    
-        .def( 
-            "addEnum"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::s32,::irr::c8 const * const * ) )(&::irr::io::IAttributes::addEnum) )
-            , ( bp::arg("attributeName"), bp::arg("enumValue"), bp::arg("enumerationLiterals") ) )    
-        .def( 
-            "addFloat"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::f32 ) )(&::irr::io::IAttributes::addFloat) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addInt"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::s32 ) )(&::irr::io::IAttributes::addInt) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addLine2d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::line2df ) )(&::irr::io::IAttributes::addLine2d) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addLine3d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::line3df ) )(&::irr::io::IAttributes::addLine3d) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addMatrix"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::matrix4 const & ) )(&::irr::io::IAttributes::addMatrix) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addPlane3d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::plane3df ) )(&::irr::io::IAttributes::addPlane3d) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addPosition2d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::position2di ) )(&::irr::io::IAttributes::addPosition2d) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addQuaternion"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::quaternion ) )(&::irr::io::IAttributes::addQuaternion) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addRect"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::rect< int > ) )(&::irr::io::IAttributes::addRect) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addString"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::c8 const * ) )(&::irr::io::IAttributes::addString) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addString"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,wchar_t const * ) )(&::irr::io::IAttributes::addString) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "addTexture"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::video::ITexture * ) )(&::irr::io::IAttributes::addTexture) )
-            , ( bp::arg("attributeName"), bp::arg("texture") ) )    
-        .def( 
-            "addTriangle3d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::triangle3df ) )(&::irr::io::IAttributes::addTriangle3d) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "addUserPointer"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,void * ) )(&::irr::io::IAttributes::addUserPointer) )
-            , ( bp::arg("attributeName"), bp::arg("userPointer") ) )    
-        .def( 
-            "addVector3d"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::vector3df ) )(&::irr::io::IAttributes::addVector3d) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "clear"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )(  ) )(&::irr::io::IAttributes::clear) ) )    
-        .def( 
-            "existsAttribute"
-            , bp::pure_virtual( (bool ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::existsAttribute) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "findAttribute"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::findAttribute) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsArray"
-            , bp::pure_virtual( (::irr::core::array< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > >, irr::core::irrAllocator< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > > > > ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsArray) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsArray"
-            , bp::pure_virtual( (::irr::core::array< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > >, irr::core::irrAllocator< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > > > > ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsArray) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsBinaryData"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,void *,::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsBinaryData) )
-            , ( bp::arg("attributeName"), bp::arg("outData"), bp::arg("maxSizeInBytes") ) )    
-        .def( 
-            "getAttributeAsBinaryData"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,void *,::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsBinaryData) )
-            , ( bp::arg("index"), bp::arg("outData"), bp::arg("maxSizeInBytes") ) )    
-        .def( 
-            "getAttributeAsBool"
-            , bp::pure_virtual( (bool ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsBool) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsBool"
-            , bp::pure_virtual( (bool ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsBool) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsBox3d"
-            , bp::pure_virtual( (::irr::core::aabbox3df ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsBox3d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsBox3d"
-            , bp::pure_virtual( (::irr::core::aabbox3df ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsBox3d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsColor"
-            , bp::pure_virtual( (::irr::video::SColor ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsColor) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsColor"
-            , bp::pure_virtual( (::irr::video::SColor ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsColor) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsColorf"
-            , bp::pure_virtual( (::irr::video::SColorf ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsColorf) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsColorf"
-            , bp::pure_virtual( (::irr::video::SColorf ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsColorf) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsEnumeration"
-            , bp::pure_virtual( (::irr::c8 const * ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsEnumeration) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsEnumeration"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::c8 const * const * ) )(&::irr::io::IAttributes::getAttributeAsEnumeration) )
-            , ( bp::arg("attributeName"), bp::arg("enumerationLiteralsToUse") ) )    
-        .def( 
-            "getAttributeAsEnumeration"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::c8 const * const * ) )(&::irr::io::IAttributes::getAttributeAsEnumeration) )
-            , ( bp::arg("index"), bp::arg("enumerationLiteralsToUse") ) )    
-        .def( 
-            "getAttributeAsEnumeration"
-            , bp::pure_virtual( (::irr::c8 const * ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsEnumeration) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsFloat"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsFloat) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsFloat"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsFloat) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsInt"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsInt) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsInt"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsInt) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsLine2d"
-            , bp::pure_virtual( (::irr::core::line2df ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsLine2d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsLine2d"
-            , bp::pure_virtual( (::irr::core::line2df ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsLine2d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsLine3d"
-            , bp::pure_virtual( (::irr::core::line3df ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsLine3d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsLine3d"
-            , bp::pure_virtual( (::irr::core::line3df ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsLine3d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsMatrix"
-            , bp::pure_virtual( (::irr::core::matrix4 ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsMatrix) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsMatrix"
-            , bp::pure_virtual( (::irr::core::matrix4 ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsMatrix) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsPlane3d"
-            , bp::pure_virtual( (::irr::core::plane3df ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsPlane3d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsPlane3d"
-            , bp::pure_virtual( (::irr::core::plane3df ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsPlane3d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsPosition2d"
-            , bp::pure_virtual( (::irr::core::position2di ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsPosition2d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsPosition2d"
-            , bp::pure_virtual( (::irr::core::position2di ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsPosition2d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsQuaternion"
-            , bp::pure_virtual( (::irr::core::quaternion ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsQuaternion) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsQuaternion"
-            , bp::pure_virtual( (::irr::core::quaternion ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsQuaternion) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsRect"
-            , bp::pure_virtual( (::irr::core::rect< int > ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsRect) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsRect"
-            , bp::pure_virtual( (::irr::core::rect< int > ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsRect) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsString"
-            , bp::pure_virtual( (::irr::core::stringc ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsString) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsString"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::c8 * ) )(&::irr::io::IAttributes::getAttributeAsString) )
-            , ( bp::arg("attributeName"), bp::arg("target") ) )    
-        .def( 
-            "getAttributeAsString"
-            , bp::pure_virtual( (::irr::core::stringc ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsString) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsStringW"
-            , bp::pure_virtual( (::irr::core::stringw ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsStringW) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsStringW"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,wchar_t * ) )(&::irr::io::IAttributes::getAttributeAsStringW) )
-            , ( bp::arg("attributeName"), bp::arg("target") ) )    
-        .def( 
-            "getAttributeAsStringW"
-            , bp::pure_virtual( (::irr::core::stringw ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsStringW) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsTexture) )
-            , ( bp::arg("attributeName") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getAttributeAsTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsTexture) )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getAttributeAsTriangle3d"
-            , bp::pure_virtual( (::irr::core::triangle3df ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsTriangle3d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsTriangle3d"
-            , bp::pure_virtual( (::irr::core::triangle3df ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsTriangle3d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeAsUserPointer"
-            , bp::pure_virtual( (void * ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsUserPointer) )
-            , ( bp::arg("attributeName") )
-            , bp::return_value_policy< bp::return_opaque_pointer >() )    
-        .def( 
-            "getAttributeAsUserPointer"
-            , bp::pure_virtual( (void * ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsUserPointer) )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::return_opaque_pointer >() )    
-        .def( 
-            "getAttributeAsVector3d"
-            , bp::pure_virtual( (::irr::core::vector3df ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeAsVector3d) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeAsVector3d"
-            , bp::pure_virtual( (::irr::core::vector3df ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeAsVector3d) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::io::IAttributes::* )(  ) const)(&::irr::io::IAttributes::getAttributeCount) ) )    
-        .def( 
-            "getAttributeEnumerationLiteralsOfEnumeration"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::array< irr::core::string< char, irr::core::irrAllocator< char > >, irr::core::irrAllocator< irr::core::string< char, irr::core::irrAllocator< char > > > > & ) )(&::irr::io::IAttributes::getAttributeEnumerationLiteralsOfEnumeration) )
-            , ( bp::arg("attributeName"), bp::arg("outLiterals") ) )    
-        .def( 
-            "getAttributeEnumerationLiteralsOfEnumeration"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::array< irr::core::string< char, irr::core::irrAllocator< char > >, irr::core::irrAllocator< irr::core::string< char, irr::core::irrAllocator< char > > > > & ) )(&::irr::io::IAttributes::getAttributeEnumerationLiteralsOfEnumeration) )
-            , ( bp::arg("index"), bp::arg("outLiterals") ) )    
-        .def( 
-            "getAttributeName"
-            , bp::pure_virtual( (::irr::c8 const * ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeName) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeType"
-            , bp::pure_virtual( (::irr::io::E_ATTRIBUTE_TYPE ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeType) )
-            , ( bp::arg("attributeName") ) )    
-        .def( 
-            "getAttributeType"
-            , bp::pure_virtual( (::irr::io::E_ATTRIBUTE_TYPE ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeType) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getAttributeTypeString"
-            , bp::pure_virtual( (wchar_t const * ( ::irr::io::IAttributes::* )( ::irr::c8 const * ) )(&::irr::io::IAttributes::getAttributeTypeString) )
-            , ( bp::arg("attributeName") )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "getAttributeTypeString"
-            , bp::pure_virtual( (wchar_t const * ( ::irr::io::IAttributes::* )( ::irr::s32 ) )(&::irr::io::IAttributes::getAttributeTypeString) )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "read"
-            , bp::pure_virtual( (bool ( ::irr::io::IAttributes::* )( ::irr::io::IXMLReader *,bool,wchar_t const * ) )(&::irr::io::IAttributes::read) )
-            , ( bp::arg("reader"), bp::arg("readCurrentElementOnly")=(bool)(false), bp::arg("elementName")=bp::object() ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::s32 ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::s32 ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::f32 ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::f32 ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::c8 const * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::c8 const * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,wchar_t const * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,wchar_t const * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,void *,::irr::s32 ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("data"), bp::arg("dataSizeInBytes") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,void *,::irr::s32 ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("data"), bp::arg("dataSizeInBytes") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::array< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > >, irr::core::irrAllocator< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > > > > const & ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::array< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > >, irr::core::irrAllocator< irr::core::string< wchar_t, irr::core::irrAllocator< wchar_t > > > > const & ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,bool ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,bool ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("value") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::c8 const *,::irr::c8 const * const * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("enumValue"), bp::arg("enumerationLiterals") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::c8 const *,::irr::c8 const * const * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("enumValue"), bp::arg("enumerationLiterals") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::video::SColor ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("color") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::video::SColor ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("color") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::video::SColorf ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("color") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::video::SColorf ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("color") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::vector3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::vector3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::position2di ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::position2di ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::rect< int > ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::rect< int > ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::matrix4 const & ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::matrix4 const & ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::quaternion ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::quaternion ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::aabbox3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::aabbox3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::plane3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::plane3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::triangle3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::triangle3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::line2df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::line2df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::core::line3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::core::line3df ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("v") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,::irr::video::ITexture * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("texture") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,::irr::video::ITexture * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("texture") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::c8 const *,void * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("attributeName"), bp::arg("userPointer") ) )    
-        .def( 
-            "setAttribute"
-            , bp::pure_virtual( (void ( ::irr::io::IAttributes::* )( ::irr::s32,void * ) )(&::irr::io::IAttributes::setAttribute) )
-            , ( bp::arg("index"), bp::arg("userPointer") ) )    
-        .def( 
-            "write"
-            , bp::pure_virtual( (bool ( ::irr::io::IAttributes::* )( ::irr::io::IXMLWriter *,bool,wchar_t const * ) )(&::irr::io::IAttributes::write) )
-            , ( bp::arg("writer"), bp::arg("writeXMLHeader")=(bool)(false), bp::arg("elementName")=bp::object() ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAttributes_wrapper::* )( ::irr::c8 const * ) )(&IAttributes_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
 
-   
-  
-
-    bp::class_< IVideoDriver_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "IVideoDriver" )    
-        .def( 
-            "OnResize"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::dimension2d< unsigned int > const & ) )(&::irr::video::IVideoDriver::OnResize) )
-            , ( bp::arg("size") ) )    
-        .def( 
-            "addDynamicLight"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::video::IVideoDriver::* )( ::irr::video::SLight const & ) )(&::irr::video::IVideoDriver::addDynamicLight) )
-            , ( bp::arg("light") ) )    
-        .def( 
-            "addExternalImageLoader"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::IImageLoader * ) )(&::irr::video::IVideoDriver::addExternalImageLoader) )
-            , ( bp::arg("loader") ) )    
-        .def( 
-            "addExternalImageWriter"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::IImageWriter * ) )(&::irr::video::IVideoDriver::addExternalImageWriter) )
-            , ( bp::arg("writer") ) )    
-        .def( 
-            "addMaterialRenderer"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::video::IVideoDriver::* )( ::irr::video::IMaterialRenderer *,::irr::c8 const * ) )(&::irr::video::IVideoDriver::addMaterialRenderer) )
-            , ( bp::arg("renderer"), bp::arg("name")=bp::object() ) )    
-        .def( 
-            "addRenderTargetTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::core::dimension2d< unsigned int > const &,::irr::io::path const &,::irr::video::ECOLOR_FORMAT const ) )(&::irr::video::IVideoDriver::addRenderTargetTexture) )
-            , ( bp::arg("size"), bp::arg("name")="rt", bp::arg("format")=::irr::video::ECF_UNKNOWN )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "addTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::core::dimension2d< unsigned int > const &,::irr::io::path const &,::irr::video::ECOLOR_FORMAT ) )(&::irr::video::IVideoDriver::addTexture) )
-            , ( bp::arg("size"), bp::arg("name"), bp::arg("format")=::irr::video::ECF_A8R8G8B8 )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "addTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::io::path const &,::irr::video::IImage *,void * ) )(&::irr::video::IVideoDriver::addTexture) )
-            , ( bp::arg("name"), bp::arg("image"), bp::arg("mipmapData")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "beginScene"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( bool,bool,::irr::video::SColor,::irr::video::SExposedVideoData const &,::irr::core::rect< int > * ) )(&::irr::video::IVideoDriver::beginScene) )
-            , ( bp::arg("backBuffer")=(bool)(true), bp::arg("zBuffer")=(bool)(true), bp::arg("color")=irr::video::SColor(255u, 0u, 0u, 0u), bp::arg("videoData")=irr::video::SExposedVideoData(), bp::arg("sourceRect")=bp::object() ) )    
-        .def( 
-            "checkDriverReset"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::checkDriverReset) ) )    
-        .def( 
-            "clearZBuffer"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::clearZBuffer) ) )    
-        .def( 
-            "createAttributesFromMaterial"
-            , bp::pure_virtual( (::irr::io::IAttributes * ( ::irr::video::IVideoDriver::* )( ::irr::video::SMaterial const & ) )(&::irr::video::IVideoDriver::createAttributesFromMaterial) )
-            , ( bp::arg("material") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImage"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::video::ECOLOR_FORMAT,::irr::core::dimension2d< unsigned int > const & ) )(&::irr::video::IVideoDriver::createImage) )
-            , ( bp::arg("format"), bp::arg("size") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImage"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::video::ECOLOR_FORMAT,::irr::video::IImage * ) )(&::irr::video::IVideoDriver::createImage) )
-            , ( bp::arg("format"), bp::arg("imageToCopy") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImage"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::video::IImage *,::irr::core::vector2d< int > const &,::irr::core::dimension2d< unsigned int > const & ) )(&::irr::video::IVideoDriver::createImage) )
-            , ( bp::arg("imageToCopy"), bp::arg("pos"), bp::arg("size") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImage"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture *,::irr::core::vector2d< int > const &,::irr::core::dimension2d< unsigned int > const & ) )(&::irr::video::IVideoDriver::createImage) )
-            , ( bp::arg("texture"), bp::arg("pos"), bp::arg("size") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImageFromData"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::video::ECOLOR_FORMAT,::irr::core::dimension2d< unsigned int > const &,void *,bool,bool ) )(&::irr::video::IVideoDriver::createImageFromData) )
-            , ( bp::arg("format"), bp::arg("size"), bp::arg("data"), bp::arg("ownForeignMemory")=(bool)(false), bp::arg("deleteMemory")=(bool)(true) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImageFromFile"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::io::path const & ) )(&::irr::video::IVideoDriver::createImageFromFile) )
-            , ( bp::arg("filename") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createImageFromFile"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )( ::irr::io::IReadFile * ) )(&::irr::video::IVideoDriver::createImageFromFile) )
-            , ( bp::arg("file") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "createScreenShot"
-            , bp::pure_virtual( (::irr::video::IImage * ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::createScreenShot) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "deleteAllDynamicLights"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::deleteAllDynamicLights) ) )    
-        .def( 
-            "disableFeature"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::E_VIDEO_DRIVER_FEATURE,bool ) )(&::irr::video::IVideoDriver::disableFeature) )
-            , ( bp::arg("feature"), bp::arg("flag")=(bool)(true) ) )    
-        .def( 
-            "draw2DImage"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::vector2d< int > const *,::irr::core::rect< int > const &,::irr::core::rect< int > const *,::irr::video::SColor const * const,bool ) )(&::irr::video::IVideoDriver::draw2DImage)
-            , (void ( IVideoDriver_wrapper::* )( ::irr::video::ITexture const *,::irr::core::vector2d< int > const *,::irr::core::rect< int > const &,::irr::core::rect< int > const *,::irr::video::SColor const * const,bool ) )(&IVideoDriver_wrapper::default_draw2DImage)
-            , ( bp::arg("texture"), bp::arg("corners"), bp::arg("sourceRect"), bp::arg("clipRect"), bp::arg("colors"), bp::arg("useAlphaChannelOfTexture") ) )    
-        .def( 
-            "draw2DImage"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::vector2d< int > const & ) )(&::irr::video::IVideoDriver::draw2DImage) )
-            , ( bp::arg("texture"), bp::arg("destPos") ) )    
-        .def( 
-            "draw2DImage"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::vector2d< int > const &,::irr::core::rect< int > const &,::irr::core::rect< int > const *,::irr::video::SColor,bool ) )(&::irr::video::IVideoDriver::draw2DImage) )
-            , ( bp::arg("texture"), bp::arg("destPos"), bp::arg("sourceRect"), bp::arg("clipRect")=bp::object(), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u), bp::arg("useAlphaChannelOfTexture")=(bool)(false) ) )    
-        .def( 
-            "draw2DImage"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::rect< int > const &,::irr::core::rect< int > const &,::irr::core::rect< int > const *,::irr::video::SColor const * const,bool ) )(&::irr::video::IVideoDriver::draw2DImage) )
-            , ( bp::arg("texture"), bp::arg("destRect"), bp::arg("sourceRect"), bp::arg("clipRect")=bp::object(), bp::arg("colors")=bp::object(), bp::arg("useAlphaChannelOfTexture")=(bool)(false) ) )    
-        .def( 
-            "draw2DImageBatch"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::vector2d< int > const &,::irr::core::array< irr::core::rect< int >, irr::core::irrAllocator< irr::core::rect< int > > > const &,::irr::core::array< int, irr::core::irrAllocator< int > > const &,::irr::s32,::irr::core::rect< int > const *,::irr::video::SColor,bool ) )(&::irr::video::IVideoDriver::draw2DImageBatch) )
-            , ( bp::arg("texture"), bp::arg("pos"), bp::arg("sourceRects"), bp::arg("indices"), bp::arg("kerningWidth")=(::irr::s32)(0), bp::arg("clipRect")=bp::object(), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u), bp::arg("useAlphaChannelOfTexture")=(bool)(false) ) )    
-        .def( 
-            "draw2DImageBatch"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::array< irr::core::vector2d< int >, irr::core::irrAllocator< irr::core::vector2d< int > > > const &,::irr::core::array< irr::core::rect< int >, irr::core::irrAllocator< irr::core::rect< int > > > const &,::irr::core::rect< int > const *,::irr::video::SColor,bool ) )(&::irr::video::IVideoDriver::draw2DImageBatch) )
-            , ( bp::arg("texture"), bp::arg("positions"), bp::arg("sourceRects"), bp::arg("clipRect")=bp::object(), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u), bp::arg("useAlphaChannelOfTexture")=(bool)(false) ) )    
-        .def( 
-            "draw2DLine"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::vector2d< int > const &,::irr::core::vector2d< int > const &,::irr::video::SColor ) )(&::irr::video::IVideoDriver::draw2DLine) )
-            , ( bp::arg("start"), bp::arg("end"), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u) ) )    
-        .def( 
-            "draw2DPolygon"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::vector2d< int >,::irr::f32,::irr::video::SColor,::irr::s32 ) )(&::irr::video::IVideoDriver::draw2DPolygon) )
-            , ( bp::arg("center"), bp::arg("radius"), bp::arg("color")=irr::video::SColor(100u, 255u, 255u, 255u), bp::arg("vertexCount")=(::irr::s32)(10) ) )    
-        .def( 
-            "draw2DRectangle"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::SColor,::irr::core::rect< int > const &,::irr::core::rect< int > const * ) )(&::irr::video::IVideoDriver::draw2DRectangle) )
-            , ( bp::arg("color"), bp::arg("pos"), bp::arg("clip")=bp::object() ) )    
-        .def( 
-            "draw2DRectangle"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::rect< int > const &,::irr::video::SColor,::irr::video::SColor,::irr::video::SColor,::irr::video::SColor,::irr::core::rect< int > const * ) )(&::irr::video::IVideoDriver::draw2DRectangle) )
-            , ( bp::arg("pos"), bp::arg("colorLeftUp"), bp::arg("colorRightUp"), bp::arg("colorLeftDown"), bp::arg("colorRightDown"), bp::arg("clip")=bp::object() ) )    
-        .def( 
-            "draw2DRectangleOutline"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::recti const &,::irr::video::SColor ) )(&::irr::video::IVideoDriver::draw2DRectangleOutline) )
-            , ( bp::arg("pos"), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u) ) )    
-        .def( 
-            "draw2DVertexPrimitiveList"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( void const *,::irr::u32,void const *,::irr::u32,::irr::video::E_VERTEX_TYPE,::irr::scene::E_PRIMITIVE_TYPE,::irr::video::E_INDEX_TYPE ) )(&::irr::video::IVideoDriver::draw2DVertexPrimitiveList) )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("primCount"), bp::arg("vType")=::irr::video::EVT_STANDARD, bp::arg("pType")=::irr::scene::EPT_TRIANGLES, bp::arg("iType")=::irr::video::EIT_16BIT ) )    
-        .def( 
-            "draw3DBox"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::aabbox3d< float > const &,::irr::video::SColor ) )(&::irr::video::IVideoDriver::draw3DBox) )
-            , ( bp::arg("box"), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u) ) )    
-        .def( 
-            "draw3DLine"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::video::SColor ) )(&::irr::video::IVideoDriver::draw3DLine) )
-            , ( bp::arg("start"), bp::arg("end"), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u) ) )    
-        .def( 
-            "draw3DTriangle"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::triangle3df const &,::irr::video::SColor ) )(&::irr::video::IVideoDriver::draw3DTriangle) )
-            , ( bp::arg("triangle"), bp::arg("color")=irr::video::SColor(255u, 255u, 255u, 255u) ) )    
-        .def( 
-            "drawIndexedTriangleFan"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::S3DVertex const *,::irr::u32,::irr::u16 const *,::irr::u32 ) )( &::irr::video::IVideoDriver::drawIndexedTriangleFan )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("triangleCount") ) )    
-        .def( 
-            "drawIndexedTriangleFan"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::S3DVertex2TCoords const *,::irr::u32,::irr::u16 const *,::irr::u32 ) )( &::irr::video::IVideoDriver::drawIndexedTriangleFan )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("triangleCount") ) )    
-        .def( 
-            "drawIndexedTriangleFan"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::S3DVertexTangents const *,::irr::u32,::irr::u16 const *,::irr::u32 ) )( &::irr::video::IVideoDriver::drawIndexedTriangleFan )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("triangleCount") ) )    
-        .def( 
-            "drawIndexedTriangleList"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::S3DVertex const *,::irr::u32,::irr::u16 const *,::irr::u32 ) )( &::irr::video::IVideoDriver::drawIndexedTriangleList )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("triangleCount") ) )    
-        .def( 
-            "drawIndexedTriangleList"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::S3DVertex2TCoords const *,::irr::u32,::irr::u16 const *,::irr::u32 ) )( &::irr::video::IVideoDriver::drawIndexedTriangleList )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("triangleCount") ) )    
-        .def( 
-            "drawIndexedTriangleList"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::S3DVertexTangents const *,::irr::u32,::irr::u16 const *,::irr::u32 ) )( &::irr::video::IVideoDriver::drawIndexedTriangleList )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("triangleCount") ) )    
-        .def( 
-            "drawMeshBuffer"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::scene::IMeshBuffer const * ) )(&::irr::video::IVideoDriver::drawMeshBuffer) )
-            , ( bp::arg("mb") ) )    
-        .def( 
-            "drawPixel"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::u32,::irr::u32,::irr::video::SColor const & ) )(&::irr::video::IVideoDriver::drawPixel) )
-            , ( bp::arg("x"), bp::arg("y"), bp::arg("color") ) )    
-        .def( 
-            "drawStencilShadow"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( bool,::irr::video::SColor,::irr::video::SColor,::irr::video::SColor,::irr::video::SColor ) )(&::irr::video::IVideoDriver::drawStencilShadow) )
-            , ( bp::arg("clearStencilBuffer")=(bool)(false), bp::arg("leftUpEdge")=irr::video::SColor(255u, 0u, 0u, 0u), bp::arg("rightUpEdge")=irr::video::SColor(255u, 0u, 0u, 0u), bp::arg("leftDownEdge")=irr::video::SColor(255u, 0u, 0u, 0u), bp::arg("rightDownEdge")=irr::video::SColor(255u, 0u, 0u, 0u) ) )    
-        .def( 
-            "drawStencilShadowVolume"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::vector3df const *,::irr::s32,bool ) )(&::irr::video::IVideoDriver::drawStencilShadowVolume) )
-            , ( bp::arg("triangles"), bp::arg("count"), bp::arg("zfail")=(bool)(true) ) )    
-        .def( 
-            "drawVertexPrimitiveList"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( void const *,::irr::u32,void const *,::irr::u32,::irr::video::E_VERTEX_TYPE,::irr::scene::E_PRIMITIVE_TYPE,::irr::video::E_INDEX_TYPE ) )(&::irr::video::IVideoDriver::drawVertexPrimitiveList) )
-            , ( bp::arg("vertices"), bp::arg("vertexCount"), bp::arg("indexList"), bp::arg("primCount"), bp::arg("vType")=::irr::video::EVT_STANDARD, bp::arg("pType")=::irr::scene::EPT_TRIANGLES, bp::arg("iType")=::irr::video::EIT_16BIT ) )    
-        .def( 
-            "enableClipPlane"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::u32,bool ) )(&::irr::video::IVideoDriver::enableClipPlane) )
-            , ( bp::arg("index"), bp::arg("enable") ) )    
-        .def( 
-            "enableMaterial2D"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( bool ) )(&::irr::video::IVideoDriver::enableMaterial2D) )
-            , ( bp::arg("enable")=(bool)(true) ) )    
-        .def( 
-            "endScene"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::endScene) ) )    
-        .def( 
-            "fillMaterialStructureFromAttributes"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::SMaterial &,::irr::io::IAttributes * ) )(&::irr::video::IVideoDriver::fillMaterialStructureFromAttributes) )
-            , ( bp::arg("outMaterial"), bp::arg("attributes") ) )    
-        .def( 
-            "findTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::io::path const & ) )(&::irr::video::IVideoDriver::findTexture) )
-            , ( bp::arg("filename") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getColorFormat"
-            , bp::pure_virtual( (::irr::video::ECOLOR_FORMAT ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getColorFormat) ) )    
-        .def( 
-            "getCurrentRenderTargetSize"
-            , bp::pure_virtual( (::irr::core::dimension2d< unsigned int > const & ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getCurrentRenderTargetSize) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getDriverType"
-            , bp::pure_virtual( (::irr::video::E_DRIVER_TYPE ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getDriverType) ) )    
-        .def( 
-            "getDynamicLight"
-            , bp::pure_virtual( (::irr::video::SLight const & ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) const)(&::irr::video::IVideoDriver::getDynamicLight) )
-            , ( bp::arg("idx") )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getDynamicLightCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getDynamicLightCount) ) )    
-        .def( 
-            "getExposedVideoData"
-            , bp::pure_virtual( (::irr::video::SExposedVideoData const & ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::getExposedVideoData) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getFPS"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getFPS) ) )    
-        .def( 
-            "getFog"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::SColor &,::irr::video::E_FOG_TYPE &,::irr::f32 &,::irr::f32 &,::irr::f32 &,bool &,bool & ) )(&::irr::video::IVideoDriver::getFog) )
-            , ( bp::arg("color"), bp::arg("fogType"), bp::arg("start"), bp::arg("end"), bp::arg("density"), bp::arg("pixelFog"), bp::arg("rangeFog") ) )    
-        .def( 
-            "getGPUProgrammingServices"
-            , bp::pure_virtual( (::irr::video::IGPUProgrammingServices * ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::getGPUProgrammingServices) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getImageLoader"
-            , bp::pure_virtual( (::irr::video::IImageLoader * ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) )(&::irr::video::IVideoDriver::getImageLoader) )
-            , ( bp::arg("n") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getImageLoaderCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getImageLoaderCount) ) )    
-        .def( 
-            "getImageWriter"
-            , bp::pure_virtual( (::irr::video::IImageWriter * ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) )(&::irr::video::IVideoDriver::getImageWriter) )
-            , ( bp::arg("n") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getImageWriterCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getImageWriterCount) ) )    
-        .def( 
-            "getMaterial2D"
-            , bp::pure_virtual( (::irr::video::SMaterial & ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::getMaterial2D) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialRenderer"
-            , bp::pure_virtual( (::irr::video::IMaterialRenderer * ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) )(&::irr::video::IVideoDriver::getMaterialRenderer) )
-            , ( bp::arg("idx") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialRendererCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getMaterialRendererCount) ) )    
-        .def( 
-            "getMaterialRendererName"
-            , bp::pure_virtual( (::irr::c8 const * ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) const)(&::irr::video::IVideoDriver::getMaterialRendererName) )
-            , ( bp::arg("idx") ) )    
-        .def( 
-            "getMaxTextureSize"
-            , bp::pure_virtual( (::irr::core::dimension2du ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getMaxTextureSize) ) )    
-        .def( 
-            "getMaximalDynamicLightAmount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getMaximalDynamicLightAmount) ) )    
-        .def( 
-            "getMaximalPrimitiveCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getMaximalPrimitiveCount) ) )    
-        .def( 
-            "getMeshManipulator"
-            , bp::pure_virtual( (::irr::scene::IMeshManipulator * ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::getMeshManipulator) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getName"
-            , bp::pure_virtual( (wchar_t const * ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getName) )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "getOverrideMaterial"
-            , bp::pure_virtual( (::irr::video::SOverrideMaterial & ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::getOverrideMaterial) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getPrimitiveCountDrawn"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) const)(&::irr::video::IVideoDriver::getPrimitiveCountDrawn) )
-            , ( bp::arg("mode")=(::irr::u32)(0) ) )    
-        .def( 
-            "getScreenSize"
-            , bp::pure_virtual( (::irr::core::dimension2d< unsigned int > const & ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getScreenSize) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::io::path const & ) )(&::irr::video::IVideoDriver::getTexture) )
-            , ( bp::arg("filename") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTexture"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::io::IReadFile * ) )(&::irr::video::IVideoDriver::getTexture) )
-            , ( bp::arg("file") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTextureByIndex"
-            , bp::pure_virtual( (::irr::video::ITexture * ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) )(&::irr::video::IVideoDriver::getTextureByIndex) )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTextureCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getTextureCount) ) )    
-        .def( 
-            "getTextureCreationFlag"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::video::E_TEXTURE_CREATION_FLAG ) const)(&::irr::video::IVideoDriver::getTextureCreationFlag) )
-            , ( bp::arg("flag") ) )    
-        .def( 
-            "getTransform"
-            , bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::video::IVideoDriver::* )( ::irr::video::E_TRANSFORMATION_STATE ) const)(&::irr::video::IVideoDriver::getTransform) )
-            , ( bp::arg("state") )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getVendorInfo"
-            , bp::pure_virtual( (::irr::core::stringc ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::getVendorInfo) ) )    
-        .def( 
-            "getViewPort"
-            , bp::pure_virtual( (::irr::core::rect< int > const & ( ::irr::video::IVideoDriver::* )(  ) const)(&::irr::video::IVideoDriver::getViewPort) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "makeColorKeyTexture"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture *,::irr::video::SColor,bool ) const)(&::irr::video::IVideoDriver::makeColorKeyTexture) )
-            , ( bp::arg("texture"), bp::arg("color"), bp::arg("zeroTexels")=(bool)(false) ) )    
-        .def( 
-            "makeColorKeyTexture"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture *,::irr::core::vector2d< int >,bool ) const)(&::irr::video::IVideoDriver::makeColorKeyTexture) )
-            , ( bp::arg("texture"), bp::arg("colorKeyPixelPos"), bp::arg("zeroTexels")=(bool)(false) ) )    
-        .def( 
-            "makeNormalMapTexture"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture *,::irr::f32 ) const)(&::irr::video::IVideoDriver::makeNormalMapTexture) )
-            , ( bp::arg("texture"), bp::arg("amplitude")=1.0e+0f ) )    
-        .def( 
-            "mydraw2DImageBatch"
-            , (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture const *,::irr::core::array< irr::core::myposition, irr::core::irrAllocator< irr::core::myposition > > const &,::irr::core::array< irr::core::rect< int >, irr::core::irrAllocator< irr::core::rect< int > > > const &,::irr::core::rect< int > const *,::irr::video::SColor,bool ) )(&::irr::video::IVideoDriver::mydraw2DImageBatch)
-            , (void ( IVideoDriver_wrapper::* )( ::irr::video::ITexture const *,::irr::core::array< irr::core::myposition, irr::core::irrAllocator< irr::core::myposition > > const &,::irr::core::array< irr::core::rect< int >, irr::core::irrAllocator< irr::core::rect< int > > > const &,::irr::core::rect< int > const *,::irr::video::SColor,bool ) )(&IVideoDriver_wrapper::default_mydraw2DImageBatch)
-            , ( bp::arg("texture"), bp::arg("positions"), bp::arg("sourceRects"), bp::arg("clipRect"), bp::arg("color"), bp::arg("useAlphaChannelOfTexture") ) )    
-        .def( 
-            "queryFeature"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::video::E_VIDEO_DRIVER_FEATURE ) const)(&::irr::video::IVideoDriver::queryFeature) )
-            , ( bp::arg("feature") ) )    
-        .def( 
-            "removeAllHardwareBuffers"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::removeAllHardwareBuffers) ) )    
-        .def( 
-            "removeAllTextures"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )(  ) )(&::irr::video::IVideoDriver::removeAllTextures) ) )    
-        .def( 
-            "removeHardwareBuffer"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::scene::IMeshBuffer const * ) )(&::irr::video::IVideoDriver::removeHardwareBuffer) )
-            , ( bp::arg("mb") ) )    
-        .def( 
-            "removeTexture"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture * ) )(&::irr::video::IVideoDriver::removeTexture) )
-            , ( bp::arg("texture") ) )    
-        .def( 
-            "renameTexture"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture *,::irr::io::path const & ) )(&::irr::video::IVideoDriver::renameTexture) )
-            , ( bp::arg("texture"), bp::arg("newName") ) )    
-        .def( 
-            "setAllowZWriteOnTransparent"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( bool ) )(&::irr::video::IVideoDriver::setAllowZWriteOnTransparent) )
-            , ( bp::arg("flag") ) )    
-        .def( 
-            "setAmbientLight"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::SColorf const & ) )(&::irr::video::IVideoDriver::setAmbientLight) )
-            , ( bp::arg("color") ) )    
-        .def( 
-            "setClipPlane"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::u32,::irr::core::plane3df const &,bool ) )(&::irr::video::IVideoDriver::setClipPlane) )
-            , ( bp::arg("index"), bp::arg("plane"), bp::arg("enable")=(bool)(false) ) )    
-        .def( 
-            "setFog"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::SColor,::irr::video::E_FOG_TYPE,::irr::f32,::irr::f32,::irr::f32,bool,bool ) )(&::irr::video::IVideoDriver::setFog) )
-            , ( bp::arg("color")=irr::video::SColor(0u, 255u, 255u, 255u), bp::arg("fogType")=::irr::video::EFT_FOG_LINEAR, bp::arg("start")=5.0e+1f, bp::arg("end")=1.0e+2f, bp::arg("density")=9.99999977648258209228515625e-3f, bp::arg("pixelFog")=(bool)(false), bp::arg("rangeFog")=(bool)(false) ) )    
-        .def( 
-            "setMaterial"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::SMaterial const & ) )(&::irr::video::IVideoDriver::setMaterial) )
-            , ( bp::arg("material") ) )    
-        .def( 
-            "setMaterialRendererName"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::s32,::irr::c8 const * ) )(&::irr::video::IVideoDriver::setMaterialRendererName) )
-            , ( bp::arg("idx"), bp::arg("name") ) )    
-        .def( 
-            "setMinHardwareBufferVertexCount"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::u32 ) )(&::irr::video::IVideoDriver::setMinHardwareBufferVertexCount) )
-            , ( bp::arg("count") ) )    
-        .def( 
-            "setRenderTarget"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::video::ITexture *,bool,bool,::irr::video::SColor ) )(&::irr::video::IVideoDriver::setRenderTarget) )
-            , ( bp::arg("texture"), bp::arg("clearBackBuffer")=(bool)(true), bp::arg("clearZBuffer")=(bool)(true), bp::arg("color")=irr::video::SColor(0u, 0u, 0u, 0u) ) )    
-        .def( 
-            "setRenderTarget"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::video::E_RENDER_TARGET,bool,bool,::irr::video::SColor ) )(&::irr::video::IVideoDriver::setRenderTarget) )
-            , ( bp::arg("target"), bp::arg("clearTarget")=(bool)(true), bp::arg("clearZBuffer")=(bool)(true), bp::arg("color")=irr::video::SColor(0u, 0u, 0u, 0u) ) )    
-        .def( 
-            "setRenderTarget"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::core::array< irr::video::IRenderTarget, irr::core::irrAllocator< irr::video::IRenderTarget > > const &,bool,bool,::irr::video::SColor ) )(&::irr::video::IVideoDriver::setRenderTarget) )
-            , ( bp::arg("texture"), bp::arg("clearBackBuffer")=(bool)(true), bp::arg("clearZBuffer")=(bool)(true), bp::arg("color")=irr::video::SColor(0u, 0u, 0u, 0u) ) )    
-        .def( 
-            "setTextureCreationFlag"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::E_TEXTURE_CREATION_FLAG,bool ) )(&::irr::video::IVideoDriver::setTextureCreationFlag) )
-            , ( bp::arg("flag"), bp::arg("enabled")=(bool)(true) ) )    
-        .def( 
-            "setTransform"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::video::E_TRANSFORMATION_STATE,::irr::core::matrix4 const & ) )(&::irr::video::IVideoDriver::setTransform) )
-            , ( bp::arg("state"), bp::arg("mat") ) )    
-        .def( 
-            "setViewPort"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::core::rect< int > const & ) )(&::irr::video::IVideoDriver::setViewPort) )
-            , ( bp::arg("area") ) )    
-        .def( 
-            "turnLightOn"
-            , bp::pure_virtual( (void ( ::irr::video::IVideoDriver::* )( ::irr::s32,bool ) )(&::irr::video::IVideoDriver::turnLightOn) )
-            , ( bp::arg("lightIndex"), bp::arg("turnOn") ) )    
-        .def( 
-            "writeImageToFile"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::video::IImage *,::irr::io::path const &,::irr::u32 ) )(&::irr::video::IVideoDriver::writeImageToFile) )
-            , ( bp::arg("image"), bp::arg("filename"), bp::arg("param")=(::irr::u32)(0) ) )    
-        .def( 
-            "writeImageToFile"
-            , bp::pure_virtual( (bool ( ::irr::video::IVideoDriver::* )( ::irr::video::IImage *,::irr::io::IWriteFile *,::irr::u32 ) )(&::irr::video::IVideoDriver::writeImageToFile) )
-            , ( bp::arg("image"), bp::arg("file"), bp::arg("param")=(::irr::u32)(0) ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IVideoDriver_wrapper::* )( ::irr::c8 const * ) )(&IVideoDriver_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-
-   
-
-    bp::class_< IMesh_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "IMesh" )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::u32 ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("nr") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::video::SMaterial const & ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("material") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBufferCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getMeshBufferCount) ) )    
-        .def( 
-            "setBoundingBox"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::core::aabbox3df const & ) )(&::irr::scene::IMesh::setBoundingBox) )
-            , ( bp::arg("box") ) )    
-        .def( 
-            "setDirty"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setDirty) )
-            , ( bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setHardwareMappingHint"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_HARDWARE_MAPPING,::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setHardwareMappingHint) )
-            , ( bp::arg("newMappingHint"), bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setMaterialFlag"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::video::E_MATERIAL_FLAG,bool ) )(&::irr::scene::IMesh::setMaterialFlag) )
-            , ( bp::arg("flag"), bp::arg("newvalue") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IMesh_wrapper::* )( ::irr::c8 const * ) )(&IMesh_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< IAnimatedMesh_wrapper, bp::bases< irr::scene::IMesh >, boost::noncopyable >( "IAnimatedMesh" )    
-        .def( 
-            "getFrameCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IAnimatedMesh::* )(  ) const)(&::irr::scene::IAnimatedMesh::getFrameCount) ) )    
-        .def( 
-            "getMesh"
-            , bp::pure_virtual( (::irr::scene::IMesh * ( ::irr::scene::IAnimatedMesh::* )( ::irr::s32,::irr::s32,::irr::s32,::irr::s32 ) )(&::irr::scene::IAnimatedMesh::getMesh) )
-            , ( bp::arg("frame"), bp::arg("detailLevel")=(::irr::s32)(255), bp::arg("startFrameLoop")=(::irr::s32)(-0x00000000000000001), bp::arg("endFrameLoop")=(::irr::s32)(-0x00000000000000001) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshType"
-            , (::irr::scene::E_ANIMATED_MESH_TYPE ( ::irr::scene::IAnimatedMesh::* )(  ) const)(&::irr::scene::IAnimatedMesh::getMeshType)
-            , (::irr::scene::E_ANIMATED_MESH_TYPE ( IAnimatedMesh_wrapper::* )(  ) const)(&IAnimatedMesh_wrapper::default_getMeshType) )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::u32 ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("nr") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::video::SMaterial const & ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("material") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBufferCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getMeshBufferCount) ) )    
-        .def( 
-            "setBoundingBox"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::core::aabbox3df const & ) )(&::irr::scene::IMesh::setBoundingBox) )
-            , ( bp::arg("box") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAnimatedMesh_wrapper::* )( ::irr::c8 const * ) )(&IAnimatedMesh_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setDirty"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setDirty) )
-            , ( bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setHardwareMappingHint"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_HARDWARE_MAPPING,::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setHardwareMappingHint) )
-            , ( bp::arg("newMappingHint"), bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setMaterialFlag"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::video::E_MATERIAL_FLAG,bool ) )(&::irr::scene::IMesh::setMaterialFlag) )
-            , ( bp::arg("flag"), bp::arg("newvalue") ) );
-
-    bp::class_< IAnimatedMeshMD2_wrapper, bp::bases< irr::scene::IAnimatedMesh >, boost::noncopyable >( "IAnimatedMeshMD2" )    
-        .def( 
-            "getAnimationCount"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::scene::IAnimatedMeshMD2::* )(  ) const)(&::irr::scene::IAnimatedMeshMD2::getAnimationCount) ) )    
-        .def( 
-            "getAnimationName"
-            , bp::pure_virtual( (::irr::c8 const * ( ::irr::scene::IAnimatedMeshMD2::* )( ::irr::s32 ) const)(&::irr::scene::IAnimatedMeshMD2::getAnimationName) )
-            , ( bp::arg("nr") ) )    
-        .def( 
-            "getFrameLoop"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshMD2::* )( ::irr::scene::EMD2_ANIMATION_TYPE,::irr::s32 &,::irr::s32 &,::irr::s32 & ) const)(&::irr::scene::IAnimatedMeshMD2::getFrameLoop) )
-            , ( bp::arg("l"), bp::arg("outBegin"), bp::arg("outEnd"), bp::arg("outFPS") ) )    
-        .def( 
-            "getFrameLoop"
-            , bp::pure_virtual( (bool ( ::irr::scene::IAnimatedMeshMD2::* )( ::irr::c8 const *,::irr::s32 &,::irr::s32 &,::irr::s32 & ) const)(&::irr::scene::IAnimatedMeshMD2::getFrameLoop) )
-            , ( bp::arg("name"), bp::arg("outBegin"), bp::arg("outEnd"), bp::arg("outFPS") ) )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getFrameCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IAnimatedMesh::* )(  ) const)(&::irr::scene::IAnimatedMesh::getFrameCount) ) )    
-        .def( 
-            "getMesh"
-            , bp::pure_virtual( (::irr::scene::IMesh * ( ::irr::scene::IAnimatedMesh::* )( ::irr::s32,::irr::s32,::irr::s32,::irr::s32 ) )(&::irr::scene::IAnimatedMesh::getMesh) )
-            , ( bp::arg("frame"), bp::arg("detailLevel")=(::irr::s32)(255), bp::arg("startFrameLoop")=(::irr::s32)(-0x00000000000000001), bp::arg("endFrameLoop")=(::irr::s32)(-0x00000000000000001) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::u32 ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("nr") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::video::SMaterial const & ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("material") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBufferCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getMeshBufferCount) ) )    
-        .def( 
-            "getMeshType"
-            , (::irr::scene::E_ANIMATED_MESH_TYPE ( ::irr::scene::IAnimatedMesh::* )(  ) const)(&::irr::scene::IAnimatedMesh::getMeshType)
-            , (::irr::scene::E_ANIMATED_MESH_TYPE ( IAnimatedMeshMD2_wrapper::* )(  ) const)(&IAnimatedMeshMD2_wrapper::default_getMeshType) )    
-        .def( 
-            "setBoundingBox"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::core::aabbox3df const & ) )(&::irr::scene::IMesh::setBoundingBox) )
-            , ( bp::arg("box") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAnimatedMeshMD2_wrapper::* )( ::irr::c8 const * ) )(&IAnimatedMeshMD2_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setDirty"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setDirty) )
-            , ( bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setHardwareMappingHint"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_HARDWARE_MAPPING,::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setHardwareMappingHint) )
-            , ( bp::arg("newMappingHint"), bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setMaterialFlag"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::video::E_MATERIAL_FLAG,bool ) )(&::irr::scene::IMesh::setMaterialFlag) )
-            , ( bp::arg("flag"), bp::arg("newvalue") ) );
-
-    bp::class_< IAnimatedMeshMD3_wrapper, bp::bases< irr::scene::IAnimatedMesh >, boost::noncopyable >( "IAnimatedMeshMD3" )    
-        .def( 
-            "getOriginalMesh"
-            , bp::pure_virtual( (::irr::scene::SMD3Mesh * ( ::irr::scene::IAnimatedMeshMD3::* )(  ) )(&::irr::scene::IAnimatedMeshMD3::getOriginalMesh) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTagList"
-            , bp::pure_virtual( (::irr::scene::SMD3QuaternionTagList * ( ::irr::scene::IAnimatedMeshMD3::* )( ::irr::s32,::irr::s32,::irr::s32,::irr::s32 ) )(&::irr::scene::IAnimatedMeshMD3::getTagList) )
-            , ( bp::arg("frame"), bp::arg("detailLevel"), bp::arg("startFrameLoop"), bp::arg("endFrameLoop") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "setInterpolationShift"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshMD3::* )( ::irr::u32,::irr::u32 ) )(&::irr::scene::IAnimatedMeshMD3::setInterpolationShift) )
-            , ( bp::arg("shift"), bp::arg("loopMode") ) )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getFrameCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IAnimatedMesh::* )(  ) const)(&::irr::scene::IAnimatedMesh::getFrameCount) ) )    
-        .def( 
-            "getMesh"
-            , bp::pure_virtual( (::irr::scene::IMesh * ( ::irr::scene::IAnimatedMesh::* )( ::irr::s32,::irr::s32,::irr::s32,::irr::s32 ) )(&::irr::scene::IAnimatedMesh::getMesh) )
-            , ( bp::arg("frame"), bp::arg("detailLevel")=(::irr::s32)(255), bp::arg("startFrameLoop")=(::irr::s32)(-0x00000000000000001), bp::arg("endFrameLoop")=(::irr::s32)(-0x00000000000000001) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::u32 ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("nr") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBuffer"
-            , bp::pure_virtual( (::irr::scene::IMeshBuffer * ( ::irr::scene::IMesh::* )( ::irr::video::SMaterial const & ) const)(&::irr::scene::IMesh::getMeshBuffer) )
-            , ( bp::arg("material") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMeshBufferCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IMesh::* )(  ) const)(&::irr::scene::IMesh::getMeshBufferCount) ) )    
-        .def( 
-            "getMeshType"
-            , (::irr::scene::E_ANIMATED_MESH_TYPE ( ::irr::scene::IAnimatedMesh::* )(  ) const)(&::irr::scene::IAnimatedMesh::getMeshType)
-            , (::irr::scene::E_ANIMATED_MESH_TYPE ( IAnimatedMeshMD3_wrapper::* )(  ) const)(&IAnimatedMeshMD3_wrapper::default_getMeshType) )    
-        .def( 
-            "setBoundingBox"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::core::aabbox3df const & ) )(&::irr::scene::IMesh::setBoundingBox) )
-            , ( bp::arg("box") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAnimatedMeshMD3_wrapper::* )( ::irr::c8 const * ) )(&IAnimatedMeshMD3_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setDirty"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setDirty) )
-            , ( bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setHardwareMappingHint"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::scene::E_HARDWARE_MAPPING,::irr::scene::E_BUFFER_TYPE ) )(&::irr::scene::IMesh::setHardwareMappingHint) )
-            , ( bp::arg("newMappingHint"), bp::arg("buffer")=::irr::scene::EBT_VERTEX_AND_INDEX ) )    
-        .def( 
-            "setMaterialFlag"
-            , bp::pure_virtual( (void ( ::irr::scene::IMesh::* )( ::irr::video::E_MATERIAL_FLAG,bool ) )(&::irr::scene::IMesh::setMaterialFlag) )
-            , ( bp::arg("flag"), bp::arg("newvalue") ) );
-
-    bp::class_< IAnimationEndCallBack_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "IAnimationEndCallBack" )    
-        .def( 
-            "OnAnimationEnd"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimationEndCallBack::* )( ::irr::scene::IAnimatedMeshSceneNode * ) )(&::irr::scene::IAnimationEndCallBack::OnAnimationEnd) )
-            , ( bp::arg("node") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAnimationEndCallBack_wrapper::* )( ::irr::c8 const * ) )(&IAnimationEndCallBack_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< IAnimatedMeshSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::noncopyable >( "IAnimatedMeshSceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
-        .def( 
-            "addShadowVolumeSceneNode"
-            , bp::pure_virtual( (::irr::scene::IShadowVolumeSceneNode * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::scene::IMesh const *,::irr::s32,bool,::irr::f32 ) )(&::irr::scene::IAnimatedMeshSceneNode::addShadowVolumeSceneNode) )
-            , ( bp::arg("shadowMesh")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("zfailmethod")=(bool)(true), bp::arg("infinity")=1.0e+4f )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "animateJoints"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( bool ) )(&::irr::scene::IAnimatedMeshSceneNode::animateJoints) )
-            , ( bp::arg("CalculateAbsolutePositions")=(bool)(true) ) )    
-        .def( 
-            "clone"
-            , bp::pure_virtual( (::irr::scene::ISceneNode * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::IAnimatedMeshSceneNode::clone) )
-            , ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getAnimationSpeed"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) const)(&::irr::scene::IAnimatedMeshSceneNode::getAnimationSpeed) ) )    
-        .def( 
-            "getEndFrame"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) const)(&::irr::scene::IAnimatedMeshSceneNode::getEndFrame) ) )    
-        .def( 
-            "getFrameNr"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) const)(&::irr::scene::IAnimatedMeshSceneNode::getFrameNr) ) )    
-        .def( 
-            "getJointCount"
-            , bp::pure_virtual( (::irr::u32 ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) const)(&::irr::scene::IAnimatedMeshSceneNode::getJointCount) ) )    
-        .def( 
-            "getJointNode"
-            , bp::pure_virtual( (::irr::scene::IBoneSceneNode * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::IAnimatedMeshSceneNode::getJointNode) )
-            , ( bp::arg("jointName") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getJointNode"
-            , bp::pure_virtual( (::irr::scene::IBoneSceneNode * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::u32 ) )(&::irr::scene::IAnimatedMeshSceneNode::getJointNode) )
-            , ( bp::arg("jointID") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMD3TagTransformation"
-            , bp::pure_virtual( (::irr::scene::SMD3QuaternionTag const * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::IAnimatedMeshSceneNode::getMD3TagTransformation) )
-            , ( bp::arg("tagname") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMS3DJointNode"
-            , bp::pure_virtual( (::irr::scene::ISceneNode * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::IAnimatedMeshSceneNode::getMS3DJointNode) )
-            , ( bp::arg("jointName") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMesh"
-            , bp::pure_virtual( (::irr::scene::IAnimatedMesh * ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) )(&::irr::scene::IAnimatedMeshSceneNode::getMesh) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getStartFrame"
-            , bp::pure_virtual( (::irr::s32 ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) const)(&::irr::scene::IAnimatedMeshSceneNode::getStartFrame) ) )    
-        .def( 
-            "getXJointNode"
-            , bp::pure_virtual( (::irr::scene::ISceneNode * ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::IAnimatedMeshSceneNode::getXJointNode) )
-            , ( bp::arg("jointName") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "isReadOnlyMaterials"
-            , bp::pure_virtual( (bool ( ::irr::scene::IAnimatedMeshSceneNode::* )(  ) const)(&::irr::scene::IAnimatedMeshSceneNode::isReadOnlyMaterials) ) )    
-        .def( 
-            "setAnimationEndCallback"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::scene::IAnimationEndCallBack * ) )(&::irr::scene::IAnimatedMeshSceneNode::setAnimationEndCallback) )
-            , ( bp::arg("callback")=bp::object() ) )    
-        .def( 
-            "setAnimationSpeed"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::f32 ) )(&::irr::scene::IAnimatedMeshSceneNode::setAnimationSpeed) )
-            , ( bp::arg("framesPerSecond") ) )    
-        .def( 
-            "setCurrentFrame"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::f32 ) )(&::irr::scene::IAnimatedMeshSceneNode::setCurrentFrame) )
-            , ( bp::arg("frame") ) )    
-        .def( 
-            "setFrameLoop"
-            , bp::pure_virtual( (bool ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::s32,::irr::s32 ) )(&::irr::scene::IAnimatedMeshSceneNode::setFrameLoop) )
-            , ( bp::arg("begin"), bp::arg("end") ) )    
-        .def( 
-            "setJointMode"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::scene::E_JOINT_UPDATE_ON_RENDER ) )(&::irr::scene::IAnimatedMeshSceneNode::setJointMode) )
-            , ( bp::arg("mode") ) )    
-        .def( 
-            "setLoopMode"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( bool ) )(&::irr::scene::IAnimatedMeshSceneNode::setLoopMode) )
-            , ( bp::arg("playAnimationLooped") ) )    
-        .def( 
-            "setMD2Animation"
-            , bp::pure_virtual( (bool ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::scene::EMD2_ANIMATION_TYPE ) )(&::irr::scene::IAnimatedMeshSceneNode::setMD2Animation) )
-            , ( bp::arg("anim") ) )    
-        .def( 
-            "setMD2Animation"
-            , bp::pure_virtual( (bool ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::IAnimatedMeshSceneNode::setMD2Animation) )
-            , ( bp::arg("animationName") ) )    
-        .def( 
-            "setMesh"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::scene::IAnimatedMesh * ) )(&::irr::scene::IAnimatedMeshSceneNode::setMesh) )
-            , ( bp::arg("mesh") ) )    
-        .def( 
-            "setReadOnlyMaterials"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( bool ) )(&::irr::scene::IAnimatedMeshSceneNode::setReadOnlyMaterials) )
-            , ( bp::arg("readonly") ) )    
-        .def( 
-            "setRenderFromIdentity"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( bool ) )(&::irr::scene::IAnimatedMeshSceneNode::setRenderFromIdentity) )
-            , ( bp::arg("On") ) )    
-        .def( 
-            "setTransitionTime"
-            , bp::pure_virtual( (void ( ::irr::scene::IAnimatedMeshSceneNode::* )( ::irr::f32 ) )(&::irr::scene::IAnimatedMeshSceneNode::setTransitionTime) )
-            , ( bp::arg("Time") ) )    
-        .def( 
-            "OnAnimate"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::u32 ) )(&IAnimatedMeshSceneNode_wrapper::default_OnAnimate)
-            , ( bp::arg("timeMs") ) )    
-        .def( 
-            "OnRegisterSceneNode"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )(  ) )(&IAnimatedMeshSceneNode_wrapper::default_OnRegisterSceneNode) )    
-        .def( 
-            "addAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IAnimatedMeshSceneNode_wrapper::default_addAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "addChild"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IAnimatedMeshSceneNode_wrapper::default_addChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "cloneMembers"
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&IAnimatedMeshSceneNode_wrapper::cloneMembers)
-            , ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&IAnimatedMeshSceneNode_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getAbsolutePosition"
-            , (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
-            , (::irr::core::vector3df ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getAbsolutePosition) )    
-        .def( 
-            "getAbsoluteTransformation"
-            , (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getID"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
-            , (::irr::s32 ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getID) )    
-        .def( 
-            "getMaterial"
-            , (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
-            , ( bp::arg("num") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialCount"
-            , (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
-            , (::irr::u32 ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getMaterialCount) )    
-        .def( 
-            "getName"
-            , (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
-            , (::irr::c8 const * ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getName) )    
-        .def( 
-            "getPosition"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getRelativeTransformation"
-            , (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
-            , (::irr::core::matrix4 ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getRelativeTransformation) )    
-        .def( 
-            "getRotation"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getScale"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getSceneManager"
-            , (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
-            , (::irr::scene::ISceneManager * ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getSceneManager)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransformedBoundingBox"
-            , (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
-            , (::irr::core::aabbox3d< float > const ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getTransformedBoundingBox) )    
-        .def( 
-            "getTriangleSelector"
-            , (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
-            , (::irr::scene::ITriangleSelector * ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getTriangleSelector)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
-            , (::irr::scene::ESCENE_NODE_TYPE ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_getType) )    
-        .def( 
-            "isTrulyVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
-            , (bool ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_isTrulyVisible) )    
-        .def( 
-            "isVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
-            , (bool ( IAnimatedMeshSceneNode_wrapper::* )(  ) const)(&IAnimatedMeshSceneNode_wrapper::default_isVisible) )    
-        .def( 
-            "remove"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )(  ) )(&IAnimatedMeshSceneNode_wrapper::default_remove) )    
-        .def( 
-            "removeAll"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )(  ) )(&IAnimatedMeshSceneNode_wrapper::default_removeAll) )    
-        .def( 
-            "removeAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IAnimatedMeshSceneNode_wrapper::default_removeAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "removeAnimators"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )(  ) )(&IAnimatedMeshSceneNode_wrapper::default_removeAnimators) )    
-        .def( 
-            "removeChild"
-            , (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
-            , (bool ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IAnimatedMeshSceneNode_wrapper::default_removeChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "render"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&IAnimatedMeshSceneNode_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugDataVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::s32 ) )(&IAnimatedMeshSceneNode_wrapper::default_setDebugDataVisible)
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::c8 const * ) )(&IAnimatedMeshSceneNode_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setID"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::s32 ) )(&IAnimatedMeshSceneNode_wrapper::default_setID)
-            , ( bp::arg("id") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::c8 const * ) )(&IAnimatedMeshSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&IAnimatedMeshSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setParent"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IAnimatedMeshSceneNode_wrapper::default_setParent)
-            , ( bp::arg("newParent") ) )    
-        .def( 
-            "setPosition"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IAnimatedMeshSceneNode_wrapper::default_setPosition)
-            , ( bp::arg("newpos") ) )    
-        .def( 
-            "setRotation"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setRotation)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IAnimatedMeshSceneNode_wrapper::default_setRotation)
-            , ( bp::arg("rotation") ) )    
-        .def( 
-            "setScale"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IAnimatedMeshSceneNode_wrapper::default_setScale)
-            , ( bp::arg("scale") ) )    
-        .def( 
-            "setSceneManager"
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&IAnimatedMeshSceneNode_wrapper::setSceneManager)
-            , ( bp::arg("newManager") ) )    
-        .def( 
-            "setTriangleSelector"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&IAnimatedMeshSceneNode_wrapper::default_setTriangleSelector)
-            , ( bp::arg("selector") ) )    
-        .def( 
-            "setVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )( bool ) )(&IAnimatedMeshSceneNode_wrapper::default_setVisible)
-            , ( bp::arg("isVisible") ) )    
-        .def( 
-            "updateAbsolutePosition"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
-            , (void ( IAnimatedMeshSceneNode_wrapper::* )(  ) )(&IAnimatedMeshSceneNode_wrapper::default_updateAbsolutePosition) );
-
-    bp::class_< IBillboardSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::noncopyable >( "IBillboardSceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f) )) )    
-        .def( 
-            "getColor"
-            , bp::pure_virtual( (void ( ::irr::scene::IBillboardSceneNode::* )( ::irr::video::SColor &,::irr::video::SColor & ) const)(&::irr::scene::IBillboardSceneNode::getColor) )
-            , ( bp::arg("topColor"), bp::arg("bottomColor") ) )    
-        .def( 
-            "getSize"
-            , bp::pure_virtual( (::irr::core::dimension2d< float > const & ( ::irr::scene::IBillboardSceneNode::* )(  ) const)(&::irr::scene::IBillboardSceneNode::getSize) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "setColor"
-            , bp::pure_virtual( (void ( ::irr::scene::IBillboardSceneNode::* )( ::irr::video::SColor const & ) )(&::irr::scene::IBillboardSceneNode::setColor) )
-            , ( bp::arg("overallColor") ) )    
-        .def( 
-            "setColor"
-            , bp::pure_virtual( (void ( ::irr::scene::IBillboardSceneNode::* )( ::irr::video::SColor const &,::irr::video::SColor const & ) )(&::irr::scene::IBillboardSceneNode::setColor) )
-            , ( bp::arg("topColor"), bp::arg("bottomColor") ) )    
-        .def( 
-            "setSize"
-            , bp::pure_virtual( (void ( ::irr::scene::IBillboardSceneNode::* )( ::irr::core::dimension2d< float > const & ) )(&::irr::scene::IBillboardSceneNode::setSize) )
-            , ( bp::arg("size") ) )    
-        .def( 
-            "OnAnimate"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::u32 ) )(&IBillboardSceneNode_wrapper::default_OnAnimate)
-            , ( bp::arg("timeMs") ) )    
-        .def( 
-            "OnRegisterSceneNode"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
-            , (void ( IBillboardSceneNode_wrapper::* )(  ) )(&IBillboardSceneNode_wrapper::default_OnRegisterSceneNode) )    
-        .def( 
-            "addAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IBillboardSceneNode_wrapper::default_addAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "addChild"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IBillboardSceneNode_wrapper::default_addChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "clone"
-            , (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
-            , (::irr::scene::ISceneNode * ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&IBillboardSceneNode_wrapper::default_clone)
-            , ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "cloneMembers"
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&IBillboardSceneNode_wrapper::cloneMembers)
-            , ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&IBillboardSceneNode_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getAbsolutePosition"
-            , (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
-            , (::irr::core::vector3df ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getAbsolutePosition) )    
-        .def( 
-            "getAbsoluteTransformation"
-            , (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getID"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
-            , (::irr::s32 ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getID) )    
-        .def( 
-            "getMaterial"
-            , (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
-            , ( bp::arg("num") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialCount"
-            , (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
-            , (::irr::u32 ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getMaterialCount) )    
-        .def( 
-            "getName"
-            , (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
-            , (::irr::c8 const * ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getName) )    
-        .def( 
-            "getPosition"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getRelativeTransformation"
-            , (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
-            , (::irr::core::matrix4 ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getRelativeTransformation) )    
-        .def( 
-            "getRotation"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getScale"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getSceneManager"
-            , (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
-            , (::irr::scene::ISceneManager * ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getSceneManager)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransformedBoundingBox"
-            , (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
-            , (::irr::core::aabbox3d< float > const ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getTransformedBoundingBox) )    
-        .def( 
-            "getTriangleSelector"
-            , (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
-            , (::irr::scene::ITriangleSelector * ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getTriangleSelector)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
-            , (::irr::scene::ESCENE_NODE_TYPE ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_getType) )    
-        .def( 
-            "isTrulyVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
-            , (bool ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_isTrulyVisible) )    
-        .def( 
-            "isVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
-            , (bool ( IBillboardSceneNode_wrapper::* )(  ) const)(&IBillboardSceneNode_wrapper::default_isVisible) )    
-        .def( 
-            "remove"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
-            , (void ( IBillboardSceneNode_wrapper::* )(  ) )(&IBillboardSceneNode_wrapper::default_remove) )    
-        .def( 
-            "removeAll"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
-            , (void ( IBillboardSceneNode_wrapper::* )(  ) )(&IBillboardSceneNode_wrapper::default_removeAll) )    
-        .def( 
-            "removeAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IBillboardSceneNode_wrapper::default_removeAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "removeAnimators"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
-            , (void ( IBillboardSceneNode_wrapper::* )(  ) )(&IBillboardSceneNode_wrapper::default_removeAnimators) )    
-        .def( 
-            "removeChild"
-            , (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
-            , (bool ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IBillboardSceneNode_wrapper::default_removeChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "render"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&IBillboardSceneNode_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugDataVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::s32 ) )(&IBillboardSceneNode_wrapper::default_setDebugDataVisible)
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::c8 const * ) )(&IBillboardSceneNode_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setID"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::s32 ) )(&IBillboardSceneNode_wrapper::default_setID)
-            , ( bp::arg("id") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::c8 const * ) )(&IBillboardSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&IBillboardSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setParent"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IBillboardSceneNode_wrapper::default_setParent)
-            , ( bp::arg("newParent") ) )    
-        .def( 
-            "setPosition"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IBillboardSceneNode_wrapper::default_setPosition)
-            , ( bp::arg("newpos") ) )    
-        .def( 
-            "setRotation"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setRotation)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IBillboardSceneNode_wrapper::default_setRotation)
-            , ( bp::arg("rotation") ) )    
-        .def( 
-            "setScale"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IBillboardSceneNode_wrapper::default_setScale)
-            , ( bp::arg("scale") ) )    
-        .def( 
-            "setSceneManager"
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&IBillboardSceneNode_wrapper::setSceneManager)
-            , ( bp::arg("newManager") ) )    
-        .def( 
-            "setTriangleSelector"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
-            , (void ( IBillboardSceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&IBillboardSceneNode_wrapper::default_setTriangleSelector)
-            , ( bp::arg("selector") ) )    
-        .def( 
-            "setVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
-            , (void ( IBillboardSceneNode_wrapper::* )( bool ) )(&IBillboardSceneNode_wrapper::default_setVisible)
-            , ( bp::arg("isVisible") ) )    
-        .def( 
-            "updateAbsolutePosition"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
-            , (void ( IBillboardSceneNode_wrapper::* )(  ) )(&IBillboardSceneNode_wrapper::default_updateAbsolutePosition) );
-
-
-
-    bp::class_< ICameraSceneNode_wrapper, bp::bases< irr::scene::ISceneNode, irr::IEventReceiver >, boost::noncopyable >( "ICameraSceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
-        .def( 
-            "OnEvent"
-            , bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )( ::irr::SEvent const & ) )(&::irr::scene::ICameraSceneNode::OnEvent) )
-            , ( bp::arg("event") ) )    
-        .def( 
-            "bindTargetAndRotation"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( bool ) )(&::irr::scene::ICameraSceneNode::bindTargetAndRotation) )
-            , ( bp::arg("bound") ) )    
-        .def( 
-            "getAspectRatio"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getAspectRatio) ) )    
-        .def( 
-            "getFOV"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getFOV) ) )    
-        .def( 
-            "getFarValue"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getFarValue) ) )    
-        .def( 
-            "getNearValue"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getNearValue) ) )    
-        .def( 
-            "getProjectionMatrix"
-            , bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getProjectionMatrix) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getTarget"
-            , bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getTarget) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getTargetAndRotationBinding"
-            , bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getTargetAndRotationBinding) ) )    
-        .def( 
-            "getUpVector"
-            , bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getUpVector) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getViewFrustum"
-            , bp::pure_virtual( (::irr::scene::SViewFrustum const * ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewFrustum) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getViewMatrix"
-            , bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewMatrix) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getViewMatrixAffector"
-            , bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewMatrixAffector) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "isInputReceiverEnabled"
-            , bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::isInputReceiverEnabled) ) )    
-        .def( 
-            "isOrthogonal"
-            , (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::isOrthogonal)
-            , (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isOrthogonal) )    
-        .def( 
-            "setAspectRatio"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setAspectRatio) )
-            , ( bp::arg("aspect") ) )    
-        .def( 
-            "setFOV"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setFOV) )
-            , ( bp::arg("fovy") ) )    
-        .def( 
-            "setFarValue"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setFarValue) )
-            , ( bp::arg("zf") ) )    
-        .def( 
-            "setInputReceiverEnabled"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( bool ) )(&::irr::scene::ICameraSceneNode::setInputReceiverEnabled) )
-            , ( bp::arg("enabled") ) )    
-        .def( 
-            "setNearValue"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setNearValue) )
-            , ( bp::arg("zn") ) )    
-        .def( 
-            "setProjectionMatrix"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::matrix4 const &,bool ) )(&::irr::scene::ICameraSceneNode::setProjectionMatrix) )
-            , ( bp::arg("projection"), bp::arg("isOrthogonal")=(bool)(false) ) )    
-        .def( 
-            "setRotation"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setRotation) )
-            , ( bp::arg("rotation") ) )    
-        .def( 
-            "setTarget"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setTarget) )
-            , ( bp::arg("pos") ) )    
-        .def( 
-            "setUpVector"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setUpVector) )
-            , ( bp::arg("pos") ) )    
-        .def( 
-            "setViewMatrixAffector"
-            , bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::matrix4 const & ) )(&::irr::scene::ICameraSceneNode::setViewMatrixAffector) )
-            , ( bp::arg("affector") ) )    
-        .def( 
-            "OnAnimate"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::u32 ) )(&ICameraSceneNode_wrapper::default_OnAnimate)
-            , ( bp::arg("timeMs") ) )    
-        .def( 
-            "OnRegisterSceneNode"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
-            , (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_OnRegisterSceneNode) )    
-        .def( 
-            "addAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ICameraSceneNode_wrapper::default_addAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "addChild"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_addChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "clone"
-            , (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
-            , (::irr::scene::ISceneNode * ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::default_clone)
-            , ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "cloneMembers"
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::cloneMembers)
-            , ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ICameraSceneNode_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getAbsolutePosition"
-            , (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
-            , (::irr::core::vector3df ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getAbsolutePosition) )    
-        .def( 
-            "getAbsoluteTransformation"
-            , (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getID"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
-            , (::irr::s32 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getID) )    
-        .def( 
-            "getMaterial"
-            , (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
-            , ( bp::arg("num") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialCount"
-            , (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
-            , (::irr::u32 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getMaterialCount) )    
-        .def( 
-            "getName"
-            , (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
-            , (::irr::c8 const * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getName) )    
-        .def( 
-            "getPosition"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getRelativeTransformation"
-            , (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
-            , (::irr::core::matrix4 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getRelativeTransformation) )    
-        .def( 
-            "getRotation"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getScale"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getSceneManager"
-            , (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
-            , (::irr::scene::ISceneManager * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getSceneManager)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransformedBoundingBox"
-            , (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
-            , (::irr::core::aabbox3d< float > const ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getTransformedBoundingBox) )    
-        .def( 
-            "getTriangleSelector"
-            , (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
-            , (::irr::scene::ITriangleSelector * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getTriangleSelector)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
-            , (::irr::scene::ESCENE_NODE_TYPE ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getType) )    
-        .def( 
-            "isTrulyVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
-            , (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isTrulyVisible) )    
-        .def( 
-            "isVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
-            , (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isVisible) )    
-        .def( 
-            "remove"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
-            , (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_remove) )    
-        .def( 
-            "removeAll"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
-            , (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_removeAll) )    
-        .def( 
-            "removeAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ICameraSceneNode_wrapper::default_removeAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "removeAnimators"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
-            , (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_removeAnimators) )    
-        .def( 
-            "removeChild"
-            , (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
-            , (bool ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_removeChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "render"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ICameraSceneNode_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugDataVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::s32 ) )(&ICameraSceneNode_wrapper::default_setDebugDataVisible)
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::c8 const * ) )(&ICameraSceneNode_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setID"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::s32 ) )(&ICameraSceneNode_wrapper::default_setID)
-            , ( bp::arg("id") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::c8 const * ) )(&ICameraSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&ICameraSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setParent"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_setParent)
-            , ( bp::arg("newParent") ) )    
-        .def( 
-            "setPosition"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ICameraSceneNode_wrapper::default_setPosition)
-            , ( bp::arg("newpos") ) )    
-        .def( 
-            "setScale"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ICameraSceneNode_wrapper::default_setScale)
-            , ( bp::arg("scale") ) )    
-        .def( 
-            "setSceneManager"
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::setSceneManager)
-            , ( bp::arg("newManager") ) )    
-        .def( 
-            "setTriangleSelector"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
-            , (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&ICameraSceneNode_wrapper::default_setTriangleSelector)
-            , ( bp::arg("selector") ) )    
-        .def( 
-            "setVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
-            , (void ( ICameraSceneNode_wrapper::* )( bool ) )(&ICameraSceneNode_wrapper::default_setVisible)
-            , ( bp::arg("isVisible") ) )    
-        .def( 
-            "updateAbsolutePosition"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
-            , (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_updateAbsolutePosition) );
 
     bp::class_< ICollisionCallback_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "ICollisionCallback" )    
         .def( 
@@ -10267,510 +7632,418 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 
 
 
-    bp::class_< IMeshSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::noncopyable >( "IMeshSceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
-        .def( 
-            "getMesh"
-            , bp::pure_virtual( (::irr::scene::IMesh * ( ::irr::scene::IMeshSceneNode::* )(  ) )(&::irr::scene::IMeshSceneNode::getMesh) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "isReadOnlyMaterials"
-            , bp::pure_virtual( (bool ( ::irr::scene::IMeshSceneNode::* )(  ) const)(&::irr::scene::IMeshSceneNode::isReadOnlyMaterials) ) )    
-        .def( 
-            "setMesh"
-            , bp::pure_virtual( (void ( ::irr::scene::IMeshSceneNode::* )( ::irr::scene::IMesh * ) )(&::irr::scene::IMeshSceneNode::setMesh) )
-            , ( bp::arg("mesh") ) )    
-        .def( 
-            "setReadOnlyMaterials"
-            , bp::pure_virtual( (void ( ::irr::scene::IMeshSceneNode::* )( bool ) )(&::irr::scene::IMeshSceneNode::setReadOnlyMaterials) )
-            , ( bp::arg("readonly") ) )    
-        .def( 
-            "OnAnimate"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::u32 ) )(&IMeshSceneNode_wrapper::default_OnAnimate)
-            , ( bp::arg("timeMs") ) )    
-        .def( 
-            "OnRegisterSceneNode"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
-            , (void ( IMeshSceneNode_wrapper::* )(  ) )(&IMeshSceneNode_wrapper::default_OnRegisterSceneNode) )    
-        .def( 
-            "addAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IMeshSceneNode_wrapper::default_addAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "addChild"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IMeshSceneNode_wrapper::default_addChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "clone"
-            , (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
-            , (::irr::scene::ISceneNode * ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&IMeshSceneNode_wrapper::default_clone)
-            , ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "cloneMembers"
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&IMeshSceneNode_wrapper::cloneMembers)
-            , ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&IMeshSceneNode_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getAbsolutePosition"
-            , (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
-            , (::irr::core::vector3df ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getAbsolutePosition) )    
-        .def( 
-            "getAbsoluteTransformation"
-            , (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getBoundingBox"
-            , bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getID"
-            , (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
-            , (::irr::s32 ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getID) )    
-        .def( 
-            "getMaterial"
-            , (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
-            , ( bp::arg("num") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterialCount"
-            , (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
-            , (::irr::u32 ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getMaterialCount) )    
-        .def( 
-            "getName"
-            , (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
-            , (::irr::c8 const * ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getName) )    
-        .def( 
-            "getPosition"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getRelativeTransformation"
-            , (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
-            , (::irr::core::matrix4 ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getRelativeTransformation) )    
-        .def( 
-            "getRotation"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getScale"
-            , (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getSceneManager"
-            , (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
-            , (::irr::scene::ISceneManager * ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getSceneManager)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransformedBoundingBox"
-            , (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
-            , (::irr::core::aabbox3d< float > const ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getTransformedBoundingBox) )    
-        .def( 
-            "getTriangleSelector"
-            , (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
-            , (::irr::scene::ITriangleSelector * ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getTriangleSelector)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
-            , (::irr::scene::ESCENE_NODE_TYPE ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_getType) )    
-        .def( 
-            "isTrulyVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
-            , (bool ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_isTrulyVisible) )    
-        .def( 
-            "isVisible"
-            , (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
-            , (bool ( IMeshSceneNode_wrapper::* )(  ) const)(&IMeshSceneNode_wrapper::default_isVisible) )    
-        .def( 
-            "remove"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
-            , (void ( IMeshSceneNode_wrapper::* )(  ) )(&IMeshSceneNode_wrapper::default_remove) )    
-        .def( 
-            "removeAll"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
-            , (void ( IMeshSceneNode_wrapper::* )(  ) )(&IMeshSceneNode_wrapper::default_removeAll) )    
-        .def( 
-            "removeAnimator"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&IMeshSceneNode_wrapper::default_removeAnimator)
-            , ( bp::arg("animator") ) )    
-        .def( 
-            "removeAnimators"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
-            , (void ( IMeshSceneNode_wrapper::* )(  ) )(&IMeshSceneNode_wrapper::default_removeAnimators) )    
-        .def( 
-            "removeChild"
-            , (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
-            , (bool ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IMeshSceneNode_wrapper::default_removeChild)
-            , ( bp::arg("child") ) )    
-        .def( 
-            "render"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&IMeshSceneNode_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugDataVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::s32 ) )(&IMeshSceneNode_wrapper::default_setDebugDataVisible)
-            , ( bp::arg("state") ) )    
-        .def( 
-            "setDebugName"
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::c8 const * ) )(&IMeshSceneNode_wrapper::setDebugName)
-            , ( bp::arg("newName") ) )    
-        .def( 
-            "setID"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::s32 ) )(&IMeshSceneNode_wrapper::default_setID)
-            , ( bp::arg("id") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::c8 const * ) )(&IMeshSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setName"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&IMeshSceneNode_wrapper::default_setName)
-            , ( bp::arg("name") ) )    
-        .def( 
-            "setParent"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&IMeshSceneNode_wrapper::default_setParent)
-            , ( bp::arg("newParent") ) )    
-        .def( 
-            "setPosition"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IMeshSceneNode_wrapper::default_setPosition)
-            , ( bp::arg("newpos") ) )    
-        .def( 
-            "setRotation"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setRotation)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IMeshSceneNode_wrapper::default_setRotation)
-            , ( bp::arg("rotation") ) )    
-        .def( 
-            "setScale"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&IMeshSceneNode_wrapper::default_setScale)
-            , ( bp::arg("scale") ) )    
-        .def( 
-            "setSceneManager"
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&IMeshSceneNode_wrapper::setSceneManager)
-            , ( bp::arg("newManager") ) )    
-        .def( 
-            "setTriangleSelector"
-            , (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
-            , (void ( IMeshSceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&IMeshSceneNode_wrapper::default_setTriangleSelector)
-            , ( bp::arg("selector") ) )    
-        .def( 
-            "setVisible"
-            , (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
-            , (void ( IMeshSceneNode_wrapper::* )( bool ) )(&IMeshSceneNode_wrapper::default_setVisible)
-            , ( bp::arg("isVisible") ) )    
-        .def( 
-            "updateAbsolutePosition"
-            , (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
-            , (void ( IMeshSceneNode_wrapper::* )(  ) )(&IMeshSceneNode_wrapper::default_updateAbsolutePosition) );
+/*
+
+		bp::class_< ICameraSceneNode_wrapper, bp::bases< irr::scene::ISceneNode, irr::IEventReceiver >, boost::noncopyable >( "ICameraSceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
+			.def( 
+			"OnEvent"
+			, bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )( ::irr::SEvent const & ) )(&::irr::scene::ICameraSceneNode::OnEvent) )
+			, ( bp::arg("event") ) )    
+			.def( 
+			"bindTargetAndRotation"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( bool ) )(&::irr::scene::ICameraSceneNode::bindTargetAndRotation) )
+			, ( bp::arg("bound") ) )    
+			.def( 
+			"getAspectRatio"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getAspectRatio) ) )    
+			.def( 
+			"getFOV"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getFOV) ) )    
+			.def( 
+			"getFarValue"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getFarValue) ) )    
+			.def( 
+			"getNearValue"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getNearValue) ) )    
+			.def( 
+			"getProjectionMatrix"
+			, bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getProjectionMatrix) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getTarget"
+			, bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getTarget) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getTargetAndRotationBinding"
+			, bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getTargetAndRotationBinding) ) )    
+			.def( 
+			"getUpVector"
+			, bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getUpVector) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getViewFrustum"
+			, bp::pure_virtual( (::irr::scene::SViewFrustum const * ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewFrustum) )
+			, bp::return_value_policy< bp::reference_existing_object >() )    
+			.def( 
+			"getViewMatrix"
+			, bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewMatrix) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getViewMatrixAffector"
+			, bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewMatrixAffector) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"isInputReceiverEnabled"
+			, bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::isInputReceiverEnabled) ) )    
+			.def( 
+			"isOrthogonal"
+			, (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::isOrthogonal)
+			, (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isOrthogonal) )    
+			.def( 
+			"setAspectRatio"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setAspectRatio) )
+			, ( bp::arg("aspect") ) )    
+			.def( 
+			"setFOV"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setFOV) )
+			, ( bp::arg("fovy") ) )    
+			.def( 
+			"setFarValue"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setFarValue) )
+			, ( bp::arg("zf") ) )    
+			.def( 
+			"setInputReceiverEnabled"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( bool ) )(&::irr::scene::ICameraSceneNode::setInputReceiverEnabled) )
+			, ( bp::arg("enabled") ) )    
+			.def( 
+			"setNearValue"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setNearValue) )
+			, ( bp::arg("zn") ) )    
+			.def( 
+			"setProjectionMatrix"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::matrix4 const &,bool ) )(&::irr::scene::ICameraSceneNode::setProjectionMatrix) )
+			, ( bp::arg("projection"), bp::arg("isOrthogonal")=(bool)(false) ) )    
+			.def( 
+			"setRotation"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setRotation) )
+			, ( bp::arg("rotation") ) )    
+			.def( 
+			"setTarget"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setTarget) )
+			, ( bp::arg("pos") ) )    
+			.def( 
+			"setUpVector"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setUpVector) )
+			, ( bp::arg("pos") ) )    
+			.def( 
+			"setViewMatrixAffector"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::matrix4 const & ) )(&::irr::scene::ICameraSceneNode::setViewMatrixAffector) )
+			, ( bp::arg("affector") ) )    
+			.def( 
+			"OnAnimate"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::u32 ) )(&ICameraSceneNode_wrapper::default_OnAnimate)
+			, ( bp::arg("timeMs") ) )    
+			.def( 
+			"OnRegisterSceneNode"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_OnRegisterSceneNode) )    
+			.def( 
+			"addAnimator"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ICameraSceneNode_wrapper::default_addAnimator)
+			, ( bp::arg("animator") ) )    
+			.def( 
+			"addChild"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_addChild)
+			, ( bp::arg("child") ) )    
+			.def( 
+			"clone"
+			, (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
+			, (::irr::scene::ISceneNode * ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::default_clone)
+			, ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
+			, bp::return_value_policy< bp::reference_existing_object >() )    
+			.def( 
+			"cloneMembers"
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::cloneMembers)
+			, ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
+			.def( 
+			"deserializeAttributes"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ICameraSceneNode_wrapper::default_deserializeAttributes)
+			, ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
+			.def( 
+			"getAbsolutePosition"
+			, (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
+			, (::irr::core::vector3df ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getAbsolutePosition) )    
+			.def( 
+			"getAbsoluteTransformation"
+			, (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getBoundingBox"
+			, bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getID"
+			, (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
+			, (::irr::s32 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getID) )    
+			.def( 
+			"getMaterial"
+			, (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
+			, ( bp::arg("num") )
+			, bp::return_value_policy< bp::reference_existing_object >() )    
+			.def( 
+			"getMaterialCount"
+			, (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
+			, (::irr::u32 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getMaterialCount) )    
+			.def( 
+			"getName"
+			, (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
+			, (::irr::c8 const * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getName) )    
+			.def( 
+			"getPosition"
+			, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getRelativeTransformation"
+			, (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
+			, (::irr::core::matrix4 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getRelativeTransformation) )    
+			.def( 
+			"getRotation"
+			, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getScale"
+			, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getSceneManager"
+			, (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
+			, (::irr::scene::ISceneManager * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getSceneManager)
+			, bp::return_value_policy< bp::reference_existing_object >() )    
+			.def( 
+			"getTransformedBoundingBox"
+			, (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
+			, (::irr::core::aabbox3d< float > const ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getTransformedBoundingBox) )    
+			.def( 
+			"getTriangleSelector"
+			, (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
+			, (::irr::scene::ITriangleSelector * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getTriangleSelector)
+			, bp::return_value_policy< bp::reference_existing_object >() )    
+			.def( 
+			"getType"
+			, (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
+			, (::irr::scene::ESCENE_NODE_TYPE ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getType) )    
+			.def( 
+			"isTrulyVisible"
+			, (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
+			, (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isTrulyVisible) )    
+			.def( 
+			"isVisible"
+			, (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
+			, (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isVisible) )    
+			.def( 
+			"remove"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_remove) )    
+			.def( 
+			"removeAll"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_removeAll) )    
+			.def( 
+			"removeAnimator"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ICameraSceneNode_wrapper::default_removeAnimator)
+			, ( bp::arg("animator") ) )    
+			.def( 
+			"removeAnimators"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_removeAnimators) )    
+			.def( 
+			"removeChild"
+			, (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
+			, (bool ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_removeChild)
+			, ( bp::arg("child") ) )    
+			.def( 
+			"render"
+			, bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
+			.def( 
+			"serializeAttributes"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ICameraSceneNode_wrapper::default_serializeAttributes)
+			, ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
+			.def( 
+			"setDebugDataVisible"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::s32 ) )(&ICameraSceneNode_wrapper::default_setDebugDataVisible)
+			, ( bp::arg("state") ) )    
+			.def( 
+			"setDebugName"
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::c8 const * ) )(&ICameraSceneNode_wrapper::setDebugName)
+			, ( bp::arg("newName") ) )    
+			.def( 
+			"setID"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::s32 ) )(&ICameraSceneNode_wrapper::default_setID)
+			, ( bp::arg("id") ) )    
+			.def( 
+			"setName"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::c8 const * ) )(&ICameraSceneNode_wrapper::default_setName)
+			, ( bp::arg("name") ) )    
+			.def( 
+			"setName"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&ICameraSceneNode_wrapper::default_setName)
+			, ( bp::arg("name") ) )    
+			.def( 
+			"setParent"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_setParent)
+			, ( bp::arg("newParent") ) )    
+			.def( 
+			"setPosition"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ICameraSceneNode_wrapper::default_setPosition)
+			, ( bp::arg("newpos") ) )    
+			.def( 
+			"setScale"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ICameraSceneNode_wrapper::default_setScale)
+			, ( bp::arg("scale") ) )    
+			.def( 
+			"setSceneManager"
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::setSceneManager)
+			, ( bp::arg("newManager") ) )    
+			.def( 
+			"setTriangleSelector"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&ICameraSceneNode_wrapper::default_setTriangleSelector)
+			, ( bp::arg("selector") ) )    
+			.def( 
+			"setVisible"
+			, (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
+			, (void ( ICameraSceneNode_wrapper::* )( bool ) )(&ICameraSceneNode_wrapper::default_setVisible)
+			, ( bp::arg("isVisible") ) )    
+			.def( 
+			"updateAbsolutePosition"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_updateAbsolutePosition) )
+			;*/
 
 
-
-    bp::class_< ISceneNodeAnimator_wrapper, bp::bases< irr::io::IAttributeExchangingObject, irr::IEventReceiver >, boost::noncopyable >( "ISceneNodeAnimator" )    
-        .def( 
-            "OnEvent"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::SEvent const & ) )(&::irr::scene::ISceneNodeAnimator::OnEvent)
-            , (bool ( ISceneNodeAnimator_wrapper::* )( ::irr::SEvent const & ) )(&ISceneNodeAnimator_wrapper::default_OnEvent)
-            , ( bp::arg("event") ) )    
-        .def( 
-            "animateNode"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::u32 ) )(&::irr::scene::ISceneNodeAnimator::animateNode) )
-            , ( bp::arg("node"), bp::arg("timeMs") ) )    
-        .def( 
-            "createClone"
-            , bp::pure_virtual( (::irr::scene::ISceneNodeAnimator * ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNodeAnimator::createClone) )
-            , ( bp::arg("node"), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::getType)
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ISceneNodeAnimator_wrapper::* )(  ) const)(&ISceneNodeAnimator_wrapper::default_getType) )    
-        .def( 
-            "hasFinished"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::hasFinished)
-            , (bool ( ISceneNodeAnimator_wrapper::* )(  ) const)(&ISceneNodeAnimator_wrapper::default_hasFinished) )    
-        .def( 
-            "isEventReceiverEnabled"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::isEventReceiverEnabled)
-            , (bool ( ISceneNodeAnimator_wrapper::* )(  ) const)(&ISceneNodeAnimator_wrapper::default_isEventReceiverEnabled) )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
-            , (void ( ISceneNodeAnimator_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNodeAnimator_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
-            , (void ( ISceneNodeAnimator_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNodeAnimator_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugName"
-            , (void ( ISceneNodeAnimator_wrapper::* )( ::irr::c8 const * ) )(&ISceneNodeAnimator_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< ISceneNodeAnimatorCameraFPS_wrapper, bp::bases< irr::scene::ISceneNodeAnimator >, boost::noncopyable >( "ISceneNodeAnimatorCameraFPS" )    
-        .def( 
-            "getMoveSpeed"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCameraFPS::getMoveSpeed) ) )    
-        .def( 
-            "getRotateSpeed"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCameraFPS::getRotateSpeed) ) )    
-        .def( 
-            "setInvertMouse"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )( bool ) )(&::irr::scene::ISceneNodeAnimatorCameraFPS::setInvertMouse) )
-            , ( bp::arg("invert") ) )    
-        .def( 
-            "setKeyMap"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )( ::irr::SKeyMap *,::irr::u32 ) )(&::irr::scene::ISceneNodeAnimatorCameraFPS::setKeyMap) )
-            , ( bp::arg("map"), bp::arg("count") ) )    
-        .def( 
-            "setMoveSpeed"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )( ::irr::f32 ) )(&::irr::scene::ISceneNodeAnimatorCameraFPS::setMoveSpeed) )
-            , ( bp::arg("moveSpeed") ) )    
-        .def( 
-            "setRotateSpeed"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )( ::irr::f32 ) )(&::irr::scene::ISceneNodeAnimatorCameraFPS::setRotateSpeed) )
-            , ( bp::arg("rotateSpeed") ) )    
-        .def( 
-            "setVerticalMovement"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraFPS::* )( bool ) )(&::irr::scene::ISceneNodeAnimatorCameraFPS::setVerticalMovement) )
-            , ( bp::arg("allow") ) )    
-        .def( 
-            "OnEvent"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::SEvent const & ) )(&::irr::scene::ISceneNodeAnimator::OnEvent)
-            , (bool ( ISceneNodeAnimatorCameraFPS_wrapper::* )( ::irr::SEvent const & ) )(&ISceneNodeAnimatorCameraFPS_wrapper::default_OnEvent)
-            , ( bp::arg("event") ) )    
-        .def( 
-            "animateNode"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::u32 ) )(&::irr::scene::ISceneNodeAnimator::animateNode) )
-            , ( bp::arg("node"), bp::arg("timeMs") ) )    
-        .def( 
-            "createClone"
-            , bp::pure_virtual( (::irr::scene::ISceneNodeAnimator * ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNodeAnimator::createClone) )
-            , ( bp::arg("node"), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
-            , (void ( ISceneNodeAnimatorCameraFPS_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNodeAnimatorCameraFPS_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::getType)
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ISceneNodeAnimatorCameraFPS_wrapper::* )(  ) const)(&ISceneNodeAnimatorCameraFPS_wrapper::default_getType) )    
-        .def( 
-            "hasFinished"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::hasFinished)
-            , (bool ( ISceneNodeAnimatorCameraFPS_wrapper::* )(  ) const)(&ISceneNodeAnimatorCameraFPS_wrapper::default_hasFinished) )    
-        .def( 
-            "isEventReceiverEnabled"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::isEventReceiverEnabled)
-            , (bool ( ISceneNodeAnimatorCameraFPS_wrapper::* )(  ) const)(&ISceneNodeAnimatorCameraFPS_wrapper::default_isEventReceiverEnabled) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
-            , (void ( ISceneNodeAnimatorCameraFPS_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNodeAnimatorCameraFPS_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugName"
-            , (void ( ISceneNodeAnimatorCameraFPS_wrapper::* )( ::irr::c8 const * ) )(&ISceneNodeAnimatorCameraFPS_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< ISceneNodeAnimatorCameraMaya_wrapper, bp::bases< irr::scene::ISceneNodeAnimator >, boost::noncopyable >( "ISceneNodeAnimatorCameraMaya" )    
-        .def( 
-            "getMoveSpeed"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ISceneNodeAnimatorCameraMaya::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCameraMaya::getMoveSpeed) ) )    
-        .def( 
-            "getRotateSpeed"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ISceneNodeAnimatorCameraMaya::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCameraMaya::getRotateSpeed) ) )    
-        .def( 
-            "getZoomSpeed"
-            , bp::pure_virtual( (::irr::f32 ( ::irr::scene::ISceneNodeAnimatorCameraMaya::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCameraMaya::getZoomSpeed) ) )    
-        .def( 
-            "setMoveSpeed"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraMaya::* )( ::irr::f32 ) )(&::irr::scene::ISceneNodeAnimatorCameraMaya::setMoveSpeed) )
-            , ( bp::arg("moveSpeed") ) )    
-        .def( 
-            "setRotateSpeed"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraMaya::* )( ::irr::f32 ) )(&::irr::scene::ISceneNodeAnimatorCameraMaya::setRotateSpeed) )
-            , ( bp::arg("rotateSpeed") ) )    
-        .def( 
-            "setZoomSpeed"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCameraMaya::* )( ::irr::f32 ) )(&::irr::scene::ISceneNodeAnimatorCameraMaya::setZoomSpeed) )
-            , ( bp::arg("zoomSpeed") ) )    
-        .def( 
-            "OnEvent"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::SEvent const & ) )(&::irr::scene::ISceneNodeAnimator::OnEvent)
-            , (bool ( ISceneNodeAnimatorCameraMaya_wrapper::* )( ::irr::SEvent const & ) )(&ISceneNodeAnimatorCameraMaya_wrapper::default_OnEvent)
-            , ( bp::arg("event") ) )    
-        .def( 
-            "animateNode"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::u32 ) )(&::irr::scene::ISceneNodeAnimator::animateNode) )
-            , ( bp::arg("node"), bp::arg("timeMs") ) )    
-        .def( 
-            "createClone"
-            , bp::pure_virtual( (::irr::scene::ISceneNodeAnimator * ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNodeAnimator::createClone) )
-            , ( bp::arg("node"), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
-            , (void ( ISceneNodeAnimatorCameraMaya_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNodeAnimatorCameraMaya_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::getType)
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ISceneNodeAnimatorCameraMaya_wrapper::* )(  ) const)(&ISceneNodeAnimatorCameraMaya_wrapper::default_getType) )    
-        .def( 
-            "hasFinished"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::hasFinished)
-            , (bool ( ISceneNodeAnimatorCameraMaya_wrapper::* )(  ) const)(&ISceneNodeAnimatorCameraMaya_wrapper::default_hasFinished) )    
-        .def( 
-            "isEventReceiverEnabled"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::isEventReceiverEnabled)
-            , (bool ( ISceneNodeAnimatorCameraMaya_wrapper::* )(  ) const)(&ISceneNodeAnimatorCameraMaya_wrapper::default_isEventReceiverEnabled) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
-            , (void ( ISceneNodeAnimatorCameraMaya_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNodeAnimatorCameraMaya_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugName"
-            , (void ( ISceneNodeAnimatorCameraMaya_wrapper::* )( ::irr::c8 const * ) )(&ISceneNodeAnimatorCameraMaya_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
-
-    bp::class_< ISceneNodeAnimatorCollisionResponse_wrapper, bp::bases< irr::scene::ISceneNodeAnimator >, boost::noncopyable >( "ISceneNodeAnimatorCollisionResponse" )    
-        .def( 
-            "collisionOccurred"
-            , bp::pure_virtual( (bool ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::collisionOccurred) ) )    
-        .def( 
-            "getAnimateTarget"
-            , bp::pure_virtual( (bool ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getAnimateTarget) ) )    
-        .def( 
-            "getCollisionNode"
-            , bp::pure_virtual( (::irr::scene::ISceneNode const * ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getCollisionNode) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getCollisionPoint"
-            , bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getCollisionPoint) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getCollisionResultPosition"
-            , bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getCollisionResultPosition) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getCollisionTriangle"
-            , bp::pure_virtual( (::irr::core::triangle3df const & ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getCollisionTriangle) )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "getEllipsoidRadius"
-            , bp::pure_virtual( (::irr::core::vector3df ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getEllipsoidRadius) ) )    
-        .def( 
-            "getEllipsoidTranslation"
-            , bp::pure_virtual( (::irr::core::vector3df ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getEllipsoidTranslation) ) )    
-        .def( 
-            "getGravity"
-            , bp::pure_virtual( (::irr::core::vector3df ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getGravity) ) )    
-        .def( 
-            "getTargetNode"
-            , bp::pure_virtual( (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getTargetNode) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getWorld"
-            , bp::pure_virtual( (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::getWorld) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "isFalling"
-            , bp::pure_virtual( (bool ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )(  ) const)(&::irr::scene::ISceneNodeAnimatorCollisionResponse::isFalling) ) )    
-        .def( 
-            "jump"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::f32 ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::jump) )
-            , ( bp::arg("jumpSpeed") ) )    
-        .def( 
-            "setAnimateTarget"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( bool ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setAnimateTarget) )
-            , ( bp::arg("enable") ) )    
-        .def( 
-            "setCollisionCallback"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::scene::ICollisionCallback * ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setCollisionCallback) )
-            , ( bp::arg("callback") ) )    
-        .def( 
-            "setEllipsoidRadius"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setEllipsoidRadius) )
-            , ( bp::arg("radius") ) )    
-        .def( 
-            "setEllipsoidTranslation"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setEllipsoidTranslation) )
-            , ( bp::arg("translation") ) )    
-        .def( 
-            "setGravity"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setGravity) )
-            , ( bp::arg("gravity") ) )    
-        .def( 
-            "setTargetNode"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setTargetNode) )
-            , ( bp::arg("node") ) )    
-        .def( 
-            "setWorld"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimatorCollisionResponse::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNodeAnimatorCollisionResponse::setWorld) )
-            , ( bp::arg("newWorld") ) )    
-        .def( 
-            "OnEvent"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::SEvent const & ) )(&::irr::scene::ISceneNodeAnimator::OnEvent)
-            , (bool ( ISceneNodeAnimatorCollisionResponse_wrapper::* )( ::irr::SEvent const & ) )(&ISceneNodeAnimatorCollisionResponse_wrapper::default_OnEvent)
-            , ( bp::arg("event") ) )    
-        .def( 
-            "animateNode"
-            , bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::u32 ) )(&::irr::scene::ISceneNodeAnimator::animateNode) )
-            , ( bp::arg("node"), bp::arg("timeMs") ) )    
-        .def( 
-            "createClone"
-            , bp::pure_virtual( (::irr::scene::ISceneNodeAnimator * ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNodeAnimator::createClone) )
-            , ( bp::arg("node"), bp::arg("newManager")=bp::object() )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "deserializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
-            , (void ( ISceneNodeAnimatorCollisionResponse_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNodeAnimatorCollisionResponse_wrapper::default_deserializeAttributes)
-            , ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "getType"
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::getType)
-            , (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ISceneNodeAnimatorCollisionResponse_wrapper::* )(  ) const)(&ISceneNodeAnimatorCollisionResponse_wrapper::default_getType) )    
-        .def( 
-            "hasFinished"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::hasFinished)
-            , (bool ( ISceneNodeAnimatorCollisionResponse_wrapper::* )(  ) const)(&ISceneNodeAnimatorCollisionResponse_wrapper::default_hasFinished) )    
-        .def( 
-            "isEventReceiverEnabled"
-            , (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::isEventReceiverEnabled)
-            , (bool ( ISceneNodeAnimatorCollisionResponse_wrapper::* )(  ) const)(&ISceneNodeAnimatorCollisionResponse_wrapper::default_isEventReceiverEnabled) )    
-        .def( 
-            "serializeAttributes"
-            , (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
-            , (void ( ISceneNodeAnimatorCollisionResponse_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNodeAnimatorCollisionResponse_wrapper::default_serializeAttributes)
-            , ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
-        .def( 
-            "setDebugName"
-            , (void ( ISceneNodeAnimatorCollisionResponse_wrapper::* )( ::irr::c8 const * ) )(&ISceneNodeAnimatorCollisionResponse_wrapper::setDebugName)
-            , ( bp::arg("newName") ) );
+	bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )    
+		/*.def( 
+		"addBillboardSceneNode"
+		, (::irr::scene::IBillboardSceneNode * ( ::MySceneManager::* )( ::irr::scene::ISceneNode *,::irr::core::dimension2d< float > const &,::irr::core::vector3df const &,::irr::s32,::irr::video::SColor,::irr::video::SColor ) )( &::MySceneManager::addBillboardSceneNode )
+		, ( bp::arg("parent")=bp::object(), bp::arg("size")=irr::core::dimension2d<float>(10.0f, 10.0f), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("colorTop")=4294967295u, bp::arg("colorBottom")=4294967295u )
+		, bp::return_value_policy< bp::reference_existing_object >() )    */
+		.def( 
+		"addBulletSceneNode"
+		, (::IWeapon * ( ::MySceneManager::* )( const std::wstring& ,int,::irr::u32 ) )( &::MySceneManager::addBulletSceneNode )
+		, ( bp::arg("textureFileName"), bp::arg("velocity")=(int)(1000), bp::arg("interval")=(::irr::u32)(100) )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"addFrigateSceneNode"
+		, (::IShip * ( ::MySceneManager::* )( const std::wstring& ,int ) )( &::MySceneManager::addFrigateSceneNode )
+		, ( bp::arg("meshFileName"), bp::arg("id")=(int)(-0x00000000000000001) )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		/*.def( 
+		"addParticleSystemSceneNode"
+		, (::irr::scene::IParticleSystemSceneNode * ( ::MySceneManager::* )( bool,::irr::scene::ISceneNode *,::irr::s32,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const & ) )( &::MySceneManager::addParticleSystemSceneNode )
+		, ( bp::arg("withDefaultEmitter")=(bool)(true), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )
+		, bp::return_value_policy< bp::reference_existing_object >() )   */ 
+		.def( 
+		"addSkyBoxSceneNode"
+		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::scene::ISceneNode *,::irr::s32 ) )( &::MySceneManager::addSkyBoxSceneNode )
+		, ( bp::arg("top"), bp::arg("bottom"), bp::arg("left"), bp::arg("right"), bp::arg("front"), bp::arg("back"), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001) )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createAutoTrackAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::scene::ISceneNode * ) )( &::MySceneManager::createAutoTrackAnimator )
+		, ( bp::arg("target") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createCollisionResponseAnimator"
+		, (::irr::scene::ISceneNodeAnimatorCollisionResponse * ( ::MySceneManager::* )( ::irr::scene::ITriangleSelector *,::irr::scene::ISceneNode *,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::f32 ) )( &::MySceneManager::createCollisionResponseAnimator )
+		, ( bp::arg("world"), bp::arg("sceneNode"), bp::arg("ellipsoidRadius")=irr::core::vector3d<float>(3.0e+1f, 6.0e+1f, 3.0e+1f), bp::arg("gravityPerSecond")=irr::core::vector3d<float>(0.0f, -1.0e+1f, 0.0f), bp::arg("ellipsoidTranslation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("slidingValue")=5.000000237487256526947021484375e-4f )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createDeleteAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32 ) )( &::MySceneManager::createDeleteAnimator )
+		, ( bp::arg("timeMs") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createFlyCircleAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::f32,::irr::f32,::irr::core::vector3df const &,::irr::f32,::irr::f32 ) )( &::MySceneManager::createFlyCircleAnimator )
+		, ( bp::arg("center")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("radius")=1.0e+2f, bp::arg("speed")=1.000000047497451305389404296875e-3f, bp::arg("direction")=irr::core::vector3d<float>(0.0f, 1.0e+0f, 0.0f), bp::arg("startPosition")=0.0f, bp::arg("radiusEllipsoid")=0.0f )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createFlyStraightAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32,bool,bool ) )( &::MySceneManager::createFlyStraightAnimator )
+		, ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay"), bp::arg("loop")=(bool)(false), bp::arg("pingpong")=(bool)(false) )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+/*		.def( 
+		"createFollowFlameAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )(  ) )( &::MySceneManager::createFollowFlameAnimator )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createFollowSplineAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::s32,::irr::core::array< irr::core::vector3d< float >, irr::core::irrAllocator< irr::core::vector3d< float > > > const &,::irr::f32,::irr::f32,bool,bool ) )( &::MySceneManager::createFollowSplineAnimator )
+		, ( bp::arg("startTime"), bp::arg("points"), bp::arg("speed")=1.0e+0f, bp::arg("tightness")=5.0e-1f, bp::arg("loop")=(bool)(true), bp::arg("pingpong")=(bool)(false) )
+		, bp::return_value_policy< bp::reference_existing_object >() )   */ 
+		//.def( 
+		//"createRelateCameraMoveAnimator"
+		//, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,::irr::core::vector3df,::RM_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createRelateCameraMoveAnimator )
+		//, ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("start"), bp::arg("end"), bp::arg("moveType")=::RM_MT_LINER, bp::arg("factor")=0 )
+		//, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createRelateCameraStayAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,bool ) )( &::MySceneManager::createRelateCameraStayAnimator )
+		, ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("position"), bp::arg("loop")=(bool)(true) )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createRotationAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const & ) )( &::MySceneManager::createRotationAnimator )
+		, ( bp::arg("rotationSpeed") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		//.def( 
+		//"createScaleAnimator"
+		//, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::core::vector3df,::AS_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createScaleAnimator )
+		//, ( bp::arg("delay"), bp::arg("duration"), bp::arg("scale"), bp::arg("type")=::AS_MT_LINER, bp::arg("factor")=0 )
+		//, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createSelfDelFlyStraightAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32 ) )( &::MySceneManager::createSelfDelFlyStraightAnimator )
+		, ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createShakeAnimatorAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::f32,::irr::f32 ) )( &::MySceneManager::createShakeAnimatorAnimator )
+		, ( bp::arg("delay"), bp::arg("duration"), bp::arg("ampFrom"), bp::arg("ampTo")=0 )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createTextureAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::array< irr::video::ITexture*, irr::core::irrAllocator< irr::video::ITexture* > > const &,::irr::s32,bool ) )( &::MySceneManager::createTextureAnimator )
+		, ( bp::arg("textures"), bp::arg("timePerFrame"), bp::arg("loop")=(bool)(true) )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"createTheBeginMoveAnimator"
+		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df,::irr::core::vector3df,::irr::u32,::irr::u32,int ) )( &::MySceneManager::createTheBeginMoveAnimator )
+		, ( bp::arg("thebeginpoint"), bp::arg("theendpoint"), bp::arg("delay"), bp::arg("duration"), bp::arg("circle_n") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getMesh"
+		, (::irr::scene::IAnimatedMesh * ( ::MySceneManager::* )( ::std::wstring const & ) )( &::MySceneManager::getMesh )
+		, ( bp::arg("filename") )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getRootSceneNode"
+		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )(  ) )( &::MySceneManager::getRootSceneNode )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getSceneNodeFromId"
+		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::s32,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromId )
+		, ( bp::arg("id"), bp::arg("start")=bp::object() )
+		, bp::return_value_policy< bp::reference_existing_object >() )  
+		.def( 
+		"getSceneNodeFromName"
+		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::c8 const *,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromName )
+		, ( bp::arg("name"), bp::arg("start")=bp::object() )
+		, bp::return_value_policy< bp::reference_existing_object >() )
+		;
 
 
 }

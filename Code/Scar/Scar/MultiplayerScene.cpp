@@ -306,11 +306,13 @@ void MultiplayerScene::Init()
 		object GetRoot = UILoader.attr( "GetRoot" );
 		object root = GetRoot();
 
-		//IUIObject* r = extract<IUIObject*>( root ); 
-		//uiManager->SetRoot( r );
-		//r->drop();	// 使用Python对象不用内存管理
 		m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 		m_playerHelper->LoadPlayerManager( &*m_playerManager );
+
+		object map = import( "MapV1" );
+		object LoadMap = map.attr( "LoadMap" );
+		LoadMap();
+
 	}
 	catch ( ... )
 	{
@@ -406,20 +408,6 @@ void MultiplayerScene::Init()
 	fireAni->drop();
 
 	client->QueryRoom();
-
-
-	try
-	{
-		// 使用Python模块加载模型
-		PythonManager* p = PythonManager::GetPythonManager();
-		object modelLoader = p->GetModelLoader();
-		object MultiplayerLoad = modelLoader.attr( "MultiplayerLoad" );
-		MultiplayerLoad();
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
 
 
 	// 天空盒

@@ -12,6 +12,7 @@
 #include <boost/thread.hpp>
 #include "EventListener.h"
 #include "GameSceneManager.h"
+#include "MySceneManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -122,5 +123,10 @@ UIManager* GetUIManager()
 GameSceneManager* GetGameSceneManager()
 {
 	return MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
+}
+
+MySceneManager* GetMySceneManager()
+{
+	return MyIrrlichtEngine::GetEngine()->GetMySceneManager();
 }
 

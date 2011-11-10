@@ -36,16 +36,16 @@ int main()
 	if ( ! Py_IsInitialized() )	return -1;
 
 	// ³õÊ¼»¯PythonÄ£¿é
-	try
+	//try
 	{
+		initPythonSceneMgr();
 		initEngine();
 		initUI();
 		initGameSceneModule();
-		initPythonSceneMgr();
 	}
-	catch ( ... )
+	//catch ( ... )
 	{
-		PyErr_Print();
+	//	PyErr_Print();
 	}
 
 

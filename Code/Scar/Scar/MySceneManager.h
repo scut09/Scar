@@ -37,10 +37,10 @@ public:
 	/* 添加场景节点函数群                                                     */
 	/************************************************************************/
 	// 添加护卫舰
-	IShip* addFrigateSceneNode( wchar_t* meshFileName, int id = -1 );
+	IShip* addFrigateSceneNode( std::wstring& meshFileName, int id = -1 );
 
 	// 添加炮弹节点
-	IWeapon* addBulletSceneNode( wchar_t* textureFileName, int velocity = 1000, u32 interval = 100 );
+	IWeapon* addBulletSceneNode( std::wstring&  textureFileName, int velocity = 1000, u32 interval = 100 );
 
 	// 添加粒子发射器
 	IParticleSystemSceneNode* addParticleSystemSceneNode(

@@ -20,6 +20,7 @@
 #include "GameScene.h"
 #include "UIManager.h"
 #include "GameSceneManager.h"
+#include "MySceneManager.h"
 
 class IUIObject;
 
@@ -49,6 +50,8 @@ private:
 	boost::shared_ptr<UIManager>	m_currentUIManager;	// 2D的UIManager
 
 	GameSceneManager*				m_gameSceneMgr;		// 场景管理类
+
+	MySceneManager*					m_MySceneManager;	// 类似irrlicht的场景管理类
 
 private:
 	ModelManager					m_ModelManager;
@@ -92,6 +95,11 @@ public:
 	GameSceneManager* GetGameSceneManager() const
 	{
 		return m_gameSceneMgr;
+	}
+
+	MySceneManager* GetMySceneManager() const
+	{
+		return m_MySceneManager;
 	}
 
 	// 获取引擎指针

@@ -31,16 +31,16 @@ ISceneNode* MySceneManager::getRootSceneNode()
 	return smgr->getRootSceneNode();
 }
 
-IShip* MySceneManager::addFrigateSceneNode( wchar_t* meshFileName, int id /*= -1 */ )
+IShip* MySceneManager::addFrigateSceneNode( std::wstring& meshFileName, int id /*= -1 */ )
 {
-	IShip* ship = new CFrigate( smgr->getMesh( meshFileName ), 0, smgr, id );
+	IShip* ship = new CFrigate( smgr->getMesh( meshFileName.c_str() ), 0, smgr, id );
 	return ship;
 }
 
-IWeapon* MySceneManager::addBulletSceneNode( wchar_t* textureFileName, int velocity /*= 1000*/, u32 interval /*= 100 */ )
+IWeapon* MySceneManager::addBulletSceneNode( std::wstring& textureFileName, int velocity /*= 1000*/, u32 interval /*= 100 */ )
 {
 	IWeapon* bullet = new BulletNode( smgr );
-	bullet->setMaterialTexture( 0, driver->getTexture( textureFileName ) );
+	bullet->setMaterialTexture( 0, driver->getTexture( textureFileName.c_str() ) );
 	bullet->SetVelocity( (f32)velocity );
 	bullet->SetInterval( interval ); 
 
