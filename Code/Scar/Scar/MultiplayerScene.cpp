@@ -25,6 +25,7 @@
 #include "UIManager.h"
 #include <iostream>
 #include "HumanPlayer.h"
+#include "MySceneManager.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 

@@ -56,6 +56,16 @@ BOOST_PYTHON_MODULE( Engine )
 		.def_readwrite( "Y", &irr::core::vector2d<s32>::Y )
 		;
 
+	class_< irr::core::dimension2df >( "dimension2df", "dimension2df", init< f32, f32 >() )
+		.def_readwrite( "Width", &irr::core::dimension2df::Width )
+		.def_readwrite( "Height", &irr::core::dimension2df::Height )
+		;
+
+	class_< irr::core::dimension2di >( "dimension2df", "dimension2df", init< s32, s32 >() )
+		.def_readwrite( "Width", &irr::core::dimension2di::Width )
+		.def_readwrite( "Height", &irr::core::dimension2di::Height )
+		;
+
 	class_< irr::core::vector2d<f32> >( "vector2df", "fake vector2d<f32>", init< f32, f32 >() )
 		.def_readwrite( "X", &irr::core::vector2d<f32>::X )
 		.def_readwrite( "Y", &irr::core::vector2d<f32>::Y )
