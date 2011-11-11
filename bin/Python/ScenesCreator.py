@@ -12,11 +12,12 @@ def CreateGameScenes():
     '由C++调用来初始化场景结构'
     sceneMgr = GetGameSceneManager()
     mainMenu = sceneMgr.AddMenuScene( "MainMenuIni" )
-    mainMenu.SetName( "MainMenuIni" )
+    mainMenu.SetName( "MainMenu" )
 
     multiMenu = sceneMgr.AddMenuScene( "MultiMenuIni" )
     multiMenu.SetName( "multiMenu" )
    
-    multi = sceneMgr.AddMultiplayerScene()    
+    multi = sceneMgr.AddMultiplayerScene()
+    multi.SetName( "MultiplayerScene" )
     
     ChangeGameScene( mainMenu )
