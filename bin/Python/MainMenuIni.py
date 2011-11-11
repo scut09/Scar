@@ -258,7 +258,7 @@ def OnBtn2Click( node ):
     AniList.append( sca4 )
     AniList.append( alp4 )
     btn2.AddAnimator( rot4 )
-    rot.drop()
+    rot4.drop()
     btn2.AddAnimator( sca4 )
     sca4.drop()
     btn2.AddAnimator( alp4 )
