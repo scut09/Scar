@@ -45,26 +45,13 @@ public:
 	}
 
 	// 移除玩家
-	void RemovePlayer( boost::shared_ptr<IPlayer> player )
-	{
-		PlayerList.remove( player );
-	}
+	void RemovePlayer( boost::shared_ptr<IPlayer> player );
 
 	// 移除所有玩家
-	void RemoveAll()
-	{
-		PlayerList.clear();
-	}
+	void RemoveAll();
 
 
-	void Update()
-	{
-		for ( PlayerListType::iterator iter = PlayerList.begin(); iter != PlayerList.end(); ++iter )
-		{
-			if ( (*iter)->IsRobot() )	// 机器人才需要更新
-				(*iter)->Update();
-		}
-	}
+	void Update();
 
 	// 获取玩家列表
 	const PlayerListType& GetPlayers() const
@@ -73,44 +60,10 @@ public:
 	}
 
 	// 通过ID获取玩家
-	bool GetPlayerByID( int id, boost::shared_ptr<IPlayer>& outPlayer ) 
-	{
-		PlayerListType::iterator iter = std::find_if( PlayerList.begin(), PlayerList.end(), 
-			[ id ]( boost::shared_ptr<IPlayer> player )->bool
-		{
-			if ( player->GetID() == id )
-				return true;
-			return false;
-		} );
-
-		if ( iter != PlayerList.end() )
-		{
-			outPlayer = *iter;
-			return true;
-		}
-		else
-			return false;
-	}
+	bool GetPlayerByID( int id, boost::shared_ptr<IPlayer>& outPlayer );
 
 	// 通过名字获取玩家
-	bool GetPlayerByName( const std::wstring& name, boost::shared_ptr<IPlayer>& outPlayer ) 
-	{
-		PlayerListType::iterator iter = std::find_if( PlayerList.begin(), PlayerList.end(), 
-			[ name ]( boost::shared_ptr<IPlayer> player )->bool
-		{
-			if ( player->GetName() == name )
-				return true;
-			return false;
-		} );
-
-		if ( iter != PlayerList.end() )
-		{
-			outPlayer = *iter;
-			return true;
-		}
-		else
-			return false;
-	}
+	bool GetPlayerByName( const std::wstring& name, boost::shared_ptr<IPlayer>& outPlayer );
 
 private:
 

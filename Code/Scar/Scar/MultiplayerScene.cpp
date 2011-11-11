@@ -96,10 +96,21 @@ void MultiplayerScene::Run()
 
 	}
 
-	auto pos = m_pCamera->getPosition();
-	client->SendHeroMove( client->m_index, pos.X, pos.Y, pos.Z );
-	auto rot = m_pCamera->getRotation();
-	client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
+	try
+	{	
+		auto pos = m_pCamera->getPosition();
+		client->SendHeroMove( client->m_index, pos.X, pos.Y, pos.Z );
+		auto rot = m_pCamera->getRotation();
+		client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
+	}
+	catch ( std::exception& e )
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	catch ( ... )
+	{
+		std::cerr << "ERROR!!!!!!!!!!!!!!!!1" << std::endl;
+	}
 
 
 	UpdateConsole();
@@ -115,6 +126,8 @@ void MultiplayerScene::Init()
 	// »ñÈ¡ÒýÇæ
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
+	smgr->clear();
+
 	m_pModelMan = pEngine->GetModelManager();
 	auto driver = pEngine->GetVideoDriver();
 	shader = new SceneNodeShader();
@@ -513,6 +526,11 @@ void MultiplayerScene::Init()
 					//gui->setFocus( console );
 				}
 			}
+			else if ( event.KeyInput.Key == KEY_KEY_P )
+			{
+				auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
+				smgr->SetCurrentGameScene( smgr->GetSceneByName( "MainMenu" ) );
+			}
 		}
 		return 0;
 	} );
@@ -524,18 +542,31 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
-	if ( client.use_count() > 0 && server.use_count() > 0 )
+	m_playerManager->RemoveAll();
+
+	try
 	{
-		client->Close();
-		server->Close();
+		//if ( client.use_count() > 0 && server.use_count() > 0 )
+		//{
+		//	client->Close();
+		//	server->Close();
+		//}
 	}
+	catch ( std::exception& e )
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	catch ( ... )
+	{
+		std::cerr << "client" << std::endl;
+
+	}
+	
 
 
 	//	m_pAnimationMan->RemoveAll();
 
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-	scene::ISceneManager* smgr = pEngine->GetSceneManager();
-	smgr->clear();
+
 }
 
 void MultiplayerScene::Draw()

@@ -41,6 +41,7 @@ void MenuScene::Init()
 	pEngine = MyIrrlichtEngine::GetEngine();
 	driver = pEngine->GetVideoDriver();
 	smgr = pEngine->GetSceneManager();
+	smgr->clear();
 
 	// ¼ÓÈëÉãÏñ»ú
 	camera = smgr->addCameraSceneNode();
@@ -127,8 +128,21 @@ void MenuScene::Init()
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	
 		pEngine->GetUIManager()->OnEvent( event );
+
+		if ( event.KeyInput.PressedDown )
+		{
+			if ( event.KeyInput.Key == KEY_KEY_T )
+			{
+				auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
+				smgr->SetCurrentGameScene( smgr->GetSceneByName( "MultiplayerScene"  ) );
+			}
+
+		}
+
 		return 0;
 	} );
+
+	
 
 }
 

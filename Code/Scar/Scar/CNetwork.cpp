@@ -65,17 +65,27 @@ void Network::CNetwork::Close()
 	std::cout << "<CNetwork::Close()>\n";
 	try
 	{
+		m_acceptor->cancel();
+		m_acceptor->close();
+		
+		m_receive_sock->cancel();
+		m_receive_sock->close();
+
+		m_send_sock->cancel();
+		m_send_sock->close();
+
 		m_pool.stop();
 		m_io_thread->interrupt();
-		m_send_sock->close();
-		m_receive_sock->close();
 		m_handle_thread->interrupt();
+
+		m_io_thread->join();
 		m_handle_thread->join();
-		m_acceptor->close();
 
 		delete m_send_sock;
 		delete m_receive_sock;
 		delete m_acceptor;
+
+
 
 		//m_acceptor.reset();
 		//m_handle_thread.reset();

@@ -33,16 +33,22 @@ namespace Network
 		// 收到消息时的响应函数
 		virtual void OnReceive( unsigned long ip, const PACKAGE& p )
 		{
-		//	boost::mutex::scoped_lock lock( m_handlerMutex );
-
-			auto funcIter = m_handlerMap.find( p.GetCMD() );
-			if ( funcIter != m_handlerMap.end() )
+			//	boost::mutex::scoped_lock lock( m_handlerMutex );
+			try
 			{
-				funcIter->second( ip, p );
-				return;
-			}
+				auto funcIter = m_handlerMap.find( p.GetCMD() );
+				if ( funcIter != m_handlerMap.end() )
+				{
+					funcIter->second( ip, p );
+					return;
+				}
 
-			OtherMessageHandler( ip, p );
+				OtherMessageHandler( ip, p );
+			}
+			catch( std::exception& e )
+			{
+				std::cerr << e.what() << std::endl;
+			}
 		}
 
 		//************************************
@@ -53,19 +59,34 @@ namespace Network
 		//************************************
 		virtual void Start( int listen_port, int target_port, int pool_size = 2 )
 		{
-			// 创建网络
-			m_network = boost::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port, pool_size ) );
-			// 注册接受回调函数
-			m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
+			try
 			{
-				OnReceive( ip, p );
-			} );
+				// 创建网络
+				m_network = boost::shared_ptr<Network::CNetwork>( new Network::CNetwork( listen_port, target_port, pool_size ) );
+				// 注册接受回调函数
+				m_network->Start( [this]( unsigned long ip, const PACKAGE& p )
+				{
+					OnReceive( ip, p );
+				} );
+			}
+			catch ( std::exception& e )
+			{
+				std::cerr << e.what() << std::endl;
+			}
 		}
 
 		// 关闭
 		virtual void Close()
 		{
-			m_network.reset();
+			try
+			{
+				m_network.reset();
+
+			}
+			catch ( std::exception& e )
+			{
+				std::cerr << e.what() << std::endl;
+			}
 		}
 
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p )	{}
