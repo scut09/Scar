@@ -31,13 +31,13 @@ ISceneNode* MySceneManager::getRootSceneNode()
 	return smgr->getRootSceneNode();
 }
 
-IShip* MySceneManager::addFrigateSceneNode( std::wstring& meshFileName, int id /*= -1 */ )
+IShip* MySceneManager::addFrigateSceneNode( const std::wstring& meshFileName, int id /*= -1 */ )
 {
 	IShip* ship = new CFrigate( smgr->getMesh( meshFileName.c_str() ), 0, smgr, id );
 	return ship;
 }
 
-IWeapon* MySceneManager::addBulletSceneNode( std::wstring& textureFileName, int velocity /*= 1000*/, u32 interval /*= 100 */ )
+IWeapon* MySceneManager::addBulletSceneNode( const std::wstring& textureFileName, int velocity /*= 1000*/, u32 interval /*= 100 */ )
 {
 	IWeapon* bullet = new BulletNode( smgr );
 	bullet->setMaterialTexture( 0, driver->getTexture( textureFileName.c_str() ) );
@@ -132,4 +132,9 @@ ISceneNodeAnimator* MySceneManager::createTheBeginMoveAnimator( vector3df thebeg
 {
 	ISceneNodeAnimator* animator = new TheBeginMove( thebeginpoint, theendpoint, delay, duration, circle_n );
 	return animator;
+}
+
+ITexture* MySceneManager::getTexture( const std::wstring& filename )
+{
+	return driver->getTexture( filename	.c_str() );
 }

@@ -3694,100 +3694,116 @@ struct ICollisionCallback_wrapper : irr::scene::ICollisionCallback, bp::wrapper<
 
 
 
+struct IEventReceiver_wrapper : irr::IEventReceiver, bp::wrapper< irr::IEventReceiver > {
+
+	IEventReceiver_wrapper()
+		: irr::IEventReceiver()
+		, bp::wrapper< irr::IEventReceiver >(){
+			// null constructor
+
+	}
+
+	virtual bool OnEvent( ::irr::SEvent const & event ){
+		bp::override func_OnEvent = this->get_override( "OnEvent" );
+		return func_OnEvent( boost::ref(event) );
+	}
+
+};
+
 struct ISceneNodeAnimator_wrapper : irr::scene::ISceneNodeAnimator, bp::wrapper< irr::scene::ISceneNodeAnimator > {
 
-    ISceneNodeAnimator_wrapper()
-    : irr::scene::ISceneNodeAnimator()
-      , bp::wrapper< irr::scene::ISceneNodeAnimator >(){
-        // null constructor
-        
-    }
+	ISceneNodeAnimator_wrapper()
+		: irr::scene::ISceneNodeAnimator()
+		, bp::wrapper< irr::scene::ISceneNodeAnimator >(){
+			// null constructor
 
-    virtual bool OnEvent( ::irr::SEvent const & event ) {
-        if( bp::override func_OnEvent = this->get_override( "OnEvent" ) )
-            return func_OnEvent( boost::ref(event) );
-        else{
-            return this->irr::scene::ISceneNodeAnimator::OnEvent( boost::ref(event) );
-        }
-    }
-    
-    bool default_OnEvent( ::irr::SEvent const & event ) {
-        return irr::scene::ISceneNodeAnimator::OnEvent( boost::ref(event) );
-    }
+	}
 
-    virtual void animateNode( ::irr::scene::ISceneNode * node, ::irr::u32 timeMs ){
-        bp::override func_animateNode = this->get_override( "animateNode" );
-        func_animateNode( boost::python::ptr(node), timeMs );
-    }
+	virtual bool OnEvent( ::irr::SEvent const & event ) {
+		if( bp::override func_OnEvent = this->get_override( "OnEvent" ) )
+			return func_OnEvent( boost::ref(event) );
+		else{
+			return this->irr::scene::ISceneNodeAnimator::OnEvent( boost::ref(event) );
+		}
+	}
 
-    virtual ::irr::scene::ISceneNodeAnimator * createClone( ::irr::scene::ISceneNode * node, ::irr::scene::ISceneManager * newManager=0 ){
-        bp::override func_createClone = this->get_override( "createClone" );
-        return func_createClone( boost::python::ptr(node), boost::python::ptr(newManager) );
-    }
+	bool default_OnEvent( ::irr::SEvent const & event ) {
+		return irr::scene::ISceneNodeAnimator::OnEvent( boost::ref(event) );
+	}
 
-    virtual ::irr::scene::ESCENE_NODE_ANIMATOR_TYPE getType(  ) const  {
-        if( bp::override func_getType = this->get_override( "getType" ) )
-            return func_getType(  );
-        else{
-            return this->irr::scene::ISceneNodeAnimator::getType(  );
-        }
-    }
-    
-    ::irr::scene::ESCENE_NODE_ANIMATOR_TYPE default_getType(  ) const  {
-        return irr::scene::ISceneNodeAnimator::getType( );
-    }
+	virtual void animateNode( ::irr::scene::ISceneNode * node, ::irr::u32 timeMs ){
+		bp::override func_animateNode = this->get_override( "animateNode" );
+		func_animateNode( boost::python::ptr(node), timeMs );
+	}
 
-    virtual bool hasFinished(  ) const  {
-        if( bp::override func_hasFinished = this->get_override( "hasFinished" ) )
-            return func_hasFinished(  );
-        else{
-            return this->irr::scene::ISceneNodeAnimator::hasFinished(  );
-        }
-    }
-    
-    bool default_hasFinished(  ) const  {
-        return irr::scene::ISceneNodeAnimator::hasFinished( );
-    }
+	virtual ::irr::scene::ISceneNodeAnimator * createClone( ::irr::scene::ISceneNode * node, ::irr::scene::ISceneManager * newManager=0 ){
+		bp::override func_createClone = this->get_override( "createClone" );
+		return func_createClone( boost::python::ptr(node), boost::python::ptr(newManager) );
+	}
 
-    virtual bool isEventReceiverEnabled(  ) const  {
-        if( bp::override func_isEventReceiverEnabled = this->get_override( "isEventReceiverEnabled" ) )
-            return func_isEventReceiverEnabled(  );
-        else{
-            return this->irr::scene::ISceneNodeAnimator::isEventReceiverEnabled(  );
-        }
-    }
-    
-    bool default_isEventReceiverEnabled(  ) const  {
-        return irr::scene::ISceneNodeAnimator::isEventReceiverEnabled( );
-    }
+	virtual ::irr::scene::ESCENE_NODE_ANIMATOR_TYPE getType(  ) const  {
+		if( bp::override func_getType = this->get_override( "getType" ) )
+			return func_getType(  );
+		else{
+			return this->irr::scene::ISceneNodeAnimator::getType(  );
+		}
+	}
 
-    virtual void deserializeAttributes( ::irr::io::IAttributes * in, ::irr::io::SAttributeReadWriteOptions * options=0 ) {
-        if( bp::override func_deserializeAttributes = this->get_override( "deserializeAttributes" ) )
-            func_deserializeAttributes( boost::python::ptr(in), boost::python::ptr(options) );
-        else{
-            this->irr::io::IAttributeExchangingObject::deserializeAttributes( boost::python::ptr(in), boost::python::ptr(options) );
-        }
-    }
-    
-    void default_deserializeAttributes( ::irr::io::IAttributes * in, ::irr::io::SAttributeReadWriteOptions * options=0 ) {
-        irr::io::IAttributeExchangingObject::deserializeAttributes( boost::python::ptr(in), boost::python::ptr(options) );
-    }
+	::irr::scene::ESCENE_NODE_ANIMATOR_TYPE default_getType(  ) const  {
+		return irr::scene::ISceneNodeAnimator::getType( );
+	}
 
-    virtual void serializeAttributes( ::irr::io::IAttributes * out, ::irr::io::SAttributeReadWriteOptions * options=0 ) const  {
-        if( bp::override func_serializeAttributes = this->get_override( "serializeAttributes" ) )
-            func_serializeAttributes( boost::python::ptr(out), boost::python::ptr(options) );
-        else{
-            this->irr::io::IAttributeExchangingObject::serializeAttributes( boost::python::ptr(out), boost::python::ptr(options) );
-        }
-    }
-    
-    void default_serializeAttributes( ::irr::io::IAttributes * out, ::irr::io::SAttributeReadWriteOptions * options=0 ) const  {
-        irr::io::IAttributeExchangingObject::serializeAttributes( boost::python::ptr(out), boost::python::ptr(options) );
-    }
+	virtual bool hasFinished(  ) const  {
+		if( bp::override func_hasFinished = this->get_override( "hasFinished" ) )
+			return func_hasFinished(  );
+		else{
+			return this->irr::scene::ISceneNodeAnimator::hasFinished(  );
+		}
+	}
 
-    void setDebugName( ::irr::c8 const * newName ){
-        irr::IReferenceCounted::setDebugName( newName );
-    }
+	bool default_hasFinished(  ) const  {
+		return irr::scene::ISceneNodeAnimator::hasFinished( );
+	}
+
+	virtual bool isEventReceiverEnabled(  ) const  {
+		if( bp::override func_isEventReceiverEnabled = this->get_override( "isEventReceiverEnabled" ) )
+			return func_isEventReceiverEnabled(  );
+		else{
+			return this->irr::scene::ISceneNodeAnimator::isEventReceiverEnabled(  );
+		}
+	}
+
+	bool default_isEventReceiverEnabled(  ) const  {
+		return irr::scene::ISceneNodeAnimator::isEventReceiverEnabled( );
+	}
+
+	virtual void deserializeAttributes( ::irr::io::IAttributes * in, ::irr::io::SAttributeReadWriteOptions * options=0 ) {
+		if( bp::override func_deserializeAttributes = this->get_override( "deserializeAttributes" ) )
+			func_deserializeAttributes( boost::python::ptr(in), boost::python::ptr(options) );
+		else{
+			this->irr::io::IAttributeExchangingObject::deserializeAttributes( boost::python::ptr(in), boost::python::ptr(options) );
+		}
+	}
+
+	void default_deserializeAttributes( ::irr::io::IAttributes * in, ::irr::io::SAttributeReadWriteOptions * options=0 ) {
+		irr::io::IAttributeExchangingObject::deserializeAttributes( boost::python::ptr(in), boost::python::ptr(options) );
+	}
+
+	virtual void serializeAttributes( ::irr::io::IAttributes * out, ::irr::io::SAttributeReadWriteOptions * options=0 ) const  {
+		if( bp::override func_serializeAttributes = this->get_override( "serializeAttributes" ) )
+			func_serializeAttributes( boost::python::ptr(out), boost::python::ptr(options) );
+		else{
+			this->irr::io::IAttributeExchangingObject::serializeAttributes( boost::python::ptr(out), boost::python::ptr(options) );
+		}
+	}
+
+	void default_serializeAttributes( ::irr::io::IAttributes * out, ::irr::io::SAttributeReadWriteOptions * options=0 ) const  {
+		irr::io::IAttributeExchangingObject::serializeAttributes( boost::python::ptr(out), boost::python::ptr(options) );
+	}
+
+	void setDebugName( ::irr::c8 const * newName ){
+		irr::IReferenceCounted::setDebugName( newName );
+	}
 
 };
 
@@ -4392,6 +4408,7 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 		.value("RM_MT_LOG", RM_MT_LOG)
 		.export_values()
 		;
+#pragma region vector3df
 
 	{ //::irr::core::vector3d< float >
 		typedef bp::class_< irr::core::vector3d< float > > vector3df_exposer_t;
@@ -4693,7 +4710,10 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 		vector3df_exposer.def_readwrite( "Y", &irr::core::vector3d< float >::Y );
 		vector3df_exposer.def_readwrite( "Z", &irr::core::vector3d< float >::Z );
 	}
+#pragma endregion vector3df
 
+
+#pragma region ISceneNode
 
 	bp::class_< IReferenceCounted_wrapper >( "IReferenceCounted", bp::init< >() )    
 		.def( 
@@ -4978,8 +4998,11 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 		, (void ( ISceneNode_wrapper::* )( ::irr::c8 const * ) )(&ISceneNode_wrapper::setDebugName)
 		, ( bp::arg("newName") ) )
 		;
+#pragma endregion ISceneNode
 
-		
+
+	#pragma region IShip
+	
     bp::class_< IShip_wrapper >( "IShip", bp::init< irr::scene::IMesh *, irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("mesh"), bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
         .def( 
             "AddGun"
@@ -5399,11 +5422,13 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
             , bp::pure_virtual( (void ( ::IWeaponCollisionCallback::* )( ::irr::scene::ISceneNode * ) )(&::IWeaponCollisionCallback::OnCollision) )
             , ( bp::arg("target") ) );
 
+#pragma endregion IShip
 
 
   
 
 
+#pragma region Irrlicht基本类型
 
 
     bp::class_< ITimer_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "ITimer" )    
@@ -5501,8 +5526,56 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
             , (void ( ITexture_wrapper::* )( ::irr::c8 const * ) )(&ITexture_wrapper::setDebugName)
             , ( bp::arg("newName") ) );
 
-	
+	bp::class_< IEventReceiver_wrapper, boost::noncopyable >( "IEventReceiver" )    
+		//.def( 
+		//"OnEvent"
+		//, bp::pure_virtual( (bool ( ::irr::IEventReceiver::* )( ::irr::SEvent const & ) )(&::irr::IEventReceiver::OnEvent) )
+		//, ( bp::arg("event") ) )
+		;
 
+	bp::class_< ISceneNodeAnimator_wrapper, bp::bases< irr::io::IAttributeExchangingObject, irr::IEventReceiver >, boost::noncopyable >( "ISceneNodeAnimator" )    
+		.def( 
+		"OnEvent"
+		, (bool ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::SEvent const & ) )(&::irr::scene::ISceneNodeAnimator::OnEvent)
+		, (bool ( ISceneNodeAnimator_wrapper::* )( ::irr::SEvent const & ) )(&ISceneNodeAnimator_wrapper::default_OnEvent)
+		, ( bp::arg("event") ) )    
+		.def( 
+		"animateNode"
+		, bp::pure_virtual( (void ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::u32 ) )(&::irr::scene::ISceneNodeAnimator::animateNode) )
+		, ( bp::arg("node"), bp::arg("timeMs") ) )    
+		.def( 
+		"createClone"
+		, bp::pure_virtual( (::irr::scene::ISceneNodeAnimator * ( ::irr::scene::ISceneNodeAnimator::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNodeAnimator::createClone) )
+		, ( bp::arg("node"), bp::arg("newManager")=bp::object() )
+		, bp::return_value_policy< bp::reference_existing_object >() )    
+		.def( 
+		"getType"
+		, (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::getType)
+		, (::irr::scene::ESCENE_NODE_ANIMATOR_TYPE ( ISceneNodeAnimator_wrapper::* )(  ) const)(&ISceneNodeAnimator_wrapper::default_getType) )    
+		.def( 
+		"hasFinished"
+		, (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::hasFinished)
+		, (bool ( ISceneNodeAnimator_wrapper::* )(  ) const)(&ISceneNodeAnimator_wrapper::default_hasFinished) )    
+		.def( 
+		"isEventReceiverEnabled"
+		, (bool ( ::irr::scene::ISceneNodeAnimator::* )(  ) const)(&::irr::scene::ISceneNodeAnimator::isEventReceiverEnabled)
+		, (bool ( ISceneNodeAnimator_wrapper::* )(  ) const)(&ISceneNodeAnimator_wrapper::default_isEventReceiverEnabled) )    
+		.def( 
+		"deserializeAttributes"
+		, (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::io::IAttributeExchangingObject::deserializeAttributes)
+		, (void ( ISceneNodeAnimator_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ISceneNodeAnimator_wrapper::default_deserializeAttributes)
+		, ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
+		.def( 
+		"serializeAttributes"
+		, (void ( ::irr::io::IAttributeExchangingObject::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::io::IAttributeExchangingObject::serializeAttributes)
+		, (void ( ISceneNodeAnimator_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ISceneNodeAnimator_wrapper::default_serializeAttributes)
+		, ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
+		.def( 
+		"setDebugName"
+		, (void ( ISceneNodeAnimator_wrapper::* )( ::irr::c8 const * ) )(&ISceneNodeAnimator_wrapper::setDebugName)
+		, ( bp::arg("newName") ) );
+
+#pragma endregion Irrlicht基本类型
 
 
     bp::class_< ICollisionCallback_wrapper, bp::bases< irr::IReferenceCounted >, boost::noncopyable >( "ICollisionCallback" )    
@@ -5808,127 +5881,134 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_updateAbsolutePosition) )
 			;*/
 
+#pragma region MySceneManager
 
-	bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )    
-		/*.def( 
-		"addBillboardSceneNode"
-		, (::irr::scene::IBillboardSceneNode * ( ::MySceneManager::* )( ::irr::scene::ISceneNode *,::irr::core::dimension2d< float > const &,::irr::core::vector3df const &,::irr::s32,::irr::video::SColor,::irr::video::SColor ) )( &::MySceneManager::addBillboardSceneNode )
-		, ( bp::arg("parent")=bp::object(), bp::arg("size")=irr::core::dimension2d<float>(10.0f, 10.0f), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("colorTop")=4294967295u, bp::arg("colorBottom")=4294967295u )
-		, bp::return_value_policy< bp::reference_existing_object >() )    */
-		.def( 
-		"addBulletSceneNode"
-		, (::IWeapon * ( ::MySceneManager::* )( const std::wstring& ,int,::irr::u32 ) )( &::MySceneManager::addBulletSceneNode )
-		, ( bp::arg("textureFileName"), bp::arg("velocity")=(int)(1000), bp::arg("interval")=(::irr::u32)(100) )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"addFrigateSceneNode"
-		, (::IShip * ( ::MySceneManager::* )( const std::wstring& ,int ) )( &::MySceneManager::addFrigateSceneNode )
-		, ( bp::arg("meshFileName"), bp::arg("id")=(int)(-0x00000000000000001) )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		/*.def( 
-		"addParticleSystemSceneNode"
-		, (::irr::scene::IParticleSystemSceneNode * ( ::MySceneManager::* )( bool,::irr::scene::ISceneNode *,::irr::s32,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const & ) )( &::MySceneManager::addParticleSystemSceneNode )
-		, ( bp::arg("withDefaultEmitter")=(bool)(true), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )
-		, bp::return_value_policy< bp::reference_existing_object >() )   */ 
-		.def( 
-		"addSkyBoxSceneNode"
-		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::scene::ISceneNode *,::irr::s32 ) )( &::MySceneManager::addSkyBoxSceneNode )
-		, ( bp::arg("top"), bp::arg("bottom"), bp::arg("left"), bp::arg("right"), bp::arg("front"), bp::arg("back"), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001) )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createAutoTrackAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::scene::ISceneNode * ) )( &::MySceneManager::createAutoTrackAnimator )
-		, ( bp::arg("target") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createCollisionResponseAnimator"
-		, (::irr::scene::ISceneNodeAnimatorCollisionResponse * ( ::MySceneManager::* )( ::irr::scene::ITriangleSelector *,::irr::scene::ISceneNode *,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::f32 ) )( &::MySceneManager::createCollisionResponseAnimator )
-		, ( bp::arg("world"), bp::arg("sceneNode"), bp::arg("ellipsoidRadius")=irr::core::vector3d<float>(3.0e+1f, 6.0e+1f, 3.0e+1f), bp::arg("gravityPerSecond")=irr::core::vector3d<float>(0.0f, -1.0e+1f, 0.0f), bp::arg("ellipsoidTranslation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("slidingValue")=5.000000237487256526947021484375e-4f )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createDeleteAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32 ) )( &::MySceneManager::createDeleteAnimator )
-		, ( bp::arg("timeMs") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createFlyCircleAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::f32,::irr::f32,::irr::core::vector3df const &,::irr::f32,::irr::f32 ) )( &::MySceneManager::createFlyCircleAnimator )
-		, ( bp::arg("center")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("radius")=1.0e+2f, bp::arg("speed")=1.000000047497451305389404296875e-3f, bp::arg("direction")=irr::core::vector3d<float>(0.0f, 1.0e+0f, 0.0f), bp::arg("startPosition")=0.0f, bp::arg("radiusEllipsoid")=0.0f )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createFlyStraightAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32,bool,bool ) )( &::MySceneManager::createFlyStraightAnimator )
-		, ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay"), bp::arg("loop")=(bool)(false), bp::arg("pingpong")=(bool)(false) )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-/*		.def( 
-		"createFollowFlameAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )(  ) )( &::MySceneManager::createFollowFlameAnimator )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createFollowSplineAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::s32,::irr::core::array< irr::core::vector3d< float >, irr::core::irrAllocator< irr::core::vector3d< float > > > const &,::irr::f32,::irr::f32,bool,bool ) )( &::MySceneManager::createFollowSplineAnimator )
-		, ( bp::arg("startTime"), bp::arg("points"), bp::arg("speed")=1.0e+0f, bp::arg("tightness")=5.0e-1f, bp::arg("loop")=(bool)(true), bp::arg("pingpong")=(bool)(false) )
-		, bp::return_value_policy< bp::reference_existing_object >() )   */ 
-		.def( 
-		"createRelateCameraMoveAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,::irr::core::vector3df,::RM_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createRelateCameraMoveAnimator )
-		, ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("start"), bp::arg("end"), bp::arg("moveType")=::RM_MT_LINER, bp::arg("factor")=0 )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createRelateCameraStayAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,bool ) )( &::MySceneManager::createRelateCameraStayAnimator )
-		, ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("position"), bp::arg("loop")=(bool)(true) )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createRotationAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const & ) )( &::MySceneManager::createRotationAnimator )
-		, ( bp::arg("rotationSpeed") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createScaleAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::core::vector3df,::AS_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createScaleAnimator )
-		, ( bp::arg("delay"), bp::arg("duration"), bp::arg("scale"), bp::arg("type")=::AS_MT_LINER, bp::arg("factor")=0 )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createSelfDelFlyStraightAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32 ) )( &::MySceneManager::createSelfDelFlyStraightAnimator )
-		, ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createShakeAnimatorAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::f32,::irr::f32 ) )( &::MySceneManager::createShakeAnimatorAnimator )
-		, ( bp::arg("delay"), bp::arg("duration"), bp::arg("ampFrom"), bp::arg("ampTo")=0 )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createTextureAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::array< irr::video::ITexture*, irr::core::irrAllocator< irr::video::ITexture* > > const &,::irr::s32,bool ) )( &::MySceneManager::createTextureAnimator )
-		, ( bp::arg("textures"), bp::arg("timePerFrame"), bp::arg("loop")=(bool)(true) )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"createTheBeginMoveAnimator"
-		, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df,::irr::core::vector3df,::irr::u32,::irr::u32,int ) )( &::MySceneManager::createTheBeginMoveAnimator )
-		, ( bp::arg("thebeginpoint"), bp::arg("theendpoint"), bp::arg("delay"), bp::arg("duration"), bp::arg("circle_n") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"getMesh"
-		, (::irr::scene::IAnimatedMesh * ( ::MySceneManager::* )( ::std::wstring const & ) )( &::MySceneManager::getMesh )
-		, ( bp::arg("filename") )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"getRootSceneNode"
-		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )(  ) )( &::MySceneManager::getRootSceneNode )
-		, bp::return_value_policy< bp::reference_existing_object >() )    
-		.def( 
-		"getSceneNodeFromId"
-		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::s32,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromId )
-		, ( bp::arg("id"), bp::arg("start")=bp::object() )
-		, bp::return_value_policy< bp::reference_existing_object >() )  
-		.def( 
-		"getSceneNodeFromName"
-		, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::c8 const *,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromName )
-		, ( bp::arg("name"), bp::arg("start")=bp::object() )
-		, bp::return_value_policy< bp::reference_existing_object >() )
-		;
+bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )    
+/*	.def( 
+	"addBillboardSceneNode"
+	, (::irr::scene::IBillboardSceneNode * ( ::MySceneManager::* )( ::irr::scene::ISceneNode *,::irr::core::dimension2d< float > const &,::irr::core::vector3df const &,::irr::s32,::irr::video::SColor,::irr::video::SColor ) )( &::MySceneManager::addBillboardSceneNode )
+	, ( bp::arg("parent")=bp::object(), bp::arg("size")=irr::core::dimension2d<float>(((const float&)((const float*)(&1.0e+1f))), ((const float&)((const float*)(&1.0e+1f)))), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("colorTop")=4294967295u, bp::arg("colorBottom")=4294967295u )
+	, bp::return_value_policy< bp::reference_existing_object >() ) */   
+	.def( 
+	"addBulletSceneNode"
+	, (::IWeapon * ( ::MySceneManager::* )( const ::std::wstring &,int,::irr::u32 ) )( &::MySceneManager::addBulletSceneNode )
+	, ( bp::arg("textureFileName"), bp::arg("velocity")=(int)(1000), bp::arg("interval")=(::irr::u32)(100) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"addFrigateSceneNode"
+	, (::IShip * ( ::MySceneManager::* )( const ::std::wstring &,int ) )( &::MySceneManager::addFrigateSceneNode )
+	, ( bp::arg("meshFileName"), bp::arg("id")=(int)(-0x00000000000000001) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+/*	.def( 
+	"addParticleSystemSceneNode"
+	, (::irr::scene::IParticleSystemSceneNode * ( ::MySceneManager::* )( bool,::irr::scene::ISceneNode *,::irr::s32,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const & ) )( &::MySceneManager::addParticleSystemSceneNode )
+	, ( bp::arg("withDefaultEmitter")=(bool)(true), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )
+	, bp::return_value_policy< bp::reference_existing_object >() ) */   
+	.def( 
+	"addSkyBoxSceneNode"
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::scene::ISceneNode *,::irr::s32 ) )( &::MySceneManager::addSkyBoxSceneNode )
+	, ( bp::arg("top"), bp::arg("bottom"), bp::arg("left"), bp::arg("right"), bp::arg("front"), bp::arg("back"), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createAutoTrackAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::scene::ISceneNode * ) )( &::MySceneManager::createAutoTrackAnimator )
+	, ( bp::arg("target") )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createCollisionResponseAnimator"
+	, (::irr::scene::ISceneNodeAnimatorCollisionResponse * ( ::MySceneManager::* )( ::irr::scene::ITriangleSelector *,::irr::scene::ISceneNode *,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::f32 ) )( &::MySceneManager::createCollisionResponseAnimator )
+	, ( bp::arg("world"), bp::arg("sceneNode"), bp::arg("ellipsoidRadius")=irr::core::vector3d<float>(3.0e+1f, 6.0e+1f, 3.0e+1f), bp::arg("gravityPerSecond")=irr::core::vector3d<float>(0.0f, -1.0e+1f, 0.0f), bp::arg("ellipsoidTranslation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("slidingValue")=5.000000237487256526947021484375e-4f )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createDeleteAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32 ) )( &::MySceneManager::createDeleteAnimator )
+	, ( bp::arg("timeMs") )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createFlyCircleAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::f32,::irr::f32,::irr::core::vector3df const &,::irr::f32,::irr::f32 ) )( &::MySceneManager::createFlyCircleAnimator )
+	, ( bp::arg("center")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("radius")=1.0e+2f, bp::arg("speed")=1.000000047497451305389404296875e-3f, bp::arg("direction")=irr::core::vector3d<float>(0.0f, 1.0e+0f, 0.0f), bp::arg("startPosition")=0.0f, bp::arg("radiusEllipsoid")=0.0f )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createFlyStraightAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32,bool,bool ) )( &::MySceneManager::createFlyStraightAnimator )
+	, ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay"), bp::arg("loop")=(bool)(false), bp::arg("pingpong")=(bool)(false) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createFollowFlameAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )(  ) )( &::MySceneManager::createFollowFlameAnimator )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createFollowSplineAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::s32,::irr::core::array< irr::core::vector3d< float >, irr::core::irrAllocator< irr::core::vector3d< float > > > const &,::irr::f32,::irr::f32,bool,bool ) )( &::MySceneManager::createFollowSplineAnimator )
+	, ( bp::arg("startTime"), bp::arg("points"), bp::arg("speed")=1.0e+0f, bp::arg("tightness")=5.0e-1f, bp::arg("loop")=(bool)(true), bp::arg("pingpong")=(bool)(false) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createRelateCameraMoveAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,::irr::core::vector3df,::RM_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createRelateCameraMoveAnimator )
+	, ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("start"), bp::arg("end"), bp::arg("moveType")=::RM_MT_LINER, bp::arg("factor")=0 )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createRelateCameraStayAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::scene::ICameraSceneNode *,::irr::core::vector3df,bool ) )( &::MySceneManager::createRelateCameraStayAnimator )
+	, ( bp::arg("delay"), bp::arg("duration"), bp::arg("camera"), bp::arg("position"), bp::arg("loop")=(bool)(true) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createRotationAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const & ) )( &::MySceneManager::createRotationAnimator )
+	, ( bp::arg("rotationSpeed") )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createScaleAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::core::vector3df,::AS_MOVE_TYPE,::irr::f32 ) )( &::MySceneManager::createScaleAnimator )
+	, ( bp::arg("delay"), bp::arg("duration"), bp::arg("scale"), bp::arg("type")=::AS_MT_LINER, bp::arg("factor")=0 )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createSelfDelFlyStraightAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::u32 ) )( &::MySceneManager::createSelfDelFlyStraightAnimator )
+	, ( bp::arg("startPoint"), bp::arg("endPoint"), bp::arg("timeForWay") )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createShakeAnimatorAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::u32,::irr::u32,::irr::f32,::irr::f32 ) )( &::MySceneManager::createShakeAnimatorAnimator )
+	, ( bp::arg("delay"), bp::arg("duration"), bp::arg("ampFrom"), bp::arg("ampTo")=0 )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createTextureAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::array< irr::video::ITexture*, irr::core::irrAllocator< irr::video::ITexture* > > const &,::irr::s32,bool ) )( &::MySceneManager::createTextureAnimator )
+	, ( bp::arg("textures"), bp::arg("timePerFrame"), bp::arg("loop")=(bool)(true) )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"createTheBeginMoveAnimator"
+	, (::irr::scene::ISceneNodeAnimator * ( ::MySceneManager::* )( ::irr::core::vector3df,::irr::core::vector3df,::irr::u32,::irr::u32,int ) )( &::MySceneManager::createTheBeginMoveAnimator )
+	, ( bp::arg("thebeginpoint"), bp::arg("theendpoint"), bp::arg("delay"), bp::arg("duration"), bp::arg("circle_n") )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"getMesh"
+	, (::irr::scene::IAnimatedMesh * ( ::MySceneManager::* )( ::std::wstring const & ) )( &::MySceneManager::getMesh )
+	, ( bp::arg("filename") )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"getRootSceneNode"
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )(  ) )( &::MySceneManager::getRootSceneNode )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"getSceneNodeFromId"
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::s32,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromId )
+	, ( bp::arg("id"), bp::arg("start")=bp::object() )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"getSceneNodeFromName"
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::c8 const *,::irr::scene::ISceneNode * ) )( &::MySceneManager::getSceneNodeFromName )
+	, ( bp::arg("name"), bp::arg("start")=bp::object() )
+	, bp::return_value_policy< bp::reference_existing_object >() )    
+	.def( 
+	"getTexture"
+	, (::irr::video::ITexture * ( ::MySceneManager::* )( ::std::wstring const & ) )( &::MySceneManager::getTexture )
+	, ( bp::arg("filename") )
+	, bp::return_value_policy< bp::reference_existing_object >() )
+	;
+#pragma endregion MySceneManager
 
 
 }

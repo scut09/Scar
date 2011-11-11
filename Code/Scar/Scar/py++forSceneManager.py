@@ -13,7 +13,7 @@ mb = module_builder.module_builder_t(
 		#r"./",
 		#r"./",
 		#r"/media/DATA/VS 2010/OpenGL-scut/Code/include/ISceneNode.h"
-		#r"/media/DATA/VS 2010/OpenGL-scut/Code/include",
+		r"/media/DATA/VS 2010/OpenGL-scut/Code/include/ISceneNodeAnimator.h",
 		#r"/media/DATA/VS 2010/OpenGL-scut/Code/include"
     ]
     , gccxml_path=r"" 
