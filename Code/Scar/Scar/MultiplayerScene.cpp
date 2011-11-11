@@ -26,6 +26,7 @@
 #include <iostream>
 #include "HumanPlayer.h"
 #include "MySceneManager.h"
+#include "GeneralCallBack.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -410,25 +411,26 @@ void MultiplayerScene::Init()
 	client->QueryRoom();
 
 
-	// 天空盒
-	m_pSkyBox = smgr->addSkyBoxSceneNode(
-		driver->getTexture( _T("../media/Space/c07_up.jpg") ),
-		driver->getTexture( _T("../media/Space/c07_dn.jpg") ),
-		driver->getTexture( _T("../media/Space/c07_lt.jpg") ),
-		driver->getTexture( _T("../media/Space/c07_rt.jpg") ),
-		driver->getTexture( _T("../media/Space/c07_ft.jpg") ),
-		driver->getTexture( _T("../media/Space/c07_bk.jpg") ));	
-	if (m_pSkyBox)
-	{
-		//不知道为什么把天空盒设小一点反而不会出黑边
-		m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
-		//shader
-		//std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
-		m_pSkyBox->setMaterialTexture( 1, driver->getTexture("../media/Space/stars.png") );
-		GeneralCallBack* cb = new GeneralCallBack(m_pSkyBox);
-		shader->ApplyShaderToSceneNode( m_pSkyBox, cb, "Shader/universeV.txt", "Shader/universeF.txt" );
-		cb->drop();
-	}
+	//// 天空盒
+	//m_pSkyBox = smgr->addSkyBoxSceneNode(
+	//	driver->getTexture( _T("../media/Space/c07_up.jpg") ),
+	//	driver->getTexture( _T("../media/Space/c07_dn.jpg") ),
+	//	driver->getTexture( _T("../media/Space/c07_lt.jpg") ),
+	//	driver->getTexture( _T("../media/Space/c07_rt.jpg") ),
+	//	driver->getTexture( _T("../media/Space/c07_ft.jpg") ),
+	//	driver->getTexture( _T("../media/Space/c07_bk.jpg") ));	
+	//if (m_pSkyBox)
+	//{
+	//	//不知道为什么把天空盒设小一点反而不会出黑边
+	//	m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
+	//	//shader
+	//	//std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
+	//	m_pSkyBox->setMaterialTexture( 1, driver->getTexture("../media/Space/stars.png") );
+
+	//	GeneralCallBack* cb = new GeneralCallBack(m_pSkyBox);
+	//	shader->ApplyShaderToSceneNode( m_pSkyBox, cb, "Shader/universeV.txt", "Shader/universeF.txt" );
+	//	cb->drop();
+	//}
 	
 
 	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();

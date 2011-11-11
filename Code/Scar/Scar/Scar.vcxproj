@@ -143,6 +143,7 @@
     <ClCompile Include="SceneNodeAnimatorFollow.cpp" />
     <ClCompile Include="SceneNodeShader.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="SpriteFlame.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TheBeginMove.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSceneManager.h" />
+    <ClInclude Include="GeneralCallBack.h" />
     <ClInclude Include="IAgentPlayer.h" />
     <ClInclude Include="Aircraft.h" />
     <ClInclude Include="AllAnimators.h" />
@@ -237,6 +239,7 @@
     <ClInclude Include="SceneNodeAnimatorFollow.h" />
     <ClInclude Include="SceneNodeShader.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SpriteFlame.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="IUIAnimator.h" />

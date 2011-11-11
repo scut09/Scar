@@ -297,6 +297,9 @@
     <ClCompile Include="PythonSceneMgr.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -580,6 +583,12 @@
     </ClInclude>
     <ClInclude Include="GameSceneManager.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralCallBack.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
