@@ -524,8 +524,12 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
-	client->Close();
-	server->Close();
+	if ( client.use_count() > 0 && server.use_count() > 0 )
+	{
+		client->Close();
+		server->Close();
+	}
+
 
 	//	m_pAnimationMan->RemoveAll();
 
