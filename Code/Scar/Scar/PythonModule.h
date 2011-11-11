@@ -17,5 +17,6 @@ extern "C" void initEngine();
 extern "C" void initUI(); 
 extern "C" void initGameSceneModule();
 extern "C" void initPythonSceneMgr();
+extern "C" void initShader();
 
 #endif // PythonModule_h__

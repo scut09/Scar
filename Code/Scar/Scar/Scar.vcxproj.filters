@@ -300,6 +300,9 @@
     <ClCompile Include="ShaderManager.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
+    <ClCompile Include="PythonShader.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

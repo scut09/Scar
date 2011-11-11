@@ -131,6 +131,7 @@
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonGameScene.cpp" />
     <ClCompile Include="PythonSceneMgr.cpp" />
+    <ClCompile Include="PythonShader.cpp" />
     <ClCompile Include="PythonUIObject.cpp" />
     <ClCompile Include="PythonWrapper.cpp" />
     <ClCompile Include="RelateCameraAnimatorMove.cpp" />

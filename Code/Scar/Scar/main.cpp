@@ -42,6 +42,7 @@ int main()
 		initEngine();
 		initUI();
 		initGameSceneModule();
+		initShader();
 	}
 	//catch ( ... )
 	{

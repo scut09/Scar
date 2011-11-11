@@ -3,8 +3,12 @@
 
 #include "SceneNodeShader.h"
 #include "GeneralCallBack.h"
+#include <irrlicht.h>
 #include <string>
 
+using namespace irr;
+using namespace irr::scene;
+using namespace irr::video;
 
 /*
 ** Ãû×Ö£ºShaderManager
