@@ -1,9 +1,12 @@
 ﻿# demo版的地图
 from Engine import *
 from PythonSceneMgr import *
+from Shader import * 
 
 def LoadMap():
     smgr = GetMySceneManager()
+
+    shader = ShaderManager()
 
     # 天空盒
     skybox = smgr.addSkyBoxSceneNode(
@@ -18,6 +21,10 @@ def LoadMap():
 
     skybox.setMaterialTexture( 1, smgr.getTexture(u"../media/Space/stars.png") )
 
+    shader.ApplyShaderGeneralCallback(
+        skybox,
+        "Shader/universeV.txt",
+        "Shader/universeF.txt" )
 
     # 创建飞船
     ship = smgr.addFrigateSceneNode( u"../model/ship/cf1.obj" )        
