@@ -19,14 +19,7 @@ public:
 		irr::scene::ISceneManager* mgr,	s32 id,
 		const core::vector3df& position = core::vector3df(0,0,0),
 		const core::vector3df& rotation = core::vector3df(0,0,0),
-		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f)):
-	IShip( mesh,  parent,mgr,	id,position ,rotation ,scale )
-	{
-		initShip(L"护卫舰");
-		BuildWall = BuildAir =true;
-		BuildWallRefreshTime = BuildAirRefreshTime =2000;
-		RecordBuildWallRefreshTime = RecordBuildAirRefreshTime =0;
-	}
+		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f));
 	~CFrigate(void);
 
 	//关闭和启动技能

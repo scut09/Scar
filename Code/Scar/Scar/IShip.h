@@ -63,7 +63,7 @@ protected:
 	f32                Experience;             // 经验值
 	f32                ExperienceToGrade;      // 加等级的经验值
 	u32                Money;                  // 金钱    
-	u32                Energy;                 // 能量
+	
 
 	f32					MaxSpeed;				// 最大速度
 	f32					Velocity;				// 速率
@@ -75,6 +75,8 @@ protected:
 	f32					CurrentShield;          // 当前护盾值
 	f32					MaxArmor;				// 最大护甲值
 	f32					CurrentArmor;			// 当前护甲值
+	u32					Energy;                 // 当前能量值
+	u32					MaxEnergy;				// 最大能量值
 
 	/************************************************************************/
 	/* 提供控制模型的辅助信息                                                 */
@@ -127,6 +129,11 @@ public:
 		const u32& shield=1, const u32& currentgrade=0, const u32& nextgrade=1, const u32&maxgrade=10, const f32& inertance=1,
 		const f32& recoverLife=10, const f32& experience=0, const f32& experiencetograde=100 );
 
+	//获取和设置飞船的能量 
+	void SetEnergy( u32 en );
+	const u32 GetEnergy() const;
+	void SetMaxEnergy( u32 en );
+	const u32 GetMaxEnergy() const;
 
 	//获取和设置飞船的主炮
 	const std::vector< IWeapon* >& GetGuns() const;
@@ -155,10 +162,6 @@ public:
 	void SetMaxArmor( f32 maxArmor );
 	const f32 GetArmor() const;
 	void SetArmor( f32 armor );
-
-	//获取和修改飞船的能量 
-	void SetEnergy( const u32& en );
-	const u32 GetEnergy() const;
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 

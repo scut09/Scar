@@ -27,6 +27,7 @@
 #include "HumanPlayer.h"
 #include "MySceneManager.h"
 #include "GeneralCallBack.h"
+#include "PythonWrapper.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -344,7 +345,19 @@ void MultiplayerScene::Init()
 	try
 	{
 		server = pEngine->GetServer();//boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+		if ( server.use_count() == 0 )
+		{
+			CreateRoom();
+			server = pEngine->GetServer();
+		}
 		client = pEngine->GetClient();//boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
+		if ( client.use_count() == 0 )
+		{
+			auto playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+			client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
+			pEngine->SetClient( client );
+			client->Start( 2012, 1990 );
+		}
 	}
 	catch ( std::exception& e )
 	{

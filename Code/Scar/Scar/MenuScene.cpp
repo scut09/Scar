@@ -5,6 +5,7 @@
 #include "MyIrrlichtEngine.h"
 #include "EventListener.h"
 #include "PlayerManager.h"
+#include "PythonWrapper.h"
 
 #undef LoadImage
 
@@ -39,9 +40,9 @@ void MenuScene::Run()
 	{
 		//iter->first;
 		const Network::BroadcastRoomBag& bag = iter->second;
-		UIStaticText* abc = (UIStaticText*)pEngine->GetUIManager()->GetUIObjectByName( "abc" );
+		/*UIStaticText* abc = (UIStaticText*)pEngine->GetUIManager()->GetUIObjectByName( "abc" );
 		abc->SetText( "" );
-		abc->SetText( bag.room_name );
+		abc->SetText( bag.room_name );*/
 	}
 }
 
@@ -195,8 +196,9 @@ using namespace scene;
 
 		if ( event.KeyInput.PressedDown )
 		{
-			if ( event.KeyInput.Key == KEY_KEY_T )
+			if ( event.KeyInput.Key == KEY_KEY_Y )
 			{
+				CreateRoom();
 				auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
 				smgr->SetCurrentGameScene( smgr->GetSceneByName( "MultiplayerScene"  ) );
 			}

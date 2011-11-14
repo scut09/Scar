@@ -70,29 +70,56 @@ void PlayerHelper::Update()
 	char buffer[20];	// 数字转字符串缓冲
 	f32 val;			// 数字
 	stringw str;		// 字符串
+	f32 h, w;			// 元件高和宽
 	// 绘制速度槽
+	w = Speed1->GetOriginSize().Width;
+	h = Speed1->GetOriginSize().Height;
 	ratio = playerShip->GetVelocity() / playerShip->GetMaxSpeed();
-	border = 389 * ( 1 - ratio );
-	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( 98, 389 ) );
-	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 98, border ) );
+	border = h * ( 1 - ratio );
+	Speed1->SetSourceRect( vector2df( 0, border ), vector2df( w, h ) );
+	Speed2->SetSourceRect( vector2df( 0, 0 ) , vector2df( w, border ) );
 	val = playerShip->GetVelocity() * 350;
 	str = L"速度：";
 	sprintf_s( buffer, "%d", (s32)val );
 	str += buffer;
 	str += L"m/s";
-
 	SpeedText->SetText( str );
-
 	// 绘制护盾槽
+	w = Shield1->GetOriginSize().Width;
+	h = Shield1->GetOriginSize().Height;
 	ratio = playerShip->GetShield() / playerShip->GetMaxShield();
-	border = 389 * ( 1 - ratio );
-	Shield1->SetSourceRect( vector2df( 0, border ), vector2df( 100, 389 ) );
-	Shield2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 100, border ) );
+	border = h * ( 1 - ratio );
+	Shield1->SetSourceRect( vector2df( 0, border ), vector2df( w, h ) );
+	Shield2->SetSourceRect( vector2df( 0, 0 ) , vector2df( w, border ) );
+	val = playerShip->GetShield();
+	str = L"护盾：";
+	sprintf_s( buffer, "%d", (s32)val );
+	str += buffer;
+	ShieldText->SetText( str );
 	// 绘制护甲槽
+	w = Armor1->GetOriginSize().Width;
+	h = Armor1->GetOriginSize().Height;
 	ratio = playerShip->GetArmor() / playerShip->GetMaxArmor();
-	border = 360 * ( 1 - ratio );
-	Armor1->SetSourceRect( vector2df( 0, border ), vector2df( 93, 360 ) );
-	Armor2->SetSourceRect( vector2df( 0, 0 ) , vector2df( 93, border ) );
+	border = h * ( 1 - ratio );
+	Armor1->SetSourceRect( vector2df( 0, border ), vector2df( w, h ) );
+	Armor2->SetSourceRect( vector2df( 0, 0 ) , vector2df( w, border ) );
+	val = playerShip->GetArmor();
+	str = L"护甲：";
+	sprintf_s( buffer, "%d", (s32)val );
+	str += buffer;
+	ArmorText->SetText( str );
+	// 绘制能量槽
+	w = Energy1->GetOriginSize().Width;
+	h = Energy1->GetOriginSize().Height;
+	ratio = 1;//playerShip->GetEnergy() / playerShip->GetMaxEnergy();
+	border = h * ( 1 - ratio );
+	Energy1->SetSourceRect( vector2df( 0, border ), vector2df( w, h ) );
+	Energy2->SetSourceRect( vector2df( 0, 0 ) , vector2df( w, border ) );
+	val = playerShip->GetEnergy();
+	str = L"能量：";
+	sprintf_s( buffer, "%d", (s32)val );
+	str += buffer;
+	EnergyText->SetText( str );
 
 	// 水平仪转动
 	core::vector3df vec( 0, 1, 0 );
@@ -157,17 +184,19 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	// 获取速度槽
 	Speed1 = uiManager->GetUIObjectByName( "speed1" );
 	Speed2 = uiManager->GetUIObjectByName( "speed2" );
-	//SpeedText = new UIStaticText( uiManager->GetRoot(), 100, 100, L"速度：", irr::video::SColor(255,255,255,255), 20 );
-	//SpeedText->SetPosition( vector2df( 200, 200 ) );
 	SpeedText = (UIStaticText*)uiManager->GetUIObjectByName( "speedText" );
 	// 获取护盾槽
 	Shield1 = uiManager->GetUIObjectByName( "shield1" );
 	Shield2 = uiManager->GetUIObjectByName( "shield2" );
-	ShieldText = (UIStaticText*)uiManager->GetUIObjectByName( "speedText" );
+	ShieldText = (UIStaticText*)uiManager->GetUIObjectByName( "shieldText" );
 	// 获取护甲槽
 	Armor1 = uiManager->GetUIObjectByName( "armor1" );
 	Armor2 = uiManager->GetUIObjectByName( "armor2" );
 	ArmorText = (UIStaticText*)uiManager->GetUIObjectByName( "armorText" );
+	// 获取能量槽
+	Energy1 = uiManager->GetUIObjectByName( "energy1" );
+	Energy2 = uiManager->GetUIObjectByName( "energy2" );
+	EnergyText = (UIStaticText*)uiManager->GetUIObjectByName( "energyText" );
 	// 获取水平仪
 	Gradienter = uiManager->GetUIObjectByName( "gradienter" );
 	// 获取目标圈

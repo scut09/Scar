@@ -951,17 +951,17 @@ BOOST_PYTHON_MODULE( UI ){
                 , DrawAll_function_type( &::UIManager::DrawAll ) );
         
         }
-        { //::UIManager::GetObjectByName
-        
-            typedef ::IUIObject * ( ::UIManager::*GetObjectByName_function_type )( ::std::string const &,::IUIObject * ) ;
-            
-            UIManager_exposer.def( 
-                "GetObjectByName"
-                , GetObjectByName_function_type( &::UIManager::GetObjectByName )
-                , ( bp::arg("name"), bp::arg("node")=bp::object() )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
+        //{ //::UIManager::GetObjectByName
+        //
+        //    typedef ::IUIObject * ( ::UIManager::*GetObjectByName_function_type )( ::std::string const &,::IUIObject * ) ;
+        //    
+        //    UIManager_exposer.def( 
+        //        "GetObjectByName"
+        //        , GetObjectByName_function_type( &::UIManager::GetObjectByName )
+        //        , ( bp::arg("name"), bp::arg("node")=bp::object() )
+        //        , bp::return_value_policy< bp::reference_existing_object >() );
+        //
+        //}
         //{ //::UIManager::GetRoot
         //
         //    typedef ::IUIObject * ( ::UIManager::*GetRoot_function_type )(  ) ;

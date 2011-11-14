@@ -174,7 +174,7 @@ public:
 
 
 
-//protected:
+protected:
 	//从树上获取特定名字的节点
 	IUIObject* GetObjectByName( const std::string& name, IUIObject* node = 0 );
 

@@ -74,8 +74,6 @@ IShip::IShip( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, irr::scen
 		drop();											// 已经加入场景树，自己的引用计数器减一
 	}
 	Money = 0;
-	Energy = 1000;
-
 	// 创建碰撞的三角形选择器以支持碰撞检测	[ 华亮 2011-10-29 ]
 	scene::ITriangleSelector* selector = mgr->createTriangleSelector( mesh, (ISceneNode*)this );
 	this->setTriangleSelector(selector);
@@ -239,7 +237,7 @@ void IShip::SetArmor( f32 armor )
 	CurrentArmor = armor;
 }
 
-void IShip::SetEnergy( const u32& en )
+void IShip::SetEnergy( u32 en )
 {
 	Energy = en;
 }
@@ -252,4 +250,14 @@ const u32 IShip::GetEnergy() const
 IShip::~IShip()
 {
 	RemoveGuns();
+}
+
+void IShip::SetMaxEnergy( u32 en )
+{
+	MaxEnergy = en;
+}
+
+const u32 IShip::GetMaxEnergy() const
+{
+	return MaxEnergy;
 }

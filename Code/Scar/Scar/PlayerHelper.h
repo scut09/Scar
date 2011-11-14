@@ -68,12 +68,15 @@ private:
 	IUIObject*		ShipTip;	// 目标圈——友军
 	IUIObject*		Speed1;		// 速度槽慢
 	IUIObject*		Speed2;		// 速度槽空
+	IUIObject*		Energy1;	// 能量槽满
+	IUIObject*		Energy2;	// 能量槽空
 	IUIObject*		indicator1;	// 敌军指示
 	IUIObject*		lock1;		// 锁定框——已锁定
 
 	UIStaticText*	ArmorText;	// 护甲文字
 	UIStaticText*	ShieldText;	// 护盾文字
 	UIStaticText*	SpeedText;	// 速度文字	
+	UIStaticText*	EnergyText;	// 能量文字
 	
 	Node2DInfo		info2D;
 	PlayerManager*	m_playerManager;	// 玩家信息管理类

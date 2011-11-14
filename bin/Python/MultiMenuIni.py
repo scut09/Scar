@@ -193,37 +193,45 @@ def LoadStartAnimation( root ):
 def CreateRoom( node ):
     uiManager = GetUIManager()
     uiManager.GetUIObjectByName("popMenu").SetVisible( True )
-    #print "mother fucker"
+    uiManager.GetUIObjectByName("btnY").SetVisible( True )
+    uiManager.GetUIObjectByName("btnN").SetVisible( True )
     #Engine.CreateRoom()
 
 ######################################################
 # 创建房间的弹出菜单
 ######################################################
 def CreateRoomPopMenu():
+    print "CreateRoomPopMenu"
     uiManager = GetUIManager()
     # 背景
     popMenu = uiManager.AddUIImage( None, 323, 320 )
     popMenu.LoadImage( "../media/UIResource/Menu/pm_bg.png" )
     #popMenu.SetAntiAliasing()
     # 确认按钮
-    btnY = uiManager.AddUIButton( popMenu, 0, 0 )
+    btnY = uiManager.AddUIButton( popMenu, 78, 27 )
+    btnY.SetName( "btnY" )
     btnY.SetPosition( vector2df( -60, 130 ) )
     btnYImg = uiManager.AddUIImage( btnY, 78, 27 )
     btnYImg.LoadImage( "../media/UIResource/Menu/pm_y.png" )
     # 取消按钮
-    btnN = uiManager.AddUIButton( popMenu, 0, 0 )
+    btnN = uiManager.AddUIButton( popMenu, 78, 27 )
+    btnN.SetName( "btnN" )
     btnN.SetPosition( vector2df( 60, 130 ) )
     btnNImg = uiManager.AddUIImage( btnN, 78, 27 )
     btnNImg.LoadImage( "../media/UIResource/Menu/pm_n.png" )
     # 为按钮添加响应函数
     btnY.AddFunc( "OnMouseLeftButtonDown", "btnYFunc", "MultiMenuIni" )
     btnN.AddFunc( "OnMouseLeftButtonDown", "btnNFunc", "MultiMenuIni" )
+    
     return popMenu
+
 def btnYFunc( node ):
-    #GetUIManager().GetUIObjectByName("popMenu").SetVisible( False )
+    node.SetVisible( False )
     node.GetParent().SetVisible( False )
     #node.GetParent().SetPosition( vector2df( 100, 100 ) )
-    return
+    Engine.CreateRoom()
+    
 def btnNFunc( node ):
-    GetUIManager().GetUIObjectByName("popMenu").SetVisible( False )
-    return
+    node.SetVisible( False )
+    node.GetParent().SetVisible( False )
+    

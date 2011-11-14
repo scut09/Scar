@@ -34,6 +34,16 @@ public:
 		return btn;
 	}
 
+	virtual void SetVisible( bool bVisible )
+	{
+		if ( ! bVisible )
+		{
+			IsMouseIn = false;
+		}
+
+		IUIObject::SetVisible( bVisible );
+	}
+
 	virtual void Draw();
 
 	virtual void OnMouseMove( const irr::SEvent::SMouseInput& event );
