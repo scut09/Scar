@@ -33,11 +33,17 @@ def GetRoot():
     bg = CreateBg()
     bg.SetScale( vector2df( RatioX, RatioY ) )
     bg.SetPosition( vector2df( bgPosX * RatioX, bgPosY * RatioY ) )
-
+    # 房间
+    '''house = CreateHouse()
+    housePosX = 500
+    housePosY = 240
+    house.SetScale( vector2df( RatioX , RatioY ) )
+    house.SetPosition( vector2df( housePosX * RatioX, housePoxY * RatioY ) )'''
+    
     root.AddChild( bg )
     root.AddChild( menu )
     root.AddChild( logo )
-
+    #root.AddChild( house )
     root.SetName( "Root" )
 
     return root
@@ -159,4 +165,12 @@ def LoadStartAnimation( root ):
     AniList.append( alp1 )
     AniList.append( sca1 )
     return root
-    
+######################################################
+# 创建多人房间
+######################################################
+'''def CreateHouse():
+    uiManager = GetUIManager()
+    house = uiManager.AddUIBox( None, 200, 200 )
+    house.LoadImage( "../media/UIResource/Menu/scrollbar_hbackground.png" )
+
+    return house'''

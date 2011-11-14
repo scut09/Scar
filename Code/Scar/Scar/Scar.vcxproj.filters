@@ -303,6 +303,12 @@
     <ClCompile Include="PythonShader.cpp">
       <Filter>Python</Filter>
     </ClCompile>
+    <ClCompile Include="UIBox.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -592,6 +598,12 @@
     </ClInclude>
     <ClInclude Include="ShaderManager.h">
       <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBox.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -277,4 +277,4 @@ def OnBtn2Click( node ):
 
 def JumpToMultiMenu():
     sceneMgr = GetGameSceneManager()
-    ChangeGameScene( sceneMgr.GetSceneByName( 'MultiMenuIni' ) )
+    ChangeGameScene( sceneMgr.GetSceneByName( "multiMenu" ) )

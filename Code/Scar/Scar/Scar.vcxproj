@@ -151,6 +151,8 @@
     <ClCompile Include="TimelagUIAnimator.cpp" />
     <ClCompile Include="Toolkit.cpp" />
     <ClCompile Include="TranslateUIAnimator.cpp" />
+    <ClCompile Include="UIBar.cpp" />
+    <ClCompile Include="UIBox.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIImage.cpp" />
@@ -249,6 +251,8 @@
     <ClInclude Include="Toolkit.h" />
     <ClInclude Include="TranslateUIAnimator.h" />
     <ClInclude Include="UIAnimators.h" />
+    <ClInclude Include="UIBar.h" />
+    <ClInclude Include="UIBox.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIImage.h" />
