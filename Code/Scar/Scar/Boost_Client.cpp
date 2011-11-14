@@ -23,7 +23,7 @@ IGUIEditBox* box = 0;
 
 using namespace Network;
 
-Network::BoostClient::BoostClient( PlayerManager*	playerManager ) 
+Network::BoostClient::BoostClient( boost::shared_ptr<PlayerManager>	playerManager ) 
 	: m_playerManager( playerManager ), m_server_IP( 0 ), m_index( -11 )
 {
 	SaveLocalIPAddress();

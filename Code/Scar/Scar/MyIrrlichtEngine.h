@@ -21,6 +21,8 @@
 #include "UIManager.h"
 #include "GameSceneManager.h"
 #include "MySceneManager.h"
+#include "Boost_Server.h"
+#include "Boost_Client.h"
 
 class IUIObject;
 
@@ -53,6 +55,12 @@ private:
 
 	MySceneManager*					m_MySceneManager;	// 类似irrlicht的场景管理类
 
+	boost::shared_ptr<Network::BoostClient> m_client;
+
+	boost::shared_ptr<Network::BoostServer> m_server;
+
+
+
 private:
 	ModelManager					m_ModelManager;
 	//AnimationManager				m_AnimationManager;		// 过时，抛弃这个。使用irrlicht内部的动画管理
@@ -78,6 +86,28 @@ private:
 public:
 
 	~MyIrrlichtEngine();
+
+	void SetServer( boost::shared_ptr<Network::BoostServer> svr ) 
+	{
+		m_server = svr;
+	}
+
+	boost::shared_ptr<Network::BoostServer> GetServer() const
+	{
+		return m_server;
+	}
+
+	boost::shared_ptr<Network::BoostClient> GetClient() const
+	{
+		return m_client;
+	}
+
+	void SetClient( boost::shared_ptr<Network::BoostClient> c )
+	{
+		m_client = c;
+	}
+
+
 
 	// 设置当前UI管理类
 	void SetUIManager( boost::shared_ptr<UIManager> mgr )

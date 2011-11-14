@@ -130,3 +130,10 @@ MySceneManager* GetMySceneManager()
 	return MyIrrlichtEngine::GetEngine()->GetMySceneManager();
 }
 
+void CreateRoom()
+{
+	auto server = boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+	MyIrrlichtEngine::GetEngine()->SetServer( server );
+	server->Start( 1990, 2012 );
+}
+

@@ -1,4 +1,5 @@
 ﻿from UILoader import *
+import Engine
 import SexangleButton
 import ScenesCreator
 
@@ -82,6 +83,8 @@ def CreateMenu():
     btn1.SetScale( vector2df( 0.1, 0.1 ) )
     btn2.SetScale( vector2df( 0.1, 0.1 ) )
     btn3.SetScale( vector2df( 0.1, 0.1 ) )
+
+    btn1.AddFunc( "OnMouseLeftButtonDown", "CreateRoom", "MultiMenuIni" )
     return menu
 
 ######################################################
@@ -167,7 +170,7 @@ def LoadStartAnimation( root ):
     AniList.append( sca1 )
     return root
 ######################################################
-# 创建多人房间
+# 
 ######################################################
 '''def CreateHouse():
     uiManager = GetUIManager()
@@ -175,3 +178,13 @@ def LoadStartAnimation( root ):
     house.LoadImage( "../media/UIResource/Menu/scrollbar_hbackground.png" )
 
     return house'''
+
+######################################################
+# 创建房间
+######################################################
+
+def CreateRoom( node ):
+    print "asdfasdfa"
+    Engine.CreateRoom()
+    pass
+

@@ -247,5 +247,7 @@ GameSceneManager* GetGameSceneManager();
 class MySceneManager;
 MySceneManager* GetMySceneManager();
 
+void CreateRoom();
+
 #endif // PythonWrapper_h__
 

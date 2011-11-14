@@ -12,6 +12,7 @@
 #include "IUIObject.h"
 #include <algorithm>
 #include "MyIrrlichtEngine.h"
+#undef LoadImage
 
 //#pragma warning( push )y
 

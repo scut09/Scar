@@ -343,16 +343,16 @@ void MultiplayerScene::Init()
 
 	try
 	{
-		server = boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
-		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
+		server = pEngine->GetServer();//boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+		client = pEngine->GetClient();//boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
 	}
 	catch ( std::exception& e )
 	{
 		std::cerr << e.what() << std::endl;
 	}
 
-	server->Start( 1990, 2012 );
-	client->Start( 2012, 1990 );
+	//server->Start( 1990, 2012 );
+	//client->Start( 2012, 1990 );
 
 
 	// Ìí¼Órobot
@@ -542,7 +542,7 @@ void MultiplayerScene::Init()
 
 void MultiplayerScene::Release()
 {
-	m_playerManager->RemoveAll();
+//	m_playerManager->RemoveAll();
 
 	try
 	{

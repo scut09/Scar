@@ -34,7 +34,7 @@ namespace Network
 	class BoostClient : public NetworkBase, public IClient
 	{
 	public:
-		BoostClient( PlayerManager*	playerManager );
+		BoostClient( boost::shared_ptr<PlayerManager>	playerManager );
 
 		~BoostClient()
 		{
@@ -111,7 +111,7 @@ namespace Network
 		std::set<std::string>					m_localIP;
 		unsigned long							m_server_IP;
 
-		PlayerManager*							m_playerManager;
+		boost::shared_ptr<PlayerManager>		m_playerManager;
 	};
 
 

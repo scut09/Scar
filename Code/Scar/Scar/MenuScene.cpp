@@ -4,6 +4,9 @@
 #include "UIManager.h"
 #include "MyIrrlichtEngine.h"
 #include "EventListener.h"
+#include "PlayerManager.h"
+
+#undef LoadImage
 
 void MenuScene::Run()
 {
@@ -29,12 +32,24 @@ void MenuScene::Run()
 		}
 
 	}
+
+	pEngine->GetClient()->QueryRoom();
+	auto RoomList = pEngine->GetClient()->GetRooms();
+	for ( auto iter = RoomList.begin(); iter != RoomList.end(); ++iter )
+	{
+		//iter->first;
+		const Network::BroadcastRoomBag& bag = iter->second;
+		UIStaticText* abc = (UIStaticText*)pEngine->GetUIManager()->GetUIObjectByName( "abc" );
+		abc->SetText( "" );
+		abc->SetText( bag.room_name );
+	}
 }
 
 
 void MenuScene::Init()
 {
-	using namespace scene;
+	#pragma region fuck
+using namespace scene;
 	using namespace video;
 	using namespace core;
 
@@ -138,20 +153,30 @@ void MenuScene::Init()
 	server->Start( 1990, 2012 );
 	client->Start( 2012, 1990 );*/
 
-	char buffer[255];
-	stringw str;
-	root = pEngine->GetUIManager()->GetRootUIObject();
-	UIStaticText* abc = new UIStaticText( root, 100, 20, L"ÄãÃÃ", SColor(255,255,255,255) );
-	abc->SetPosition( vector2df(100,100) );
-
-	/*if ( SceneName == "MultiMenuIni")
+	if ( SceneName == "MultiMenuIni")
 	{
-	IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
-	IUIObject * house = pEngine->GetUIManager()->AddUIBox(root1, 400, 400 );
-	house->SetPosition( vector2df( 800, 400 ) );
-	house->LoadImage( "../media/UIResource/Menu/scrollbar_hbackground.png" );
-	((CUIBox*)house)->test( 10 );
-	}*/
+		IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
+		IUIObject * house = pEngine->GetUIManager()->AddUIBox(root1, 400, 400 );
+		house->SetPosition( vector2df( 800, 400 ) );
+		house->LoadImage( "../media/UIResource/Menu/scrollbar_hbackground.png" );
+		((CUIBox*)house)->test( 10 );
+
+		char buffer[255];
+		stringw str;
+		root = pEngine->GetUIManager()->GetRootUIObject();
+		UIStaticText* abc = new UIStaticText( root, 100, 20, L"ÄãÃÃ", SColor(255,255,255,255) );
+		abc->SetPosition( vector2df(200,200) );
+		abc->SetName( "abc" );
+		abc->SetText( L"ÄáÂêÁË¸ô±Ú" );
+
+		auto playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+		auto client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
+		pEngine->SetClient( client );
+		client->Start( 2012, 1990 );
+	}
+#pragma endregion fuck
+
+
 
 
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*

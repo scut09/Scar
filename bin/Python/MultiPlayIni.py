@@ -57,9 +57,9 @@ def GetRoot():
     speedBar2.SetName( "speed2" )
     #Save( speedBar2 )
     # 速度显示文字
-    speedText = uiManager.AddUIStaticText( root, 100, 20, u"速度:", SColor(255,255,255,255), 18 )
+    speedText = uiManager.AddUIStaticText( root, 100, 20, u"速度:", SColor(255,255,255,255) )
     speedText.SetName( "speedText" )
-    speedText.SetPosition( vector2df( cenX + 200, cenY + 14 ) )
+    speedText.SetPosition( vector2df( cenX + 160, cenY + 190 ) )
     #Save( speedText )
 
     # 能量槽满
@@ -84,7 +84,7 @@ def GetRoot():
     shield2.SetName( "shield2" )
     #Save( shield2 )
     # 护盾显示文字
-    shieldText = uiManager.AddUIStaticText( root, 100, 20, u"护盾:", SColor(255,255,255,255), 18 )
+    shieldText = uiManager.AddUIStaticText( root, 100, 20, u"护盾:", SColor(255,255,255,255) )
     shieldText.SetName( "shieldText" )
     shieldText.SetPosition( vector2df( cenX - 200, cenY + 14 ) )
     #Save( shieldText )
@@ -100,7 +100,7 @@ def GetRoot():
     armor2.SetName( "armor2" )
     #Save( armor2 )
     # 护甲显示文字
-    armorText = uiManager.AddUIStaticText( root, 100, 20, u"护甲:", SColor(255,255,255,255), 18 )
+    armorText = uiManager.AddUIStaticText( root, 100, 20, u"护甲:", SColor(255,255,255,255) )
     armorText.SetName( "armorText" )
     armorText.SetPosition( vector2df( cenX - 200, cenY - 14 ) )
     #Save( armorText )
