@@ -20,7 +20,7 @@ void MenuScene::Run()
 			object LoadStartAnimation = UILoader.attr( "LoadStartAnimation" );
 			IUIObject* root = pEngine->GetUIManager()->GetRootUIObject();
 			LoadStartAnimation( boost::ref( root ) );
-
+			
 			//r->drop();	// 使用Python对象不用内存管理
 		}
 		catch ( ... )
@@ -115,7 +115,7 @@ void MenuScene::Init()
 		object UILoader = import( SceneName.c_str() );
 		object GetRoot = UILoader.attr( "GetRoot" );
 		object root = GetRoot();
-
+		
 		//IUIObject* r = extract<IUIObject*>( root ); 
 		//uiManager->SetRoot( r );
 		//r->drop();	// 使用Python对象不用内存管理
@@ -123,6 +123,16 @@ void MenuScene::Init()
 	catch ( ... )
 	{
 		PyErr_Print();
+	}
+
+	if ( SceneName == "MultiMenuIni")
+	{
+		IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
+		IUIObject * house = pEngine->GetUIManager()->AddUIBox(root1, 400, 400 );
+		house->SetPosition( vector2df( 800, 400 ) );
+		house->LoadImage("../media/UIResource/Menu/scrollbar_hbackground.png");
+		((CUIBox*)house)->test( 10 );
+
 	}
 
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*

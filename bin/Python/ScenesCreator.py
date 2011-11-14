@@ -20,4 +20,4 @@ def CreateGameScenes():
     multi = sceneMgr.AddMultiplayerScene()
     multi.SetName( "MultiplayerScene" )
     
-    ChangeGameScene( mainMenu )
+    ChangeGameScene( multiMenu )
