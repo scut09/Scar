@@ -9,7 +9,7 @@ Begin( 0 )
 	M_y =( TheEndPoint.Y - TheBeginPoint.Y ) / Duration;
 	Distance = sqrt ( ( TheEndPoint.X - TheBeginPoint.X ) * ( TheEndPoint.X - TheBeginPoint.X ) + ( TheEndPoint.Z - TheBeginPoint.Z ) * ( TheEndPoint.Z - TheBeginPoint.Z ) );
 	M_Distance = Distance / Duration;
-	radian = 2 * PI * Circle_N / (f32)Duration;
+	radian = 2 * (f32)PI * Circle_N / (f32)Duration;
 	Center = TheEndPoint;
 	Center.Y = TheBeginPoint.Y;
 }

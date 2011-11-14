@@ -8,6 +8,8 @@
 #include "irrlicht.h"
 #include <string>
 #include "SceneNodeShader.h"
+#include "Boost_Client.h"
+#include "Boost_Server.h"
 using namespace irr;
 
 class MenuScene : public GameScene
@@ -32,6 +34,11 @@ class MenuScene : public GameScene
 		scene::ISceneNode* Node;
 
 	public:
+
+		/*boost::shared_ptr<Network::BoostClient> client;
+
+		boost::shared_ptr<Network::BoostServer> server;*/
+
 		ShaderCallBack( scene::ISceneNode* node )
 			:Node( node )
 		{

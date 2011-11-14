@@ -33,6 +33,7 @@ def GetRoot():
     bg = CreateBg()
     bg.SetScale( vector2df( RatioX, RatioY ) )
     bg.SetPosition( vector2df( bgPosX * RatioX, bgPosY * RatioY ) )
+    bg.SetVisible( False )
     # 房间
     '''house = CreateHouse()
     housePosX = 500

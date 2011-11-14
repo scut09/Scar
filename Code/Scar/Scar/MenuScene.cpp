@@ -125,15 +125,34 @@ void MenuScene::Init()
 		PyErr_Print();
 	}
 
-	if ( SceneName == "MultiMenuIni")
+	/*try
 	{
-		IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
-		IUIObject * house = pEngine->GetUIManager()->AddUIBox(root1, 400, 400 );
-		house->SetPosition( vector2df( 800, 400 ) );
-		house->LoadImage("../media/UIResource/Menu/scrollbar_hbackground.png");
-		((CUIBox*)house)->test( 10 );
-
+		server = boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
 	}
+	catch ( std::exception& e )
+	{
+		std::cerr << e.what() << std::endl;
+	}
+
+	server->Start( 1990, 2012 );
+	client->Start( 2012, 1990 );*/
+
+	char buffer[255];
+	stringw str;
+	root = pEngine->GetUIManager()->GetRootUIObject();
+	UIStaticText* abc = new UIStaticText( root, 100, 20, L"ÄãÃÃ", SColor(255,255,255,255) );
+	abc->SetPosition( vector2df(100,100) );
+
+	/*if ( SceneName == "MultiMenuIni")
+	{
+	IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
+	IUIObject * house = pEngine->GetUIManager()->AddUIBox(root1, 400, 400 );
+	house->SetPosition( vector2df( 800, 400 ) );
+	house->LoadImage( "../media/UIResource/Menu/scrollbar_hbackground.png" );
+	((CUIBox*)house)->test( 10 );
+	}*/
+
 
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 	{	

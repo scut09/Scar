@@ -74,7 +74,7 @@ def OnMenuButtonMouseMoveIn( node ):
         0,
         255 )
     aniList.append( squareAlpha )
-    squareScale = uiManager.CreateAnimatorTranslation(
+    squareScale = uiManager.CreateAnimatorScale(
         Timer().GetRealTime(),
         duration,
         vector2df( 1.9, 1.0 ) )
@@ -148,7 +148,7 @@ def OnMenuButtonMouseMoveOut( node ):
         255,
         0 )
     aniList.append( squareAlpha )
-    squareScale = uiManager.CreateAnimatorTranslation(
+    squareScale = uiManager.CreateAnimatorScale(
         Timer().GetRealTime(),
         duration,
         vector2df( 0.1, 1 ) )
