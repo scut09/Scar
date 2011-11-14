@@ -155,24 +155,34 @@ using namespace scene;
 
 	if ( SceneName == "MultiMenuIni")
 	{
-		IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
+		/*IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
 		IUIObject * house = pEngine->GetUIManager()->AddUIBox(root1, 400, 400 );
 		house->SetPosition( vector2df( 800, 400 ) );
 		house->LoadImage( "../media/UIResource/Menu/scrollbar_hbackground.png" );
-		((CUIBox*)house)->test( 10 );
+		((CUIBox*)house)->test( 10 );*/
 
-		char buffer[255];
-		stringw str;
-		root = pEngine->GetUIManager()->GetRootUIObject();
-		UIStaticText* abc = new UIStaticText( root, 100, 20, L"ÄãÃÃ", SColor(255,255,255,255) );
-		abc->SetPosition( vector2df(200,200) );
-		abc->SetName( "abc" );
-		abc->SetText( L"ÄáÂêÁË¸ô±Ú" );
+		//char buffer[255];
+		//stringw str;
+		//root = pEngine->GetUIManager()->GetRootUIObject();
+		//UIStaticText* abc = new UIStaticText( root, 100, 20, L"ÄãÃÃ", SColor(255,255,255,255) );
+		//abc->SetPosition( vector2df(200,200) );
+		//abc->SetName( "abc" );
+		//abc->SetText( L"ÄáÂêÁË¸ô±Ú" );
 
 		auto playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
 		auto client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
 		pEngine->SetClient( client );
 		client->Start( 2012, 1990 );
+
+		/*IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+		IGUISkin* skin = gui->getSkin();
+		IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
+		if (font)
+			skin->setFont(font);
+
+		skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
+
+		IGUIEditBox* box = gui->addEditBox( _T("·¢gas·¢µÄ"), core::rect<s32>( 0, 0, 100, 50 ) );*/
 	}
 #pragma endregion fuck
 

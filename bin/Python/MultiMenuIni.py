@@ -11,6 +11,8 @@ AniList = [] #用以保存动画
 def GetRoot():
     global RatioX
     global RatioY
+    cenX = ScreenWidth / 2.0
+    cenY = ScreenHeight / 2.0
     uiManager = GetUIManager()
     # 场景根节点
     root = uiManager.AddUIImage( None, 0, 0 )
@@ -41,6 +43,11 @@ def GetRoot():
     housePosY = 240
     house.SetScale( vector2df( RatioX , RatioY ) )
     house.SetPosition( vector2df( housePosX * RatioX, housePoxY * RatioY ) )'''
+    # 创建房间弹出菜单
+    popMenu = CreateRoomPopMenu()
+    popMenu.SetPosition( vector2df( cenX, cenY ) )
+    popMenu.SetName( "popMenu" )
+    popMenu.SetVisible( False )
     
     root.AddChild( bg )
     root.AddChild( menu )
@@ -184,7 +191,39 @@ def LoadStartAnimation( root ):
 ######################################################
 
 def CreateRoom( node ):
-    print "asdfasdfa"
-    Engine.CreateRoom()
-    pass
+    uiManager = GetUIManager()
+    uiManager.GetUIObjectByName("popMenu").SetVisible( True )
+    #print "mother fucker"
+    #Engine.CreateRoom()
 
+######################################################
+# 创建房间的弹出菜单
+######################################################
+def CreateRoomPopMenu():
+    uiManager = GetUIManager()
+    # 背景
+    popMenu = uiManager.AddUIImage( None, 323, 320 )
+    popMenu.LoadImage( "../media/UIResource/Menu/pm_bg.png" )
+    #popMenu.SetAntiAliasing()
+    # 确认按钮
+    btnY = uiManager.AddUIButton( popMenu, 0, 0 )
+    btnY.SetPosition( vector2df( -60, 130 ) )
+    btnYImg = uiManager.AddUIImage( btnY, 78, 27 )
+    btnYImg.LoadImage( "../media/UIResource/Menu/pm_y.png" )
+    # 取消按钮
+    btnN = uiManager.AddUIButton( popMenu, 0, 0 )
+    btnN.SetPosition( vector2df( 60, 130 ) )
+    btnNImg = uiManager.AddUIImage( btnN, 78, 27 )
+    btnNImg.LoadImage( "../media/UIResource/Menu/pm_n.png" )
+    # 为按钮添加响应函数
+    btnY.AddFunc( "OnMouseLeftButtonDown", "btnYFunc", "MultiMenuIni" )
+    btnN.AddFunc( "OnMouseLeftButtonDown", "btnNFunc", "MultiMenuIni" )
+    return popMenu
+def btnYFunc( node ):
+    #GetUIManager().GetUIObjectByName("popMenu").SetVisible( False )
+    node.GetParent().SetVisible( False )
+    #node.GetParent().SetPosition( vector2df( 100, 100 ) )
+    return
+def btnNFunc( node ):
+    GetUIManager().GetUIObjectByName("popMenu").SetVisible( False )
+    return
