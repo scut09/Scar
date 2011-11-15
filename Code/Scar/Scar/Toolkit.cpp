@@ -20,7 +20,7 @@ Toolkit::~Toolkit(void)
 bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 {
 	core::aabbox3df ViewBox = m_pCamara->getViewFrustum()->getBoundingBox();
-	if (!ViewBox.isPointInside(pNode->getAbsolutePosition()))
+	if (!ViewBox.isPointInside(pNode->getPosition()))
 	{
 		return false;
 	}
@@ -31,6 +31,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 	{
 		return false;
 	}
+
 	pNode2DInfo->pos.X = screamPoint.X;
 	pNode2DInfo->pos.Y = screamPoint.Y;
 	s32 width, height;
@@ -118,6 +119,12 @@ bool Toolkit::To2DScreamPos(vector3df v, position2df* p)
 	ModleView = m_pCamara->getViewMatrix();
 
 	ModleView.multiplyWith1x4Matrix(in);
+	
+	// 不在视域体内就不计算
+	if ( in[2] < m_pCamara->getNearValue() || in[2] > m_pCamara->getFarValue() )
+	{
+		return false;
+	}
 
 	Project = m_pCamara->getProjectionMatrix();
 
