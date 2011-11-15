@@ -53,6 +53,7 @@ MultiplayerScene::~MultiplayerScene()
 
 void MultiplayerScene::Run()
 {
+	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 
 	switch ( State )
 	{
@@ -63,6 +64,18 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				// 在此处进行初始化工作
+				try
+				{
+					using namespace boost::python;
+					object map = import( "SelectCampScene" );
+					object LoadMap = map.attr( "LoadMap" );
+					LoadMap();
+					pEngine->GetSceneManager()->addCameraSceneNode();
+				}
+				catch ( ... )
+				{
+					PyErr_Print();
+				}
 			}
 
 			// 在此处进行游戏逻辑
@@ -119,7 +132,7 @@ void MultiplayerScene::Run()
 		{
 			InitScene();
 			TestFuck();
-			State = In_Battle;
+			State = Select_Camp;
 		}
 		break;
 	}
@@ -130,7 +143,7 @@ void MultiplayerScene::Run()
 void MultiplayerScene::Init()
 {
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
-	State = Test;
+	State = Select_Camp;
 
 
 
