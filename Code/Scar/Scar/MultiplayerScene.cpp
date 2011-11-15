@@ -120,6 +120,43 @@ void MultiplayerScene::Run()
 
 	m_playerManager->Update();
 
+	switch ( State )
+	{
+	case Select_Camp:
+		// 如果是第一次运行，初始化
+		if ( bRunOnce )
+		{
+			bRunOnce = false;
+			// 在此处进行初始化工作
+		}
+
+		// 在此处进行游戏逻辑
+
+		if ( 0/*跳转到下一状态的条件*/ )
+		{
+			State = Select_Ship;
+			// 在此处释放资源或隐藏资源
+			bRunOnce = true;
+		}
+		break;
+	case Select_Ship:
+		break;
+	case Select_Equipment:
+		break;
+	case First_Flight:
+		break;
+	case Warp:
+		break;
+	case In_Battle:
+		break;
+	case Dead:
+		break;
+	case Game_Over:
+		break;
+	case Quit:
+		break;
+	}
+
 }
 
 void MultiplayerScene::Init()
@@ -128,10 +165,12 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	smgr->clear();
-
 	m_pModelMan = pEngine->GetModelManager();
-	auto driver = pEngine->GetVideoDriver();
+	IVideoDriver* driver = pEngine->GetVideoDriver();
 	shader = new SceneNodeShader();
+
+	// 初始化状态为选阵营  测试可以将此处改为想要的状态
+	State = Select_Camp;
 
 	// 隐藏鼠标
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
@@ -404,64 +443,16 @@ void MultiplayerScene::Init()
 	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
 	m_playerManager->AddPlayer( robot );
 
-
-
-
-
-
-
-	// 测试粒子系统
-	/*IParticleSystemSceneNode* ps  = smgr->addParticleSystemSceneNode(false, cf1);
-	IParticleBoxEmitter* em = ps->createBoxEmitter( aabbox3df(-3,0,-3,3,1,3), vector3df(0,0.3f,0),
-		80, 100, 
-		SColor(0,255,255,255), SColor(0,255,255,255),
-		400, 1100);
-	em->setMinStartSize( dimension2df(30.f, 40.f));
-	em->setMaxStartSize( dimension2df(30,40) );
-	ps->setEmitter( em );
-	em->drop();
-	IParticleAffector* af = ps->createFadeOutParticleAffector();
-	ps->addAffector( af );
-	af->drop();
-	ps->setMaterialFlag( EMF_LIGHTING, false );
-	ps->setMaterialFlag( EMF_ZWRITE_ENABLE, false );
-	ps->setMaterialTexture( 0, driver->getTexture("../media/fireball.bmp") );
-	ps->setMaterialType( EMT_TRANSPARENT_VERTEX_ALPHA );*/
-
-
 	// 创建火控
 	auto fireAni = new ShipFireAnimator( client );
 	cf1->addAnimator( fireAni );
 	fireAni->drop();
 
+	//
 	client->QueryRoom();
 
-
-	//// 天空盒
-	//m_pSkyBox = smgr->addSkyBoxSceneNode(
-	//	driver->getTexture( _T("../media/Space/c07_up.jpg") ),
-	//	driver->getTexture( _T("../media/Space/c07_dn.jpg") ),
-	//	driver->getTexture( _T("../media/Space/c07_lt.jpg") ),
-	//	driver->getTexture( _T("../media/Space/c07_rt.jpg") ),
-	//	driver->getTexture( _T("../media/Space/c07_ft.jpg") ),
-	//	driver->getTexture( _T("../media/Space/c07_bk.jpg") ));	
-	//if (m_pSkyBox)
-	//{
-	//	//不知道为什么把天空盒设小一点反而不会出黑边
-	//	m_pSkyBox->setScale( vector3df( .1f, .1f, .1f ) );
-	//	//shader
-	//	//std::cout<< "!!!!!!!!!!!!!!!!!!!!!!!!!"<<m_pSkyBox->getMaterialCount()<<std::endl;
-	//	m_pSkyBox->setMaterialTexture( 1, driver->getTexture("../media/Space/stars.png") );
-
-	//	GeneralCallBack* cb = new GeneralCallBack(m_pSkyBox);
-	//	shader->ApplyShaderToSceneNode( m_pSkyBox, cb, "Shader/universeV.txt", "Shader/universeF.txt" );
-	//	cb->drop();
-	//}
-	
-
+	//
 	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
-
-
 	IGUISkin* skin = gui->getSkin();
 	IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
 	if (font)

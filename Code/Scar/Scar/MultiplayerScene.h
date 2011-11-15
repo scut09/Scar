@@ -27,6 +27,20 @@ class MultiplayerScene : public GameScene
 	ModelManager*				m_pModelMan;
 
 public:
+	enum MultiState
+	{
+		Select_Camp,		// 选阵营
+		Select_Ship,		// 选船
+		Select_Equipment,	// 选武器装备
+		First_Flight,		// 首次起飞
+		Warp,				// 跃迁
+		In_Battle,			// 战斗
+		Dead,				// 死亡
+		Game_Over,			// 游戏结束
+		Quit				// 返回到多人菜单
+	};
+
+public:
 	MultiplayerScene() : m_pCamera( 0 ), m_pModelMan( 0 ), bRunOnce( true )
 	{	
 	}
@@ -40,27 +54,27 @@ public:
 
 public:
 
-	//boost::shared_ptr<Network::BoostClient> client;
+	// 服务端与客户端
 	boost::shared_ptr<Network::BoostClient> client;
-
 	boost::shared_ptr<Network::BoostServer> server;
 
-	//scene::ISceneNode* node;
-
-	IUIObject* root;	//测试用
-
-
+	// 测试用音效
 	irrklang::ISoundEngine* pSoundEngine;
 	irrklang::ISoundSource* fuck;
 
-	//测试用shader
+	// 测试用shader
 	SceneNodeShader* shader;
 	//RobotManager robotManager;
 
+	// 玩家相关
 	boost::shared_ptr<PlayerHelper>		m_playerHelper;
 	boost::shared_ptr<PlayerManager>	m_playerManager;
 
+	// 初始化标志
 	bool bRunOnce;
+
+	// 状态标志
+	MultiState State;
 
 	
 
