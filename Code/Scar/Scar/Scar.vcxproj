@@ -108,6 +108,7 @@
     <ClCompile Include="IRobot.cpp" />
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
+    <ClCompile Include="LaserNode.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySceneNodeAnimatorCallFunc.cpp" />
     <ClCompile Include="MySceneNodeAnimatorScale.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="IShip.h" />
     <ClInclude Include="IUIObject.h" />
     <ClInclude Include="IWeapon.h" />
+    <ClInclude Include="LaserNode.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="MissileNode.h" />
     <ClInclude Include="ModelManager.h" />
