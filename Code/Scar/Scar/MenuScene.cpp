@@ -6,7 +6,7 @@
 #include "EventListener.h"
 #include "PlayerManager.h"
 #include "PythonWrapper.h"
-
+#include "HouseHelper.h"
 #undef LoadImage
 
 void MenuScene::Run()
@@ -44,22 +44,28 @@ void MenuScene::Run()
 		/*UIStaticText* abc = (UIStaticText*)pEngine->GetUIManager()->GetUIObjectByName( "abc" );
 		abc->SetText( "" );
 		abc->SetText( bag.room_name );*/
+		/*std::cout<< iter->second.map_name << std::endl;*/
 		IUIObject* temp = pEngine->GetUIManager()->GetUIObjectByName( id );
-		if ( temp )
+		if ( !temp )
 		{
-			((UIStaticText*)(temp->GetChildren()[1]))->SetText(bag.room_name);
-			((UIStaticText*)(temp->GetChildren()[3]))->SetText(bag.map_name);
-			stringw str;
-			char buffer[20];	// 数字转字符串缓冲
-			printf_s(buffer, "%d", bag.player_number);
-			str+=buffer;
-			((UIStaticText*)(temp->GetChildren()[5]))->SetText(str);
-			str = "";
-			str +=buffer;
-			printf_s(buffer, "%d", bag.max_player_number);
-			((UIStaticText*)(temp->GetChildren()[7]))->SetText(str);
+			CHouseHelper * househ = new CHouseHelper(pEngine, id, pEngine->GetUIManager()->GetRootUIObject());
+		    temp = househ->GetHouse();
+
 		}
-		
+		stringw str;
+		((UIStaticText*)(temp->GetChildren()[1]))->SetText(bag.room_name);
+		str+= bag.map_name;
+		((UIStaticText*)(temp->GetChildren()[3]))->SetText("di");
+		str = "";
+		char buffer[20];	// 数字转字符串缓冲
+		sprintf_s(buffer, "%d", bag.player_number);
+		str+=buffer;
+		((UIStaticText*)(temp->GetChildren()[5]))->SetText(str);
+		str = "";
+
+		sprintf_s(buffer, "%d", bag.max_player_number);
+		str +=buffer;
+		((UIStaticText*)(temp->GetChildren()[7]))->SetText(str);
 		
 	}
 }
@@ -175,43 +181,7 @@ using namespace scene;
 	if ( SceneName == "MultiMenuIni")
 	{
 		IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
-			IUIObject* house = pEngine->GetUIManager()->AddUIImage( 0, 200, 200 );
-			 house->SetPosition(vector2df( 800, 400) );
-		      house->SetName("MyRoom");
-			 house->LoadImage("../media/UIResource/Menu/scrollbar_hbackground.png");
-			IUIObject* text1 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"房间", SColor( 255,255,255,255));
-			IUIObject* text2 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"疤痕", SColor( 255,255,255,255));
-			IUIObject* text3 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"地图", SColor( 255,255,255,255));
-			IUIObject* text4 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"宇宙", SColor( 255,255,255,255));
-			IUIObject* text5 =pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"人数", SColor( 255,255,255,255));
-			IUIObject* text6 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40,L"100", SColor( 255,255,255,255));
-			IUIObject* text7 =pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"最大人数", SColor( 255,255,255,255));
-			IUIObject* text8 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"200", SColor( 255,255,255,255));
-			IUIObject* text9 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"延迟", SColor( 255,255,255,255));
-			IUIObject* text10 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"0", SColor( 255,255,255,255));
-			f32 PosX = -50;
-			f32 PosY = -50;
-			f32 Base = 80;
-			text1->SetPosition( vector2df( PosX, PosY));
-			house->AddChild( text1 );
-			text2->SetPosition( vector2df( PosX + Base, PosY ));
-			house->AddChild( text2 );
-			text3->SetPosition( vector2df( PosX, PosY + 30));
-		    house->AddChild( text3 );
-			text4->SetPosition( vector2df ( PosX + Base, PosY + 30));
-			house->AddChild( text4 );
-			text5->SetPosition( vector2df( PosX, PosY + 60));
-			house->AddChild( text5 );
-			text6->SetPosition( vector2df( PosX + Base , PosY + 60));
-			house->AddChild( text6 );
-			text7->SetPosition( vector2df( PosX, PosY + 90 ));
-			house->AddChild( text7 );
-			text8->SetPosition( vector2df( PosX + Base ,PosY + 90));
-			house->AddChild( text8 );
-			text9->SetPosition( vector2df( PosX, PosY + 120));
-			house->AddChild( text9 );
-			text10->SetPosition( vector2df( PosX +  Base, PosY + 120));
-			house->AddChild( text10 );
+			
 		/*((CUIBox*)house)->test( 10 );*/
 		
 		//char buffer[255];

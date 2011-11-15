@@ -309,6 +309,9 @@
     <ClCompile Include="UIBar.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="HouseHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -604,6 +607,9 @@
     </ClInclude>
     <ClInclude Include="UIBox.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HouseHelper.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameSceneManager.cpp" />
+    <ClCompile Include="HouseHelper.cpp" />
     <ClCompile Include="IAgentPlayer.cpp" />
     <ClCompile Include="AlphaChangeUIAnimator.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="GeneralCallBack.h" />
+    <ClInclude Include="HouseHelper.h" />
     <ClInclude Include="IAgentPlayer.h" />
     <ClInclude Include="Aircraft.h" />
     <ClInclude Include="AllAnimators.h" />
