@@ -40,9 +40,27 @@ void MenuScene::Run()
 	{
 		//iter->first;
 		const Network::BroadcastRoomBag& bag = iter->second;
+		const std::string id = iter->first;
 		/*UIStaticText* abc = (UIStaticText*)pEngine->GetUIManager()->GetUIObjectByName( "abc" );
 		abc->SetText( "" );
 		abc->SetText( bag.room_name );*/
+		IUIObject* temp = pEngine->GetUIManager()->GetUIObjectByName( id );
+		if ( temp )
+		{
+			((UIStaticText*)(temp->GetChildren()[1]))->SetText(bag.room_name);
+			((UIStaticText*)(temp->GetChildren()[3]))->SetText(bag.map_name);
+			stringw str;
+			char buffer[20];	// 数字转字符串缓冲
+			printf_s(buffer, "%d", bag.player_number);
+			str+=buffer;
+			((UIStaticText*)(temp->GetChildren()[5]))->SetText(str);
+			str = "";
+			str +=buffer;
+			printf_s(buffer, "%d", bag.max_player_number);
+			((UIStaticText*)(temp->GetChildren()[7]))->SetText(str);
+		}
+		
+		
 	}
 }
 
@@ -159,8 +177,9 @@ using namespace scene;
 		IUIObject* root1 = pEngine->GetUIManager()->GetRootUIObject();
 			IUIObject* house = pEngine->GetUIManager()->AddUIImage( 0, 200, 200 );
 			 house->SetPosition(vector2df( 800, 400) );
+		      house->SetName("MyRoom");
 			 house->LoadImage("../media/UIResource/Menu/scrollbar_hbackground.png");
-			IUIObject* text1 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"主机", SColor( 255,255,255,255));
+			IUIObject* text1 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"房间", SColor( 255,255,255,255));
 			IUIObject* text2 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"疤痕", SColor( 255,255,255,255));
 			IUIObject* text3 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"地图", SColor( 255,255,255,255));
 			IUIObject* text4 = pEngine->GetUIManager()->AddUIStaticText( 0, 20, 40, L"宇宙", SColor( 255,255,255,255));
