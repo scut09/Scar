@@ -37,7 +37,8 @@ public:
 		In_Battle,			// 战斗
 		Dead,				// 死亡
 		Game_Over,			// 游戏结束
-		Quit				// 返回到多人菜单
+		Quit,				// 返回到多人菜单
+		Test				// 测试用
 	};
 
 public:
@@ -48,9 +49,61 @@ public:
 	~MultiplayerScene();
 
 	virtual void Run();
+
+	void TestFuck() 
+	{
+		MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+		IVideoDriver* driver = pEngine->GetVideoDriver();
+		if ( bRunOnce )
+		{
+			bRunOnce = false;
+
+			Sleep( 1500 );
+
+			auto rooms = client->GetRooms();
+			auto localIP = client->GetLocalIP();
+
+			auto iter = rooms.begin();
+			for ( ; iter != rooms.end(); ++iter )
+			{
+				std::cout << "Room " << iter->first << " ";
+				std::wcout << iter->second.room_name << std::endl;
+
+				if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )		// 非本机IP
+				{	
+					std::cout << "enter " << iter->first << std::endl;
+					client->EnterRoom( iter->first );
+					break;
+				}
+			}
+
+			if ( iter == rooms.end()  ) 
+				if ( ! localIP.empty() )
+					client->EnterRoom( *localIP.begin() );		
+				else
+					client->EnterRoom( "127.0.0.1" );
+
+			//Sleep( 2000 );
+
+			//client->Send( "192.168.1.121" );
+
+			while ( -11 == client->m_index )
+			{
+				Sleep( 500 );
+			}
+
+			std::cout << "m_index " << client->m_index << std::endl;
+
+		}
+	}
+
+	void InBattle();
+
 	virtual void Init();
 	virtual void Release();
 	virtual void Draw();
+
+	void InitScene();
 
 public:
 
@@ -72,9 +125,10 @@ public:
 
 	// 初始化标志
 	bool bRunOnce;
-
 	// 状态标志
 	MultiState State;
+
+	IUIObject* SelectCampMenu;				// 阵营选择菜单
 
 	
 

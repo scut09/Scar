@@ -53,56 +53,104 @@ MultiplayerScene::~MultiplayerScene()
 
 void MultiplayerScene::Run()
 {
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-	IVideoDriver* driver = pEngine->GetVideoDriver();
-	if ( bRunOnce )
+
+	switch ( State )
 	{
-		bRunOnce = false;
-
-		Sleep( 1500 );
-
-		auto rooms = client->GetRooms();
-		auto localIP = client->GetLocalIP();
-
-		auto iter = rooms.begin();
-		for ( ; iter != rooms.end(); ++iter )
+	case Select_Camp:
 		{
-			std::cout << "Room " << iter->first << " ";
-			std::wcout << iter->second.room_name << std::endl;
+			// 如果是第一次运行，初始化
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				// 在此处进行初始化工作
+			}
 
-			if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )		// 非本机IP
-			{	
-				std::cout << "enter " << iter->first << std::endl;
-				client->EnterRoom( iter->first );
-				break;
+			// 在此处进行游戏逻辑
+
+			if ( 0/*跳转到下一状态的条件*/ )
+			{
+				State = Select_Ship;
+				// 在此处释放资源或隐藏资源
+				bRunOnce = true;
 			}
 		}
-
-		if ( iter == rooms.end()  ) 
-			if ( ! localIP.empty() )
-				client->EnterRoom( *localIP.begin() );		
-			else
-				client->EnterRoom( "127.0.0.1" );
-
-		//Sleep( 2000 );
-
-		//client->Send( "192.168.1.121" );
-
-		while ( -11 == client->m_index )
+		break;
+	case Select_Ship:
 		{
-			Sleep( 500 );
+
 		}
+		break;
+	case Select_Equipment:
+		{
 
-		std::cout << "m_index " << client->m_index << std::endl;
+		}
+		break;
+	case First_Flight:
+		{
 
+		}
+		break;
+	case Warp:
+		{
+
+		}
+		break;
+	case In_Battle:
+		{
+			InBattle();
+		}
+		break;
+	case Dead:
+		{
+
+		}
+		break;
+	case Game_Over:
+		{
+
+		}
+		break;
+	case Quit:
+		{
+
+		}
+		break;
+	case Test:
+		{
+			InitScene();
+			TestFuck();
+			State = In_Battle;
+		}
+		break;
 	}
 
+
+}
+
+void MultiplayerScene::Init()
+{
+	// 初始化状态为选阵营  测试可以将此处改为想要的状态
+	State = Test;
+
+
+
+
+
+
+
+}
+
+void MultiplayerScene::Release()
+{
+	//	m_playerManager->RemoveAll();
+
 	try
-	{	
-		auto pos = m_pCamera->getPosition();
-		client->SendHeroMove( client->m_index, pos.X, pos.Y, pos.Z );
-		auto rot = m_pCamera->getRotation();
-		client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
+	{
+		//if ( client.use_count() > 0 && server.use_count() > 0 )
+		//{
+		//	client->Close();
+		//	server->Close();
+		//}
 	}
 	catch ( std::exception& e )
 	{
@@ -110,67 +158,35 @@ void MultiplayerScene::Run()
 	}
 	catch ( ... )
 	{
-		std::cerr << "ERROR!!!!!!!!!!!!!!!!1" << std::endl;
+		std::cerr << "client" << std::endl;
+
 	}
 
 
-	UpdateConsole();
 
-	m_playerHelper->Update();
+	//	m_pAnimationMan->RemoveAll();
 
-	m_playerManager->Update();
-
-	switch ( State )
-	{
-	case Select_Camp:
-		// 如果是第一次运行，初始化
-		if ( bRunOnce )
-		{
-			bRunOnce = false;
-			// 在此处进行初始化工作
-		}
-
-		// 在此处进行游戏逻辑
-
-		if ( 0/*跳转到下一状态的条件*/ )
-		{
-			State = Select_Ship;
-			// 在此处释放资源或隐藏资源
-			bRunOnce = true;
-		}
-		break;
-	case Select_Ship:
-		break;
-	case Select_Equipment:
-		break;
-	case First_Flight:
-		break;
-	case Warp:
-		break;
-	case In_Battle:
-		break;
-	case Dead:
-		break;
-	case Game_Over:
-		break;
-	case Quit:
-		break;
-	}
 
 }
 
-void MultiplayerScene::Init()
+void MultiplayerScene::Draw()
+{
+	//uiManager->RunTree();
+	MyIrrlichtEngine::GetEngine()->GetUIManager()->DrawAll();
+}
+
+void MultiplayerScene::InitScene()
 {
 	// 获取引擎
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	smgr->clear();
+
 	m_pModelMan = pEngine->GetModelManager();
 	IVideoDriver* driver = pEngine->GetVideoDriver();
+
 	shader = new SceneNodeShader();
 
-	// 初始化状态为选阵营  测试可以将此处改为想要的状态
-	State = Select_Camp;
 
 	// 隐藏鼠标
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
@@ -194,8 +210,8 @@ void MultiplayerScene::Init()
 	//cf1->setPosition( vector3df(0,-40,0)); 
 
 	//m_playerHelper.LoadPlayerShip( boost::shared_ptr<)
-	
-	 //飞船尾焰
+
+	//飞船尾焰
 	SpriteFlame spf;
 	spf.SetOffset( vector3df( -6, 0, -22 ) );
 	spf.AddFlameToShip( cf1, smgr );
@@ -212,7 +228,7 @@ void MultiplayerScene::Init()
 
 	//  加入摄像机
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();;
+	m_pCamera = smgr->addCameraSceneNode();
 
 	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 	cf1->addAnimator( fpsAni );
@@ -220,7 +236,7 @@ void MultiplayerScene::Init()
 
 	m_pCamera->setFOV( 1 );
 	m_pCamera->setFarValue( 1e7f );
-	
+
 	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
@@ -373,6 +389,8 @@ void MultiplayerScene::Init()
 		PyErr_Print();
 	}
 
+
+
 	boost::shared_ptr<HumanPlayer>	humanPlayer( new HumanPlayer( cf1 ) );
 	m_playerHelper->LoadPlayer( humanPlayer );
 	m_playerManager->AddPlayer( humanPlayer );
@@ -405,6 +423,7 @@ void MultiplayerScene::Init()
 
 	//server->Start( 1990, 2012 );
 	//client->Start( 2012, 1990 );
+
 
 
 	// 添加robot
@@ -452,6 +471,7 @@ void MultiplayerScene::Init()
 	client->QueryRoom();
 
 	//
+
 	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 	IGUISkin* skin = gui->getSkin();
 	IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
@@ -467,7 +487,7 @@ void MultiplayerScene::Init()
 	console->setVisible(false);
 
 
-//	gui->addScrollBar( false, core::recti( 0, 0, 200, 200 ), console );
+	//	gui->addScrollBar( false, core::recti( 0, 0, 200, 200 ), console );
 
 	box->setVisible( false );
 
@@ -479,20 +499,10 @@ void MultiplayerScene::Init()
 
 	// 创建并注册receiver的事件处理回调函数
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
-		[ this, fpsAni, gui, box, pEngine ]( const SEvent& event )->void*
+		[ this, gui, box ]( const SEvent& event )->void*
 	{	
-		//fpsAni->OnEvent( event );
 		m_playerManager->OnEvent( event );
 
-		//control.OnEvent( event );
-		//pEngine;		// 引擎指针
-		/*if (event.EventType == EET_KEY_INPUT_EVENT )
-		{
-		if (event.KeyInput.Key == KEY_KEY_W )
-		{
-		pSoundEngine->play2D( fuck );
-		}
-		}*/
 		if ( event.KeyInput.PressedDown )
 		{
 			if ( event.KeyInput.Key == KEY_KEY_T )
@@ -540,21 +550,16 @@ void MultiplayerScene::Init()
 	} );
 
 
-
-
 }
 
-void MultiplayerScene::Release()
+void MultiplayerScene::InBattle()
 {
-//	m_playerManager->RemoveAll();
-
 	try
-	{
-		//if ( client.use_count() > 0 && server.use_count() > 0 )
-		//{
-		//	client->Close();
-		//	server->Close();
-		//}
+	{	
+		auto pos = m_pCamera->getPosition();
+		client->SendHeroMove( client->m_index, pos.X, pos.Y, pos.Z );
+		auto rot = m_pCamera->getRotation();
+		client->SendHeroRot( client->m_index, rot.X, rot.Y, rot.Z );
 	}
 	catch ( std::exception& e )
 	{
@@ -562,20 +567,13 @@ void MultiplayerScene::Release()
 	}
 	catch ( ... )
 	{
-		std::cerr << "client" << std::endl;
-
+		std::cerr << "ERROR!!!!!!!!!!!!!!!!1" << std::endl;
 	}
-	
 
+	UpdateConsole();
 
-	//	m_pAnimationMan->RemoveAll();
+	m_playerHelper->Update();
 
-
-}
-
-void MultiplayerScene::Draw()
-{
-	//uiManager->RunTree();
-	MyIrrlichtEngine::GetEngine()->GetUIManager()->DrawAll();
+	m_playerManager->Update();
 }
 
