@@ -24,7 +24,7 @@ void PlayerHelper::UpdateShipTip( IShip* ship )
 	if ( iter == m_ship_targetMap.end() )
 	{
 		// 还未创建提示框，那么就创建一个新的
-		shipTip = ShipTip->Clone();
+		shipTip = ShipTipE->Clone();
 
 		m_ship_targetMap[ ship ] = shipTip;
 
@@ -115,7 +115,7 @@ void PlayerHelper::Update()
 	border = h * ( 1 - ratio );
 	Energy1->SetSourceRect( vector2df( 0, border ), vector2df( w, h ) );
 	Energy2->SetSourceRect( vector2df( 0, 0 ) , vector2df( w, border ) );
-	val = playerShip->GetEnergy();
+	val = (f32)playerShip->GetEnergy();
 	str = L"能量：";
 	sprintf_s( buffer, "%d", (s32)val );
 	str += buffer;
@@ -136,6 +136,9 @@ void PlayerHelper::Update()
 
 	// 更新锁定框
 	UpdateLock();
+
+	// 更新雷达
+	UpdateRadar();
 }
 
 void PlayerHelper::UpdateLock()
@@ -200,10 +203,69 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	// 获取水平仪
 	Gradienter = uiManager->GetUIObjectByName( "gradienter" );
 	// 获取目标圈
-	ShipTip = uiManager->GetUIObjectByName( "target1" );
-	ShipTip->SetVisible( false );
+	ShipTipE = uiManager->GetUIObjectByName( "target1" );
+	ShipTipE->SetVisible( false );
 	// 获取锁定圈——已锁定
 	lock1 = uiManager->GetUIObjectByName( "lock1" );
 	// 获取敌军指示
 	indicator1 = uiManager->GetUIObjectByName( "indicator1" );
+	// 获取雷达圈
+	Radar = uiManager->GetUIObjectByName( "radar" );
+	REnemy = uiManager->GetUIObjectByName( "rEnemy" );
+	RFriend = uiManager->GetUIObjectByName( "rFriend" );
+}
+
+void PlayerHelper::UpdateRadar()
+{
+	using namespace irr::core;
+
+	IShip* playerShip = Player->GetShip();
+	vector3df direction = playerShip->getTarget() - playerShip->getPosition();
+	// 旋转并绘制雷达圈
+	f32 ang = direction.getHorizontalAngle().Y;
+	if( playerShip->getUpVector().Y > 0 )
+		ang = -ang;
+	// 将敌舰标识在雷达上
+	auto playerList = m_playerManager->GetPlayers();
+	for ( auto iter = playerList.begin(); iter != playerList.end(); ++iter )
+	{
+		IShip* ship = (*iter)->GetShip();
+		// 如果是自己的船，不需要显示在雷达上
+		if ( ship == Player->GetShip() )	
+			continue;
+
+		vector3df distance = ship->getPosition() - playerShip->getPosition();
+		vector2df dir2d = vector2df( distance.X, -distance.Z );
+		if( playerShip->getUpVector().Y < 0 )
+			dir2d = vector2df( -distance.X, -distance.Z );
+		f32 amount = dir2d.getLength();
+		dir2d = dir2d.normalize();
+
+		IUIObject* onRadar;
+		auto iterator = m_ship_radarMap.find( ship );
+		if ( iterator == m_ship_radarMap.end() )
+		{
+			// 还未创建提示框，那么就创建一个新的
+			// 在此处判断敌方还是友方
+			onRadar = REnemy->Clone();
+
+			m_ship_radarMap[ ship ] = onRadar;
+		}
+		else	
+		{
+			onRadar = iterator->second;
+		}
+		if ( amount > 6e3 )
+		{
+			onRadar->SetVisible( false );
+		}
+		else
+		{
+			onRadar->SetVisible( true );
+			onRadar->SetPosition( dir2d * 0.0333f * amount );// 200 ÷ 6e3
+		}
+		
+	}
+
+	Radar->SetRotation( ang );
 }

@@ -53,6 +53,9 @@ private:
 	// 更新锁定框
 	void UpdateLock();
 
+	// 更新雷达
+	void UpdateRadar();
+
 
 private:
 	boost::shared_ptr<IPlayer>		Player;		// 玩家
@@ -65,13 +68,17 @@ private:
 	IUIObject*		Gradienter;	// 水平仪
 	IUIObject*		Shield1;	// 护盾槽满
 	IUIObject*		Shield2;	// 护盾槽空
-	IUIObject*		ShipTip;	// 目标圈——友军
+	IUIObject*		ShipTipE;	// 目标圈——敌军
+	IUIObject*		ShipTipF;	// 目标圈——友军
 	IUIObject*		Speed1;		// 速度槽慢
 	IUIObject*		Speed2;		// 速度槽空
 	IUIObject*		Energy1;	// 能量槽满
 	IUIObject*		Energy2;	// 能量槽空
 	IUIObject*		indicator1;	// 敌军指示
 	IUIObject*		lock1;		// 锁定框——已锁定
+	IUIObject*		Radar;		// 雷达圈
+	IUIObject*		REnemy;		// 雷达圈上的敌人
+	IUIObject*		RFriend;	// 雷达圈上的友军
 
 	UIStaticText*	ArmorText;	// 护甲文字
 	UIStaticText*	ShieldText;	// 护盾文字
@@ -87,6 +94,7 @@ private:
 	video::IVideoDriver*		Driver;
 
 	std::map<IShip*, IUIObject*>	m_ship_targetMap;		// 船和圈住船的圆圈的映射
+	std::map<IShip*, IUIObject*>	m_ship_radarMap;		// 船和雷达上的标记的映射
 };
 
 #endif // PlayerHelper_h__

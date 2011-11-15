@@ -109,8 +109,38 @@ def GetRoot():
     armorText.SetPosition( vector2df( cenX - 130, cenY + 210 ) )
     #Save( armorText )
 
+    # 雷达
+    radarBox = uiManager.AddUIImage( root, 0, 0, 0, 0, vector2df( cenX - 430, cenY + 260 ) )
+    radarBox.SetScale( vector2df( 1, 0.4 ) )
+    radar = uiManager.AddUIImage( radarBox, 402, 402 )
+    radar.LoadImage("../media/UIResource/Game/radar.png")
+    radar.SetName( "radar" )
+    radar.SetAntiAliasing()
+    # 自己
+    mes = uiManager.AddUIImage( radarBox, 48, 66 )
+    mes.LoadImage("../media/UIResource/Game/radar_me_s.png")
+    me = uiManager.AddUIImage( radarBox, 48, 66 )
+    me.LoadImage("../media/UIResource/Game/radar_me.png")
+    me.SetPosition( vector2df( 0, -20 ) )
+    
+    
+    '''rotAni = uiManager.CreateAnimatorRotation( 0, 4000, 360, True )
+    radar.AddAnimator( rotAni )
+    rotAni.drop()'''
+
 
     #以下的这些不会在一开始就出现在屏幕上，供复制用
+
+    # 雷达上的敌人
+    rEnemy = uiManager.AddUIImage( radar, 36, 36 )
+    rEnemy.LoadImage("../media/UIResource/Game/radar_e.png")
+    rEnemy.SetName( "rEnemy" )
+    rEnemy.SetVisible( False )
+    # 雷达上的友军
+    rFriend = uiManager.AddUIImage( radar, 36, 36 )
+    rFriend.LoadImage("../media/UIResource/Game/radar_f.png")
+    rFriend.SetName( "rFriend" )
+    rFriend.SetVisible( False )
 
     #目标圈——敌军
     target1 = uiManager.AddUIImage( root, 60, 60, 0, 1, vector2df( 100, 100 ) )
