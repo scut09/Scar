@@ -111,7 +111,7 @@ void PlayerHelper::Update()
 	// »æÖÆÄÜÁ¿²Û
 	w = Energy1->GetOriginSize().Width;
 	h = Energy1->GetOriginSize().Height;
-	ratio = 1;//playerShip->GetEnergy() / playerShip->GetMaxEnergy();
+	ratio = (f32)playerShip->GetEnergy() / (f32)playerShip->GetMaxEnergy();
 	border = h * ( 1 - ratio );
 	Energy1->SetSourceRect( vector2df( 0, border ), vector2df( w, h ) );
 	Energy2->SetSourceRect( vector2df( 0, 0 ) , vector2df( w, border ) );

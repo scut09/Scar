@@ -98,17 +98,14 @@ bool CSceneNodeAnimatorAircraftFPS::OnEvent(const SEvent& evt)
 
 void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 {
-	//if (!node || node->getType() != ESNT_CAMERA)
-	//	return;
+	
 
-	//ICameraSceneNode* camera = static_cast<ICameraSceneNode*>(node);
 	IShip* ship = static_cast<IShip*>( node );
 
 	// 在这里面做初始化工作
 	if (firstUpdate)
 	{
 		// 鼠标位置初始为屏幕中心
-	//	camera->updateAbsolutePosition();
 		if (CursorControl && ship)
 		{
 			CursorControl->setPosition(0.5f, 0.5f);
@@ -118,24 +115,15 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		MoveRadius = 586 / 2;
 
 		LastAnimationTime = timeMs;
-
-		// 不需要绑定旋转和target
-	//	camera->bindTargetAndRotation( false );
 		
 		// 初始化完成
 		firstUpdate = false;
 	}
 
-	// If the camera isn't the active camera, and receiving input, then don't process it.
-	//if(!camera->isInputReceiverEnabled())
-	//	return;
-
 	scene::ISceneManager * smgr = ship->getSceneManager();
-	//if(smgr && smgr->getActiveCamera() != camera)
-	//	return;
 
-	// get time
-	f32 timeDiff = (f32) ( timeMs - LastAnimationTime );
+	// 计算时间差
+	f32 timeDiff = (f32)( timeMs - LastAnimationTime ) / 20.f;
 	LastAnimationTime = timeMs;
 
 	// 上帧镜头信息
@@ -167,7 +155,6 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	f32 tAng = (f32)CursorOffset.getAngle() - 90;
 	if ( tAng < 0 )
 		tAng += 360;
-	//std::cout << "cursor angle " << tAng << std::endl;
 
 	quaternion rotAxisQuat;
 	rotAxisQuat = rotAxisQuat.fromAngleAxis( tAng * DEGTORAD, lastDirection );
@@ -184,7 +171,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	t = prod( t, bosMat );
 	rotAxis = vector3df( t(0), t(1), t(2) );
 	// 鼠标影响转动
-	f32 rotAng = (f32)CursorOffset.getLength() / (f32)MoveRadius * -2.0f /*系数相关*/;
+	f32 rotAng = (f32)CursorOffset.getLength() / (f32)MoveRadius * -2.0f * timeDiff/*系数相关*/;
 	// 求变换矩阵
 	rotAxisQuat = rotAxisQuat.fromAngleAxis( rotAng * DEGTORAD, rotAxis ); // 由刚才求得的旋转轴旋转特定角度
 	irrMat = rotAxisQuat.getMatrix();		
@@ -205,13 +192,13 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	vector3df newUpVector = vector3df( t(0), t(1), t(2) );
 	
 	// 根据速度移动飞船
-	vector3df movement = newDirection * ship->GetVelocity() /* 再乘以时间*/;
+	vector3df movement = newDirection * ship->GetVelocity() * timeDiff /* 再乘以时间*/;
 
 
 	// 翻滚动作
 	if ( RollAng != 0 )
 	{
-		rotAxisQuat = rotAxisQuat.fromAngleAxis( RollAng * DEGTORAD, newDirection );
+		rotAxisQuat = rotAxisQuat.fromAngleAxis( RollAng * DEGTORAD * timeDiff, newDirection );
 		irrMat = rotAxisQuat.getMatrix();
 		for ( int i=0; i<4; i++ )
 		{
@@ -307,7 +294,6 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 				RollAng = 0;
 		}	
 	}
-
 }
 
 

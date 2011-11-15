@@ -193,7 +193,7 @@ void MultiplayerScene::Init()
 
 	//m_pCamera->setParent( cf1 );
 	// ·É´¬¸úËæÕÕÏà»ú
-	auto folowAni = new CSceneNodeAnimatorCameraFollowShip( cf1, -40 );
+	auto folowAni = new CSceneNodeAnimatorCameraFollowShip( cf1, 30 );
 	m_pCamera->addAnimator( folowAni );
 	folowAni->drop();
 

@@ -49,4 +49,6 @@ IShip( mesh,  parent,mgr,	id,position ,rotation ,scale )
 	RecordBuildWallRefreshTime = RecordBuildAirRefreshTime =0;
 
 	MaxEnergy = Energy = 1000;
+	MaxShield = CurrentShield = 1000;
+	MaxArmor = CurrentArmor = 1000;
 }
