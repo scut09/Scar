@@ -53,11 +53,13 @@ void MenuScene::Run()
 
 		}
 		stringw str;
+		char buffer[150];	// Êý×Ö×ª×Ö·û´®»º³å
 		((UIStaticText*)(temp->GetChildren()[1]))->SetText(bag.room_name);
-		str+= bag.map_name;
-		((UIStaticText*)(temp->GetChildren()[3]))->SetText("di");
+		sprintf_s(buffer,bag.map_name);
+		str+= buffer;
+		((UIStaticText*)(temp->GetChildren()[3]))->SetText(str);
 		str = "";
-		char buffer[20];	// Êý×Ö×ª×Ö·û´®»º³å
+		
 		sprintf_s(buffer, "%d", bag.player_number);
 		str+=buffer;
 		((UIStaticText*)(temp->GetChildren()[5]))->SetText(str);
