@@ -1,6 +1,6 @@
 
 uniform mat4 WorldViewProj;
-vec3 LightDirection = vec3( -1.0, 0.0, 0.0 ); //uniform vec3 SunPosition;
+
 uniform mat4 TransMatrix;
 uniform vec3 AbsPos;
 uniform vec3 CameraPos;
@@ -15,6 +15,9 @@ varying vec3 eyeVec;
 
 void main()
 {
+
+	vec3 LightDirection = vec3(0.0, 0.0, 0.0) - AbsPos; //uniform vec3 SunPosition;
+	
 	gl_TexCoord[0] =  gl_MultiTexCoord0;
 	vec3 tangent = gl_MultiTexCoord1.xyz;
 	vec3 binormal = gl_MultiTexCoord2.xyz;

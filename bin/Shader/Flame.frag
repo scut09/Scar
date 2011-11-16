@@ -1,4 +1,3 @@
-
 uniform sampler2D TextureL0; //flame
 uniform sampler2D TextureL1; //noise
 uniform float TimeMs;
