@@ -142,15 +142,42 @@ void MultiplayerScene::Run()
 
 void MultiplayerScene::Init()
 {
+	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
 
+	if ( State != Test )
+	{
+		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 
+		// 加载UI界面
+		pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
+		try
+		{
+			using namespace boost::python;
 
+			object UILoader = import( "MultiPlayIni" );
+			object GetRoot = UILoader.attr( "GetRoot" );
+			object root = GetRoot();
 
+			//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+			//m_playerHelper->LoadPlayerManager( &*m_playerManager );
+		}
+		catch ( ... )
+		{
+			PyErr_Print();
+		}
 
+		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+		{	
+			MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );
 
+			return 0;
+		} );
 
+	}
 }
 
 void MultiplayerScene::Release()

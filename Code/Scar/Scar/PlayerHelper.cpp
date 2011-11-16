@@ -184,32 +184,48 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 {
 	// 获取鼠标准心
 	Cursor = uiManager->GetUIObjectByName("cursor");
+	Cursor->SetVisible( true );
+	uiManager->GetUIObjectByName( "centerCursor" )->SetVisible( true );
 	// 获取速度槽
 	Speed1 = uiManager->GetUIObjectByName( "speed1" );
+	Speed1->SetVisible( true );
 	Speed2 = uiManager->GetUIObjectByName( "speed2" );
+	Speed2->SetVisible( true );
 	SpeedText = (UIStaticText*)uiManager->GetUIObjectByName( "speedText" );
+	SpeedText->SetVisible( true );
 	// 获取护盾槽
 	Shield1 = uiManager->GetUIObjectByName( "shield1" );
+	Shield1->SetVisible( true );
 	Shield2 = uiManager->GetUIObjectByName( "shield2" );
+	Shield2->SetVisible( true );
 	ShieldText = (UIStaticText*)uiManager->GetUIObjectByName( "shieldText" );
+	ShieldText->SetVisible( true );
 	// 获取护甲槽
 	Armor1 = uiManager->GetUIObjectByName( "armor1" );
+	Armor1->SetVisible( true );
 	Armor2 = uiManager->GetUIObjectByName( "armor2" );
+	Armor2->SetVisible( true );
 	ArmorText = (UIStaticText*)uiManager->GetUIObjectByName( "armorText" );
+	ArmorText->SetVisible( true );
 	// 获取能量槽
 	Energy1 = uiManager->GetUIObjectByName( "energy1" );
+	Energy1->SetVisible( true );
 	Energy2 = uiManager->GetUIObjectByName( "energy2" );
+	Energy2->SetVisible( true );
 	EnergyText = (UIStaticText*)uiManager->GetUIObjectByName( "energyText" );
+	EnergyText->SetVisible( true );
 	// 获取水平仪
+	uiManager->GetUIObjectByName( "ring" )->SetVisible( true );
 	Gradienter = uiManager->GetUIObjectByName( "gradienter" );
+	Gradienter->SetVisible( true );
 	// 获取目标圈
 	ShipTipE = uiManager->GetUIObjectByName( "target1" );
-	ShipTipE->SetVisible( false );
 	// 获取锁定圈——已锁定
 	lock1 = uiManager->GetUIObjectByName( "lock1" );
 	// 获取敌军指示
 	indicator1 = uiManager->GetUIObjectByName( "indicator1" );
 	// 获取雷达圈
+	uiManager->GetUIObjectByName( "radarBox" )->SetVisible( true );
 	Radar = uiManager->GetUIObjectByName( "radar" );
 	REnemy = uiManager->GetUIObjectByName( "rEnemy" );
 	RFriend = uiManager->GetUIObjectByName( "rFriend" );
