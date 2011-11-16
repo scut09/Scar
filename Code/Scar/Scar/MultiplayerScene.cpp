@@ -77,7 +77,7 @@ void MultiplayerScene::Run()
 					LoadMap();
 
 					//pEngine->GetSceneManager()->addCameraSceneNode(0,vector3df(17.5, 0, 1683.5));
-					pEngine->GetSceneManager()->addCameraSceneNodeFPS();
+					pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue(1000000);
 
 					// ºãÐÇ
 					auto star = smgr->addBillboardSceneNode();
@@ -190,11 +190,11 @@ void MultiplayerScene::Run()
 						station2->setName( "station1" );
 						station2->setMaterialTexture( 0, driver->getTexture(_T("../model/station/gs1_tex_d.tga")) );
 						GeneralCallBack* cb = new GeneralCallBack( station2 );
-						shader->ApplyShaderToSceneNode( station2, cb, "Shader/cs_1V.vert", "Shader/cs_1F.frag" );
+						shader->ApplyShaderToSceneNode( station2, cb, "Shader/gs_1V.vert", "Shader/gs_1F.frag" );
 						cb->drop();
 						tangentMesh->drop();
 						station2->setPosition(Planet2->getPosition() + vector3df(-150, -200, 50));
-						station2->setScale(vector3df(0.001, 0.001, 0.001));
+						station2->setScale(vector3df(0.01, 0.01, 0.01));
 					}
 
 				}
