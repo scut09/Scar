@@ -82,7 +82,7 @@ void MultiplayerScene::Run()
 					// ºãÐÇ
 					auto star = smgr->addBillboardSceneNode();
 					star->setPosition(vector3df(0, 0, 0));
-					star->setMaterialTexture(0, pEngine->GetVideoDriver()->getTexture("../media/flare/mainflare.png"));
+					star->setMaterialTexture(0, pEngine->GetVideoDriver()->getTexture("../media/mainflare.png"));
 					star->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR );
 					star->setMaterialFlag(video::EMF_LIGHTING, false);
 					star->setMaterialFlag(video::EMF_ZBUFFER, true);
@@ -136,11 +136,11 @@ void MultiplayerScene::Run()
 						station->setName( "station1" );
 						station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
 						GeneralCallBack* cb = new GeneralCallBack( station );
-						shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.vert", "Shader/cs_1F.frag" );
+						shader->ApplyShaderToSceneNode( station, cb, "Shader/gs_1V.vert", "Shader/gs_1F.frag" );
 						cb->drop();
 						tangentMesh->drop();
 						station->setPosition(Planet1->getPosition() + vector3df(150, -200, 50));
-						station->setScale(vector3df(0.001, 0.001, 0.001));
+						station->setScale(vector3df(0.001f, 0.001f, 0.001f));
 					}
 
 					// ÕóÓª2
@@ -182,13 +182,13 @@ void MultiplayerScene::Run()
 					}
 
 
-					IMesh* stationMesh2 = smgr->getMesh( _T("../model/station/cs1.obj") );
+					IMesh* stationMesh2 = smgr->getMesh( _T("../model/station/gs1.obj") );
 					if ( stationMesh2 )
 					{
 						IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(stationMesh2, true);
 						IMeshSceneNode* station2= smgr->addMeshSceneNode( tangentMesh );
 						station2->setName( "station1" );
-						station2->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
+						station2->setMaterialTexture( 0, driver->getTexture(_T("../model/station/gs1_tex_d.tga")) );
 						GeneralCallBack* cb = new GeneralCallBack( station2 );
 						shader->ApplyShaderToSceneNode( station2, cb, "Shader/cs_1V.vert", "Shader/cs_1F.frag" );
 						cb->drop();
