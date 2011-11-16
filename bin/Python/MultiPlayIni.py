@@ -26,16 +26,16 @@ def GetRoot():
     coverC = uiManager.AddUIImage( selectC, 360, 460 )
     coverC.LoadImage("../media/UIResource/Game/sc_mask.png")
     coverC.SetVisible( False )
-    selectC.AddFunc( "OnMouseMoveIn", "SelectCGOver", "MultiPlayCallBacks" )
-    selectC.AddFunc( "OnMouseMoveOut", "SelectCGDefault", "MultiPlayCallBacks" )
+    selectC.AddFunc( "OnMouseMoveIn", "GeneralCoverOver", "MultiPlayCallBacks" )
+    selectC.AddFunc( "OnMouseMoveOut", "GeneralCoverDefault", "MultiPlayCallBacks" )
     # 菜单按钮，盖伦特
     selectG = uiManager.AddUIButton( scMenu, 360, 460 )
     selectG.SetPosition( vector2df( 194, 25 ) )
     coverG = uiManager.AddUIImage( selectG, 360, 460 )
     coverG.LoadImage("../media/UIResource/Game/sc_mask.png")
     coverG.SetVisible( False )
-    selectG.AddFunc( "OnMouseMoveIn", "SelectCGOver", "MultiPlayCallBacks" )
-    selectG.AddFunc( "OnMouseMoveOut", "SelectCGDefault", "MultiPlayCallBacks" )
+    selectG.AddFunc( "OnMouseMoveIn", "GeneralCoverOver", "MultiPlayCallBacks" )
+    selectG.AddFunc( "OnMouseMoveOut", "GeneralCoverDefault", "MultiPlayCallBacks" )
 
     # 选择舰船
     # 加达里
@@ -102,7 +102,6 @@ def GetRoot():
     over.SetVisible( False )
     confirm.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     confirm.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
-
     # 盖伦特
     # 菜单背景
     ssMenu = uiManager.AddUIImage( root, 800, 550 )
@@ -168,7 +167,74 @@ def GetRoot():
     confirm.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     confirm.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
 
-
+    # 购买武器装备
+    seMenu = uiManager.AddUIButton( root, 800, 550 )
+    seMenu = uiManager.AddUIImage( root, 800, 550 )
+    seMenu.SetPosition( vector2df( cenX, cenY ) )
+    seMenu.LoadImage("../media/UIResource/Game/se_bg.png")
+    seMenu.SetName( "seMenu" )
+    seMenu.SetVisible( False )
+    # 购买导航栏
+    # 主炮
+    navGun = uiManager.AddUIButton( seMenu, 60, 40 )
+    navGun.SetPosition( vector2df( -102, -205 ) )
+    default = uiManager.AddUIImage( navGun, 60, 40 )
+    default.LoadImage("../media/UIResource/Game/gunb_d.png")
+    default.SetVisible( False )
+    over = uiManager.AddUIImage( navGun, 60, 40 )
+    over.LoadImage("../media/UIResource/Game/gunb_o.png")
+    #over.SetVisible( False )
+    navGun.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
+    navGun.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    # 导弹
+    navMissle = uiManager.AddUIButton( seMenu, 60, 40 )
+    navMissle.SetPosition( vector2df( -102, -155 ) )
+    default = uiManager.AddUIImage( navMissle, 60, 40 )
+    default.LoadImage("../media/UIResource/Game/missleb_d.png")
+    over = uiManager.AddUIImage( navMissle, 60, 40 )
+    over.LoadImage("../media/UIResource/Game/missleb_o.png")
+    over.SetVisible( False )
+    navMissle.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
+    navMissle.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    # 购买列表
+    # 主炮
+    Gun = uiManager.AddUIImage( seMenu, 0, 0 )
+    Gun.SetName( "buyListGun" )
+    #Gun.SetVisible( False )
+    # 磁轨炮
+    Gun1 = uiManager.AddUIButton( Gun, 370, 64 )
+    Gun1.SetPosition( vector2df( 145, -153 ) )
+    default = uiManager.AddUIImage( Gun1, 370, 64 )
+    default.LoadImage("../media/UIResource/Game/gun1_d.png")
+    over = uiManager.AddUIImage( Gun1, 370, 64 )
+    over.LoadImage("../media/UIResource/Game/gun1_o.png")
+    over.SetVisible( False )
+    Gun1.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
+    Gun1.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    # 集束激光
+    Gun2 = uiManager.AddUIButton( Gun, 370, 64 )
+    Gun2.SetPosition( vector2df( 145, -89 ) )
+    default = uiManager.AddUIImage( Gun2, 370, 64 )
+    default.LoadImage("../media/UIResource/Game/gun2_d.png")
+    over = uiManager.AddUIImage( Gun2, 370, 64 )
+    over.LoadImage("../media/UIResource/Game/gun2_o.png")
+    over.SetVisible( False )
+    Gun2.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
+    Gun2.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    # 导弹
+    Missle = uiManager.AddUIImage( seMenu, 0, 0 )
+    Missle.SetName( "buyListMissle" )
+    Missle.SetVisible( False )
+    # 热导飞弹
+    Missle1 = uiManager.AddUIButton( seMenu, 370, 64 )
+    Missle1.SetPosition( vector2df( 145, -153 ) )
+    default = uiManager.AddUIImage( Missle1, 370, 64 )
+    default.LoadImage("../media/UIResource/Game/missle1_d.png")
+    over = uiManager.AddUIImage( Missle1, 370, 64 )
+    over.LoadImage("../media/UIResource/Game/missle1_o.png")
+    over.SetVisible( False )
+    Missle1.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
+    Missle1.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
 
     
     # 以下这些为战斗时候用的UI

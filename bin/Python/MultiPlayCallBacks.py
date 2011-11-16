@@ -12,11 +12,17 @@ def GeneralOver( node ):
     node.GetChildren()[0].SetVisible( False )
     node.GetChildren()[1].SetVisible( True )
 
-    # 选择阵营菜单  加达里盖伦特通用
+    # 覆盖式按钮通用
+def GeneralCoverDefault( node ):
+    node.GetChildren()[0].SetVisible( False )
+def GeneralCoverOver( node ):
+    node.GetChildren()[0].SetVisible( True )
+    
+    '''# 选择阵营菜单  加达里盖伦特通用
 def SelectCGDefault( node ):
     node.GetChildren()[0].SetVisible( False )
 def SelectCGOver( node ):
-    node.GetChildren()[0].SetVisible( True )
+    node.GetChildren()[0].SetVisible( True )'''
 
     # 选择阵营菜单  选择加达里
 def SelectCClick( node ):
