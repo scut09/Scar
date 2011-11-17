@@ -1,4 +1,4 @@
-﻿#encoding:utf-8
+#encoding:utf-8
 from Engine import *
 from PythonSceneMgr import *
 from Shader import * 
@@ -25,6 +25,7 @@ def LoadMap():
                                     skybox,
                                     "Shader/universeV.txt",
                                     "Shader/universeF.txt" )
+    smgr.addRunWaySceneNode();
 
     #创建阵营1的星球
 '''	Sun = smgr->addSphereSceneNode( 100, 100 )

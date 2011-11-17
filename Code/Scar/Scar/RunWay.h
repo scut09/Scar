@@ -100,55 +100,55 @@ public:
 
 };
 
-// 创建跑道，返回根节点
-ISceneNode* CreateRunWay( core::vector3df position = core::vector3df( 0 ),
-	f32 interval = 200, f32 width = 300,
-	core::vector3df colorFrom = core::vector3df( 0, 63, 255 ), core::vector3df colorTo = core::vector3df( 255, 255, 0 ),
-	s32 numOfArrows = 15 )
-{
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-	ISceneManager* smgr = pEngine->GetSceneManager();
-	IVideoDriver* driver = pEngine->GetVideoDriver();
-	u32 TimeMs = pEngine->GetDevice()->getTimer()->getTime();
-	f32 delay = 100;
-
-	// 跑道根节点
-	ISceneNode* runWay = smgr->addEmptySceneNode();
-	runWay->setPosition( position );
-	// 供复制的节点
-	ISceneNode* node = smgr->addMeshSceneNode( smgr->getMesh( "../media/UnitModel/UnitPlane.obj" ), runWay );
-	node->setScale( vector3df( 90, 176, 1 ) );
-	node->setRotation( vector3df( 0, 45, 0 ) );
-	node->setMaterialTexture( 0, driver->getTexture( "../media/UIResource/Game/arrow.png" ) );
-	node->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-	// 节点临时变量
-	ISceneNode* copy;
-	// Shader
-	SceneNodeShader shader;
-	// 色彩偏移量
-	vector3df colorOffset = ( colorTo - colorFrom ) / (f32)numOfArrows;
-	// 右跑道
-	for( int i=0; i<numOfArrows; i++ )
-	{
-		copy = node->clone();
-		copy->setPosition( vector3df( width / 2.f, 0, interval * i ) );
-		RunWayBlink* ani = new RunWayBlink( (u32)(delay * i), (f32)i, colorFrom, colorOffset );
-		copy->addAnimator( ani );
-		ani->drop();
-	}
-	node->setRotation( vector3df( 0, 45, 180 ) );
-	// 左跑道
-	for( int i=0; i<numOfArrows; i++ )
-	{
-		copy = node->clone();
-		copy->setPosition( vector3df( -width / 2.f, 0, interval * i ) );
-		RunWayBlink* ani = new RunWayBlink( (u32)(delay * i), (f32)i, colorFrom, colorOffset );
-		copy->addAnimator( ani );
-		ani->drop();
-	}
-	node->setVisible( false );
-
-	return runWay;
-}
+//// 创建跑道，返回根节点
+//ISceneNode* CreateRunWay( core::vector3df position = core::vector3df( 0 ),
+//	f32 interval = 200, f32 width = 300,
+//	core::vector3df colorFrom = core::vector3df( 0, 63, 255 ), core::vector3df colorTo = core::vector3df( 255, 255, 0 ),
+//	s32 numOfArrows = 15 )
+//{
+//	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+//	ISceneManager* smgr = pEngine->GetSceneManager();
+//	IVideoDriver* driver = pEngine->GetVideoDriver();
+//	u32 TimeMs = pEngine->GetDevice()->getTimer()->getTime();
+//	f32 delay = 100;
+//
+//	// 跑道根节点
+//	ISceneNode* runWay = smgr->addEmptySceneNode();
+//	runWay->setPosition( position );
+//	// 供复制的节点
+//	ISceneNode* node = smgr->addMeshSceneNode( smgr->getMesh( "../media/UnitModel/UnitPlane.obj" ), runWay );
+//	node->setScale( vector3df( 90, 176, 1 ) );
+//	node->setRotation( vector3df( 0, 45, 0 ) );
+//	node->setMaterialTexture( 0, driver->getTexture( "../media/UIResource/Game/arrow.png" ) );
+//	node->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+//	// 节点临时变量
+//	ISceneNode* copy;
+//	// Shader
+//	SceneNodeShader shader;
+//	// 色彩偏移量
+//	vector3df colorOffset = ( colorTo - colorFrom ) / (f32)numOfArrows;
+//	// 右跑道
+//	for( int i=0; i<numOfArrows; i++ )
+//	{
+//		copy = node->clone();
+//		copy->setPosition( vector3df( width / 2.f, 0, interval * i ) );
+//		RunWayBlink* ani = new RunWayBlink( (u32)(delay * i), (f32)i, colorFrom, colorOffset );
+//		copy->addAnimator( ani );
+//		ani->drop();
+//	}
+//	node->setRotation( vector3df( 0, 45, 180 ) );
+//	// 左跑道
+//	for( int i=0; i<numOfArrows; i++ )
+//	{
+//		copy = node->clone();
+//		copy->setPosition( vector3df( -width / 2.f, 0, interval * i ) );
+//		RunWayBlink* ani = new RunWayBlink( (u32)(delay * i), (f32)i, colorFrom, colorOffset );
+//		copy->addAnimator( ani );
+//		ani->drop();
+//	}
+//	node->setVisible( false );
+//
+//	return runWay;
+//}
 
 #endif // RunWay_h__

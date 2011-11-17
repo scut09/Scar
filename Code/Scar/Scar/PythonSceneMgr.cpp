@@ -5903,11 +5903,44 @@ bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )
 	"addParticleSystemSceneNode"
 	, (::irr::scene::IParticleSystemSceneNode * ( ::MySceneManager::* )( bool,::irr::scene::ISceneNode *,::irr::s32,::irr::core::vector3df const &,::irr::core::vector3df const &,::irr::core::vector3df const & ) )( &::MySceneManager::addParticleSystemSceneNode )
 	, ( bp::arg("withDefaultEmitter")=(bool)(true), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )
-	, bp::return_value_policy< bp::reference_existing_object >() ) */   
+	, bp::return_value_policy< bp::reference_existing_object >() ) */
+
+	.def( 
+	"addRunWaySceneNode"
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )
+	( ::irr::core::vector3df const &,
+	::irr::f32,
+	::irr::f32,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const &,
+	::irr::s32 ) )( &::MySceneManager::addRunWaySceneNode )
+	, ( bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f),
+	bp::arg("interval")=(::irr::s32)(200.0e+0f),
+	bp::arg("width")=(::irr::s32)(300.0e+0f), 
+	bp::arg("colorFrom")=irr::core::vector3d<float>(0.0f,  63.0e+0f, 255.0e+0f), 
+	bp::arg("colorTo")=irr::core::vector3d<float>( 255.0e+0f, 255.0e+0f, 0.0f), 
+	bp::arg("numOfArrows")=(::irr::s32)(0x0000000000000000F) )
+	, bp::return_value_policy< bp::reference_existing_object >() )
+
 	.def( 
 	"addSkyBoxSceneNode"
-	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )( ::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::video::ITexture *,::irr::scene::ISceneNode *,::irr::s32 ) )( &::MySceneManager::addSkyBoxSceneNode )
-	, ( bp::arg("top"), bp::arg("bottom"), bp::arg("left"), bp::arg("right"), bp::arg("front"), bp::arg("back"), bp::arg("parent")=bp::object(), bp::arg("id")=(::irr::s32)(-0x00000000000000001) )
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )
+	( ::irr::video::ITexture *,
+	::irr::video::ITexture *,
+	::irr::video::ITexture *,
+	::irr::video::ITexture *,
+	::irr::video::ITexture *,
+	::irr::video::ITexture *,
+	::irr::scene::ISceneNode *,
+	::irr::s32 ) )( &::MySceneManager::addSkyBoxSceneNode )
+	, ( bp::arg("top"),
+	bp::arg("bottom"), 
+	bp::arg("left"),
+	bp::arg("right"),
+	bp::arg("front"),
+	bp::arg("back"), 
+	bp::arg("parent")=bp::object(),
+	bp::arg("id")=(::irr::s32)(-0x00000000000000001) )
 	, bp::return_value_policy< bp::reference_existing_object >() )    
 	.def( 
 	"createAutoTrackAnimator"

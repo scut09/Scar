@@ -62,6 +62,12 @@ public:
 		video::ITexture* left, video::ITexture* right, video::ITexture* front,
 		video::ITexture* back, ISceneNode* parent = 0, s32 id=-1);
 
+	// Æð·ÉÅÜµÀ
+	ISceneNode* addRunWaySceneNode( const core::vector3df& position = core::vector3df( 0 ),
+		f32 interval = 200, f32 width = 300,
+		const core::vector3df& colorFrom = core::vector3df( 0, 63, 255 ), const core::vector3df& colorTo = core::vector3df( 255, 255, 0 ),
+		s32 numOfArrows = 15 );
+
 	/************************************************************************/
 	/* ¶¯»­Animator                                                         */
 	/************************************************************************/
