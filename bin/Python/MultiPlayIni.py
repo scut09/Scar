@@ -245,7 +245,7 @@ def GetRoot():
     ring1.SetVisible( False )
 
     # 水平圈
-    ring2 = uiManager.AddUIImage( root, 635, 438, 0, 1, vector2df( cenX, cenY ) )
+    ring2 = uiManager.AddUIImage( root, 636, 436, 0, 1, vector2df( cenX, cenY ) )
     ring2.LoadImage("../media/UIResource/Game/cr_2.png")
     ring2.SetName( "gradienter" )
     ring2.SetAntiAliasing()
@@ -272,72 +272,73 @@ def GetRoot():
     rotAni2.drop()
 
     # 速度槽满
-    speedBar1 = uiManager.AddUIImage( root, 98, 389, 0, 0, vector2df( cenX + 232, cenY - 10 ) )
+    speedBar1 = uiManager.AddUIImage( root, 92, 394, 0, 0, vector2df( cenX + 242, cenY ) )
     speedBar1.LoadImage("../media/UIResource/Game/speed_1.png")
     speedBar1.SetName( "speed1" )
     speedBar1.SetVisible( False )
     # 速度槽空
-    speedBar2 = uiManager.AddUIImage( root, 98, 389, 0, 0, vector2df( cenX + 232, cenY - 10 ) )
+    speedBar2 = uiManager.AddUIImage( root, 92, 394, 0, 0, vector2df( cenX + 242, cenY ) )
     speedBar2.LoadImage("../media/UIResource/Game/speed_2.png")
     speedBar2.SetName( "speed2" )
     speedBar2.SetVisible( False )
     # 速度显示文字
-    speedText = uiManager.AddUIStaticText( root, 100, 20, u"速度:", SColor(220,220,220,220) )
+    speedText = uiManager.AddUIStaticText( root, 100, 20, u"速度:", SColor(255,255,255,255) )
     speedText.SetName( "speedText" )
-    speedText.SetPosition( vector2df( cenX + 160, cenY + 200 ) )
+    speedText.SetPosition( vector2df( cenX + 160, cenY + 210 ) )
     speedText.SetVisible( False )
 
     # 能量槽满
-    energy1 = uiManager.AddUIImage( root, 94, 363, 0, 0, vector2df( cenX + 214, cenY - 10 ) )
+    energy1 = uiManager.AddUIImage( root, 89, 369, 0, 0, vector2df( cenX + 226, cenY ) )
     energy1.LoadImage("../media/UIResource/Game/energy_1.png")
     energy1.SetName( "energy1" )
     energy1.SetVisible( False )
     # 能量槽空
-    energy2 = uiManager.AddUIImage( root, 94, 363, 0, 0, vector2df( cenX + 214, cenY - 10 ) )
+    energy2 = uiManager.AddUIImage( root, 89, 369, 0, 0, vector2df( cenX + 226, cenY ) )
     energy2.LoadImage("../media/UIResource/Game/energy_2.png")
     energy2.SetName( "energy2" )
     energy2.SetVisible( False )
     # 能量显示文字
-    energyText = uiManager.AddUIStaticText( root, 100, 20, u"能量:", SColor(220,220,220,220) )
+    energyText = uiManager.AddUIStaticText( root, 100, 20, u"能量:", SColor(255,255,255,255) )
     energyText.SetName( "energyText" )
-    energyText.SetPosition( vector2df( cenX + 145, cenY + 180 ) )
+    energyText.SetPosition( vector2df( cenX + 145, cenY + 190 ) )
     energyText.SetVisible( False )
 
     # 护盾槽满
-    shield1 = uiManager.AddUIImage( root, 100, 389, 0, 0, vector2df( cenX - 232, cenY + 10 ) )
+    shield1 = uiManager.AddUIImage( root, 89, 369, 0, 0, vector2df( cenX - 226, cenY ) )
     shield1.LoadImage("../media/UIResource/Game/shield_1.png")
     shield1.SetName( "shield1" )
     shield1.SetVisible( False )
     # 护盾槽空
-    shield2 = uiManager.AddUIImage( root, 100, 389, 0, 0, vector2df( cenX - 232, cenY + 10 ) )
+    shield2 = uiManager.AddUIImage( root, 89, 369, 0, 0, vector2df( cenX - 226, cenY ) )
     shield2.LoadImage("../media/UIResource/Game/shield_2.png")
     shield2.SetName( "shield2" )
     shield2.SetVisible( False )
     # 护盾显示文字
-    shieldText = uiManager.AddUIStaticText( root, 100, 20, u"护盾:", SColor(220,220,220,220) )
+    shieldText = uiManager.AddUIStaticText( root, 100, 20, u"护盾:", SColor(255,255,255,255) )
     shieldText.SetName( "shieldText" )
     shieldText.SetPosition( vector2df( cenX - 115, cenY + 190 ) )
     shieldText.SetVisible( False )
 
     # 护甲槽满
-    armor1 = uiManager.AddUIImage( root, 93, 360, 0, 0, vector2df( cenX - 214, cenY + 10 ) )
+    armor1 = uiManager.AddUIImage( root, 92, 394, 0, 0, vector2df( cenX - 242, cenY ) )
     armor1.LoadImage("../media/UIResource/Game/armor_1.png")
     armor1.SetName( "armor1" )
     armor1.SetVisible( False )
     # 护甲槽满
-    armor2 = uiManager.AddUIImage( root, 93, 360, 0, 0, vector2df( cenX - 214, cenY + 10 ) )
+    armor2 = uiManager.AddUIImage( root, 92, 394, 0, 0, vector2df( cenX - 242, cenY ) )
     armor2.LoadImage("../media/UIResource/Game/armor_2.png")
     armor2.SetName( "armor2" )
     armor2.SetVisible( False )
     # 护甲显示文字
-    armorText = uiManager.AddUIStaticText( root, 100, 20, u"护甲:", SColor(220,220,220,220) )
+    armorText = uiManager.AddUIStaticText( root, 100, 20, u"护甲:", SColor(255,255,255,255) )
     armorText.SetName( "armorText" )
     armorText.SetPosition( vector2df( cenX - 130, cenY + 210 ) )
     armorText.SetVisible( False )
 
     # 雷达
-    radarBox = uiManager.AddUIImage( root, 0, 0, 0, 0, vector2df( cenX - 430, cenY + 260 ) )
-    radarBox.SetScale( vector2df( 1, 0.4 ) )
+    #radarBox = uiManager.AddUIImage( root, 0, 0, 0, 0, vector2df( cenX - 430, cenY + 260 ) )
+    radarBox = uiManager.AddUIImage( root, 0, 0, 0, 0, vector2df( cenX, cenY + 260 ) )
+    radarBox.SetScale( vector2df( 1, 0.25 ) )
     radarBox.SetName( "radarBox" )
     radarBox.SetVisible( False )
     radar = uiManager.AddUIImage( radarBox, 402, 402 )

@@ -40,7 +40,9 @@ void UIStaticText::Draw()
 	
 	rect<s32> intrec( intDstQuar[0], intDstQuar[2] );
 
+	Driver->enableMaterial2D();
 	Font->draw( Text, intrec, Color, HorizontalCenter, VerticalCenter);
+	Driver->enableMaterial2D( false );
 }
 
 void UIStaticText::SetText( const stringw& text )

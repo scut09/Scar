@@ -261,3 +261,33 @@ const u32 IShip::GetMaxEnergy() const
 {
 	return MaxEnergy;
 }
+
+void IShip::SetMoney( u32 money )
+{
+	Money  = money;
+}
+
+irr::u32 IShip::GetMoney() const
+{
+	return Money;
+}
+
+irr::u32 IShip::GetMaxMoney() const
+{
+	return MaxMoney;
+}
+
+void IShip::SetMaxMoney( u32 money )
+{
+	MaxMoney = money;
+}
+
+irr::s32 IShip::GetTeam() const
+{
+	return Team;
+}
+
+void IShip::SetTeam( s32 team )
+{
+	Team = team;
+}

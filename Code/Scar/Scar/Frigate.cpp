@@ -51,4 +51,6 @@ IShip( mesh,  parent,mgr,	id,position ,rotation ,scale )
 	MaxEnergy = Energy = 1000;
 	MaxShield = CurrentShield = 1000;
 	MaxArmor = CurrentArmor = 1000;
+	MaxMoney = 15000;
+	Money = 5000;
 }

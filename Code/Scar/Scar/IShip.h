@@ -62,9 +62,11 @@ protected:
     f32                RecoverLife;            // 恢复生命 
 	f32                Experience;             // 经验值
 	f32                ExperienceToGrade;      // 加等级的经验值
-	u32                Money;                  // 金钱    
+	   
 	
-
+	/************************************************************************/
+	/* 下面才是真正用到的属性                                               */
+	/************************************************************************/
 	f32					MaxSpeed;				// 最大速度
 	f32					Velocity;				// 速率
 	u32					GunEquitCount;			// 最大主炮装备数量
@@ -77,9 +79,12 @@ protected:
 	f32					CurrentArmor;			// 当前护甲值
 	u32					Energy;                 // 当前能量值
 	u32					MaxEnergy;				// 最大能量值
+	s32					Team;					// 队伍编号 一般情况下，0代表不加入任何队伍
+	u32                 Money;                  // 金钱 
+	u32					MaxMoney;				// 金钱上限
 
 	/************************************************************************/
-	/* 提供控制模型的辅助信息                                                 */
+	/* 提供控制模型的辅助信息                                               */
 	/************************************************************************/
 	core::vector3df Target;
 	core::vector3df UpVector;
@@ -129,6 +134,16 @@ public:
 		const u32& shield=1, const u32& currentgrade=0, const u32& nextgrade=1, const u32&maxgrade=10, const f32& inertance=1,
 		const f32& recoverLife=10, const f32& experience=0, const f32& experiencetograde=100 );
 
+	//获取和设置飞船的队伍
+	s32 GetTeam() const;
+	void SetTeam( s32 team );
+
+	//获取和修改飞船的金钱
+	void SetMoney( u32 money);
+	u32  GetMoney() const;
+	u32 GetMaxMoney() const;
+	void SetMaxMoney( u32 money );
+
 	//获取和设置飞船的能量 
 	void SetEnergy( u32 en );
 	const u32 GetEnergy() const;
@@ -165,9 +180,6 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 
-	//获取和修改飞船的金钱
-	virtual void SetMoney( const u32& money) { Money  = money; }
-	virtual u32  GetMoney() const { return Money; }
 	//获取和修改飞船的速度
 	virtual vector3df GetSpeed()const { return Speed; }
 	virtual void SetSpeed( const vector3df& speed ) { Speed = speed; }
