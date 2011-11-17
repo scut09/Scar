@@ -28,6 +28,7 @@
 #include "MySceneManager.h"
 #include "GeneralCallBack.h"
 #include "PythonWrapper.h"
+#include "RunWay.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -58,6 +59,7 @@ void MultiplayerScene::Run()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	ISceneManager* smgr = pEngine->GetSceneManager();
 	IVideoDriver* driver = pEngine->GetVideoDriver();
+	shader = new SceneNodeShader();
 
 	switch ( State )
 	{
@@ -66,7 +68,6 @@ void MultiplayerScene::Run()
 			// 如果是第一次运行，初始化
 			if ( bRunOnce )
 			{
-				shader = new SceneNodeShader();
 				bRunOnce = false;
 				// 在此处进行初始化工作
 				try
@@ -78,6 +79,9 @@ void MultiplayerScene::Run()
 
 					//pEngine->GetSceneManager()->addCameraSceneNode(0,vector3df(17.5, 0, 1683.5));
 					pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue(1000000);
+
+					// 测试跑道
+					//CreateRunWay();
 
 					// 恒星
 					auto star = smgr->addBillboardSceneNode();

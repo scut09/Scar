@@ -239,6 +239,7 @@
     <ClInclude Include="RobotShip.h" />
     <ClInclude Include="Robot_Client.h" />
     <ClInclude Include="RotateUIAnimator.h" />
+    <ClInclude Include="RunWay.h" />
     <ClInclude Include="ScaleUIAnimator.h" />
     <ClInclude Include="DeletionUIAnimator.h" />
     <ClInclude Include="SceneNodeAnimatorAircraftFPS.h" />
@@ -264,7 +265,6 @@
     <ClInclude Include="__array_1.pypp.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\bin\Python\a.py" />
     <None Include="..\..\..\bin\Python\client.py" />
     <None Include="..\..\..\bin\Python\MainMenuIni.py" />
     <None Include="..\..\..\bin\Python\MapV1.py" />
@@ -292,6 +292,7 @@
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />
     <None Include="..\..\..\bin\Shader\PlanetGroundV.txt" />
+    <None Include="..\..\..\bin\Shader\RunWay.frag" />
     <None Include="..\..\..\bin\Shader\SunF.frag" />
     <None Include="..\..\..\bin\Shader\SunV.vert" />
     <None Include="..\..\..\bin\Shader\universeF.txt" />

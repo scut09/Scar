@@ -70,14 +70,20 @@
     <Filter Include="Shader\shaders\flame">
       <UniqueIdentifier>{66b86707-2745-435c-bcac-42b608eae35f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\station">
-      <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Player">
       <UniqueIdentifier>{283c6e85-dea7-472a-864b-72f5bdfa7acf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Player\AI">
       <UniqueIdentifier>{86ebcfd3-26ae-4116-9745-6b1692194f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\shaders\station">
+      <UniqueIdentifier>{989bf769-5107-45d8-b1ea-dc67340be78f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\shaders\others">
+      <UniqueIdentifier>{15961496-41ae-4052-b319-028724bcd82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FunnyThings">
+      <UniqueIdentifier>{ff703503-82e6-455c-a061-ec7d5ea289ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="LaserNode.cpp">
       <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="HouseHelper.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -611,11 +620,14 @@
     <ClInclude Include="LaserNode.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="HouseHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RunWay.h">
+      <Filter>FunnyThings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\bin\Python\a.py">
-      <Filter>Python\py</Filter>
-    </None>
     <None Include="..\..\..\bin\Python\client.py">
       <Filter>Python\py</Filter>
     </None>
@@ -665,10 +677,10 @@
       <Filter>Shader\shaders\universe</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\cs_1V.vert">
-      <Filter>Shader\station</Filter>
+      <Filter>Shader\shaders\station</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\cs_1F.frag">
-      <Filter>Shader\station</Filter>
+      <Filter>Shader\shaders\station</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\cf_1F.frag">
       <Filter>Shader\shaders\ship</Filter>
@@ -704,10 +716,10 @@
       <Filter>Shader\shaders\planet</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\MenuShip.frag">
-      <Filter>Shader\station</Filter>
+      <Filter>Shader\shaders\station</Filter>
     </None>
     <None Include="..\..\..\bin\Shader\MenuShip.vert">
-      <Filter>Shader\station</Filter>
+      <Filter>Shader\shaders\station</Filter>
     </None>
     <None Include="py++forUIObject.py">
       <Filter>Python\py</Filter>
@@ -723,6 +735,9 @@
     </None>
     <None Include="..\..\..\bin\Python\MapV1.py">
       <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\RunWay.frag">
+      <Filter>Shader\shaders\others</Filter>
     </None>
   </ItemGroup>
 </Project>

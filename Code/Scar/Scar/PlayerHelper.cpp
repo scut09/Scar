@@ -215,9 +215,9 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	EnergyText = (UIStaticText*)uiManager->GetUIObjectByName( "energyText" );
 	EnergyText->SetVisible( true );
 	// 获取水平仪
-	uiManager->GetUIObjectByName( "ring" )->SetVisible( true );
+	//uiManager->GetUIObjectByName( "ring" )->SetVisible( true );
 	Gradienter = uiManager->GetUIObjectByName( "gradienter" );
-	Gradienter->SetVisible( true );
+	//Gradienter->SetVisible( true );
 	// 获取目标圈
 	ShipTipE = uiManager->GetUIObjectByName( "target1" );
 	// 获取锁定圈——已锁定
