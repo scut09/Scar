@@ -68,6 +68,13 @@ public:
 		const core::vector3df& colorFrom = core::vector3df( 0, 63, 255 ), const core::vector3df& colorTo = core::vector3df( 255, 255, 0 ),
 		s32 numOfArrows = 15 );
 
+	// ÇòÌå
+	IMeshSceneNode* addSphereSceneNode(f32 radius=5.0f, s32 polyCount=16,
+		ISceneNode* parent=0, s32 id=-1,
+		const core::vector3df& position = core::vector3df(0,0,0),
+		const core::vector3df& rotation = core::vector3df(0,0,0),
+		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f));
+
 	/************************************************************************/
 	/* ¶¯»­Animator                                                         */
 	/************************************************************************/

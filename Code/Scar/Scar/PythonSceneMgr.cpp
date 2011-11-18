@@ -5906,6 +5906,25 @@ bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )
 	, bp::return_value_policy< bp::reference_existing_object >() ) */
 
 	.def( 
+	"addSphereSceneNode"
+	, (::irr::scene::IMeshSceneNode * ( ::MySceneManager::* )
+	( ::irr::f32,
+	::irr::s32,
+	::irr::scene::ISceneNode *,
+	::irr::s32,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const & ) )( &::MySceneManager::addSphereSceneNode )
+	, ( bp::arg("radius")=(::irr::f32)(5.0f),
+	bp::arg("polyCount")=(::irr::s32)(16),
+	bp::arg("parent")=bp::object(), 
+	bp::arg("id")=(::irr::s32)(-1),
+	bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), 
+	bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f),
+	bp::arg("scale")=irr::core::vector3d<float>(1.0f, 1.0f, 1.0f))
+	, bp::return_value_policy< bp::reference_existing_object >() )
+
+	.def( 
 	"addRunWaySceneNode"
 	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )
 	( ::irr::core::vector3df const &,
