@@ -25,8 +25,8 @@ def LoadMap():
                                     skybox,
                                     "Shader/universeV.txt",
                                     "Shader/universeF.txt" )
-    #smgr.addRunWaySceneNode();
-    #smgr.addSphereSceneNode( 10, 64 )#用不了
+    smgr.addRunWaySceneNode();
+    smgr.addSphereSceneNode( 10, 64 )
 
     #创建阵营1的星球
 '''	Sun = smgr->addSphereSceneNode( 100, 100 )

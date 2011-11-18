@@ -69,7 +69,7 @@ public:
 		s32 numOfArrows = 15 );
 
 	// ÇòÌå
-	IMeshSceneNode* addSphereSceneNode(f32 radius=5.0f, s32 polyCount=16,
+	ISceneNode* addSphereSceneNode(f32 radius=5.0f, s32 polyCount=16,
 		ISceneNode* parent=0, s32 id=-1,
 		const core::vector3df& position = core::vector3df(0,0,0),
 		const core::vector3df& rotation = core::vector3df(0,0,0),

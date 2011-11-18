@@ -198,7 +198,7 @@ void MultiplayerScene::Run()
 						cb->drop();
 						tangentMesh->drop();
 						station2->setPosition(Planet2->getPosition() + vector3df(-150, -200, 50));
-						station2->setScale(vector3df(0.01, 0.01, 0.01));
+						station2->setScale(vector3df(0.01f, 0.01f, 0.01f));
 					}
 
 				}

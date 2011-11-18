@@ -192,7 +192,7 @@ ISceneNode* MySceneManager::addRunWaySceneNode( const core::vector3df& position 
 	//return CreateRunWay( position, interval, width, colorFrom, colorTo, numOfArrows );
 }
 
-IMeshSceneNode* MySceneManager::addSphereSceneNode( f32 radius/*=5.0f*/, s32 polyCount/*=16*/, ISceneNode* parent/*=0*/, s32 id/*=-1*/, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f)*/ )
+ISceneNode* MySceneManager::addSphereSceneNode( f32 radius/*=5.0f*/, s32 polyCount/*=16*/, ISceneNode* parent/*=0*/, s32 id/*=-1*/, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f)*/ )
 {
 	return smgr->addSphereSceneNode( radius, polyCount, parent, id, position, rotation, scale );
 }

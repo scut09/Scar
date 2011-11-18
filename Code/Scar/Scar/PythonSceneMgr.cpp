@@ -5907,7 +5907,7 @@ bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )
 
 	.def( 
 	"addSphereSceneNode"
-	, (::irr::scene::IMeshSceneNode * ( ::MySceneManager::* )
+	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )
 	( ::irr::f32,
 	::irr::s32,
 	::irr::scene::ISceneNode *,
