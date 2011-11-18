@@ -263,7 +263,7 @@ void MultiplayerScene::Run()
 		{
 			InitScene();
 			TestFuck();
-			State = Select_Camp;
+			State = In_Battle;
 		}
 		break;
 	}
@@ -276,7 +276,7 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
-	State = Select_Camp;
+	State = Test;
 
 	if ( State != Test )
 	{
