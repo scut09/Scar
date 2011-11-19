@@ -11,8 +11,7 @@
 #define IWeapon_h__
 
 #include <typeinfo>
-#include "CBillboardSceneNode.h"
-#include "CMeshSceneNode.h"
+#include <irrlicht.h>
 
 using namespace irr;
 
@@ -31,13 +30,16 @@ public:
 
 
 using namespace irr;
+using irr::scene::ISceneManager;
+using irr::scene::ISceneNode;
+
 
 /*
 ** 名字：IWeapon
 ** 说明：武器基类
 **
 */
-class IWeapon : public irr::scene::CBillboardSceneNode, public IWeaponCollisionCallback
+class IWeapon : public irr::scene::ISceneNode, public IWeaponCollisionCallback
 {
 protected:
 	u32 Interval;			// 发射间隔 ms
@@ -48,10 +50,10 @@ protected:
 
 public:
 
-	IWeapon( irr::scene::ISceneManager* mgr, irr::scene::ISceneNode* parent = 0, s32 id = -1,	
-		const irr::core::vector3df& position = core::vector3df( 0, 0, 0 ),
-		const core::dimension2d<f32>& size = core::dimension2d<f32>( 5, 5 ),
-		video::SColor colorTop=video::SColor(0xFFFFFFFF),video::SColor colorBottom=video::SColor(0xFFFFFFFF));
+	IWeapon(ISceneNode* parent, ISceneManager* mgr, s32 id=-1,
+		const core::vector3df& position = core::vector3df(0,0,0),
+		const core::vector3df& rotation = core::vector3df(0,0,0),
+		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f));
 
 
 	virtual void OnCollision( scene::ISceneNode* target );

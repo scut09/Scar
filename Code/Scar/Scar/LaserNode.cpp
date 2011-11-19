@@ -5,7 +5,7 @@
 
 
 LaserNode::LaserNode( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, irr::scene::ISceneManager* mgr,
-	s32 id, ISceneNode* target, ISceneNode* host,
+	s32 id, ISceneNode* target, IShip* host,
 	const core::vector3df& position /*= core::vector3df( 0, 0, 0 )*/,
 	const core::vector3df& rotation /*= core::vector3df( 0, 0, 0 )*/,
 	const core::vector3df& scale /*= core::vector3df( 1.f, 1.f, 1.f ) */ )
@@ -20,13 +20,14 @@ LaserNode::LaserNode( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, i
 	Host = host;
 	Length = 11.6f;
 	this->setScale( core::vector3df( 0.0156f, 0.0156f, 1.0f ) );
-	IsLock = false;
+	IsLock = true;
 } 
 
 void LaserNode::build()
 {
 	if ( IsLock )
 	{
+		ICameraSceneNode* camera = MyIrrlichtEngine::GetEngine()->GetSceneManager()->getActiveCamera();
 		IVideoDriver* driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
 		Toolkit toolkit( MyIrrlichtEngine::GetEngine()->GetSceneManager()->getActiveCamera(), driver );
 		position2df target2d;
@@ -40,7 +41,6 @@ void LaserNode::build()
 			vector3df currentposition = ( Target->getPosition() + Host->getPosition() ) * 0.5f;
 			this->setPosition( currentposition );
 			this->setScale( vector3df( 0.0625f, 0.0625f, targetLength / Length ) );
-			vector3df direction = vector3df( 0.f, 0.f, 1.f );
 			this->setRotation( ( Target->getPosition() - Host->getPosition() ).getHorizontalAngle() );
 		}
 		else

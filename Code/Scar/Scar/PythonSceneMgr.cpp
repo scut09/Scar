@@ -1374,394 +1374,394 @@ struct ISceneNode_wrapper : irr::scene::ISceneNode, bp::wrapper< irr::scene::ISc
     }
 
 };
-
-struct IWeapon_wrapper : IWeapon, bp::wrapper< IWeapon > {
-
-    IWeapon_wrapper(::irr::scene::ISceneManager * mgr, ::irr::scene::ISceneNode * parent=0, ::irr::s32 id=-0x00000000000000001, ::irr::core::vector3df const & position=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), ::irr::core::dimension2d< float > const & size=irr::core::dimension2d<float>( 5.f, 5.f ), ::irr::video::SColor colorTop=irr::video::SColor(4294967295u), ::irr::video::SColor colorBottom=irr::video::SColor(4294967295u) )
-    : IWeapon( boost::python::ptr(mgr), boost::python::ptr(parent), id, boost::ref(position), boost::ref(size), colorTop, colorBottom )
-      , bp::wrapper< IWeapon >(){
-        // constructor
-    
-    }
-
-    virtual ::irr::scene::ISceneNode * Clone( ::irr::scene::ISceneNode * newParent, ::irr::scene::ISceneManager * newManager ){
-        bp::override func_Clone = this->get_override( "Clone" );
-        return func_Clone( boost::python::ptr(newParent), boost::python::ptr(newManager) );
-    }
-
-    virtual void CloneAttributeFrom( ::IWeapon * w ){
-        if( bp::override func_CloneAttributeFrom = this->get_override( "CloneAttributeFrom" ) )
-            func_CloneAttributeFrom( boost::python::ptr(w) );
-        else{
-            this->IWeapon::CloneAttributeFrom( boost::python::ptr(w) );
-        }
-    }
-    
-    virtual void default_CloneAttributeFrom( ::IWeapon * w ){
-        IWeapon::CloneAttributeFrom( boost::python::ptr(w) );
-    }
-
-    virtual void OnCollision( ::irr::scene::ISceneNode * target ) {
-        if( bp::override func_OnCollision = this->get_override( "OnCollision" ) )
-            func_OnCollision( boost::python::ptr(target) );
-        else{
-            this->IWeapon::OnCollision( boost::python::ptr(target) );
-        }
-    }
-    
-    void default_OnCollision( ::irr::scene::ISceneNode * target ) {
-        IWeapon::OnCollision( boost::python::ptr(target) );
-    }
-
-    virtual void OnAnimate( ::irr::u32 timeMs ) {
-        if( bp::override func_OnAnimate = this->get_override( "OnAnimate" ) )
-            func_OnAnimate( timeMs );
-        else{
-            this->irr::scene::ISceneNode::OnAnimate( timeMs );
-        }
-    }
-    
-    void default_OnAnimate( ::irr::u32 timeMs ) {
-        irr::scene::ISceneNode::OnAnimate( timeMs );
-    }
-
-    virtual void addAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
-        if( bp::override func_addAnimator = this->get_override( "addAnimator" ) )
-            func_addAnimator( boost::python::ptr(animator) );
-        else{
-            this->irr::scene::ISceneNode::addAnimator( boost::python::ptr(animator) );
-        }
-    }
-    
-    void default_addAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
-        irr::scene::ISceneNode::addAnimator( boost::python::ptr(animator) );
-    }
-
-    virtual void addChild( ::irr::scene::ISceneNode * child ) {
-        if( bp::override func_addChild = this->get_override( "addChild" ) )
-            func_addChild( boost::python::ptr(child) );
-        else{
-            this->irr::scene::ISceneNode::addChild( boost::python::ptr(child) );
-        }
-    }
-    
-    void default_addChild( ::irr::scene::ISceneNode * child ) {
-        irr::scene::ISceneNode::addChild( boost::python::ptr(child) );
-    }
-
-    void cloneMembers( ::irr::scene::ISceneNode * toCopyFrom, ::irr::scene::ISceneManager * newManager ){
-        irr::scene::ISceneNode::cloneMembers( boost::python::ptr(toCopyFrom), boost::python::ptr(newManager) );
-    }
-
-    virtual ::irr::core::vector3df getAbsolutePosition(  ) const  {
-        if( bp::override func_getAbsolutePosition = this->get_override( "getAbsolutePosition" ) )
-            return func_getAbsolutePosition(  );
-        else{
-            return this->irr::scene::ISceneNode::getAbsolutePosition(  );
-        }
-    }
-    
-    ::irr::core::vector3df default_getAbsolutePosition(  ) const  {
-        return irr::scene::ISceneNode::getAbsolutePosition( );
-    }
-
-    virtual ::irr::s32 getID(  ) const  {
-        if( bp::override func_getID = this->get_override( "getID" ) )
-            return func_getID(  );
-        else{
-            return this->irr::scene::ISceneNode::getID(  );
-        }
-    }
-    
-    ::irr::s32 default_getID(  ) const  {
-        return irr::scene::ISceneNode::getID( );
-    }
-
-    virtual ::irr::c8 const * getName(  ) const  {
-        if( bp::override func_getName = this->get_override( "getName" ) )
-            return func_getName(  );
-        else{
-            return this->irr::scene::ISceneNode::getName(  );
-        }
-    }
-    
-    ::irr::c8 const * default_getName(  ) const  {
-        return irr::scene::ISceneNode::getName( );
-    }
-
-    virtual ::irr::core::matrix4 getRelativeTransformation(  ) const  {
-        if( bp::override func_getRelativeTransformation = this->get_override( "getRelativeTransformation" ) )
-            return func_getRelativeTransformation(  );
-        else{
-            return this->irr::scene::ISceneNode::getRelativeTransformation(  );
-        }
-    }
-    
-    ::irr::core::matrix4 default_getRelativeTransformation(  ) const  {
-        return irr::scene::ISceneNode::getRelativeTransformation( );
-    }
-
-    virtual ::irr::scene::ISceneManager * getSceneManager(  ) const  {
-        if( bp::override func_getSceneManager = this->get_override( "getSceneManager" ) )
-            return func_getSceneManager(  );
-        else{
-            return this->irr::scene::ISceneNode::getSceneManager(  );
-        }
-    }
-    
-    ::irr::scene::ISceneManager * default_getSceneManager(  ) const  {
-        return irr::scene::ISceneNode::getSceneManager( );
-    }
-
-    virtual ::irr::core::aabbox3d< float > const getTransformedBoundingBox(  ) const  {
-        if( bp::override func_getTransformedBoundingBox = this->get_override( "getTransformedBoundingBox" ) )
-            return func_getTransformedBoundingBox(  );
-        else{
-            return this->irr::scene::ISceneNode::getTransformedBoundingBox(  );
-        }
-    }
-    
-    ::irr::core::aabbox3d< float > const default_getTransformedBoundingBox(  ) const  {
-        return irr::scene::ISceneNode::getTransformedBoundingBox( );
-    }
-
-    virtual ::irr::scene::ITriangleSelector * getTriangleSelector(  ) const  {
-        if( bp::override func_getTriangleSelector = this->get_override( "getTriangleSelector" ) )
-            return func_getTriangleSelector(  );
-        else{
-            return this->irr::scene::ISceneNode::getTriangleSelector(  );
-        }
-    }
-    
-    ::irr::scene::ITriangleSelector * default_getTriangleSelector(  ) const  {
-        return irr::scene::ISceneNode::getTriangleSelector( );
-    }
-
-    virtual bool isTrulyVisible(  ) const  {
-        if( bp::override func_isTrulyVisible = this->get_override( "isTrulyVisible" ) )
-            return func_isTrulyVisible(  );
-        else{
-            return this->irr::scene::ISceneNode::isTrulyVisible(  );
-        }
-    }
-    
-    bool default_isTrulyVisible(  ) const  {
-        return irr::scene::ISceneNode::isTrulyVisible( );
-    }
-
-    virtual bool isVisible(  ) const  {
-        if( bp::override func_isVisible = this->get_override( "isVisible" ) )
-            return func_isVisible(  );
-        else{
-            return this->irr::scene::ISceneNode::isVisible(  );
-        }
-    }
-    
-    bool default_isVisible(  ) const  {
-        return irr::scene::ISceneNode::isVisible( );
-    }
-
-    virtual void remove(  ) {
-        if( bp::override func_remove = this->get_override( "remove" ) )
-            func_remove(  );
-        else{
-            this->irr::scene::ISceneNode::remove(  );
-        }
-    }
-    
-    void default_remove(  ) {
-        irr::scene::ISceneNode::remove( );
-    }
-
-    virtual void removeAll(  ) {
-        if( bp::override func_removeAll = this->get_override( "removeAll" ) )
-            func_removeAll(  );
-        else{
-            this->irr::scene::ISceneNode::removeAll(  );
-        }
-    }
-    
-    void default_removeAll(  ) {
-        irr::scene::ISceneNode::removeAll( );
-    }
-
-    virtual void removeAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
-        if( bp::override func_removeAnimator = this->get_override( "removeAnimator" ) )
-            func_removeAnimator( boost::python::ptr(animator) );
-        else{
-            this->irr::scene::ISceneNode::removeAnimator( boost::python::ptr(animator) );
-        }
-    }
-    
-    void default_removeAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
-        irr::scene::ISceneNode::removeAnimator( boost::python::ptr(animator) );
-    }
-
-    virtual void removeAnimators(  ) {
-        if( bp::override func_removeAnimators = this->get_override( "removeAnimators" ) )
-            func_removeAnimators(  );
-        else{
-            this->irr::scene::ISceneNode::removeAnimators(  );
-        }
-    }
-    
-    void default_removeAnimators(  ) {
-        irr::scene::ISceneNode::removeAnimators( );
-    }
-
-    virtual bool removeChild( ::irr::scene::ISceneNode * child ) {
-        if( bp::override func_removeChild = this->get_override( "removeChild" ) )
-            return func_removeChild( boost::python::ptr(child) );
-        else{
-            return this->irr::scene::ISceneNode::removeChild( boost::python::ptr(child) );
-        }
-    }
-    
-    bool default_removeChild( ::irr::scene::ISceneNode * child ) {
-        return irr::scene::ISceneNode::removeChild( boost::python::ptr(child) );
-    }
-
-    virtual void setDebugDataVisible( ::irr::s32 state ) {
-        if( bp::override func_setDebugDataVisible = this->get_override( "setDebugDataVisible" ) )
-            func_setDebugDataVisible( state );
-        else{
-            this->irr::scene::ISceneNode::setDebugDataVisible( state );
-        }
-    }
-    
-    void default_setDebugDataVisible( ::irr::s32 state ) {
-        irr::scene::ISceneNode::setDebugDataVisible( state );
-    }
-
-    void setDebugName( ::irr::c8 const * newName ){
-        irr::IReferenceCounted::setDebugName( newName );
-    }
-
-    virtual void setID( ::irr::s32 id ) {
-        if( bp::override func_setID = this->get_override( "setID" ) )
-            func_setID( id );
-        else{
-            this->irr::scene::ISceneNode::setID( id );
-        }
-    }
-    
-    void default_setID( ::irr::s32 id ) {
-        irr::scene::ISceneNode::setID( id );
-    }
-
-    virtual void setName( ::irr::c8 const * name ) {
-        if( bp::override func_setName = this->get_override( "setName" ) )
-            func_setName( name );
-        else{
-            this->irr::scene::ISceneNode::setName( name );
-        }
-    }
-    
-    void default_setName( ::irr::c8 const * name ) {
-        irr::scene::ISceneNode::setName( name );
-    }
-
-    virtual void setName( ::irr::core::stringc const & name ) {
-        if( bp::override func_setName = this->get_override( "setName" ) )
-            func_setName( boost::ref(name) );
-        else{
-            this->irr::scene::ISceneNode::setName( boost::ref(name) );
-        }
-    }
-    
-    void default_setName( ::irr::core::stringc const & name ) {
-        irr::scene::ISceneNode::setName( boost::ref(name) );
-    }
-
-    virtual void setParent( ::irr::scene::ISceneNode * newParent ) {
-        if( bp::override func_setParent = this->get_override( "setParent" ) )
-            func_setParent( boost::python::ptr(newParent) );
-        else{
-            this->irr::scene::ISceneNode::setParent( boost::python::ptr(newParent) );
-        }
-    }
-    
-    void default_setParent( ::irr::scene::ISceneNode * newParent ) {
-        irr::scene::ISceneNode::setParent( boost::python::ptr(newParent) );
-    }
-
-    virtual void setPosition( ::irr::core::vector3df const & newpos ) {
-        if( bp::override func_setPosition = this->get_override( "setPosition" ) )
-            func_setPosition( boost::ref(newpos) );
-        else{
-            this->irr::scene::ISceneNode::setPosition( boost::ref(newpos) );
-        }
-    }
-    
-    void default_setPosition( ::irr::core::vector3df const & newpos ) {
-        irr::scene::ISceneNode::setPosition( boost::ref(newpos) );
-    }
-
-    virtual void setRotation( ::irr::core::vector3df const & rotation ) {
-        if( bp::override func_setRotation = this->get_override( "setRotation" ) )
-            func_setRotation( boost::ref(rotation) );
-        else{
-            this->irr::scene::ISceneNode::setRotation( boost::ref(rotation) );
-        }
-    }
-    
-    void default_setRotation( ::irr::core::vector3df const & rotation ) {
-        irr::scene::ISceneNode::setRotation( boost::ref(rotation) );
-    }
-
-    virtual void setScale( ::irr::core::vector3df const & scale ) {
-        if( bp::override func_setScale = this->get_override( "setScale" ) )
-            func_setScale( boost::ref(scale) );
-        else{
-            this->irr::scene::ISceneNode::setScale( boost::ref(scale) );
-        }
-    }
-    
-    void default_setScale( ::irr::core::vector3df const & scale ) {
-        irr::scene::ISceneNode::setScale( boost::ref(scale) );
-    }
-
-    void setSceneManager( ::irr::scene::ISceneManager * newManager ){
-        irr::scene::ISceneNode::setSceneManager( boost::python::ptr(newManager) );
-    }
-
-    virtual void setTriangleSelector( ::irr::scene::ITriangleSelector * selector ) {
-        if( bp::override func_setTriangleSelector = this->get_override( "setTriangleSelector" ) )
-            func_setTriangleSelector( boost::python::ptr(selector) );
-        else{
-            this->irr::scene::ISceneNode::setTriangleSelector( boost::python::ptr(selector) );
-        }
-    }
-    
-    void default_setTriangleSelector( ::irr::scene::ITriangleSelector * selector ) {
-        irr::scene::ISceneNode::setTriangleSelector( boost::python::ptr(selector) );
-    }
-
-    virtual void setVisible( bool isVisible ) {
-        if( bp::override func_setVisible = this->get_override( "setVisible" ) )
-            func_setVisible( isVisible );
-        else{
-            this->irr::scene::ISceneNode::setVisible( isVisible );
-        }
-    }
-    
-    void default_setVisible( bool isVisible ) {
-        irr::scene::ISceneNode::setVisible( isVisible );
-    }
-
-    virtual void updateAbsolutePosition(  ) {
-        if( bp::override func_updateAbsolutePosition = this->get_override( "updateAbsolutePosition" ) )
-            func_updateAbsolutePosition(  );
-        else{
-            this->irr::scene::ISceneNode::updateAbsolutePosition(  );
-        }
-    }
-    
-    void default_updateAbsolutePosition(  ) {
-        irr::scene::ISceneNode::updateAbsolutePosition( );
-    }
-
-};
+//
+//struct IWeapon_wrapper : IWeapon, bp::wrapper< IWeapon > {
+//
+//    IWeapon_wrapper(::irr::scene::ISceneManager * mgr, ::irr::scene::ISceneNode * parent=0, ::irr::s32 id=-0x00000000000000001, ::irr::core::vector3df const & position=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), ::irr::core::dimension2d< float > const & size=irr::core::dimension2d<float>( 5.f, 5.f ), ::irr::video::SColor colorTop=irr::video::SColor(4294967295u), ::irr::video::SColor colorBottom=irr::video::SColor(4294967295u) )
+//    : IWeapon( boost::python::ptr(mgr), boost::python::ptr(parent), id, boost::ref(position), boost::ref(size), colorTop, colorBottom )
+//      , bp::wrapper< IWeapon >(){
+//        // constructor
+//    
+//    }
+//
+//    virtual ::irr::scene::ISceneNode * Clone( ::irr::scene::ISceneNode * newParent, ::irr::scene::ISceneManager * newManager ){
+//        bp::override func_Clone = this->get_override( "Clone" );
+//        return func_Clone( boost::python::ptr(newParent), boost::python::ptr(newManager) );
+//    }
+//
+//    virtual void CloneAttributeFrom( ::IWeapon * w ){
+//        if( bp::override func_CloneAttributeFrom = this->get_override( "CloneAttributeFrom" ) )
+//            func_CloneAttributeFrom( boost::python::ptr(w) );
+//        else{
+//            this->IWeapon::CloneAttributeFrom( boost::python::ptr(w) );
+//        }
+//    }
+//    
+//    virtual void default_CloneAttributeFrom( ::IWeapon * w ){
+//        IWeapon::CloneAttributeFrom( boost::python::ptr(w) );
+//    }
+//
+//    virtual void OnCollision( ::irr::scene::ISceneNode * target ) {
+//        if( bp::override func_OnCollision = this->get_override( "OnCollision" ) )
+//            func_OnCollision( boost::python::ptr(target) );
+//        else{
+//            this->IWeapon::OnCollision( boost::python::ptr(target) );
+//        }
+//    }
+//    
+//    void default_OnCollision( ::irr::scene::ISceneNode * target ) {
+//        IWeapon::OnCollision( boost::python::ptr(target) );
+//    }
+//
+//    virtual void OnAnimate( ::irr::u32 timeMs ) {
+//        if( bp::override func_OnAnimate = this->get_override( "OnAnimate" ) )
+//            func_OnAnimate( timeMs );
+//        else{
+//            this->irr::scene::ISceneNode::OnAnimate( timeMs );
+//        }
+//    }
+//    
+//    void default_OnAnimate( ::irr::u32 timeMs ) {
+//        irr::scene::ISceneNode::OnAnimate( timeMs );
+//    }
+//
+//    virtual void addAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
+//        if( bp::override func_addAnimator = this->get_override( "addAnimator" ) )
+//            func_addAnimator( boost::python::ptr(animator) );
+//        else{
+//            this->irr::scene::ISceneNode::addAnimator( boost::python::ptr(animator) );
+//        }
+//    }
+//    
+//    void default_addAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
+//        irr::scene::ISceneNode::addAnimator( boost::python::ptr(animator) );
+//    }
+//
+//    virtual void addChild( ::irr::scene::ISceneNode * child ) {
+//        if( bp::override func_addChild = this->get_override( "addChild" ) )
+//            func_addChild( boost::python::ptr(child) );
+//        else{
+//            this->irr::scene::ISceneNode::addChild( boost::python::ptr(child) );
+//        }
+//    }
+//    
+//    void default_addChild( ::irr::scene::ISceneNode * child ) {
+//        irr::scene::ISceneNode::addChild( boost::python::ptr(child) );
+//    }
+//
+//    void cloneMembers( ::irr::scene::ISceneNode * toCopyFrom, ::irr::scene::ISceneManager * newManager ){
+//        irr::scene::ISceneNode::cloneMembers( boost::python::ptr(toCopyFrom), boost::python::ptr(newManager) );
+//    }
+//
+//    virtual ::irr::core::vector3df getAbsolutePosition(  ) const  {
+//        if( bp::override func_getAbsolutePosition = this->get_override( "getAbsolutePosition" ) )
+//            return func_getAbsolutePosition(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getAbsolutePosition(  );
+//        }
+//    }
+//    
+//    ::irr::core::vector3df default_getAbsolutePosition(  ) const  {
+//        return irr::scene::ISceneNode::getAbsolutePosition( );
+//    }
+//
+//    virtual ::irr::s32 getID(  ) const  {
+//        if( bp::override func_getID = this->get_override( "getID" ) )
+//            return func_getID(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getID(  );
+//        }
+//    }
+//    
+//    ::irr::s32 default_getID(  ) const  {
+//        return irr::scene::ISceneNode::getID( );
+//    }
+//
+//    virtual ::irr::c8 const * getName(  ) const  {
+//        if( bp::override func_getName = this->get_override( "getName" ) )
+//            return func_getName(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getName(  );
+//        }
+//    }
+//    
+//    ::irr::c8 const * default_getName(  ) const  {
+//        return irr::scene::ISceneNode::getName( );
+//    }
+//
+//    virtual ::irr::core::matrix4 getRelativeTransformation(  ) const  {
+//        if( bp::override func_getRelativeTransformation = this->get_override( "getRelativeTransformation" ) )
+//            return func_getRelativeTransformation(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getRelativeTransformation(  );
+//        }
+//    }
+//    
+//    ::irr::core::matrix4 default_getRelativeTransformation(  ) const  {
+//        return irr::scene::ISceneNode::getRelativeTransformation( );
+//    }
+//
+//    virtual ::irr::scene::ISceneManager * getSceneManager(  ) const  {
+//        if( bp::override func_getSceneManager = this->get_override( "getSceneManager" ) )
+//            return func_getSceneManager(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getSceneManager(  );
+//        }
+//    }
+//    
+//    ::irr::scene::ISceneManager * default_getSceneManager(  ) const  {
+//        return irr::scene::ISceneNode::getSceneManager( );
+//    }
+//
+//    virtual ::irr::core::aabbox3d< float > const getTransformedBoundingBox(  ) const  {
+//        if( bp::override func_getTransformedBoundingBox = this->get_override( "getTransformedBoundingBox" ) )
+//            return func_getTransformedBoundingBox(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getTransformedBoundingBox(  );
+//        }
+//    }
+//    
+//    ::irr::core::aabbox3d< float > const default_getTransformedBoundingBox(  ) const  {
+//        return irr::scene::ISceneNode::getTransformedBoundingBox( );
+//    }
+//
+//    virtual ::irr::scene::ITriangleSelector * getTriangleSelector(  ) const  {
+//        if( bp::override func_getTriangleSelector = this->get_override( "getTriangleSelector" ) )
+//            return func_getTriangleSelector(  );
+//        else{
+//            return this->irr::scene::ISceneNode::getTriangleSelector(  );
+//        }
+//    }
+//    
+//    ::irr::scene::ITriangleSelector * default_getTriangleSelector(  ) const  {
+//        return irr::scene::ISceneNode::getTriangleSelector( );
+//    }
+//
+//    virtual bool isTrulyVisible(  ) const  {
+//        if( bp::override func_isTrulyVisible = this->get_override( "isTrulyVisible" ) )
+//            return func_isTrulyVisible(  );
+//        else{
+//            return this->irr::scene::ISceneNode::isTrulyVisible(  );
+//        }
+//    }
+//    
+//    bool default_isTrulyVisible(  ) const  {
+//        return irr::scene::ISceneNode::isTrulyVisible( );
+//    }
+//
+//    virtual bool isVisible(  ) const  {
+//        if( bp::override func_isVisible = this->get_override( "isVisible" ) )
+//            return func_isVisible(  );
+//        else{
+//            return this->irr::scene::ISceneNode::isVisible(  );
+//        }
+//    }
+//    
+//    bool default_isVisible(  ) const  {
+//        return irr::scene::ISceneNode::isVisible( );
+//    }
+//
+//    virtual void remove(  ) {
+//        if( bp::override func_remove = this->get_override( "remove" ) )
+//            func_remove(  );
+//        else{
+//            this->irr::scene::ISceneNode::remove(  );
+//        }
+//    }
+//    
+//    void default_remove(  ) {
+//        irr::scene::ISceneNode::remove( );
+//    }
+//
+//    virtual void removeAll(  ) {
+//        if( bp::override func_removeAll = this->get_override( "removeAll" ) )
+//            func_removeAll(  );
+//        else{
+//            this->irr::scene::ISceneNode::removeAll(  );
+//        }
+//    }
+//    
+//    void default_removeAll(  ) {
+//        irr::scene::ISceneNode::removeAll( );
+//    }
+//
+//    virtual void removeAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
+//        if( bp::override func_removeAnimator = this->get_override( "removeAnimator" ) )
+//            func_removeAnimator( boost::python::ptr(animator) );
+//        else{
+//            this->irr::scene::ISceneNode::removeAnimator( boost::python::ptr(animator) );
+//        }
+//    }
+//    
+//    void default_removeAnimator( ::irr::scene::ISceneNodeAnimator * animator ) {
+//        irr::scene::ISceneNode::removeAnimator( boost::python::ptr(animator) );
+//    }
+//
+//    virtual void removeAnimators(  ) {
+//        if( bp::override func_removeAnimators = this->get_override( "removeAnimators" ) )
+//            func_removeAnimators(  );
+//        else{
+//            this->irr::scene::ISceneNode::removeAnimators(  );
+//        }
+//    }
+//    
+//    void default_removeAnimators(  ) {
+//        irr::scene::ISceneNode::removeAnimators( );
+//    }
+//
+//    virtual bool removeChild( ::irr::scene::ISceneNode * child ) {
+//        if( bp::override func_removeChild = this->get_override( "removeChild" ) )
+//            return func_removeChild( boost::python::ptr(child) );
+//        else{
+//            return this->irr::scene::ISceneNode::removeChild( boost::python::ptr(child) );
+//        }
+//    }
+//    
+//    bool default_removeChild( ::irr::scene::ISceneNode * child ) {
+//        return irr::scene::ISceneNode::removeChild( boost::python::ptr(child) );
+//    }
+//
+//    virtual void setDebugDataVisible( ::irr::s32 state ) {
+//        if( bp::override func_setDebugDataVisible = this->get_override( "setDebugDataVisible" ) )
+//            func_setDebugDataVisible( state );
+//        else{
+//            this->irr::scene::ISceneNode::setDebugDataVisible( state );
+//        }
+//    }
+//    
+//    void default_setDebugDataVisible( ::irr::s32 state ) {
+//        irr::scene::ISceneNode::setDebugDataVisible( state );
+//    }
+//
+//    void setDebugName( ::irr::c8 const * newName ){
+//        irr::IReferenceCounted::setDebugName( newName );
+//    }
+//
+//    virtual void setID( ::irr::s32 id ) {
+//        if( bp::override func_setID = this->get_override( "setID" ) )
+//            func_setID( id );
+//        else{
+//            this->irr::scene::ISceneNode::setID( id );
+//        }
+//    }
+//    
+//    void default_setID( ::irr::s32 id ) {
+//        irr::scene::ISceneNode::setID( id );
+//    }
+//
+//    virtual void setName( ::irr::c8 const * name ) {
+//        if( bp::override func_setName = this->get_override( "setName" ) )
+//            func_setName( name );
+//        else{
+//            this->irr::scene::ISceneNode::setName( name );
+//        }
+//    }
+//    
+//    void default_setName( ::irr::c8 const * name ) {
+//        irr::scene::ISceneNode::setName( name );
+//    }
+//
+//    virtual void setName( ::irr::core::stringc const & name ) {
+//        if( bp::override func_setName = this->get_override( "setName" ) )
+//            func_setName( boost::ref(name) );
+//        else{
+//            this->irr::scene::ISceneNode::setName( boost::ref(name) );
+//        }
+//    }
+//    
+//    void default_setName( ::irr::core::stringc const & name ) {
+//        irr::scene::ISceneNode::setName( boost::ref(name) );
+//    }
+//
+//    virtual void setParent( ::irr::scene::ISceneNode * newParent ) {
+//        if( bp::override func_setParent = this->get_override( "setParent" ) )
+//            func_setParent( boost::python::ptr(newParent) );
+//        else{
+//            this->irr::scene::ISceneNode::setParent( boost::python::ptr(newParent) );
+//        }
+//    }
+//    
+//    void default_setParent( ::irr::scene::ISceneNode * newParent ) {
+//        irr::scene::ISceneNode::setParent( boost::python::ptr(newParent) );
+//    }
+//
+//    virtual void setPosition( ::irr::core::vector3df const & newpos ) {
+//        if( bp::override func_setPosition = this->get_override( "setPosition" ) )
+//            func_setPosition( boost::ref(newpos) );
+//        else{
+//            this->irr::scene::ISceneNode::setPosition( boost::ref(newpos) );
+//        }
+//    }
+//    
+//    void default_setPosition( ::irr::core::vector3df const & newpos ) {
+//        irr::scene::ISceneNode::setPosition( boost::ref(newpos) );
+//    }
+//
+//    virtual void setRotation( ::irr::core::vector3df const & rotation ) {
+//        if( bp::override func_setRotation = this->get_override( "setRotation" ) )
+//            func_setRotation( boost::ref(rotation) );
+//        else{
+//            this->irr::scene::ISceneNode::setRotation( boost::ref(rotation) );
+//        }
+//    }
+//    
+//    void default_setRotation( ::irr::core::vector3df const & rotation ) {
+//        irr::scene::ISceneNode::setRotation( boost::ref(rotation) );
+//    }
+//
+//    virtual void setScale( ::irr::core::vector3df const & scale ) {
+//        if( bp::override func_setScale = this->get_override( "setScale" ) )
+//            func_setScale( boost::ref(scale) );
+//        else{
+//            this->irr::scene::ISceneNode::setScale( boost::ref(scale) );
+//        }
+//    }
+//    
+//    void default_setScale( ::irr::core::vector3df const & scale ) {
+//        irr::scene::ISceneNode::setScale( boost::ref(scale) );
+//    }
+//
+//    void setSceneManager( ::irr::scene::ISceneManager * newManager ){
+//        irr::scene::ISceneNode::setSceneManager( boost::python::ptr(newManager) );
+//    }
+//
+//    virtual void setTriangleSelector( ::irr::scene::ITriangleSelector * selector ) {
+//        if( bp::override func_setTriangleSelector = this->get_override( "setTriangleSelector" ) )
+//            func_setTriangleSelector( boost::python::ptr(selector) );
+//        else{
+//            this->irr::scene::ISceneNode::setTriangleSelector( boost::python::ptr(selector) );
+//        }
+//    }
+//    
+//    void default_setTriangleSelector( ::irr::scene::ITriangleSelector * selector ) {
+//        irr::scene::ISceneNode::setTriangleSelector( boost::python::ptr(selector) );
+//    }
+//
+//    virtual void setVisible( bool isVisible ) {
+//        if( bp::override func_setVisible = this->get_override( "setVisible" ) )
+//            func_setVisible( isVisible );
+//        else{
+//            this->irr::scene::ISceneNode::setVisible( isVisible );
+//        }
+//    }
+//    
+//    void default_setVisible( bool isVisible ) {
+//        irr::scene::ISceneNode::setVisible( isVisible );
+//    }
+//
+//    virtual void updateAbsolutePosition(  ) {
+//        if( bp::override func_updateAbsolutePosition = this->get_override( "updateAbsolutePosition" ) )
+//            func_updateAbsolutePosition(  );
+//        else{
+//            this->irr::scene::ISceneNode::updateAbsolutePosition(  );
+//        }
+//    }
+//    
+//    void default_updateAbsolutePosition(  ) {
+//        irr::scene::ISceneNode::updateAbsolutePosition( );
+//    }
+//
+//};
 
 struct ITimer_wrapper : irr::ITimer, bp::wrapper< irr::ITimer > {
 

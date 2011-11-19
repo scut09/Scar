@@ -47,7 +47,7 @@ public:
   // Lock the mutex.
   void lock()
   {
-    ::EnterCriticalSection(&crit_section_);
+  ::EnterCriticalSection(&crit_section_);
   }
 
   // Unlock the mutex.

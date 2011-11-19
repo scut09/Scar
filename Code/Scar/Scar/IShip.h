@@ -12,7 +12,7 @@
 #ifndef IShip_h__
 #define IShip_h__
 
-#include "CAnimatedMeshSceneNode.h"
+#include "CMeshSceneNode.h"
 #include <string>
 #include "IWeapon.h"
 #include <vector>
@@ -58,7 +58,7 @@ protected:
     u32                CurrentGrade;           // 等级
 	u32                NextGrade;              // 下一等级
 	u32                MaxGrade;               // 最大等级
-    f32                Inertance;              // 惯性
+	f32                Inertance;              // 惯性
     f32                RecoverLife;            // 恢复生命 
 	f32                Experience;             // 经验值
 	f32                ExperienceToGrade;      // 加等级的经验值

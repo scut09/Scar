@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <irrlicht.h>
+#include "IShip.h"
 
 using namespace irr;
 using namespace scene;
@@ -21,7 +22,7 @@ public:
 	LaserNode( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
 		irr::scene::ISceneManager* mgr, s32 id,
 		ISceneNode* target,
-		ISceneNode* host,
+		IShip* host,
 		const core::vector3df& position = core::vector3df( 0, 0, 0 ),
 		const core::vector3df& rotation = core::vector3df( 0, 0, 0 ),
 		const core::vector3df& scale = core::vector3df( 1.f, 1.f, 1.f ) );
@@ -31,7 +32,7 @@ public:
 private:
 	bool IsLock;
 	f32 Length;
-	ISceneNode* Host;
+	IShip* Host;
 	ISceneNode* Target;
 };
 #endif // LaserNode_h__

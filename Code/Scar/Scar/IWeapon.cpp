@@ -10,13 +10,11 @@
 //}
 
 
-IWeapon::IWeapon( irr::scene::ISceneManager* mgr, 
-	irr::scene::ISceneNode* parent,
-	s32 id, const irr::core::vector3df& position, 
-	const irr::core::dimension2d<f32>& size, 
-	irr::video::SColor colorTop/*=video::SColor(0xFFFFFFFF)*/,
-	video::SColor colorBottom/*=video::SColor(0xFFFFFFFF)*/ )
-	: CBillboardSceneNode( parent, mgr, id, position, size, colorTop, colorBottom )
+IWeapon::IWeapon(ISceneNode* parent, ISceneManager* mgr, s32 id,
+	const core::vector3df& position,
+	const core::vector3df& rotation,
+	const core::vector3df& scale )
+	: ISceneNode( parent, mgr, id, position, rotation, scale )
 {
 		setParent( parent );
 		setVisible( false );

@@ -17,7 +17,7 @@
 #include "Boost_Server.h"
 #include "irrKlang.h"
 #include "SceneNodeShader.h"
-
+#include "LaserNode.h"
 
 class MultiplayerScene : public GameScene
 {
@@ -25,6 +25,8 @@ class MultiplayerScene : public GameScene
 	scene::ICameraSceneNode*	m_pCamera;
 	scene::ISceneNode*			m_pSkyBox;
 	ModelManager*				m_pModelMan;
+	LaserNode* 					laser1;
+	IShip* 						npc;
 
 public:
 	enum MultiState
