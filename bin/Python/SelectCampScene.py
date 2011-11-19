@@ -77,7 +77,7 @@ def LoadMap():
     station2.setScale(vector3df(0.001, 0.001, 0.001))
     shader.ApplyShaderGeneralCallback( station2, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
 
-    smgr.addRunWaySceneNode( vector3df(0,0,0), 200, 300, vector3df( 255,255,0 ), vector3df( 0, 255, 0 ) )
+    #smgr.addRunWaySceneNode( vector3df(0,0,0), 200, 300, vector3df( 255,255,0 ), vector3df( 0, 255, 0 ) )
     smgr.addSphereSceneNode( 10, 64 )
 
     

@@ -21,10 +21,37 @@
 class IPlayer /*: public irr::IReferenceCounted*/
 {
 public:
+	enum Player_State
+	{
+		PS_Alive,			// 存活
+		PS_Dead				// 死亡
+	};
+
+protected:
+	int				Money;			// 金钱
+	int				ID;				// 玩家ID
+	std::wstring	Name;			// 玩家名称
+	int				KillCount;		// 玩家杀敌数
+	int				DeathCount;		// 玩家死亡次数
+	s32				Team;			// 玩家队伍编号
+	Player_State	State;			// 玩家状态
+
+	IShip*			PlayerShip;		// 玩家拥有的飞机
+
+
+public:
 	IPlayer( IShip* playerShip ) : PlayerShip( playerShip )
 	{
 		if ( PlayerShip )
 			PlayerShip->grab();
+
+		Money = 0;
+		ID = -1;
+		Name = L"New Player";
+		KillCount = 0;
+		DeathCount = 0;
+		Team = 0;
+		State = PS_Alive;
 	}
 
 	virtual ~IPlayer()
@@ -33,6 +60,26 @@ public:
 			PlayerShip->drop();
 
 
+	}
+
+	// 设置队伍
+	virtual void SetTeam( s32 team )
+	{
+		Team = team;
+	}
+	virtual s32 GetTeam()
+	{
+		return Team;
+	}
+
+	// 设置玩家状态
+	virtual void SetState( Player_State state )
+	{
+		State = state;
+	}
+	virtual Player_State GetState()
+	{
+		return State;
 	}
 
 	virtual void SetShip( IShip* ship )
@@ -108,15 +155,6 @@ public:
 
 	// 更新
 	virtual void Update() = 0;
-
-protected:
-	int				Money;			// 金钱
-	int				ID;				// 玩家ID
-	std::wstring	Name;			// 玩家名称
-	int				KillCount;		// 玩家杀敌数
-	int				DeathCount;		// 玩家死亡次数
-
-	IShip*			PlayerShip;		// 玩家拥有的飞机
 };
 
 

@@ -28,6 +28,7 @@ def GetRoot():
     coverC.SetVisible( False )
     selectC.AddFunc( "OnMouseMoveIn", "GeneralCoverOver", "MultiPlayCallBacks" )
     selectC.AddFunc( "OnMouseMoveOut", "GeneralCoverDefault", "MultiPlayCallBacks" )
+    selectC.AddFunc( "OnMouseLeftButtonDown", "SelectCClick", "MultiPlayCallBacks" )
     # 菜单按钮，盖伦特
     selectG = uiManager.AddUIButton( scMenu, 360, 460 )
     selectG.SetPosition( vector2df( 194, 25 ) )

@@ -73,11 +73,11 @@ void MultiplayerScene::Run()
 				// 在此处进行初始化工作
 
 				// 添加照相机
-				/*ICameraSceneNode* camera = smgr->addCameraSceneNode();
+				ICameraSceneNode* camera = smgr->addCameraSceneNode();
 				camera->setFarValue( 1e7 );
 				camera->setFOV( 1 );
-				camera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );*/
-				pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue(1000000);
+				camera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
+				//pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue(1000000);
 				
 				// 从Python加载场景
 				try
@@ -93,12 +93,12 @@ void MultiplayerScene::Run()
 				}
 
 				// 显示选阵营菜单
-				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
 				scMenu->SetVisible( true );
 				scMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				scMenu->AddAnimator( alpAni );
-				alpAni->drop();*/
+				alpAni->drop();
 
 			}
 
@@ -172,10 +172,14 @@ void MultiplayerScene::Init()
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
 
+	// 为了兼容Test状态
 	if ( State != Test )
 	{
-		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
-		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
+		// 创建飞船与玩家
+		// 飞船模型初始为默认值，在选择飞船后更改模型
+		IShip* playerShip = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+		playerShip->setVisible( false );
+		HumanPlayer* player = new HumanPlayer( playerShip );
 
 		// 加载UI界面
 		pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
@@ -185,29 +189,30 @@ void MultiplayerScene::Init()
 
 			object UILoader = import( "MultiPlayIni" );
 			object GetRoot = UILoader.attr( "GetRoot" );
-			object root = GetRoot();
-
-			//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
-			//m_playerHelper->LoadPlayerManager( &*m_playerManager );
-
-			
+			object root = GetRoot();			
 		}
 		catch ( ... )
 		{
 			PyErr_Print();
 		}
 
+		// 呃。。我也不知道是干啥的
+		//m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+		//m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
+		//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+		//m_playerHelper->LoadPlayerManager( &*m_playerManager );
+
+		// 创建控制台
 		IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 		IGUISkin* skin = gui->getSkin();
 		IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
 		if (font)
 			skin->setFont(font);
-
 		skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
-
 		console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
 		console->setVisible(false);
 
+		// 注册消息响应
 		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 		{	
 			MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );

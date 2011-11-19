@@ -3,6 +3,7 @@
 #   该文件储存MultiPlayScene中需要用到的回调函数      #
 #                                               #
 #################################################
+import PythonSceneMgr
 
     # 按钮通用
 def GeneralDefault( node ):
@@ -18,15 +19,11 @@ def GeneralCoverDefault( node ):
 def GeneralCoverOver( node ):
     node.GetChildren()[0].SetVisible( True )
     
-    '''# 选择阵营菜单  加达里盖伦特通用
-def SelectCGDefault( node ):
-    node.GetChildren()[0].SetVisible( False )
-def SelectCGOver( node ):
-    node.GetChildren()[0].SetVisible( True )'''
 
     # 选择阵营菜单  选择加达里
 def SelectCClick( node ):
-    pass
+    
+    print "shit"
     # 选择阵营菜单  选择盖伦特
 def SelectGClick( node ):
     pass
