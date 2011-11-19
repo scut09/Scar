@@ -249,5 +249,7 @@ MySceneManager* GetMySceneManager();
 
 void CreateRoom();
 
+void SetCurrentPlayerTeam( int team );
+
 #endif // PythonWrapper_h__
 

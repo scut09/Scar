@@ -15,6 +15,9 @@
 #ifndef VBAR
 #define VBAR    1
 #endif
+
+#undef LoadImage
+
 class CUIBar :
 	public IUIObject
 {

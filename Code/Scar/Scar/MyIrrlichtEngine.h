@@ -1,28 +1,29 @@
 /********************************************************************
-	创建时间: 2011:9:27   14:54
-	文件名:   MyIrrlichtEngine.h
-	作者:     华亮 Cedric Porter [ Stupid ET ]	
-	说明:     引擎的包装
+创建时间: 2011:9:27   14:54
+文件名:   MyIrrlichtEngine.h
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     引擎的包装
 
 *********************************************************************/
 
 #ifndef _MYIRRLICHTENGINE_H_
 #define _MYIRRLICHTENGINE_H_
 
-#include <irrlicht.h>
-#include <functional>
-#include <list>
-#include "def.h"
-#include "ModelManager.h"
-#include <sstream>
-//#include "IMovable.h"
-//#include "AnimationManager.h"
-#include "GameScene.h"
-#include "UIManager.h"
-#include "GameSceneManager.h"
-#include "MySceneManager.h"
-#include "Boost_Server.h"
 #include "Boost_Client.h"
+#include "Boost_Server.h"
+#include "GameScene.h"
+#include "GameSceneManager.h"
+#include "ModelManager.h"
+#include "MySceneManager.h"
+#include "PlayerManager.h"
+#include "UIManager.h"
+#include "def.h"
+#include <functional>
+#include <irrlicht.h>
+#include <list>
+#include <sstream>
+//#include "AnimationManager.h"
+//#include "IMovable.h"
 
 class IUIObject;
 
@@ -59,6 +60,8 @@ private:
 
 	boost::shared_ptr<Network::BoostServer> m_server;
 
+	boost::shared_ptr<IPlayer>		m_currentPlayer;	// 当前玩家
+
 
 
 private:
@@ -67,7 +70,7 @@ private:
 	u32								m_lastUpdateTime;
 	std::list<IUIObject*>			m_IUIObjectDeleteionList;// 针对IUIOjbect的删除缓冲队列
 	std::list<scene::ISceneNode*>	m_ISceneNodeDeletionList;// 待删除列表，在每次引擎总循环的一次循环结束后会清空它。
-															// 使用它可以让我们实现通过IUIAnimator来删除IUIObject
+	// 使用它可以让我们实现通过IUIAnimator来删除IUIObject
 	std::list<GameScene*>			m_GameSceneDeletionList;// 延迟场景删除
 
 public:
@@ -86,6 +89,18 @@ private:
 public:
 
 	~MyIrrlichtEngine();
+
+	// 获取当前玩家
+	boost::shared_ptr<IPlayer> GetCurrentPlayer() const
+	{
+		return m_currentPlayer;
+	}
+
+	// 设置当前玩家
+	void SetCurrentPlayer( boost::shared_ptr<IPlayer> player )
+	{
+		m_currentPlayer = player;
+	}
 
 	void SetServer( boost::shared_ptr<Network::BoostServer> svr ) 
 	{

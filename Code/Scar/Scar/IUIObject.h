@@ -25,6 +25,7 @@
 #include <hash_map>
 #include <boost/foreach.hpp>
 
+#undef LoadImage
 
 using namespace irr;
 using namespace irr::core;

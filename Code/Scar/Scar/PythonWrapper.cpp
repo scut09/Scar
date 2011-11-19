@@ -137,3 +137,8 @@ void CreateRoom()
 	server->Start( 1990, 2012 );
 }
 
+void SetCurrentPlayerTeam( int team )
+{
+	MyIrrlichtEngine::GetEngine()->GetCurrentPlayer()->SetTeam( team );
+}
+
