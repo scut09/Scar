@@ -321,6 +321,9 @@
     <ClCompile Include="HouseHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="PythonIPlayer.cpp">
+      <Filter>Python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">

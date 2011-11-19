@@ -18,6 +18,8 @@
 
 #include "MySceneNodeAnimatorScale.h"
 
+#include "IPlayer.h"
+
 namespace bp = boost::python;
 
 #pragma region Ship
@@ -5638,6 +5640,202 @@ struct IAnimatedMeshSceneNode_wrapper : irr::scene::IAnimatedMeshSceneNode, bp::
 #pragma endregion Mesh
 
 
+struct IPlayer_wrapper : IPlayer, bp::wrapper< IPlayer > {
+
+	IPlayer_wrapper(::IShip * playerShip )
+		: IPlayer( boost::python::ptr(playerShip) )
+		, bp::wrapper< IPlayer >(){
+			// constructor
+
+	}
+
+	virtual int GetDeath(  ) const  {
+		if( bp::override func_GetDeath = this->get_override( "GetDeath" ) )
+			return func_GetDeath(  );
+		else{
+			return this->IPlayer::GetDeath(  );
+		}
+	}
+
+	int default_GetDeath(  ) const  {
+		return IPlayer::GetDeath( );
+	}
+
+	virtual int GetID(  ) const  {
+		if( bp::override func_GetID = this->get_override( "GetID" ) )
+			return func_GetID(  );
+		else{
+			return this->IPlayer::GetID(  );
+		}
+	}
+
+	int default_GetID(  ) const  {
+		return IPlayer::GetID( );
+	}
+
+	virtual int GetKill(  ) const  {
+		if( bp::override func_GetKill = this->get_override( "GetKill" ) )
+			return func_GetKill(  );
+		else{
+			return this->IPlayer::GetKill(  );
+		}
+	}
+
+	int default_GetKill(  ) const  {
+		return IPlayer::GetKill( );
+	}
+
+	virtual ::IShip * GetShip(  ) const  {
+		if( bp::override func_GetShip = this->get_override( "GetShip" ) )
+			return func_GetShip(  );
+		else{
+			return this->IPlayer::GetShip(  );
+		}
+	}
+
+	::IShip * default_GetShip(  ) const  {
+		return IPlayer::GetShip( );
+	}
+
+	virtual ::IPlayer::Player_State GetState(  ) {
+		if( bp::override func_GetState = this->get_override( "GetState" ) )
+			return func_GetState(  );
+		else{
+			return this->IPlayer::GetState(  );
+		}
+	}
+
+	::IPlayer::Player_State default_GetState(  ) {
+		return IPlayer::GetState( );
+	}
+
+	virtual ::irr::s32 GetTeam(  ) {
+		if( bp::override func_GetTeam = this->get_override( "GetTeam" ) )
+			return func_GetTeam(  );
+		else{
+			return this->IPlayer::GetTeam(  );
+		}
+	}
+
+	::irr::s32 default_GetTeam(  ) {
+		return IPlayer::GetTeam( );
+	}
+
+	virtual bool IsRobot(  ) const  {
+		if( bp::override func_IsRobot = this->get_override( "IsRobot" ) )
+			return func_IsRobot(  );
+		else{
+			return this->IPlayer::IsRobot(  );
+		}
+	}
+
+	bool default_IsRobot(  ) const  {
+		return IPlayer::IsRobot( );
+	}
+
+	virtual void OnEvent( ::irr::SEvent const & event ) {
+		if( bp::override func_OnEvent = this->get_override( "OnEvent" ) )
+			func_OnEvent( boost::ref(event) );
+		else{
+			this->IPlayer::OnEvent( boost::ref(event) );
+		}
+	}
+
+	void default_OnEvent( ::irr::SEvent const & event ) {
+		IPlayer::OnEvent( boost::ref(event) );
+	}
+
+	virtual void SetDeath( int death ) {
+		if( bp::override func_SetDeath = this->get_override( "SetDeath" ) )
+			func_SetDeath( death );
+		else{
+			this->IPlayer::SetDeath( death );
+		}
+	}
+
+	void default_SetDeath( int death ) {
+		IPlayer::SetDeath( death );
+	}
+
+	virtual void SetID( int id ) {
+		if( bp::override func_SetID = this->get_override( "SetID" ) )
+			func_SetID( id );
+		else{
+			this->IPlayer::SetID( id );
+		}
+	}
+
+	void default_SetID( int id ) {
+		IPlayer::SetID( id );
+	}
+
+	virtual void SetKill( int kill ) {
+		if( bp::override func_SetKill = this->get_override( "SetKill" ) )
+			func_SetKill( kill );
+		else{
+			this->IPlayer::SetKill( kill );
+		}
+	}
+
+	void default_SetKill( int kill ) {
+		IPlayer::SetKill( kill );
+	}
+
+	virtual void SetName( ::std::wstring const & name ) {
+		if( bp::override func_SetName = this->get_override( "SetName" ) )
+			func_SetName( name );
+		else{
+			this->IPlayer::SetName( name );
+		}
+	}
+
+	void default_SetName( ::std::wstring const & name ) {
+		IPlayer::SetName( name );
+	}
+
+	virtual void SetShip( ::IShip * ship ) {
+		if( bp::override func_SetShip = this->get_override( "SetShip" ) )
+			func_SetShip( boost::python::ptr(ship) );
+		else{
+			this->IPlayer::SetShip( boost::python::ptr(ship) );
+		}
+	}
+
+	void default_SetShip( ::IShip * ship ) {
+		IPlayer::SetShip( boost::python::ptr(ship) );
+	}
+
+	virtual void SetState( ::IPlayer::Player_State state ) {
+		if( bp::override func_SetState = this->get_override( "SetState" ) )
+			func_SetState( state );
+		else{
+			this->IPlayer::SetState( state );
+		}
+	}
+
+	void default_SetState( ::IPlayer::Player_State state ) {
+		IPlayer::SetState( state );
+	}
+
+	virtual void SetTeam( ::irr::s32 team ) {
+		if( bp::override func_SetTeam = this->get_override( "SetTeam" ) )
+			func_SetTeam( team );
+		else{
+			this->IPlayer::SetTeam( team );
+		}
+	}
+
+	void default_SetTeam( ::irr::s32 team ) {
+		IPlayer::SetTeam( team );
+	}
+
+	virtual void Update(  ){
+		bp::override func_Update = this->get_override( "Update" );
+		func_Update(  );
+	}
+
+};
+
 BOOST_PYTHON_MODULE(PythonSceneMgr){
     //{ //::std::vector< IWeapon* >
     //    typedef bp::class_< std::vector< IWeapon* > > vector_less__IWeapon_ptr___greater__exposer_t;
@@ -8583,5 +8781,207 @@ bp::class_< IMeshSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::
 		, (void ( IAnimatedMeshSceneNode_wrapper::* )(  ) )(&IAnimatedMeshSceneNode_wrapper::default_updateAbsolutePosition) );
 #pragma endregion Mesh
 
+		{ //::IPlayer
+			typedef bp::class_< IPlayer_wrapper, boost::noncopyable > IPlayer_exposer_t;
+			IPlayer_exposer_t IPlayer_exposer = IPlayer_exposer_t( "IPlayer", bp::init< IShip * >(( bp::arg("playerShip") )) );
+			bp::scope IPlayer_scope( IPlayer_exposer );
+			bp::enum_< IPlayer::Player_State>("Player_State")
+				.value("PS_Alive", IPlayer::PS_Alive)
+				.value("PS_Dead", IPlayer::PS_Dead)
+				.export_values()
+				;
+			{ //::IPlayer::GetDeath
 
+				typedef int ( ::IPlayer::*GetDeath_function_type )(  ) const;
+				typedef int ( IPlayer_wrapper::*default_GetDeath_function_type )(  ) const;
+
+				IPlayer_exposer.def( 
+					"GetDeath"
+					, GetDeath_function_type(&::IPlayer::GetDeath)
+					, default_GetDeath_function_type(&IPlayer_wrapper::default_GetDeath) );
+
+			}
+			{ //::IPlayer::GetID
+
+				typedef int ( ::IPlayer::*GetID_function_type )(  ) const;
+				typedef int ( IPlayer_wrapper::*default_GetID_function_type )(  ) const;
+
+				IPlayer_exposer.def( 
+					"GetID"
+					, GetID_function_type(&::IPlayer::GetID)
+					, default_GetID_function_type(&IPlayer_wrapper::default_GetID) );
+
+			}
+			{ //::IPlayer::GetKill
+
+				typedef int ( ::IPlayer::*GetKill_function_type )(  ) const;
+				typedef int ( IPlayer_wrapper::*default_GetKill_function_type )(  ) const;
+
+				IPlayer_exposer.def( 
+					"GetKill"
+					, GetKill_function_type(&::IPlayer::GetKill)
+					, default_GetKill_function_type(&IPlayer_wrapper::default_GetKill) );
+
+			}
+			{ //::IPlayer::GetName
+
+				typedef ::std::wstring const & ( ::IPlayer::*GetName_function_type )(  ) const;
+
+				IPlayer_exposer.def( 
+					"GetName"
+					, GetName_function_type(&::IPlayer::GetName)
+					, bp::return_value_policy< bp::copy_const_reference >() );
+
+			}
+			{ //::IPlayer::GetShip
+
+				typedef ::IShip * ( ::IPlayer::*GetShip_function_type )(  ) const;
+				typedef ::IShip * ( IPlayer_wrapper::*default_GetShip_function_type )(  ) const;
+
+				IPlayer_exposer.def( 
+					"GetShip"
+					, GetShip_function_type(&::IPlayer::GetShip)
+					, default_GetShip_function_type(&IPlayer_wrapper::default_GetShip)
+					, bp::return_value_policy< bp::reference_existing_object >() );
+
+			}
+			{ //::IPlayer::GetState
+
+				typedef ::IPlayer::Player_State ( ::IPlayer::*GetState_function_type )(  ) ;
+				typedef ::IPlayer::Player_State ( IPlayer_wrapper::*default_GetState_function_type )(  ) ;
+
+				IPlayer_exposer.def( 
+					"GetState"
+					, GetState_function_type(&::IPlayer::GetState)
+					, default_GetState_function_type(&IPlayer_wrapper::default_GetState) );
+
+			}
+			{ //::IPlayer::GetTeam
+
+				typedef ::irr::s32 ( ::IPlayer::*GetTeam_function_type )(  ) ;
+				typedef ::irr::s32 ( IPlayer_wrapper::*default_GetTeam_function_type )(  ) ;
+
+				IPlayer_exposer.def( 
+					"GetTeam"
+					, GetTeam_function_type(&::IPlayer::GetTeam)
+					, default_GetTeam_function_type(&IPlayer_wrapper::default_GetTeam) );
+
+			}
+			{ //::IPlayer::IsRobot
+
+				typedef bool ( ::IPlayer::*IsRobot_function_type )(  ) const;
+				typedef bool ( IPlayer_wrapper::*default_IsRobot_function_type )(  ) const;
+
+				IPlayer_exposer.def( 
+					"IsRobot"
+					, IsRobot_function_type(&::IPlayer::IsRobot)
+					, default_IsRobot_function_type(&IPlayer_wrapper::default_IsRobot) );
+
+			}
+			//{ //::IPlayer::OnEvent
+			//
+			//    typedef void ( ::IPlayer::*OnEvent_function_type )( ::irr::SEvent const & ) ;
+			//    typedef void ( IPlayer_wrapper::*default_OnEvent_function_type )( ::irr::SEvent const & ) ;
+			//    
+			//    IPlayer_exposer.def( 
+			//        "OnEvent"
+			//        , OnEvent_function_type(&::IPlayer::OnEvent)
+			//        , default_OnEvent_function_type(&IPlayer_wrapper::default_OnEvent)
+			//        , ( bp::arg("event") ) );
+			//
+			//}
+			{ //::IPlayer::SetDeath
+
+				typedef void ( ::IPlayer::*SetDeath_function_type )( int ) ;
+				typedef void ( IPlayer_wrapper::*default_SetDeath_function_type )( int ) ;
+
+				IPlayer_exposer.def( 
+					"SetDeath"
+					, SetDeath_function_type(&::IPlayer::SetDeath)
+					, default_SetDeath_function_type(&IPlayer_wrapper::default_SetDeath)
+					, ( bp::arg("death") ) );
+
+			}
+			{ //::IPlayer::SetID
+
+				typedef void ( ::IPlayer::*SetID_function_type )( int ) ;
+				typedef void ( IPlayer_wrapper::*default_SetID_function_type )( int ) ;
+
+				IPlayer_exposer.def( 
+					"SetID"
+					, SetID_function_type(&::IPlayer::SetID)
+					, default_SetID_function_type(&IPlayer_wrapper::default_SetID)
+					, ( bp::arg("id") ) );
+
+			}
+			{ //::IPlayer::SetKill
+
+				typedef void ( ::IPlayer::*SetKill_function_type )( int ) ;
+				typedef void ( IPlayer_wrapper::*default_SetKill_function_type )( int ) ;
+
+				IPlayer_exposer.def( 
+					"SetKill"
+					, SetKill_function_type(&::IPlayer::SetKill)
+					, default_SetKill_function_type(&IPlayer_wrapper::default_SetKill)
+					, ( bp::arg("kill") ) );
+
+			}
+			{ //::IPlayer::SetName
+
+				typedef void ( ::IPlayer::*SetName_function_type )( ::std::wstring const & ) ;
+				typedef void ( IPlayer_wrapper::*default_SetName_function_type )( ::std::wstring const & ) ;
+
+				IPlayer_exposer.def( 
+					"SetName"
+					, SetName_function_type(&::IPlayer::SetName)
+					, default_SetName_function_type(&IPlayer_wrapper::default_SetName)
+					, ( bp::arg("name") ) );
+
+			}
+			{ //::IPlayer::SetShip
+
+				typedef void ( ::IPlayer::*SetShip_function_type )( ::IShip * ) ;
+				typedef void ( IPlayer_wrapper::*default_SetShip_function_type )( ::IShip * ) ;
+
+				IPlayer_exposer.def( 
+					"SetShip"
+					, SetShip_function_type(&::IPlayer::SetShip)
+					, default_SetShip_function_type(&IPlayer_wrapper::default_SetShip)
+					, ( bp::arg("ship") ) );
+
+			}
+			{ //::IPlayer::SetState
+
+				typedef void ( ::IPlayer::*SetState_function_type )( ::IPlayer::Player_State ) ;
+				typedef void ( IPlayer_wrapper::*default_SetState_function_type )( ::IPlayer::Player_State ) ;
+
+				IPlayer_exposer.def( 
+					"SetState"
+					, SetState_function_type(&::IPlayer::SetState)
+					, default_SetState_function_type(&IPlayer_wrapper::default_SetState)
+					, ( bp::arg("state") ) );
+
+			}
+			{ //::IPlayer::SetTeam
+
+				typedef void ( ::IPlayer::*SetTeam_function_type )( ::irr::s32 ) ;
+				typedef void ( IPlayer_wrapper::*default_SetTeam_function_type )( ::irr::s32 ) ;
+
+				IPlayer_exposer.def( 
+					"SetTeam"
+					, SetTeam_function_type(&::IPlayer::SetTeam)
+					, default_SetTeam_function_type(&IPlayer_wrapper::default_SetTeam)
+					, ( bp::arg("team") ) );
+
+			}
+			{ //::IPlayer::Update
+
+				typedef void ( ::IPlayer::*Update_function_type )(  ) ;
+
+				IPlayer_exposer.def( 
+					"Update"
+					, bp::pure_virtual( Update_function_type(&::IPlayer::Update) ) );
+
+			}
+		}
 }

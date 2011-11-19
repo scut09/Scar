@@ -13,6 +13,7 @@
 #include "EventListener.h"
 #include "GameSceneManager.h"
 #include "MySceneManager.h"
+#include "IPlayer.h"
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -137,8 +138,8 @@ void CreateRoom()
 	server->Start( 1990, 2012 );
 }
 
-void SetCurrentPlayerTeam( int team )
+IPlayer* GetCurrentPlayer()
 {
-	MyIrrlichtEngine::GetEngine()->GetCurrentPlayer()->SetTeam( team );
+	return &*MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
 }
 

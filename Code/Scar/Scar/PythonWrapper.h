@@ -249,7 +249,8 @@ MySceneManager* GetMySceneManager();
 
 void CreateRoom();
 
-void SetCurrentPlayerTeam( int team );
+class IPlayer;
+IPlayer* GetCurrentPlayer();
 
 #endif // PythonWrapper_h__
 

@@ -129,6 +129,7 @@
     <ClCompile Include="MyIrrlichtEngine.cpp" />
     <ClCompile Include="PlayerHelper.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
+    <ClCompile Include="PythonIPlayer.cpp" />
     <ClCompile Include="PythonManager.cpp" />
     <ClCompile Include="PythonModule.cpp" />
     <ClCompile Include="PythonGameScene.cpp" />

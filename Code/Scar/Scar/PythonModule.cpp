@@ -14,6 +14,7 @@
 #include "UIManager.h"
 #include "GameSceneManager.h"
 #include "MySceneManager.h"
+#include "IPlayer.h"
 
 BOOST_PYTHON_MODULE( Engine )
 {
@@ -116,5 +117,7 @@ BOOST_PYTHON_MODULE( Engine )
 	def( "GetMySceneManager", GetMySceneManager, return_value_policy< reference_existing_object >() );
 
 	def( "CreateRoom", CreateRoom );
+
+	def( "GetCurrentPlayer", GetCurrentPlayer, return_value_policy< reference_existing_object >() );
 
 }
