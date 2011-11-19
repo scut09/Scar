@@ -1,10 +1,10 @@
 #include "AlphaChangeUIAnimator.h"
 #include "IUIObject.h"
 
-AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 begin, u32 duration, 
+AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 delay, u32 duration, 
 	f32 srcalpha, f32 taralpha, bool loop /*= false */ )
-	: Begin( begin ), Duration( duration ), SrcAlpha( srcalpha ),
-	TarAlpha(taralpha),Loop( loop ), LastTime( begin )
+	: Delay( delay ), Duration( duration ), SrcAlpha( srcalpha ),
+	TarAlpha(taralpha),Loop( loop ), First( true )
 {
 	if(taralpha > 255)
 		taralpha = 255;
@@ -15,6 +15,11 @@ AlphaChangeUIAnimator::AlphaChangeUIAnimator( u32 begin, u32 duration,
 
 bool AlphaChangeUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
 {
+	if ( First )
+	{
+		First = false;
+		Begin = Delay + timeMS;
+	}
 	//还未达到动画开始时间
 	if ( Begin > timeMS )
 		return false;

@@ -7776,6 +7776,44 @@ bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )
 	, bp::return_value_policy< bp::reference_existing_object >() ) */
 
 	.def( 
+	"addAnimatedMeshSceneNode"
+	, (::irr::scene::IAnimatedMeshSceneNode * ( ::MySceneManager::* )
+	( ::irr::scene::IMesh *,
+	::irr::scene::ISceneNode *,
+	::irr::s32,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const &,
+	bool ) )( &::MySceneManager::addAnimatedMeshSceneNode )
+	, ( bp::arg("mesh")=bp::object(),
+	bp::arg("parent")=bp::object(), 
+	bp::arg("id")=(::irr::s32)(-1),
+	bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), 
+	bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f),
+	bp::arg("scale")=irr::core::vector3d<float>(1.0f, 1.0f, 1.0f),
+	bp::arg("alsoAddIfMeshPointerZero")=(bool)(true))
+	, bp::return_value_policy< bp::reference_existing_object >() )
+
+	.def( 
+	"addMeshSceneNode"
+	, (::irr::scene::IMeshSceneNode * ( ::MySceneManager::* )
+	( ::irr::scene::IMesh *,
+	::irr::scene::ISceneNode *,
+	::irr::s32,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const &,
+	::irr::core::vector3df const &,
+	bool ) )( &::MySceneManager::addMeshSceneNode )
+	, ( bp::arg("mesh")=bp::object(),
+	bp::arg("parent")=bp::object(), 
+	bp::arg("id")=(::irr::s32)(-1),
+	bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), 
+	bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f),
+	bp::arg("scale")=irr::core::vector3d<float>(1.0f, 1.0f, 1.0f),
+	bp::arg("alsoAddIfMeshPointerZero")=(bool)(true))
+	, bp::return_value_policy< bp::reference_existing_object >() )
+
+	.def( 
 	"addSphereSceneNode"
 	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )
 	( ::irr::f32,

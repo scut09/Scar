@@ -196,3 +196,13 @@ ISceneNode* MySceneManager::addSphereSceneNode( f32 radius/*=5.0f*/, s32 polyCou
 {
 	return smgr->addSphereSceneNode( radius, polyCount, parent, id, position, rotation, scale );
 }
+
+IMeshSceneNode* MySceneManager::addMeshSceneNode( IMesh* mesh, ISceneNode* parent/*=0*/, s32 id/*=-1*/, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f)*/, bool alsoAddIfMeshPointerZero/*=false*/ )
+{
+	return smgr->addMeshSceneNode( mesh, parent, id, position, rotation, scale, alsoAddIfMeshPointerZero );
+}
+
+IAnimatedMeshSceneNode* MySceneManager::addAnimatedMeshSceneNode( IAnimatedMesh* mesh, ISceneNode* parent/*=0*/, s32 id/*=-1*/, const core::vector3df& position /*= core::vector3df(0,0,0)*/, const core::vector3df& rotation /*= core::vector3df(0,0,0)*/, const core::vector3df& scale /*= core::vector3df(1.0f, 1.0f, 1.0f)*/, bool alsoAddIfMeshPointerZero/*=false*/ )
+{
+	return smgr->addAnimatedMeshSceneNode( mesh, parent, id, position, rotation, scale, alsoAddIfMeshPointerZero );
+}

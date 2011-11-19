@@ -75,6 +75,21 @@ public:
 		const core::vector3df& rotation = core::vector3df(0,0,0),
 		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f));
 
+	// 加载Mesh节点
+	IMeshSceneNode* addMeshSceneNode(IMesh* mesh, ISceneNode* parent=0, s32 id=-1,
+		const core::vector3df& position = core::vector3df(0,0,0),
+		const core::vector3df& rotation = core::vector3df(0,0,0),
+		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f),
+		bool alsoAddIfMeshPointerZero=false);
+
+	// 加载AnimatedMesh节点
+	IAnimatedMeshSceneNode* addAnimatedMeshSceneNode(IAnimatedMesh* mesh,
+		ISceneNode* parent=0, s32 id=-1,
+		const core::vector3df& position = core::vector3df(0,0,0),
+		const core::vector3df& rotation = core::vector3df(0,0,0),
+		const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f),
+		bool alsoAddIfMeshPointerZero=false);
+
 	/************************************************************************/
 	/* 动画Animator                                                         */
 	/************************************************************************/

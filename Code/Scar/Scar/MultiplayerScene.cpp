@@ -59,6 +59,7 @@ void MultiplayerScene::Run()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	ISceneManager* smgr = pEngine->GetSceneManager();
 	IVideoDriver* driver = pEngine->GetVideoDriver();
+	boost::shared_ptr<UIManager> uiManager = pEngine->GetUIManager();
 	shader = new SceneNodeShader();
 
 	switch ( State )
@@ -70,142 +71,35 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				// 在此处进行初始化工作
+
+				// 添加照相机
+				/*ICameraSceneNode* camera = smgr->addCameraSceneNode();
+				camera->setFarValue( 1e7 );
+				camera->setFOV( 1 );
+				camera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );*/
+				pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue(1000000);
+				
+				// 从Python加载场景
 				try
 				{
 					using namespace boost::python;
 					object map = import( "SelectCampScene" );
 					object LoadMap = map.attr( "LoadMap" );
 					LoadMap();
-
-					//pEngine->GetSceneManager()->addCameraSceneNode(0,vector3df(17.5, 0, 1683.5));
-					pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue(1000000);
-
-					// 测试跑道
-					//CreateRunWay();
-
-					// 恒星
-					auto star = smgr->addBillboardSceneNode();
-					star->setPosition(vector3df(0, 0, 0));
-					star->setMaterialTexture(0, pEngine->GetVideoDriver()->getTexture("../media/mainflare.png"));
-					star->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR );
-					star->setMaterialFlag(video::EMF_LIGHTING, false);
-					star->setMaterialFlag(video::EMF_ZBUFFER, true);
-					star->setSize(core::dimension2d<f32>(1000.0f, 1000.0f));
-
-					
-					// 阵营1
-					auto Planet1 = smgr->addSphereSceneNode( 50, 64 );
-
-					if ( Planet1 )
-					{
-						// 设置名称
-						Planet1->setName( "planet1" );
-						Planet1->setPosition(star->getPosition() + vector3df(-700.0, 350.0, -10.0)); 
-						// 加载纹理
-						Planet1->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet5.jpg") ) );
-						Planet1->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
-						Planet1->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
-
-						// Shader
-						GeneralCallBack* cb = new GeneralCallBack( Planet1 );
-						shader->ApplyShaderToSceneNode( Planet1, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
-						cb->drop();
-					}
-
-					// 阵营1卫星
-					auto satellite1 = smgr->addSphereSceneNode( 20, 64 );
-
-					if ( satellite1 )
-					{
-						// 设置名称
-						satellite1->setName( "satellite1" );
-						satellite1->setPosition(Planet1->getPosition() + vector3df(200, -100, -10.0));
-						// 加载纹理
-						satellite1->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/neptune.jpg") ) );
-						satellite1->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
-						satellite1->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
-
-						// Shader
-						GeneralCallBack* cb = new GeneralCallBack( satellite1 );
-						shader->ApplyShaderToSceneNode( satellite1, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
-						cb->drop();
-					}
-
-
-					IMesh* stationMesh = smgr->getMesh( _T("../model/station/cs1.obj") );
-					if ( stationMesh )
-					{
-						IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(stationMesh, true);
-						IMeshSceneNode* station = smgr->addMeshSceneNode( tangentMesh );
-						station->setName( "station1" );
-						station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
-						GeneralCallBack* cb = new GeneralCallBack( station );
-						shader->ApplyShaderToSceneNode( station, cb, "Shader/gs_1V.vert", "Shader/gs_1F.frag" );
-						cb->drop();
-						tangentMesh->drop();
-						station->setPosition(Planet1->getPosition() + vector3df(150, -200, 50));
-						station->setScale(vector3df(0.001f, 0.001f, 0.001f));
-					}
-
-					// 阵营2
-					auto Planet2 = smgr->addSphereSceneNode( 50, 64 );
-
-					if ( Planet2 )
-					{
-						// 设置名称
-						Planet2->setName( "planet2" );
-						Planet2->setPosition(star->getPosition() + vector3df(700.0, -350.0, -10.0)); 
-						// 加载纹理
-						Planet2->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet6.jpg") ) );
-						Planet2->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
-						Planet2->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
-
-						// Shader
-						GeneralCallBack* cb = new GeneralCallBack( Planet2 );
-						shader->ApplyShaderToSceneNode( Planet2, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
-						cb->drop();
-					}
-
-					// 阵营2卫星
-					auto Satellite2 = smgr->addSphereSceneNode( 20, 64 );
-
-					if ( Satellite2 )
-					{
-						// 设置名称
-						Satellite2->setName( "Satellite2" );
-						Satellite2->setPosition(Planet2->getPosition() + vector3df(200, -100, -10.0));
-						// 加载纹理
-						Satellite2->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet2.jpg") ) );
-						Satellite2->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
-						Satellite2->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
-
-						// Shader
-						GeneralCallBack* cb = new GeneralCallBack( Satellite2 );
-						shader->ApplyShaderToSceneNode( Satellite2, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
-						cb->drop();
-					}
-
-
-					IMesh* stationMesh2 = smgr->getMesh( _T("../model/station/gs1.obj") );
-					if ( stationMesh2 )
-					{
-						IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(stationMesh2, true);
-						IMeshSceneNode* station2= smgr->addMeshSceneNode( tangentMesh );
-						station2->setName( "station1" );
-						station2->setMaterialTexture( 0, driver->getTexture(_T("../model/station/gs1_tex_d.tga")) );
-						GeneralCallBack* cb = new GeneralCallBack( station2 );
-						shader->ApplyShaderToSceneNode( station2, cb, "Shader/gs_1V.vert", "Shader/gs_1F.frag" );
-						cb->drop();
-						tangentMesh->drop();
-						station2->setPosition(Planet2->getPosition() + vector3df(-150, -200, 50));
-						station2->setScale(vector3df(0.01f, 0.01f, 0.01f));
-					}
-
 				}
 				catch ( ... )
 				{
 					PyErr_Print();
 				}
+
+				// 显示选阵营菜单
+				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				scMenu->SetVisible( true );
+				scMenu->SetAlpha( 0 );
+				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
+				scMenu->AddAnimator( alpAni );
+				alpAni->drop();*/
+
 			}
 
 			// 在此处进行游戏逻辑
@@ -263,7 +157,7 @@ void MultiplayerScene::Run()
 		{
 			InitScene();
 			TestFuck();
-			State = In_Battle;
+			State = Select_Camp;
 		}
 		break;
 	}
@@ -276,7 +170,7 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
-	State = Test;
+	State = Select_Camp;
 
 	if ( State != Test )
 	{

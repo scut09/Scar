@@ -14,12 +14,13 @@ class AlphaChangeUIAnimator;
 class AlphaChangeUIAnimator : public IUIAnimator
 {
 private:
+	u32 Delay;
 	u32 Begin;
 	u32 Duration;
-	u32 LastTime;
 	f32 SrcAlpha;
 	f32 TarAlpha;
 	f32 AlphaFactor;
+	bool First;
 	bool Loop;
 
 public:
