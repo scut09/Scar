@@ -44,14 +44,14 @@ def LoadMap():
     Planet1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet5.jpg" ) )
     Planet1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
+    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,0,8e5), True )
+    Planet1.addAnimator( relStay )
+    relStay.drop()
     # 阵营1行星大气
     atmos = smgr.addSphereSceneNode( 1.05e5, 64, Planet1 )
     atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
     atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
     shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
-    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,0,8e5), True )
-    Planet1.addAnimator( relStay )
-    relStay.drop()
     # 阵营1卫星
     Satellite1 = smgr.addSphereSceneNode( 1e5, 64 )
     Satellite1.setName( "Satellite1" )
@@ -71,11 +71,19 @@ def LoadMap():
     # 阵营2行星
     Planet2 = smgr.addSphereSceneNode( 1e5, 64 )
     Planet2.setName( "planet2" )
-    Planet2.setPosition( vector3df(5e5,0,8e5) )
+    #Planet2.setPosition( vector3df(5e5,0,8e5) )
     Planet2.setScale( vector3df( 0.4, 0.4, 0.4 ) )
     Planet2.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet6.jpg" ) )
     Planet2.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet2, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
+    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 5e5,0,8e5), True )
+    Planet2.addAnimator( relStay )
+    relStay.drop()
+    # 阵营2行星大气
+    atmos = smgr.addSphereSceneNode( 1.05e5, 64, Planet2 )
+    atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
+    atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
+    shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
     # 阵营2卫星
     Satellite2 = smgr.addSphereSceneNode( 1e5, 64 )
     Satellite2.setName( "Satellite2" )
