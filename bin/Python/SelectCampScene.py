@@ -46,8 +46,8 @@ def LoadMap():
     shader.ApplyShaderGeneralCallback( Planet1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
     # 阵营1行星大气
     atmos = smgr.addSphereSceneNode( 1.05e5, 64, Planet1 )
-    #atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
-    #atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
+    atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
+    atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
     shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
     relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,0,8e5), True )
     Planet1.addAnimator( relStay )
