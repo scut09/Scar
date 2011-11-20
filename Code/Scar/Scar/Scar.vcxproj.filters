@@ -751,5 +751,23 @@
     <None Include="..\..\..\bin\Shader\Laser1.frag">
       <Filter>Shader\shaders\laser</Filter>
     </None>
+    <None Include="..\..\..\bin\Python\MultiMenuIni.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\MultiPlayCallBacks.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\MultiPlayIni.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\MultiPrerareIni.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\ScenesCreator.py">
+      <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Python\SelectCampScene.py">
+      <Filter>Python\py</Filter>
+    </None>
   </ItemGroup>
 </Project>

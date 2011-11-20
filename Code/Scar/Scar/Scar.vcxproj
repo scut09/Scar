@@ -271,7 +271,13 @@
     <None Include="..\..\..\bin\Python\MainMenuIni.py" />
     <None Include="..\..\..\bin\Python\MapV1.py" />
     <None Include="..\..\..\bin\Python\MouseEventHandler.py" />
+    <None Include="..\..\..\bin\Python\MultiMenuIni.py" />
+    <None Include="..\..\..\bin\Python\MultiPlayCallBacks.py" />
+    <None Include="..\..\..\bin\Python\MultiPlayIni.py" />
+    <None Include="..\..\..\bin\Python\MultiPrerareIni.py" />
     <None Include="..\..\..\bin\Python\scene.py" />
+    <None Include="..\..\..\bin\Python\ScenesCreator.py" />
+    <None Include="..\..\..\bin\Python\SelectCampScene.py" />
     <None Include="..\..\..\bin\Python\setup.py" />
     <None Include="..\..\..\bin\Python\SexangleButton.py" />
     <None Include="..\..\..\bin\Python\SexangleButtonPop.py" />

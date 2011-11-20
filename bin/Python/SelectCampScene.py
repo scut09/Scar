@@ -27,7 +27,7 @@ def LoadMap():
     skybox.setMaterialTexture( 1, smgr.getTexture(u"../media/Space/stars.png") )
     shader.ApplyShaderGeneralCallback( skybox, "Shader/universeV.txt", "Shader/universeF.txt" )
     # 恒星
-    sun = smgr.addBillboardSceneNode( 0 )
+    sun = smgr.addBillboardSceneNode( None )
     sun.setMaterialTexture( 0, smgr.getTexture( "../media/Space/sun.tga" ) )
 
     # 阵营1
