@@ -4,6 +4,8 @@
 #                                               #
 #################################################
 import PythonSceneMgr
+#import Engine
+from Engine import *
 
     # 按钮通用
 def GeneralDefault( node ):
@@ -22,10 +24,12 @@ def GeneralCoverOver( node ):
 
     # 选择阵营菜单  选择加达里
 def SelectCClick( node ):
-    
-    print "shit"
+    player = GetCurrentPlayer()
+    player.SetTeam( 1 )
     # 选择阵营菜单  选择盖伦特
 def SelectGClick( node ):
+    player = GetCurrentPlayer()
+    player.SetTeam( 2 )
     pass
 
     '''# 选择舰船菜单 通用
