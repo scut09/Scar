@@ -13,7 +13,7 @@ def LoadMap():
     # 一些需要用到的变量
     smgr = GetMySceneManager()
     shader = ShaderManager()
-    #camera = smgr.getActiveCamera()
+    camera = smgr.getActiveCamera()
     
     # 全局的场景，不仅仅只有该状态用到
     # 天空盒
@@ -39,7 +39,7 @@ def LoadMap():
     # 阵营1行星
     Planet1 = smgr.addSphereSceneNode( 1e5, 64 )
     Planet1.setName( "planet1" )
-    Planet1.setPosition( vector3df(-5e5,0,8e5) )
+    #Planet1.setPosition( vector3df(-5e5,0,8e5) )
     Planet1.setScale( vector3df( 0.4, 0.4, 0.4 ) )
     Planet1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet5.jpg" ) )
     Planet1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
@@ -49,7 +49,9 @@ def LoadMap():
     #atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
     #atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
     shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
-    #relStay = smgr.createRelateCameraStayAnimator( 0, 1000, 
+    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,0,8e5), True )
+    Planet1.addAnimator( relStay )
+    relStay.drop()
     # 阵营1卫星
     Satellite1 = smgr.addSphereSceneNode( 1e5, 64 )
     Satellite1.setName( "Satellite1" )
