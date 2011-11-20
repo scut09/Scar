@@ -87,13 +87,26 @@ void MultiplayerScene::Run()
 				}
 
 				 // 显示选择阵营菜单
-				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
 				scMenu->SetVisible( true );
 				scMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				scMenu->AddAnimator( alpAni );
-				alpAni->drop();
-				
+				alpAni->drop();*/
+
+				// 恒星
+				Sun = smgr->addBillboardSceneNode( 0, dimension2df( 256, 256 ) );
+				Sun->setMaterialTexture( 0, driver->getTexture( "../media/Space/sun.tga" ) );
+				auto ani = pEngine->GetMySceneManager()->createRelateCameraStayAnimator(
+					0, 1000, m_pCamera, vector3df(0,0,250), true );
+				Sun->addAnimator( ani );
+				ani->drop();
+				Sun->setMaterialFlag( EMF_ZBUFFER, false );
+				Sun->setMaterialFlag( EMF_LIGHTING, false );
+				Sun->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );
+				// 行星与卫星
+				Planet1 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet1" );
+				Planet2 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet2" );
 			}
 
 			// 在此处进行游戏逻辑
@@ -172,8 +185,8 @@ void MultiplayerScene::Init()
 	if ( State != Test )
 	{
 		// 初始化摄像机
-		//pEngine->GetSceneManager()->addCameraSceneNodeFPS()->setFarValue( 1e7 );
-		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
+		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS();
+		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 		m_pCamera->setFarValue( 1e7 );
 		m_pCamera->setFOV( 1 );
 		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
@@ -367,7 +380,7 @@ void MultiplayerScene::InitScene()
 		rot->drop();
 		// Shader
 		GeneralCallBack* cb = new GeneralCallBack( planet );
-		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.txt", "Shader/PlanetGroundF.txt" );
+		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" );
 		cb->drop();
 		//// 设置初始大小
 		//planet->setScale( vector3df( .01f ) );
@@ -389,7 +402,7 @@ void MultiplayerScene::InitScene()
 		//planetAtmos->setMaterialFlag( EMF_ZBUFFER, false );
 		GeneralCallBack* cb = new GeneralCallBack( planetAtmos );
 		// Shader
-		shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.txt", "Shader/PlanetAtmosF.txt",EMT_TRANSPARENT_ADD_COLOR );
+		shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag",EMT_TRANSPARENT_ADD_COLOR );
 		cb->drop();
 	}
 

@@ -130,6 +130,14 @@ public:
 	// 状态标志
 	MultiState State;
 
+	// 环境
+	ISceneNode* Sun;						// 恒星
+	ISceneNode* Planet1;
+	ISceneNode* Planet2;
+	ISceneNode* Moon1;
+	ISceneNode* Moon2;
+
+	// 菜单
 	IUIObject* SelectCampMenu;				// 阵营选择菜单
 
 	

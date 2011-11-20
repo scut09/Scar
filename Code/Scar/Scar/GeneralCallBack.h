@@ -38,15 +38,15 @@ private:
 		worldViewProj *= driver->getTransform( ETS_WORLD );
 		services->setVertexShaderConstant( "WorldViewProj", worldViewProj.pointer(), 16);
 
-		//世界矩阵逆矩阵
-		matrix4 invWorld = driver->getTransform( ETS_WORLD );
-		invWorld.makeInverse();
-		services->setVertexShaderConstant( "InvWorld", invWorld.pointer(), 16);
+		////世界矩阵逆矩阵
+		//matrix4 invWorld = driver->getTransform( ETS_WORLD );
+		//invWorld.makeInverse();
+		//services->setVertexShaderConstant( "InvWorld", invWorld.pointer(), 16);
 
-		//世界矩阵转置矩阵
-		matrix4 transWorld = driver->getTransform( ETS_WORLD );
-		transWorld = transWorld.getTransposed();
-		services->setVertexShaderConstant( "TransWorld", transWorld.pointer(), 16);
+		////世界矩阵转置矩阵
+		//matrix4 transWorld = driver->getTransform( ETS_WORLD );
+		//transWorld = transWorld.getTransposed();
+		//services->setVertexShaderConstant( "TransWorld", transWorld.pointer(), 16);
 
 		//纹理, 最多支持四重纹理
 		int d[]   = {0, 1, 2, 3};      //Sampler2d IDs
@@ -62,6 +62,11 @@ private:
 		//时钟
 		f32 timeMs = (f32)MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 		services->setVertexShaderConstant( "TimeMs", (f32*)&timeMs, 1);
+
+		//节点到太阳位置的方向单位向量
+		ISceneNode* Sun = smgr->getSceneNodeFromName( "Sun" );
+		vector3df sunNormal = ( Sun->getAbsolutePosition() - Node->getAbsolutePosition() ).normalize();
+		services->setVertexShaderConstant( "SunNormal", reinterpret_cast<f32*>(&sunNormal), 3 );
 	}
 };
 

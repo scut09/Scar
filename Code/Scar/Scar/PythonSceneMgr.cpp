@@ -8146,6 +8146,12 @@ bp::class_< MySceneManager >( "MySceneManager", bp::init< >() )
 	, (::irr::scene::IAnimatedMesh * ( ::MySceneManager::* )( ::std::wstring const & ) )( &::MySceneManager::getMesh )
 	, ( bp::arg("filename") )
 	, bp::return_value_policy< bp::reference_existing_object >() )    
+
+	.def( 
+		"getActiveCamera"
+		, (::irr::scene::ICameraSceneNode * ( ::MySceneManager::* )(  ) )( &::MySceneManager::getActiveCamera )
+		, bp::return_value_policy< bp::reference_existing_object >() )   
+
 	.def( 
 	"getRootSceneNode"
 	, (::irr::scene::ISceneNode * ( ::MySceneManager::* )(  ) )( &::MySceneManager::getRootSceneNode )

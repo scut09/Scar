@@ -206,3 +206,8 @@ IAnimatedMeshSceneNode* MySceneManager::addAnimatedMeshSceneNode( IAnimatedMesh*
 {
 	return smgr->addAnimatedMeshSceneNode( mesh, parent, id, position, rotation, scale, alsoAddIfMeshPointerZero );
 }
+
+ICameraSceneNode* MySceneManager::getActiveCamera()
+{
+	return smgr->getActiveCamera();
+}

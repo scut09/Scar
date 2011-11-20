@@ -667,18 +667,6 @@
     <None Include="..\..\..\bin\Python\WEB.py">
       <Filter>Python\py</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt">
-      <Filter>Shader\shaders\planet</Filter>
-    </None>
-    <None Include="..\..\..\bin\Shader\PlanetGroundV.txt">
-      <Filter>Shader\shaders\planet</Filter>
-    </None>
-    <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt">
-      <Filter>Shader\shaders\planet</Filter>
-    </None>
-    <None Include="..\..\..\bin\Shader\PlanetGroundF.txt">
-      <Filter>Shader\shaders\planet</Filter>
-    </None>
     <None Include="..\..\..\bin\Shader\universeF.txt">
       <Filter>Shader\shaders\universe</Filter>
     </None>
@@ -768,6 +756,18 @@
     </None>
     <None Include="..\..\..\bin\Python\SelectCampScene.py">
       <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetAtmosV.vert">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetAtmosF.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetGroundF.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetGroundV.vert">
+      <Filter>Shader\shaders\planet</Filter>
     </None>
   </ItemGroup>
 </Project>

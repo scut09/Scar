@@ -297,10 +297,10 @@
     <None Include="..\..\..\bin\Shader\MenuShip.vert" />
     <None Include="..\..\..\bin\Shader\MenuSun.frag" />
     <None Include="..\..\..\bin\Shader\MenuSunFlare.frag" />
-    <None Include="..\..\..\bin\Shader\PlanetAtmosF.txt" />
-    <None Include="..\..\..\bin\Shader\PlanetAtmosV.txt" />
-    <None Include="..\..\..\bin\Shader\PlanetGroundF.txt" />
-    <None Include="..\..\..\bin\Shader\PlanetGroundV.txt" />
+    <None Include="..\..\..\bin\Shader\PlanetAtmosF.frag" />
+    <None Include="..\..\..\bin\Shader\PlanetAtmosV.vert" />
+    <None Include="..\..\..\bin\Shader\PlanetGroundF.frag" />
+    <None Include="..\..\..\bin\Shader\PlanetGroundV.vert" />
     <None Include="..\..\..\bin\Shader\RunWay.frag" />
     <None Include="..\..\..\bin\Shader\SunF.frag" />
     <None Include="..\..\..\bin\Shader\SunV.vert" />
