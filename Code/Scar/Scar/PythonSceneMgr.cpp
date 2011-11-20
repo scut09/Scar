@@ -6226,6 +6226,27 @@ BOOST_PYTHON_MODULE(PythonSceneMgr){
 	.export_values()
 	;*/
 
+bp::enum_< irr::video::E_MATERIAL_FLAG>("E_MATERIAL_FLAG")
+	.value("EMF_WIREFRAME", irr::video::EMF_WIREFRAME)
+	.value("EMF_POINTCLOUD", irr::video::EMF_POINTCLOUD)
+	.value("EMF_GOURAUD_SHADING", irr::video::EMF_GOURAUD_SHADING)
+	.value("EMF_LIGHTING", irr::video::EMF_LIGHTING)
+	.value("EMF_ZBUFFER", irr::video::EMF_ZBUFFER)
+	.value("EMF_ZWRITE_ENABLE", irr::video::EMF_ZWRITE_ENABLE)
+	.value("EMF_BACK_FACE_CULLING", irr::video::EMF_BACK_FACE_CULLING)
+	.value("EMF_FRONT_FACE_CULLING", irr::video::EMF_FRONT_FACE_CULLING)
+	.value("EMF_BILINEAR_FILTER", irr::video::EMF_BILINEAR_FILTER)
+	.value("EMF_TRILINEAR_FILTER", irr::video::EMF_TRILINEAR_FILTER)
+	.value("EMF_ANISOTROPIC_FILTER", irr::video::EMF_ANISOTROPIC_FILTER)
+	.value("EMF_FOG_ENABLE", irr::video::EMF_FOG_ENABLE)
+	.value("EMF_NORMALIZE_NORMALS", irr::video::EMF_NORMALIZE_NORMALS)
+	.value("EMF_TEXTURE_WRAP", irr::video::EMF_TEXTURE_WRAP)
+	.value("EMF_ANTI_ALIASING", irr::video::EMF_ANTI_ALIASING)
+	.value("EMF_COLOR_MASK", irr::video::EMF_COLOR_MASK)
+	.value("EMF_COLOR_MATERIAL", irr::video::EMF_COLOR_MATERIAL)
+	.export_values()
+	;
+
 	bp::enum_< AS_MOVE_TYPE>("AS_MOVE_TYPE")
 		.value("AS_MT_LINER", AS_MT_LINER)
 		.value("AS_MT_LOG", AS_MT_LOG)
@@ -8990,4 +9011,294 @@ bp::class_< IMeshSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::
 
 			}
 		}
+
+
+		bp::class_< ICameraSceneNode_wrapper, bp::bases< irr::scene::ISceneNode, irr::IEventReceiver >, boost::noncopyable >( "ICameraSceneNode", bp::init< irr::scene::ISceneNode *, irr::scene::ISceneManager *, irr::s32, bp::optional< irr::core::vector3df const &, irr::core::vector3df const &, irr::core::vector3df const & > >(( bp::arg("parent"), bp::arg("mgr"), bp::arg("id"), bp::arg("position")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("rotation")=irr::core::vector3d<float>(0.0f, 0.0f, 0.0f), bp::arg("scale")=irr::core::vector3d<float>(1.0e+0f, 1.0e+0f, 1.0e+0f) )) )    
+			.def( 
+			"OnEvent"
+			, bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )( ::irr::SEvent const & ) )(&::irr::scene::ICameraSceneNode::OnEvent) )
+			, ( bp::arg("event") ) )    
+			.def( 
+			"bindTargetAndRotation"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( bool ) )(&::irr::scene::ICameraSceneNode::bindTargetAndRotation) )
+			, ( bp::arg("bound") ) )    
+			.def( 
+			"getAspectRatio"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getAspectRatio) ) )    
+			.def( 
+			"getFOV"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getFOV) ) )    
+			.def( 
+			"getFarValue"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getFarValue) ) )    
+			.def( 
+			"getNearValue"
+			, bp::pure_virtual( (::irr::f32 ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getNearValue) ) )    
+			.def( 
+			"getProjectionMatrix"
+			, bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getProjectionMatrix) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getTarget"
+			, bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getTarget) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getTargetAndRotationBinding"
+			, bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getTargetAndRotationBinding) ) )    
+			.def( 
+			"getUpVector"
+			, bp::pure_virtual( (::irr::core::vector3df const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getUpVector) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			//.def( 
+			//"getViewFrustum"
+			//, bp::pure_virtual( (::irr::scene::SViewFrustum const * ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewFrustum) )
+			///* undefined call policies */ )    
+			.def( 
+			"getViewMatrix"
+			, bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewMatrix) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getViewMatrixAffector"
+			, bp::pure_virtual( (::irr::core::matrix4 const & ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::getViewMatrixAffector) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"isInputReceiverEnabled"
+			, bp::pure_virtual( (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::isInputReceiverEnabled) ) )    
+			.def( 
+			"isOrthogonal"
+			, (bool ( ::irr::scene::ICameraSceneNode::* )(  ) const)(&::irr::scene::ICameraSceneNode::isOrthogonal)
+			, (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isOrthogonal) )    
+			.def( 
+			"setAspectRatio"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setAspectRatio) )
+			, ( bp::arg("aspect") ) )    
+			.def( 
+			"setFOV"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setFOV) )
+			, ( bp::arg("fovy") ) )    
+			.def( 
+			"setFarValue"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setFarValue) )
+			, ( bp::arg("zf") ) )    
+			.def( 
+			"setInputReceiverEnabled"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( bool ) )(&::irr::scene::ICameraSceneNode::setInputReceiverEnabled) )
+			, ( bp::arg("enabled") ) )    
+			.def( 
+			"setNearValue"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::f32 ) )(&::irr::scene::ICameraSceneNode::setNearValue) )
+			, ( bp::arg("zn") ) )    
+			.def( 
+			"setProjectionMatrix"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::matrix4 const &,bool ) )(&::irr::scene::ICameraSceneNode::setProjectionMatrix) )
+			, ( bp::arg("projection"), bp::arg("isOrthogonal")=(bool)(false) ) )    
+			.def( 
+			"setRotation"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setRotation) )
+			, ( bp::arg("rotation") ) )    
+			.def( 
+			"setTarget"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setTarget) )
+			, ( bp::arg("pos") ) )    
+			.def( 
+			"setUpVector"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ICameraSceneNode::setUpVector) )
+			, ( bp::arg("pos") ) )    
+			.def( 
+			"setViewMatrixAffector"
+			, bp::pure_virtual( (void ( ::irr::scene::ICameraSceneNode::* )( ::irr::core::matrix4 const & ) )(&::irr::scene::ICameraSceneNode::setViewMatrixAffector) )
+			, ( bp::arg("affector") ) )    
+			.def( 
+			"OnAnimate"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::OnAnimate)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::u32 ) )(&ICameraSceneNode_wrapper::default_OnAnimate)
+			, ( bp::arg("timeMs") ) )    
+			.def( 
+			"OnRegisterSceneNode"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::OnRegisterSceneNode)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_OnRegisterSceneNode) )    
+			.def( 
+			"addAnimator"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::addAnimator)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ICameraSceneNode_wrapper::default_addAnimator)
+			, ( bp::arg("animator") ) )    
+			.def( 
+			"addChild"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::addChild)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_addChild)
+			, ( bp::arg("child") ) )    
+			//.def( 
+			//"clone"
+			//, (::irr::scene::ISceneNode * ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&::irr::scene::ISceneNode::clone)
+			//, (::irr::scene::ISceneNode * ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::default_clone)
+			//, ( bp::arg("newParent")=bp::object(), bp::arg("newManager")=bp::object() )
+			///* undefined call policies */ )    
+			.def( 
+			"cloneMembers"
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode *,::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::cloneMembers)
+			, ( bp::arg("toCopyFrom"), bp::arg("newManager") ) )    
+			.def( 
+			"deserializeAttributes"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&::irr::scene::ISceneNode::deserializeAttributes)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) )(&ICameraSceneNode_wrapper::default_deserializeAttributes)
+			, ( bp::arg("in"), bp::arg("options")=bp::object() ) )    
+			.def( 
+			"getAbsolutePosition"
+			, (::irr::core::vector3df ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsolutePosition)
+			, (::irr::core::vector3df ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getAbsolutePosition) )    
+			.def( 
+			"getAbsoluteTransformation"
+			, (::irr::core::matrix4 const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getAbsoluteTransformation)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getBoundingBox"
+			, bp::pure_virtual( (::irr::core::aabbox3d< float > const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getBoundingBox) )
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getID"
+			, (::irr::s32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getID)
+			, (::irr::s32 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getID) )    
+			//.def( 
+			//"getMaterial"
+			//, (::irr::video::SMaterial & ( ::irr::scene::ISceneNode::* )( ::irr::u32 ) )(&::irr::scene::ISceneNode::getMaterial)
+			//, ( bp::arg("num") )
+			///* undefined call policies */ )    
+			.def( 
+			"getMaterialCount"
+			, (::irr::u32 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getMaterialCount)
+			, (::irr::u32 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getMaterialCount) )    
+			.def( 
+			"getName"
+			, (::irr::c8 const * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getName)
+			, (::irr::c8 const * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getName) )    
+			.def( 
+			"getPosition"
+			, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getPosition)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getRelativeTransformation"
+			, (::irr::core::matrix4 ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRelativeTransformation)
+			, (::irr::core::matrix4 ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getRelativeTransformation) )    
+			.def( 
+			"getRotation"
+			, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getRotation)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			.def( 
+			"getScale"
+			, (::irr::core::vector3df const & ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getScale)
+			, bp::return_value_policy< bp::copy_const_reference >() )    
+			//.def( 
+			//"getSceneManager"
+			//, (::irr::scene::ISceneManager * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getSceneManager)
+			//, (::irr::scene::ISceneManager * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getSceneManager)
+			///* undefined call policies */ )    
+			//.def( 
+			//"getTransformedBoundingBox"
+			//, (::irr::core::aabbox3d< float > const ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTransformedBoundingBox)
+			//, (::irr::core::aabbox3d< float > const ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getTransformedBoundingBox) )    
+			//.def( 
+			//"getTriangleSelector"
+			//, (::irr::scene::ITriangleSelector * ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getTriangleSelector)
+			//, (::irr::scene::ITriangleSelector * ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getTriangleSelector)
+			///* undefined call policies */ )    
+			.def( 
+			"getType"
+			, (::irr::scene::ESCENE_NODE_TYPE ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::getType)
+			, (::irr::scene::ESCENE_NODE_TYPE ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_getType) )    
+			.def( 
+			"isTrulyVisible"
+			, (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isTrulyVisible)
+			, (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isTrulyVisible) )    
+			.def( 
+			"isVisible"
+			, (bool ( ::irr::scene::ISceneNode::* )(  ) const)(&::irr::scene::ISceneNode::isVisible)
+			, (bool ( ICameraSceneNode_wrapper::* )(  ) const)(&ICameraSceneNode_wrapper::default_isVisible) )    
+			.def( 
+			"remove"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::remove)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_remove) )    
+			.def( 
+			"removeAll"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAll)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_removeAll) )    
+			.def( 
+			"removeAnimator"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNodeAnimator * ) )(&::irr::scene::ISceneNode::removeAnimator)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNodeAnimator * ) )(&ICameraSceneNode_wrapper::default_removeAnimator)
+			, ( bp::arg("animator") ) )    
+			.def( 
+			"removeAnimators"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::removeAnimators)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_removeAnimators) )    
+			.def( 
+			"removeChild"
+			, (bool ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::removeChild)
+			, (bool ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_removeChild)
+			, ( bp::arg("child") ) )    
+			.def( 
+			"render"
+			, bp::pure_virtual( (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::render) ) )    
+			.def( 
+			"serializeAttributes"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&::irr::scene::ISceneNode::serializeAttributes)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::io::IAttributes *,::irr::io::SAttributeReadWriteOptions * ) const)(&ICameraSceneNode_wrapper::default_serializeAttributes)
+			, ( bp::arg("out"), bp::arg("options")=bp::object() ) )    
+			.def( 
+			"setDebugDataVisible"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setDebugDataVisible)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::s32 ) )(&ICameraSceneNode_wrapper::default_setDebugDataVisible)
+			, ( bp::arg("state") ) )    
+			.def( 
+			"setDebugName"
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::c8 const * ) )(&ICameraSceneNode_wrapper::setDebugName)
+			, ( bp::arg("newName") ) )    
+			.def( 
+			"setID"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::s32 ) )(&::irr::scene::ISceneNode::setID)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::s32 ) )(&ICameraSceneNode_wrapper::default_setID)
+			, ( bp::arg("id") ) )    
+			.def( 
+			"setName"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::c8 const * ) )(&::irr::scene::ISceneNode::setName)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::c8 const * ) )(&ICameraSceneNode_wrapper::default_setName)
+			, ( bp::arg("name") ) )    
+			.def( 
+			"setName"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::stringc const & ) )(&::irr::scene::ISceneNode::setName)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::core::stringc const & ) )(&ICameraSceneNode_wrapper::default_setName)
+			, ( bp::arg("name") ) )    
+			.def( 
+			"setParent"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ISceneNode * ) )(&::irr::scene::ISceneNode::setParent)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneNode * ) )(&ICameraSceneNode_wrapper::default_setParent)
+			, ( bp::arg("newParent") ) )    
+			.def( 
+			"setPosition"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setPosition)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ICameraSceneNode_wrapper::default_setPosition)
+			, ( bp::arg("newpos") ) )    
+			.def( 
+			"setScale"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::core::vector3df const & ) )(&::irr::scene::ISceneNode::setScale)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::core::vector3df const & ) )(&ICameraSceneNode_wrapper::default_setScale)
+			, ( bp::arg("scale") ) )    
+			.def( 
+			"setSceneManager"
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ISceneManager * ) )(&ICameraSceneNode_wrapper::setSceneManager)
+			, ( bp::arg("newManager") ) )    
+			.def( 
+			"setTriangleSelector"
+			, (void ( ::irr::scene::ISceneNode::* )( ::irr::scene::ITriangleSelector * ) )(&::irr::scene::ISceneNode::setTriangleSelector)
+			, (void ( ICameraSceneNode_wrapper::* )( ::irr::scene::ITriangleSelector * ) )(&ICameraSceneNode_wrapper::default_setTriangleSelector)
+			, ( bp::arg("selector") ) )    
+			.def( 
+			"setVisible"
+			, (void ( ::irr::scene::ISceneNode::* )( bool ) )(&::irr::scene::ISceneNode::setVisible)
+			, (void ( ICameraSceneNode_wrapper::* )( bool ) )(&ICameraSceneNode_wrapper::default_setVisible)
+			, ( bp::arg("isVisible") ) )    
+			.def( 
+			"updateAbsolutePosition"
+			, (void ( ::irr::scene::ISceneNode::* )(  ) )(&::irr::scene::ISceneNode::updateAbsolutePosition)
+			, (void ( ICameraSceneNode_wrapper::* )(  ) )(&ICameraSceneNode_wrapper::default_updateAbsolutePosition) )
+			;
 }

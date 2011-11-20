@@ -35,7 +35,8 @@ BOOST_PYTHON_MODULE( Engine )
 
 	//////////////////////////////////////////////////////////////////////////
 	
-	{ //::irr::video::SColor
+	#pragma region SColor
+{ //::irr::video::SColor
 		typedef bp::class_< irr::video::SColor > SColor_exposer_t;
 		SColor_exposer_t SColor_exposer = SColor_exposer_t( "SColor", bp::init< >() );
 		bp::scope SColor_scope( SColor_exposer );
@@ -318,6 +319,7 @@ BOOST_PYTHON_MODULE( Engine )
 		SColorf_exposer.def_readwrite( "g", &irr::video::SColorf::g );
 		SColorf_exposer.def_readwrite( "r", &irr::video::SColorf::r );
 	}
+#pragma endregion SColor
 
 
 	//////////////////////////////////////////////////////////////////////////
