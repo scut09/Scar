@@ -42,16 +42,19 @@ def LoadMap():
     Planet1.setPosition( vector3df(-5e5,0,8e5) )
     Planet1.setScale( vector3df( 0.4, 0.4, 0.4 ) )
     Planet1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet5.jpg" ) )
-    Planet1.setMaterialTexture( 1, smgr.getTexture( "../media/Planets/night0.jpg" ) )
     Planet1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
+    # 阵营1行星大气
+    atmos = smgr.addSphereSceneNode( 1.05e5, 64, Planet1 )
+    #atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
+    #atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
+    shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
     #relStay = smgr.createRelateCameraStayAnimator( 0, 1000, 
     # 阵营1卫星
     Satellite1 = smgr.addSphereSceneNode( 1e5, 64 )
     Satellite1.setName( "Satellite1" )
     Satellite1.setVisible( False )
     Satellite1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet2.jpg" ) )
-    Satellite1.setMaterialTexture( 1, smgr.getTexture( "../media/Planets/night0.jpg" ) )
     Satellite1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Satellite1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
     # 阵营1基地
@@ -59,31 +62,32 @@ def LoadMap():
     station1.setName( "station1" )
     station1.setVisible( False )
     #station1.setPosition( )
-    station1.setScale(vector3df(0.001, 0.001, 0.001))
+    #station1.setScale(vector3df(0.001, 0.001, 0.001))
     shader.ApplyShaderGeneralCallback( station1, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
     
     # 阵营2
     # 阵营2行星
-    Planet2 = smgr.addSphereSceneNode( 50, 64 )
+    Planet2 = smgr.addSphereSceneNode( 1e5, 64 )
     Planet2.setName( "planet2" )
-    Planet2.setPosition( vector3df(700.0, -350.0, -10.0) ) 
+    Planet2.setPosition( vector3df(5e5,0,8e5) )
+    Planet2.setScale( vector3df( 0.4, 0.4, 0.4 ) )
     Planet2.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet6.jpg" ) )
-    Planet2.setMaterialTexture( 1, smgr.getTexture( "../media/Planets/night0.jpg" ) )
     Planet2.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet2, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
     # 阵营2卫星
-    Satellite2 = smgr.addSphereSceneNode( 20, 64 )
+    Satellite2 = smgr.addSphereSceneNode( 1e5, 64 )
     Satellite2.setName( "Satellite2" )
-    Satellite2.setPosition( Planet2.getPosition() + vector3df(200, -100, -10.0) )
+    Satellite2.setVisible( False )
+    #Satellite2.setPosition( Planet2.getPosition() + vector3df(200, -100, -10.0) )
     Satellite2.setMaterialTexture( 0, smgr.getTexture( "../media/neptune.jpg" ) )
-    Satellite2.setMaterialTexture( 1, smgr.getTexture( "../media/Planets/night0.jpg" ) )
     Satellite2.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Satellite2, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
     # 阵营2基地
     station2 = smgr.addMeshSceneNode( smgr.getMesh ("../model/station/gs1.obj") )
     station2.setName( "station2" )
-    station2.setPosition(Planet2.getPosition() + vector3df(-150, -200, 50) )
-    station2.setScale(vector3df(0.001, 0.001, 0.001))
+    station2.setVisible( False )
+    #station2.setPosition(Planet2.getPosition() + vector3df(-150, -200, 50) )
+    #station2.setScale(vector3df(0.001, 0.001, 0.001))
     shader.ApplyShaderGeneralCallback( station2, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
 
     '''# 阵营1
