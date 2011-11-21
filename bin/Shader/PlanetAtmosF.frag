@@ -19,11 +19,11 @@ void main (void)
 	}
 	else
 	{
-		factor = 1 + 2*NdotVtoC;
+		factor = 1.0 + 2.0 * NdotVtoC;
 	}
 
 	//根据角度计算大气颜色
-	vec4 Color = High * DiffLight + Low * (vec4(1) - DiffLight);
+	vec4 Color = High * DiffLight + Low * (vec4(1.0) - DiffLight);
 
 	// 根据光照条件和色调绘制大气圈
 	gl_FragColor = Color * NewDiff * factor;
