@@ -87,12 +87,12 @@ void MultiplayerScene::Run()
 				}
 
 				 // 显示选择阵营菜单
-				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
 				scMenu->SetVisible( true );
 				scMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				scMenu->AddAnimator( alpAni );
-				alpAni->drop();*/
+				alpAni->drop();
 
 				// 恒星
 				/*Sun = smgr->addBillboardSceneNode( 0, dimension2df( 256, 256 ) );
@@ -108,21 +108,53 @@ void MultiplayerScene::Run()
 				// 行星与卫星
 				Planet1 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet1" );
 				Planet2 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet2" );
+				
 			}
 
 			// 在此处进行游戏逻辑
-
 			
-			//if ( player->GetTeam() != 0 )
-			//{
-			//	State = Select_Ship;
-			//	// 在此处释放资源或隐藏资源
-			//	bRunOnce = true;
-			//}
+			if ( player->GetTeam() != 0 )
+			{
+				State = Select_Ship;
+				// 在此处释放资源或隐藏资源
+				bRunOnce = true;
+			}
 		}
 		break;
 	case Select_Ship:
 		{
+
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				scMenu->SetVisible( false );
+
+				// 飞近选船
+				Planet1->removeAnimators();
+				Planet2->removeAnimators();
+				m_pCamera->setTarget( pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->getPosition() );
+				vector3df vStraight = pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->getPosition() - m_pCamera->getPosition();
+				vStraight.normalize();
+
+				auto flystraightanim = smgr->createFlyStraightAnimator(m_pCamera->getPosition(), m_pCamera->getPosition() + 5e5*vStraight, 1000);
+				m_pCamera->addAnimator(flystraightanim);
+				flystraightanim->drop();
+
+				auto scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(500, 3000, vector3df(1.6, 1.6, 1.6));
+				Planet1->addAnimator(scaleanmi);
+				scaleanmi->drop();
+
+				scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(1500, 3000, vector3df(1.99, 1.99, 1.99));
+				pEngine->GetMySceneManager()->getSceneNodeFromName( "Satellite1" )->addAnimator(scaleanmi);
+				scaleanmi->drop();
+
+				scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(2500, 1000, vector3df(1.99, 1.99, 1.99));
+				pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->addAnimator(scaleanmi);
+				scaleanmi->drop();
+
+			}
+
 
 		}
 		break;
@@ -181,13 +213,13 @@ void MultiplayerScene::Init()
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
-
+	
 	// 兼容Test状态
 	if ( State != Test )
 	{
 		// 初始化摄像机
-		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS();
-		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
+		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 100.f, 1e4);
+		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 		m_pCamera->setFarValue( 1e7 );
 		m_pCamera->setFOV( 1 );
 		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
