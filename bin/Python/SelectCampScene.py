@@ -57,13 +57,13 @@ def LoadMap():
     Planet1 = smgr.addSphereSceneNode( 1e5, 64 )
     Planet1.setName( "planet1" )
     #Planet1.setPosition( vector3df(-5e5,0,8e5) )
-    #Planet1.setScale( vector3df( 0.4, 0.4, 0.4 ) )
+    Planet1.setPosition( vector3df(1e5,0.5e5,3e5) )
     Planet1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet5.jpg" ) )
     Planet1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
-    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,-1e5,8e5) )
+    '''relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,-1e5,8e5) )
     Planet1.addAnimator( relStay )
-    relStay.drop()
+    relStay.drop()'''
     # 阵营1行星星环
     ring = smgr.addMeshSceneNode( smgr.getMesh ("../media/Planets/ring.obj"), Planet1 )
     ring.setScale( vector3df( 1.5e5 ) )
@@ -77,33 +77,36 @@ def LoadMap():
     atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
     shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
     # 阵营1卫星
-    Satellite1 = smgr.addSphereSceneNode( 1e5, 64 )
+    Satellite1 = smgr.addSphereSceneNode( 0.25e5, 64 )
     Satellite1.setName( "Satellite1" )
+    Satellite1.setPosition( vector3df(-1e5,-4e4,1e5) )
     #Satellite1.setVisible( False )
-    Satellite1.setScale( vector3df( 0.01, 0.01, 0.01 ) )
+    #Satellite1.setScale( vector3df( 0.01, 0.01, 0.01 ) )
     Satellite1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet2.jpg" ) )
     Satellite1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Satellite1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
-    Satellite1Pos = vector3df( -5e5,0,8e5) +  vector3df(-3 * 2e5, -2 * 2e5, -2 * 2e5 )
+    '''Satellite1Pos = vector3df( -5e5,0,8e5) +  vector3df(-3 * 2e5, -2 * 2e5, -2 * 2e5 )
     relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, Satellite1Pos )
     Satellite1.addAnimator( relStay )
-    relStay.drop()
+    relStay.drop()'''
     # 阵营1基地
     station1 = smgr.addMeshSceneNode( smgr.getMesh ("../model/station/cs1.obj") )
     station1.setName( "station1" )
     #station1.setVisible( False )
-    Pos = vector3df( -5e5,0,8e5) + Satellite1Pos
+    station1.setPosition( vector3df( -.5e5, -0.3e5, 2e5 ) )
+    '''Pos = vector3df( -5e5,0,8e5) + Satellite1Pos
     Pos.X = Pos.X / 2.0 
     Pos.Y = Pos.Y / 2.0 
     Pos.Z = Pos.Z / 2.0 
-    station1.setPosition( Pos )
-    station1.setScale(vector3df(0.01, 0.01, 0.01))
+    station1.setPosition( Pos )'''
+    #station1.setScale(vector3df(0.01, 0.01, 0.01))
     shader.ApplyShaderGeneralCallback( station1, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
     
     # 阵营2
     # 阵营2行星
     Planet2 = smgr.addSphereSceneNode( 1e5, 64 )
     Planet2.setName( "planet2" )
+    Planet2.setVisible( False )
     #Planet2.setPosition( vector3df(5e5,0,8e5) )
     Planet2.setScale( vector3df( 0.4, 0.4, 0.4 ) )
     Planet2.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet6.jpg" ) )

@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BulletNode.cpp" />
+    <ClCompile Include="CSceneNodeCameraTargetChange.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="HouseHelper.cpp" />
     <ClCompile Include="IAgentPlayer.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="UIStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CSceneNodeCameraTargetChange.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="GeneralCallBack.h" />
     <ClInclude Include="HouseHelper.h" />

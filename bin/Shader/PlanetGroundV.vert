@@ -19,8 +19,6 @@ void main(void)
 	vec4 N = normalize( TransMatrix * vec4(gl_Normal, 0.0));
 	vec4 L = vec4( LightDirection, 0.0 );
 	
-	// 规范化光的方向向量 
-	L = normalize( L );
 	float NdotL = dot(N, L);
 	DiffLight = vec4(max(0.0, NdotL));
 

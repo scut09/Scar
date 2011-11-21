@@ -87,28 +87,17 @@ void MultiplayerScene::Run()
 				}
 
 				 // 显示选择阵营菜单
-				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
 				scMenu->SetVisible( true );
 				scMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				scMenu->AddAnimator( alpAni );
-				alpAni->drop();
+				alpAni->drop();*/
 
-				// 恒星
-				/*Sun = smgr->addBillboardSceneNode( 0, dimension2df( 256, 256 ) );
-				Sun->setName("Sun");
-				Sun->setMaterialTexture( 0, driver->getTexture( "../media/Space/sun.tga" ) );
-				auto ani = pEngine->GetMySceneManager()->createRelateCameraStayAnimator(
-					0, 1000, m_pCamera, vector3df(0,0,250), true );
-				Sun->addAnimator( ani );
-				ani->drop();
-				Sun->setMaterialFlag( EMF_ZBUFFER, false );
-				Sun->setMaterialFlag( EMF_LIGHTING, false );
-				Sun->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );*/
 				// 行星与卫星
-				Planet1 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet1" );
-				Planet2 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet2" );
-				
+				Planet1 = smgr->getSceneNodeFromName( "planet1" );
+				Planet2 = smgr->getSceneNodeFromName( "planet2" );
+				Moon1 = smgr->getSceneNodeFromName( "Satellite1" );
 			}
 
 			// 在此处进行游戏逻辑
@@ -131,7 +120,7 @@ void MultiplayerScene::Run()
 				scMenu->SetVisible( false );
 
 				// 飞近选船
-				Planet1->removeAnimators();
+				/*Planet1->removeAnimators();
 				Planet2->removeAnimators();
 				m_pCamera->setTarget( pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->getPosition() );
 				vector3df vStraight = pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->getPosition() - m_pCamera->getPosition();
@@ -151,7 +140,7 @@ void MultiplayerScene::Run()
 
 				scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(2500, 1000, vector3df(1.99, 1.99, 1.99));
 				pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->addAnimator(scaleanmi);
-				scaleanmi->drop();
+				scaleanmi->drop();*/
 
 			}
 

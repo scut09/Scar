@@ -15,30 +15,19 @@ using namespace irr;
 using namespace irr::core;
 using namespace irr::scene;
 
-// 缓动类型
-enum AS_MOVE_TYPE
-{
-	AS_MT_LINER,			// 线性
-	AS_MT_LOG,				// 对数 快->慢
-	AS_MT_SQUARE,			// 平方 慢->快
-	AS_MT_SQRT,			// 开方 快->慢
-	AS_MT_POW				// 指数 设置指数以调整曲线
-};
-
 class CSceneNodeCameraTargetChange : public ISceneNodeAnimator
 {
 	u32 Begin;						// 起始时间
 	u32 Delay;						// 延迟启动时间
 	u32 Duration;					// 持续时间
-	vector3df OriginTatget;				// 原始缩放
-	vector3df Target;				// 缩放增量
+	vector3df OriginTarget;			// 原始Target
+	vector3df NewTarget;			// 新Target
 	vector3df ChangeFactor;			// 缩放因子
-	AS_MOVE_TYPE MoveType;				// 缓动类型
-	f32 Factor;						// 缓动系数	
+	bool IsFirst;						// 是否已经初始化
 
 public:
 
-	CSceneNodeCameraTargetChange( u32 delay, u32 duration, vector3df newtarget, AS_MOVE_TYPE type = AS_MT_LINER, f32 factor = 0 );
+	CSceneNodeCameraTargetChange( u32 delay, u32 duration, vector3df newtarget );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 

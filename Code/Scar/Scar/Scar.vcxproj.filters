@@ -330,6 +330,9 @@
     <ClCompile Include="BulletNode.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneNodeCameraTargetChange.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -634,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="RunWay.h">
       <Filter>FunnyThings</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneNodeCameraTargetChange.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
