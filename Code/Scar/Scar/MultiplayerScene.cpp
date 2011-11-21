@@ -87,15 +87,15 @@ void MultiplayerScene::Run()
 				}
 
 				 // 显示选择阵营菜单
-				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
 				scMenu->SetVisible( true );
 				scMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				scMenu->AddAnimator( alpAni );
-				alpAni->drop();
+				alpAni->drop();*/
 
 				// 恒星
-				Sun = smgr->addBillboardSceneNode( 0, dimension2df( 256, 256 ) );
+				/*Sun = smgr->addBillboardSceneNode( 0, dimension2df( 256, 256 ) );
 				Sun->setName("Sun");
 				Sun->setMaterialTexture( 0, driver->getTexture( "../media/Space/sun.tga" ) );
 				auto ani = pEngine->GetMySceneManager()->createRelateCameraStayAnimator(
@@ -104,7 +104,7 @@ void MultiplayerScene::Run()
 				ani->drop();
 				Sun->setMaterialFlag( EMF_ZBUFFER, false );
 				Sun->setMaterialFlag( EMF_LIGHTING, false );
-				Sun->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );
+				Sun->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );*/
 				// 行星与卫星
 				Planet1 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet1" );
 				Planet2 = pEngine->GetMySceneManager()->getSceneNodeFromName( "planet2" );
@@ -186,8 +186,8 @@ void MultiplayerScene::Init()
 	if ( State != Test )
 	{
 		// 初始化摄像机
-		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS();
-		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
+		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS();
+		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 		m_pCamera->setFarValue( 1e7 );
 		m_pCamera->setFOV( 1 );
 		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );

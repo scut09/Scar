@@ -288,6 +288,12 @@
     <None Include="..\..\..\bin\Shader\cf_1V.vert" />
     <None Include="..\..\..\bin\Shader\cs_1F.frag" />
     <None Include="..\..\..\bin\Shader\cs_1V.vert" />
+    <None Include="..\..\..\bin\Shader\flare1.frag" />
+    <None Include="..\..\..\bin\Shader\flare1.vert" />
+    <None Include="..\..\..\bin\Shader\flare2.frag" />
+    <None Include="..\..\..\bin\Shader\flare2.vert" />
+    <None Include="..\..\..\bin\Shader\flare3.frag" />
+    <None Include="..\..\..\bin\Shader\flare3.vert" />
     <None Include="..\..\..\bin\Shader\Laser1.frag" />
     <None Include="..\..\..\bin\Shader\MenuAtmos.frag" />
     <None Include="..\..\..\bin\Shader\MenuAtmos.vert" />

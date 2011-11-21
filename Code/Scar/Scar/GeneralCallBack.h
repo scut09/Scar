@@ -59,6 +59,10 @@ private:
 		vector3df cameraPos = smgr->getActiveCamera()->getAbsolutePosition();
 		services->setVertexShaderConstant( "CameraPos", reinterpret_cast<f32*>(&cameraPos), 3);
 
+		//ÉãÏñ»ú³¯Ïò
+		vector3df cameraDir = ( smgr->getActiveCamera()->getTarget() - smgr->getActiveCamera()->getPosition() ).normalize();
+		services->setVertexShaderConstant( "CameraDir", reinterpret_cast<f32*>(&cameraDir), 3);
+
 		//Ê±ÖÓ
 		f32 timeMs = (f32)MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 		services->setVertexShaderConstant( "TimeMs", (f32*)&timeMs, 1);
