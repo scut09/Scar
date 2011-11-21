@@ -1,7 +1,7 @@
 #include "CSceneNodeCameraTargetChange.h"
 
 CSceneNodeCameraTargetChange::CSceneNodeCameraTargetChange( u32 delay, u32 duration, vector3df newtarget ) :
-Begin( 0 ), Delay( delay ), Duration( duration ), NewTarget( newtarget ), IsFirst( true )
+Begin( 0 ), Delay( delay ), Duration( duration ), NewTarget( newtarget.normalize() ), IsFirst( true )
 {
 
 }

@@ -86,18 +86,35 @@ void MultiplayerScene::Run()
 					PyErr_Print();
 				}
 
-				 // 显示选择阵营菜单
-				/*IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
-				scMenu->SetVisible( true );
-				scMenu->SetAlpha( 0 );
-				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
-				scMenu->AddAnimator( alpAni );
-				alpAni->drop();*/
+				// 恒星
+				Sun = smgr->getSceneNodeFromName( "Sun" );
 
 				// 行星与卫星
 				Planet1 = smgr->getSceneNodeFromName( "planet1" );
 				Planet2 = smgr->getSceneNodeFromName( "planet2" );
 				Moon1 = smgr->getSceneNodeFromName( "Satellite1" );
+
+				// 空间站
+				Station1 = smgr->getSceneNodeFromName( "station1" );
+				Station2 = smgr->getSceneNodeFromName( "station2" );
+
+				 // 显示选择阵营菜单
+				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
+				scMenu->SetVisible( true );
+				scMenu->SetAlpha( 0 );
+				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
+				scMenu->AddAnimator( alpAni );
+				alpAni->drop();
+
+				//m_pCamera->setPosition( vector3df(-8e5, -1.5e5, 9e5) );
+				//m_pCamera->setTarget( vector3df(1,0,0) );
+				/*auto ani1 = smgr->createFlyStraightAnimator( vector3df(-5e5, -1e5, 8e5), vector3df(3e5,0.5e5,-1e5), 15000 );
+				Planet1->addAnimator( ani1 );
+				ani1->drop();
+
+				auto ani2 = new CSceneNodeCameraTargetChange( 0, 15000, vector3df( 1,0,0) );
+				m_pCamera->addAnimator( ani2 );
+				ani2->drop();*/
 			}
 
 			// 在此处进行游戏逻辑
@@ -112,35 +129,36 @@ void MultiplayerScene::Run()
 		break;
 	case Select_Ship:
 		{
-
+			ISceneNode* ActiveStation;
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
+				// 选阵营菜单消失
 				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
 				scMenu->SetVisible( false );
 
-				// 飞近选船
-				/*Planet1->removeAnimators();
-				Planet2->removeAnimators();
-				m_pCamera->setTarget( pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->getPosition() );
-				vector3df vStraight = pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->getPosition() - m_pCamera->getPosition();
-				vStraight.normalize();
+				// 显示
+				Moon1->setVisible( true );
+				if ( player->GetTeam() == 1 )
+					ActiveStation = Station1;
+				else 
+					ActiveStation = Station2;
+				ActiveStation->setVisible( true );
+				
+				// 拉镜头动画
+				auto ani1 = smgr->createFlyStraightAnimator( vector3df(-5e5, -1e5, 8e5), vector3df(3e5,0.5e5,-1e5), 2500 );
+				Planet1->addAnimator( ani1 );
+				ani1->drop();
+				auto ani2 = new CSceneNodeCameraTargetChange( 0, 2500, vector3df( 1,0,0) );
+				m_pCamera->addAnimator( ani2 );
+				ani2->drop();
+				auto ani3 = pEngine->GetMySceneManager()->createScaleAnimator( 2000, 500, vector3df( 1.99f) );
+				ActiveStation->addAnimator( ani3 );
+				ani3->drop();
+				auto ani4 = smgr->createFlyStraightAnimator( vector3df(0,0,18e5), vector3df(18e5,0,0), 2500 );
+				Sun->addAnimator( ani4 );
+				ani4->drop();
 
-				auto flystraightanim = smgr->createFlyStraightAnimator(m_pCamera->getPosition(), m_pCamera->getPosition() + 5e5*vStraight, 1000);
-				m_pCamera->addAnimator(flystraightanim);
-				flystraightanim->drop();
-
-				auto scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(500, 3000, vector3df(1.6, 1.6, 1.6));
-				Planet1->addAnimator(scaleanmi);
-				scaleanmi->drop();
-
-				scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(1500, 3000, vector3df(1.99, 1.99, 1.99));
-				pEngine->GetMySceneManager()->getSceneNodeFromName( "Satellite1" )->addAnimator(scaleanmi);
-				scaleanmi->drop();
-
-				scaleanmi = pEngine->GetMySceneManager()->createScaleAnimator(2500, 1000, vector3df(1.99, 1.99, 1.99));
-				pEngine->GetMySceneManager()->getSceneNodeFromName( "station1" )->addAnimator(scaleanmi);
-				scaleanmi->drop();*/
 
 			}
 

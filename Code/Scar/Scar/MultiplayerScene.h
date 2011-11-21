@@ -135,7 +135,8 @@ public:
 	ISceneNode* Planet1;
 	ISceneNode* Planet2;
 	ISceneNode* Moon1;
-	ISceneNode* Moon2;
+	ISceneNode* Station1;
+	ISceneNode* Station2;
 
 	// 菜单
 	IUIObject* SelectCampMenu;				// 阵营选择菜单
