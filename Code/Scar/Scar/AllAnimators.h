@@ -25,5 +25,6 @@
 #include "SceneNodeAnimatorAircraftFPS.h"
 #include "SceneNodeAnimatorFollow.h"
 #include "FireAnimator.h"
+#include "CSceneNodeCameraTargetChange.h"
 
 #endif // AllAnimators_h__
