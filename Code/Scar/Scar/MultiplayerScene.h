@@ -33,6 +33,7 @@ public:
 	{
 		Select_Camp,		// 选阵营
 		Select_Ship,		// 选船
+		Transition1,		// 过渡1，从星系拉近到行星
 		Select_Equipment,	// 选武器装备
 		First_Flight,		// 首次起飞
 		Warp,				// 跃迁
@@ -132,6 +133,7 @@ public:
 
 	// 环境
 	ISceneNode* Sun;						// 恒星
+	ISceneNode* Flare;
 	ISceneNode* Planet1;
 	ISceneNode* Planet2;
 	ISceneNode* Moon1;
@@ -140,6 +142,8 @@ public:
 
 	// 菜单
 	IUIObject* SelectCampMenu;				// 阵营选择菜单
+	IUIObject* SelectShipMenu;				// 舰船选择菜单
+	IUIObject* SelectEquiMenu;				// 武器装备选择菜单
 
 	
 

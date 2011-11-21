@@ -255,6 +255,8 @@
     <ClInclude Include="SpriteFlame.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="IUIAnimator.h" />
+    <ClInclude Include="SunFlareAnimator.h" />
+    <ClInclude Include="SunFlareCallBack.h" />
     <ClInclude Include="TheBeginMove.h" />
     <ClInclude Include="TimelagUIAnimator.h" />
     <ClInclude Include="Toolkit.h" />

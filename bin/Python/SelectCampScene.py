@@ -33,14 +33,16 @@ def LoadMap():
     Sun.setPosition( vector3df( 0, 0, 18e5 ) )
     # 恒星光晕1
     flare1 = smgr.addBillboardSceneNode( None, dimension2df( 256, 256 ) )
+    flare1.setName( "flare" )
+    #flare1.setPosition( vector3df( 0,0,250 ) )
     flare1.setMaterialTexture( 0, smgr.getTexture( "../media/Space/sun.tga" ) )
     flare1.setMaterialFlag( EMF_ZBUFFER, False )
     #flare1.setMaterialFlag( EMF_LIGHTING, False )
     #flare1.setMaterialType( EMT_TRANSPARENT_ADD_COLOR )
-    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 0,0,250 ) )
+    '''relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 0,0,250 ) )
     flare1.addAnimator( relStay )
-    relStay.drop()
-    shader.ApplyShaderGeneralCallback( flare1, "", "Shader/flare1.frag", EMT_TRANSPARENT_ADD_COLOR )
+    relStay.drop()'''
+    shader.ApplyShaderGeneralCallback( flare1, "Shader/flare1.vert", "Shader/flare1.frag", EMT_TRANSPARENT_ADD_COLOR )
     # 恒星光晕2
     flare2 = smgr.addBillboardSceneNode( flare1, dimension2df( 256, 256 ) )
     flare2.setMaterialTexture( 0, smgr.getTexture( "../media/Space/flare2.png" ) )
@@ -100,15 +102,15 @@ def LoadMap():
     # 阵营2行星
     Planet2 = smgr.addSphereSceneNode( 1e5, 64 )
     Planet2.setName( "planet2" )
-    Planet2.setVisible( False )
-    #Planet2.setPosition( vector3df(5e5,0,8e5) )
+    #Planet2.setVisible( False )
+    Planet2.setPosition( vector3df(5e5,0,8e5) )
     Planet2.setScale( vector3df( 0.4, 0.4, 0.4 ) )
     Planet2.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet6.jpg" ) )
     Planet2.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet2, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
-    relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 5e5,0,8e5), True )
+    '''relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 5e5,0,8e5), True )
     Planet2.addAnimator( relStay )
-    relStay.drop()
+    relStay.drop()'''
     # 阵营2行星大气
     atmos = smgr.addSphereSceneNode( 1.05e5, 64, Planet2 )
     atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )

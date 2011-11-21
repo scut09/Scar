@@ -641,6 +641,12 @@
     <ClInclude Include="CSceneNodeCameraTargetChange.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="SunFlareCallBack.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SunFlareAnimator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\client.py">

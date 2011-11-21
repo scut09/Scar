@@ -30,6 +30,8 @@
 #include "PythonWrapper.h"
 #include "RunWay.h"
 #include "LaserNode.h"
+//#include "SunFlareCallBack.h"
+#include "SunFlareAnimator.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -88,6 +90,14 @@ void MultiplayerScene::Run()
 
 				// 恒星
 				Sun = smgr->getSceneNodeFromName( "Sun" );
+				Flare = smgr->getSceneNodeFromName( "flare" );
+				SunFlareAnimator* sunAni = new SunFlareAnimator();
+				Flare->addAnimator( sunAni );
+				sunAni->drop();
+				/*Flare = smgr->getSceneNodeFromName( "flare" );
+				SunFlareCallBack* suncb = new SunFlareCallBack( Flare );
+				shader->ApplyShaderToSceneNode( Flare, suncb, "Shader/flare1.vert", "Shader/flare1.frag", EMT_TRANSPARENT_ADD_COLOR );
+				suncb->drop();*/
 
 				// 行星与卫星
 				Planet1 = smgr->getSceneNodeFromName( "planet1" );
@@ -105,29 +115,19 @@ void MultiplayerScene::Run()
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				scMenu->AddAnimator( alpAni );
 				alpAni->drop();
-
-				//m_pCamera->setPosition( vector3df(-8e5, -1.5e5, 9e5) );
-				//m_pCamera->setTarget( vector3df(1,0,0) );
-				/*auto ani1 = smgr->createFlyStraightAnimator( vector3df(-5e5, -1e5, 8e5), vector3df(3e5,0.5e5,-1e5), 15000 );
-				Planet1->addAnimator( ani1 );
-				ani1->drop();
-
-				auto ani2 = new CSceneNodeCameraTargetChange( 0, 15000, vector3df( 1,0,0) );
-				m_pCamera->addAnimator( ani2 );
-				ani2->drop();*/
 			}
 
 			// 在此处进行游戏逻辑
 			
 			if ( player->GetTeam() != 0 )
 			{
-				State = Select_Ship;
+				State = Transition1;
 				// 在此处释放资源或隐藏资源
 				bRunOnce = true;
 			}
 		}
 		break;
-	case Select_Ship:
+	case Transition1:
 		{
 			ISceneNode* ActiveStation;
 			if ( bRunOnce )
@@ -144,7 +144,7 @@ void MultiplayerScene::Run()
 				else 
 					ActiveStation = Station2;
 				ActiveStation->setVisible( true );
-				
+
 				// 拉镜头动画
 				auto ani1 = smgr->createFlyStraightAnimator( vector3df(-5e5, -1e5, 8e5), vector3df(3e5,0.5e5,-1e5), 2500 );
 				Planet1->addAnimator( ani1 );
@@ -158,8 +158,35 @@ void MultiplayerScene::Run()
 				auto ani4 = smgr->createFlyStraightAnimator( vector3df(0,0,18e5), vector3df(18e5,0,0), 2500 );
 				Sun->addAnimator( ani4 );
 				ani4->drop();
+			}
 
+			// 跳到下一场景
+			if ( m_pCamera->getAnimators().empty() )
+			{
+				bRunOnce = true;
+				State = Select_Ship;
+			}
+		}
+		break;
+	case Select_Ship:
+		{
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				// 隐藏不需要绘制的东西
+				Planet2->setVisible( false );
 
+				if( player->GetTeam() == 1 )
+					SelectShipMenu = uiManager->GetUIObjectByName( "ssMenuC" );
+				else
+					SelectShipMenu = uiManager->GetUIObjectByName( "ssMenuG" );
+				SelectEquiMenu = uiManager->GetUIObjectByName( "seMenu" );
+
+				SelectShipMenu->SetVisible( true );
+				SelectShipMenu->SetAlpha( 0 );
+				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
+				SelectShipMenu->AddAnimator( alpAni );
+				alpAni->drop();
 			}
 
 
