@@ -1,6 +1,6 @@
 
 uniform mat4 WorldViewProj;
-vec3 LightDirection = vec3( -1.0, 0.0, 0.0 ); //uniform vec3 SunPosition;
+uniform vec3 SunNormal;
 uniform mat4 TransMatrix;
 uniform vec3 AbsPos;
 uniform vec3 CameraPos;
@@ -14,13 +14,14 @@ varying vec4 Low;
 void main(void)
 {
 	//高光
-	High = vec4(2);
+	High = vec4(1.5);
 	//色调
-	Low = vec4( 0.8, 0.7, 0.4, 1.0 );
+	Low = vec4( 0.8, 0.85, 0.9, 1.0 );
 
 	gl_Position = WorldViewProj * gl_Vertex;
 	
 	// 计算散射光
+	vec3 LightDirection = SunNormal;
 	vec4 N = normalize( TransMatrix * vec4(gl_Normal, 0.0));
 	vec4 L = vec4( LightDirection, 0.0 );
 	float NdotL = dot(N, L);

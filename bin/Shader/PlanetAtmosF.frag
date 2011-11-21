@@ -19,7 +19,7 @@ void main (void)
 	}
 	else
 	{
-		factor = 1.0 + 2.0 * NdotVtoC;
+		factor = 1.0 + 2.5 * NdotVtoC;
 	}
 
 	//根据角度计算大气颜色
