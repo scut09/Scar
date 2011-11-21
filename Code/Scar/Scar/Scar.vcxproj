@@ -307,6 +307,8 @@
     <None Include="..\..\..\bin\Shader\PlanetAtmosV.vert" />
     <None Include="..\..\..\bin\Shader\PlanetGroundF.frag" />
     <None Include="..\..\..\bin\Shader\PlanetGroundV.vert" />
+    <None Include="..\..\..\bin\Shader\PlanetRing.frag" />
+    <None Include="..\..\..\bin\Shader\PlanetRing.vert" />
     <None Include="..\..\..\bin\Shader\RunWay.frag" />
     <None Include="..\..\..\bin\Shader\SunF.frag" />
     <None Include="..\..\..\bin\Shader\SunV.vert" />

@@ -787,5 +787,11 @@
     <None Include="..\..\..\bin\Shader\flare3.vert">
       <Filter>Shader\shaders\universe</Filter>
     </None>
+    <None Include="..\..\..\bin\Shader\PlanetRing.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\PlanetRing.vert">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
   </ItemGroup>
 </Project>
