@@ -39,9 +39,6 @@ def LoadMap():
     flare1.setMaterialFlag( EMF_ZBUFFER, False )
     #flare1.setMaterialFlag( EMF_LIGHTING, False )
     #flare1.setMaterialType( EMT_TRANSPARENT_ADD_COLOR )
-    '''relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 0,0,250 ) )
-    flare1.addAnimator( relStay )
-    relStay.drop()'''
     shader.ApplyShaderGeneralCallback( flare1, "Shader/flare1.vert", "Shader/flare1.frag", EMT_TRANSPARENT_ADD_COLOR )
     # 恒星光晕2
     flare2 = smgr.addBillboardSceneNode( flare1, dimension2df( 256, 256 ) )
@@ -65,9 +62,6 @@ def LoadMap():
     Planet1.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet5.jpg" ) )
     Planet1.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet1, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
-    '''relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( -5e5,-1e5,8e5) )
-    Planet1.addAnimator( relStay )
-    relStay.drop()'''
     # 阵营1行星星环
     ring = smgr.addMeshSceneNode( smgr.getMesh ("../media/Planets/ring.obj"), Planet1 )
     ring.setScale( vector3df( 1.5e5 ) )
@@ -108,28 +102,17 @@ def LoadMap():
     Planet2.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/planet6.jpg" ) )
     Planet2.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
     shader.ApplyShaderGeneralCallback( Planet2, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )
-    '''relStay = smgr.createRelateCameraStayAnimator( 0, 1000, camera, vector3df( 5e5,0,8e5), True )
-    Planet2.addAnimator( relStay )
-    relStay.drop()'''
     # 阵营2行星大气
     atmos = smgr.addSphereSceneNode( 1.05e5, 64, Planet2 )
     atmos.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
     atmos.setMaterialFlag( EMF_FRONT_FACE_CULLING, True )
     shader.ApplyShaderGeneralCallback( atmos, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag", EMT_TRANSPARENT_ADD_COLOR )
-    # 阵营2卫星
-    '''Satellite2 = smgr.addSphereSceneNode( 1e5, 64 )
-    Satellite2.setName( "Satellite2" )
-    Satellite2.setVisible( False )
-    #Satellite2.setPosition( Planet2.getPosition() + vector3df(200, -100, -10.0) )
-    Satellite2.setMaterialTexture( 0, smgr.getTexture( "../media/neptune.jpg" ) )
-    Satellite2.setMaterialTexture( 2, smgr.getTexture( "../media/Planets/a.tga" ) )
-    shader.ApplyShaderGeneralCallback( Satellite2, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" )'''
     # 阵营2基地
-    station2 = smgr.addMeshSceneNode( smgr.getMesh ("../model/station/gs1.obj") )
+    station2 = smgr.addMeshSceneNode( smgr.getMesh ("../model/station/gs1.obj"), Planet1 )
     station2.setName( "station2" )
     station2.setVisible( False )
-    #station2.setPosition(Planet2.getPosition() + vector3df(-150, -200, 50) )
-    #station2.setScale(vector3df(0.001, 0.001, 0.001))
+    station2.setPosition(vector3df( -1e5, -0.8e5, 1.5e5 ) )
+    station2.setScale(vector3df(0.01))
     shader.ApplyShaderGeneralCallback( station2, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
 
     #smgr.addRunWaySceneNode( vector3df(0,0,0), 200, 300, vector3df( 255,255,0 ), vector3df( 0, 255, 0 ) )

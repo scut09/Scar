@@ -109,11 +109,11 @@ void MultiplayerScene::Run()
 				Station2 = smgr->getSceneNodeFromName( "station2" );
 
 				 // 显示选择阵营菜单
-				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
-				scMenu->SetVisible( true );
-				scMenu->SetAlpha( 0 );
+				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
+				SelectCampMenu->SetVisible( true );
+				SelectCampMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
-				scMenu->AddAnimator( alpAni );
+				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
 			}
 
@@ -134,8 +134,7 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				// 选阵营菜单消失
-				IUIObject* scMenu = uiManager->GetUIObjectByName( "scMenu" );
-				scMenu->SetVisible( false );
+				SelectCampMenu->SetVisible( false );
 
 				// 显示
 				Moon1->setVisible( true );
@@ -173,14 +172,20 @@ void MultiplayerScene::Run()
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
+				player->SetConfirm( false );
 				// 隐藏不需要绘制的东西
 				Planet2->setVisible( false );
 
 				if( player->GetTeam() == 1 )
+				{
 					SelectShipMenu = uiManager->GetUIObjectByName( "ssMenuC" );
+					player->SetShipName( L"cf1" );
+				}
 				else
+				{
 					SelectShipMenu = uiManager->GetUIObjectByName( "ssMenuG" );
-				SelectEquiMenu = uiManager->GetUIObjectByName( "seMenu" );
+					player->SetShipName( L"gf1" );
+				}
 
 				SelectShipMenu->SetVisible( true );
 				SelectShipMenu->SetAlpha( 0 );
@@ -188,13 +193,66 @@ void MultiplayerScene::Run()
 				SelectShipMenu->AddAnimator( alpAni );
 				alpAni->drop();
 			}
-
-
+			// 逻辑
+			if ( player->GetTeam() == 1 )
+			{
+				if ( player->GetShipName() == L"cf1" )
+				{
+					SelectShipMenu->GetChildren()[0]->GetChildren()[0]->SetVisible( false );
+					SelectShipMenu->GetChildren()[0]->GetChildren()[1]->SetVisible( true );
+				}
+				else if ( player->GetShipName() == L"cf2" )
+				{
+					SelectShipMenu->GetChildren()[1]->GetChildren()[0]->SetVisible( false );
+					SelectShipMenu->GetChildren()[1]->GetChildren()[1]->SetVisible( true );
+				}
+			}
+			else
+			{
+				if ( player->GetShipName() == L"gf1" )
+				{
+					SelectShipMenu->GetChildren()[0]->GetChildren()[0]->SetVisible( false );
+					SelectShipMenu->GetChildren()[0]->GetChildren()[1]->SetVisible( true );
+				}
+				else if ( player->GetShipName() == L"gf2" )
+				{
+					SelectShipMenu->GetChildren()[1]->GetChildren()[0]->SetVisible( false );
+					SelectShipMenu->GetChildren()[1]->GetChildren()[1]->SetVisible( true );
+				}
+			}
+			// 跳至下一场景
+			if ( player->GetConfirm() )
+			{
+				State = Select_Equipment;
+				bRunOnce = true;
+			}
 		}
 		break;
 	case Select_Equipment:
 		{
+			// 初始化
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				player->SetConfirm( false );
+				// 隐藏菜单
+				SelectShipMenu->SetVisible( false );
+				// 显示选装备菜单
+				SelectEquiMenu = uiManager->GetUIObjectByName( "seMenu" );
+				SelectEquiMenu->SetVisible( true );
+			}
 
+			// 导航栏
+			if ( uiManager->GetUIObjectByName( "buyListGun" )->GetVisible() )
+			{
+				SelectEquiMenu->GetChildren()[0]->GetChildren()[0]->SetVisible( false );
+				SelectEquiMenu->GetChildren()[0]->GetChildren()[1]->SetVisible( true );
+			}
+			else if ( uiManager->GetUIObjectByName( "buyListMissle" )->GetVisible() )
+			{
+				SelectEquiMenu->GetChildren()[1]->GetChildren()[0]->SetVisible( false );
+				SelectEquiMenu->GetChildren()[1]->GetChildren()[1]->SetVisible( true );
+			}
 		}
 		break;
 	case First_Flight:

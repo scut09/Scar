@@ -37,6 +37,7 @@ def GetRoot():
     coverG.SetVisible( False )
     selectG.AddFunc( "OnMouseMoveIn", "GeneralCoverOver", "MultiPlayCallBacks" )
     selectG.AddFunc( "OnMouseMoveOut", "GeneralCoverDefault", "MultiPlayCallBacks" )
+    selectG.AddFunc( "OnMouseLeftButtonDown", "SelectGClick", "MultiPlayCallBacks" )
 
     # 选择舰船
     # 加达里
@@ -57,6 +58,7 @@ def GetRoot():
     over.LoadImage("../media/UIResource/Game/cf1b_o.png")
     cf1b.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     cf1b.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    cf1b.AddFunc( "OnMouseLeftButtonDown", "SelectCf1", "MultiPlayCallBacks" )
     #over.SetVisible( False )
     # 小鹰
     cf2b = uiManager.AddUIButton( ssMenu, 120, 40 )
@@ -69,8 +71,10 @@ def GetRoot():
     over.SetVisible( False )
     cf2b.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     cf2b.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    cf2b.AddFunc( "OnMouseLeftButtonDown", "SelectCf2", "MultiPlayCallBacks" )
     # 蜻蜓信息窗口
     cf1Info = uiManager.AddUIImage( ssMenu, 0, 0 )
+    cf1Info.SetName( "cf1Info" )
     #cf1Info.SetVisible( False )
     cf1Pic = uiManager.AddUIImage( cf1Info, 410, 290 )
     cf1Pic.LoadImage("../media/UIResource/Game/cf1.jpg")
@@ -83,6 +87,7 @@ def GetRoot():
     cf1Des.SetPosition( vector2df( 46, 115 ) )
     # 小鹰信息窗口
     cf2Info = uiManager.AddUIImage( ssMenu, 0, 0 )
+    cf2Info.SetName( "cf2Info" )
     cf2Info.SetVisible( False )
     cf2Pic = uiManager.AddUIImage( cf2Info, 410, 290 )
     cf2Pic.LoadImage("../media/UIResource/Game/cf2.jpg")
@@ -103,6 +108,7 @@ def GetRoot():
     over.SetVisible( False )
     confirm.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     confirm.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    confirm.AddFunc( "OnMouseLeftButtonDown", "ConfirmClick", "MultiPlayCallBacks" )
     # 盖伦特
     # 菜单背景
     ssMenu = uiManager.AddUIImage( root, 800, 550 )
@@ -121,6 +127,7 @@ def GetRoot():
     over.LoadImage("../media/UIResource/Game/gf1b_o.png")
     gf1b.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     gf1b.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    gf1b.AddFunc( "OnMouseLeftButtonDown", "SelectGf1", "MultiPlayCallBacks" )
     #over.SetVisible( False )
     # 纳维达斯
     gf2b = uiManager.AddUIButton( ssMenu, 120, 40 )
@@ -133,8 +140,10 @@ def GetRoot():
     over.SetVisible( False )
     gf2b.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     gf2b.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    gf2b.AddFunc( "OnMouseLeftButtonDown", "SelectGf2", "MultiPlayCallBacks" )
     # 投矛手信息窗口
     gf1Info = uiManager.AddUIImage( ssMenu, 0, 0 )
+    gf1Info.SetName( "gf1Info" )
     #gf1Info.SetVisible( False )
     gf1Pic = uiManager.AddUIImage( gf1Info, 410, 290 )
     gf1Pic.LoadImage("../media/UIResource/Game/gf1.jpg")
@@ -147,6 +156,7 @@ def GetRoot():
     gf1Des.SetPosition( vector2df( 46, 115 ) )
     # 纳维达斯信息窗口
     gf2Info = uiManager.AddUIImage( ssMenu, 0, 0 )
+    gf2Info.SetName( "gf2Info" )
     gf2Info.SetVisible( False )
     gf2Pic = uiManager.AddUIImage( gf2Info, 410, 290 )
     gf2Pic.LoadImage("../media/UIResource/Game/gf2.jpg")
@@ -167,6 +177,7 @@ def GetRoot():
     over.SetVisible( False )
     confirm.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     confirm.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    confirm.AddFunc( "OnMouseLeftButtonDown", "ConfirmClick", "MultiPlayCallBacks" )
 
     # 购买武器装备
     seMenu = uiManager.AddUIButton( root, 800, 550 )
@@ -178,6 +189,7 @@ def GetRoot():
     # 购买导航栏
     # 主炮
     navGun = uiManager.AddUIButton( seMenu, 60, 40 )
+    #navGun.SetName( "navGun" )
     navGun.SetPosition( vector2df( -102, -205 ) )
     default = uiManager.AddUIImage( navGun, 60, 40 )
     default.LoadImage("../media/UIResource/Game/gunb_d.png")
@@ -187,8 +199,10 @@ def GetRoot():
     #over.SetVisible( False )
     navGun.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     navGun.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    navGun.AddFunc( "OnMouseLeftButtonDown", "NavGunClick", "MultiPlayCallBacks" )
     # 导弹
     navMissle = uiManager.AddUIButton( seMenu, 60, 40 )
+    #navMissle.SetName( "navMissle" )
     navMissle.SetPosition( vector2df( -102, -155 ) )
     default = uiManager.AddUIImage( navMissle, 60, 40 )
     default.LoadImage("../media/UIResource/Game/missleb_d.png")
@@ -197,6 +211,7 @@ def GetRoot():
     over.SetVisible( False )
     navMissle.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     navMissle.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    navMissle.AddFunc( "OnMouseLeftButtonDown", "NavMissleClick", "MultiPlayCallBacks" )
     # 购买列表
     # 主炮
     Gun = uiManager.AddUIImage( seMenu, 0, 0 )
@@ -227,7 +242,7 @@ def GetRoot():
     Missle.SetName( "buyListMissle" )
     Missle.SetVisible( False )
     # 热导飞弹
-    Missle1 = uiManager.AddUIButton( seMenu, 370, 64 )
+    Missle1 = uiManager.AddUIButton( Missle, 370, 64 )
     Missle1.SetPosition( vector2df( 145, -153 ) )
     default = uiManager.AddUIImage( Missle1, 370, 64 )
     default.LoadImage("../media/UIResource/Game/missle1_d.png")

@@ -5789,6 +5789,18 @@ struct IPlayer_wrapper : IPlayer, bp::wrapper< IPlayer > {
 		}
 	}
 
+	void default_SetShipName( ::std::wstring const & name ) {
+		IPlayer::SetShipName( name );
+	}
+
+	virtual void SetShipName( ::std::wstring const & name ) {
+		if( bp::override func_SetShipName = this->get_override( "SetShipName" ) )
+			func_SetShipName( name );
+		else{
+			this->IPlayer::SetShipName( name );
+		}
+	}
+
 	void default_SetName( ::std::wstring const & name ) {
 		IPlayer::SetName( name );
 	}
@@ -5828,6 +5840,20 @@ struct IPlayer_wrapper : IPlayer, bp::wrapper< IPlayer > {
 	void default_SetTeam( ::irr::s32 team ) {
 		IPlayer::SetTeam( team );
 	}
+
+	void default_SetConfirm( bool confirm ) {
+		IPlayer::SetConfirm( confirm );
+	}
+
+	virtual void SetConfirm( bool confirm ) {
+		if( bp::override func_SetConfirm = this->get_override( "SetConfirm" ) )
+			func_SetConfirm( confirm );
+		else{
+			this->IPlayer::SetConfirm( confirm );
+		}
+	}
+
+	
 
 	virtual void Update(  ){
 		bp::override func_Update = this->get_override( "Update" );
@@ -8965,6 +8991,18 @@ bp::class_< IMeshSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::
 					, ( bp::arg("name") ) );
 
 			}
+			{ //::IPlayer::SetShipName
+
+				typedef void ( ::IPlayer::*SetShipName_function_type )( ::std::wstring const & ) ;
+				typedef void ( IPlayer_wrapper::*default_SetShipName_function_type )( ::std::wstring const & ) ;
+
+				IPlayer_exposer.def( 
+					"SetShipName"
+					, SetShipName_function_type(&::IPlayer::SetShipName)
+					, default_SetShipName_function_type(&IPlayer_wrapper::default_SetShipName)
+					, ( bp::arg("name") ) );
+
+			}
 			{ //::IPlayer::SetShip
 
 				typedef void ( ::IPlayer::*SetShip_function_type )( ::IShip * ) ;
@@ -8987,6 +9025,18 @@ bp::class_< IMeshSceneNode_wrapper, bp::bases< irr::scene::ISceneNode >, boost::
 					, SetState_function_type(&::IPlayer::SetState)
 					, default_SetState_function_type(&IPlayer_wrapper::default_SetState)
 					, ( bp::arg("state") ) );
+
+			}
+			{ //::IPlayer::SetConfirm
+
+				typedef void ( ::IPlayer::*SetConfirm_function_type )( bool ) ;
+				typedef void ( IPlayer_wrapper::*default_SetConfirm_function_type )( bool ) ;
+
+				IPlayer_exposer.def( 
+					"SetConfirm"
+					, SetConfirm_function_type(&::IPlayer::SetConfirm)
+					, default_SetConfirm_function_type(&IPlayer_wrapper::default_SetConfirm)
+					, ( bp::arg("confirm") ) );
 
 			}
 			{ //::IPlayer::SetTeam

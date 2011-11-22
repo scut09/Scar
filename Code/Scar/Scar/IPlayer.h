@@ -36,6 +36,9 @@ protected:
 	s32				Team;			// 玩家队伍编号
 	Player_State	State;			// 玩家状态
 
+	bool			Confirm;		// 确认标志位，为了解决一些历史遗留问题
+
+	std::wstring	ShipName;		// 玩家飞机代号
 	IShip*			PlayerShip;		// 玩家拥有的飞机
 
 
@@ -60,6 +63,27 @@ public:
 			PlayerShip->drop();
 
 
+	}
+
+	// 设置确认标志位
+	virtual void SetConfirm( bool confirm )
+	{
+		Confirm = confirm;
+	}
+	virtual bool GetConfirm() const
+	{
+		return Confirm;
+	}
+
+
+	// 设置飞船代号
+	virtual void SetShipName( const std::wstring& shipName )
+	{
+		ShipName = shipName;
+	}
+	virtual const std::wstring& GetShipName() const
+	{
+		return ShipName;
 	}
 
 	// 设置队伍
