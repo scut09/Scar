@@ -227,6 +227,7 @@ def GetRoot():
     over.SetVisible( False )
     Gun1.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     Gun1.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    Gun1.AddFunc( "OnMouseLeftButtonDown", "Gun1Click", "MultiPlayCallBacks" )
     # 集束激光
     Gun2 = uiManager.AddUIButton( Gun, 370, 64 )
     Gun2.SetPosition( vector2df( 145, -89 ) )
@@ -237,6 +238,7 @@ def GetRoot():
     over.SetVisible( False )
     Gun2.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     Gun2.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    Gun2.AddFunc( "OnMouseLeftButtonDown", "Gun2Click", "MultiPlayCallBacks" )
     # 导弹
     Missle = uiManager.AddUIImage( seMenu, 0, 0 )
     Missle.SetName( "buyListMissle" )
@@ -251,6 +253,18 @@ def GetRoot():
     over.SetVisible( False )
     Missle1.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
     Missle1.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    Missle1.AddFunc( "OnMouseLeftButtonDown", "Missle1Click", "MultiPlayCallBacks" )
+    # 确认按钮
+    confirm = uiManager.AddUIButton( seMenu, 150, 50 )
+    confirm.SetPosition( vector2df( 291, 233 ) )
+    default = uiManager.AddUIImage( confirm, 150, 50 )
+    default.LoadImage("../media/UIResource/Game/confirm_d.png")
+    over = uiManager.AddUIImage( confirm, 150, 50 )
+    over.LoadImage("../media/UIResource/Game/confirm_o.png")
+    over.SetVisible( False )
+    confirm.AddFunc( "OnMouseMoveIn", "GeneralOver", "MultiPlayCallBacks" )
+    confirm.AddFunc( "OnMouseMoveOut", "GeneralDefault", "MultiPlayCallBacks" )
+    confirm.AddFunc( "OnMouseLeftButtonDown", "ConfirmClick", "MultiPlayCallBacks" )
 
     
     # 以下这些为战斗时候用的UI

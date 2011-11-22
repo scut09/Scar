@@ -85,6 +85,16 @@ def NavMissleClick( node ):
     uiManager.GetUIObjectByName( "buyListGun" ).SetVisible( False )
     uiManager.GetUIObjectByName( "buyListMissle" ).SetVisible( True )
 
+    # 选武器 主炮
+def Gun1Click( node ):
+    print "holyShit"
+def Gun2Click( node ):
+    print "holyShit"
+
+    # 选导弹 导弹
+def Missle1Click( node ):
+    print "holyShit"
+
     '''# 选择舰船菜单 通用
 def ShipMenuButtonDefault( node ):
     node.GetChildren()[0].SetVisible( True )

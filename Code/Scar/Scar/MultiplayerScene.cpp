@@ -223,6 +223,33 @@ void MultiplayerScene::Run()
 			// 跳至下一场景
 			if ( player->GetConfirm() )
 			{
+				// 为玩家赋予选定的船
+				IShip* ship;
+				if ( player->GetTeam() == 1 )
+				{
+					if ( player->GetShipName() == L"cf1" )
+					{
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+					}
+					else if ( player->GetShipName() == L"cf2" )
+					{
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+					}
+				}
+				else
+				{
+					if ( player->GetShipName() == L"gf1" )
+					{
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+					}
+					else if ( player->GetShipName() == L"gf2" )
+					{
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+					}
+				}
+				ship->setVisible( false );
+				player->SetShip( ship );
+
 				State = Select_Equipment;
 				bRunOnce = true;
 			}
@@ -252,6 +279,22 @@ void MultiplayerScene::Run()
 			{
 				SelectEquiMenu->GetChildren()[1]->GetChildren()[0]->SetVisible( false );
 				SelectEquiMenu->GetChildren()[1]->GetChildren()[1]->SetVisible( true );
+			}
+
+			// 跳转至下一个场景
+			if ( player->GetConfirm() )
+			{
+				bRunOnce = true;
+				State = Transition2;
+			}
+		}
+		break;
+	case Transition2:
+		{
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				SelectEquiMenu->SetVisible( false );
 			}
 		}
 		break;
@@ -294,8 +337,6 @@ void MultiplayerScene::Run()
 		}
 		break;
 	}
-
-		PRINT_POS(smgr->getActiveCamera()->getPosition());
 }
 
 void MultiplayerScene::Init()

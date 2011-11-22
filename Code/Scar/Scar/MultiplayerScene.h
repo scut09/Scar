@@ -35,6 +35,7 @@ public:
 		Select_Ship,		// 选船
 		Transition1,		// 过渡1，从星系拉近到行星
 		Select_Equipment,	// 选武器装备
+		Transition2,		// 过渡2, 从行星拉近至空间站
 		First_Flight,		// 首次起飞
 		Warp,				// 跃迁
 		In_Battle,			// 战斗
