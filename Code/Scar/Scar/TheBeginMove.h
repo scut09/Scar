@@ -37,6 +37,8 @@ class TheBeginMove : public ISceneNodeAnimator
 	vector3df TheBeginPoint;
 	vector3df TheEndPoint;
 	vector3df Center;
+	f32 lastRad;
+	bool IsFirst;
 
 public:
 

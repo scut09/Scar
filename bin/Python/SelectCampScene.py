@@ -89,6 +89,7 @@ def LoadMap():
     station1.setVisible( False )
     #station1.setPosition( vector3df( -.5e5, -0.3e5, 2e5 ) )
     station1.setPosition( vector3df( -1e5, -0.8e5, 1.5e5 ) )
+    station1.setRotation( vector3df( 0, -90, 0 ) );
     station1.setScale(vector3df(0.01))
     shader.ApplyShaderGeneralCallback( station1, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
     
@@ -112,6 +113,7 @@ def LoadMap():
     station2.setName( "station2" )
     station2.setVisible( False )
     station2.setPosition(vector3df( -1e5, -0.8e5, 1.5e5 ) )
+    station2.setRotation( vector3df( 0, 90, 0 ) );
     station2.setScale(vector3df(0.01))
     shader.ApplyShaderGeneralCallback( station2, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
 

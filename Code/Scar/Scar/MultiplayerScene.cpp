@@ -295,12 +295,66 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				SelectEquiMenu->SetVisible( false );
+				// 使空间站暂时不相对行星静止
+				ISceneNode* ActiveStation;
+				if ( player->GetTeam() == 1 )
+					ActiveStation = Station1;
+				else
+					ActiveStation = Station2;
+				vector3df lastPos = ActiveStation->getAbsolutePosition();
+				ActiveStation->setParent( smgr->getRootSceneNode() );
+				ActiveStation->setPosition( lastPos );
+
+				// 使行星和卫星相对摄像机静止
+				auto relStay = pEngine->GetMySceneManager()->createRelateCameraStayAnimator(
+					0, 1000, m_pCamera, Planet1->getAbsolutePosition() );
+				Planet1->addAnimator( relStay );
+				relStay->drop();
+
+				//m_pCamera->setPosition( vector3df(1e3,0,0) );
+				//m_pCamera->setTarget( vector3df(1e6,0,0) );
+				//m_pCamera->setPosition( vector3df(0) );
+				// 拖镜头，旋转
+				if ( player->GetTeam() == 1 )
+				{
+					player->GetShip()->setVisible( true );
+					player->GetShip()->setPosition( vector3df(2e5,-0.266e5,0.5e5) );
+					player->GetShip()->setRotation( vector3df( 0, 90, 0 ) );
+					auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator( 
+						m_pCamera->getPosition(), vector3df(2e5,-0.266e5,0.5e5), 0, 5000, 1 );
+					m_pCamera->addAnimator( ani );
+					ani->drop();
+				}
+				else
+				{
+					player->GetShip()->setVisible( true );
+					player->GetShip()->setPosition( vector3df(2e5,-0.35e5,0.5e5) );
+					player->GetShip()->setRotation( vector3df( 0, 90, 0 ) );
+					auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator( 
+						m_pCamera->getPosition(), vector3df(2e5,-0.35e5,0.5e5), 0, 5000, 1 );
+					m_pCamera->addAnimator( ani );
+					ani->drop();
+				}
+				/*auto ani = smgr->createFlyStraightAnimator( vector3df(0), vector3df(2e5,-0.35e5,0.5e5), 1000 );
+				m_pCamera->addAnimator( ani );
+				ani->drop();*/
 			}
+
+			if ( m_pCamera->getAnimators().empty() )
+			{
+				State = First_Flight;
+				bRunOnce = true;
+			}
+
 		}
 		break;
 	case First_Flight:
 		{
-
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				SelectEquiMenu->SetVisible( true );
+			}
 		}
 		break;
 	case Warp:
