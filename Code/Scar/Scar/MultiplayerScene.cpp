@@ -247,6 +247,10 @@ void MultiplayerScene::Run()
 						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
 					}
 				}
+				GeneralCallBack* cb = new GeneralCallBack( ship );
+				shader->ApplyShaderToSceneNode( ship, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+				cb->drop();
+				ship->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				ship->setVisible( false );
 				player->SetShip( ship );
 
@@ -316,25 +320,24 @@ void MultiplayerScene::Run()
 				//m_pCamera->setPosition( vector3df(0) );
 				// 拖镜头，旋转
 				if ( player->GetTeam() == 1 )
-				{
-					player->GetShip()->setVisible( true );
+				{	
 					player->GetShip()->setPosition( vector3df(2e5,-0.266e5,0.5e5) );
-					player->GetShip()->setRotation( vector3df( 0, 90, 0 ) );
 					auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator( 
-						m_pCamera->getPosition(), vector3df(2e5,-0.266e5,0.5e5), 0, 5000, 1 );
+						m_pCamera->getPosition(), vector3df(2e5,-0.266e5,0.5e5), 0, 4000, 1 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 				}
 				else
 				{
-					player->GetShip()->setVisible( true );
 					player->GetShip()->setPosition( vector3df(2e5,-0.35e5,0.5e5) );
-					player->GetShip()->setRotation( vector3df( 0, 90, 0 ) );
 					auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator( 
-						m_pCamera->getPosition(), vector3df(2e5,-0.35e5,0.5e5), 0, 5000, 1 );
+						m_pCamera->getPosition(), vector3df(2e5,-0.35e5,0.5e5), 0, 4000, 1 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 				}
+				player->GetShip()->setVisible( true );
+				player->GetShip()->setRotation( vector3df( 0, 90, 0 ) );
+				player->GetShip()->setTarget( player->GetShip()->getPosition() + vector3df(1,0,0) );
 				/*auto ani = smgr->createFlyStraightAnimator( vector3df(0), vector3df(2e5,-0.35e5,0.5e5), 1000 );
 				m_pCamera->addAnimator( ani );
 				ani->drop();*/
@@ -353,8 +356,32 @@ void MultiplayerScene::Run()
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
-				SelectEquiMenu->SetVisible( true );
+				player->SetConfirm( false );
+				// 将镜头平移至飞船
+				m_pCamera->setTarget( player->GetShip()->getPosition() + vector3df(50,0,0) );
+				auto ani = smgr->createFlyStraightAnimator( 
+					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-30,0,0), 1000 );
+				m_pCamera->addAnimator( ani );
+				ani->drop();
 			}
+
+			if ( m_pCamera->getPosition() == player->GetShip()->getPosition() + vector3df(-30,0,0) || !player->GetConfirm() )
+			{
+				player->SetConfirm( true );
+				m_pCamera->removeAnimators();
+				auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+				player->GetShip()->addAnimator( ctrlAni );
+				ctrlAni->drop();
+				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), 30 );
+				m_pCamera->addAnimator( folowAni );
+				folowAni->drop();
+				//SelectEquiMenu->SetVisible( true );
+			}
+
+			//m_playerHelper->Update();
+
+			m_playerManager->Update();
+
 		}
 		break;
 	case Warp:
@@ -434,8 +461,9 @@ void MultiplayerScene::Init()
 		}
 
 		// 测试用
-		/*m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
-		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );*/
+		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+		m_playerManager->AddPlayer( player );
+		//m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 		//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 		//m_playerHelper->LoadPlayerManager( &*m_playerManager );
 
@@ -452,6 +480,8 @@ void MultiplayerScene::Init()
 		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 		{	
 			MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );
+
+			m_playerManager->OnEvent( event );
 
 			if ( event.KeyInput.PressedDown )
 			{
