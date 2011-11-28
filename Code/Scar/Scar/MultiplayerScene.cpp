@@ -299,6 +299,8 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				SelectEquiMenu->SetVisible( false );
+				// 隐藏鼠标
+				pEngine->GetDevice()->getCursorControl()->setVisible( false );
 				// 使空间站暂时不相对行星静止
 				ISceneNode* ActiveStation;
 				if ( player->GetTeam() == 1 )
@@ -323,7 +325,7 @@ void MultiplayerScene::Run()
 				{	
 					player->GetShip()->setPosition( vector3df(2e5,-0.266e5,0.5e5) );
 					auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator( 
-						m_pCamera->getPosition(), vector3df(2e5,-0.266e5,0.5e5), 0, 4000, 1 );
+						m_pCamera->getPosition(), vector3df(2e5,-0.266e5,0.5e5), 0, 3000, 1 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 				}
@@ -331,7 +333,7 @@ void MultiplayerScene::Run()
 				{
 					player->GetShip()->setPosition( vector3df(2e5,-0.35e5,0.5e5) );
 					auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator( 
-						m_pCamera->getPosition(), vector3df(2e5,-0.35e5,0.5e5), 0, 4000, 1 );
+						m_pCamera->getPosition(), vector3df(2e5,-0.35e5,0.5e5), 0, 3000, 1 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 				}
@@ -356,31 +358,40 @@ void MultiplayerScene::Run()
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
-				player->SetConfirm( false );
+				SubState = 0;
+				m_pCamera->removeAnimators();
 				// 将镜头平移至飞船
 				m_pCamera->setTarget( player->GetShip()->getPosition() + vector3df(50,0,0) );
-				auto ani = smgr->createFlyStraightAnimator( 
-					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-30,0,0), 1000 );
+				auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator(
+					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-10,0,0), 0, 2000, 1 );
+				/*auto ani = smgr->createFlyStraightAnimator( 
+					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-30,0,0), 1000 );*/
 				m_pCamera->addAnimator( ani );
 				ani->drop();
 			}
-
-			if ( m_pCamera->getPosition() == player->GetShip()->getPosition() + vector3df(-30,0,0) || !player->GetConfirm() )
+			else if ( m_pCamera->getAnimators().empty() && SubState == 0 )
 			{
-				player->SetConfirm( true );
-				m_pCamera->removeAnimators();
-				auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+				SubState = 1;
+				/*auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				player->GetShip()->addAnimator( ctrlAni );
-				ctrlAni->drop();
+				ctrlAni->drop();*/
 				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), 30 );
 				m_pCamera->addAnimator( folowAni );
 				folowAni->drop();
 				//SelectEquiMenu->SetVisible( true );
 			}
-
-			//m_playerHelper->Update();
-
-			m_playerManager->Update();
+			else if( SubState == 1 )
+			{
+				SubState = 2;
+				m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+			}
+			else if ( SubState == 2 )
+			{
+				m_playerHelper->Update();
+				m_playerManager->Update();
+			}
+			
+			
 
 		}
 		break;
@@ -463,9 +474,10 @@ void MultiplayerScene::Init()
 		// 测试用
 		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
 		m_playerManager->AddPlayer( player );
-		//m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
+		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 		//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
-		//m_playerHelper->LoadPlayerManager( &*m_playerManager );
+		m_playerHelper->LoadPlayer( player );
+		m_playerHelper->LoadPlayerManager( &*m_playerManager );
 
 		// 创建控制台
 		IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();

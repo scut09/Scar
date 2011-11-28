@@ -55,7 +55,7 @@ int main()
 
 	// ³õÊ¼»¯ÒýÇæ
 	MyIrrlichtEngine::pEventReceiver = &receiver;
-	MyIrrlichtEngine::screen_width = 1366;
+	MyIrrlichtEngine::screen_width = 1280;
 	MyIrrlichtEngine::screen_height = 768;
 	MyIrrlichtEngine::bFullScreen = false;
 

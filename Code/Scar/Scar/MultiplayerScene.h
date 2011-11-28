@@ -131,6 +131,7 @@ public:
 	bool bRunOnce;
 	// 状态标志
 	MultiState State;
+	int SubState;							// 状态中的子状态
 
 	// 环境
 	ISceneNode* Sun;						// 恒星
