@@ -62,6 +62,7 @@ private:
 
 	IShip*			LockedShip;	// 锁定的船
 
+public:
 	IUIObject*		Armor1;		// 护甲槽满
 	IUIObject*		Armor2;		// 护甲槽空
 	IUIObject*		Cursor;		// 鼠标准心
@@ -84,7 +85,8 @@ private:
 	UIStaticText*	ShieldText;	// 护盾文字
 	UIStaticText*	SpeedText;	// 速度文字	
 	UIStaticText*	EnergyText;	// 能量文字
-	
+
+private:
 	Node2DInfo		info2D;
 	PlayerManager*	m_playerManager;	// 玩家信息管理类
 	boost::shared_ptr<Toolkit>	toolkit;	// 辅助工具，提供3D到2D映射的工具

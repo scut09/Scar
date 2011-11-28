@@ -364,21 +364,19 @@ void MultiplayerScene::Run()
 				m_pCamera->setTarget( player->GetShip()->getPosition() + vector3df(50,0,0) );
 				auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator(
 					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-10,0,0), 0, 2000, 1 );
-				/*auto ani = smgr->createFlyStraightAnimator( 
-					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-30,0,0), 1000 );*/
 				m_pCamera->addAnimator( ani );
 				ani->drop();
 			}
 			else if ( m_pCamera->getAnimators().empty() && SubState == 0 )
 			{
 				SubState = 1;
-				/*auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
-				player->GetShip()->addAnimator( ctrlAni );
-				ctrlAni->drop();*/
+				IShip* playerShip = player->GetShip();
+				playerShip->SetArmor( 0 );
+				playerShip->SetShield( 0 );
+				playerShip->SetEnergy( 0 );
 				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), 30 );
 				m_pCamera->addAnimator( folowAni );
 				folowAni->drop();
-				//SelectEquiMenu->SetVisible( true );
 			}
 			else if( SubState == 1 )
 			{
@@ -387,6 +385,19 @@ void MultiplayerScene::Run()
 			}
 			else if ( SubState == 2 )
 			{
+				IShip* playerShip = player->GetShip();
+				if ( m_playerHelper->Armor1->GetAlpha() > 0 && playerShip->GetArmor() < playerShip->GetMaxArmor() )
+					playerShip->SetArmor( playerShip->GetArmor() + 5 );
+				if ( m_playerHelper->Shield1->GetAlpha() > 0 && playerShip->GetShield() < playerShip->GetMaxShield() )
+					playerShip->SetShield( playerShip->GetShield() + 5 );
+				if ( m_playerHelper->Energy1->GetAlpha() > 0 && playerShip->GetEnergy() < playerShip->GetMaxEnergy() )
+					playerShip->SetEnergy( playerShip->GetEnergy() + 5 );
+				if ( m_playerHelper->Cursor->GetAlpha() > 200 && m_playerHelper->Cursor->GetAlpha() < 210 )
+				{
+					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( player->GetShip()->getPosition() );
+					runway->setRotation( vector3df( 0, 90, 0) );
+				}
+
 				m_playerHelper->Update();
 				m_playerManager->Update();
 			}

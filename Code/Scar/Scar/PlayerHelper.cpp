@@ -182,36 +182,70 @@ void PlayerHelper::UpdateLock()
 
 void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 {
+	IUIAnimator* ani;
+
 	// 获取鼠标准心
 	Cursor = uiManager->GetUIObjectByName("cursor");
 	Cursor->SetVisible( true );
-	uiManager->GetUIObjectByName( "centerCursor" )->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 1500, 1000, 0, 255 );
+	Cursor->AddAnimator( ani );
+	ani->drop();
+	IUIObject* cenCur = uiManager->GetUIObjectByName( "centerCursor" );
+	cenCur->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 2000, 1000, 0, 255 );
+	cenCur->AddAnimator( ani );
+	ani->drop();
 	// 获取速度槽
 	Speed1 = uiManager->GetUIObjectByName( "speed1" );
 	Speed1->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 500, 1000, 0, 255 );
+	Speed1->AddAnimator( ani );
+	ani->drop();
 	Speed2 = uiManager->GetUIObjectByName( "speed2" );
 	Speed2->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 500, 1000, 0, 255 );
+	Speed2->AddAnimator( ani );
+	ani->drop();
 	SpeedText = (UIStaticText*)uiManager->GetUIObjectByName( "speedText" );
 	SpeedText->SetVisible( true );
+	
 	// 获取护盾槽
 	Shield1 = uiManager->GetUIObjectByName( "shield1" );
 	Shield1->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 1000, 1000, 0, 255 );
+	Shield1->AddAnimator( ani );
+	ani->drop();
 	Shield2 = uiManager->GetUIObjectByName( "shield2" );
 	Shield2->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 1000, 1000, 0, 255 );
+	Shield2->AddAnimator( ani );
+	ani->drop();
 	ShieldText = (UIStaticText*)uiManager->GetUIObjectByName( "shieldText" );
 	ShieldText->SetVisible( true );
 	// 获取护甲槽
 	Armor1 = uiManager->GetUIObjectByName( "armor1" );
 	Armor1->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 500, 1000, 0, 255 );
+	Armor1->AddAnimator( ani );
+	ani->drop();
 	Armor2 = uiManager->GetUIObjectByName( "armor2" );
 	Armor2->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 500, 1000, 0, 255 );
+	Armor2->AddAnimator( ani );
+	ani->drop();
 	ArmorText = (UIStaticText*)uiManager->GetUIObjectByName( "armorText" );
 	ArmorText->SetVisible( true );
 	// 获取能量槽
 	Energy1 = uiManager->GetUIObjectByName( "energy1" );
 	Energy1->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 1000, 1000, 0, 255 );
+	Energy1->AddAnimator( ani );
+	ani->drop();
 	Energy2 = uiManager->GetUIObjectByName( "energy2" );
 	Energy2->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 1000, 1000, 0, 255 );
+	Energy2->AddAnimator( ani );
+	ani->drop();
 	EnergyText = (UIStaticText*)uiManager->GetUIObjectByName( "energyText" );
 	EnergyText->SetVisible( true );
 	// 获取水平仪
@@ -225,7 +259,11 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	// 获取敌军指示
 	indicator1 = uiManager->GetUIObjectByName( "indicator1" );
 	// 获取雷达圈
-	uiManager->GetUIObjectByName( "radarBox" )->SetVisible( true );
+	IUIObject* radarBox = uiManager->GetUIObjectByName( "radarBox" );
+	radarBox->SetVisible( true );
+	ani = uiManager->CreateAnimatorAlphaChange( 3000, 1000, 0, 255 );
+	radarBox->AddAnimator( ani );
+	ani->drop();
 	Radar = uiManager->GetUIObjectByName( "radar" );
 	REnemy = uiManager->GetUIObjectByName( "rEnemy" );
 	RFriend = uiManager->GetUIObjectByName( "rFriend" );
