@@ -116,7 +116,13 @@ public:
 	boost::shared_ptr<Network::BoostServer> server;
 
 	// 测试用音效
-	irrklang::ISoundEngine* pSoundEngine;
+	irrklang::ISoundEngine* m_pSoundEngine;
+	irrklang::ISoundSource* SoundMenuBG;
+	irrklang::ISoundSource* SoundBG1;
+	irrklang::ISoundSource* SoundClick;
+	irrklang::ISound*	SoundCurrentBG;		// 同一时刻只能有一个Bg存在
+	irrklang::ISound*	SoundNextBG;
+
 	irrklang::ISoundSource* fuck;
 
 	// 测试用shader

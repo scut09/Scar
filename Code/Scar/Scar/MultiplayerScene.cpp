@@ -115,12 +115,17 @@ void MultiplayerScene::Run()
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
+
+				// 播放背景音乐
+				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
+				SoundCurrentBG->setIsPaused( false );
 			}
 
 			// 在此处进行游戏逻辑
 			
 			if ( player->GetTeam() != 0 )
 			{
+				m_pSoundEngine->play2D( SoundClick );
 				State = Transition1;
 				// 在此处释放资源或隐藏资源
 				bRunOnce = true;
@@ -223,6 +228,8 @@ void MultiplayerScene::Run()
 			// 跳至下一场景
 			if ( player->GetConfirm() )
 			{
+				// 选中音效
+				m_pSoundEngine->play2D( SoundClick );
 				// 为玩家赋予选定的船
 				IShip* ship;
 				if ( player->GetTeam() == 1 )
@@ -288,6 +295,8 @@ void MultiplayerScene::Run()
 			// 跳转至下一个场景
 			if ( player->GetConfirm() )
 			{
+				// 选中音效
+				m_pSoundEngine->play2D( SoundClick );
 				bRunOnce = true;
 				State = Transition2;
 			}
@@ -366,6 +375,10 @@ void MultiplayerScene::Run()
 					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-10,0,0), 0, 2000, 1 );
 				m_pCamera->addAnimator( ani );
 				ani->drop();
+				// 换背景音效
+				SoundNextBG = m_pSoundEngine->play2D( SoundBG1, false, true );
+				SoundNextBG->setVolume( 0 );
+				SoundNextBG->setIsPaused( false );
 			}
 			else if ( m_pCamera->getAnimators().empty() && SubState == 0 )
 			{
@@ -374,6 +387,9 @@ void MultiplayerScene::Run()
 				playerShip->SetArmor( 0 );
 				playerShip->SetShield( 0 );
 				playerShip->SetEnergy( 0 );
+				/*auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+				playerShip->addAnimator( ctrlAni );
+				ctrlAni->drop();*/
 				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), 30 );
 				m_pCamera->addAnimator( folowAni );
 				folowAni->drop();
@@ -382,9 +398,11 @@ void MultiplayerScene::Run()
 			{
 				SubState = 2;
 				m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+				player->SetConfirm( false );
 			}
 			else if ( SubState == 2 )
 			{
+				// UI动画
 				IShip* playerShip = player->GetShip();
 				if ( m_playerHelper->Armor1->GetAlpha() > 0 && playerShip->GetArmor() < playerShip->GetMaxArmor() )
 					playerShip->SetArmor( playerShip->GetArmor() + 5 );
@@ -392,17 +410,35 @@ void MultiplayerScene::Run()
 					playerShip->SetShield( playerShip->GetShield() + 5 );
 				if ( m_playerHelper->Energy1->GetAlpha() > 0 && playerShip->GetEnergy() < playerShip->GetMaxEnergy() )
 					playerShip->SetEnergy( playerShip->GetEnergy() + 5 );
-				if ( m_playerHelper->Cursor->GetAlpha() > 200 && m_playerHelper->Cursor->GetAlpha() < 210 )
+				if ( m_playerHelper->Cursor->GetAlpha() == 255 && !player->GetConfirm() )
 				{
+					player->SetConfirm( true );
 					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( player->GetShip()->getPosition() );
 					runway->setRotation( vector3df( 0, 90, 0) );
+				}
+				playerShip->SetVelocity( 0.5f );
+				playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
+				playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+
+				// 换背景音效
+				if ( SoundNextBG->getVolume() < 1 )
+				{
+					SoundCurrentBG->setVolume( SoundCurrentBG->getVolume() - 0.005f );
+					SoundNextBG->setVolume( SoundNextBG->getVolume() + 0.005f );
+					if ( SoundNextBG->getVolume() >= 1 )
+					{
+						SoundCurrentBG->stop();
+						SoundCurrentBG = SoundNextBG;
+						SoundCurrentBG->setVolume( 1 );
+						SoundNextBG->setVolume( 1 );
+					}
 				}
 
 				m_playerHelper->Update();
 				m_playerManager->Update();
 			}
 			
-			
+			pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 
 		}
 		break;
@@ -482,13 +518,22 @@ void MultiplayerScene::Init()
 			PyErr_Print();
 		}
 
-		// 测试用
+		// 加载玩家管理类和玩家辅助类
 		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
 		m_playerManager->AddPlayer( player );
 		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 		//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 		m_playerHelper->LoadPlayer( player );
 		m_playerHelper->LoadPlayerManager( &*m_playerManager );
+
+		// 加载音效
+		m_pSoundEngine = createIrrKlangDevice();
+		m_pSoundEngine->setSoundVolume( 0.6f );
+		SoundMenuBG = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient005.ogg" );
+		SoundBG1 = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient041.ogg" );
+		SoundClick = m_pSoundEngine->addSoundSourceFromFile( "../sound/click.wav", irrklang::ESM_AUTO_DETECT, true );
+		//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
+		//std::cout<<"--------------------------------------"<<std::endl;
 
 		// 创建控制台
 		IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
@@ -528,6 +573,8 @@ void MultiplayerScene::Init()
 void MultiplayerScene::Release()
 {
 	//	m_playerManager->RemoveAll();
+	m_pSoundEngine->stopAllSounds();
+	m_pSoundEngine->drop();
 
 	try
 	{
@@ -709,8 +756,8 @@ void MultiplayerScene::InitScene()
 		relstayAni->drop();
 	}
 
-	pSoundEngine = createIrrKlangDevice();
-	fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
+	//pSoundEngine = createIrrKlangDevice();
+	//fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
 
 	//fuck->setVolume( fuck->getVolume() - 10 );
 
