@@ -32,6 +32,7 @@
 #include "LaserNode.h"
 //#include "SunFlareCallBack.h"
 #include "SunFlareAnimator.h"
+#include "InfoAndWarn.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -109,16 +110,20 @@ void MultiplayerScene::Run()
 				Station2 = smgr->getSceneNodeFromName( "station2" );
 
 				 // 显示选择阵营菜单
-				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
+				/*SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
 				SelectCampMenu->SetVisible( true );
 				SelectCampMenu->SetAlpha( 0 );
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				SelectCampMenu->AddAnimator( alpAni );
-				alpAni->drop();
+				alpAni->drop();*/
 
 				// 播放背景音乐
-				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
-				SoundCurrentBG->setIsPaused( false );
+				/*SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
+				SoundCurrentBG->setIsPaused( false );*/
+
+				InfoAndWarn pif;
+				pif.Initialize();
+				pif.AddInfo( InfoAndWarn::PII_B1 );
 			}
 
 			// 在此处进行游戏逻辑

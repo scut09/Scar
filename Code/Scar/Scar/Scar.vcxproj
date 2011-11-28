@@ -130,6 +130,7 @@
     <ClCompile Include="MultiplayerScene.cpp" />
     <ClCompile Include="MyIrrlichtEngine.cpp" />
     <ClCompile Include="PlayerHelper.cpp" />
+    <ClCompile Include="InfoAndWarn.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PythonIPlayer.cpp" />
     <ClCompile Include="PythonManager.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="huoyanshuxing.h" />
     <ClInclude Include="IClient.h" />
     <ClInclude Include="INetwork.h" />
+    <ClInclude Include="InfoAndWarn.h" />
     <ClInclude Include="io_service_pool.h" />
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IRobot.h" />

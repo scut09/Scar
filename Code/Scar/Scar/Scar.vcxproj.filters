@@ -333,6 +333,9 @@
     <ClCompile Include="CSceneNodeCameraTargetChange.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="InfoAndWarn.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -646,6 +649,9 @@
     </ClInclude>
     <ClInclude Include="SunFlareAnimator.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoAndWarn.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
