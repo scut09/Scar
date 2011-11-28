@@ -18,7 +18,7 @@ void main(void)
 	//CloudColor = CloudColor * 0.4;
 	CloudColor = vec4( (CloudColor.rbg * CloudColor.a), 1.0 );
 
-	gl_FragColor = (GroundColor + CloudColor) * Light * 1.2;// + CityLightColor * (1 - Light);
+	gl_FragColor = (GroundColor + CloudColor) * Light * 1.2 + CityLightColor * 0.5;
 	//gl_FragColor = (GroundColor) * Light * 1.2;
 	//gl_FragColor = CloudColor;
 }

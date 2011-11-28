@@ -19,15 +19,10 @@ Toolkit::~Toolkit(void)
 /************************************************************************/
 bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 {
-	core::aabbox3df ViewBox = m_pCamara->getViewFrustum()->getBoundingBox();
-	if (!ViewBox.isPointInside(pNode->getPosition()))
-	{
-		return false;
-	}
-	
+
 	// 计算三维物体在屏幕上的坐标
 	position2df screamPoint;
-	if ( !To2DScreamPos(pNode->getPosition(), &(screamPoint)) )
+	if ( !To2DScreamPos(pNode->getAbsolutePosition(), &(screamPoint)) )
 	{
 		return false;
 	}
@@ -41,12 +36,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 	width = m_pDriver->getViewPort().getWidth();
 	height = m_pDriver->getViewPort().getHeight();
 
-	// 如果超出视口,则返回false
-	if ( pNode2DInfo->pos.X > width || pNode2DInfo->pos.Y > height ||  
-		pNode2DInfo->pos.X < 0|| pNode2DInfo->pos.Y < 0 )
-	{
-		return false;
-	}
+
 
 	vector3df pEdges[8];
 	position2df pEdgesPos[8];
@@ -62,24 +52,38 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 	// 查找二维上相距最远的两个点
 	xMin = xMax = pEdgesPos[0].X;
 	yMin = yMax = pEdgesPos[0].Y;
+	for ( int i = 0; i < 4; i++ )
+	{
+		pNode2DInfo->corner[i].X = xMin;
+		pNode2DInfo->corner[i].Y = yMin;
+	}
 
 	for (int i = 0; i < 8; i++)
 	{
 		if(pEdgesPos[i].X > xMax)
 		{
 			xMax = pEdgesPos[i].X;
+			pNode2DInfo->corner[1].X = xMax;
+			pNode2DInfo->corner[2].X = xMax;
 		}
+
 		if (pEdgesPos[i].X < xMin)
 		{
 			xMin = pEdgesPos[i].X;
+			pNode2DInfo->corner[0].X = xMin;
+			pNode2DInfo->corner[3].X = xMin;
 		}
 		if (pEdgesPos[i].Y > yMax)
 		{
 			yMax = pEdgesPos[i].Y;
+			pNode2DInfo->corner[2].Y = yMax;
+			pNode2DInfo->corner[3].Y = yMax;
 		}
 		if (pEdgesPos[i].Y < yMin)
 		{
 			yMin = pEdgesPos[i].Y;
+			pNode2DInfo->corner[0].Y = yMin;
+			pNode2DInfo->corner[1].Y = yMin;
 		}
 	}
 
@@ -90,7 +94,7 @@ bool Toolkit::GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo)
 
 	pNode2DInfo->height = (s32)abs(yMax - yMin);
 	pNode2DInfo->width = (s32)abs(xMax - xMin);
-
+	
 	return true;
 }
 
@@ -146,4 +150,97 @@ bool Toolkit::To2DScreamPos(vector3df v, position2df* p)
 	p->Y = height - p->Y;
 
 	return true;
+}
+
+/************************************************************************/
+/* 作者：杨旭瑜
+   描述：判断一个二维屏幕的点在不在一个由四个点围成的矩形中
+*/
+/************************************************************************/
+bool Toolkit :: IsPosInCorners(core::position2df v, core::position2df p[4])
+{
+	int outsideweight[4] = {0};
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (v.Y < p[i].Y)
+		{
+			outsideweight[0]++;
+		}
+		if (v.X > p[i].X)
+		{
+			outsideweight[1]++;
+		}
+		if (v.Y > p[i].Y)
+		{
+			outsideweight[2]++;
+		}
+		if (v.X < p[i].X)
+		{
+			outsideweight[3]++;
+		}
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (outsideweight[i] == 4)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/************************************************************************/
+/* 作者：杨旭瑜
+   描述：计算圆的面积
+*/
+/************************************************************************/
+f32 Toolkit :: GetCircleArea(f32 r)
+{
+	return 3.1415926f * r * r;
+}
+
+/************************************************************************/
+/* 作者：杨旭瑜
+   描述：3d物体在pin
+*/
+/************************************************************************/
+f32 Toolkit :: GetRectArea(Node2DInfo* pNode2DInfo)
+{
+	return (f32)pNode2DInfo->height * pNode2DInfo->width; 
+}
+
+f32 Toolkit :: GetDistance(position2df p1, position2df p2)
+{
+	return (f32)sqrt( (p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
+}
+
+f32 Toolkit :: GetMinDistance(position2df p, Node2DInfo* pNode2DInfo)
+{
+	core::line2df l[4];
+	f32 minDis = 0.f;
+	l[0].start = pNode2DInfo->corner[0];
+	l[0].end = pNode2DInfo->corner[1];
+
+	l[1].start = pNode2DInfo->corner[1];
+	l[1].end = pNode2DInfo->corner[2];
+
+	l[2].start = pNode2DInfo->corner[2];
+	l[2].end = pNode2DInfo->corner[3];
+
+	l[3].start = pNode2DInfo->corner[3];
+	l[3].end = pNode2DInfo->corner[0];
+	minDis = GetDistance(l[0].getClosestPoint(p), p);
+	for (int i = 0; i < 4; i++)
+	{
+		f32 t = GetDistance(l[i].getClosestPoint(p), p);
+		if ( minDis > t )
+		{
+			minDis = t;
+		}
+	}
+	
+	return minDis;
 }

@@ -24,6 +24,7 @@ struct Node2DInfo
 	s32 width;
 	s32 height;
 	core::position2df pos;
+	core::position2df corner[4];
 };
 
 
@@ -35,7 +36,11 @@ public:
 	~Toolkit(void);
 	bool GetNode2DInfo(ISceneNode* pNode, Node2DInfo* pNode2DInfo);
 	bool To2DScreamPos(vector3df v, core::position2df* p);
-
+	bool IsPosInCorners(core::position2df v, core::position2df p[4]);
+	f32 GetCircleArea(f32 r);
+	f32 GetRectArea(Node2DInfo* pNode2DInfo);
+	f32 GetDistance(position2df p1, position2df p2);
+	f32 GetMinDistance(position2df p, Node2DInfo* pNode2DInfo);
 private:
 	ICameraSceneNode*	m_pCamara;
 	IVideoDriver*		m_pDriver;

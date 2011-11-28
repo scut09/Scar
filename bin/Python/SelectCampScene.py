@@ -65,6 +65,7 @@ def LoadMap():
     # 阵营1行星星环
     ring = smgr.addMeshSceneNode( smgr.getMesh ("../media/Planets/ring.obj"), Planet1 )
     ring.setScale( vector3df( 1.5e5 ) )
+    ring.setID(10)
     ring.setMaterialTexture( 0, smgr.getTexture( "../media/Planets/saturnringcolor.jpg" ) )
     ring.setMaterialTexture( 1, smgr.getTexture( "../media/Planets/saturnringcolor.jpg" ) )
     ring.setMaterialFlag( EMF_BACK_FACE_CULLING, False )
