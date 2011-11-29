@@ -132,6 +132,10 @@ public:
 	{
 		return new TranslateUIAnimator( begin, duration, offset, loop );
 	}
+	IUIAnimator* CreateAnimatorTranslation( u32 delay, u32 duration, const vector2df& from, const vector2df& to, bool loop = false )
+	{
+		return new TranslateUIAnimator( delay, duration, from, to, loop );
+	}
 
 	// 创建旋转动画
 	IUIAnimator* CreateAnimatorRotation( u32 begin, u32 duration, f32 angle, bool loop = false )

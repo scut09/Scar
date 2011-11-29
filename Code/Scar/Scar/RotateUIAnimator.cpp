@@ -2,24 +2,24 @@
 #include "UIImage.h"
 
 RotateUIAnimator::RotateUIAnimator( u32 begin, u32 duration, f32 angle, bool loop /*= false */ ) : Begin( begin ), 
-	Duration( duration ), Loop( loop ), LastTime( begin ), Angle(angle)
+	Duration( duration ), Loop( loop ), LastTime( begin ), Angle(angle), IsFirst( true )
 {
 	AngleFactor = angle / Duration;
-	Origin = 0.0013f;
 }
 
 bool RotateUIAnimator::animateUIObject( IUIObject* node, u32 timeMS )
-{
+{	
+
+	if( IsFirst )
+	{
+		Origin = node->GetRotation();
+		Begin = timeMS + Begin;
+		IsFirst = false;
+	}
+
 	//还未到达动画开始时间
 	if( Begin > timeMS)
 		return false;
-	
-	//u32 t = timeMS - LastTime;
-	//LastTime = timeMS;
-	//node->SetRotation( node->GetRotation() + AngleFactor * t );
-
-	if( Origin == 0.0013f )
-		Origin = node->GetRotation();
 
 	u32 t = timeMS - Begin;
 	f32 ang = AngleFactor * (f32)t;

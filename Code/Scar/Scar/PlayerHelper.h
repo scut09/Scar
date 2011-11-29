@@ -14,6 +14,7 @@
 #include "AllUIObjects.h"
 #include "Toolkit.h"
 #include <map>
+#include "InfoAndWarn.h"
 
 using scene::ISceneNode;
 
@@ -44,6 +45,16 @@ public:
 
 	// 
 	void LoadHelperUI( boost::shared_ptr<UIManager> uiManager );
+
+	// 向屏幕中加入文字信息
+	void AddInfoMsg( InfoAndWarn::PI_INFO info )
+	{
+		m_infoAndWarn.AddInfo( info );
+	}
+	void AddInfoMsg( InfoAndWarn::PI_WARN warn )
+	{
+		m_infoAndWarn.AddWarn( warn );
+	}
 
 
 private:
@@ -97,6 +108,8 @@ private:
 
 	std::map<IShip*, IUIObject*>	m_ship_targetMap;		// 船和圈住船的圆圈的映射
 	std::map<IShip*, IUIObject*>	m_ship_radarMap;		// 船和雷达上的标记的映射
+
+	InfoAndWarn						m_infoAndWarn;			// 文字信息管理类
 };
 
 #endif // PlayerHelper_h__

@@ -38,7 +38,6 @@
 
 LaserNode * laser1;
 
-
 using namespace irrklang;
 
 template< class T >
@@ -109,7 +108,7 @@ void MultiplayerScene::Run()
 				Station1 = smgr->getSceneNodeFromName( "station1" );
 				Station2 = smgr->getSceneNodeFromName( "station2" );
 
-				 // 显示选择阵营菜单
+				// 显示选择阵营菜单
 				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
 				SelectCampMenu->SetVisible( true );
 				SelectCampMenu->SetAlpha( 0 );
@@ -121,12 +120,16 @@ void MultiplayerScene::Run()
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
 
-				/*InfoAndWarn pif;
-				pif.Initialize();
-				pif.AddInfo( InfoAndWarn::PII_B1 );*/
+				/*pif.Initialize();
+				pif.AddInfo( InfoAndWarn::PII_B1 );
+				pif.AddInfo( InfoAndWarn::PII_B2 );
+				pif.AddInfo( InfoAndWarn::PII_B3 );
+				pif.AddInfo( InfoAndWarn::PII_B4 );
+				pif.AddInfo( InfoAndWarn::PII_B5 );*/
 			}
 
 			// 在此处进行游戏逻辑
+			/*m_playerHelper->m_infoAndWarn.UpdateInfo();*/
 			
 			if ( player->GetTeam() != 0 )
 			{
@@ -404,22 +407,46 @@ void MultiplayerScene::Run()
 				SubState = 2;
 				m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 				player->SetConfirm( false );
+				// 装逼文字
+				m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B0 );
+				m_pSoundEngine->play2D( "../sound/connecting.ogg" );
+				m_pSoundEngine->play2D( "../sound/onlogin04.wav" );
 			}
 			else if ( SubState == 2 )
 			{
 				// UI动画
 				IShip* playerShip = player->GetShip();
 				if ( m_playerHelper->Armor1->GetAlpha() > 0 && playerShip->GetArmor() < playerShip->GetMaxArmor() )
+				{
+					// 装逼文字
+					if( playerShip->GetArmor() < 10 )
+						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B1 );
+					if( playerShip->GetArmor() > 980 )
+						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B6 );
 					playerShip->SetArmor( playerShip->GetArmor() + 5 );
+				}
 				if ( m_playerHelper->Shield1->GetAlpha() > 0 && playerShip->GetShield() < playerShip->GetMaxShield() )
+				{
 					playerShip->SetShield( playerShip->GetShield() + 5 );
+				}
 				if ( m_playerHelper->Energy1->GetAlpha() > 0 && playerShip->GetEnergy() < playerShip->GetMaxEnergy() )
+				{
+					// 装逼文字
+					if ( playerShip->GetEnergy() < 10 )
+					{
+						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B3 );
+						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B4 );
+					}
 					playerShip->SetEnergy( playerShip->GetEnergy() + 5 );
+				}
 				if ( m_playerHelper->Cursor->GetAlpha() == 255 && !player->GetConfirm() )
 				{
+					// 装逼文字
+					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B7 );
 					player->SetConfirm( true );
 					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( player->GetShip()->getPosition() );
 					runway->setRotation( vector3df( 0, 90, 0) );
+					runway->setID( 4002 );
 				}
 				playerShip->SetVelocity( 0.5f );
 				playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
@@ -439,9 +466,21 @@ void MultiplayerScene::Run()
 					}
 				}
 
+				if ( SoundNextBG->getVolume() == 1 && playerShip->GetArmor() == playerShip->GetMaxArmor() 
+					&& playerShip->GetVelocity() == playerShip->GetMaxSpeed()
+					&& playerShip->GetEnergy() == playerShip->GetMaxEnergy() )
+					SubState = 3;
+
+				m_playerHelper->Update();
+				m_playerManager->Update();
+
+			}
+			else if ( SubState == 3 )
+			{
 				m_playerHelper->Update();
 				m_playerManager->Update();
 			}
+
 			
 			pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 
@@ -495,8 +534,8 @@ void MultiplayerScene::Init()
 	if ( State != Test )
 	{
 		// 初始化摄像机
-		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
-		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
+		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
+		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 		m_pCamera->setFarValue( 1e7 );
 		m_pCamera->setFOV( 1 );
 		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
@@ -530,6 +569,7 @@ void MultiplayerScene::Init()
 		//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 		m_playerHelper->LoadPlayer( player );
 		m_playerHelper->LoadPlayerManager( &*m_playerManager );
+
 
 		// 加载音效
 		m_pSoundEngine = createIrrKlangDevice();

@@ -66,7 +66,9 @@ public:
 		for ( core::list<ISceneNode*>::Iterator it = nodeli.begin(); it != nodeli.end(); it++ )
 		{
 			// ID = 10  是光环节点
-			if( (*it)->getAbsolutePosition() != SunPos && (*it)->getAbsolutePosition() != node->getAbsolutePosition() && (*it)->getID() != 10 && (*it)->getAbsolutePosition() != CamPos )
+			if ( (*it)->getID() > 4000 && (*it)->getID() < 5000 || (*it)->getParent()->getID() > 4001 && (*it)->getParent()->getID() < 5000 )
+				continue;
+			if( (*it)->getAbsolutePosition() != SunPos && (*it)->getAbsolutePosition() != node->getAbsolutePosition() && (*it)->getAbsolutePosition() != CamPos )
 			{
 				nodetemp = node->getChildren();
 				for (core::list<ISceneNode*>::Iterator ite = nodetemp.begin(); ite != nodetemp.end(); ite++)
@@ -74,21 +76,23 @@ public:
 					if ((*it)->getAbsolutePosition() != (*ite)->getAbsolutePosition())
 					{
 						// 视线被挡住,阳光看不见
-						if ( (*it)->getTransformedBoundingBox().intersectsWithLine(eyeline) )
+						//(*it)->setScale( vector3df( 0.7f ) );
+						//if ( (*it)->getTransformedBoundingBox().intersectsWithLine(eyeline) )
+						//{
+						//	// billboard消失
+						//	((IBillboardSceneNode*)node)->setSize(dimension2df(0.f, 0.f));
+						//	nodetemp = ((IBillboardSceneNode*)node)->getChildren();
+						//	for ( core::list<ISceneNode*>::Iterator it = nodetemp.begin(); it != nodetemp.end(); it++ )
+						//	{
+						//		((IBillboardSceneNode*)(*it))->setSize(dimension2df(0.f, 0.f));
+						//	}
+						//	(*it)->setScale( vector3df( 1 ) );
+						//	return;
+						//}
+						//(*it)->setScale( vector3df( 1 ) );
+						/*if(tool.GetNode2DInfo((*it), &n2dinf))
 						{
-							// billboard消失
-							((IBillboardSceneNode*)node)->setSize(dimension2df(0.f, 0.f));
-							nodetemp = ((IBillboardSceneNode*)node)->getChildren();
-							for ( core::list<ISceneNode*>::Iterator it = nodetemp.begin(); it != nodetemp.end(); it++ )
-							{
-								((IBillboardSceneNode*)(*it))->setSize(dimension2df(0.f, 0.f));
-							}
-							return;
-						}
-
-						if(tool.GetNode2DInfo((*it), &n2dinf))
-						{
-							f32 alpha = 0.15f;
+							f32 alpha = 0.9f;
 							n2dinf.corner[0].X *= ( 1 + alpha);
 							n2dinf.corner[0].Y *= ( 1 + alpha);
 
@@ -101,6 +105,22 @@ public:
 							n2dinf.corner[3].X *= ( 1 + alpha);
 							n2dinf.corner[3].Y *= ( 1 - alpha);
 
+							node2dinfoli.push_back(n2dinf);
+							break;
+						}*/
+
+						if(tool.GetNode2DInfo((*it), &n2dinf))
+						{
+							f32 alpha = 0.7f;
+							for ( int i=0; i<4; i++ )
+							{
+								n2dinf.corner[i].X -= n2dinf.pos.X;
+								n2dinf.corner[i].X *= alpha;
+								n2dinf.corner[i].X += n2dinf.pos.X;
+								n2dinf.corner[i].Y -= n2dinf.pos.Y;
+								n2dinf.corner[i].Y *= alpha;
+								n2dinf.corner[i].Y += n2dinf.pos.Y;
+							}
 							node2dinfoli.push_back(n2dinf);
 							break;
 						}

@@ -21,6 +21,7 @@ private:
 	vector2d<f32> ScaleFactor;
 	vector2d<f32> Origin;
 	bool Loop;
+	bool IsFirst;
 
 public:
 	ScaleUIAnimator( u32 begin, u32 duration, vector2d<f32> scale, bool loop = false );

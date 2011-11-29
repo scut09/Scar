@@ -21,6 +21,7 @@ private:
 	u32 LastTime;
 	f32 Origin;
 	bool Loop;
+	bool IsFirst;
 
 public:
 	RotateUIAnimator( u32 begin, u32 duration, f32 angle, bool loop = false );

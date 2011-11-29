@@ -139,6 +139,9 @@ void PlayerHelper::Update()
 
 	// 更新雷达
 	UpdateRadar();
+
+	// 更新信息文字
+	m_infoAndWarn.Update();
 }
 
 void PlayerHelper::UpdateLock()
