@@ -25,13 +25,12 @@ void MySceneNodeAnimatorShake::animateNode( ISceneNode* node, u32 timeMs )
 	s32 mul100 = (s32)(Amplitude * 100);
 	if ( mul100 == 0 )
 	{
-		//把自己删掉
-		camera->removeAnimator(this);
-		return;
+		mul100 = 1;
 	}
 	f32 half = Amplitude / 2.0f;
-	f32 sX = ( rand() % mul100 ) / 100.0f - half;
-	f32 sY = ( rand() % mul100 ) / 100.0f - half;
+	f32 sX, sY;
+	sX = ( rand() % mul100 ) / 100.0f - half;
+	sY = ( rand() % mul100 ) / 100.0f - half;
 	if( sX >100 ) sX = 0;	// 为了解决莫名其妙的超大数
 	if( sY >100 ) sY = 0;
 	sX /= 100;

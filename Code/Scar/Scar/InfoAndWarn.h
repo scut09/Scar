@@ -236,7 +236,7 @@ public:
 					if ( (*iter).MsgImg->GetAnimators().empty() )
 					{
 						(*iter).MsgImg->SetVisible( false );
-						InfoBox->RemoveChild( (*iter).MsgImg );
+						//InfoBox->RemoveChild( (*iter).MsgImg );
 						InfoList.pop_front();
 						if ( !InfoList.empty() )
 							iter = InfoList.begin();

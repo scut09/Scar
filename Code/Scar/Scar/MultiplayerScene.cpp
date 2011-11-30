@@ -69,7 +69,8 @@ void MultiplayerScene::Run()
 	switch ( State )
 	{
 	case Select_Camp:
-		{
+		#pragma region SelectCamp
+{
 			// 如果是第一次运行，初始化
 			if ( bRunOnce )
 			{
@@ -140,7 +141,9 @@ void MultiplayerScene::Run()
 			}
 		}
 		break;
+#pragma endregion SelectCamp
 	case Transition1:
+		#pragma region Transition1
 		{
 			ISceneNode* ActiveStation;
 			if ( bRunOnce )
@@ -180,8 +183,10 @@ void MultiplayerScene::Run()
 			}
 		}
 		break;
+#pragma endregion Transition1
 	case Select_Ship:
-		{
+		#pragma region SelectShip
+{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -274,8 +279,10 @@ void MultiplayerScene::Run()
 			}
 		}
 		break;
+#pragma endregion SelectShip
 	case Select_Equipment:
-		{
+		#pragma region SelectEquipment
+{
 			// 初始化
 			if ( bRunOnce )
 			{
@@ -310,8 +317,10 @@ void MultiplayerScene::Run()
 			}
 		}
 		break;
+#pragma endregion SelectEquipment
 	case Transition2:
-		{
+		#pragma region Transition2
+{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -370,8 +379,10 @@ void MultiplayerScene::Run()
 
 		}
 		break;
+#pragma endregion Transition2
 	case First_Flight:
 		{
+		#pragma region FirstFlight
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -444,9 +455,11 @@ void MultiplayerScene::Run()
 					// 装逼文字
 					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B7 );
 					player->SetConfirm( true );
-					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( player->GetShip()->getPosition() );
+					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( 
+						player->GetShip()->getPosition(), 400.0f, 300.0f, vector3df(0,63,255), vector3df(255,220,0), 25 );
 					runway->setRotation( vector3df( 0, 90, 0) );
 					runway->setID( 4002 );
+					LastTime = pEngine->GetDevice()->getTimer()->getTime();
 				}
 				playerShip->SetVelocity( 0.5f );
 				playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
@@ -466,10 +479,19 @@ void MultiplayerScene::Run()
 					}
 				}
 
-				if ( SoundNextBG->getVolume() == 1 && playerShip->GetArmor() == playerShip->GetMaxArmor() 
-					&& playerShip->GetVelocity() == playerShip->GetMaxSpeed()
-					&& playerShip->GetEnergy() == playerShip->GetMaxEnergy() )
+				if ( player->GetConfirm() && pEngine->GetDevice()->getTimer()->getTime() - LastTime > 4500 )
+				{
 					SubState = 3;
+					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator( 0, 1000, 3 );
+					m_pCamera->addAnimator( ani );
+					ani->drop();
+					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B5 );
+					m_pSoundEngine->play2D( "../sound/warpdirectional.wav" );
+					m_pSoundEngine->play2D( "../sound/autopilotengaged.ogg" );
+					SoundThruster = m_pSoundEngine->play2D( "../sound/booster_blue_b02a.ogg", true, true );
+					SoundThruster->setVolume( 0 );
+					LastTime = pEngine->GetDevice()->getTimer()->getTime();
+				}
 
 				m_playerHelper->Update();
 				m_playerManager->Update();
@@ -477,18 +499,158 @@ void MultiplayerScene::Run()
 			}
 			else if ( SubState == 3 )
 			{
+				u32 timeMS = pEngine->GetDevice()->getTimer()->getTime();
+				
+				if ( timeMS - LastTime > 2500 )
+				{
+					SubState = 4;
+					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B8 );
+					m_pSoundEngine->play2D( "../sound/warpdriveactive.ogg" );
+					SoundThruster->setIsPaused( false );
+					//LastTime = pEngine->GetDevice()->getTimer()->getTime();
+				}
+
+			}
+			else if ( SubState == 4 )
+			{
+				IShip* playerShip = player->GetShip();
+				playerShip->SetVelocity( playerShip->GetVelocity() + 0.002f * playerShip->GetMaxSpeed() );
+				if ( playerShip->GetVelocity() / playerShip->GetMaxSpeed() > 0.7 )
+					SubState = 5;
+			}
+			else if ( SubState == 5 )
+			{
+				IShip* playerShip = player->GetShip();
+				playerShip->SetVelocity( playerShip->GetVelocity() - 0.02f * playerShip->GetMaxSpeed() );
+				if ( playerShip->GetVelocity() <= 0 )
+				{
+					playerShip->SetVelocity( 0 );
+					SubState = 6;
+					LastTime = pEngine->GetDevice()->getTimer()->getTime();
+					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
+						0, 4500, 0, 2 );
+					m_pCamera->addAnimator( ani );
+					ani->drop();
+				}
+			}
+			else if ( SubState == 6 )
+			{
+				u32 t = pEngine->GetDevice()->getTimer()->getTime() - LastTime;
+				if ( t > 200 )
+				{
+					IShip* playerShip = player->GetShip();
+					if ( playerShip->GetVelocity() < playerShip->GetMaxSpeed() )
+						playerShip->SetVelocity( playerShip->GetVelocity() + 0.04f * playerShip->GetMaxSpeed() );
+					else if ( playerShip->GetVelocity() > playerShip->GetMaxSpeed() )
+						playerShip->SetVelocity( playerShip->GetMaxSpeed() );
+					
+					playerShip->setPosition( playerShip->getPosition() + vector3df( (f32)(t/10), 0, 0 ) );
+					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+				}
+				if ( t > 2500 )
+				{
+					State = Warp;
+					bRunOnce = true;
+				}
+			}
+
+			if ( SubState > 2 )
+			{
+				IShip* playerShip = player->GetShip();
+				if ( SubState < 4 )
+					playerShip->SetVelocity( 0.5f );
+				if ( SubState < 6 )
+				{
+					playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
+					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+				}
+				
+				SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );
+
 				m_playerHelper->Update();
 				m_playerManager->Update();
 			}
-
 			
 			pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 
 		}
+#pragma endregion FirstFlight
 		break;
 	case Warp:
 		{
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
 
+				// 隐藏不必要的节点
+				Station1->setVisible( false );
+				Station2->setVisible( false );
+				smgr->getSceneNodeFromId( 4002 )->setVisible( false );
+
+				SubState = 0;
+			}
+
+			if ( SubState == 0 )
+			{
+				if ( m_pCamera->getAnimators().getSize() == 1 )
+				{
+					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
+						0, 10000, 2, 2 );
+					m_pCamera->addAnimator( ani );
+					ani->drop();
+					SubState = 1;
+				}
+				//std::cout<< m_pCamera->getAnimators().getSize() << std::endl;
+				//SubState = 1;
+			}
+			else if ( SubState == 1 )
+			{
+				// 卫星远离
+				// 解除月球和行星的父子关系
+				Moon1->setPosition( Moon1->getAbsolutePosition() );
+				Moon1->setParent( smgr->getRootSceneNode() );
+				auto ani = pEngine->GetMySceneManager()->createFlyStraightAnimator(
+					Moon1->getPosition(),
+					Moon1->getPosition() - ( m_pCamera->getTarget() - m_pCamera->getPosition() ).normalize() * 2e5,
+					2000 );
+				Moon1->addAnimator( ani );
+				ani->drop();
+
+				SubState = 2;
+				LastTime = pEngine->GetDevice()->getTimer()->getTime();
+			}
+			else if ( SubState == 2 )
+			{
+				// 行星远离
+				// 去掉相对镜头静止
+				if (  pEngine->GetDevice()->getTimer()->getTime() - LastTime > 500 )
+				{
+					Planet1->removeAnimators();
+					auto ani = pEngine->GetMySceneManager()->createFlyStraightAnimator(
+						Planet1->getPosition(), 
+						Planet1->getPosition() - ( m_pCamera->getTarget() - m_pCamera->getPosition() ).normalize() * 20e5,
+						3000 );
+					Planet1->addAnimator( ani );
+					ani->drop();
+
+					SubState = 3;
+					LastTime = pEngine->GetDevice()->getTimer()->getTime();
+				}
+			}
+			else if ( SubState == 3 )
+			{
+				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 2000 )
+				{
+					SelectCampMenu->SetVisible( true );
+					//m_pCamera->removeAnimator( (*m_pCamera->getAnimators().end()) );
+					SubState = 4;
+				}
+				
+			}
+
+			m_playerHelper->Update();
+			m_playerManager->Update();
+			//pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 		}
 		break;
 	case In_Battle:

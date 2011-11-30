@@ -115,13 +115,14 @@ public:
 	boost::shared_ptr<Network::BoostClient> client;
 	boost::shared_ptr<Network::BoostServer> server;
 
-	// 测试用音效
+	// 音效
 	irrklang::ISoundEngine* m_pSoundEngine;
 	irrklang::ISoundSource* SoundMenuBG;
 	irrklang::ISoundSource* SoundBG1;
 	irrklang::ISoundSource* SoundClick;
 	irrklang::ISound*	SoundCurrentBG;		// 同一时刻只能有一个Bg存在
 	irrklang::ISound*	SoundNextBG;
+	irrklang::ISound*	SoundThruster;		// 推进器轰鸣
 
 	irrklang::ISoundSource* fuck;
 
@@ -138,6 +139,7 @@ public:
 	// 状态标志
 	MultiState State;
 	int SubState;							// 状态中的子状态
+	u32 LastTime;							// 上次时间
 
 	// 环境
 	ISceneNode* Sun;						// 恒星

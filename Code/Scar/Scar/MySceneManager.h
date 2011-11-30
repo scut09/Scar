@@ -155,7 +155,7 @@ public:
 	ISceneNodeAnimator* createRelateCameraMoveAnimator( u32 delay, u32 duration, ICameraSceneNode* camera, 
 		vector3df start, vector3df end, RM_MOVE_TYPE moveType = RM_MT_LINER, f32 factor = 0 )
 	{
-		ISceneNodeAnimator* animator = 0;// = new RelateCameraAnimatorMove( delay, duration, camera, start, end, moveType, factor );
+		ISceneNodeAnimator* animator = new RelateCameraAnimatorMove( delay, duration, camera, start, end, moveType, factor );
 		return animator;
 	}
 
