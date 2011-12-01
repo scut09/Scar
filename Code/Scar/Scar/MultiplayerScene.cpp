@@ -749,41 +749,41 @@ void MultiplayerScene::Run()
 				spf.SetOffset( vector3df( 6, 0, -22 ) );
 				spf.AddFlameToShip( playerShip, smgr );
 
-				// 添加robot
-				IShip* npc;
-				boost::shared_ptr<ShipAgentPlayer> robot;
-				// robot 1
-				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
-				npc->SetMaxSpeed( 2 );
-				npc->setPosition( vector3df( playerShip->getAbsolutePosition() + vector3df( 10000, 10000, 10000 ) ) );
-				spf.SetOffset( vector3df( -6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				spf.SetOffset( vector3df( 6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-				bullet->SetVelocity( 1000 );
-				bullet->SetInterval( 100 );
-				npc->AddGun( bullet );
-				bullet->drop();	
-				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
-				m_playerManager->AddPlayer( robot );
-				// robot 2
-				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
-				npc->SetMaxSpeed( 2 );
-				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-				spf.SetOffset( vector3df( -6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				spf.SetOffset( vector3df( 6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-				bullet->SetVelocity( 1000 );
-				bullet->SetInterval( 100 );
-				npc->AddGun( bullet );
-				bullet->drop();	
-				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
-				m_playerManager->AddPlayer( robot );
+				//// 添加robot
+				//IShip* npc;
+				//boost::shared_ptr<ShipAgentPlayer> robot;
+				//// robot 1
+				//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+				//npc->SetMaxSpeed( 2 );
+				//npc->setPosition( vector3df( playerShip->getAbsolutePosition() + vector3df( 10000, 10000, 10000 ) ) );
+				//spf.SetOffset( vector3df( -6, 0, -22 ) );
+				//spf.AddFlameToShip( npc, smgr );
+				//spf.SetOffset( vector3df( 6, 0, -22 ) );
+				//spf.AddFlameToShip( npc, smgr );
+				//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				//bullet->SetVelocity( 1000 );
+				//bullet->SetInterval( 100 );
+				//npc->AddGun( bullet );
+				//bullet->drop();	
+				//robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				//m_playerManager->AddPlayer( robot );
+				//// robot 2
+				//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+				//npc->SetMaxSpeed( 2 );
+				//npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+				//spf.SetOffset( vector3df( -6, 0, -22 ) );
+				//spf.AddFlameToShip( npc, smgr );
+				//spf.SetOffset( vector3df( 6, 0, -22 ) );
+				//spf.AddFlameToShip( npc, smgr );
+				//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				//bullet->SetVelocity( 1000 );
+				//bullet->SetInterval( 100 );
+				//npc->AddGun( bullet );
+				//bullet->drop();	
+				//robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				//m_playerManager->AddPlayer( robot );
 
 				// 创建火控
 				auto fireAni = new ShipFireAnimator( client );
