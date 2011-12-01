@@ -295,6 +295,8 @@
     <None Include="..\..\..\bin\Shader\cf_1V.vert" />
     <None Include="..\..\..\bin\Shader\cs_1F.frag" />
     <None Include="..\..\..\bin\Shader\cs_1V.vert" />
+    <None Include="..\..\..\bin\Shader\Earth.frag" />
+    <None Include="..\..\..\bin\Shader\Earth.vert" />
     <None Include="..\..\..\bin\Shader\flare1.frag" />
     <None Include="..\..\..\bin\Shader\flare1.vert" />
     <None Include="..\..\..\bin\Shader\flare2.frag" />

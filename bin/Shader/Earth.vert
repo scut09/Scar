@@ -13,8 +13,8 @@ void main(void)
 {
 	gl_Position = WorldViewProj * gl_Vertex;
 
-	//vec3 LightDirection = SunNormal;
-	vec3 LightDirection = vec3(1.0, 0.4, -1.6);
+	vec3 LightDirection = SunNormal;
+	//vec3 LightDirection = vec3(-1.0, 0, 0);
 	// º∆À„…¢…‰π‚
 	vec4 N = normalize( TransMatrix * vec4(gl_Normal, 0.0));
 	vec4 L = vec4( LightDirection, 0.0 );
