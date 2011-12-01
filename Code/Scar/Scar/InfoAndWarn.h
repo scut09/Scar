@@ -28,7 +28,9 @@ public:
 
 	enum PI_WARN
 	{
-
+		PIW_PlayerLock,
+		PIW_PlayerUnlock,
+		PIW_MissleComing
 	};
 
 	union PI_MSG
@@ -98,6 +100,7 @@ public:
 		s32 MSGH = 28;
 		s32 MSGW = 159;
 
+		// 信息
 		t = uiMgr->AddUIImage( InfoBox, MSGW, MSGH );
 		t->LoadImage( "../media/Message/0.png" );
 		t->SetVisible( false );
@@ -138,6 +141,20 @@ public:
 		t->LoadImage( "../media/Message/9.png" );
 		t->SetVisible( false );
 		InfoMap[PII_B9] = t;
+
+		// 警告
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/playerlock.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_PlayerLock] = t;
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/playerunlock.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_PlayerUnlock] = t;
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/misslecoming.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_MissleComing] = t;
 	}
 
 	// 插入信息
@@ -165,7 +182,10 @@ public:
 	
 	}
 	// 插入警告
-	void AddWarn( PI_WARN warn );
+	void AddWarn( PI_WARN warn )
+	{
+		;
+	}
 
 	// 更新信息列表
 	void UpdateInfo()
@@ -261,18 +281,6 @@ public:
 				else
 					break;
 			}
-			//auto item = InfoList.begin();
-			//if ( (*item).State == 1 && timeMs - (*item).CreateTime >= MaxAliveTime )
-			//{
-			//	InfoCount--;
-			//	(*item).State = 2;
-			//	// 创建淡出动画
-			//	auto ani = MyIrrlichtEngine::GetEngine()->GetUIManager()->CreateAnimatorAlphaChange(
-			//		0, FadeOutTime, 255, 0 );
-			//	(*item).MsgImg->AddAnimator( ani );
-			//	ani->drop();
-			//	InfoList.pop_front();
-			//}
 		}
 	}
 
