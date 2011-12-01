@@ -318,9 +318,6 @@
     <ClCompile Include="UIBar.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="LaserNode.cpp">
-      <Filter>Models</Filter>
-    </ClCompile>
     <ClCompile Include="HouseHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -631,9 +628,6 @@
     </ClInclude>
     <ClInclude Include="UIBox.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="LaserNode.h">
-      <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="HouseHelper.h">
       <Filter>头文件</Filter>

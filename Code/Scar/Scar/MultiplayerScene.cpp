@@ -1,6 +1,7 @@
 ﻿/********************************************************************
 创建时间: 2011-10-8   16:01
 文件名:   MultiplayerScene.cpp
+作者:     华亮 Cedric Porter [ Stupid ET ]	
 说明:     多人游戏场景
 
 *********************************************************************/
@@ -28,14 +29,11 @@
 #include "GeneralCallBack.h"
 #include "PythonWrapper.h"
 #include "RunWay.h"
-#include "LaserNode.h"
 //#include "SunFlareCallBack.h"
 #include "SunFlareAnimator.h"
 #include "InfoAndWarn.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
-
-LaserNode * laser1;
 
 using namespace irrklang;
 
@@ -68,8 +66,8 @@ void MultiplayerScene::Run()
 	switch ( State )
 	{
 	case Select_Camp:
-#pragma region SelectCamp
-		{
+		#pragma region SelectCamp
+{
 			// 如果是第一次运行，初始化
 			if ( bRunOnce )
 			{
@@ -92,7 +90,7 @@ void MultiplayerScene::Run()
 						std::cout << "Room " << iter->first << " ";
 						std::wcout << iter->second.room_name << std::endl;
 
-						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·Ç±¾»úIP
+						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
 						{       
 							std::cout << "enter " << iter->first << std::endl;
 							client->EnterRoom( iter->first );
@@ -172,7 +170,7 @@ void MultiplayerScene::Run()
 
 			// 在此处进行游戏逻辑
 			/*m_playerHelper->m_infoAndWarn.UpdateInfo();*/
-
+			
 			if ( player->GetTeam() != 0 )
 			{
 				m_pSoundEngine->play2D( SoundClick );
@@ -184,7 +182,7 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion SelectCamp
 	case Transition1:
-#pragma region Transition1
+		#pragma region Transition1
 		{
 			ISceneNode* ActiveStation;
 			if ( bRunOnce )
@@ -226,8 +224,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion Transition1
 	case Select_Ship:
-#pragma region SelectShip
-		{
+		#pragma region SelectShip
+{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -322,8 +320,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion SelectShip
 	case Select_Equipment:
-#pragma region SelectEquipment
-		{
+		#pragma region SelectEquipment
+{
 			// 初始化
 			if ( bRunOnce )
 			{
@@ -360,8 +358,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion SelectEquipment
 	case Transition2:
-#pragma region Transition2
-		{
+		#pragma region Transition2
+{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -423,7 +421,7 @@ void MultiplayerScene::Run()
 #pragma endregion Transition2
 	case First_Flight:
 		{
-#pragma region FirstFlight
+		#pragma region FirstFlight
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -541,7 +539,7 @@ void MultiplayerScene::Run()
 			else if ( SubState == 3 )
 			{
 				u32 timeMS = pEngine->GetDevice()->getTimer()->getTime();
-
+				
 				if ( timeMS - LastTime > 2500 )
 				{
 					SubState = 4;
@@ -584,7 +582,7 @@ void MultiplayerScene::Run()
 						playerShip->SetVelocity( playerShip->GetVelocity() + 0.04f * playerShip->GetMaxSpeed() );
 					else if ( playerShip->GetVelocity() > playerShip->GetMaxSpeed() )
 						playerShip->SetVelocity( playerShip->GetMaxSpeed() );
-
+					
 					playerShip->setPosition( playerShip->getPosition() + vector3df( (f32)(t/10), 0, 0 ) );
 					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
 				}
@@ -605,13 +603,13 @@ void MultiplayerScene::Run()
 					playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
 					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
 				}
-
+				
 				SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );
 
 				m_playerHelper->Update();
 				m_playerManager->Update();
 			}
-
+			
 			pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 
 		}
@@ -682,14 +680,13 @@ void MultiplayerScene::Run()
 			{
 				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 2000 )
 				{
-					SelectCampMenu->SetVisible( true );
+					//SelectCampMenu->SetVisible( true );
 					//m_pCamera->removeAnimator( (*m_pCamera->getAnimators().end()) );
 					SubState = 4;
-
 					State = In_Battle;
 					bRunOnce = true;
 				}
-
+				
 			}
 
 			m_playerHelper->Update();
@@ -699,15 +696,120 @@ void MultiplayerScene::Run()
 		break;
 	case In_Battle:
 		{
+			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
-				bRunOnce = false;
-				SelectCampMenu->SetVisible(	false );
-				player->GetShip()->setPosition( vector3df( 100000, 0, 0 ) );
-			}
-			InBattle();
-			//laser1->build();
+				//SelectCampMenu->SetVisible( false );
+				//// 获取引擎
+				//MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+				//scene::ISceneManager* smgr = pEngine->GetSceneManager();
+				//smgr->clear();
 
+				//m_pModelMan = pEngine->GetModelManager();
+				//IVideoDriver* driver = pEngine->GetVideoDriver();
+
+				//shader = new SceneNodeShader();
+
+
+				//// 隐藏鼠标
+				//pEngine->GetDevice()->getCursorControl()->setVisible(false);
+
+
+				//// 创建飞船
+				//IShip* cf1;
+				//IMesh* cf1Mesh = smgr->getMesh( _T("../model/ship/cf1.obj") )->getMesh(0);
+				//if ( cf1Mesh )
+				//{
+				//	IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
+				//	cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
+				//	cf1->setName( "cf1" );
+				//	cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
+				//	cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+				//	GeneralCallBack* cb = new GeneralCallBack( cf1 );
+				//	shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+				//	cb->drop();
+				//	tangentMesh->drop();
+				//}
+				////飞船尾焰
+				//SpriteFlame spf;
+				//spf.SetOffset( vector3df( -6, 0, -22 ) );
+				//spf.AddFlameToShip( playership, smgr );
+				//spf.SetOffset( vector3df( 6, 0, -22 ) );
+				//spf.AddFlameToShip( cf1, smgr );
+
+				playerShip->removeAnimators();
+				m_pCamera->removeAnimators();
+				playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+				playerShip->setUpVector( vector3df( 0, 1, 0 ) );
+
+				auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+				playerShip->addAnimator( ctrlAni );
+				ctrlAni->drop();
+				auto flowAni = new CSceneNodeAnimatorCameraFollowShip( playerShip, 30 );
+				m_pCamera->addAnimator( flowAni );
+				flowAni->drop();
+
+				// 创建子弹
+				BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				bullet->SetVelocity( 1000 );
+				bullet->SetInterval( 100 );
+				playerShip->AddGun( bullet );
+				bullet->drop();
+
+				//飞船尾焰
+				SpriteFlame spf;
+				spf.SetOffset( vector3df( -6, 0, -22 ) );
+				spf.AddFlameToShip( playerShip, smgr );
+				spf.SetOffset( vector3df( 6, 0, -22 ) );
+				spf.AddFlameToShip( playerShip, smgr );
+
+				// 添加robot
+				IShip* npc;
+				boost::shared_ptr<ShipAgentPlayer> robot;
+				// robot 1
+				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+				npc->SetMaxSpeed( 2 );
+				npc->setPosition( vector3df( playerShip->getAbsolutePosition() + vector3df( 10000, 10000, 10000 ) ) );
+				spf.SetOffset( vector3df( -6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				spf.SetOffset( vector3df( 6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				bullet->SetVelocity( 1000 );
+				bullet->SetInterval( 100 );
+				npc->AddGun( bullet );
+				bullet->drop();	
+				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				m_playerManager->AddPlayer( robot );
+				// robot 2
+				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+				npc->SetMaxSpeed( 2 );
+				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+				spf.SetOffset( vector3df( -6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				spf.SetOffset( vector3df( 6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				bullet->SetVelocity( 1000 );
+				bullet->SetInterval( 100 );
+				npc->AddGun( bullet );
+				bullet->drop();	
+				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				m_playerManager->AddPlayer( robot );
+
+				// 创建火控
+				auto fireAni = new ShipFireAnimator( client );
+				playerShip->addAnimator( fireAni );
+				fireAni->drop();
+
+
+				bRunOnce = false;
+			}
+
+			InBattle();
 		}
 		break;
 	case Dead:
@@ -742,7 +844,7 @@ void MultiplayerScene::Init()
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
-
+	
 	// 兼容Test状态
 	if ( State != Test )
 	{
@@ -793,12 +895,15 @@ void MultiplayerScene::Init()
 		//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
 		//std::cout<<"--------------------------------------"<<std::endl;
 
+
+
 		server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
 		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
 
 		server->Start( 1990, 2012 );
 		client->Start( 2012, 1990 );
 
+		client->QueryRoom();
 
 
 		// 创建控制台
@@ -810,11 +915,6 @@ void MultiplayerScene::Init()
 		skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
 		console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
 		console->setVisible(false);
-
-		Sleep( 2000 );
-		client->QueryRoom();
-
-		Sleep( 2000 );
 
 		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 		{	
@@ -1164,14 +1264,6 @@ void MultiplayerScene::InitScene()
 	bullet->drop();	
 	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
 	m_playerManager->AddPlayer( robot );
-
-	laser1 = new LaserNode( smgr->getMesh(_T("../model/weapon/cylinder.3ds") ), 0, smgr, -1, npc, cf1 );
-	laser1->setMaterialTexture( 0, driver->getTexture( "../model/weapon/sphere_capmask.png" ) );
-	laser1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-	SceneNodeShader shader;
-	GeneralCallBack* newCB = new GeneralCallBack( laser1 );
-	shader.ApplyShaderToSceneNode( laser1, newCB, "", "Shader/Laser1.frag", EMT_TRANSPARENT_ADD_COLOR );
-	newCB->drop();
 
 	// 创建火控
 	auto fireAni = new ShipFireAnimator( client );
