@@ -811,5 +811,8 @@
     <None Include="..\..\..\bin\Shader\PlanetRing.vert">
       <Filter>Shader\shaders\planet</Filter>
     </None>
+    <None Include="..\..\..\bin\Python\BattleMap.py">
+      <Filter>Python\py</Filter>
+    </None>
   </ItemGroup>
 </Project>

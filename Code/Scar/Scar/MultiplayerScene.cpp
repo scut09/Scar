@@ -1,7 +1,6 @@
 /********************************************************************
 创建时间: 2011-10-8   16:01
 文件名:   MultiplayerScene.cpp
-作者:     华亮 Cedric Porter [ Stupid ET ]	
 说明:     多人游戏场景
 
 *********************************************************************/
@@ -69,8 +68,8 @@ void MultiplayerScene::Run()
 	switch ( State )
 	{
 	case Select_Camp:
-		#pragma region SelectCamp
-{
+#pragma region SelectCamp
+		{
 			// 如果是第一次运行，初始化
 			if ( bRunOnce )
 			{
@@ -129,7 +128,7 @@ void MultiplayerScene::Run()
 
 			// 在此处进行游戏逻辑
 			/*m_playerHelper->m_infoAndWarn.UpdateInfo();*/
-			
+
 			if ( player->GetTeam() != 0 )
 			{
 				m_pSoundEngine->play2D( SoundClick );
@@ -141,7 +140,7 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion SelectCamp
 	case Transition1:
-		#pragma region Transition1
+#pragma region Transition1
 		{
 			ISceneNode* ActiveStation;
 			if ( bRunOnce )
@@ -183,8 +182,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion Transition1
 	case Select_Ship:
-		#pragma region SelectShip
-{
+#pragma region SelectShip
+		{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -279,8 +278,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion SelectShip
 	case Select_Equipment:
-		#pragma region SelectEquipment
-{
+#pragma region SelectEquipment
+		{
 			// 初始化
 			if ( bRunOnce )
 			{
@@ -317,8 +316,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion SelectEquipment
 	case Transition2:
-		#pragma region Transition2
-{
+#pragma region Transition2
+		{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -380,7 +379,7 @@ void MultiplayerScene::Run()
 #pragma endregion Transition2
 	case First_Flight:
 		{
-		#pragma region FirstFlight
+#pragma region FirstFlight
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -498,7 +497,7 @@ void MultiplayerScene::Run()
 			else if ( SubState == 3 )
 			{
 				u32 timeMS = pEngine->GetDevice()->getTimer()->getTime();
-				
+
 				if ( timeMS - LastTime > 2500 )
 				{
 					SubState = 4;
@@ -541,7 +540,7 @@ void MultiplayerScene::Run()
 						playerShip->SetVelocity( playerShip->GetVelocity() + 0.04f * playerShip->GetMaxSpeed() );
 					else if ( playerShip->GetVelocity() > playerShip->GetMaxSpeed() )
 						playerShip->SetVelocity( playerShip->GetMaxSpeed() );
-					
+
 					playerShip->setPosition( playerShip->getPosition() + vector3df( (f32)(t/10), 0, 0 ) );
 					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
 				}
@@ -562,13 +561,13 @@ void MultiplayerScene::Run()
 					playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
 					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
 				}
-				
+
 				SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );
 
 				m_playerHelper->Update();
 				m_playerManager->Update();
 			}
-			
+
 			pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 
 		}
@@ -642,8 +641,10 @@ void MultiplayerScene::Run()
 					SelectCampMenu->SetVisible( true );
 					//m_pCamera->removeAnimator( (*m_pCamera->getAnimators().end()) );
 					SubState = 4;
+
+					State = In_Battle;
 				}
-				
+
 			}
 
 			m_playerHelper->Update();
@@ -654,7 +655,7 @@ void MultiplayerScene::Run()
 	case In_Battle:
 		{
 			InBattle();
-			laser1->build();
+			//laser1->build();
 		}
 		break;
 	case Dead:
@@ -689,7 +690,7 @@ void MultiplayerScene::Init()
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
-	
+
 	// 兼容Test状态
 	if ( State != Test )
 	{
@@ -739,6 +740,16 @@ void MultiplayerScene::Init()
 		SoundClick = m_pSoundEngine->addSoundSourceFromFile( "../sound/click.wav", irrklang::ESM_AUTO_DETECT, true );
 		//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
 		//std::cout<<"--------------------------------------"<<std::endl;
+
+
+
+		server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
+		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
+
+		server->Start( 1990, 2012 );
+		client->Start( 2012, 1990 );
+
+
 
 		// 创建控制台
 		IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();

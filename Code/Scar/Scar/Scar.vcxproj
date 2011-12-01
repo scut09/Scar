@@ -273,6 +273,7 @@
     <ClInclude Include="__array_1.pypp.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\bin\Python\BattleMap.py" />
     <None Include="..\..\..\bin\Python\client.py" />
     <None Include="..\..\..\bin\Python\MainMenuIni.py" />
     <None Include="..\..\..\bin\Python\MapV1.py" />
