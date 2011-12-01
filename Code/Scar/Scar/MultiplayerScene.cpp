@@ -95,15 +95,19 @@ void MultiplayerScene::Run()
 				SunFlareAnimator* sunAni = new SunFlareAnimator();
 				Flare->addAnimator( sunAni );
 				sunAni->drop();
-				/*Flare = smgr->getSceneNodeFromName( "flare" );
-				SunFlareCallBack* suncb = new SunFlareCallBack( Flare );
-				shader->ApplyShaderToSceneNode( Flare, suncb, "Shader/flare1.vert", "Shader/flare1.frag", EMT_TRANSPARENT_ADD_COLOR );
-				suncb->drop();*/
 
 				// 行星与卫星
 				Planet1 = smgr->getSceneNodeFromName( "planet1" );
 				Planet2 = smgr->getSceneNodeFromName( "planet2" );
 				Moon1 = smgr->getSceneNodeFromName( "Satellite1" );
+
+				//// 跃迁管道
+				//IMeshSceneNode* tube = smgr->addMeshSceneNode( smgr->getMesh( "../media/UnitModel/cylinder.3ds" ) );
+				//tube->setMaterialFlag( EMF_LIGHTING, false );
+				//tube->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+				//tube->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );
+				//tube->setMaterialTexture( 0, driver->getTexture( "../media/Space/shieldhardening.png" ) );
+				//tube->setScale( vector3df( 10, 10, 300 ) );
 
 				// 空间站
 				Station1 = smgr->getSceneNodeFromName( "station1" );
@@ -121,12 +125,6 @@ void MultiplayerScene::Run()
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
 
-				/*pif.Initialize();
-				pif.AddInfo( InfoAndWarn::PII_B1 );
-				pif.AddInfo( InfoAndWarn::PII_B2 );
-				pif.AddInfo( InfoAndWarn::PII_B3 );
-				pif.AddInfo( InfoAndWarn::PII_B4 );
-				pif.AddInfo( InfoAndWarn::PII_B5 );*/
 			}
 
 			// 在此处进行游戏逻辑
