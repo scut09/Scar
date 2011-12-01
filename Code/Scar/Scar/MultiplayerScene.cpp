@@ -1,7 +1,7 @@
-/********************************************************************
-´´½¨Ê±¼ä: 2011-10-8   16:01
-ÎÄ¼şÃû:   MultiplayerScene.cpp
-ËµÃ÷:     ¶àÈËÓÎÏ·³¡¾°
+ï»¿/********************************************************************
+åˆ›å»ºæ—¶é—´: 2011-10-8   16:01
+æ–‡ä»¶å:   MultiplayerScene.cpp
+è¯´æ˜:     å¤šäººæ¸¸æˆåœºæ™¯
 
 *********************************************************************/
 
@@ -70,12 +70,56 @@ void MultiplayerScene::Run()
 	case Select_Camp:
 #pragma region SelectCamp
 		{
-			// Èç¹ûÊÇµÚÒ»´ÎÔËĞĞ£¬³õÊ¼»¯
+			// å¦‚æœæ˜¯ç¬¬ä¸€æ¬¡è¿è¡Œï¼Œåˆå§‹åŒ–
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
-				// ÔÚ´Ë´¦½øĞĞ³õÊ¼»¯¹¤×÷
-				// ×°ÔØ³¡¾°
+				// åœ¨æ­¤å¤„è¿›è¡Œåˆå§‹åŒ–å·¥ä½œ
+				// è£…è½½åœºæ™¯
+
+
+				// åˆ›å»ºç½‘ç»œ 
+				{
+
+					Sleep( 1500 );
+
+					auto rooms = client->GetRooms();
+					auto localIP = client->GetLocalIP();
+
+					auto iter = rooms.begin();
+					for ( ; iter != rooms.end(); ++iter )
+					{
+						std::cout << "Room " << iter->first << " ";
+						std::wcout << iter->second.room_name << std::endl;
+
+						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // Â·Ã‡Â±Â¾Â»ÃºIP
+						{       
+							std::cout << "enter " << iter->first << std::endl;
+							client->EnterRoom( iter->first );
+							break;
+						}
+					}
+
+					if ( iter == rooms.end()  ) 
+						if ( ! localIP.empty() )
+							client->EnterRoom( *localIP.begin() );          
+						else
+							client->EnterRoom( "127.0.0.1" );
+
+					//Sleep( 2000 );
+
+					//client->Send( "192.168.1.121" );
+
+					while ( -11 == client->m_index )
+					{
+						Sleep( 500 );
+					}
+
+					std::cout << "m_index " << client->m_index << std::endl;
+
+				}
+
+
 				try
 				{
 					using namespace boost::python;
@@ -88,19 +132,19 @@ void MultiplayerScene::Run()
 					PyErr_Print();
 				}
 
-				// ºãĞÇ
+				// æ’æ˜Ÿ
 				Sun = smgr->getSceneNodeFromName( "Sun" );
 				Flare = smgr->getSceneNodeFromName( "flare" );
 				SunFlareAnimator* sunAni = new SunFlareAnimator();
 				Flare->addAnimator( sunAni );
 				sunAni->drop();
 
-				// ĞĞĞÇÓëÎÀĞÇ
+				// è¡Œæ˜Ÿä¸å«æ˜Ÿ
 				Planet1 = smgr->getSceneNodeFromName( "planet1" );
 				Planet2 = smgr->getSceneNodeFromName( "planet2" );
 				Moon1 = smgr->getSceneNodeFromName( "Satellite1" );
 
-				//// Ô¾Ç¨¹ÜµÀ
+				//// è·ƒè¿ç®¡é“
 				//IMeshSceneNode* tube = smgr->addMeshSceneNode( smgr->getMesh( "../media/UnitModel/cylinder.3ds" ) );
 				//tube->setMaterialFlag( EMF_LIGHTING, false );
 				//tube->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
@@ -108,11 +152,11 @@ void MultiplayerScene::Run()
 				//tube->setMaterialTexture( 0, driver->getTexture( "../media/Space/shieldhardening.png" ) );
 				//tube->setScale( vector3df( 10, 10, 300 ) );
 
-				// ¿Õ¼äÕ¾
+				// ç©ºé—´ç«™
 				Station1 = smgr->getSceneNodeFromName( "station1" );
 				Station2 = smgr->getSceneNodeFromName( "station2" );
 
-				// ÏÔÊ¾Ñ¡ÔñÕóÓª²Ëµ¥
+				// æ˜¾ç¤ºé€‰æ‹©é˜µè¥èœå•
 				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
 				SelectCampMenu->SetVisible( true );
 				SelectCampMenu->SetAlpha( 0 );
@@ -120,20 +164,20 @@ void MultiplayerScene::Run()
 				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
 
-				// ²¥·Å±³¾°ÒôÀÖ
+				// æ’­æ”¾èƒŒæ™¯éŸ³ä¹
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
 
 			}
 
-			// ÔÚ´Ë´¦½øĞĞÓÎÏ·Âß¼­
+			// åœ¨æ­¤å¤„è¿›è¡Œæ¸¸æˆé€»è¾‘
 			/*m_playerHelper->m_infoAndWarn.UpdateInfo();*/
 
 			if ( player->GetTeam() != 0 )
 			{
 				m_pSoundEngine->play2D( SoundClick );
 				State = Transition1;
-				// ÔÚ´Ë´¦ÊÍ·Å×ÊÔ´»òÒş²Ø×ÊÔ´
+				// åœ¨æ­¤å¤„é‡Šæ”¾èµ„æºæˆ–éšè—èµ„æº
 				bRunOnce = true;
 			}
 		}
@@ -146,10 +190,10 @@ void MultiplayerScene::Run()
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
-				// Ñ¡ÕóÓª²Ëµ¥ÏûÊ§
+				// é€‰é˜µè¥èœå•æ¶ˆå¤±
 				SelectCampMenu->SetVisible( false );
 
-				// ÏÔÊ¾
+				// æ˜¾ç¤º
 				Moon1->setVisible( true );
 				if ( player->GetTeam() == 1 )
 					ActiveStation = Station1;
@@ -157,7 +201,7 @@ void MultiplayerScene::Run()
 					ActiveStation = Station2;
 				ActiveStation->setVisible( true );
 
-				// À­¾µÍ·¶¯»­
+				// æ‹‰é•œå¤´åŠ¨ç”»
 				auto ani1 = smgr->createFlyStraightAnimator( vector3df(-5e5, -1e5, 8e5), vector3df(3e5,0.5e5,-1e5), 2500 );
 				Planet1->addAnimator( ani1 );
 				ani1->drop();
@@ -172,7 +216,7 @@ void MultiplayerScene::Run()
 				ani4->drop();
 			}
 
-			// Ìøµ½ÏÂÒ»³¡¾°
+			// è·³åˆ°ä¸‹ä¸€åœºæ™¯
 			if ( m_pCamera->getAnimators().empty() )
 			{
 				bRunOnce = true;
@@ -188,7 +232,7 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				player->SetConfirm( false );
-				// Òş²Ø²»ĞèÒª»æÖÆµÄ¶«Î÷
+				// éšè—ä¸éœ€è¦ç»˜åˆ¶çš„ä¸œè¥¿
 				Planet2->setVisible( false );
 
 				if( player->GetTeam() == 1 )
@@ -208,7 +252,7 @@ void MultiplayerScene::Run()
 				SelectShipMenu->AddAnimator( alpAni );
 				alpAni->drop();
 			}
-			// Âß¼­
+			// é€»è¾‘
 			if ( player->GetTeam() == 1 )
 			{
 				if ( player->GetShipName() == L"cf1" )
@@ -235,12 +279,12 @@ void MultiplayerScene::Run()
 					SelectShipMenu->GetChildren()[1]->GetChildren()[1]->SetVisible( true );
 				}
 			}
-			// ÌøÖÁÏÂÒ»³¡¾°
+			// è·³è‡³ä¸‹ä¸€åœºæ™¯
 			if ( player->GetConfirm() )
 			{
-				// Ñ¡ÖĞÒôĞ§
+				// é€‰ä¸­éŸ³æ•ˆ
 				m_pSoundEngine->play2D( SoundClick );
-				// ÎªÍæ¼Ò¸³ÓèÑ¡¶¨µÄ´¬
+				// ä¸ºç©å®¶èµ‹äºˆé€‰å®šçš„èˆ¹
 				IShip* ship;
 				if ( player->GetTeam() == 1 )
 				{
@@ -280,19 +324,19 @@ void MultiplayerScene::Run()
 	case Select_Equipment:
 #pragma region SelectEquipment
 		{
-			// ³õÊ¼»¯
+			// åˆå§‹åŒ–
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
 				player->SetConfirm( false );
-				// Òş²Ø²Ëµ¥
+				// éšè—èœå•
 				SelectShipMenu->SetVisible( false );
-				// ÏÔÊ¾Ñ¡×°±¸²Ëµ¥
+				// æ˜¾ç¤ºé€‰è£…å¤‡èœå•
 				SelectEquiMenu = uiManager->GetUIObjectByName( "seMenu" );
 				SelectEquiMenu->SetVisible( true );
 			}
 
-			// µ¼º½À¸
+			// å¯¼èˆªæ 
 			if ( uiManager->GetUIObjectByName( "buyListGun" )->GetVisible() )
 			{
 				SelectEquiMenu->GetChildren()[0]->GetChildren()[0]->SetVisible( false );
@@ -304,10 +348,10 @@ void MultiplayerScene::Run()
 				SelectEquiMenu->GetChildren()[1]->GetChildren()[1]->SetVisible( true );
 			}
 
-			// Ìø×ªÖÁÏÂÒ»¸ö³¡¾°
+			// è·³è½¬è‡³ä¸‹ä¸€ä¸ªåœºæ™¯
 			if ( player->GetConfirm() )
 			{
-				// Ñ¡ÖĞÒôĞ§
+				// é€‰ä¸­éŸ³æ•ˆ
 				m_pSoundEngine->play2D( SoundClick );
 				bRunOnce = true;
 				State = Transition2;
@@ -322,9 +366,9 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 				SelectEquiMenu->SetVisible( false );
-				// Òş²ØÊó±ê
+				// éšè—é¼ æ ‡
 				pEngine->GetDevice()->getCursorControl()->setVisible( false );
-				// Ê¹¿Õ¼äÕ¾ÔİÊ±²»Ïà¶ÔĞĞĞÇ¾²Ö¹
+				// ä½¿ç©ºé—´ç«™æš‚æ—¶ä¸ç›¸å¯¹è¡Œæ˜Ÿé™æ­¢
 				ISceneNode* ActiveStation;
 				if ( player->GetTeam() == 1 )
 					ActiveStation = Station1;
@@ -334,7 +378,7 @@ void MultiplayerScene::Run()
 				ActiveStation->setParent( smgr->getRootSceneNode() );
 				ActiveStation->setPosition( lastPos );
 
-				// Ê¹ĞĞĞÇºÍÎÀĞÇÏà¶ÔÉãÏñ»ú¾²Ö¹
+				// ä½¿è¡Œæ˜Ÿå’Œå«æ˜Ÿç›¸å¯¹æ‘„åƒæœºé™æ­¢
 				auto relStay = pEngine->GetMySceneManager()->createRelateCameraStayAnimator(
 					0, 1000, m_pCamera, Planet1->getAbsolutePosition() );
 				Planet1->addAnimator( relStay );
@@ -343,7 +387,7 @@ void MultiplayerScene::Run()
 				//m_pCamera->setPosition( vector3df(1e3,0,0) );
 				//m_pCamera->setTarget( vector3df(1e6,0,0) );
 				//m_pCamera->setPosition( vector3df(0) );
-				// ÍÏ¾µÍ·£¬Ğı×ª
+				// æ‹–é•œå¤´ï¼Œæ—‹è½¬
 				if ( player->GetTeam() == 1 )
 				{	
 					player->GetShip()->setPosition( vector3df(2e5,-0.266e5,0.5e5) );
@@ -385,13 +429,13 @@ void MultiplayerScene::Run()
 				bRunOnce = false;
 				SubState = 0;
 				m_pCamera->removeAnimators();
-				// ½«¾µÍ·Æ½ÒÆÖÁ·É´¬
+				// å°†é•œå¤´å¹³ç§»è‡³é£èˆ¹
 				m_pCamera->setTarget( player->GetShip()->getPosition() + vector3df(50,0,0) );
 				auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator(
 					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-10,0,0), 0, 2000, 1 );
 				m_pCamera->addAnimator( ani );
 				ani->drop();
-				// »»±³¾°ÒôĞ§
+				// æ¢èƒŒæ™¯éŸ³æ•ˆ
 				SoundNextBG = m_pSoundEngine->play2D( SoundBG1, false, true );
 				SoundNextBG->setVolume( 0 );
 				SoundNextBG->setIsPaused( false );
@@ -415,18 +459,18 @@ void MultiplayerScene::Run()
 				SubState = 2;
 				m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
 				player->SetConfirm( false );
-				// ×°±ÆÎÄ×Ö
+				// è£…é€¼æ–‡å­—
 				m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B0 );
 				m_pSoundEngine->play2D( "../sound/connecting.ogg" );
 				m_pSoundEngine->play2D( "../sound/onlogin04.wav" );
 			}
 			else if ( SubState == 2 )
 			{
-				// UI¶¯»­
+				// UIåŠ¨ç”»
 				IShip* playerShip = player->GetShip();
 				if ( m_playerHelper->Armor1->GetAlpha() > 0 && playerShip->GetArmor() < playerShip->GetMaxArmor() )
 				{
-					// ×°±ÆÎÄ×Ö
+					// è£…é€¼æ–‡å­—
 					if( playerShip->GetArmor() < 10 )
 						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B1 );
 					if( playerShip->GetArmor() > 980 )
@@ -439,7 +483,7 @@ void MultiplayerScene::Run()
 				}
 				if ( m_playerHelper->Energy1->GetAlpha() > 0 && playerShip->GetEnergy() < playerShip->GetMaxEnergy() )
 				{
-					// ×°±ÆÎÄ×Ö
+					// è£…é€¼æ–‡å­—
 					if ( playerShip->GetEnergy() < 10 )
 					{
 						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B3 );
@@ -449,7 +493,7 @@ void MultiplayerScene::Run()
 				}
 				if ( m_playerHelper->Cursor->GetAlpha() == 255 && !player->GetConfirm() )
 				{
-					// ×°±ÆÎÄ×Ö
+					// è£…é€¼æ–‡å­—
 					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B7 );
 					player->SetConfirm( true );
 					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( 
@@ -462,7 +506,7 @@ void MultiplayerScene::Run()
 				playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
 				playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
 
-				// »»±³¾°ÒôĞ§
+				// æ¢èƒŒæ™¯éŸ³æ•ˆ
 				if ( SoundNextBG->getVolume() < 1 )
 				{
 					SoundCurrentBG->setVolume( SoundCurrentBG->getVolume() - 0.005f );
@@ -579,7 +623,7 @@ void MultiplayerScene::Run()
 			{
 				bRunOnce = false;
 
-				// Òş²Ø²»±ØÒªµÄ½Úµã
+				// éšè—ä¸å¿…è¦çš„èŠ‚ç‚¹
 				Station1->setVisible( false );
 				Station2->setVisible( false );
 				smgr->getSceneNodeFromId( 4002 )->setVisible( false );
@@ -602,8 +646,8 @@ void MultiplayerScene::Run()
 			}
 			else if ( SubState == 1 )
 			{
-				// ÎÀĞÇÔ¶Àë
-				// ½â³ıÔÂÇòºÍĞĞĞÇµÄ¸¸×Ó¹ØÏµ
+				// å«æ˜Ÿè¿œç¦»
+				// è§£é™¤æœˆçƒå’Œè¡Œæ˜Ÿçš„çˆ¶å­å…³ç³»
 				Moon1->setPosition( Moon1->getAbsolutePosition() );
 				Moon1->setParent( smgr->getRootSceneNode() );
 				auto ani = pEngine->GetMySceneManager()->createFlyStraightAnimator(
@@ -618,8 +662,8 @@ void MultiplayerScene::Run()
 			}
 			else if ( SubState == 2 )
 			{
-				// ĞĞĞÇÔ¶Àë
-				// È¥µôÏà¶Ô¾µÍ·¾²Ö¹
+				// è¡Œæ˜Ÿè¿œç¦»
+				// å»æ‰ç›¸å¯¹é•œå¤´é™æ­¢
 				if (  pEngine->GetDevice()->getTimer()->getTime() - LastTime > 500 )
 				{
 					Planet1->removeAnimators();
@@ -688,27 +732,27 @@ void MultiplayerScene::Init()
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	IVideoDriver* driver = pEngine->GetVideoDriver();
 
-	// ³õÊ¼»¯×´Ì¬ÎªÑ¡ÕóÓª  ²âÊÔ¿ÉÒÔ½«´Ë´¦¸ÄÎªÏëÒªµÄ×´Ì¬
+	// åˆå§‹åŒ–çŠ¶æ€ä¸ºé€‰é˜µè¥  æµ‹è¯•å¯ä»¥å°†æ­¤å¤„æ”¹ä¸ºæƒ³è¦çš„çŠ¶æ€
 	State = Select_Camp;
 
-	// ¼æÈİTest×´Ì¬
+	// å…¼å®¹TestçŠ¶æ€
 	if ( State != Test )
 	{
-		// ³õÊ¼»¯ÉãÏñ»ú
+		// åˆå§‹åŒ–æ‘„åƒæœº
 		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
 		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 		m_pCamera->setFarValue( 1e7 );
 		m_pCamera->setFOV( 1 );
 		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
 
-		// ³õÊ¼»¯Íæ¼ÒÓë·É´¬
-		// ·É´¬ÎªÄ¬ÈÏÖµ£¬ÔÚÍæ¼ÒÑ¡´¬ºó¸ü»»Ä£ĞÍ
+		// åˆå§‹åŒ–ç©å®¶ä¸é£èˆ¹
+		// é£èˆ¹ä¸ºé»˜è®¤å€¼ï¼Œåœ¨ç©å®¶é€‰èˆ¹åæ›´æ¢æ¨¡å‹
 		IShip* playerShip = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
 		playerShip->setVisible( false );
 		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( playerShip ) );
 		pEngine->SetCurrentPlayer( player );
 
-		// ¼ÓÔØUI½çÃæ
+		// åŠ è½½UIç•Œé¢
 		pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
 		try
 		{
@@ -723,7 +767,7 @@ void MultiplayerScene::Init()
 			PyErr_Print();
 		}
 
-		// ¼ÓÔØÍæ¼Ò¹ÜÀíÀàºÍÍæ¼Ò¸¨ÖúÀà
+		// åŠ è½½ç©å®¶ç®¡ç†ç±»å’Œç©å®¶è¾…åŠ©ç±»
 		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
 		m_playerManager->AddPlayer( player );
 		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
@@ -732,7 +776,7 @@ void MultiplayerScene::Init()
 		m_playerHelper->LoadPlayerManager( &*m_playerManager );
 
 
-		// ¼ÓÔØÒôĞ§
+		// åŠ è½½éŸ³æ•ˆ
 		m_pSoundEngine = createIrrKlangDevice();
 		m_pSoundEngine->setSoundVolume( 0.6f );
 		SoundMenuBG = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient005.ogg" );
@@ -751,7 +795,7 @@ void MultiplayerScene::Init()
 
 
 
-		// ´´½¨¿ØÖÆÌ¨
+		// åˆ›å»ºæ§åˆ¶å°
 		IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 		IGUISkin* skin = gui->getSkin();
 		IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
@@ -825,7 +869,7 @@ void MultiplayerScene::Draw()
 
 void MultiplayerScene::InitScene()
 {
-	// »ñÈ¡ÒıÇæ
+	// è·å–å¼•æ“
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	scene::ISceneManager* smgr = pEngine->GetSceneManager();
 	smgr->clear();
@@ -836,11 +880,11 @@ void MultiplayerScene::InitScene()
 	shader = new SceneNodeShader();
 
 
-	// Òş²ØÊó±ê
+	// éšè—é¼ æ ‡
 	pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
 
-	// ´´½¨·É´¬
+	// åˆ›å»ºé£èˆ¹
 	IShip* cf1;
 	IMesh* cf1Mesh = smgr->getMesh( _T("../model/ship/cf1.obj") )->getMesh(0);
 	if ( cf1Mesh )
@@ -859,14 +903,14 @@ void MultiplayerScene::InitScene()
 
 	//m_playerHelper.LoadPlayerShip( boost::shared_ptr<)
 
-	//·É´¬Î²Ñæ
+	//é£èˆ¹å°¾ç„°
 	SpriteFlame spf;
 	spf.SetOffset( vector3df( -6, 0, -22 ) );
 	spf.AddFlameToShip( cf1, smgr );
 	spf.SetOffset( vector3df( 6, 0, -22 ) );
 	spf.AddFlameToShip( cf1, smgr );
 
-	// ´´½¨×Óµ¯
+	// åˆ›å»ºå­å¼¹
 	BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
 	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
 	bullet->SetVelocity( 1000 );
@@ -874,7 +918,7 @@ void MultiplayerScene::InitScene()
 	cf1->AddGun( bullet );
 	bullet->drop();
 
-	//  ¼ÓÈëÉãÏñ»ú
+	//  åŠ å…¥æ‘„åƒæœº
 	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
 	m_pCamera = smgr->addCameraSceneNode();
 
@@ -889,28 +933,28 @@ void MultiplayerScene::InitScene()
 	m_pCamera->addAnimator( shakeAni );
 	shakeAni->drop();*/
 
-	// ¿ª³¡¶¯»­
+	// å¼€åœºåŠ¨ç”»
 	auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
 	m_pCamera->addAnimator( BeginMove );
 	BeginMove->drop();
 
 	//m_pCamera->setParent( cf1 );
-	// ·É´¬¸úËæÕÕÏà»ú
+	// é£èˆ¹è·Ÿéšç…§ç›¸æœº
 	auto folowAni = new CSceneNodeAnimatorCameraFollowShip( cf1, 30 );
 	m_pCamera->addAnimator( folowAni );
 	folowAni->drop();
 
-	//¼ÓÔØĞĞĞÇ
+	//åŠ è½½è¡Œæ˜Ÿ
 	auto planet = smgr->addSphereSceneNode( 4e5, 64 );
 	if ( planet )
 	{
-		// ÉèÖÃÃû³Æ
+		// è®¾ç½®åç§°
 		planet->setName( "planet1" );
-		// ¼ÓÔØÎÆÀí
+		// åŠ è½½çº¹ç†
 		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet5.jpg") ) );
 		planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
 		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
-		// ĞÇÇò×Ô×ª
+		// æ˜Ÿçƒè‡ªè½¬
 		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
 		planet->addAnimator( rot );
 		rot->drop();
@@ -918,18 +962,18 @@ void MultiplayerScene::InitScene()
 		GeneralCallBack* cb = new GeneralCallBack( planet );
 		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" );
 		cb->drop();
-		//// ÉèÖÃ³õÊ¼´óĞ¡
+		//// è®¾ç½®åˆå§‹å¤§å°
 		//planet->setScale( vector3df( .01f ) );
-		//// Ëõ·Å¶¯»­
+		//// ç¼©æ”¾åŠ¨ç”»
 		//auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
 		//planet->addAnimator( sca );
 		//sca->drop();
-		// ĞĞĞÇÓÀÔ¶Ïà¶Ô¾µÍ·
+		// è¡Œæ˜Ÿæ°¸è¿œç›¸å¯¹é•œå¤´
 		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( -2e5, 0, 8e5 ) );
 		planet->addAnimator( relstayAni );
 		relstayAni->drop();
 	}
-	// ĞĞĞÇ´óÆøÈ¦
+	// è¡Œæ˜Ÿå¤§æ°”åœˆ
 	ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.2e5, 64, planet );
 	if ( planetAtmos )
 	{
@@ -943,30 +987,30 @@ void MultiplayerScene::InitScene()
 	}
 
 
-	//¼ÓÔØÎÀĞÇ
+	//åŠ è½½å«æ˜Ÿ
 	auto moon = smgr->addSphereSceneNode( 1e5, 64 );
 	if ( moon )
 	{
-		// ÉèÖÃÃû³Æ
+		// è®¾ç½®åç§°
 		moon->setName( "moon1" );
-		// ¼ÓÔØÎÆÀí
+		// åŠ è½½çº¹ç†
 		moon->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") ) );
-		// ĞÇÇò×Ô×ª
+		// æ˜Ÿçƒè‡ªè½¬
 		auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
 		moon->addAnimator( rot );
 		rot->drop();
-		//// ÉèÖÃ³õÊ¼´óĞ¡
+		//// è®¾ç½®åˆå§‹å¤§å°
 		//moon->setScale( vector3df( .001f ) );
-		//// Ëõ·Å¶¯»­
+		//// ç¼©æ”¾åŠ¨ç”»
 		//auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
 		//moon->addAnimator( sca );
 		//sca->drop();
-		//// ·ÉÔ¾ĞÇÇòĞ§¹û
+		//// é£è·ƒæ˜Ÿçƒæ•ˆæœ
 		//auto relmovAni = new RelateCameraAnimatorMove( 2000, 6000, m_pCamera,
 		//	vector3df(1e5, 0, 2.5e5), vector3df(1e5, 0, -2.5e5), RM_MT_LOG, 800 );
 		//moon->addAnimator( relmovAni );
 		//relmovAni->drop();
-		// ÎÀĞÇÓÀÔ¶Ïà¶Ô¾µÍ·
+		// å«æ˜Ÿæ°¸è¿œç›¸å¯¹é•œå¤´
 		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( 1e5, 0, 2.5e5 ) );
 		moon->addAnimator( relstayAni );
 		relstayAni->drop();
@@ -977,7 +1021,7 @@ void MultiplayerScene::InitScene()
 
 	//fuck->setVolume( fuck->getVolume() - 10 );
 
-	//¼ÓÔØ¿Õ¼äÕ¾Ä£ĞÍ
+	//åŠ è½½ç©ºé—´ç«™æ¨¡å‹
 
 	IMesh* stationMesh = smgr->getMesh( _T("../model/station/cs1.obj") );
 	if ( stationMesh )
@@ -992,15 +1036,15 @@ void MultiplayerScene::InitScene()
 		tangentMesh->drop();
 	}
 
-	////¼ÓÔØÌ«Ñô
+	////åŠ è½½å¤ªé˜³
 	//auto sun = smgr->addSphereSceneNode( 200000 );
 	//if ( sun )
 	//{
-	//	// ÉèÖÃÃû³Æ
+	//	// è®¾ç½®åç§°
 	//	moon->setName( "sun1" );
 	//}
 
-	// Ì«Ñô¹â£¨Æ½ĞĞ¹â£©
+	// å¤ªé˜³å…‰ï¼ˆå¹³è¡Œå…‰ï¼‰
 	video::SLight light1;
 	light1.Type = ELT_DIRECTIONAL;
 	light1.SpecularColor = video::SColorf( 0.1f, 0.1f, 0.1f );
@@ -1013,7 +1057,7 @@ void MultiplayerScene::InitScene()
 	m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
 	m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 
-	// ¼ÓÔØUI½çÃæ
+	// åŠ è½½UIç•Œé¢
 	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
 
 	try
@@ -1074,7 +1118,7 @@ void MultiplayerScene::InitScene()
 
 
 
-	// Ìí¼Órobot
+	// æ·»åŠ robot
 	IShip* npc;
 	boost::shared_ptr<ShipAgentPlayer> robot;
 	// robot 1
@@ -1118,7 +1162,7 @@ void MultiplayerScene::InitScene()
 	shader.ApplyShaderToSceneNode( laser1, newCB, "", "Shader/Laser1.frag", EMT_TRANSPARENT_ADD_COLOR );
 	newCB->drop();
 
-	// ´´½¨»ğ¿Ø
+	// åˆ›å»ºç«æ§
 	auto fireAni = new ShipFireAnimator( client );
 	cf1->addAnimator( fireAni );
 	fireAni->drop();
@@ -1153,7 +1197,7 @@ void MultiplayerScene::InitScene()
 
 	console->setText( _T("Press F1 to show or close this box" ) );
 
-	// ´´½¨²¢×¢²áreceiverµÄÊÂ¼ş´¦Àí»Øµ÷º¯Êı
+	// åˆ›å»ºå¹¶æ³¨å†Œreceiverçš„äº‹ä»¶å¤„ç†å›è°ƒå‡½æ•°
 	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
 		[ this, gui, box ]( const SEvent& event )->void*
 	{	
