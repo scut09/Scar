@@ -785,15 +785,12 @@ void MultiplayerScene::Init()
 		//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
 		//std::cout<<"--------------------------------------"<<std::endl;
 
-
-
 		server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
 		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
 
 		server->Start( 1990, 2012 );
 		client->Start( 2012, 1990 );
 
-		client->QueryRoom();
 
 
 		// 创建控制台
@@ -805,6 +802,9 @@ void MultiplayerScene::Init()
 		skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
 		console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
 		console->setVisible(false);
+
+		Sleep( 2000 );
+		client->QueryRoom();
 
 		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 		{	
