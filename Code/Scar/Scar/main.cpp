@@ -64,7 +64,7 @@ int main()
 	
 	// 上面为关键性的初始化工作，请勿往上面插入其他代码，否则可能会导致未定义的行为
 	//std::string buf;
-	std::streambuf *default_buf = std::cout.rdbuf( MyIrrlichtEngine::Console_Buffer.rdbuf() );
+	//std::streambuf *default_buf = std::cout.rdbuf( MyIrrlichtEngine::Console_Buffer.rdbuf() );
 	
 	AddPythonPath();	// 添加Python路径
 	
@@ -80,7 +80,7 @@ int main()
 	device->drop();
 
 
-	std::cout.rdbuf( default_buf );
+	//std::cout.rdbuf( default_buf );
 	//std::cout <<  MyIrrlichtEngine::Console_Buffer.str();
 
 	//Py_Finalize();
