@@ -687,6 +687,7 @@ void MultiplayerScene::Run()
 					SubState = 4;
 
 					State = In_Battle;
+					bRunOnce = true;
 				}
 
 			}
@@ -698,8 +699,15 @@ void MultiplayerScene::Run()
 		break;
 	case In_Battle:
 		{
+			if ( bRunOnce )
+			{
+				bRunOnce = false;
+				SelectCampMenu->SetVisible(	false );
+				player->GetShip()->setPosition( vector3df( 100000, 0, 0 ) );
+			}
 			InBattle();
 			//laser1->build();
+
 		}
 		break;
 	case Dead:
@@ -805,6 +813,8 @@ void MultiplayerScene::Init()
 
 		Sleep( 2000 );
 		client->QueryRoom();
+
+		Sleep( 2000 );
 
 		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
 		{	
