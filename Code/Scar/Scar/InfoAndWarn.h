@@ -20,28 +20,26 @@ class InfoAndWarn
 {
 
 public:	
+
+	/*enum PI_INFO
+	{
+	PIW_PlayerLock,
+	PIW_PlayerUnlock,
+	PIW_MissleComing
+	};*/
+
 	enum PI_INFO
 	{
 		// 从B0到B8都是没有任何用处的文字信息，仅供开场时装逼用
-		PII_B0,PII_B1,PII_B2,PII_B3,PII_B4,PII_B5,PII_B6,PII_B7,PII_B8,PII_B9
-	};
-
-	enum PI_WARN
-	{
+		PII_B0,PII_B1,PII_B2,PII_B3,PII_B4,PII_B5,PII_B6,PII_B7,PII_B8,PII_B9,
 		PIW_PlayerLock,
 		PIW_PlayerUnlock,
 		PIW_MissleComing
 	};
 
-	union PI_MSG
-	{
-		PI_INFO info;
-		PI_WARN warn;
-	};
-
 	struct PIItem
 	{
-		PI_MSG msg;
+		PI_INFO msg;
 		u32 CreateTime;
 		IUIObject* MsgImg;
 		s32 State;	// 0等待被创建 1已创建 2等待被销毁
@@ -58,8 +56,9 @@ private:
 	f32 Height;
 	f32 Width;
 
+	
+	std::map<PI_INFO, IUIObject*> WarnMap;		// 警告映射，供复制用
 	std::map<PI_INFO, IUIObject*> InfoMap;		// 信息映射，供复制用
-	std::map<PI_WARN, IUIObject*> WarnMap;		// 警告映射，供复制用
 	IUIObject* InfoBox;							// 信息的容器
 	IUIObject* WarnBox;							// 警告的容器
 	std::list<PIItem> InfoList;					// 信息列表
@@ -99,6 +98,23 @@ public:
 		IUIObject* t;
 		s32 MSGH = 28;
 		s32 MSGW = 159;
+
+		// 警告
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		//t->LoadImage( "../media/Message/playerlock.png" );
+		t->LoadImage( "../media/Message/playerlock.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_PlayerLock] = t;
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		//t->LoadImage( "../media/Message/playerunlock.png" );
+		t->LoadImage( "../media/Message/playerunlock.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_PlayerUnlock] = t;
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		//t->LoadImage( "../media/Message/misslecoming.png" );
+		t->LoadImage( "../media/Message/misslecoming.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_MissleComing] = t;
 
 		// 信息
 		t = uiMgr->AddUIImage( InfoBox, MSGW, MSGH );
@@ -141,20 +157,6 @@ public:
 		t->LoadImage( "../media/Message/9.png" );
 		t->SetVisible( false );
 		InfoMap[PII_B9] = t;
-
-		// 警告
-		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
-		t->LoadImage( "../media/Message/playerlock.png" );
-		t->SetVisible( false );
-		WarnMap[PIW_PlayerLock] = t;
-		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
-		t->LoadImage( "../media/Message/playerunlock.png" );
-		t->SetVisible( false );
-		WarnMap[PIW_PlayerUnlock] = t;
-		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
-		t->LoadImage( "../media/Message/misslecoming.png" );
-		t->SetVisible( false );
-		WarnMap[PIW_MissleComing] = t;
 	}
 
 	// 插入信息
@@ -163,12 +165,12 @@ public:
 		// 首先判断列表中是否已经存在这条消息
 		for ( auto iter = InfoList.begin(); iter != InfoList.end(); ++iter )
 		{
-			if ( (*iter).msg.info == info )
+			if ( (*iter).msg == info )
 				return;
 		}
 		// 新增文字项
 		PIItem item;
-		item.msg.info = info;
+		item.msg = info;
 		// 初始化状态
 		item.State = 0;
 		// 复制图片
@@ -182,9 +184,26 @@ public:
 	
 	}
 	// 插入警告
-	void AddWarn( PI_WARN warn )
+	void AddWarn( PI_INFO warn )
 	{
-		;
+		// 首先判断列表中是否已经存在这条消息
+		for ( auto iter = WarnList.begin(); iter != WarnList.end(); ++iter )
+		{
+			if ( (*iter).msg == warn )
+				return;
+		}
+		// 新增文字项
+		PIItem item;
+		item.msg = warn;
+		// 初始化状态
+		item.State = 0;
+		// 复制图片
+		auto iter = WarnMap.find( warn );
+		item.MsgImg = iter->second->Clone();
+		item.MsgImg->drop();
+		item.MsgImg->SetAlpha( 0 );
+		// 加入列表
+		WarnList.push_back( item );
 	}
 
 	// 更新信息列表
@@ -194,9 +213,6 @@ public:
 		u32 timeMs = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
 		if ( !InfoBox->GetAnimators().empty() )
 			return;
-		/*if ( timeMs - LastUpdateTime < 2000 )
-			return;
-		LastUpdateTime = timeMs;*/
 
 		//加入新信息
 		for( auto iter = InfoList.begin(); iter != InfoList.end(); ++iter )
@@ -287,7 +303,95 @@ public:
 	//更新警告列表
 	void UpdateWarn()
 	{
+		// 控制时间间隔
+		u32 timeMs = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
+		if ( !WarnBox->GetAnimators().empty() )
+			return;
 
+		//加入新信息
+		for( auto iter = WarnList.begin(); iter != WarnList.end(); ++iter )
+		{
+			if ( (*iter).State == 0 )
+			{
+				// 创建时间
+				(*iter).CreateTime = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getRealTime();
+				(*iter).State = 1;
+				WarnCount++;
+				// 设置位置
+				(*iter).MsgImg->SetVisible( true );
+				(*iter).MsgImg->SetPosition( vector2df( 0, NextWarnPos ) );
+				// 列表向上滑动
+				IUIAnimator* ani = MyIrrlichtEngine::GetEngine()->GetUIManager()->CreateAnimatorTranslation(
+					0, FadeOutTime, vector2df( 0, -SlipDistance ) );
+				WarnBox->AddAnimator( ani );
+				ani->drop();
+				// 创建淡入动画
+				ani = MyIrrlichtEngine::GetEngine()->GetUIManager()->CreateAnimatorAlphaChange(
+					0, FadeOutTime, 0, 255 );
+				(*iter).MsgImg->AddAnimator( ani );
+				ani->drop();
+				// 下一个位置
+				NextWarnPos += SlipDistance;
+
+				// 如果列表中的条目已经超出最大数，则删除多余的
+				if ( WarnCount > MaxInfoNum )
+				{
+					for ( auto iter2 = WarnList.begin(); iter2 != WarnList.end(); ++iter2 )
+					{
+						if ( (*iter2).State == 1 )
+						{
+							WarnCount--;
+							(*iter2).State = 2;
+							// 创建淡出动画
+							ani = MyIrrlichtEngine::GetEngine()->GetUIManager()->CreateAnimatorAlphaChange(
+								0, FadeOutTime, 255, 0 );
+							(*iter2).MsgImg->AddAnimator( ani );
+							ani->drop();
+							break;
+							//WarnList.pop_front();
+						}	
+					}
+				}
+				break;
+			}
+		}
+
+		// 删除过时的信息
+		if ( !WarnList.empty() )
+		{
+			for( auto iter = WarnList.begin(); iter != WarnList.end(); ++iter )
+			{
+				if ( (*iter).State == 2 )
+				{
+					if ( (*iter).MsgImg->GetAnimators().empty() )
+					{
+						(*iter).MsgImg->SetVisible( false );
+						//WarnBox->RemoveChild( (*iter).MsgImg );
+						WarnList.pop_front();
+						if ( !WarnList.empty() )
+							iter = WarnList.begin();
+						else
+							break;
+					}
+				}
+				else if ( (*iter).State == 1 )
+				{
+					if ( (*iter).State == 1 && timeMs - (*iter).CreateTime >= MaxAliveTime )
+					{
+						WarnCount--;
+						(*iter).State = 2;
+						// 创建淡出动画
+						auto ani = MyIrrlichtEngine::GetEngine()->GetUIManager()->CreateAnimatorAlphaChange(
+							0, FadeOutTime, 255, 0 );
+						(*iter).MsgImg->AddAnimator( ani );
+						ani->drop();
+					}
+					break;
+				}
+				else
+					break;
+			}
+		}
 	}
 
 	void Update();

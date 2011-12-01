@@ -493,6 +493,9 @@ void MultiplayerScene::Run()
 				{
 					// 装逼文字
 					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B7 );
+					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_MissleComing );
+					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerLock );
+					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerUnlock );
 					player->SetConfirm( true );
 					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( 
 						player->GetShip()->getPosition(), 400.0f, 300.0f, vector3df(0,63,255), vector3df(255,220,0), 25 );

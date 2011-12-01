@@ -51,7 +51,7 @@ public:
 	{
 		m_infoAndWarn.AddInfo( info );
 	}
-	void AddInfoMsg( InfoAndWarn::PI_WARN warn )
+	void AddWarnMsg( InfoAndWarn::PI_INFO warn )
 	{
 		m_infoAndWarn.AddWarn( warn );
 	}
