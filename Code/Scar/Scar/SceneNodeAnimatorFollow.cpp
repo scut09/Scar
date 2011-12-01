@@ -20,7 +20,7 @@ void CSceneNodeAnimatorCameraFollowShip::animateNode( ISceneNode* node, u32 time
 	camera->setPosition( ship->getPosition() + offset + upoffset );
 	camera->setRotation( ship->getRotation() );
 	camera->setUpVector( ship->getUpVector() );
-	camera->setTarget( camera->getPosition() + direction );
+	camera->setTarget( ship->getTarget() );
 
 
 }

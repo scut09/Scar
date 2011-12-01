@@ -404,7 +404,7 @@ void MultiplayerScene::Run()
 				}
 				player->GetShip()->setVisible( true );
 				player->GetShip()->setRotation( vector3df( 0, 90, 0 ) );
-				player->GetShip()->setTarget( player->GetShip()->getPosition() + vector3df(1,0,0) );
+				player->GetShip()->setTarget( player->GetShip()->getPosition() + vector3df(100,0,0) );
 				/*auto ani = smgr->createFlyStraightAnimator( vector3df(0), vector3df(2e5,-0.35e5,0.5e5), 1000 );
 				m_pCamera->addAnimator( ani );
 				ani->drop();*/
@@ -433,7 +433,7 @@ void MultiplayerScene::Run()
 					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-10,0,0), 0, 2000, 1 );
 				m_pCamera->addAnimator( ani );
 				ani->drop();
-				// 换背景音效
+				// 换背景音效''
 				SoundNextBG = m_pSoundEngine->play2D( SoundBG1, false, true );
 				SoundNextBG->setVolume( 0 );
 				SoundNextBG->setIsPaused( false );
@@ -448,7 +448,7 @@ void MultiplayerScene::Run()
 				/*auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				playerShip->addAnimator( ctrlAni );
 				ctrlAni->drop();*/
-				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), 30 );
+				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), -30 );
 				m_pCamera->addAnimator( folowAni );
 				folowAni->drop();
 			}
@@ -584,7 +584,7 @@ void MultiplayerScene::Run()
 						playerShip->SetVelocity( playerShip->GetMaxSpeed() );
 					
 					playerShip->setPosition( playerShip->getPosition() + vector3df( (f32)(t/10), 0, 0 ) );
-					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+					playerShip->setTarget( playerShip->getPosition() + vector3df( 100, 0, 0 ) );
 				}
 				if ( t > 2500 )
 				{
@@ -601,7 +601,7 @@ void MultiplayerScene::Run()
 				if ( SubState < 6 )
 				{
 					playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
-					playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+					playerShip->setTarget( playerShip->getPosition() + vector3df( 100, 0, 0 ) );
 				}
 				
 				SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );
@@ -699,53 +699,38 @@ void MultiplayerScene::Run()
 			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
-				//SelectCampMenu->SetVisible( false );
-				//// 获取引擎
-				//MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-				//scene::ISceneManager* smgr = pEngine->GetSceneManager();
-				//smgr->clear();
+				Planet1->setVisible( false );
+				Moon1->setVisible( false );
 
-				//m_pModelMan = pEngine->GetModelManager();
-				//IVideoDriver* driver = pEngine->GetVideoDriver();
+				try
+				{
+					using namespace boost::python;
+					object map = import( "BattleField1" );
+					object LoadMap = map.attr( "LoadMap" );
+					LoadMap();
+				}
+				catch ( ... )
+				{
+					PyErr_Print();
+				}
 
-				//shader = new SceneNodeShader();
+				ISceneNode* BattleField = smgr->getSceneNodeFromName( "battleField" );
+				BattleField->setPosition( m_pCamera->getPosition() );
 
 
-				//// 隐藏鼠标
-				//pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
-
-				//// 创建飞船
-				//IShip* cf1;
-				//IMesh* cf1Mesh = smgr->getMesh( _T("../model/ship/cf1.obj") )->getMesh(0);
-				//if ( cf1Mesh )
-				//{
-				//	IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
-				//	cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
-				//	cf1->setName( "cf1" );
-				//	cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
-				//	cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-				//	GeneralCallBack* cb = new GeneralCallBack( cf1 );
-				//	shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-				//	cb->drop();
-				//	tangentMesh->drop();
-				//}
-				////飞船尾焰
-				//SpriteFlame spf;
-				//spf.SetOffset( vector3df( -6, 0, -22 ) );
-				//spf.AddFlameToShip( playership, smgr );
-				//spf.SetOffset( vector3df( 6, 0, -22 ) );
-				//spf.AddFlameToShip( cf1, smgr );
 
 				playerShip->removeAnimators();
 				m_pCamera->removeAnimators();
-				playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+				playerShip->setPosition( vector3df( 0, 0, 0 ) );
+				playerShip->setRotation( vector3df(0) );
+				playerShip->setTarget( playerShip->getPosition() + vector3df( 0, 0, 100 ) );
 				playerShip->setUpVector( vector3df( 0, 1, 0 ) );
 
 				auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				playerShip->addAnimator( ctrlAni );
 				ctrlAni->drop();
-				auto flowAni = new CSceneNodeAnimatorCameraFollowShip( playerShip, 30 );
+				auto flowAni = new CSceneNodeAnimatorCameraFollowShip( playerShip, -30 );
 				m_pCamera->addAnimator( flowAni );
 				flowAni->drop();
 
@@ -807,6 +792,10 @@ void MultiplayerScene::Run()
 
 
 				bRunOnce = false;
+
+				auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+				player->GetShip()->addAnimator( fpsAni );
+				fpsAni->drop();
 			}
 
 			InBattle();

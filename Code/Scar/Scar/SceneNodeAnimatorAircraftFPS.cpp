@@ -1,8 +1,8 @@
-/********************************************************************
-´´½¨Ê±¼ä: 2011-10-18   11:42
-ÎÄ¼şÃû:   CSceneNodeAnimatorAircraftFPS.h
-×÷Õß:     ÑîĞñè¤ Herrmann
-ËµÃ÷:	  ·ÉĞĞÆ÷ÉãÏñ»úµ¥ÈËÉä»÷ÔË¶¯
+ï»¿/********************************************************************
+åˆ›å»ºæ—¶é—´: 2011-10-18   11:42
+æ–‡ä»¶å:   CSceneNodeAnimatorAircraftFPS.h
+ä½œè€…:     æ¨æ—­ç‘œ Herrmann
+è¯´æ˜:	  é£è¡Œå™¨æ‘„åƒæœºå•äººå°„å‡»è¿åŠ¨
 
 *********************************************************************/
 #include "SceneNodeAnimatorAircraftFPS.h"
@@ -30,7 +30,7 @@ CSceneNodeAnimatorAircraftFPS::CSceneNodeAnimatorAircraftFPS(gui::ICursorControl
 
 	allKeysUp();
 
-	// ³õÊ¼»¯ÎŞ·­¹ö
+	// åˆå§‹åŒ–æ— ç¿»æ»š
 	RollFlag = 0;
 	RollAng = 0;
 
@@ -102,44 +102,44 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 
 	IShip* ship = static_cast<IShip*>( node );
 
-	// ÔÚÕâÀïÃæ×ö³õÊ¼»¯¹¤×÷
+	// åœ¨è¿™é‡Œé¢åšåˆå§‹åŒ–å·¥ä½œ
 	if (firstUpdate)
 	{
-		// Êó±êÎ»ÖÃ³õÊ¼ÎªÆÁÄ»ÖĞĞÄ
+		// é¼ æ ‡ä½ç½®åˆå§‹ä¸ºå±å¹•ä¸­å¿ƒ
 		if (CursorControl && ship)
 		{
 			CursorControl->setPosition(0.5f, 0.5f);
 			CursorPos = CenterPos = CursorControl->getPosition();
 		}
-		// Êó±êÄÜÒÆ¶¯µÄ·¶Î§ÊÇ´óÈ¦È¦µÄ·¶Î§
+		// é¼ æ ‡èƒ½ç§»åŠ¨çš„èŒƒå›´æ˜¯å¤§åœˆåœˆçš„èŒƒå›´
 		MoveRadius = 586 / 2;
 
 		LastAnimationTime = timeMs;
 		
-		// ³õÊ¼»¯Íê³É
+		// åˆå§‹åŒ–å®Œæˆ
 		firstUpdate = false;
 	}
 
 	scene::ISceneManager * smgr = ship->getSceneManager();
 
-	// ¼ÆËãÊ±¼ä²î
+	// è®¡ç®—æ—¶é—´å·®
 	f32 timeDiff = (f32)( timeMs - LastAnimationTime ) / 20.f;
 	LastAnimationTime = timeMs;
 
-	// ÉÏÖ¡¾µÍ·ĞÅÏ¢
+	// ä¸Šå¸§é•œå¤´ä¿¡æ¯
 	vector3df relateRot = ship->getRotation();
 	vector3df lastUpVector = ship->getUpVector();
 	vector3df lastDirection = ( ship->getTarget() - ship->getPosition() ).normalize();
-	// Ò»Ğ©³õÊ¼»¯±äÁ¿
+	// ä¸€äº›åˆå§‹åŒ–å˜é‡
 	matrix4 irrMat;
 	ub::matrix<f32> bosMat(4,4);
 	ub::vector<f32> t(4);
 
-	// Êó±ê¿ØÖÆ
-	// È¡µÃµ±Ç°Êó±êÔÚÆÁÄ»ÉÏµÄÎ»ÖÃÒÔ¼°ÀëÖĞĞÄµãµÄÎ»ÒÆÁ¿
+	// é¼ æ ‡æ§åˆ¶
+	// å–å¾—å½“å‰é¼ æ ‡åœ¨å±å¹•ä¸Šçš„ä½ç½®ä»¥åŠç¦»ä¸­å¿ƒç‚¹çš„ä½ç§»é‡
 	vector2d<s32> CursorOffset = CursorPos - CenterPos;
 	s32 OffsetLength = CursorOffset.getLength();
-	// Èç¹ûÊó±ê·É³ö´óÈ¦È¦
+	// å¦‚æœé¼ æ ‡é£å‡ºå¤§åœˆåœˆ
 	if ( OffsetLength > MoveRadius )
 	{
 		vector2d<s32> newPos;
@@ -151,7 +151,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		if ( CursorControl )
 			CursorControl->setPosition( newPos.X, newPos.Y );
 	}
-	// »ñÈ¡µ±Ç°µÄĞı×ªÖáºÍĞı×ª½Ç
+	// è·å–å½“å‰çš„æ—‹è½¬è½´å’Œæ—‹è½¬è§’
 	f32 tAng = (f32)CursorOffset.getAngle() - 90;
 	if ( tAng < 0 )
 		tAng += 360;
@@ -170,10 +170,10 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	}
 	t = prod( t, bosMat );
 	rotAxis = vector3df( t(0), t(1), t(2) );
-	// Êó±êÓ°Ïì×ª¶¯
-	f32 rotAng = (f32)CursorOffset.getLength() / (f32)MoveRadius * -2.0f * timeDiff/*ÏµÊıÏà¹Ø*/;
-	// Çó±ä»»¾ØÕó
-	rotAxisQuat = rotAxisQuat.fromAngleAxis( rotAng * DEGTORAD, rotAxis ); // ÓÉ¸Õ²ÅÇóµÃµÄĞı×ªÖáĞı×ªÌØ¶¨½Ç¶È
+	// é¼ æ ‡å½±å“è½¬åŠ¨
+	f32 rotAng = (f32)CursorOffset.getLength() / (f32)MoveRadius * -2.0f * timeDiff/*ç³»æ•°ç›¸å…³*/;
+	// æ±‚å˜æ¢çŸ©é˜µ
+	rotAxisQuat = rotAxisQuat.fromAngleAxis( rotAng * DEGTORAD, rotAxis ); // ç”±åˆšæ‰æ±‚å¾—çš„æ—‹è½¬è½´æ—‹è½¬ç‰¹å®šè§’åº¦
 	irrMat = rotAxisQuat.getMatrix();		
 	for ( int i=0; i<4; i++ )
 	{
@@ -182,20 +182,20 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 			bosMat(j,i) = irrMat[ 4*i + j ];
 		}
 	}
-	// ÇóĞÂµÄÏòÇ°ÏòÁ¿
+	// æ±‚æ–°çš„å‘å‰å‘é‡
 	t(0) = lastDirection.X; t(1) = lastDirection.Y; t(2) = lastDirection.Z; t(3) = 0;
 	t = prod( t, bosMat );
 	vector3df newDirection = vector3df( t(0), t(1), t(2) ).normalize();
-	// ÇóĞÂµÄÏòÉÏÏòÁ¿
+	// æ±‚æ–°çš„å‘ä¸Šå‘é‡
 	t(0) = lastUpVector.X; t(1) = lastUpVector.Y; t(2) = lastUpVector.Z; t(3) = 0;
 	t = prod( t, bosMat );
 	vector3df newUpVector = vector3df( t(0), t(1), t(2) );
 	
-	// ¸ù¾İËÙ¶ÈÒÆ¶¯·É´¬
-	vector3df movement = newDirection * ship->GetVelocity() * timeDiff /* ÔÙ³ËÒÔÊ±¼ä*/;
+	// æ ¹æ®é€Ÿåº¦ç§»åŠ¨é£èˆ¹
+	vector3df movement = newDirection * ship->GetVelocity() * timeDiff /* å†ä¹˜ä»¥æ—¶é—´*/;
 
 
-	// ·­¹ö¶¯×÷
+	// ç¿»æ»šåŠ¨ä½œ
 	if ( RollAng != 0 )
 	{
 		rotAxisQuat = rotAxisQuat.fromAngleAxis( RollAng * DEGTORAD * timeDiff, newDirection );
@@ -212,12 +212,12 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 		newUpVector = vector3df( t(0), t(1), t(2) );
 	}
 	
-	// ¸üĞÂÕÕÏà»ú×´Ì¬
+	// æ›´æ–°ç…§ç›¸æœºçŠ¶æ€
 	ship->setPosition( ship->getPosition() + movement );
 	ship->setTarget( ship->getPosition() + newDirection );
 	ship->setUpVector( newUpVector );
 
-	// ¼ÆËãÉãÏñ»úµÄĞı×ª¾ØÕó
+	// è®¡ç®—æ‘„åƒæœºçš„æ—‹è½¬çŸ©é˜µ
 	vector3df up = ship->getUpVector();
 	vector3df dir = ship->getTarget() - ship->getPosition();
 	vector3df x = up.crossProduct( dir );
@@ -230,66 +230,66 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	m[ 8 ] = x.Z;	m[ 9 ] = up.Z;		m[ 10 ] = dir.Z;	m[ 11 ] = 0;
 	m[ 12 ] = 0;	m[ 13 ] = 0;	m[ 14 ] = 0;		m[ 15 ] = 1;
 	mat.setM( m );
-	mat.makeInverse();	// ±äÎªÄæ¾ØÕó
+	mat.makeInverse();	// å˜ä¸ºé€†çŸ©é˜µ
 
-	// ÉèÖÃÉãÏñ»úµÄĞı×ª½Ç
+	// è®¾ç½®æ‘„åƒæœºçš„æ—‹è½¬è§’
 	ship->setRotation( mat.getRotationDegrees() );
 
-	// ¼üÅÌ¿ØÖÆ
-	// µ±W¼ü°´ÏÂÊ±¼ÓËÙ£¬µ±W¼üµ¯ÆğÊ±ËÙ¶È»ºÂı»ØÂä
+	// é”®ç›˜æ§åˆ¶
+	// å½“Wé”®æŒ‰ä¸‹æ—¶åŠ é€Ÿï¼Œå½“Wé”®å¼¹èµ·æ—¶é€Ÿåº¦ç¼“æ…¢å›è½
 	if ( CursorKeys[EKA_MOVE_FORWARD] )
 	{
 		if ( ship->GetVelocity() < ship->GetMaxSpeed() )
 		{
-			f32 current = ( ship->GetMaxSpeed() - ship->GetVelocity() ) / 100.0f/*ÁéÃô¶ÈÏà¹Ø*/ + ship->GetVelocity();
+			f32 current = ( ship->GetMaxSpeed() - ship->GetVelocity() ) / 100.0f/*çµæ•åº¦ç›¸å…³*/ + ship->GetVelocity();
 			ship->SetVelocity( current );
 		}
-		// ·ÀÖ¹ÉÏÒç
+		// é˜²æ­¢ä¸Šæº¢
 		if ( ship->GetVelocity() > ship->GetMaxSpeed() )
 			ship->SetVelocity( ship->GetMaxSpeed() );
 	}
 	else if ( ship->GetVelocity() > 0 )
 	{
-		ship->SetVelocity( ship->GetVelocity() - 0.005f/*ÁéÃô¶ÈÏà¹Ø*/ );
-		// ·ÀÖ¹ÏÂÒç
+		ship->SetVelocity( ship->GetVelocity() - 0.005f/*çµæ•åº¦ç›¸å…³*/ );
+		// é˜²æ­¢ä¸‹æº¢
 		if ( ship->GetVelocity() < 0 )
 			ship->SetVelocity( 0 );
 	}
-	// µ±S¼ü°´ÏÂÊ±¼õËÙ
+	// å½“Sé”®æŒ‰ä¸‹æ—¶å‡é€Ÿ
 	if ( CursorKeys[EKA_MOVE_BACKWARD] )
 	{
 		if ( ship->GetVelocity() > 0 )
-			ship->SetVelocity( ship->GetVelocity() - 0.01f/*ÁéÃô¶ÈÏà¹Ø*/ );
-		// ·ÀÖ¹ÏÂÒç
+			ship->SetVelocity( ship->GetVelocity() - 0.01f/*çµæ•åº¦ç›¸å…³*/ );
+		// é˜²æ­¢ä¸‹æº¢
 		if ( ship->GetVelocity() < 0 )
 			ship->SetVelocity( 0 );
 	}
-	// µ±A¼ü°´ÏÂÊ±×ó²à·­
+	// å½“Aé”®æŒ‰ä¸‹æ—¶å·¦ä¾§ç¿»
 	if ( CursorKeys[EKA_STRAFE_LEFT] )
 	{
 		if ( RollAng < 4.5f )
 			RollAng += 0.15f;
 	}
-	// µ±°´ÏÂD¼üÊ±ÓÒ²à·­
+	// å½“æŒ‰ä¸‹Dé”®æ—¶å³ä¾§ç¿»
 	if ( CursorKeys[EKA_STRAFE_RIGHT] )
 	{
 		if ( RollAng > -4.5f )
 			RollAng -= 0.15f;
 	}
-	// µ±ËùÓĞ¼üµ¯ÆğÊ±»Ö¸´
+	// å½“æ‰€æœ‰é”®å¼¹èµ·æ—¶æ¢å¤
 	if ( !CursorKeys[EKA_STRAFE_LEFT] && !CursorKeys[EKA_STRAFE_RIGHT] )
 	{
 		if ( RollAng > 0 )
 		{
 			RollAng -= 0.15f;
-			// ·ÀÖ¹ÏÂÒç
+			// é˜²æ­¢ä¸‹æº¢
 			if ( RollAng < 0 )
 				RollAng = 0;
 		}	
 		else if ( RollAng < 0 )
 		{
 			RollAng += 0.15f;
-			// ·ÀÖ¹ÉÏÒç
+			// é˜²æ­¢ä¸Šæº¢
 			if ( RollAng > 0 )
 				RollAng = 0;
 		}	
@@ -343,7 +343,7 @@ void CSceneNodeAnimatorAircraftFPS::setKeyMap(const core::array<SCamKeyMap>& key
 	KeyMap=keymap;
 }
 
-// ÒÔÏÂµÄÕâĞ©·½·¨²»ĞèÒªÊµÏÖ
+// ä»¥ä¸‹çš„è¿™äº›æ–¹æ³•ä¸éœ€è¦å®ç°
 
 irr::f32 CSceneNodeAnimatorAircraftFPS::getMoveSpeed() const
 {
