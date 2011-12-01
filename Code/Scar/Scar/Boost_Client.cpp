@@ -251,7 +251,7 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 
 		// 加载飞船，需要根据玩家飞船信息组装飞船
-		auto ship = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, -1 );
+		auto ship = new CFrigate( smgr->getMesh("../model/ship/cf1.obj"), 0, smgr, -1 );
 
 		// 设置船的id
 		ship->setID( oneplayer.player_index );
