@@ -793,6 +793,7 @@ void MultiplayerScene::Init()
 		server->Start( 1990, 2012 );
 		client->Start( 2012, 1990 );
 
+		client->QueryRoom();
 
 
 		// 创建控制台
