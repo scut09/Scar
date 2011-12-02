@@ -214,7 +214,7 @@ void CSceneNodeAnimatorAircraftFPS::animateNode(ISceneNode* node, u32 timeMs)
 	
 	// 更新照相机状态
 	ship->setPosition( ship->getPosition() + movement );
-	ship->setTarget( ship->getPosition() + newDirection );
+	ship->setTarget( ship->getPosition() + newDirection * 100 );
 	ship->setUpVector( newUpVector );
 
 	// 计算摄像机的旋转矩阵
