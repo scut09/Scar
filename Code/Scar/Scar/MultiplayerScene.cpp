@@ -31,11 +31,14 @@
 #include "RunWay.h"
 //#include "SunFlareCallBack.h"
 #include "SunFlareAnimator.h"
-#include "InfoAndWarn.h"
+//#include "InfoAndWarn.h"
+#include "WarpFlyTubeContoller.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
 using namespace irrklang;
+
+//WarpFlyTubeController* wftc;
 
 template< class T >
 struct Fuck
@@ -494,9 +497,9 @@ void MultiplayerScene::Run()
 				{
 					// 装逼文字
 					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B7 );
-					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_MissleComing );
+					/*m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_MissleComing );
 					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerLock );
-					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerUnlock );
+					m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerUnlock );*/
 					player->SetConfirm( true );
 					ISceneNode* runway = pEngine->GetMySceneManager()->addRunWaySceneNode( 
 						player->GetShip()->getPosition(), 400.0f, 300.0f, vector3df(0,63,255), vector3df(255,220,0), 25 );
@@ -593,6 +596,7 @@ void MultiplayerScene::Run()
 				if ( t > 2500 )
 				{
 					State = Warp;
+					//wftc->BeginFadeIn();
 					bRunOnce = true;
 				}
 			}
@@ -687,8 +691,9 @@ void MultiplayerScene::Run()
 					//SelectCampMenu->SetVisible( true );
 					//m_pCamera->removeAnimator( (*m_pCamera->getAnimators().end()) );
 					SubState = 4;
-					State = In_Battle;
-					bRunOnce = true;
+					//wftc->BeginFadeOut();
+					//State = In_Battle;
+					//bRunOnce = true;
 				}
 				
 			}
@@ -834,6 +839,8 @@ void MultiplayerScene::Init()
 {
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	IVideoDriver* driver = pEngine->GetVideoDriver();
+
+	//wftc = new WarpFlyTubeController();
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
