@@ -537,7 +537,7 @@ void MultiplayerScene::Run()
 				if ( player->GetConfirm() && pEngine->GetDevice()->getTimer()->getTime() - LastTime > 4500 )
 				{
 					SubState = 3;
-					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator( 0, 1000, 3 );
+					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator( 0, 1000, 300 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B5 );
@@ -583,7 +583,7 @@ void MultiplayerScene::Run()
 					SubState = 6;
 					LastTime = pEngine->GetDevice()->getTimer()->getTime();
 					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
-						0, 3800, 0, 2 );
+						0, 3800, 0, 200 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 				}
@@ -653,7 +653,7 @@ void MultiplayerScene::Run()
 				if ( m_pCamera->getAnimators().getSize() == 1 )
 				{
 					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
-						0, 10000, 2, 2 );
+						0, 10000, 200, 200 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 					SubState = 1;
@@ -718,10 +718,19 @@ void MultiplayerScene::Run()
 				auto flowAni = new CSceneNodeAnimatorCameraFollowShip( playerShip, 30 );
 				m_pCamera->addAnimator( flowAni );
 				flowAni->drop();
+				auto shakeAni = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
+					0, 10000, 200, 200 );
+				m_pCamera->addAnimator( shakeAni );
+				shakeAni->drop();
 				// 将太阳移回
+				vector3df SunPos;
+				if ( player->GetTeam() == 1 )
+					SunPos = vector3df( 0.5e5, 0.266e5, 16e5 );
+				else
+					SunPos = vector3df( 0.5e5, 0.35e5, 16e5 );
 				Sun->removeAnimators();
 				auto ani = pEngine->GetMySceneManager()->createRelateCameraStayAnimator( 
-					0, 1000, m_pCamera, vector3df( 0, 0, 18e5 ) );
+					0, 1000, m_pCamera, SunPos );
 				Sun->addAnimator( ani );
 				ani->drop();
 
@@ -740,6 +749,13 @@ void MultiplayerScene::Run()
 						0, 3500, m_pCamera, vector3df( 3e5,0,6e5 ), vector3df( 3e5,0,0.5e5 ), RM_MT_LOG );
 					bfEarth->addAnimator( ani );
 					ani->drop();
+
+					// 震动减缓
+					m_pCamera->removeAnimator( (*m_pCamera->getAnimators().getLast()) );
+					auto shakeAni = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
+						0, 4000, 200 );
+					m_pCamera->addAnimator( shakeAni );
+					shakeAni->drop();
 
 					SubState = 6;
 					LastTime = pEngine->GetDevice()->getTimer()->getTime();
