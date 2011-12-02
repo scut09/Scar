@@ -448,7 +448,8 @@ void MultiplayerScene::Run()
 				/*auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				playerShip->addAnimator( ctrlAni );
 				ctrlAni->drop();*/
-				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), -30 );
+				playerShip->setTarget( vector3df(100, 0, 0) );
+				auto folowAni = new CSceneNodeAnimatorCameraFollowShip( player->GetShip(), 30 );
 				m_pCamera->addAnimator( folowAni );
 				folowAni->drop();
 			}
@@ -505,7 +506,7 @@ void MultiplayerScene::Run()
 				}
 				playerShip->SetVelocity( 0.5f );
 				playerShip->setPosition( playerShip->getPosition() + vector3df( 0.5, 0, 0 ) );
-				playerShip->setTarget( playerShip->getPosition() + vector3df( 1, 0, 0 ) );
+				playerShip->setTarget( playerShip->getPosition() + vector3df( 100, 0, 0 ) );
 
 				// 换背景音效
 				if ( SoundNextBG->getVolume() < 1 )

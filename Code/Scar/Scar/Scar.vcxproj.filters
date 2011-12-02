@@ -647,6 +647,12 @@
     <ClInclude Include="InfoAndWarn.h">
       <Filter>Player</Filter>
     </ClInclude>
+    <ClInclude Include="WarpFlyAnimator.h">
+      <Filter>FunnyThings</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpFlyTubeContoller.h">
+      <Filter>FunnyThings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\client.py">
@@ -807,6 +813,12 @@
     </None>
     <None Include="..\..\..\bin\Python\BattleMap.py">
       <Filter>Python\py</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\Earth.frag">
+      <Filter>Shader\shaders\planet</Filter>
+    </None>
+    <None Include="..\..\..\bin\Shader\Earth.vert">
+      <Filter>Shader\shaders\planet</Filter>
     </None>
   </ItemGroup>
 </Project>
