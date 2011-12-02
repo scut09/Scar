@@ -51,6 +51,12 @@ public:
 	{
 		m_infoAndWarn.AddInfo( info );
 	}
+
+	void SetLockerShip ( IShip* lockership )
+	{
+		LockedShip = lockership;
+	}
+
 	void AddWarnMsg( InfoAndWarn::PI_INFO warn )
 	{
 		m_infoAndWarn.AddWarn( warn );

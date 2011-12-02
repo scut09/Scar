@@ -803,6 +803,124 @@ void MultiplayerScene::Run()
 				playerShip->addAnimator( fireAni );
 				fireAni->drop();
 
+				//飞船尾焰
+				SpriteFlame spf;
+				spf.SetOffset( vector3df( -6, 0, -22 ) );
+				spf.AddFlameToShip( playerShip, smgr );
+				spf.SetOffset( vector3df( 6, 0, -22 ) );
+				spf.AddFlameToShip( playerShip, smgr );
+
+				// 添加robot
+				IShip* npc;
+				boost::shared_ptr<ShipAgentPlayer> robot;
+				// robot 1
+				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+				npc->SetMaxSpeed( 2 );
+				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+				spf.SetOffset( vector3df( -6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				spf.SetOffset( vector3df( 6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				bullet->SetVelocity( 1000 );
+				bullet->SetInterval( 100 );
+				npc->AddGun( bullet );
+				bullet->drop();	
+				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				m_playerManager->AddPlayer( robot );
+				// robot 2
+				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+				npc->SetMaxSpeed( 2 );
+				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+				spf.SetOffset( vector3df( -6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				spf.SetOffset( vector3df( 6, 0, -22 ) );
+				spf.AddFlameToShip( npc, smgr );
+				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				bullet->SetVelocity( 1000 );
+				bullet->SetInterval( 100 );
+				npc->AddGun( bullet );
+				bullet->drop();	
+				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				m_playerManager->AddPlayer( robot );
+
+				IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+				IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
+				box->setVisible( false );
+				// 创建并注册receiver的事件处理回调函数
+				dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
+					[ this, gui, box ]( const SEvent& event )->void*
+				{	
+					m_playerManager->OnEvent( event );
+
+					if ( event.KeyInput.PressedDown )
+					{
+						switch ( event.KeyInput.Key )
+						{
+						case KEY_KEY_F :
+							{
+								boost::shared_ptr<IPlayer> player = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
+								ICameraSceneNode* camera = MyIrrlichtEngine::GetEngine()->GetSceneManager()->getActiveCamera();
+								IVideoDriver* driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
+								Toolkit toolkit( MyIrrlichtEngine::GetEngine()->GetSceneManager()->getActiveCamera(), driver );
+								position2df target2d;
+								for ( auto iter = m_playerManager->GetPlayers().begin(); iter != m_playerManager->GetPlayers().end(); ++iter )
+								{
+									if( *iter == player )
+										continue;
+									Node2DInfo temp;
+									toolkit.GetNode2DInfo( (*iter)->GetShip(), &temp );
+									vector2di CurPos;
+									CurPos = MyIrrlichtEngine::GetEngine()->GetDevice()->getCursorControl()->getPosition();
+									float dis = sqrt( pow( ( temp.pos.X - CurPos.X), 2 ) + pow( ( temp.pos.Y - CurPos.Y ), 2 ) );
+									if ( dis < 20.f )
+									{
+										m_playerHelper->SetLockerShip( (*iter)->GetShip() );
+										player->SetLockerShip( (*iter)->GetShip() );
+										break;
+									}
+								}
+							}
+							break;
+						case KEY_KEY_T :
+							box->setText( _T("") );
+							box->setVisible( true );
+							gui->setFocus( box );
+							break;
+						case KEY_RETURN :
+							box->setVisible( false );
+							gui->setFocus( 0 );		
+							client->BroadcastMessage( client->m_index, box->getText() );
+							std::wcout << box->getText() << std::endl;
+							break;
+						case KEY_ESCAPE :
+							box->setVisible( false );
+							gui->setFocus( 0 );
+							break;
+						case KEY_KEY_I :
+							MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+							break;
+						case KEY_KEY_O :
+							MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
+							break;
+						case KEY_F1 :
+							console->setVisible( ! console->isVisible() );
+							if ( console->isVisible() )
+							{
+								UpdateConsole();
+							}
+							break;
+						case KEY_KEY_P :
+							auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
+							smgr->SetCurrentGameScene( smgr->GetSceneByName( "MainMenu" ) );
+							break;
+						}
+					}
+					return 0;
+				} );
+
 				bRunOnce = false;
 			}
 

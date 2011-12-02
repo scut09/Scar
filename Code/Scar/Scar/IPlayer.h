@@ -40,7 +40,7 @@ protected:
 
 	std::wstring	ShipName;		// 玩家飞机代号
 	IShip*			PlayerShip;		// 玩家拥有的飞机
-
+	IShip*			LockedShip;		// 锁定的飞机
 
 public:
 	IPlayer( IShip* playerShip ) : PlayerShip( playerShip )
@@ -119,6 +119,12 @@ public:
 	virtual IShip* GetShip() const
 	{
 		return PlayerShip;
+	}
+
+	// 设置锁定飞船
+	virtual void SetLockerShip( IShip* lockedship )
+	{
+		LockedShip = lockedship;
 	}
 
 	// 设置击杀数

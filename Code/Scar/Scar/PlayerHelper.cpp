@@ -29,7 +29,7 @@ void PlayerHelper::UpdateShipTip( IShip* ship )
 		m_ship_targetMap[ ship ] = shipTip;
 
 		//  Test
-		LockedShip = ship;
+		// LockedShip = ship;
 		// End Test
 	}
 	else	
@@ -180,7 +180,18 @@ void PlayerHelper::UpdateLock()
 		else
 			ang = ang - 90;
 		indicator1->SetRotation( ang );
-	} 
+	}
+	IVideoDriver* driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
+	s32 width = driver->getViewPort().getWidth(), height = driver->getViewPort().getHeight();
+	position2df pos;
+	toolkit->To2DScreamPos( LockedShip->getPosition(), &pos );
+	pos = pos - position2df( (f32)width * 0.5f, (f32)height * 0.5f );
+	if ( pos.getLength() > 293 )
+	{
+		SetLockerShip( NULL );
+		lock1->SetVisible( false );
+		indicator1->SetVisible( false );
+	}
 }
 
 void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
