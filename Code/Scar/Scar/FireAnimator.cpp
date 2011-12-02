@@ -4,6 +4,7 @@
 #include "FireAnimator.h"
 #include "IShip.h"
 #include "MyIrrlichtEngine.h"
+#include "MultiplayerScene.h"
 #include <iostream>
 
 ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client ) 
@@ -57,7 +58,12 @@ void ShipFireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				endPoint = startPoint + direction * distance; // 飞行终止点	
 
 				// 复制子弹(右)
-				AddBulletToScene( Ship->GetGuns()[i], startPoint, endPoint, timeMs );				
+				AddBulletToScene( Ship->GetGuns()[i], startPoint, endPoint, timeMs );	
+
+				// 开火音效
+				/*MultiplayerScene* mulScene = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene());
+				mulScene->m_pSoundEngine->play3D( "../sound/gunfire.wav", Ship->getPosition() );*/
+				//mulScene->m_pSoundEngine->play2D( "../sound/gunfire.wav" );
 
 				LastTimes[i] = timeMs;
 			}

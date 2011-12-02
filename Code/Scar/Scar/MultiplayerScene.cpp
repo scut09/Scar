@@ -178,6 +178,10 @@ void MultiplayerScene::Run()
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
 
+				/*IUIObject* mask = uiManager->AddUIImage( 0, driver->getScreenSize().Width, driver->getScreenSize().Height );
+				mask->LoadImage( "../media/UIResource/Game/hurt_mask.png" );
+				mask->SetPosition( vector2df( driver->getScreenSize().Width / 2.0f, driver->getScreenSize().Height / 2.0f ) );*/
+
 			}
 
 			// 在此处进行游戏逻辑
@@ -635,7 +639,8 @@ void MultiplayerScene::Run()
 #pragma endregion FirstFlight
 		break;
 	case Warp:
-		{
+		#pragma region Warp
+{
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
@@ -793,6 +798,7 @@ void MultiplayerScene::Run()
 			//pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 		}
 		break;
+#pragma endregion Warp
 	case In_Battle:
 		{
 			IShip* playerShip = player->GetShip();
