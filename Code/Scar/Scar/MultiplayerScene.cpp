@@ -78,46 +78,7 @@ void MultiplayerScene::Run()
 				// 装载场景
 
 
-				// 创建网络 
-				{
-
-					Sleep( 1500 );
-
-					auto rooms = client->GetRooms();
-					auto localIP = client->GetLocalIP();
-
-					auto iter = rooms.begin();
-					for ( ; iter != rooms.end(); ++iter )
-					{
-						std::cout << "Room " << iter->first << " ";
-						std::wcout << iter->second.room_name << std::endl;
-
-						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
-						{       
-							std::cout << "enter " << iter->first << std::endl;
-							client->EnterRoom( iter->first );
-							break;
-						}
-					}
-
-					if ( iter == rooms.end()  ) 
-						if ( ! localIP.empty() )
-							client->EnterRoom( *localIP.begin() );          
-						else
-							client->EnterRoom( "127.0.0.1" );
-
-					//Sleep( 2000 );
-
-					//client->Send( "192.168.1.121" );
-
-					while ( -11 == client->m_index )
-					{
-						Sleep( 500 );
-					}
-
-					std::cout << "m_index " << client->m_index << std::endl;
-
-				}
+				
 
 				// 加载场景
 				try
@@ -800,11 +761,10 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion Warp
 	case In_Battle:
-		{
+		{				
 			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
-				playerShip->setID( client->GetID() );
 				// 装逼文字
 				m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_InBattle );
 				// 固定星球位置
@@ -822,7 +782,6 @@ void MultiplayerScene::Run()
 				playerShip->addAnimator( ctrlAni );
 				ctrlAni->drop();
 
-				IShip* playerShip = player->GetShip();
 				// 创建子弹
 				BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
 				bullet->setID( 4003 );
@@ -963,6 +922,53 @@ void MultiplayerScene::Run()
 
 				bRunOnce = false;
 
+				// 创建网络 
+				{
+
+
+					server->Start( 1990, 2012 );
+					client->Start( 2012, 1990 );
+
+					client->QueryRoom();
+
+					Sleep( 1500 );
+
+					auto rooms = client->GetRooms();
+					auto localIP = client->GetLocalIP();
+
+					auto iter = rooms.begin();
+					for ( ; iter != rooms.end(); ++iter )
+					{
+						std::cout << "Room " << iter->first << " ";
+						std::wcout << iter->second.room_name << std::endl;
+
+						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
+						{       
+							std::cout << "enter " << iter->first << std::endl;
+							client->EnterRoom( iter->first );
+							break;
+						}
+					}
+
+					if ( iter == rooms.end()  ) 
+						if ( ! localIP.empty() )
+							client->EnterRoom( *localIP.begin() );          
+						else
+							client->EnterRoom( "127.0.0.1" );
+
+					//Sleep( 2000 );
+
+					//client->Send( "192.168.1.121" );
+
+					while ( -11 == client->m_index )
+					{
+						Sleep( 500 );
+					}
+
+					std::cout << "m_index " << client->m_index << std::endl;
+
+				}
+
 				std::cout << "Ship ID: " << player->GetShip()->getID() << std::endl;
 			}
 
@@ -1006,6 +1012,9 @@ void MultiplayerScene::Init()
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
 	State = Select_Camp;
+
+	server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
+	client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
 	
 	// 兼容Test状态
 	if ( State != Test )
@@ -1059,13 +1068,7 @@ void MultiplayerScene::Init()
 
 
 
-		server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
-		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
 
-		server->Start( 1990, 2012 );
-		client->Start( 2012, 1990 );
-
-		client->QueryRoom();
 
 
 		// 创建控制台

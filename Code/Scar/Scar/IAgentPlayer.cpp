@@ -59,7 +59,8 @@ void IAgentPlayer::SendMove( const vector3df& pos )
 	HeroMove move( GetID(), pos.X, pos.Y, pos.Z );
 	pack.SetData( (char*)&move, sizeof( HeroMove ) );
 
-	Server->OnReceive( 0, pack );
+	dynamic_pointer_cast<Network::BoostServer >( Server )->AddPacketToBuffer( pack );
+	//Server->OnReceive( 0, pack );
 }
 
 void IAgentPlayer::SendRotate( const core::vector3df& rot )
@@ -71,7 +72,7 @@ void IAgentPlayer::SendRotate( const core::vector3df& rot )
 	HeroRotate rotate( GetID(), rot.X, rot.Y, rot.Z );
 	pack.SetData( (char*)&rotate, sizeof( HeroRotate ) );
 
-	Server->OnReceive( 0, pack );
+	dynamic_pointer_cast<Network::BoostServer >( Server )->AddPacketToBuffer( pack );
 }
 
 void IAgentPlayer::DoLeftButtonUp()
