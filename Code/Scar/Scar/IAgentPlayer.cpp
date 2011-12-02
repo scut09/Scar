@@ -12,13 +12,14 @@ IAgentPlayer::IAgentPlayer( IShip* playerShip, PlayerManager* mgr, boost::shared
 	: IPlayer( playerShip ), Manager( mgr ), Server( server )
 {
 	// 创建机器人客户端
-	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( server ) );
+	
+	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( dynamic_pointer_cast<Network::BoostServer >( server ) ) );
 	robotClient->SetID( GetID() );
 
 
 
 	// 添加飞行行为
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( NULL );
+	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( NULL ); 
 	PlayerShip->addAnimator( fpsAni );
 	fpsAni->drop();
 
