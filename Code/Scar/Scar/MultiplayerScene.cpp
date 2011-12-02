@@ -798,6 +798,7 @@ void MultiplayerScene::Run()
 			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
+				playerShip->setID( client->GetID() );
 				// 装逼文字
 				m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_InBattle );
 				// 固定星球位置
@@ -854,6 +855,7 @@ void MultiplayerScene::Run()
 				npc->AddGun( bullet );
 				bullet->drop();	
 				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				robot->SetID( 99 );
 				m_playerManager->AddPlayer( robot );
 				// robot 2
 				npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
@@ -870,6 +872,7 @@ void MultiplayerScene::Run()
 				npc->AddGun( bullet );
 				bullet->drop();	
 				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+				robot->SetID( 98 );
 				m_playerManager->AddPlayer( robot );
 
 				IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
