@@ -32,7 +32,6 @@
 //#include "SunFlareCallBack.h"
 #include "SunFlareAnimator.h"
 //#include "InfoAndWarn.h"
-#include "WarpFlyTubeContoller.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -120,7 +119,7 @@ void MultiplayerScene::Run()
 
 				}
 
-
+				// 加载场景
 				try
 				{
 					using namespace boost::python;
@@ -145,17 +144,26 @@ void MultiplayerScene::Run()
 				Planet2 = smgr->getSceneNodeFromName( "planet2" );
 				Moon1 = smgr->getSceneNodeFromName( "Satellite1" );
 
-				//// 跃迁管道
-				//IMeshSceneNode* tube = smgr->addMeshSceneNode( smgr->getMesh( "../media/UnitModel/cylinder.3ds" ) );
-				//tube->setMaterialFlag( EMF_LIGHTING, false );
-				//tube->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-				//tube->setMaterialType( EMT_TRANSPARENT_ADD_COLOR );
-				//tube->setMaterialTexture( 0, driver->getTexture( "../media/Space/shieldhardening.png" ) );
-				//tube->setScale( vector3df( 10, 10, 300 ) );
-
 				// 空间站
 				Station1 = smgr->getSceneNodeFromName( "station1" );
 				Station2 = smgr->getSceneNodeFromName( "station2" );
+
+				// 加载战场
+				try
+				{
+					using namespace boost::python;
+					object map = import( "BattleField1" );
+					object LoadMap = map.attr( "LoadMap" );
+					LoadMap();
+				}
+				catch ( ... )
+				{
+					PyErr_Print();
+				}
+				BattleField = smgr->getSceneNodeFromName( "battleField" );
+				bfEarth = smgr->getSceneNodeFromName( "bfEarth" );
+				bfMoon = smgr->getSceneNodeFromName( "bfMoon" );
+				bfGate = smgr->getSceneNodeFromName( "bfGate" );
 
 				// 显示选择阵营菜单
 				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
@@ -574,7 +582,7 @@ void MultiplayerScene::Run()
 					SubState = 6;
 					LastTime = pEngine->GetDevice()->getTimer()->getTime();
 					auto ani = pEngine->GetMySceneManager()->createShakeAnimatorAnimator(
-						0, 4500, 0, 2 );
+						0, 3800, 0, 2 );
 					m_pCamera->addAnimator( ani );
 					ani->drop();
 				}
@@ -596,7 +604,7 @@ void MultiplayerScene::Run()
 				if ( t > 2500 )
 				{
 					State = Warp;
-					//wftc->BeginFadeIn();
+					WarpTube.BeginFadeIn();
 					bRunOnce = true;
 				}
 			}
@@ -688,15 +696,74 @@ void MultiplayerScene::Run()
 			{
 				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 2000 )
 				{
-					//SelectCampMenu->SetVisible( true );
-					//m_pCamera->removeAnimator( (*m_pCamera->getAnimators().end()) );
+					Planet1->setVisible( false );
+					Moon1->setVisible( false );
 					SubState = 4;
 					//wftc->BeginFadeOut();
-					//State = In_Battle;
-					//bRunOnce = true;
 				}
-				
 			}
+			else if ( SubState == 4 )
+			{
+				IShip* playerShip = player->GetShip();
+				// 重置飞船位置角度
+				playerShip->removeAnimators();
+				m_pCamera->removeAnimators();
+				playerShip->setPosition( vector3df( 0, 0, 0 ) );
+				playerShip->setRotation( vector3df(0) );
+				playerShip->setTarget( playerShip->getPosition() + vector3df( 0, 0, 100 ) );
+				playerShip->setUpVector( vector3df( 0, 1, 0 ) );
+				auto flowAni = new CSceneNodeAnimatorCameraFollowShip( playerShip, -30 );
+				m_pCamera->addAnimator( flowAni );
+				flowAni->drop();
+				// 将太阳移回
+				Sun->removeAnimators();
+				auto ani = pEngine->GetMySceneManager()->createRelateCameraStayAnimator( 
+					0, 1000, m_pCamera, vector3df( 0, 0, 18e5 ) );
+				Sun->addAnimator( ani );
+				ani->drop();
+
+				SubState = 5;
+				LastTime = pEngine->GetDevice()->getTimer()->getTime();
+			}
+			else if ( SubState == 5 )
+			{	
+				// 移近背景星球
+				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 4000 )
+				{
+					WarpTube.BeginFadeOut();
+					BattleField->setVisible( true );
+					bfEarth->setVisible( true );
+					auto ani = pEngine->GetMySceneManager()->createRelateCameraMoveAnimator(
+						0, 3500, m_pCamera, vector3df( 3e5,0,6e5 ), vector3df( 3e5,0,0.5e5 ), RM_MT_LOG );
+					bfEarth->addAnimator( ani );
+					ani->drop();
+
+					SubState = 6;
+					LastTime = pEngine->GetDevice()->getTimer()->getTime();
+				}		
+			}
+			else if ( SubState == 6 )
+			{
+				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 2500 )
+				{
+					bfMoon->setVisible( true );
+					bfGate->setVisible( true );
+					auto ani = pEngine->GetMySceneManager()->createRelateCameraMoveAnimator(
+						0, 3000, m_pCamera, vector3df( 0,0,1e5 ), vector3df( 0 ), RM_MT_LOG );
+					bfGate->addAnimator( ani );
+					ani->drop();
+
+					SubState = 7;
+				}
+			}
+			else if ( SubState == 7 )
+			{
+				
+
+				/*bRunOnce = true;
+				State = In_Battle;*/
+			}
+
 
 			m_playerHelper->Update();
 			m_playerManager->Update();
@@ -708,7 +775,7 @@ void MultiplayerScene::Run()
 			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
-				Planet1->setVisible( false );
+				/*Planet1->setVisible( false );
 				Moon1->setVisible( false );
 
 				try
@@ -734,15 +801,14 @@ void MultiplayerScene::Run()
 				playerShip->setPosition( vector3df( 0, 0, 0 ) );
 				playerShip->setRotation( vector3df(0) );
 				playerShip->setTarget( playerShip->getPosition() + vector3df( 0, 0, 100 ) );
-				playerShip->setUpVector( vector3df( 0, 1, 0 ) );
+				playerShip->setUpVector( vector3df( 0, 1, 0 ) );*/
 
 				auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				playerShip->addAnimator( ctrlAni );
 				ctrlAni->drop();
-				auto flowAni = new CSceneNodeAnimatorCameraFollowShip( playerShip, -30 );
-				m_pCamera->addAnimator( flowAni );
-				flowAni->drop();
+				playerShip->setTarget( playerShip->getPosition() + vector3df( 0, 0, 100 ) );
 
+				IShip* playerShip = player->GetShip();
 				// 创建子弹
 				BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
 				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
@@ -750,13 +816,26 @@ void MultiplayerScene::Run()
 				bullet->SetInterval( 100 );
 				playerShip->AddGun( bullet );
 				bullet->drop();
+				// 创建火控
+				auto fireAni = new ShipFireAnimator( client );
+				playerShip->addAnimator( fireAni );
+				fireAni->drop();
 
-				//飞船尾焰
-				SpriteFlame spf;
-				spf.SetOffset( vector3df( -6, 0, -22 ) );
-				spf.AddFlameToShip( playerShip, smgr );
-				spf.SetOffset( vector3df( 6, 0, -22 ) );
-				spf.AddFlameToShip( playerShip, smgr );
+
+				//// 创建子弹
+				//BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				//bullet->SetVelocity( 1000 );
+				//bullet->SetInterval( 100 );
+				//playerShip->AddGun( bullet );
+				//bullet->drop();
+
+				////飞船尾焰
+				//SpriteFlame spf;
+				//spf.SetOffset( vector3df( -6, 0, -22 ) );
+				//spf.AddFlameToShip( playerShip, smgr );
+				//spf.SetOffset( vector3df( 6, 0, -22 ) );
+				//spf.AddFlameToShip( playerShip, smgr );
 
 				//// 添加robot
 				//IShip* npc;
@@ -794,17 +873,17 @@ void MultiplayerScene::Run()
 				//robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
 				//m_playerManager->AddPlayer( robot );
 
-				// 创建火控
-				auto fireAni = new ShipFireAnimator( client );
-				playerShip->addAnimator( fireAni );
-				fireAni->drop();
+				//// 创建火控
+				//auto fireAni = new ShipFireAnimator( client );
+				//playerShip->addAnimator( fireAni );
+				//fireAni->drop();
 
 
 				bRunOnce = false;
 
-				auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+				/*auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				player->GetShip()->addAnimator( fpsAni );
-				fpsAni->drop();
+				fpsAni->drop();*/
 			}
 
 			InBattle();

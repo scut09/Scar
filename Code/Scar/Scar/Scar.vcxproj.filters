@@ -820,5 +820,8 @@
     <None Include="..\..\..\bin\Shader\Earth.vert">
       <Filter>Shader\shaders\planet</Filter>
     </None>
+    <None Include="..\..\..\bin\Shader\WarpTube.frag">
+      <Filter>Shader\shaders\universe</Filter>
+    </None>
   </ItemGroup>
 </Project>

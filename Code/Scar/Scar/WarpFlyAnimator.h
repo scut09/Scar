@@ -35,7 +35,7 @@ public:
 				Alpha = 0.0f;
 				IsFirst = false;
 			}
-			Alpha += 0.005f;
+			Alpha += 0.002f;
 			Speed += 0.001f * IncreasingRate;
 			if (Alpha > 1)
 			{
@@ -73,7 +73,7 @@ public:
 				IncreasingRate = 10.f;
 				IsFirst = false;
 			}
-			Alpha -= 0.005f;
+			Alpha -= 0.002f;
 			Speed += 0.001f * IncreasingRate;
 			if (Alpha <= 0.0f)
 			{

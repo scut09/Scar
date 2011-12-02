@@ -18,6 +18,7 @@
 #include "irrKlang.h"
 #include "SceneNodeShader.h"
 #include "LaserNode.h"
+#include "WarpFlyTubeContoller.h"
 
 class MultiplayerScene : public GameScene
 {
@@ -149,6 +150,11 @@ public:
 	ISceneNode* Moon1;
 	ISceneNode* Station1;
 	ISceneNode* Station2;
+	ISceneNode* BattleField;
+	ISceneNode* bfEarth;
+	ISceneNode* bfMoon;
+	ISceneNode* bfGate;
+	WarpFlyTubeController WarpTube;
 
 	// 菜单
 	IUIObject* SelectCampMenu;				// 阵营选择菜单

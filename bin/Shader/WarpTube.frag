@@ -9,7 +9,7 @@ void main(void)
 {
 
 	vec2 tempCord = vec2(gl_TexCoord[0]);
-	tempCord.y = tempCord.y + Speed;
+	tempCord.y = tempCord.y + Speed / 10.0;
 
 	if( tempCord.y >= 1.0 ) 
 		tempCord.y -= 1.0;
