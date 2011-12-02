@@ -19,10 +19,15 @@ public:
 		m_pNode->setScale( vector3df( 10, 10, 300 ) );
 		
 		m_pCB= new WarpTubeCallBack();
-
-		f32 BeginTime = (f32)MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 		
 		shader.ApplyShaderToSceneNode( m_pNode, m_pCB, "", "Shader/WarpTube.frag", EMT_TRANSPARENT_ADD_COLOR );
+		m_pCB->drop();
+
+		m_pNode->setRotation(vector3df(0.0f, 90.0f, 0.0f));
+		WarpFlyAnimator* pwfani = new WarpFlyAnimator();
+		m_pNode->addAnimator(pwfani);
+		pwfani->drop();
+
 		
 	}
 	IMeshSceneNode* GetMeshSceneNode(){ return m_pNode; }
@@ -32,7 +37,7 @@ public:
 	void BeginFadeOut(){ m_pCB->SetState(2); }
 
 
-	~WarpFlyTubeController(){ m_pCB->drop();}
+	~WarpFlyTubeController(){ }
 
 
 private:

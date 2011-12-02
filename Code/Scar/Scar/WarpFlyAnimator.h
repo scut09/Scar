@@ -9,7 +9,6 @@
 using namespace irr;
 
 
-// 给跑道应用的Shader的回调函数
 class WarpTubeCallBack : public video::IShaderConstantSetCallBack
 {
 private:
@@ -28,14 +27,11 @@ public:
 
 	virtual void OnSetConstants( IMaterialRendererServices* services, s32 userData ) 
 	{
-		f32 timeMs = (f32)MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
-		
 		switch( State )
 		{
 		case 0:
 			if (IsFirst)
 			{
-				Begin = timeMs;
 				Alpha = 0.0f;
 				IsFirst = false;
 			}
@@ -73,7 +69,6 @@ public:
 		case 2:
 			if (IsFirst)
 			{
-				Begin = timeMs;
 				Alpha = 1.0f;
 				IncreasingRate = 10.f;
 				IsFirst = false;
@@ -124,7 +119,7 @@ public:
 
 		services->setPixelShaderConstant( "Alpha", (f32*)&Alpha, 1);
 
-		printf("%f \n", Alpha);
+
 
 	}
 };
@@ -139,13 +134,15 @@ class WarpFlyAnimator : public ISceneNodeAnimator
 public:
 	WarpFlyAnimator()
 	{
-
+		m_pSmgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+		m_pDriver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
 	}
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs ) 
 	{
-
-
+		m_pShip = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer()->GetShip();
+		node->setPosition( m_pShip->getAbsolutePosition() );
+		node->setRotation( m_pShip->getRotation() );
 	}
 
 	virtual ISceneNodeAnimator* createClone( ISceneNode* node, ISceneManager* newManager=0 ) 
@@ -154,7 +151,10 @@ public:
 	}
 
 private:
-	
+	IShip* m_pShip;
+	ISceneManager* m_pSmgr;
+	irr::video::IVideoDriver* m_pDriver;
+
 };
 
 #endif // WarpFlyAnimator_h__
