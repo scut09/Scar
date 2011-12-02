@@ -956,6 +956,8 @@ void MultiplayerScene::Run()
 				} );
 
 				bRunOnce = false;
+
+				std::cout << "Ship ID: " << player->GetShip()->getID() << std::endl;
 			}
 
 			// 根据飞船速度调整引擎轰鸣声
