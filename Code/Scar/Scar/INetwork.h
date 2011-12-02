@@ -25,6 +25,8 @@ namespace Network
 	public:
 		virtual ~INetwork() {}
 
+		virtual void AddPackageToBuffer( const PACKAGE& p ) = 0;
+
 		// 开始接受网络信息
 		virtual void Start( INetworkCallbackType func ) = 0;
 

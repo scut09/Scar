@@ -37,6 +37,11 @@ namespace Network
 
 		void UdpSendToPlayers( const PACKAGE& p );
 
+		void AddPacketToBuffer( const PACKAGE& p )
+		{
+			NetworkBase::m_network->AddPackageToBuffer( p );
+		}
+
 		// 消息处理函数
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 		void OnQueryRoom( unsigned long ip, const PACKAGE& p );

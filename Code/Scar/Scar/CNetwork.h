@@ -69,6 +69,8 @@ namespace Network
 
 		~CNetwork();
 
+		virtual void AddPackageToBuffer( const PACKAGE& p );
+
 		// 开始接受网络信息
 		virtual void Start( INetworkCallbackType func );
 

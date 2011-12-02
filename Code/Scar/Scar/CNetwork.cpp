@@ -312,3 +312,9 @@ void Network::CNetwork::tcp_write_handler( const boost::system::error_code& ec,
 	}
 }
 
+void Network::CNetwork::AddPackageToBuffer( const PACKAGE& p )
+{
+	m_packetBuffer.Put( IP_Package( 0, p ) );
+
+}
+

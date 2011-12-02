@@ -10,7 +10,7 @@
 #define Robot_Client_h__
 
 #include "IClient.h"
-#include "NetworkBase.h"
+#include "Boost_Server.h"
 #include "GameBag.h"
 #include <irrlicht.h>
 
@@ -20,10 +20,10 @@ using namespace Network;
 class RobotClient : public Network::IClient
 {
 	int								m_index;
-	boost::shared_ptr<NetworkBase>	Server;
+	boost::shared_ptr<BoostServer>	Server;
 
 public:
-	RobotClient( boost::shared_ptr<NetworkBase> server ) : Server( server )
+	RobotClient( boost::shared_ptr<BoostServer> server ) : Server( server )
 	{
 
 	}
@@ -50,7 +50,8 @@ public:
 
 		pack.SetData( (char*)&move, sizeof( HeroMove ) );
 
-		Server->OnReceive( 0, pack );
+		Server->AddPacketToBuffer( pack );
+		//Server->OnReceive( 0, pack );
 	}	
 
 	// 发送玩家摄像机旋转
@@ -63,7 +64,8 @@ public:
 
 		pack.SetData( (char*)&rot, sizeof( HeroRotate ) );
 
-		Server->OnReceive( 0, pack );
+		Server->AddPacketToBuffer( pack );
+		//Server->OnReceive( 0, pack );
 	}
 
 	// 发送炮弹命中消息，所有的炮弹命中都是由发射人判断，命中就发送给服务端
@@ -78,8 +80,9 @@ public:
 		p.SetCMD( BULLET_HIT );
 		p.SetData( (char*)&bag, sizeof( BulletHittedBag ) );
 
-		Server->OnReceive( 0, p );
+		//Server->OnReceive( 0, p );
 
+		Server->AddPacketToBuffer( p );
 	}
 
 	// 发送发射炮弹的消息
@@ -97,7 +100,8 @@ public:
 		pack.SetCMD( BULLET_CREATE );
 		pack.SetData( (char*)&bullet, sizeof( BulletCreateBag ) );
 
-		Server->OnReceive( 0, pack );
+		Server->AddPacketToBuffer( pack );
+		//Server->OnReceive( 0, pack );
 	}
 };
 
