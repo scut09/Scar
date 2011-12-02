@@ -869,6 +869,7 @@ void MultiplayerScene::Run()
 					{
 						switch ( event.KeyInput.Key )
 						{
+							// 锁定
 						case KEY_KEY_F :
 							{
 								boost::shared_ptr<IPlayer> player = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
@@ -891,6 +892,8 @@ void MultiplayerScene::Run()
 										player->SetLockerShip( (*iter)->GetShip() );
 										// 提示信息文字
 										m_playerHelper->AddInfoMsg( InfoAndWarn::PII_Lock );
+										//播放音效
+										m_pSoundEngine->play2D( "../sound/lock.wav" );
 										break;
 									}
 								}
@@ -935,6 +938,9 @@ void MultiplayerScene::Run()
 
 				bRunOnce = false;
 			}
+
+			// 根据飞船速度调整引擎轰鸣声
+			SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );
 
 			InBattle();
 		}
