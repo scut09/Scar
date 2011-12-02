@@ -32,9 +32,13 @@ public:
 	{
 		// 从B0到B8都是没有任何用处的文字信息，仅供开场时装逼用
 		PII_B0,PII_B1,PII_B2,PII_B3,PII_B4,PII_B5,PII_B6,PII_B7,PII_B8,PII_B9,
+		PII_Lock,
+		PII_Unlock,
+		PII_QuitWarp,
 		PIW_PlayerLock,
 		PIW_PlayerUnlock,
-		PIW_MissleComing
+		PIW_MissleComing,
+		PIW_InBattle
 	};
 
 	struct PIItem
@@ -101,20 +105,22 @@ public:
 
 		// 警告
 		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
-		//t->LoadImage( "../media/Message/playerlock.png" );
 		t->LoadImage( "../media/Message/playerlock.png" );
 		t->SetVisible( false );
 		WarnMap[PIW_PlayerLock] = t;
 		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
-		//t->LoadImage( "../media/Message/playerunlock.png" );
 		t->LoadImage( "../media/Message/playerunlock.png" );
 		t->SetVisible( false );
 		WarnMap[PIW_PlayerUnlock] = t;
 		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
-		//t->LoadImage( "../media/Message/misslecoming.png" );
 		t->LoadImage( "../media/Message/misslecoming.png" );
 		t->SetVisible( false );
 		WarnMap[PIW_MissleComing] = t;
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/inbattle.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_InBattle] = t;
+
 
 		// 信息
 		t = uiMgr->AddUIImage( InfoBox, MSGW, MSGH );
@@ -157,6 +163,18 @@ public:
 		t->LoadImage( "../media/Message/9.png" );
 		t->SetVisible( false );
 		InfoMap[PII_B9] = t;
+		t = uiMgr->AddUIImage( InfoBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/lock.png" );
+		t->SetVisible( false );
+		InfoMap[PII_Lock] = t;
+		t = uiMgr->AddUIImage( InfoBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/unlock.png" );
+		t->SetVisible( false );
+		InfoMap[PII_Unlock] = t;
+		t = uiMgr->AddUIImage( InfoBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/quitwarp.png" );
+		t->SetVisible( false );
+		InfoMap[PII_QuitWarp] = t;
 	}
 
 	// 插入信息

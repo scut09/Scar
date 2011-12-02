@@ -191,6 +191,8 @@ void PlayerHelper::UpdateLock()
 		SetLockerShip( NULL );
 		lock1->SetVisible( false );
 		indicator1->SetVisible( false );
+		// ÌבÊ¾ÎÄ×Ö
+		AddInfoMsg( InfoAndWarn::PII_Unlock );
 	}
 }
 

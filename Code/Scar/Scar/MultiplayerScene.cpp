@@ -164,6 +164,7 @@ void MultiplayerScene::Run()
 				bfEarth = smgr->getSceneNodeFromName( "bfEarth" );
 				bfMoon = smgr->getSceneNodeFromName( "bfMoon" );
 				bfGate = smgr->getSceneNodeFromName( "bfGate" );
+				bfGate->setID( 4004 );
 
 				// 显示选择阵营菜单
 				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
@@ -605,6 +606,8 @@ void MultiplayerScene::Run()
 				{
 					State = Warp;
 					WarpTube.BeginFadeIn();
+					// 播放跃迁音效
+					m_pSoundEngine->play2D( "../sound/warpexplo02a.ogg" );
 					bRunOnce = true;
 				}
 			}
@@ -746,6 +749,8 @@ void MultiplayerScene::Run()
 			{
 				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 2500 )
 				{
+					// 装逼文字
+					m_playerHelper->AddInfoMsg( InfoAndWarn::PII_QuitWarp );
 					bfMoon->setVisible( true );
 					bfGate->setVisible( true );
 					auto ani = pEngine->GetMySceneManager()->createRelateCameraMoveAnimator(
@@ -754,14 +759,16 @@ void MultiplayerScene::Run()
 					ani->drop();
 
 					SubState = 7;
+					LastTime = pEngine->GetDevice()->getTimer()->getTime();
 				}
 			}
 			else if ( SubState == 7 )
 			{
-				
-
-				bRunOnce = true;
-				State = In_Battle;
+				if ( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 2500 )
+				{
+					bRunOnce = true;
+					State = In_Battle;
+				}
 			}
 
 
@@ -775,6 +782,8 @@ void MultiplayerScene::Run()
 			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
+				// 装逼文字
+				m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_InBattle );
 				// 固定星球位置
 				auto relStay = pEngine->GetMySceneManager()->createRelateCameraStayAnimator(
 					0, 1000, m_pCamera, bfEarth->getPosition() );
@@ -793,6 +802,7 @@ void MultiplayerScene::Run()
 				IShip* playerShip = player->GetShip();
 				// 创建子弹
 				BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				bullet->setID( 4003 );
 				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
 				bullet->SetVelocity( 1000 );
 				bullet->SetInterval( 100 );
@@ -879,6 +889,8 @@ void MultiplayerScene::Run()
 									{
 										m_playerHelper->SetLockerShip( (*iter)->GetShip() );
 										player->SetLockerShip( (*iter)->GetShip() );
+										// 提示信息文字
+										m_playerHelper->AddInfoMsg( InfoAndWarn::PII_Lock );
 										break;
 									}
 								}
