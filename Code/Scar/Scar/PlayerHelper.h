@@ -73,6 +73,9 @@ private:
 	// 更新雷达
 	void UpdateRadar();
 
+	// 更新伤害提示
+	void UpdateHarmAlert();
+
 
 private:
 	boost::shared_ptr<IPlayer>		Player;		// 玩家
@@ -97,6 +100,7 @@ public:
 	IUIObject*		Radar;		// 雷达圈
 	IUIObject*		REnemy;		// 雷达圈上的敌人
 	IUIObject*		RFriend;	// 雷达圈上的友军
+	IUIObject*		RedMask;	// 屏幕红色遮罩
 
 	UIStaticText*	ArmorText;	// 护甲文字
 	UIStaticText*	ShieldText;	// 护盾文字
@@ -116,6 +120,8 @@ private:
 	std::map<IShip*, IUIObject*>	m_ship_radarMap;		// 船和雷达上的标记的映射
 
 	InfoAndWarn						m_infoAndWarn;			// 文字信息管理类
+
+	f32								LastArmor, LastShield;	// 上一次的血量
 };
 
 #endif // PlayerHelper_h__

@@ -136,10 +136,10 @@ void PlayerHelper::Update()
 
 	// 更新锁定框
 	UpdateLock();
-
 	// 更新雷达
 	UpdateRadar();
-
+	// 更新伤害警告
+	UpdateHarmAlert();
 	// 更新信息文字
 	m_infoAndWarn.Update();
 }
@@ -283,6 +283,9 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	Radar = uiManager->GetUIObjectByName( "radar" );
 	REnemy = uiManager->GetUIObjectByName( "rEnemy" );
 	RFriend = uiManager->GetUIObjectByName( "rFriend" );
+
+	// 获取屏幕红色遮罩
+	RedMask = uiManager->GetUIObjectByName( "redMaskCtrl" );
 }
 
 void PlayerHelper::UpdateRadar()
@@ -338,4 +341,48 @@ void PlayerHelper::UpdateRadar()
 	}
 
 	Radar->SetRotation( ang );
+}
+
+void PlayerHelper::UpdateHarmAlert()
+{
+	IShip* playerShip = Player->GetShip();
+	f32 CurrentShield = playerShip->GetShield();
+	f32 CurrentArmor = playerShip->GetArmor();
+
+	if ( CurrentShield != LastShield )
+	{
+		if ( CurrentShield < LastShield )
+		{
+			if ( CurrentShield / playerShip->GetMaxShield() < 0.3f )
+			{
+				AddWarnMsg( InfoAndWarn::PIW_LowShield );
+			}
+		}
+
+		LastShield = CurrentShield;
+	}
+
+	if ( CurrentArmor != LastArmor )
+	{
+		if ( CurrentArmor < LastArmor )
+		{
+			if ( CurrentArmor / playerShip->GetMaxArmor() < 0.3f )
+			{
+				AddWarnMsg( InfoAndWarn::PIW_LowArmor );
+			}
+		}
+	}
+
+	// 屏幕闪红
+	if ( CurrentArmor / playerShip->GetMaxArmor() > 0.2f )
+	{
+		RedMask->SetVisible( false );
+	}
+	else
+	{
+		RedMask->SetVisible( true );
+		f32 alpha = CurrentArmor / playerShip->GetMaxArmor() * 5;
+		RedMask->SetAlpha( alpha );
+	}
+
 }

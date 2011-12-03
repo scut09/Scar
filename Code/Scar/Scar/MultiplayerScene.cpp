@@ -288,6 +288,7 @@ void MultiplayerScene::Run()
 				cb->drop();
 				ship->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				ship->setVisible( false );
+				ship->SetMaxSpeed( 5 );
 				player->SetShip( ship );
 
 				State = Select_Equipment;
