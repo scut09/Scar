@@ -24,7 +24,10 @@ void PlayerHelper::UpdateShipTip( IShip* ship )
 	if ( iter == m_ship_targetMap.end() )
 	{
 		// 还未创建提示框，那么就创建一个新的
-		shipTip = ShipTipE->Clone();
+		if ( ship->GetTeam() == Player->GetTeam() )
+			shipTip = ShipTipF->Clone();
+		else
+			shipTip = ShipTipE->Clone();
 
 		m_ship_targetMap[ ship ] = shipTip;
 
@@ -151,35 +154,57 @@ void PlayerHelper::UpdateLock()
 	// 测试用圈圈圈住目标
 	if ( toolkit->GetNode2DInfo( LockedShip, &info2D ) )
 	{
-		indicator1->SetVisible( false );
+		//indicator1->SetVisible( false );
 		f32 sca = info2D.height / 60.0f;
 		if ( sca > 1.2f )
 			sca = 1.2f;
-		else if ( sca < 0.5f )
-			sca = 0.5f;
+		else if ( sca < 0.8f )
+			sca = 0.8f;
 
 		lock1->SetPosition( info2D.pos );
 		lock1->SetScale( vector2df(sca) );
 		lock1->SetVisible( true );
+		// 锁定目标信息文字
+		char buffer[20];	// 数字转字符串缓冲
+		f32 val;			// 数字
+		stringw str;		// 字符串
+		// 护盾
+		val = LockedShip->GetShield() / LockedShip->GetMaxShield() * 100;
+		str = L"护盾：";
+		sprintf_s( buffer, "%.0f%%", val );
+		str += buffer;
+		TargetShield->SetText( str );
+		// 护甲
+		val = LockedShip->GetArmor() / LockedShip->GetMaxArmor() * 100;
+		str = L"护甲：";
+		sprintf_s( buffer, "%.0f%%", val );
+		str += buffer;
+		TargetArmor->SetText( str );
+		// 距离
+		val = ( LockedShip->getPosition() - Player->GetShip()->getPosition() ).getLength() / 20.0f;
+		str = L"距离：";
+		sprintf_s( buffer, "%.0fkm", val );
+		str += buffer;
+		TargetDistance->SetText( str );
 	}
 	else
 	{
 		lock1->SetVisible( false );
-		indicator1->SetVisible( true );
-		// 测试用箭头标记地方位置
-		vector2df screenPos;
-		vector3df cam2ship = LockedShip->getPosition() - Camera->getPosition();
-		toolkit->To2DScreamPos( cam2ship, &screenPos );
-		vector2df screenVec = screenPos - vector2df( Driver->getScreenSize().Width / 2.f, Driver->getScreenSize().Height / 2.f );
-		f32 ang = (f32)screenVec.getAngle();
-		vector3df direction = Camera->getTarget() - Camera->getPosition();
-		f32 dotProd = cam2ship.dotProduct( direction );
-		//std::cout<< dotProd <<std::endl;
-		if ( dotProd > 0 )
-			ang = -(ang-90);
-		else
-			ang = ang - 90;
-		indicator1->SetRotation( ang );
+		//indicator1->SetVisible( true );
+		//// 测试用箭头标记地方位置
+		//vector2df screenPos;
+		//vector3df cam2ship = LockedShip->getPosition() - Camera->getPosition();
+		//toolkit->To2DScreamPos( cam2ship, &screenPos );
+		//vector2df screenVec = screenPos - vector2df( Driver->getScreenSize().Width / 2.f, Driver->getScreenSize().Height / 2.f );
+		//f32 ang = (f32)screenVec.getAngle();
+		//vector3df direction = Camera->getTarget() - Camera->getPosition();
+		//f32 dotProd = cam2ship.dotProduct( direction );
+		////std::cout<< dotProd <<std::endl;
+		//if ( dotProd > 0 )
+		//	ang = -(ang-90);
+		//else
+		//	ang = ang - 90;
+		//indicator1->SetRotation( ang );
 	}
 	IVideoDriver* driver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
 	s32 width = driver->getViewPort().getWidth(), height = driver->getViewPort().getHeight();
@@ -270,6 +295,7 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	//Gradienter->SetVisible( true );
 	// 获取目标圈
 	ShipTipE = uiManager->GetUIObjectByName( "target1" );
+	ShipTipF = uiManager->GetUIObjectByName( "target2" );
 	// 获取锁定圈——已锁定
 	lock1 = uiManager->GetUIObjectByName( "lock1" );
 	// 获取敌军指示
@@ -283,7 +309,10 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	Radar = uiManager->GetUIObjectByName( "radar" );
 	REnemy = uiManager->GetUIObjectByName( "rEnemy" );
 	RFriend = uiManager->GetUIObjectByName( "rFriend" );
-
+	// 获取锁定目标状态文字
+	TargetShield = static_cast<UIStaticText*>(uiManager->GetUIObjectByName( "targetShield" ));
+	TargetArmor = static_cast<UIStaticText*>(uiManager->GetUIObjectByName( "targetArmor" ));
+	TargetDistance = static_cast<UIStaticText*>(uiManager->GetUIObjectByName( "targetDistance" ));
 	// 获取屏幕红色遮罩
 	RedMask = uiManager->GetUIObjectByName( "redMaskCtrl" );
 }

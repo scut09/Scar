@@ -106,6 +106,9 @@ public:
 	UIStaticText*	ShieldText;	// 护盾文字
 	UIStaticText*	SpeedText;	// 速度文字	
 	UIStaticText*	EnergyText;	// 能量文字
+	UIStaticText*	TargetShield;
+	UIStaticText*	TargetArmor;
+	UIStaticText*	TargetDistance;
 
 private:
 	Node2DInfo		info2D;

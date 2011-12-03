@@ -138,11 +138,6 @@ void MultiplayerScene::Run()
 				// 播放背景音乐
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
-
-				/*IUIObject* mask = uiManager->AddUIImage( 0, driver->getScreenSize().Width, driver->getScreenSize().Height );
-				mask->LoadImage( "../media/UIResource/Game/hurt_mask.png" );
-				mask->SetPosition( vector2df( driver->getScreenSize().Width / 2.0f, driver->getScreenSize().Height / 2.0f ) );*/
-
 			}
 
 			// 在此处进行游戏逻辑
@@ -289,6 +284,7 @@ void MultiplayerScene::Run()
 				ship->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				ship->setVisible( false );
 				ship->SetMaxSpeed( 5 );
+				ship->SetTeam( player->GetTeam() );
 				player->SetShip( ship );
 
 				State = Select_Equipment;
@@ -851,7 +847,7 @@ void MultiplayerScene::Run()
 				BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
 				bullet->setID( 4003 );
 				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-				bullet->SetVelocity( 1000 );
+				bullet->SetVelocity( 1600 );
 				bullet->SetInterval( 100 );
 				playerShip->AddGun( bullet );
 				bullet->drop();
@@ -940,7 +936,11 @@ void MultiplayerScene::Run()
 								position2df target2d;
 								for ( auto iter = m_playerManager->GetPlayers().begin(); iter != m_playerManager->GetPlayers().end(); ++iter )
 								{
+									// 玩家自身不用判断
 									if( *iter == player )
+										continue;
+									// 如果是友军，也不需要判断
+									if( (*iter)->GetTeam() == player->GetTeam() )
 										continue;
 									Node2DInfo temp;
 									toolkit.GetNode2DInfo( (*iter)->GetShip(), &temp );
