@@ -1050,8 +1050,8 @@ void MultiplayerScene::Init()
 	if ( State != Test )
 	{
 		// 初始化摄像机
-		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
-		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
+		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
+		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 		m_pCamera->setFarValue( 1e7 );
 		m_pCamera->setFOV( 1 );
 		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );

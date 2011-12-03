@@ -826,5 +826,8 @@
     <None Include="..\..\..\bin\Shader\Horizon.frag">
       <Filter>Shader\shaders\others</Filter>
     </None>
+    <None Include="..\..\..\bin\Shader\Vertical.frag">
+      <Filter>Shader\shaders\others</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -14,10 +14,10 @@ void CSceneNodeAnimatorCameraFollowShip::animateNode( ISceneNode* node, u32 time
 
 	vector3df direction = (ship->getTarget() - ship->getPosition()).normalize();
 	vector3df offset = direction * Distance;
-	vector3df upoffset = ship->getUpVector();
-	upoffset = upoffset.normalize() * 10;
+	/*vector3df upoffset = ship->getUpVector();
+	upoffset = upoffset.normalize() * 10;*/
 
-	camera->setPosition( ship->getPosition() + offset + upoffset );
+	camera->setPosition( ship->getPosition() + offset/* + upoffset */);
 	camera->setRotation( ship->getRotation() );
 	camera->setUpVector( ship->getUpVector() );
 	camera->setTarget( ship->getTarget() );

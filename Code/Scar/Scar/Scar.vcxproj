@@ -325,6 +325,7 @@
     <None Include="..\..\..\bin\Shader\universeF.txt" />
     <None Include="..\..\..\bin\Shader\universeV.txt" />
     <None Include="..\..\..\bin\Shader\Flame.frag" />
+    <None Include="..\..\..\bin\Shader\Vertical.frag" />
     <None Include="..\..\..\bin\Shader\WarpTube.frag" />
     <None Include="py++.py" />
     <None Include="py++forScene.py" />

@@ -121,12 +121,20 @@ def LoadMap():
      # 水平标尺
     horizon = smgr.addBillboardSceneNode( camera, dimension2df( 60, 5 ) )
     horizon.setPosition( vector3df( 0,-10,100 ) )
-    horizon.setMaterialTexture( 0, smgr.getTexture( "../media/UIResource/Game/lala.png" ) )
-    horizon.setMaterialTexture( 1, smgr.getTexture( "../media/UIResource/Game/alphaMask.png" ) )
+    horizon.setMaterialTexture( 0, smgr.getTexture( "../media/UIResource/Game/horizon.png" ) )
+    horizon.setMaterialTexture( 1, smgr.getTexture( "../media/UIResource/Game/alphaMaskH.png" ) )
     horizon.setMaterialFlag( EMF_ZBUFFER, False )
     horizon.setID( 4001 )
     #horizon.setMaterialFlag( EMF_LIGHTING, False )
     #flare1.setMaterialType( EMT_TRANSPARENT_ADD_COLOR )
     shader.ApplyShaderGeneralCallback( horizon, "", "Shader/Horizon.frag", EMT_TRANSPARENT_ADD_COLOR )
 
+    # 垂直标尺
+    vertical = smgr.addBillboardSceneNode( camera, dimension2df( 30, 40 ) )
+    vertical.setPosition( vector3df( 0, 0, 80 ) )
+    vertical.setMaterialTexture( 0, smgr.getTexture( "../media/UIResource/Game/vertical.png" ) )
+    vertical.setMaterialTexture( 1, smgr.getTexture( "../media/UIResource/Game/alphaMaskV.png" ) )
+    vertical.setMaterialFlag( EMF_ZBUFFER, False )
+    vertical.setID( 4001 )
+    shader.ApplyShaderGeneralCallback( vertical, "", "Shader/Vertical.frag", EMT_TRANSPARENT_ADD_COLOR )
     
