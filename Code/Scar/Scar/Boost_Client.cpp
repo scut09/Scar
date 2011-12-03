@@ -263,6 +263,7 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 		ship->setID( oneplayer.player_index );
 		// 保存玩家信息
 		m_players[ oneplayer.player_index ] = ship;
+		ship->grab();	///!!!!!!!!!!一定要去drop,还没
 
 		ship->setPosition( core::vector3df( 123141, 12312, 1000000 ) );
 

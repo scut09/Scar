@@ -700,8 +700,67 @@ void MultiplayerScene::Run()
 				Sun->addAnimator( ani );
 				ani->drop();
 
-				SubState = 5;
+				SubState = 201;
 				LastTime = pEngine->GetDevice()->getTimer()->getTime();
+			}
+			else if ( SubState == 201 )
+			{
+				// 创建网络 
+				server->Start( 1990, 2012 );
+				client->Start( 2012, 1990 );
+
+				client->QueryRoom();
+
+				SubState = 202;
+				LastTime = pEngine->GetDevice()->getTimer()->getTime();
+			}
+			else if ( SubState == 202 )
+			{
+				//Sleep( 1500 );				
+				if( pEngine->GetDevice()->getTimer()->getTime() - LastTime > 1500 )
+				{
+					auto rooms = client->GetRooms();
+					auto localIP = client->GetLocalIP();
+
+					auto iter = rooms.begin();
+					for ( ; iter != rooms.end(); ++iter )
+					{
+						std::cout << "Room " << iter->first << " ";
+						std::wcout << iter->second.room_name << std::endl;
+
+						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
+						{       
+							std::cout << "enter " << iter->first << std::endl;
+							client->EnterRoom( iter->first );
+							break;
+						}
+					}
+
+					if ( iter == rooms.end()  ) 
+						if ( ! localIP.empty() )
+							client->EnterRoom( *localIP.begin() );          
+						else
+							client->EnterRoom( "127.0.0.1" );
+
+					SubState = 203;
+
+					//Sleep( 2000 );
+					//client->Send( "192.168.1.121" );
+				}
+			}
+			else if ( SubState == 203 )
+			{
+				if ( -11 != client->m_index )
+				{
+					std::cout << "m_index " << client->m_index << std::endl;
+					std::cout << "Ship ID: " << player->GetShip()->getID() << std::endl;
+
+					SubState = 5;
+				}
+				/*while ( -11 == client->m_index )
+				{
+					Sleep( 500 );
+				}*/
 			}
 			else if ( SubState == 5 )
 			{	
@@ -777,6 +836,11 @@ void MultiplayerScene::Run()
 				bfMoon->addAnimator( relStay );
 				relStay->drop();
 
+				bRunOnce = false;
+				SubState = 0;
+			}
+			else if ( SubState == 0 )
+			{
 				// 加入飞船控制
 				auto ctrlAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
 				playerShip->addAnimator( ctrlAni );
@@ -848,6 +912,10 @@ void MultiplayerScene::Run()
 				cb->drop();
 				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 
+				SubState = 1;
+			}
+			else if ( SubState == 1 )
+			{
 				IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
 				IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
 				box->setVisible( false );
@@ -928,56 +996,7 @@ void MultiplayerScene::Run()
 					return 0;
 				} );
 
-				bRunOnce = false;
-
-				// 创建网络 
-				{
-
-
-					server->Start( 1990, 2012 );
-					client->Start( 2012, 1990 );
-
-					client->QueryRoom();
-
-					Sleep( 1500 );
-
-					auto rooms = client->GetRooms();
-					auto localIP = client->GetLocalIP();
-
-					auto iter = rooms.begin();
-					for ( ; iter != rooms.end(); ++iter )
-					{
-						std::cout << "Room " << iter->first << " ";
-						std::wcout << iter->second.room_name << std::endl;
-
-						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
-						{       
-							std::cout << "enter " << iter->first << std::endl;
-							client->EnterRoom( iter->first );
-							break;
-						}
-					}
-
-					if ( iter == rooms.end()  ) 
-						if ( ! localIP.empty() )
-							client->EnterRoom( *localIP.begin() );          
-						else
-							client->EnterRoom( "127.0.0.1" );
-
-					//Sleep( 2000 );
-
-					//client->Send( "192.168.1.121" );
-
-					while ( -11 == client->m_index )
-					{
-						Sleep( 500 );
-					}
-
-					std::cout << "m_index " << client->m_index << std::endl;
-
-				}
-
-				std::cout << "Ship ID: " << player->GetShip()->getID() << std::endl;
+				SubState = 2;
 			}
 
 			// 根据飞船速度调整引擎轰鸣声

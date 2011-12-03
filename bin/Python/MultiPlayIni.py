@@ -445,6 +445,15 @@ def GetRoot():
     tip = uiManager.AddUIImage( indicator1, 31, 28, 0, 0, vector2df( 0, -302 ) )
     tip.LoadImage( "../media/UIResource/Game/indicator_1.png" )
     #Save( tip )
+
+    #全屏幕红色
+    '''redMask = uiManager.AddUIImage( root, ScreenWidth, ScreenHeight, 0, 1, vector2df( cenX, cenY ) )
+    redMask.SetName( "redMask" )
+    redMask.LoadImage( "../media/UIResource/Game/hurt_mask.png" )
+    #redMask.SetVisible( False )
+    ani = uiManager.CreateAnimatorAlphaChange( 0, 1000, 255, 0, True )
+    redMask.AddAnimator( ani )
+    ani.drop()'''
     
     return root
 
