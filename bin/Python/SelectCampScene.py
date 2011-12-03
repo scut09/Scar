@@ -118,7 +118,15 @@ def LoadMap():
     station2.setScale(vector3df(0.01))
     shader.ApplyShaderGeneralCallback( station2, "Shader/gs_1V.vert", "Shader/gs_1F.frag" )
 
-    #smgr.addRunWaySceneNode( vector3df(0,0,0), 200, 300, vector3df( 255,255,0 ), vector3df( 0, 255, 0 ) )
-    #smgr.addSphereSceneNode( 10, 64 )
+     # 水平标尺
+    horizon = smgr.addBillboardSceneNode( camera, dimension2df( 60, 5 ) )
+    horizon.setPosition( vector3df( 0,-10,100 ) )
+    horizon.setMaterialTexture( 0, smgr.getTexture( "../media/UIResource/Game/lala.png" ) )
+    horizon.setMaterialTexture( 1, smgr.getTexture( "../media/UIResource/Game/alphaMask.png" ) )
+    horizon.setMaterialFlag( EMF_ZBUFFER, False )
+    horizon.setID( 4001 )
+    #horizon.setMaterialFlag( EMF_LIGHTING, False )
+    #flare1.setMaterialType( EMT_TRANSPARENT_ADD_COLOR )
+    shader.ApplyShaderGeneralCallback( horizon, "", "Shader/Horizon.frag", EMT_TRANSPARENT_ADD_COLOR )
 
     
