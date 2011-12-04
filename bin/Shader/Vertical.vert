@@ -1,5 +1,6 @@
 uniform mat4 WorldViewProj;
 //uniform mat4 RotMat;
+//uniform mat4 MyTransMat;
 uniform vec3 CameraDir;
 uniform vec2 MouseVec;
 
@@ -8,6 +9,7 @@ varying float offset;
 void main()
 {	
 	gl_TexCoord[0] =  gl_MultiTexCoord0;
+	//gl_Position = MyTransMat * gl_Vertex; //+ vec4(MouseVec * vec2(-30.0, 30.0), 0.0, 0.0);
 	gl_Position = WorldViewProj * gl_Vertex + vec4(MouseVec * vec2(-30.0, 30.0), 0.0, 0.0);
 
 	//Çó´¹Ö±½Ç¶È

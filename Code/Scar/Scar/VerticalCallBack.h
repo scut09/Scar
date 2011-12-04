@@ -48,12 +48,27 @@ private:
 
 		////ÉãÏñ»úÈÆZÖáÐý×ª¾ØÕó
 		//matrix4 rotMat;
-		//rotMat.
-		//vector3df upVec = smgr->getActiveCamera()->getUpVector();
-		//upVec.Z = 0;
-		//upVec.normalize();
-		//rotMat.buildRotateFromTo( vector3df(0,1,0), upVec );
+		//rotMat.makeIdentity();
+		//vector3df OldYAsis = smgr->getActiveCamera()->getUpVector();
+		//vector3df OldXAsis = OldYAsis.crossProduct( cameraDir );
+		//vector2df NewYAsis = vector2df( OldYAsis.X, OldYAsis.Y ).normalize();
+		//vector2df NewXAsis = vector2df( OldXAsis.X, OldXAsis.Y ).normalize();
+		//rotMat[0] = NewXAsis.X;		rotMat[1] = NewYAsis.X;
+		//rotMat[4] = NewXAsis.Y;		rotMat[5] = NewYAsis.Y;
+		////rotMat.makeInverse();
 		//services->setVertexShaderConstant( "RotMat", rotMat.pointer(), 16);
+
+		////...
+		//matrix4 offsetMat;
+		//offsetMat.makeIdentity();
+		//offsetMat.setTranslation( vector3df(0, 0, 10) );
+		//matrix4 myTransMat;
+		////myTransMat = driver->getTransform( ETS_PROJECTION );
+		////myTransMat *= driver->getTransform( ETS_VIEW );
+		//myTransMat *= smgr->getActiveCamera()->getAbsoluteTransformation();
+		//myTransMat *= offsetMat;
+		//myTransMat *= rotMat;
+		//services->setVertexShaderConstant( "MyTransMat", myTransMat.pointer(), 16);
 		
 		//Êó±êÏòÁ¿
 		vector2df mouseVec = pEngine->GetDevice()->getCursorControl()->getRelativePosition();

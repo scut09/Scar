@@ -67,9 +67,11 @@ void ShipFireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 				AddBulletToScene( Ship->GetGuns()[i], startPoint, endPoint, timeMs );	
 
 				// 开火音效
-				/*MultiplayerScene* mulScene = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene());
-				mulScene->m_pSoundEngine->play3D( "../sound/gunfire.wav", Ship->getPosition() );*/
-				//mulScene->m_pSoundEngine->play2D( "../sound/gunfire.wav" );
+				if ( Ship == MyIrrlichtEngine::GetEngine()->GetCurrentPlayer()->GetShip() )
+				{
+					MultiplayerScene* mulScene = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene());
+					mulScene->m_pSoundEngine->play2D( "../sound/gunfire.wav" );
+				}
 
 				LastTimes[i] = timeMs;
 			}
@@ -133,7 +135,7 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 	Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
 
 	// 添加碰撞响应函数
-	coll->SetCollisionCallback( [this]( ISceneNode* node, ISceneNode* target_node )	
+	coll->SetCollisionCallback( [this, newBullet]( ISceneNode* node, ISceneNode* target_node )	
 	{
 		//std::cout << "Ship hitted!\n";
 		IWeapon* weapon = dynamic_cast<IWeapon*>( node );
@@ -144,6 +146,7 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 		{
 			std::cout << "fuck Ship hitted!\n";
 			Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
+			newBullet->setVisible( false );
 		}
 	} );
 
