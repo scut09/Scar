@@ -659,6 +659,12 @@
     <ClInclude Include="MySceneNodeAnimatorCollisionResponse.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteShaderCallBack.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteControlAnimatorl.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\client.py">

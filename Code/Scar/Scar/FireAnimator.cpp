@@ -7,6 +7,7 @@
 #include "MultiplayerScene.h"
 #include <iostream>
 #include "MySceneNodeAnimatorCollisionResponse.h"
+#include "SpriteControlAnimatorl.h"
 
 ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client ) 
 	: IsFire( false ), Initialized( false ), Client( client )

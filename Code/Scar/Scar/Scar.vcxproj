@@ -253,7 +253,9 @@
     <ClInclude Include="SceneNodeShader.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="SpriteControlAnimatorl.h" />
     <ClInclude Include="SpriteFlame.h" />
+    <ClInclude Include="SpriteShaderCallBack.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="IUIAnimator.h" />
     <ClInclude Include="SunFlareAnimator.h" />
