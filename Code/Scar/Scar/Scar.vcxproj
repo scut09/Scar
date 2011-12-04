@@ -224,6 +224,7 @@
     <ClInclude Include="ModuleControl.h" />
     <ClInclude Include="MySceneManager.h" />
     <ClInclude Include="MySceneNodeAnimatorCallFunc.h" />
+    <ClInclude Include="MySceneNodeAnimatorCollisionResponse.h" />
     <ClInclude Include="MySceneNodeAnimatorScale.h" />
     <ClInclude Include="MySceneNodeAnimatorSetVisible.h" />
     <ClInclude Include="MySceneNodeAnimatorShake.h" />

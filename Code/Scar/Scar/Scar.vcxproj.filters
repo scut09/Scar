@@ -656,6 +656,9 @@
     <ClInclude Include="VerticalCallBack.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="MySceneNodeAnimatorCollisionResponse.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\client.py">

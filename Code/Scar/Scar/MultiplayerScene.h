@@ -116,6 +116,10 @@ public:
 	boost::shared_ptr<Network::BoostClient> client;
 	boost::shared_ptr<Network::BoostServer> server;
 
+	// 三角形选择器
+	IMetaTriangleSelector* m_sceneSelector;		// 场景三角形选择器，包含场景内所有的三角形选择器
+	ITriangleSelector* m_mapSelector;		// 地图三角形选择器
+
 	// 音效
 	irrklang::ISoundEngine* m_pSoundEngine;
 	irrklang::ISoundSource* SoundMenuBG;

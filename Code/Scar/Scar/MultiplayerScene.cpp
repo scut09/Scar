@@ -32,6 +32,7 @@
 //#include "SunFlareCallBack.h"
 #include "SunFlareAnimator.h"
 //#include "InfoAndWarn.h"
+#include "MySceneNodeAnimatorCollisionResponse.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -134,6 +135,12 @@ void MultiplayerScene::Run()
 				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
 				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
+
+				// 三角形选择器
+				m_sceneSelector = smgr->createMetaTriangleSelector();
+				m_mapSelector = smgr->createOctreeTriangleSelector(
+					static_cast<IMeshSceneNode*>(bfGate)->getMesh(), bfGate, 32 );
+				m_sceneSelector->addTriangleSelector( m_mapSelector );
 
 				// 播放背景音乐
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
@@ -867,6 +874,12 @@ void MultiplayerScene::Run()
 				spf.SetOffset( vector3df( 6, 0, -22 ) );
 				spf.AddFlameToShip( playerShip, smgr );
 
+				//增加飞船碰撞检测
+				auto colAni = new MySceneNodeAnimatorCollisionResponse(
+					pEngine->GetCollisionManager(), m_sceneSelector );
+				playerShip->addAnimator( colAni );
+				colAni->drop();
+
 				// 添加robot
 				IShip* npc;
 				boost::shared_ptr<ShipAgentPlayer> robot;
@@ -1179,377 +1192,377 @@ void MultiplayerScene::Draw()
 
 void MultiplayerScene::InitScene()
 {
-	// 获取引擎
-	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
-	scene::ISceneManager* smgr = pEngine->GetSceneManager();
-	smgr->clear();
+	//// 获取引擎
+	//MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
+	//scene::ISceneManager* smgr = pEngine->GetSceneManager();
+	//smgr->clear();
 
-	m_pModelMan = pEngine->GetModelManager();
-	IVideoDriver* driver = pEngine->GetVideoDriver();
+	//m_pModelMan = pEngine->GetModelManager();
+	//IVideoDriver* driver = pEngine->GetVideoDriver();
 
-	shader = new SceneNodeShader();
-
-
-	// 隐藏鼠标
-	pEngine->GetDevice()->getCursorControl()->setVisible(false);
+	//shader = new SceneNodeShader();
 
 
-	// 创建飞船
-	IShip* cf1;
-	IMesh* cf1Mesh = smgr->getMesh( _T("../model/ship/cf1.obj") )->getMesh(0);
-	if ( cf1Mesh )
-	{
-		IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
-		cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
-		cf1->setName( "cf1" );
-		cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
-		cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-		GeneralCallBack* cb = new GeneralCallBack( cf1 );
-		shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-		cb->drop();
-		tangentMesh->drop();
-	}
-	//cf1->setPosition( vector3df(0,-40,0)); 
-
-	//m_playerHelper.LoadPlayerShip( boost::shared_ptr<)
-
-	//飞船尾焰
-	SpriteFlame spf;
-	spf.SetOffset( vector3df( -6, 0, -22 ) );
-	spf.AddFlameToShip( cf1, smgr );
-	spf.SetOffset( vector3df( 6, 0, -22 ) );
-	spf.AddFlameToShip( cf1, smgr );
-
-	// 创建子弹
-	BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	bullet->SetVelocity( 1000 );
-	bullet->SetInterval( 100 );
-	cf1->AddGun( bullet );
-	bullet->drop();
-
-	//  加入摄像机
-	//m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
-	m_pCamera = smgr->addCameraSceneNode();
-
-	auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
-	cf1->addAnimator( fpsAni );
-	fpsAni->drop();
-
-	m_pCamera->setFOV( 1 );
-	m_pCamera->setFarValue( 1e7f );
-
-	/*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
-	m_pCamera->addAnimator( shakeAni );
-	shakeAni->drop();*/
-
-	// 开场动画
-	auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
-	m_pCamera->addAnimator( BeginMove );
-	BeginMove->drop();
-
-	//m_pCamera->setParent( cf1 );
-	// 飞船跟随照相机
-	auto folowAni = new CSceneNodeAnimatorCameraFollowShip( cf1, 30 );
-	m_pCamera->addAnimator( folowAni );
-	folowAni->drop();
-
-	//加载行星
-	auto planet = smgr->addSphereSceneNode( 4e5, 64 );
-	if ( planet )
-	{
-		// 设置名称
-		planet->setName( "planet1" );
-		// 加载纹理
-		planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet5.jpg") ) );
-		planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
-		planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
-		// 星球自转
-		auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
-		planet->addAnimator( rot );
-		rot->drop();
-		// Shader
-		GeneralCallBack* cb = new GeneralCallBack( planet );
-		shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" );
-		cb->drop();
-		//// 设置初始大小
-		//planet->setScale( vector3df( .01f ) );
-		//// 缩放动画
-		//auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
-		//planet->addAnimator( sca );
-		//sca->drop();
-		// 行星永远相对镜头
-		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( -2e5, 0, 8e5 ) );
-		planet->addAnimator( relstayAni );
-		relstayAni->drop();
-	}
-	// 行星大气圈
-	ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.2e5, 64, planet );
-	if ( planetAtmos )
-	{
-		planetAtmos->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-		planetAtmos->setMaterialFlag( EMF_FRONT_FACE_CULLING, true );
-		//planetAtmos->setMaterialFlag( EMF_ZBUFFER, false );
-		GeneralCallBack* cb = new GeneralCallBack( planetAtmos );
-		// Shader
-		shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag",EMT_TRANSPARENT_ADD_COLOR );
-		cb->drop();
-	}
+	//// 隐藏鼠标
+	//pEngine->GetDevice()->getCursorControl()->setVisible(false);
 
 
-	//加载卫星
-	auto moon = smgr->addSphereSceneNode( 1e5, 64 );
-	if ( moon )
-	{
-		// 设置名称
-		moon->setName( "moon1" );
-		// 加载纹理
-		moon->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") ) );
-		// 星球自转
-		auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
-		moon->addAnimator( rot );
-		rot->drop();
-		//// 设置初始大小
-		//moon->setScale( vector3df( .001f ) );
-		//// 缩放动画
-		//auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
-		//moon->addAnimator( sca );
-		//sca->drop();
-		//// 飞跃星球效果
-		//auto relmovAni = new RelateCameraAnimatorMove( 2000, 6000, m_pCamera,
-		//	vector3df(1e5, 0, 2.5e5), vector3df(1e5, 0, -2.5e5), RM_MT_LOG, 800 );
-		//moon->addAnimator( relmovAni );
-		//relmovAni->drop();
-		// 卫星永远相对镜头
-		auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( 1e5, 0, 2.5e5 ) );
-		moon->addAnimator( relstayAni );
-		relstayAni->drop();
-	}
+	//// 创建飞船
+	//IShip* cf1;
+	//IMesh* cf1Mesh = smgr->getMesh( _T("../model/ship/cf1.obj") )->getMesh(0);
+	//if ( cf1Mesh )
+	//{
+	//	IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(cf1Mesh, true);
+	//	cf1 = new CFrigate( tangentMesh, 0, smgr, -1 );	
+	//	cf1->setName( "cf1" );
+	//	cf1->setMaterialTexture( 1, driver->getTexture(_T("../model/ship/caldarifighter_tex_ngs.tga")) );
+	//	cf1->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+	//	GeneralCallBack* cb = new GeneralCallBack( cf1 );
+	//	shader->ApplyShaderToSceneNode( cf1, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+	//	cb->drop();
+	//	tangentMesh->drop();
+	//}
+	////cf1->setPosition( vector3df(0,-40,0)); 
 
-	//pSoundEngine = createIrrKlangDevice();
-	//fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
+	////m_playerHelper.LoadPlayerShip( boost::shared_ptr<)
 
-	//fuck->setVolume( fuck->getVolume() - 10 );
+	////飞船尾焰
+	//SpriteFlame spf;
+	//spf.SetOffset( vector3df( -6, 0, -22 ) );
+	//spf.AddFlameToShip( cf1, smgr );
+	//spf.SetOffset( vector3df( 6, 0, -22 ) );
+	//spf.AddFlameToShip( cf1, smgr );
 
-	//加载空间站模型
+	//// 创建子弹
+	//BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	//bullet->SetVelocity( 1000 );
+	//bullet->SetInterval( 100 );
+	//cf1->AddGun( bullet );
+	//bullet->drop();
 
-	IMesh* stationMesh = smgr->getMesh( _T("../model/station/cs1.obj") );
-	if ( stationMesh )
-	{
-		IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(stationMesh, true);
-		IMeshSceneNode* station = smgr->addMeshSceneNode( tangentMesh );
-		station->setName( "station1" );
-		station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
-		GeneralCallBack* cb = new GeneralCallBack( station );
-		shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.vert", "Shader/cs_1F.frag" );
-		cb->drop();
-		tangentMesh->drop();
-	}
+	////  加入摄像机
+	////m_pCamera = smgr->addCameraSceneNodeFPS( 0, 100, 50.0f );
+	//m_pCamera = smgr->addCameraSceneNode();
 
-	////加载太阳
-	//auto sun = smgr->addSphereSceneNode( 200000 );
-	//if ( sun )
+	//auto fpsAni = new CSceneNodeAnimatorAircraftFPS( pEngine->GetDevice()->getCursorControl() );
+	//cf1->addAnimator( fpsAni );
+	//fpsAni->drop();
+
+	//m_pCamera->setFOV( 1 );
+	//m_pCamera->setFarValue( 1e7f );
+
+	///*auto shakeAni = new MySceneNodeAnimatorShake( 0, 80000, 1.2f );
+	//m_pCamera->addAnimator( shakeAni );
+	//shakeAni->drop();*/
+
+	//// 开场动画
+	//auto BeginMove = new TheBeginMove( vector3df(50000),vector3df(0), 1000, 5000, 1 );
+	//m_pCamera->addAnimator( BeginMove );
+	//BeginMove->drop();
+
+	////m_pCamera->setParent( cf1 );
+	//// 飞船跟随照相机
+	//auto folowAni = new CSceneNodeAnimatorCameraFollowShip( cf1, 30 );
+	//m_pCamera->addAnimator( folowAni );
+	//folowAni->drop();
+
+	////加载行星
+	//auto planet = smgr->addSphereSceneNode( 4e5, 64 );
+	//if ( planet )
 	//{
 	//	// 设置名称
-	//	moon->setName( "sun1" );
+	//	planet->setName( "planet1" );
+	//	// 加载纹理
+	//	planet->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet5.jpg") ) );
+	//	planet->setMaterialTexture( 1, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/night0.jpg") ) );
+	//	planet->setMaterialTexture( 2, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/a.tga") ) );
+	//	// 星球自转
+	//	auto rot = smgr->createRotationAnimator( vector3df( 0, 0.005f, 0) );
+	//	planet->addAnimator( rot );
+	//	rot->drop();
+	//	// Shader
+	//	GeneralCallBack* cb = new GeneralCallBack( planet );
+	//	shader->ApplyShaderToSceneNode( planet, cb, "Shader/PlanetGroundV.vert", "Shader/PlanetGroundF.frag" );
+	//	cb->drop();
+	//	//// 设置初始大小
+	//	//planet->setScale( vector3df( .01f ) );
+	//	//// 缩放动画
+	//	//auto sca = new MySceneNodeAnimatorScale( 0, 8000, vector3df( 1.99f ), AS_MT_LOG );
+	//	//planet->addAnimator( sca );
+	//	//sca->drop();
+	//	// 行星永远相对镜头
+	//	auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( -2e5, 0, 8e5 ) );
+	//	planet->addAnimator( relstayAni );
+	//	relstayAni->drop();
+	//}
+	//// 行星大气圈
+	//ISceneNode* planetAtmos = smgr->addSphereSceneNode( 4.2e5, 64, planet );
+	//if ( planetAtmos )
+	//{
+	//	planetAtmos->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+	//	planetAtmos->setMaterialFlag( EMF_FRONT_FACE_CULLING, true );
+	//	//planetAtmos->setMaterialFlag( EMF_ZBUFFER, false );
+	//	GeneralCallBack* cb = new GeneralCallBack( planetAtmos );
+	//	// Shader
+	//	shader->ApplyShaderToSceneNode( planetAtmos, cb, "Shader/PlanetAtmosV.vert", "Shader/PlanetAtmosF.frag",EMT_TRANSPARENT_ADD_COLOR );
+	//	cb->drop();
 	//}
 
-	// 太阳光（平行光）
-	video::SLight light1;
-	light1.Type = ELT_DIRECTIONAL;
-	light1.SpecularColor = video::SColorf( 0.1f, 0.1f, 0.1f );
-	light1.AmbientColor = video::SColorf( 0.15f, 0.15f, 0.15f );
-	//light1.AmbientColor = video::SColorf( 0,0,0 );
-	auto lsn = smgr->addLightSceneNode();
-	lsn->setLightData( light1 );
-	lsn->setRotation( vector3df( 0, 90, 0 ) );
 
-	m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
-	m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
+	////加载卫星
+	//auto moon = smgr->addSphereSceneNode( 1e5, 64 );
+	//if ( moon )
+	//{
+	//	// 设置名称
+	//	moon->setName( "moon1" );
+	//	// 加载纹理
+	//	moon->setMaterialTexture( 0, pEngine->GetVideoDriver()->getTexture( _T("../media/Planets/planet1.jpg") ) );
+	//	// 星球自转
+	//	auto rot = smgr->createRotationAnimator( vector3df( 0, -0.006f, 0) );
+	//	moon->addAnimator( rot );
+	//	rot->drop();
+	//	//// 设置初始大小
+	//	//moon->setScale( vector3df( .001f ) );
+	//	//// 缩放动画
+	//	//auto sca = new MySceneNodeAnimatorScale( 2000, 6000, vector3df( 1.999f ), AS_MT_LOG, 500 );
+	//	//moon->addAnimator( sca );
+	//	//sca->drop();
+	//	//// 飞跃星球效果
+	//	//auto relmovAni = new RelateCameraAnimatorMove( 2000, 6000, m_pCamera,
+	//	//	vector3df(1e5, 0, 2.5e5), vector3df(1e5, 0, -2.5e5), RM_MT_LOG, 800 );
+	//	//moon->addAnimator( relmovAni );
+	//	//relmovAni->drop();
+	//	// 卫星永远相对镜头
+	//	auto relstayAni = new RelateCameraAnimatorStay( 0, 1000, m_pCamera, vector3df( 1e5, 0, 2.5e5 ) );
+	//	moon->addAnimator( relstayAni );
+	//	relstayAni->drop();
+	//}
 
-	// 加载UI界面
-	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
+	////pSoundEngine = createIrrKlangDevice();
+	////fuck = pSoundEngine->addSoundSourceFromFile("../media/booster_blue_b02a.ogg");
 
-	try
-	{
-		using namespace boost::python;
+	////fuck->setVolume( fuck->getVolume() - 10 );
 
-		object UILoader = import( "MultiPlayIni" );
-		object GetRoot = UILoader.attr( "GetRoot" );
-		object root = GetRoot();
+	////加载空间站模型
 
-		m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
-		m_playerHelper->LoadPlayerManager( &*m_playerManager );
+	//IMesh* stationMesh = smgr->getMesh( _T("../model/station/cs1.obj") );
+	//if ( stationMesh )
+	//{
+	//	IMesh* tangentMesh = smgr->getMeshManipulator()->createMeshWithTangents(stationMesh, true);
+	//	IMeshSceneNode* station = smgr->addMeshSceneNode( tangentMesh );
+	//	station->setName( "station1" );
+	//	station->setMaterialTexture( 1, driver->getTexture(_T("../model/station/cs1_tex_ngs.tga")) );
+	//	GeneralCallBack* cb = new GeneralCallBack( station );
+	//	shader->ApplyShaderToSceneNode( station, cb, "Shader/cs_1V.vert", "Shader/cs_1F.frag" );
+	//	cb->drop();
+	//	tangentMesh->drop();
+	//}
 
-		object map = import( "MapV1" );
-		object LoadMap = map.attr( "LoadMap" );
-		LoadMap();
+	//////加载太阳
+	////auto sun = smgr->addSphereSceneNode( 200000 );
+	////if ( sun )
+	////{
+	////	// 设置名称
+	////	moon->setName( "sun1" );
+	////}
 
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
+	//// 太阳光（平行光）
+	//video::SLight light1;
+	//light1.Type = ELT_DIRECTIONAL;
+	//light1.SpecularColor = video::SColorf( 0.1f, 0.1f, 0.1f );
+	//light1.AmbientColor = video::SColorf( 0.15f, 0.15f, 0.15f );
+	////light1.AmbientColor = video::SColorf( 0,0,0 );
+	//auto lsn = smgr->addLightSceneNode();
+	//lsn->setLightData( light1 );
+	//lsn->setRotation( vector3df( 0, 90, 0 ) );
 
+	//m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+	//m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
 
+	//// 加载UI界面
+	//pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
 
-	boost::shared_ptr<HumanPlayer>	humanPlayer( new HumanPlayer( cf1 ) );
-	m_playerHelper->LoadPlayer( humanPlayer );
-	m_playerManager->AddPlayer( humanPlayer );
+	//try
+	//{
+	//	using namespace boost::python;
 
-	//playerManager = new PlayerManager( uiManager, cf1 );
+	//	object UILoader = import( "MultiPlayIni" );
+	//	object GetRoot = UILoader.attr( "GetRoot" );
+	//	object root = GetRoot();
 
-	//playerManager->AddPlayer( cf1->getID(), cf1 );
+	//	m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+	//	m_playerHelper->LoadPlayerManager( &*m_playerManager );
 
-	try
-	{
-		server = pEngine->GetServer();//boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
-		if ( server.use_count() == 0 )
-		{
-			CreateRoom();
-			server = pEngine->GetServer();
-		}
-		client = pEngine->GetClient();//boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
-		if ( client.use_count() == 0 )
-		{
-			auto playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
-			client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
-			pEngine->SetClient( client );
-			client->Start( 2012, 1990 );
-		}
-	}
-	catch ( std::exception& e )
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	//	object map = import( "MapV1" );
+	//	object LoadMap = map.attr( "LoadMap" );
+	//	LoadMap();
 
-	//server->Start( 1990, 2012 );
-	//client->Start( 2012, 1990 );
-
-
-
-	// 添加robot
-	IShip* npc;
-	boost::shared_ptr<ShipAgentPlayer> robot;
-	// robot 1
-	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
-	npc->SetMaxSpeed( 2 );
-	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	spf.SetOffset( vector3df( -6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	spf.SetOffset( vector3df( 6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	bullet->SetVelocity( 1000 );
-	bullet->SetInterval( 100 );
-	npc->AddGun( bullet );
-	bullet->drop();	
-	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
-	m_playerManager->AddPlayer( robot );
-	// robot 2
-	npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
-	npc->SetMaxSpeed( 2 );
-	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-	spf.SetOffset( vector3df( -6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	spf.SetOffset( vector3df( 6, 0, -22 ) );
-	spf.AddFlameToShip( npc, smgr );
-	bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-	bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-	bullet->SetVelocity( 1000 );
-	bullet->SetInterval( 100 );
-	npc->AddGun( bullet );
-	bullet->drop();	
-	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
-	m_playerManager->AddPlayer( robot );
-
-	// 创建火控
-	auto fireAni = new ShipFireAnimator( client );
-	cf1->addAnimator( fireAni );
-	fireAni->drop();
-
-	//
-	client->QueryRoom();
-
-	//
-
-	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
-	IGUISkin* skin = gui->getSkin();
-	IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
-	if (font)
-		skin->setFont(font);
-
-	skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
-
-	IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
+	//}
+	//catch ( ... )
+	//{
+	//	PyErr_Print();
+	//}
 
 
-	console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
-	console->setVisible(false);
+
+	//boost::shared_ptr<HumanPlayer>	humanPlayer( new HumanPlayer( cf1 ) );
+	//m_playerHelper->LoadPlayer( humanPlayer );
+	//m_playerManager->AddPlayer( humanPlayer );
+
+	////playerManager = new PlayerManager( uiManager, cf1 );
+
+	////playerManager->AddPlayer( cf1->getID(), cf1 );
+
+	//try
+	//{
+	//	server = pEngine->GetServer();//boost::shared_ptr<Network::BoostServer>( new Network::BoostServer );
+	//	if ( server.use_count() == 0 )
+	//	{
+	//		CreateRoom();
+	//		server = pEngine->GetServer();
+	//	}
+	//	client = pEngine->GetClient();//boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( &*m_playerManager ) );
+	//	if ( client.use_count() == 0 )
+	//	{
+	//		auto playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+	//		client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( playerManager ) );
+	//		pEngine->SetClient( client );
+	//		client->Start( 2012, 1990 );
+	//	}
+	//}
+	//catch ( std::exception& e )
+	//{
+	//	std::cerr << e.what() << std::endl;
+	//}
+
+	////server->Start( 1990, 2012 );
+	////client->Start( 2012, 1990 );
 
 
-	//	gui->addScrollBar( false, core::recti( 0, 0, 200, 200 ), console );
 
-	box->setVisible( false );
+	//// 添加robot
+	//IShip* npc;
+	//boost::shared_ptr<ShipAgentPlayer> robot;
+	//// robot 1
+	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 99 );
+	//npc->SetMaxSpeed( 2 );
+	//npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	//spf.SetOffset( vector3df( -6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//spf.SetOffset( vector3df( 6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	//bullet->SetVelocity( 1000 );
+	//bullet->SetInterval( 100 );
+	//npc->AddGun( bullet );
+	//bullet->drop();	
+	//robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+	//m_playerManager->AddPlayer( robot );
+	//// robot 2
+	//npc = new CFrigate( smgr->getMesh("../module/1234.obj"), 0, smgr, 98 );
+	//npc->SetMaxSpeed( 2 );
+	//npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	//spf.SetOffset( vector3df( -6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//spf.SetOffset( vector3df( 6, 0, -22 ) );
+	//spf.AddFlameToShip( npc, smgr );
+	//bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+	//bullet->SetVelocity( 1000 );
+	//bullet->SetInterval( 100 );
+	//npc->AddGun( bullet );
+	//bullet->drop();	
+	//robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
+	//m_playerManager->AddPlayer( robot );
 
-	//auto as = core::rect<s32>;
+	//// 创建火控
+	//auto fireAni = new ShipFireAnimator( client );
+	//cf1->addAnimator( fireAni );
+	//fireAni->drop();
 
-	MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+	////
+	//client->QueryRoom();
 
-	console->setText( _T("Press F1 to show or close this box" ) );
+	////
 
-	// 创建并注册receiver的事件处理回调函数
-	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
-		[ this, gui, box ]( const SEvent& event )->void*
-	{	
-		m_playerManager->OnEvent( event );
+	//IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+	//IGUISkin* skin = gui->getSkin();
+	//IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
+	//if (font)
+	//	skin->setFont(font);
 
-		if ( event.KeyInput.PressedDown )
-		{
-			if ( event.KeyInput.Key == KEY_KEY_T )
-			{
-				box->setText( _T("") );
-				box->setVisible( true );
-				gui->setFocus( box );		
-			}
-			else if ( event.KeyInput.Key == KEY_RETURN )
-			{
-				box->setVisible( false );
-				gui->setFocus( 0 );		
-				client->BroadcastMessage( client->m_index, box->getText() );
-				std::wcout << box->getText() << std::endl;
-			}
-			else if ( event.KeyInput.Key == KEY_ESCAPE )
-			{
-				box->setVisible( false );
-				gui->setFocus( 0 );		
-			}
-			else if ( event.KeyInput.Key == KEY_KEY_I )
-			{
-				MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
-			}
-			else if ( event.KeyInput.Key == KEY_KEY_O )
-			{
-				MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
-			}
-			else if ( event.KeyInput.Key == KEY_F1 )
-			{
-				console->setVisible( ! console->isVisible() );
-				if ( console->isVisible() )
-				{
-					UpdateConsole();
-					//gui->setFocus( console );
-				}
-			}
-			else if ( event.KeyInput.Key == KEY_KEY_P )
-			{
-				auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
-				smgr->SetCurrentGameScene( smgr->GetSceneByName( "MainMenu" ) );
-			}
-		}
-		return 0;
-	} );
+	//skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
+
+	//IGUIEditBox* box = gui->addEditBox( _T(""), core::rect<s32>( 0, 0, 100, 50 ) );
+
+
+	//console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
+	//console->setVisible(false);
+
+
+	////	gui->addScrollBar( false, core::recti( 0, 0, 200, 200 ), console );
+
+	//box->setVisible( false );
+
+	////auto as = core::rect<s32>;
+
+	//MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+
+	//console->setText( _T("Press F1 to show or close this box" ) );
+
+	//// 创建并注册receiver的事件处理回调函数
+	//dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
+	//	[ this, gui, box ]( const SEvent& event )->void*
+	//{	
+	//	m_playerManager->OnEvent( event );
+
+	//	if ( event.KeyInput.PressedDown )
+	//	{
+	//		if ( event.KeyInput.Key == KEY_KEY_T )
+	//		{
+	//			box->setText( _T("") );
+	//			box->setVisible( true );
+	//			gui->setFocus( box );		
+	//		}
+	//		else if ( event.KeyInput.Key == KEY_RETURN )
+	//		{
+	//			box->setVisible( false );
+	//			gui->setFocus( 0 );		
+	//			client->BroadcastMessage( client->m_index, box->getText() );
+	//			std::wcout << box->getText() << std::endl;
+	//		}
+	//		else if ( event.KeyInput.Key == KEY_ESCAPE )
+	//		{
+	//			box->setVisible( false );
+	//			gui->setFocus( 0 );		
+	//		}
+	//		else if ( event.KeyInput.Key == KEY_KEY_I )
+	//		{
+	//			MyIrrlichtEngine::GetEngine()->SetMotionBlur( true );
+	//		}
+	//		else if ( event.KeyInput.Key == KEY_KEY_O )
+	//		{
+	//			MyIrrlichtEngine::GetEngine()->SetMotionBlur( false );
+	//		}
+	//		else if ( event.KeyInput.Key == KEY_F1 )
+	//		{
+	//			console->setVisible( ! console->isVisible() );
+	//			if ( console->isVisible() )
+	//			{
+	//				UpdateConsole();
+	//				//gui->setFocus( console );
+	//			}
+	//		}
+	//		else if ( event.KeyInput.Key == KEY_KEY_P )
+	//		{
+	//			auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
+	//			smgr->SetCurrentGameScene( smgr->GetSceneByName( "MainMenu" ) );
+	//		}
+	//	}
+	//	return 0;
+	//} );
 
 
 }
