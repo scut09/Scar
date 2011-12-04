@@ -4,32 +4,25 @@ Kd 1 1 1
 Ks 1 1 1
 illum 7
 Ns 256
-map_Kd caldarifighter_tex_p.tga
+map_Kd cf7_tex_d.tga
 newmtl shape1
 Ka 0.5 0.5 0.5
 Kd 1 1 1
 Ks 1 1 1
 illum 7
 Ns 256
-map_Kd caldarifighter_tex_ngs.tga
+map_Kd cf7_tex_d.tga
 newmtl shape2
 Ka 0.5 0.5 0.5
 Kd 1 1 1
 Ks 1 1 1
 illum 7
 Ns 256
-map_Kd caldarifighter_tex_d.tga
+map_Kd cf7_tex_d.tga
 newmtl shape3
 Ka 0.5 0.5 0.5
 Kd 1 1 1
 Ks 1 1 1
 illum 7
 Ns 256
-map_Kd 
-newmtl shape4
-Ka 0.5 0.5 0.5
-Kd 1 1 1
-Ks 1 1 1
-illum 7
-Ns 256
-map_Kd 
+map_Kd cf7_tex_d.tga

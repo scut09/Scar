@@ -264,18 +264,18 @@ void MultiplayerScene::Run()
 					}
 					else if ( player->GetShipName() == L"cf2" )
 					{
-						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf2.obj" );
 					}
 				}
 				else
 				{
 					if ( player->GetShipName() == L"gf1" )
 					{
-						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj" );
 					}
 					else if ( player->GetShipName() == L"gf2" )
 					{
-						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+						ship = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf2.obj" );
 					}
 				}
 				GeneralCallBack* cb = new GeneralCallBack( ship );
@@ -871,7 +871,7 @@ void MultiplayerScene::Run()
 				IShip* npc;
 				boost::shared_ptr<ShipAgentPlayer> robot;
 				// robot 1
-				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj", 99 );
+				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj", 99 );
 				npc->SetMaxSpeed( 2 );
 				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 				spf.SetOffset( vector3df( -6, 0, -22 ) );
@@ -893,7 +893,7 @@ void MultiplayerScene::Run()
 				cb->drop();
 				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				// robot 2
-				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj", 98 );
+				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf2.obj", 98 );
 				npc->SetMaxSpeed( 2 );
 				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 				spf.SetOffset( vector3df( -6, 0, -22 ) );
