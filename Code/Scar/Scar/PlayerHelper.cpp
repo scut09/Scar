@@ -2,6 +2,7 @@
 #include "MyIrrlichtEngine.h"
 #include <iostream>
 #include <string>
+#include "VerticalCallBack.h"
 
 PlayerHelper::PlayerHelper()
 	: LockedShip( NULL )
@@ -154,15 +155,15 @@ void PlayerHelper::UpdateLock()
 	// 测试用圈圈圈住目标
 	if ( toolkit->GetNode2DInfo( LockedShip, &info2D ) )
 	{
-		//indicator1->SetVisible( false );
-		f32 sca = info2D.height / 60.0f;
-		if ( sca > 1.2f )
-			sca = 1.2f;
-		else if ( sca < 0.8f )
-			sca = 0.8f;
+		////indicator1->SetVisible( false );
+		//f32 sca = info2D.height / 60.0f;
+		//if ( sca > 1.2f )
+		//	sca = 1.2f;
+		//else if ( sca < 0.8f )
+		//	sca = 0.8f;
 
 		lock1->SetPosition( info2D.pos );
-		lock1->SetScale( vector2df(sca) );
+		//lock1->SetScale( vector2df(sca) );
 		lock1->SetVisible( true );
 		// 锁定目标信息文字
 		char buffer[20];	// 数字转字符串缓冲
@@ -313,6 +314,16 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	TargetShield = static_cast<UIStaticText*>(uiManager->GetUIObjectByName( "targetShield" ));
 	TargetArmor = static_cast<UIStaticText*>(uiManager->GetUIObjectByName( "targetArmor" ));
 	TargetDistance = static_cast<UIStaticText*>(uiManager->GetUIObjectByName( "targetDistance" ));
+	// 水平仪和垂直仪
+	Vertical = MyIrrlichtEngine::GetEngine()->GetSceneManager()->getSceneNodeFromName( "vertical" );
+	//Vertical->setVisible( true );
+	VerticalCallBack* cb = new VerticalCallBack();
+	SceneNodeShader shader;
+	shader.ApplyShaderToSceneNode( Vertical, cb, "Shader/Vertical.vert", "Shader/Vertical.frag", EMT_TRANSPARENT_ADD_COLOR );
+	cb->drop();
+	Horizon = MyIrrlichtEngine::GetEngine()->GetSceneManager()->getSceneNodeFromName( "horizon" );
+	//Horizon->setVisible( true );
+	
 	// 获取屏幕红色遮罩
 	RedMask = uiManager->GetUIObjectByName( "redMaskCtrl" );
 }

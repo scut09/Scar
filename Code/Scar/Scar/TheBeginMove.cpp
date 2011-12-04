@@ -23,11 +23,13 @@ void TheBeginMove::animateNode( ISceneNode* node, u32 timeMs )
 	{
 		IsFirst = false;
 		Begin = timeMs + Delay;
-		vector2df direction = vector2df( ( camera->getTarget().X - camera->getPosition().X ), ( camera->getTarget().Z - camera->getPosition().Z ) );
+		vector3df dir3 = camera->getTarget() - camera->getPosition();
+		vector2df direction = vector2df( dir3.X, dir3.Z );
 		lastRad = (f32)direction.getAngle() - 90;
 		lastRad *= DEGTORAD;
-		std::cout<< direction.X << " , " << direction.Y << std::endl;
-		std::cout<< lastRad << std::endl;
+		camera ->setTarget(TheEndPoint + dir3 );
+		/*std::cout<< direction.X << " , " << direction.Y << std::endl;
+		std::cout<< lastRad << std::endl;*/
 	}
 	//还未达到动画开始时间
 	if( Begin > timeMs )

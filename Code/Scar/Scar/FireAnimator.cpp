@@ -27,12 +27,18 @@ void ShipFireAnimator::animateNode( ISceneNode* node, u32 timeMs )
 		Initialized = true;
 	}
 
+	if ( Ship->GetEnergy() < Ship->GetMaxEnergy() )
+		Ship->SetEnergy( Ship->GetEnergy() + 2 );
+
 	if ( IsFire )
 	{
 		for( u32 i = 0; i < Ship->GetGuns().size(); i++ )
 		{
-			if ( timeMs - LastTimes[i] > Ship->GetGuns()[i]->GetInterval() )
+			if ( timeMs - LastTimes[i] > Ship->GetGuns()[i]->GetInterval() && Ship->GetEnergy() > 20)
 			{
+				Ship->SetEnergy( Ship->GetEnergy() - 20 );
+				if( Ship->GetEnergy() < 0 )
+					Ship->SetEnergy( 0 );
 				//CSceneNodeAnimatorSelfDelFlyStraight* ani;
 				//ISceneNodeAnimator* del;
 				//ISceneNode* newBullet;

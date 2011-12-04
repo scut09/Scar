@@ -102,6 +102,9 @@ public:
 	IUIObject*		RFriend;	// 雷达圈上的友军
 	IUIObject*		RedMask;	// 屏幕红色遮罩
 
+	ISceneNode*		Horizon;	// 水平标尺
+	ISceneNode*		Vertical;	// 垂直标尺
+
 	UIStaticText*	ArmorText;	// 护甲文字
 	UIStaticText*	ShieldText;	// 护盾文字
 	UIStaticText*	SpeedText;	// 速度文字	

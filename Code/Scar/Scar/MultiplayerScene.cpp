@@ -109,35 +109,35 @@ void MultiplayerScene::Run()
 				Station1 = smgr->getSceneNodeFromName( "station1" );
 				Station2 = smgr->getSceneNodeFromName( "station2" );
 
-				//// 加载战场
-				//try
-				//{
-				//	using namespace boost::python;
-				//	object map = import( "BattleField1" );
-				//	object LoadMap = map.attr( "LoadMap" );
-				//	LoadMap();
-				//}
-				//catch ( ... )
-				//{
-				//	PyErr_Print();
-				//}
-				//BattleField = smgr->getSceneNodeFromName( "battleField" );
-				//bfEarth = smgr->getSceneNodeFromName( "bfEarth" );
-				//bfMoon = smgr->getSceneNodeFromName( "bfMoon" );
-				//bfGate = smgr->getSceneNodeFromName( "bfGate" );
-				//bfGate->setID( 4004 );
+				// 加载战场
+				try
+				{
+					using namespace boost::python;
+					object map = import( "BattleField1" );
+					object LoadMap = map.attr( "LoadMap" );
+					LoadMap();
+				}
+				catch ( ... )
+				{
+					PyErr_Print();
+				}
+				BattleField = smgr->getSceneNodeFromName( "battleField" );
+				bfEarth = smgr->getSceneNodeFromName( "bfEarth" );
+				bfMoon = smgr->getSceneNodeFromName( "bfMoon" );
+				bfGate = smgr->getSceneNodeFromName( "bfGate" );
+				bfGate->setID( 4004 );
 
-				//// 显示选择阵营菜单
-				//SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
-				//SelectCampMenu->SetVisible( true );
-				//SelectCampMenu->SetAlpha( 0 );
-				//IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
-				//SelectCampMenu->AddAnimator( alpAni );
-				//alpAni->drop();
+				// 显示选择阵营菜单
+				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
+				SelectCampMenu->SetVisible( true );
+				SelectCampMenu->SetAlpha( 0 );
+				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
+				SelectCampMenu->AddAnimator( alpAni );
+				alpAni->drop();
 
-				//// 播放背景音乐
-				//SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
-				//SoundCurrentBG->setIsPaused( false );
+				// 播放背景音乐
+				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
+				SoundCurrentBG->setIsPaused( false );
 			}
 
 			// 在此处进行游戏逻辑
@@ -402,9 +402,9 @@ void MultiplayerScene::Run()
 				SubState = 0;
 				m_pCamera->removeAnimators();
 				// 将镜头平移至飞船
-				m_pCamera->setTarget( player->GetShip()->getPosition() + vector3df(50,0,0) );
+				m_pCamera->setTarget( player->GetShip()->getTarget() );
 				auto ani = pEngine->GetMySceneManager()->createTheBeginMoveAnimator(
-					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(-10,0,0), 0, 2000, 1 );
+					m_pCamera->getPosition(), player->GetShip()->getPosition()+vector3df(30,0,0), 0, 2000, 1 );
 				m_pCamera->addAnimator( ani );
 				ani->drop();
 				// 换背景音效''
@@ -462,6 +462,10 @@ void MultiplayerScene::Run()
 						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B3 );
 						m_playerHelper->AddInfoMsg( InfoAndWarn::PII_B4 );
 					}
+					else if ( playerShip->GetEnergy() == 500 )
+						m_playerHelper->Vertical->setVisible( true );
+					else if ( playerShip->GetEnergy() == 700 )
+						m_playerHelper->Horizon->setVisible( true );
 					playerShip->SetEnergy( playerShip->GetEnergy() + 5 );
 				}
 				if ( m_playerHelper->Cursor->GetAlpha() == 255 && !player->GetConfirm() )
@@ -812,7 +816,7 @@ void MultiplayerScene::Run()
 
 			m_playerHelper->Update();
 			m_playerManager->Update();
-			//pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
+			pEngine->GetDevice()->getCursorControl()->setPosition( 0.5f, 0.5f );
 		}
 		break;
 #pragma endregion Warp
@@ -848,7 +852,7 @@ void MultiplayerScene::Run()
 				bullet->setID( 4003 );
 				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
 				bullet->SetVelocity( 1600 );
-				bullet->SetInterval( 100 );
+				bullet->SetInterval( 60 );
 				playerShip->AddGun( bullet );
 				bullet->drop();
 				// 创建火控
