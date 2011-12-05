@@ -879,7 +879,21 @@ void MultiplayerScene::Run()
 				//增加飞船碰撞检测
 				auto colAni = new MySceneNodeAnimatorCollisionResponse(
 					pEngine->GetCollisionManager(), m_sceneSelector );
-				playerShip->addAnimator( colAni );
+				colAni->SetCollisionCallback( [this, playerShip](ISceneNode* node, const ISceneNode* ColNode, vector3df ColPos)
+				{
+					// 反穿墙
+					irr::core::vector3df dir = (playerShip->getPosition() - playerShip->getTarget()).normalize();
+					playerShip->setPosition( playerShip->getPosition() + 20.0f * dir );
+					// 碰撞后镜头晃动
+					auto ani = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->createShakeAnimatorAnimator(
+						0, 800, playerShip->GetVelocity() * 100.0f );
+					node->addAnimator( ani );
+					ani->drop();
+					playerShip->SetVelocity( playerShip->GetVelocity() - 1.0f );
+					if ( playerShip->GetVelocity() < 0 )
+						playerShip->SetVelocity( 0 );
+				} );
+				m_pCamera->addAnimator( colAni );
 				colAni->drop();
 
 				// 添加robot

@@ -44,7 +44,7 @@ public:
 		if ( IsCol )
 		{
 			// 反穿墙
-			node->setPosition( LastPos + (LastPos - NowPos).normalize() * 10 );
+			//node->setPosition( LastPos + (LastPos - NowPos).normalize() * 10 );
 			// 调用回调函数
 			Func( node, ColSceneNode, ColPosition );
 			//std::cout<< "!_!_!_!_!_!_!_!_"<< std::endl;
