@@ -844,5 +844,8 @@
     <None Include="..\..\..\bin\Shader\Vertical.vert">
       <Filter>Shader\shaders\others</Filter>
     </None>
+    <None Include="..\..\..\bin\Shader\BulletHit.frag">
+      <Filter>Shader\shaders\others</Filter>
+    </None>
   </ItemGroup>
 </Project>

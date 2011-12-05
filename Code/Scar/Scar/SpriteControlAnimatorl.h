@@ -33,6 +33,7 @@ public:
 		E_MATERIAL_TYPE emt = EMT_TRANSPARENT_ADD_COLOR, bool loop = false )
 	{
 		Interval = interval;
+		RowCol = new SpriteRowCol();
 		RowCol->col = 0;
 		RowCol->row = 0;
 		Row = row;
@@ -49,7 +50,7 @@ public:
 		{
 			IsFirst = false;
 			SceneNodeShader shader;
-			auto cb = new SpriteShaderCallBack( RowCol );
+			auto cb = new SpriteShaderCallBack( RowCol, Col, Row );
 			shader.ApplyShaderToSceneNode( node, cb, "", FilePath, EMT );
 			LastTime = timeMs;
 		}
@@ -69,6 +70,7 @@ public:
 					RowCol->row = 0;
 				else
 				{
+					node->setVisible( false );
 					MyIrrlichtEngine::GetEngine()->GetSceneManager()->addToDeletionQueue( node );
 				}
 			}

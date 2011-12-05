@@ -292,6 +292,8 @@ void MultiplayerScene::Run()
 				ship->setVisible( false );
 				ship->SetMaxSpeed( 5 );
 				ship->SetTeam( player->GetTeam() );
+				/*auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(ship)->getMesh(), ship );
+				m_sceneSelector->addTriangleSelector( triSelector );*/
 				player->SetShip( ship );
 
 				State = Select_Equipment;
@@ -905,6 +907,8 @@ void MultiplayerScene::Run()
 				shader->ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
 				cb->drop();
 				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+				auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
+				m_sceneSelector->addTriangleSelector( triSelector );
 				// robot 2
 				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf2.obj", 98 );
 				npc->SetMaxSpeed( 2 );
@@ -927,6 +931,8 @@ void MultiplayerScene::Run()
 				shader->ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
 				cb->drop();
 				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+				triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
+				m_sceneSelector->addTriangleSelector( triSelector );
 
 				SubState = 1;
 			}

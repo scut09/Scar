@@ -12,6 +12,9 @@
 ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client ) 
 	: IsFire( false ), Initialized( false ), Client( client )
 {
+	BulletHit = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->addBillboardSceneNode();
+	BulletHit->setMaterialTexture( 0, MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture("../media/Weapon/bullethit2.png") );
+	BulletHit->setVisible( false );
 }
 
 void ShipFireAnimator::animateNode( ISceneNode* node, u32 timeMs )
@@ -129,33 +132,8 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 	newBullet->addAnimator( del );
 	del->drop();
 	ani->drop();
-
-	//CSceneNodeAnimatorMyCollisionResponse* coll = 
-	//	new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
-
-	//// 测试发送炮弹数据
-	//Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
-
-	//// 添加碰撞响应函数
-	//coll->SetCollisionCallback( [this, newBullet]( ISceneNode* node, ISceneNode* target_node )	
-	//{
-	//	//std::cout << "Ship hitted!\n";
-	//	IWeapon* weapon = dynamic_cast<IWeapon*>( node );
-
-	//	// 打中的是飞船
-	//	IShip *ship = dynamic_cast<IShip *>( target_node );
-	//	if (NULL != ship)
-	//	{
-	//		std::cout << "fuck Ship hitted!\n";
-	//		Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
-	//		newBullet->setVisible( false );
-	//	}
-	//} );
-
-	//newBullet->addAnimator( coll );
-	//coll->drop();
 	
-	ITriangleSelector* triSelector = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())->m_sceneSelector;
+	ITriangleSelector* triSelector = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())->m_mapSelector;
 	auto ColAni = new MySceneNodeAnimatorCollisionResponse( 
 		MyIrrlichtEngine::GetEngine()->GetCollisionManager(), triSelector );
 
@@ -166,16 +144,47 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 	{
 		IWeapon* weapon = dynamic_cast<IWeapon*>( node );
 
-		// 打中的是飞船
-		IShip *ship = dynamic_cast<IShip*>(const_cast<ISceneNode*>( ColNode ));
-		if (NULL != ship)
-		{
-			std::cout << "fuck Ship hitted!\n";
-			Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
-		}
+		//// 打中的是飞船
+		//IShip *ship = dynamic_cast<IShip*>(const_cast<ISceneNode*>( ColNode ));
+		//if (NULL != ship)
+		//{
+		//	std::cout << "fuck Ship hitted!\n";
+		//	Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
+		//}
 		newBullet->setVisible( false );
+		// 子弹击中火光动画
+		ISceneNode* HitSprite = BulletHit->clone();
+		HitSprite->setVisible( true );
+		HitSprite->setMaterialFlag( EMF_ZBUFFER, false );
+		HitSprite->setPosition( ColPos );
+		auto ani = new SpriteControlAnimatorl( 8, 2, 0, "Shader/BulletHit.frag" );
+		HitSprite->addAnimator( ani );
+		ani->drop();
 	} );
 
 	newBullet->addAnimator( ColAni );
 	ColAni->drop();
+
+	
+	CSceneNodeAnimatorMyCollisionResponse* coll = 
+		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
+
+	// 添加碰撞响应函数
+	coll->SetCollisionCallback( [this, newBullet]( ISceneNode* node, ISceneNode* target_node )	
+	{
+		//std::cout << "Ship hitted!\n";
+		IWeapon* weapon = dynamic_cast<IWeapon*>( node );
+
+		// 打中的是飞船
+		IShip *ship = dynamic_cast<IShip *>( target_node );
+		if (NULL != ship)
+		{
+			std::cout << "fuck Ship hitted!\n";
+			Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
+			newBullet->setVisible( false );
+		}
+	} );
+
+	newBullet->addAnimator( coll );
+	coll->drop();
 }

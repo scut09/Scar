@@ -24,6 +24,7 @@ class ShipFireAnimator : public ISceneNodeAnimator
 {
 	bool IsFire;
 	bool Initialized;
+	IBillboardSceneNode*	BulletHit;				//子弹击中时的火光动画
 	std::vector<u32>		LastTimes;
 	boost::shared_ptr<Network::IClient>		Client;
 
