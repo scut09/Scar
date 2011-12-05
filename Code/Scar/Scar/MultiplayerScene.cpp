@@ -136,6 +136,9 @@ void MultiplayerScene::Run()
 				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
 
+				// 计分板
+				ScoreBoard = uiManager->GetUIObjectByName( "ScoreBoard" );
+
 				// 三角形选择器
 				m_sceneSelector = smgr->createMetaTriangleSelector();
 				m_mapSelector = smgr->createOctreeTriangleSelector(
@@ -957,7 +960,7 @@ void MultiplayerScene::Run()
 				box->setVisible( false );
 				// 创建并注册receiver的事件处理回调函数
 				dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc(
-					[ this, gui, box ]( const SEvent& event )->void*
+					[ this, gui, box, uiManager ]( const SEvent& event )->void*
 				{	
 					m_playerManager->OnEvent( event );
 
@@ -999,7 +1002,18 @@ void MultiplayerScene::Run()
 								}
 							}
 							break;
-						case KEY_KEY_T :
+							//显示计分板
+						case KEY_TAB:
+							{
+								if ( !ScoreBoard->GetVisible() )
+								{
+									ScoreBoard->SetVisible( true );
+								}
+								else
+									ScoreBoard->SetVisible( false );
+							}
+							break;
+						/*case KEY_KEY_T :
 							box->setText( _T("") );
 							box->setVisible( true );
 							gui->setFocus( box );
@@ -1030,9 +1044,10 @@ void MultiplayerScene::Run()
 						case KEY_KEY_P :
 							auto smgr = MyIrrlichtEngine::GetEngine()->GetGameSceneManager();
 							smgr->SetCurrentGameScene( smgr->GetSceneByName( "MainMenu" ) );
-							break;
+							break;*/
 						}
 					}
+
 					return 0;
 				} );
 
@@ -1041,6 +1056,7 @@ void MultiplayerScene::Run()
 
 			// 根据飞船速度调整引擎轰鸣声
 			SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );
+
 
 			InBattle();
 		}
@@ -1062,9 +1078,9 @@ void MultiplayerScene::Run()
 		break;
 	case Test:
 		{
-			InitScene();
+			/*InitScene();
 			TestFuck();
-			State = In_Battle;
+			State = In_Battle;*/
 		}
 		break;
 	}
@@ -1083,94 +1099,86 @@ void MultiplayerScene::Init()
 	server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
 	client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
 	
-	// 兼容Test状态
-	if ( State != Test )
+
+	// 初始化摄像机
+	//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
+	m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
+	m_pCamera->setFarValue( 1e7 );
+	m_pCamera->setFOV( 1 );
+	m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
+
+	// 初始化玩家与飞船
+	// 飞船为默认值，在玩家选船后更换模型
+	IShip* playerShip = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+	playerShip->setVisible( false );
+	boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( playerShip ) );
+	pEngine->SetCurrentPlayer( player );
+
+	// 加载UI界面
+	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
+	try
 	{
-		// 初始化摄像机
-		//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
-		m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
-		m_pCamera->setFarValue( 1e7 );
-		m_pCamera->setFOV( 1 );
-		m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
+		using namespace boost::python;
 
-		// 初始化玩家与飞船
-		// 飞船为默认值，在玩家选船后更换模型
-		IShip* playerShip = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
-		playerShip->setVisible( false );
-		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( playerShip ) );
-		pEngine->SetCurrentPlayer( player );
+		object UILoader = import( "MultiPlayIni" );
+		object GetRoot = UILoader.attr( "GetRoot" );
+		object root = GetRoot();	
+	}
+	catch ( ... )
+	{
+		PyErr_Print();
+	}
 
-		// 加载UI界面
-		pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
-		try
+	// 加载玩家管理类和玩家辅助类
+	m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+	m_playerManager->AddPlayer( player );
+	m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
+	//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+	m_playerHelper->LoadPlayer( player );
+	m_playerHelper->LoadPlayerManager( &*m_playerManager );
+
+
+	// 加载音效
+	m_pSoundEngine = createIrrKlangDevice();
+	m_pSoundEngine->setSoundVolume( 0.6f );
+	SoundMenuBG = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient005.ogg" );
+	SoundBG1 = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient041.ogg" );
+	SoundClick = m_pSoundEngine->addSoundSourceFromFile( "../sound/click.wav", irrklang::ESM_AUTO_DETECT, true );
+	//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
+	//std::cout<<"--------------------------------------"<<std::endl;
+
+
+	// 创建控制台
+	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+	IGUISkin* skin = gui->getSkin();
+	IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
+	if (font)
+		skin->setFont(font);
+	skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
+	console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
+	console->setVisible(false);
+
+	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+	{	
+		MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );
+
+		m_playerManager->OnEvent( event );
+
+		if ( event.KeyInput.PressedDown )
 		{
-			using namespace boost::python;
-
-			object UILoader = import( "MultiPlayIni" );
-			object GetRoot = UILoader.attr( "GetRoot" );
-			object root = GetRoot();	
-		}
-		catch ( ... )
-		{
-			PyErr_Print();
-		}
-
-		// 加载玩家管理类和玩家辅助类
-		m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
-		m_playerManager->AddPlayer( player );
-		m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
-		//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
-		m_playerHelper->LoadPlayer( player );
-		m_playerHelper->LoadPlayerManager( &*m_playerManager );
-
-
-		// 加载音效
-		m_pSoundEngine = createIrrKlangDevice();
-		m_pSoundEngine->setSoundVolume( 0.6f );
-		SoundMenuBG = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient005.ogg" );
-		SoundBG1 = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient041.ogg" );
-		SoundClick = m_pSoundEngine->addSoundSourceFromFile( "../sound/click.wav", irrklang::ESM_AUTO_DETECT, true );
-		//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
-		//std::cout<<"--------------------------------------"<<std::endl;
-
-
-
-
-
-
-		// 创建控制台
-		IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
-		IGUISkin* skin = gui->getSkin();
-		IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
-		if (font)
-			skin->setFont(font);
-		skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
-		console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
-		console->setVisible(false);
-
-		dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
-		{	
-			MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );
-
-			m_playerManager->OnEvent( event );
-
-			if ( event.KeyInput.PressedDown )
+			if ( event.KeyInput.Key == KEY_F1 )
 			{
-				if ( event.KeyInput.Key == KEY_F1 )
+				console->setVisible( ! console->isVisible() );
+				if ( console->isVisible() )
 				{
-					console->setVisible( ! console->isVisible() );
-					if ( console->isVisible() )
-					{
-						UpdateConsole();
-						//gui->setFocus( console );
-					}
+					UpdateConsole();
+					//gui->setFocus( console );
 				}
 			}
+		}
 
-			return 0;
-		} );
-
-	}
+		return 0;
+	} );
 }
 
 void MultiplayerScene::Release()

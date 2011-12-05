@@ -13,6 +13,13 @@ def GetRoot():
     #Save( root )
 
     # 以下为菜单
+    # 计分板
+    ScoreBoard = uiManager.AddUIImage( root, 800, 550 )
+    ScoreBoard.SetPosition( vector2df( cenX, cenY ) )
+    ScoreBoard.LoadImage("../media/UIResource/Game/scoreboard.png")
+    ScoreBoard.SetName( "ScoreBoard" )
+    ScoreBoard.SetVisible( False )
+    
     # 选择阵营
     # 菜单背景
     scMenu = uiManager.AddUIImage( root, 800, 550 )
