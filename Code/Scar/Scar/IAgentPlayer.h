@@ -13,6 +13,8 @@
 #include "PlayerManager.h"
 #include "NetworkBase.h"
 
+class RobotClient;
+
 /*
 ** 名字：AgentPlayer
 ** 说明：Computer controls this player, just like agent in a film
@@ -34,6 +36,7 @@ public:
 	//	// Do some control here
 	//}
 
+	virtual void SetID( int id );
 
 protected:
 	// 发送自己的移动信息
@@ -71,7 +74,7 @@ protected:
 	virtual bool SearchTarget( boost::shared_ptr<IPlayer>& outPlayer, int range = 3500 );
 
 protected:
-
+	boost::shared_ptr<RobotClient> robotClient;
 	PlayerManager*					Manager;		// 玩家飞船管理类
 	boost::shared_ptr<Network::NetworkBase>	Server;			// 服务端
 };

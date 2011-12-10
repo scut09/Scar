@@ -98,7 +98,7 @@ void Network::BoostClient::SendBullet( int index, int bullet_type,
 	const irr::core::vector3df& start, const irr::core::vector3df& end, u32 life )
 {
 	BulletCreateBag bullet;
-	bullet.owner_index = m_index;
+	bullet.owner_index = index;
 	bullet.start_point = start;
 	bullet.end_point = end;
 	bullet.life = life;

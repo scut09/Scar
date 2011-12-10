@@ -13,9 +13,8 @@ IAgentPlayer::IAgentPlayer( IShip* playerShip, PlayerManager* mgr, boost::shared
 {
 	// 创建机器人客户端
 	
-	boost::shared_ptr<RobotClient> robotClient = boost::shared_ptr<RobotClient>( new RobotClient( dynamic_pointer_cast<Network::BoostServer >( server ) ) );
+	robotClient = boost::shared_ptr<RobotClient>( new RobotClient( dynamic_pointer_cast<Network::BoostServer >( server ) ) );
 	robotClient->SetID( GetID() );
-
 
 
 	// 添加飞行行为
@@ -93,4 +92,10 @@ void IAgentPlayer::DoLeftButtonDown()
 	ev.MouseInput.Event = EMIE_LMOUSE_PRESSED_DOWN;	
 
 	OnEvent( ev );
+}
+
+void IAgentPlayer::SetID( int id )
+{
+	IPlayer::SetID( id );
+	robotClient->SetID( id );
 }
