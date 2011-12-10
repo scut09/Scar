@@ -27,7 +27,7 @@ IGUIEditBox* box = 0;
 using namespace Network;
 
 Network::BoostClient::BoostClient( boost::shared_ptr<PlayerManager>	playerManager ) 
-	: m_playerManager( playerManager ), m_server_IP( 0 ), m_index( -11 )
+	: m_playerManager( playerManager ), m_server_IP( 0 ), m_index( -11 ), m_IsServer( false )
 {
 	SaveLocalIPAddress();
 
@@ -52,6 +52,8 @@ Network::BoostClient::BoostClient( boost::shared_ptr<PlayerManager>	playerManage
 		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
 	RegisterMessageHandler( SCORE_ARRIVAL,
 		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
+	RegisterMessageHandler( PLAYER_LOCK,
+		[this]( unsigned long ip, const PACKAGE& p ){ OnPlayerLock( ip, p ); });
 }
 
 void Network::BoostClient::QueryRoom()
@@ -432,4 +434,25 @@ void Network::BoostClient::OnScoreArrival( unsigned long ip, const PACKAGE& p )
 	score.KillCount = bag.KillCount;
 	score.DeathCount = bag.DeathCount;
 	m_PlayerHelper->SetPlayerScore( ip, score );
+}
+
+void Network::BoostClient::SendLock( int index, int target_index )
+{
+	PACKAGE p;
+	p.SetCMD( PLAYER_LOCK );
+	PlayerLockBag bag;
+	bag.owner_index = index;
+	bag.target_index = target_index;
+	p.SetData( (char*)&bag, sizeof(PlayerLockBag) );
+	TcpSendTo( m_server_IP, m_target_port, p );
+}
+
+void Network::BoostClient::OnPlayerLock( unsigned long ip, const PACKAGE& p )
+{
+	PlayerLockBag lockBag;
+	lockBag = *(PlayerLockBag*)p.GetData();
+	if ( lockBag.target_index == m_index )
+	{
+		
+	}
 }

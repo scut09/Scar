@@ -62,6 +62,7 @@ namespace Network
 		void OnBulletHit( unsigned long ip, const PACKAGE& p );			// 收到炮弹命中
 		void OnScoreArrival( unsigned long ip, const PACKAGE& p );		// 收到分数
 		void OnMessage( unsigned long ip, const PACKAGE& p );			// 收到信息
+		void OnPlayerLock( unsigned long ip, const PACKAGE& p );		// 收到锁定信息
 		// 其他消息处理
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 
@@ -86,6 +87,9 @@ namespace Network
 		void SendBullet( int index, int bullet_type,				
 			const irr::core::vector3df& start, 
 			const irr::core::vector3df& end, u32 life );
+
+		// 发送锁定信息
+		void SendLock( int index, int target_index );
 		
 
 		void SetID( int id )

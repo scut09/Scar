@@ -31,7 +31,8 @@ namespace Network
 		ALLOW_JOIN_ROOM,	// 服务端允许玩家加入
 		NEW_PLAYER_JOIN,		// 广播新玩家加入
 		SCORE_ARRIVAL,			// 分数到达
-		SCORE_BOARD			// 分数板
+		SCORE_BOARD,			// 分数板
+		PLAYER_LOCK				// 玩家被锁定
 	};
 
 	/************************************************************************/
@@ -253,6 +254,12 @@ namespace Network
 		int				bullet_type;			// 炮弹类型
 	};
 
+	// 玩家被锁定， 第一个是锁定别人的玩家，第二个是被锁定的玩家
+	struct PlayerLockBag
+	{
+		int				owner_index;
+		int				target_index;
+	};
 
 
 
