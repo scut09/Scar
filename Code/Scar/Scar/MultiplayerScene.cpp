@@ -764,8 +764,10 @@ void MultiplayerScene::Run()
 			}
 			else if ( SubState == 203 )
 			{
-				if ( -11 != client->m_index )
+				if ( -11 != client->GetID() )
 				{
+					pEngine->GetCurrentPlayer()->GetShip()->setID( client->GetID() );
+
 					std::cout << "m_index " << client->m_index << std::endl;
 					std::cout << "Ship ID: " << player->GetShip()->getID() << std::endl;
 
