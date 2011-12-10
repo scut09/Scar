@@ -351,6 +351,9 @@
     <ClCompile Include="MyApp.cpp">
       <Filter>ThreadsSupport</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -802,9 +805,6 @@
     <None Include="..\..\..\bin\Shader\RunWay.frag">
       <Filter>Shader\shaders\others</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\Laser1.frag">
-      <Filter>Shader\shaders\laser</Filter>
-    </None>
     <None Include="..\..\..\bin\Python\MultiMenuIni.py">
       <Filter>Python\py</Filter>
     </None>
@@ -883,5 +883,6 @@
     <None Include="..\..\..\bin\Shader\BulletHit.frag">
       <Filter>Shader\shaders\others</Filter>
     </None>
+    <None Include="..\..\..\bin\Shader\missle.frag" />
   </ItemGroup>
 </Project>

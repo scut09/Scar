@@ -78,31 +78,7 @@ public:
 
 
 
-	void Upadate()
-	{
-		if (IsVisible)
-		{
-			for ( auto iter = ScoreNodeMap.begin(); iter != ScoreNodeMap.end(); ++iter )
-			{
-				ScoreItem* item;
-				auto iterator = ScoreItemMap.find( iter->second );
-				if ( iterator == ScoreItemMap.end() )
-				{
-					// 不在里面，创建新的
-					//item = CreateScoreItem( iter->second );
-					//item = new ScoreItem();
-					//ScoreItemMap[iter->second] = item;
-					//item setposition
-					
-				}
-				else
-				{
-					item = iterator->second;
-				}
-				
-			}
-		}
-	}
+	void Upadate();
 
 public:
 	bool IsVisible;

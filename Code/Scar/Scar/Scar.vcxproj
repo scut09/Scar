@@ -153,6 +153,7 @@
     <ClCompile Include="Boost_Server.cpp" />
     <ClCompile Include="SceneNodeAnimatorFollow.cpp" />
     <ClCompile Include="SceneNodeShader.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="SpriteFlame.cpp" />

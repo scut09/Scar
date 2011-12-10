@@ -25,6 +25,11 @@ struct ScoreNode
 	int KillCount;
 	int DeathCount;
 	int Team;
+
+	bool operator<( const ScoreNode& node )const
+	{
+		return ip < node.ip;
+	}
 };
 /*
 ** Ãû×Ö£ºPlayerHelper
