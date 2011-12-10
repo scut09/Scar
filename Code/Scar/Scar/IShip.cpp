@@ -114,7 +114,7 @@ void IShip::initShip( const std::wstring& name,const f32& maxspeed/*=10*/, const
 	MaxShield = 1000;
 	CurrentShield = MaxShield;
 
-	Speed    = speed;
+	Speed = speed;
 	Acceleration = acceleration;
 	MaxAcceleration = maxaccleration;
 	Sensitivity = sensitivity;
