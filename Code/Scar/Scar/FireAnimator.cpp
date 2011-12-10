@@ -9,7 +9,7 @@
 #include "MySceneNodeAnimatorCollisionResponse.h"
 #include "SpriteControlAnimatorl.h"
 
-ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client ) 
+ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client, int type ) 
 	: IsFire( false ), Initialized( false ), Client( client )
 {
 	BulletHit = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->addBillboardSceneNode();
@@ -137,8 +137,11 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 	auto ColAni = new MySceneNodeAnimatorCollisionResponse( 
 		MyIrrlichtEngine::GetEngine()->GetCollisionManager(), triSelector );
 
-	// ²âÊÔ·¢ËÍÅÚµ¯Êý¾Ý
-	Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
+	if ( m_type == 1 && m_type == 4 )
+	{
+		// ²âÊÔ·¢ËÍÅÚµ¯Êý¾Ý
+		Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
+	}
 
 	ColAni->SetCollisionCallback( [this, newBullet](ISceneNode* node, const ISceneNode* ColNode, vector3df ColPos)
 	{

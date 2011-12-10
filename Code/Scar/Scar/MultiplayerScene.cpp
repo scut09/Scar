@@ -869,7 +869,7 @@ void MultiplayerScene::Run()
 				playerShip->AddGun( bullet );
 				bullet->drop();
 				// 创建火控
-				auto fireAni = new ShipFireAnimator( client );
+				auto fireAni = new ShipFireAnimator( client, 4 );
 				playerShip->addAnimator( fireAni );
 				fireAni->drop();
 

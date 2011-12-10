@@ -27,9 +27,12 @@ class ShipFireAnimator : public ISceneNodeAnimator
 	IBillboardSceneNode*	BulletHit;				//子弹击中时的火光动画
 	std::vector<u32>		LastTimes;
 	boost::shared_ptr<Network::IClient>		Client;
-
+	int			m_type;				// 自己的类型 
+									// 1 仅创建
+									// 2 仅发送
+									// 4 创建且网络发送
 public:
-	ShipFireAnimator( boost::shared_ptr<Network::IClient> client );
+	ShipFireAnimator( boost::shared_ptr<Network::IClient> client, int type = 1 );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 
