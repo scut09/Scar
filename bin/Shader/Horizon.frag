@@ -9,7 +9,7 @@ void main()
 	float PI = 3.1415926;
 	float DPI = 2*PI;
 	float rad;
-	float temp = dir.y / sqrt(pow(dir.x,2) + pow(dir.y,2));
+	float temp = dir.y / sqrt(pow(dir.x,2.0) + pow(dir.y,2.0));
 	temp = asin( temp );
 	if (dir.x > 0)
 	{
@@ -27,7 +27,7 @@ void main()
 		rad = PI - temp;
 	}
 	rad = rad - 0.5 * PI;
-    vec4 Skin = texture2D( TextureL0, (vec2(gl_TexCoord[0]) - vec2(rad/PI, 0) - vec2(0.5, 0)) * vec2( 0.5, 1.0 ));
+    vec4 Skin = texture2D( TextureL0, (vec2(gl_TexCoord[0]) - vec2(rad/PI, 0.0) - vec2(0.5, 0.0)) * vec2( 0.5, 1.0 ));
 	vec4 Alpha = texture2D( TextureL1, vec2(gl_TexCoord[0]) );
 	gl_FragColor = Skin * Alpha;
 } 

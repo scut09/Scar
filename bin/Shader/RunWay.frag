@@ -5,7 +5,7 @@ uniform float Num;
 uniform float TimeMs;
 uniform float Begin;
 
-float dua = 500;	// 动画持续时间
+float dua = 500.0;	// 动画持续时间
 
 void main()
 {
@@ -15,19 +15,19 @@ void main()
 		float last = TimeMs - Begin;
 		if ( last < dua )
 		{
-			vec4 Color = vec4( ( ColFrom + ColOffset * Num ) / 255.0, 1 );
+			vec4 Color = vec4( ( ColFrom + ColOffset * Num ) / 255.0, 1.0 );
 			float Alpha = last / dua;
 			gl_FragColor = Skin * Color * Alpha;
 		}
 		else
 		{
-			vec4 Color = vec4( ( ColFrom + ColOffset * Num ) / 255.0, 1 );
+			vec4 Color = vec4( ( ColFrom + ColOffset * Num ) / 255.0, 1.0 );
 			gl_FragColor = Skin * Color;
 		}
     }
 	else
 	{
-		gl_FragColor = vec4( 0 );
+		gl_FragColor = vec4( 0.0 );
 	}
 
 } 

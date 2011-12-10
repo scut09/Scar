@@ -17,7 +17,7 @@ void main()
 	float rad;
 	float PI = 3.1415926;
 	float DPI = 2*PI;
-	float temp = dir.y / sqrt(pow(dir.x,2) + pow(dir.y,2));
+	float temp = dir.y / sqrt(pow(dir.x,2.0) + pow(dir.y,2.0));
 	temp = asin( temp );
 	if (dir.x > 0)
 	{
