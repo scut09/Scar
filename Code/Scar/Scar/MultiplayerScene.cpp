@@ -745,17 +745,19 @@ void MultiplayerScene::Run()
 						{       
 							std::cout << "enter " << iter->first << std::endl;
 							client->EnterRoom( iter->first );
-							client->SetIsServer( true );
+							client->SetIsServer( false );
 							break;
 						}
 					}
 
 					if ( iter == rooms.end()  ) 
+					{
 						if ( ! localIP.empty() )
 							client->EnterRoom( *localIP.begin() );          
 						else
 							client->EnterRoom( "127.0.0.1" );
-
+						client->SetIsServer( true );
+					}
 					SubState = 203;
 
 					//Sleep( 2000 );
@@ -921,6 +923,10 @@ void MultiplayerScene::Run()
 				{
 					server->AddRobotPlayer();	
 					server->AddRobotPlayer();	
+				}
+				else
+				{
+					server->Close();
 				}
 
 				SubState = 1;
