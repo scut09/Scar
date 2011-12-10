@@ -665,6 +665,9 @@
     <ClInclude Include="SpriteControlAnimatorl.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="ShipCrashWarnAnimator.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\client.py">

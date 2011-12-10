@@ -253,6 +253,7 @@
     <ClInclude Include="SceneNodeShader.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="ShipCrashWarnAnimator.h" />
     <ClInclude Include="SpriteControlAnimatorl.h" />
     <ClInclude Include="SpriteFlame.h" />
     <ClInclude Include="SpriteShaderCallBack.h" />

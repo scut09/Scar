@@ -40,7 +40,8 @@ public:
 		PIW_MissleComing,
 		PIW_InBattle,
 		PIW_LowShield,
-		PIW_LowArmor
+		PIW_LowArmor,
+		PIW_CrashWarn
 	};
 
 	struct PIItem
@@ -130,6 +131,10 @@ public:
 		t->LoadImage( "../media/Message/lowshield.png" );
 		t->SetVisible( false );
 		WarnMap[PIW_LowShield] = t;
+		t = uiMgr->AddUIImage( WarnBox, MSGW, MSGH );
+		t->LoadImage( "../media/Message/crashwarn.png" );
+		t->SetVisible( false );
+		WarnMap[PIW_CrashWarn] = t;
 
 
 		// пео╒

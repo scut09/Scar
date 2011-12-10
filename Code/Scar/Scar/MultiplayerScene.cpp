@@ -33,6 +33,7 @@
 #include "SunFlareAnimator.h"
 //#include "InfoAndWarn.h"
 #include "MySceneNodeAnimatorCollisionResponse.h"
+#include "ShipCrashWarnAnimator.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -143,6 +144,7 @@ void MultiplayerScene::Run()
 				m_sceneSelector = smgr->createMetaTriangleSelector();
 				m_mapSelector = smgr->createOctreeTriangleSelector(
 					static_cast<IMeshSceneNode*>(bfGate)->getMesh(), bfGate, 32 );
+				bfGate->setTriangleSelector( m_mapSelector );
 				m_sceneSelector->addTriangleSelector( m_mapSelector );
 
 				// 播放背景音乐
@@ -879,7 +881,11 @@ void MultiplayerScene::Run()
 				spf.SetOffset( vector3df( 6, 0, -22 ) );
 				spf.AddFlameToShip( playerShip, smgr );
 
-				//增加飞船碰撞检测
+				// 增加飞船碰撞预警
+				auto decColAni = new ShipCrashWarnAnimator( pEngine->GetCollisionManager(), m_sceneSelector, 500 );
+				m_pCamera->addAnimator( decColAni );
+				decColAni->drop();
+				// 增加飞船碰撞检测
 				auto colAni = new MySceneNodeAnimatorCollisionResponse(
 					pEngine->GetCollisionManager(), m_sceneSelector );
 				colAni->SetCollisionCallback( [this, playerShip](ISceneNode* node, const ISceneNode* ColNode, vector3df ColPos)
@@ -925,7 +931,9 @@ void MultiplayerScene::Run()
 				cb->drop();
 				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
+				npc->setTriangleSelector( triSelector );
 				m_sceneSelector->addTriangleSelector( triSelector );
+				triSelector->drop();
 				// robot 2
 				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf2.obj", 98 );
 				npc->SetMaxSpeed( 2 );
@@ -949,7 +957,9 @@ void MultiplayerScene::Run()
 				cb->drop();
 				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
+				npc->setTriangleSelector( triSelector );
 				m_sceneSelector->addTriangleSelector( triSelector );
+				triSelector->drop();
 
 				SubState = 1;
 			}
