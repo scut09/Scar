@@ -25,7 +25,7 @@
 //#include "AnimationManager.h"
 //#include "IMovable.h"
 #include <queue>
-
+#include <boost/thread.hpp>
 
 class IUIObject;
 
@@ -74,6 +74,8 @@ private:
 	std::list<scene::ISceneNode*>	m_ISceneNodeDeletionList;// 待删除列表，在每次引擎总循环的一次循环结束后会清空它。
 	// 使用它可以让我们实现通过IUIAnimator来删除IUIObject
 	std::list<GameScene*>			m_GameSceneDeletionList;// 延迟场景删除
+
+	boost::mutex					m_cloneMutex;
 
 public:
 	static int						screen_width;	// 屏幕宽度
@@ -175,6 +177,8 @@ public:
 
 	void AddToCloneQueue( const Network::PACKAGE& p )
 	{
+		boost::mutex::scoped_lock lock( m_cloneMutex );
+
 		m_CloneQueue.push( p );
 	}
 
