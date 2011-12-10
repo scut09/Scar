@@ -327,9 +327,29 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 		IShip *ship = dynamic_cast<IShip *>( target_node );
 		if (NULL != ship)
 		{
-			// 计算伤害
-			ship->SetShield( ship->GetShield() - damage );
-			std::cout << "ship SetShield\n";
+			if (ship->GetShield() > 0.0 )
+			{
+				// 计算护盾
+				ship->SetShield( ship->GetShield() - damage );
+				std::cout << "ship SetShield\n";
+			}
+			else if(ship->GetArmor() > 0.0 )
+			{
+				// 计算护甲
+				ship->SetArmor( ship->GetArmor() - damage );
+				std::cout << "ship SetArmor\n";
+			}
+
+			if ( ship->GetShield() < 0.0 )
+			{
+				ship->SetShield(0.0f);
+			}
+
+			if ( ship->GetArmor() < 0.0 )
+			{
+				ship->SetArmor(0.0f);
+			}
+
 		}
 	}
 
