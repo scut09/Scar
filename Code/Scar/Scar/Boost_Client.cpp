@@ -17,6 +17,7 @@
 #include "GeneralCallBack.h"
 #include "PlayerHelper.h"
 #include "HumanPlayer.h"
+#include "MultiplayerScene.h"
 
 // 测试用
 extern IShip* cf1;
@@ -273,7 +274,9 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 
 //		m_playerManager->AddPlayer( ship->getID(), ship );
 		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
-		m_playerManager->AddPlayer( player );
+		dynamic_cast<MultiplayerScene*>(
+			MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
+			)->m_playerManager->AddPlayer( player );
 
 		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}
