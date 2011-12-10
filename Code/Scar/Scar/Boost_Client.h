@@ -98,6 +98,11 @@ namespace Network
 			return m_index;
 		}
 
+		void SetIsServer( bool bServer ) 
+		{
+			m_IsServer = bServer;
+		}
+
 		// 获取房间列表
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const;
 		// 获取本地IP
@@ -114,6 +119,7 @@ namespace Network
 		int										m_index;
 
 	private:
+		bool									m_IsServer;		// 自己是否为主机
 		int										m_target_port;
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 		std::set<std::string>					m_localIP;

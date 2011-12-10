@@ -745,6 +745,7 @@ void MultiplayerScene::Run()
 						{       
 							std::cout << "enter " << iter->first << std::endl;
 							client->EnterRoom( iter->first );
+							client->SetIsServer( true );
 							break;
 						}
 					}

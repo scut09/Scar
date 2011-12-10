@@ -222,7 +222,8 @@ void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
 	BulletCreateBag* bag;
 	bag = (BulletCreateBag*)p.GetData();
 
-	if ( bag->owner_index == m_index )	return;
+	// 自己的包或者当自己是服务器是忽略机器人的包
+	if ( bag->owner_index == m_index || m_IsServer && bag->owner_index > 70 )	return;
 	
 	MyIrrlichtEngine::GetEngine()->AddToCloneQueue( p );
 
