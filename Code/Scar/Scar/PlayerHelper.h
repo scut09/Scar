@@ -68,6 +68,11 @@ public:
 		m_infoAndWarn.AddWarn( warn );
 	}
 
+	void SetPlayerScore( u32 ip, const ScoreNode& score )
+	{
+		m_ScoreList[ ip ] = score;
+	}
+
 
 private:
 	// 更新框住飞船的框以提示飞船位置
@@ -135,7 +140,7 @@ private:
 
 	f32								LastArmor, LastShield;	// 上一次的血量
 
-	std::list<ScoreNode>			m_ScoreList;	// 计分榜
+	std::map<u32, ScoreNode>			m_ScoreList;	// 计分榜
 };
 
 #endif // PlayerHelper_h__

@@ -10,6 +10,7 @@
 #define Boost_Client_h__
 
 
+//#include "PlayerHelper.h"
 #include "CNetwork.h"
 #include "GameBag.h"
 #include "IClient.h"
@@ -22,6 +23,7 @@
 #include <vector>
 
 class PlayerManager;
+class PlayerHelper;
 
 namespace Network
 {
@@ -41,6 +43,11 @@ namespace Network
 			Close();
 		}
 
+		void SetPlayerHelp( boost::shared_ptr<PlayerHelper> playerHelp )
+		{
+			m_PlayerHelper = playerHelp;
+		}
+
 		virtual void Close();
 
 		/************************************************************************/
@@ -53,6 +60,7 @@ namespace Network
 		void OnNewPlayerJoin( unsigned long ip, const PACKAGE& p );		// 收到新玩家加入
 		void OnBulletCreate( unsigned long ip, const PACKAGE& p );		// 收到炮弹创建
 		void OnBulletHit( unsigned long ip, const PACKAGE& p );			// 收到炮弹命中
+		void OnScoreArrival( unsigned long ip, const PACKAGE& p );		// 收到分数
 		void OnMessage( unsigned long ip, const PACKAGE& p );			// 收到信息
 		// 其他消息处理
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
@@ -110,7 +118,7 @@ namespace Network
 		std::map<std::string, BroadcastRoomBag>	m_roomMap;
 		std::set<std::string>					m_localIP;
 		unsigned long							m_server_IP;
-
+		boost::shared_ptr<PlayerHelper>			m_PlayerHelper;
 		boost::shared_ptr<PlayerManager>		m_playerManager;
 	};
 

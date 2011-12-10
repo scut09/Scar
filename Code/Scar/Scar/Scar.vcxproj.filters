@@ -88,6 +88,9 @@
     <Filter Include="Shader\shaders\laser">
       <UniqueIdentifier>{7a440699-d5a3-4b9d-8607-3b54f163ad49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThreadsSupport">
+      <UniqueIdentifier>{d5fe5bc3-0540-4688-817e-fbafddd230ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -338,6 +341,15 @@
     </ClCompile>
     <ClCompile Include="MissleNode.cpp">
       <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CThread.cpp">
+      <Filter>ThreadsSupport</Filter>
+    </ClCompile>
+    <ClCompile Include="CLoadManager.cpp">
+      <Filter>ThreadsSupport</Filter>
+    </ClCompile>
+    <ClCompile Include="MyApp.cpp">
+      <Filter>ThreadsSupport</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +691,15 @@
     </ClInclude>
     <ClInclude Include="ScoreBoard.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CThread.h">
+      <Filter>ThreadsSupport</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoadManager.h">
+      <Filter>ThreadsSupport</Filter>
+    </ClInclude>
+    <ClInclude Include="CLoadCallback.h">
+      <Filter>ThreadsSupport</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

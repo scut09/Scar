@@ -15,6 +15,7 @@
 #include <irrlicht.h>
 #include "PlayerManager.h"
 #include "GeneralCallBack.h"
+#include "PlayerHelper.h"
 
 // 测试用
 extern IShip* cf1;
@@ -46,6 +47,8 @@ Network::BoostClient::BoostClient( boost::shared_ptr<PlayerManager>	playerManage
 	RegisterMessageHandler( MESSAGE_BROADCAST,
 		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
 	RegisterMessageHandler( MESSAGE_TO,
+		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
+	RegisterMessageHandler( SCORE_ARRIVAL,
 		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
 }
 
@@ -312,6 +315,29 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 	// 获取炮弹类型
 	BulletHittedBag* bag = (BulletHittedBag*)p.GetData();
 
+	if ( bag->target_index == m_index )
+	{
+		auto pEngine = MyIrrlichtEngine::GetEngine();
+		if ( pEngine->GetCurrentPlayer()->GetShip()->GetShield() <= 0
+			&& pEngine->GetCurrentPlayer()->GetShip()->GetArmor() <= 0 )
+		{
+			// 自己挂了
+			pEngine->GetCurrentPlayer()->SetState( IPlayer::PS_Dead );
+
+			// 通知别人自己挂了
+			ScoreArrivalBag score;
+			score.ip = 0;
+			score.KillCount = pEngine->GetCurrentPlayer()->GetKill();
+			score.DeathCount = pEngine->GetCurrentPlayer()->GetDeath();
+
+			PACKAGE pack;
+			pack.SetCMD( SCORE_ARRIVAL );			
+			pack.SetData( (char*)&score, sizeof( BulletCreateBag ) );			
+
+			m_network->SendTo( m_server_IP, pack );
+		}
+	}
+
 	// 判断击中目标是否有效
 	if ( 0 <= bag->target_index && bag->target_index < 100 )
 	{
@@ -405,4 +431,15 @@ void Network::BoostClient::BroadcastMessage( int index, const wchar_t* msg )
 	p.SetCMD( MESSAGE_TO );
 	p.SetData( (char*)&bag, bag.GetLength() );
 	TcpSendTo( m_server_IP, m_target_port, p );
+}
+
+void Network::BoostClient::OnScoreArrival( unsigned long ip, const PACKAGE& p )
+{
+	ScoreArrivalBag bag = *(ScoreArrivalBag*)p.GetData();
+
+	ScoreNode score;
+	score.ip = ip;
+	score.KillCount = bag.KillCount;
+	score.DeathCount = bag.DeathCount;
+	m_PlayerHelper->SetPlayerScore( ip, score );
 }

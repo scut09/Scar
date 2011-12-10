@@ -83,7 +83,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BulletNode.cpp" />
+    <ClCompile Include="CLoadManager.cpp" />
     <ClCompile Include="CSceneNodeCameraTargetChange.cpp" />
+    <ClCompile Include="CThread.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="HouseHelper.cpp" />
     <ClCompile Include="IAgentPlayer.cpp" />
@@ -112,6 +114,7 @@
     <ClCompile Include="IWeapon.cpp" />
     <ClCompile Include="MissleFireAnimator.cpp" />
     <ClCompile Include="MissleNode.cpp" />
+    <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
     <ClCompile Include="MySceneNodeAnimatorCallFunc.cpp" />
     <ClCompile Include="MySceneNodeAnimatorScale.cpp" />
@@ -167,7 +170,10 @@
     <ClCompile Include="UIStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CLoadCallback.h" />
+    <ClInclude Include="CLoadManager.h" />
     <ClInclude Include="CSceneNodeCameraTargetChange.h" />
+    <ClInclude Include="CThread.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="GeneralCallBack.h" />
     <ClInclude Include="HouseHelper.h" />

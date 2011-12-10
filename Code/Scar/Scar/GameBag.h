@@ -29,11 +29,42 @@ namespace Network
 		REQUEST_ENTER_ROOM,	// 请求加入
 		BROADCAST_ROOM,		// 服务端广播自己创建了房间
 		ALLOW_JOIN_ROOM,	// 服务端允许玩家加入
-		NEW_PLAYER_JOIN		// 广播新玩家加入
-
+		NEW_PLAYER_JOIN,		// 广播新玩家加入
+		SCORE_ARRIVAL,			// 分数到达
+		SCORE_BOARD			// 分数板
 	};
 
+	/************************************************************************/
+	/* 分数板                                                                     */
+	/************************************************************************/
+	// 12Byte
+	struct ScoreArrivalBag
+	{
+		unsigned int ip;
+		int		KillCount;	// 杀人数
+		int		DeathCount;	// 死亡数
+	};
 
+	// 12 * 16 + 4 = 196Byte
+	struct ScoreBoardBag
+	{
+		int count;
+		ScoreArrivalBag bag[ 16 ];
+
+		ScoreBoardBag() : count( 0 ) {}
+
+		int GetLength() const
+		{
+			return sizeof( int ) + count * sizeof( ScoreArrivalBag );
+		}
+
+		void InsertScore( const ScoreArrivalBag& bag )
+		{
+			this->bag[ count++ ] = bag;
+		}
+
+
+	};
 
 	/************************************************************************/
 	/* 房间信息                                                              */
