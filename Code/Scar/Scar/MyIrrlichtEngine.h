@@ -24,6 +24,8 @@
 #include <sstream>
 //#include "AnimationManager.h"
 //#include "IMovable.h"
+#include <queue>
+
 
 class IUIObject;
 
@@ -171,7 +173,15 @@ public:
 
 	void SetCallbackFunc( EngineRunCallbackFuncType func );
 
+	void AddToCloneQueue( const Network::PACKAGE& p )
+	{
+		m_CloneQueue.push( p );
+	}
+
 	void CloneWeapon( const Network::PACKAGE& p );
+
+	std::queue<Network::PACKAGE>	m_CloneQueue;
+
 
 	IWeapon*	BulletFucker;
 	IWeapon*	MissileFucker;

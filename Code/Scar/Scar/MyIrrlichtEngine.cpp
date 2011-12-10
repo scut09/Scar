@@ -274,6 +274,13 @@ void MyIrrlichtEngine::ClearDeletionList()
 		m_GameSceneDeletionList.clear();
 	}
 
+
+	// ¸´ÖÆ
+	while ( ! m_CloneQueue.empty() )
+	{
+		CloneWeapon( m_CloneQueue.front() );
+		m_CloneQueue.pop();
+	}
 }
 
 void MyIrrlichtEngine::SetMotionBlur( bool bOpen /*= true */ )

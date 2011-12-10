@@ -224,7 +224,7 @@ void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
 
 	if ( bag->owner_index == m_index )	return;
 	
-	MyIrrlichtEngine::GetEngine()->CloneWeapon( p );
+	MyIrrlichtEngine::GetEngine()->AddToCloneQueue( p );
 
 }
 
