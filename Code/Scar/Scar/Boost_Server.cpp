@@ -1,11 +1,18 @@
 #include "Boost_Server.h"
 #include "GameBag.h"
+#include "MyIrrlichtEngine.h"
+#include "BulletNode.h"
+#include "IShip.h"
+#include "RobotShip.h"
+#include "GeneralCallBack.h"
+#include "MultiplayerScene.h"
+#include "SpriteFlame.h"
 
 #pragma warning(push)              // 仅禁用此头文件
 #pragma warning(disable:4996)
 
 
-Network::BoostServer::BoostServer()
+Network::BoostServer::BoostServer() : m_robotID( 99 )
 {
 	RegisterMessageHandler( QUERY_ROOM, 
 		[this]( unsigned long ip, const PACKAGE& p ){ OnQueryRoom( ip, p ); });
@@ -112,6 +119,51 @@ void Network::BoostServer::Start( int listen_port, int target_port, int pool_siz
 	m_target_port = target_port;
 
 	NetworkBase::Start( listen_port, target_port, pool_size );
+}
+
+void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
+{
+	auto pEngine = MyIrrlichtEngine::GetEngine();
+	auto smgr = pEngine->GetSceneManager();
+	MultiplayerScene* scene = dynamic_cast<MultiplayerScene*>( pEngine->GetGameSceneManager()->GetCurrentGameScene() );
+	auto m_sceneSelector = scene->m_sceneSelector;
+
+	SceneNodeShader shader;
+
+	SpriteFlame spf;
+
+	// 添加robot
+	IShip* npc;
+	boost::shared_ptr<ShipAgentPlayer> robot;
+	// robot 1
+	npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj", 99 );
+	npc->SetMaxSpeed( 2 );
+	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
+	spf.SetOffset( vector3df( -6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	spf.SetOffset( vector3df( 6, 0, -22 ) );
+	spf.AddFlameToShip( npc, smgr );
+	auto bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+	bullet->setMaterialTexture( 0, MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture( "../media/Weapon/bullet.png" ) );
+	bullet->setID( 4003 );
+	bullet->SetVelocity( 1000 );
+	bullet->SetInterval( 100 );
+	npc->AddGun( bullet );
+	bullet->drop();	
+	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*scene->m_playerManager, scene->server ) );
+	robot->SetID( m_robotID-- );
+	scene->m_playerManager->AddPlayer( robot );
+	GeneralCallBack* cb = new GeneralCallBack( npc );
+	shader.ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+	cb->drop();
+	npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+	auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
+	npc->setTriangleSelector( triSelector );
+	m_sceneSelector->addTriangleSelector( triSelector );
+	triSelector->drop();
+
+	PlayerInfo info( robot->GetID(), 0 );
+	m_playerList.push_back( info );
 }
 
 

@@ -42,12 +42,15 @@ namespace Network
 			NetworkBase::m_network->AddPackageToBuffer( p );
 		}
 
+		void AddRobotPlayer( int type = 0 );
+
 		// 消息处理函数
 		virtual void OtherMessageHandler( unsigned long ip, const PACKAGE& p );
 		void OnQueryRoom( unsigned long ip, const PACKAGE& p );
 		void OnRequestEnterRoom( unsigned long ip, const PACKAGE& p );
 
 	private:
+		int										m_robotID;			// 当前分配到的玩家的ID
 		std::list<PlayerInfo>					m_playerList;		// 玩家列表
 		std::set<std::string>					m_localIP;			// 本地IP
 		int										m_target_port;		// 目标端口号

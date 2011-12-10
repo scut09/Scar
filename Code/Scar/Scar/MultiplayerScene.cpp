@@ -917,61 +917,11 @@ void MultiplayerScene::Run()
 				m_pCamera->addAnimator( colAni );
 				colAni->drop();
 
-				// 添加robot
-				IShip* npc;
-				boost::shared_ptr<ShipAgentPlayer> robot;
-				// robot 1
-				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj", 99 );
-				npc->SetMaxSpeed( 2 );
-				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-				spf.SetOffset( vector3df( -6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				spf.SetOffset( vector3df( 6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-				bullet->setID( 4003 );
-				bullet->SetVelocity( 1000 );
-				bullet->SetInterval( 100 );
-				npc->AddGun( bullet );
-				bullet->drop();	
-				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
-				robot->SetID( 99 );
-				m_playerManager->AddPlayer( robot );
-				GeneralCallBack* cb = new GeneralCallBack( npc );
-				shader->ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-				cb->drop();
-				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-				auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
-				npc->setTriangleSelector( triSelector );
-				m_sceneSelector->addTriangleSelector( triSelector );
-				triSelector->drop();
-				// robot 2
-				npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf2.obj", 98 );
-				npc->SetMaxSpeed( 2 );
-				npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
-				spf.SetOffset( vector3df( -6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				spf.SetOffset( vector3df( 6, 0, -22 ) );
-				spf.AddFlameToShip( npc, smgr );
-				bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-				bullet->setID( 4003 );
-				bullet->SetVelocity( 1000 );
-				bullet->SetInterval( 100 );
-				npc->AddGun( bullet );
-				bullet->drop();	
-				robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*m_playerManager, server ) );
-				robot->SetID( 98 );
-				m_playerManager->AddPlayer( robot );
-				cb = new GeneralCallBack( npc );
-				shader->ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-				cb->drop();
-				npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-				triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
-				npc->setTriangleSelector( triSelector );
-				m_sceneSelector->addTriangleSelector( triSelector );
-				triSelector->drop();
+				if ( client->GetIsServer() )
+				{
+					server->AddRobotPlayer();	
+					server->AddRobotPlayer();	
+				}
 
 				SubState = 1;
 			}

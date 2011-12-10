@@ -103,6 +103,11 @@ namespace Network
 			m_IsServer = bServer;
 		}
 
+		bool GetIsServer() const
+		{
+			return m_IsServer;
+		}
+
 		// 获取房间列表
 		const std::map<std::string, BroadcastRoomBag>& GetRooms() const;
 		// 获取本地IP
