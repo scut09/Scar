@@ -3,6 +3,8 @@
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "MissleFireAnimator.h"
 #include "IShip.h"
+#include "GeneralCallBack.h"
+#include "SceneNodeShader.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
 #include "CSceneNodeAutoTrackAnimator.h"
@@ -73,9 +75,15 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 {
 	boost::shared_ptr<IPlayer> player = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
 	// ¸´ÖÆ×Óµ¯(×ó)
+	
 	ISceneNode* newMissle = missle->Clone( 0, 0 );
+	static_cast< MissleNode* >( newMissle )->setPosition( player->GetShip()->getAbsolutePosition() );
+	GeneralCallBack* misslecb = new GeneralCallBack( newMissle );
+	SceneNodeShader* shader = new SceneNodeShader();
+	shader->ApplyShaderToSceneNode( newMissle, misslecb, "", "Shader/missle.frag" );
+	misslecb->drop();
 	static_cast< MissleNode* >( newMissle )->setTarget( player->GetLockedShip() );
-	newMissle->setMaterialFlag( EMF_LIGHTING, false );
+	/*newMissle->setMaterialFlag( EMF_LIGHTING, false );*/
 
 	if ( static_cast< MissleNode* >( newMissle )->getTarget() )
 	{
