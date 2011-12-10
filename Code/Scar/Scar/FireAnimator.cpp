@@ -10,7 +10,7 @@
 #include "SpriteControlAnimatorl.h"
 
 ShipFireAnimator::ShipFireAnimator( boost::shared_ptr<Network::IClient> client, int type ) 
-	: IsFire( false ), Initialized( false ), Client( client )
+	: IsFire( false ), Initialized( false ), Client( client ), m_type( type )
 {
 	BulletHit = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->addBillboardSceneNode();
 	BulletHit->setMaterialTexture( 0, MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture("../media/Weapon/bullethit2.png") );
