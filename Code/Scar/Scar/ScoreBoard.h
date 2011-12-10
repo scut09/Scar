@@ -11,14 +11,47 @@
 
 #include "UIManager.h"
 #include "MyIrrlichtEngine.h"
+#include "irrlicht.h"
 #include <map>
+
+struct ScoreNode;
 
 class ScoreBoard
 {
+private:
+	struct ScoreItem
+	{
+		IUIObject* box;
+		UIStaticText* player;
+		UIStaticText* kills;
+		UIStaticText* deads;
+	};
+
+	ScoreItem* CreateScoreItem( s32 team )
+	{
+		ScoreItem* item = new ScoreItem();
+		boost::shared_ptr<UIManager> uiMgr = MyIrrlichtEngine::GetEngine()->GetUIManager();
+		f32 offX;
+		if( team == 1 )
+			offX = -200;
+		else
+			offX = 200;
+		item->box = uiMgr->AddUIImage( 0, 0, 0 );
+		item->player = static_cast<UIStaticText*>(uiMgr->AddUIStaticText( item->box, 100, 20, L"新玩家", video::SColor(255, 255, 255, 255), 18U));
+		item->player->SetPosition( core::vector2df( offX - 120, 0 ) );
+		item->kills = static_cast<UIStaticText*>(uiMgr->AddUIStaticText( item->box, 100, 20, L"0", video::SColor(255, 255, 255, 255), 18U));
+		item->kills->SetPosition( core::vector2df( offX + 35, 0 ) );
+		item->deads = static_cast<UIStaticText*>(uiMgr->AddUIStaticText( item->box, 100, 20, L"0", video::SColor(255, 255, 255, 255), 18U));
+		item->deads->SetPosition( core::vector2df( offX + 156, 0 ) );
+
+		return item;
+	}
 
 public:
-	ScoreBoard()
+	ScoreBoard( std::map<u32, ScoreNode>& scoreNodeMap )
+		: ScoreNodeMap(scoreNodeMap)
 	{
+		Init();
 	}
 
 	void Init()
@@ -26,6 +59,9 @@ public:
 		uiMgr = MyIrrlichtEngine::GetEngine()->GetUIManager();
 		Board = uiMgr->GetUIObjectByName( "ScoreBoard" );
 		IsVisible = false;
+		//test
+		ScoreItem* item = CreateScoreItem( 1 );
+		Board->AddChild( item->box );
 	}
 
 	void Show()
@@ -46,7 +82,23 @@ public:
 	{
 		if (IsVisible)
 		{
-
+			//for ( auto iter = ScoreNodeList.begin(); iter != ScoreNodeList.end(); ++iter )
+			//{
+			//	//ScoreItem* item;
+			//	//auto iterator = ScoreItemMap.find( (*iter) );
+			//	//if ( iterator == ScoreItemMap.end() )
+			//	//{
+			//	//	//item = new ScoreItem();
+			//	//	//ScoreItemMap[(*iter)] = item;
+			//	//	//item setposition
+			//	//	
+			//	//}
+			//	//else
+			//	//{
+			//	//	item = iterator->second;
+			//	//}
+			//	
+			//}
 		}
 	}
 
@@ -56,6 +108,9 @@ public:
 private:
 	boost::shared_ptr<UIManager> uiMgr;
 	IUIObject* Board;
+	std::map<ScoreNode, ScoreItem*> ScoreItemMap;
+	std::map<u32, ScoreNode> ScoreNodeMap;
+	f32 NextCItemPos, NextGItemPos;						// 下一个条目的位置
 	
 };
 

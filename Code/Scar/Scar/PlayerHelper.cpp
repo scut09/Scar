@@ -326,6 +326,9 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 	
 	// 获取屏幕红色遮罩
 	RedMask = uiManager->GetUIObjectByName( "redMaskCtrl" );
+
+	// 初始化记分板
+	scBoard = new ScoreBoard( m_ScoreList );
 }
 
 void PlayerHelper::UpdateRadar()

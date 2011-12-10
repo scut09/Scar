@@ -16,6 +16,7 @@
 #include <map>
 #include "InfoAndWarn.h"
 #include <list>
+#include "ScoreBoard.h"
 
 using scene::ISceneNode;
 struct ScoreNode
@@ -71,6 +72,18 @@ public:
 	void SetPlayerScore( u32 ip, const ScoreNode& score )
 	{
 		m_ScoreList[ ip ] = score;
+	}
+
+	bool IsScoreBoardVisible;
+	void ShowScoreBoard()
+	{
+		scBoard->Show();
+		IsScoreBoardVisible = true;
+	}
+	void HideScoreBoard()
+	{
+		scBoard->Hide();
+		IsScoreBoardVisible = false;
 	}
 
 
@@ -140,7 +153,9 @@ private:
 
 	f32								LastArmor, LastShield;	// 上一次的血量
 
-	std::map<u32, ScoreNode>			m_ScoreList;	// 计分榜
+	std::map<u32, ScoreNode>		m_ScoreList;	// 计分榜
+	ScoreBoard*						scBoard;
+	
 };
 
 #endif // PlayerHelper_h__

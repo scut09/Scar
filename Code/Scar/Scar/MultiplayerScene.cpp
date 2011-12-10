@@ -78,13 +78,9 @@ void MultiplayerScene::Run()
 			if ( bRunOnce )
 			{
 				bRunOnce = false;
-				// 在此处进行初始化工作
-				// 装载场景
-
-
-				
-
-				// 加载场景
+				 //在此处进行初始化工作
+				 //装载场景
+				 //加载场景
 				try
 				{
 					using namespace boost::python;
@@ -139,10 +135,6 @@ void MultiplayerScene::Run()
 				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
 
-				//// 计分板
-				//ScoreBoard = uiManager->GetUIObjectByName( "ScoreBoard" );
-				scBoard.Init();
-
 				// 三角形选择器
 				m_sceneSelector = smgr->createMetaTriangleSelector();
 				m_mapSelector = smgr->createOctreeTriangleSelector(
@@ -153,6 +145,10 @@ void MultiplayerScene::Run()
 				// 播放背景音乐
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
+
+				//// 计分板
+				//ScoreBoard = uiManager->GetUIObjectByName( "ScoreBoard" );
+				//scBoard.Init();
 			}
 
 			// 在此处进行游戏逻辑
@@ -1029,12 +1025,12 @@ void MultiplayerScene::Run()
 							//显示计分板
 						case KEY_TAB:
 							{
-								if ( !scBoard.IsVisible )
+								if ( !m_playerHelper->IsScoreBoardVisible )
 								{
-									scBoard.Show();
+									m_playerHelper->ShowScoreBoard();
 								}
 								else
-									scBoard.Hide();
+									m_playerHelper->HideScoreBoard();
 							}
 							break;
 						/*case KEY_KEY_T :

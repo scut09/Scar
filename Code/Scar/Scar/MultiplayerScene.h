@@ -19,7 +19,7 @@
 #include "SceneNodeShader.h"
 #include "LaserNode.h"
 #include "WarpFlyTubeContoller.h"
-#include "ScoreBoard.h"
+//#include "ScoreBoard.h"
 
 class MultiplayerScene : public GameScene
 {
@@ -168,7 +168,7 @@ public:
 	//IUIObject* ScoreBoard;					// 计分板
 
 	//记分板
-	ScoreBoard scBoard;
+	//ScoreBoard scBoard;
 
 	
 
