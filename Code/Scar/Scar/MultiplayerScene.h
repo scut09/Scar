@@ -19,6 +19,7 @@
 #include "SceneNodeShader.h"
 #include "LaserNode.h"
 #include "WarpFlyTubeContoller.h"
+#include "ScoreBoard.h"
 
 class MultiplayerScene : public GameScene
 {
@@ -164,7 +165,10 @@ public:
 	IUIObject* SelectCampMenu;				// 阵营选择菜单
 	IUIObject* SelectShipMenu;				// 舰船选择菜单
 	IUIObject* SelectEquiMenu;				// 武器装备选择菜单
-	IUIObject* ScoreBoard;					// 计分板
+	//IUIObject* ScoreBoard;					// 计分板
+
+	//记分板
+	ScoreBoard scBoard;
 
 	
 

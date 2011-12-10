@@ -254,6 +254,7 @@
     <ClInclude Include="Boost_Server.h" />
     <ClInclude Include="SceneNodeAnimatorFollow.h" />
     <ClInclude Include="SceneNodeShader.h" />
+    <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShipCrashWarnAnimator.h" />

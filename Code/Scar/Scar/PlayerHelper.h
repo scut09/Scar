@@ -15,9 +15,15 @@
 #include "Toolkit.h"
 #include <map>
 #include "InfoAndWarn.h"
+#include <list>
 
 using scene::ISceneNode;
-
+struct ScoreNode
+{
+	unsigned int ip;
+	int KillCount;
+	int DeathCount;
+};
 /*
 ** 名字：PlayerHelper
 ** 说明：辅助玩家的工具，包括锁定框，提示框
@@ -128,6 +134,8 @@ private:
 	InfoAndWarn						m_infoAndWarn;			// 文字信息管理类
 
 	f32								LastArmor, LastShield;	// 上一次的血量
+
+	std::list<ScoreNode>			m_ScoreList;	// 计分榜
 };
 
 #endif // PlayerHelper_h__

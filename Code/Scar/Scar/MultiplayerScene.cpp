@@ -139,8 +139,9 @@ void MultiplayerScene::Run()
 				SelectCampMenu->AddAnimator( alpAni );
 				alpAni->drop();
 
-				// 计分板
-				ScoreBoard = uiManager->GetUIObjectByName( "ScoreBoard" );
+				//// 计分板
+				//ScoreBoard = uiManager->GetUIObjectByName( "ScoreBoard" );
+				scBoard.Init();
 
 				// 三角形选择器
 				m_sceneSelector = smgr->createMetaTriangleSelector();
@@ -1028,12 +1029,12 @@ void MultiplayerScene::Run()
 							//显示计分板
 						case KEY_TAB:
 							{
-								if ( !ScoreBoard->GetVisible() )
+								if ( !scBoard.IsVisible )
 								{
-									ScoreBoard->SetVisible( true );
+									scBoard.Show();
 								}
 								else
-									ScoreBoard->SetVisible( false );
+									scBoard.Hide();
 							}
 							break;
 						/*case KEY_KEY_T :
