@@ -32,7 +32,7 @@ class ShipFireAnimator : public ISceneNodeAnimator
 									// 2 仅发送
 									// 4 创建且网络发送
 public:
-	ShipFireAnimator( boost::shared_ptr<Network::IClient> client, int type = 1 );
+	ShipFireAnimator( boost::shared_ptr<Network::IClient> client, int type = 4 );
 
 	virtual void animateNode( ISceneNode* node, u32 timeMs );
 
