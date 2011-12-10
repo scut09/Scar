@@ -82,23 +82,25 @@ public:
 	{
 		if (IsVisible)
 		{
-			//for ( auto iter = ScoreNodeList.begin(); iter != ScoreNodeList.end(); ++iter )
-			//{
-			//	//ScoreItem* item;
-			//	//auto iterator = ScoreItemMap.find( (*iter) );
-			//	//if ( iterator == ScoreItemMap.end() )
-			//	//{
-			//	//	//item = new ScoreItem();
-			//	//	//ScoreItemMap[(*iter)] = item;
-			//	//	//item setposition
-			//	//	
-			//	//}
-			//	//else
-			//	//{
-			//	//	item = iterator->second;
-			//	//}
-			//	
-			//}
+			for ( auto iter = ScoreNodeMap.begin(); iter != ScoreNodeMap.end(); ++iter )
+			{
+				ScoreItem* item;
+				auto iterator = ScoreItemMap.find( iter->second );
+				if ( iterator == ScoreItemMap.end() )
+				{
+					// 不在里面，创建新的
+					//item = CreateScoreItem( iter->second );
+					//item = new ScoreItem();
+					//ScoreItemMap[iter->second] = item;
+					//item setposition
+					
+				}
+				else
+				{
+					item = iterator->second;
+				}
+				
+			}
 		}
 	}
 

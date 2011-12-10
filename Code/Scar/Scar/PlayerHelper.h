@@ -24,6 +24,7 @@ struct ScoreNode
 	unsigned int ip;
 	int KillCount;
 	int DeathCount;
+	int Team;
 };
 /*
 ** Ãû×Ö£ºPlayerHelper
