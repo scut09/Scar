@@ -29,6 +29,8 @@ public:
 		f32 increasestep, discreasestep;
 		increasestep = MaxRate / 200;
 		discreasestep = MaxRate / 150;
+		increasestep *= 1.5f;
+		discreasestep *= 1.5f;
 
 		dimension2df size;
 		switch( State )

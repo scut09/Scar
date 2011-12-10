@@ -5,8 +5,9 @@
 using namespace Network;
 
 ShipAgentPlayer::ShipAgentPlayer( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
-	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true )
+	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true ), ArmThreshold(0.f)
 {
+	lastArm = PlayerShip->GetArmor();
 }
 
 void ShipAgentPlayer::Update()
@@ -25,6 +26,23 @@ void ShipAgentPlayer::Update()
 
 		return;
 	}
+
+	if (PlayerShip->GetArmor() < 1000.f)
+	{
+		if (PlayerShip->GetArmor() == lastArm)
+		{
+			ArmThreshold++;
+		}
+		if (ArmThreshold >= 50)
+		{
+			PlayerShip->SetArmor( PlayerShip->GetArmor() + 10 );
+			lastArm = PlayerShip->GetArmor();
+			ArmThreshold = 0.f;
+		}
+	}
+
+	lastArm = PlayerShip->GetArmor();
+
 	//SendMove( PlayerShip->getPosition() );
 
 	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
