@@ -24,7 +24,7 @@ IAgentPlayer::IAgentPlayer( IShip* playerShip, PlayerManager* mgr, boost::shared
 	fpsAni->drop();
 
 	// Ìí¼Ó¹¥»÷ÐÐÎª
-	auto fireAni2 = new ShipFireAnimator( robotClient );
+	auto fireAni2 = new ShipFireAnimator( robotClient, 4 );
 	PlayerShip->addAnimator( fireAni2 );
 	fireAni2->drop();
 }

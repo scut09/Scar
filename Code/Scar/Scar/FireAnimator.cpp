@@ -119,6 +119,17 @@ bool ShipFireAnimator::OnEvent( const SEvent& event )
 
 void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& startPoint, const vector3df& endPoint, u32 timeMs )
 {
+	if ( m_type == 2 || m_type == 4 )
+	{
+		// 测试发送炮弹数据
+		Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
+	}
+
+	if ( m_type == 2 )
+	{
+		return;
+	}
+
 	// 复制子弹
 	ISceneNode* newBullet = bullet->Clone( 0, 0 );
 	newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
@@ -136,12 +147,6 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 	ITriangleSelector* triSelector = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())->m_mapSelector;
 	auto ColAni = new MySceneNodeAnimatorCollisionResponse( 
 		MyIrrlichtEngine::GetEngine()->GetCollisionManager(), triSelector );
-
-	if ( m_type == 1 && m_type == 4 )
-	{
-		// 测试发送炮弹数据
-		Client->SendBullet( Client->GetID(), 0, startPoint, endPoint, bullet->GetLife() );
-	}
 
 	ColAni->SetCollisionCallback( [this, newBullet](ISceneNode* node, const ISceneNode* ColNode, vector3df ColPos)
 	{
