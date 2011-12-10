@@ -82,11 +82,10 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 
 		// 紧急补丁，临时创建一些子弹供拷贝
 		m_pIrrlichtEngine->BulletFucker = new BulletNode( m_pIrrlichtEngine->m_pSmgr, m_pIrrlichtEngine->m_pSmgr->getRootSceneNode() );
-		m_pIrrlichtEngine->BulletFucker->setID( 4003 );
+		m_pIrrlichtEngine->BulletFucker->setID( 8888 );
 		m_pIrrlichtEngine->BulletFucker->setMaterialTexture( 0, pDevice->getVideoDriver()->getTexture( "../media/Weapon/BulletFucker.png" ) );
 		m_pIrrlichtEngine->BulletFucker->SetVelocity( 1600 );
 		m_pIrrlichtEngine->BulletFucker->SetInterval( 60 );
-		m_pIrrlichtEngine->BulletFucker->drop();
 	}
 
 	return m_pIrrlichtEngine;
