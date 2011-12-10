@@ -25,6 +25,7 @@ public:
 			MaxRate =  MaxSize.Width / OriginalSize.Width;
 			IsFirst = false;
 		}
+
 		f32 increasestep, discreasestep;
 		increasestep = MaxRate / 200;
 		discreasestep = MaxRate / 150;
@@ -68,6 +69,7 @@ private:
 	dimension2df OriginalSize;
 	bool IsFirst;
 	dimension2df MaxSize;
+	vector3df Pos;
 };
 
 #endif // BillBoardExplosionAnimator_h__

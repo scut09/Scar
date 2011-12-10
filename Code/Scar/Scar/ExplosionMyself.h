@@ -8,7 +8,7 @@
 class ExplosionMyself
 {
 public:
-	ExplosionMyself(ISceneNode* pN) : m_pNode(pN) 
+	ExplosionMyself(ISceneNode* pN, vector3df pos) : m_pNode(pN), m_Pos(pos)
 	{
 		m_pSmgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 		m_pDriver = MyIrrlichtEngine::GetEngine()->GetVideoDriver();
@@ -19,6 +19,7 @@ public:
 		m_pExplosiongBillBoard->setMaterialFlag(EMF_LIGHTING, false);
 		m_pExplosiongBillBoard->setPosition(m_pNode->getAbsolutePosition());
 		m_pExplosiongBillBoard->setSize(dimension2df(100.f, 100.f));
+		m_pExplosiongBillBoard->setPosition(m_Pos);
 	}
 
 	void Explode()
@@ -52,4 +53,5 @@ private:
 	IBillboardSceneNode* m_pExplosiongBillBoard;
 	ISceneManager* m_pSmgr;
 	IVideoDriver* m_pDriver;
+	vector3df m_Pos;
 };

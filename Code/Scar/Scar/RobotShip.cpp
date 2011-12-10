@@ -1,5 +1,6 @@
 #include "RobotShip.h"
 #include "MyIrrlichtEngine.h"
+#include "ExplosionMyself.h"
 
 using namespace Network;
 
@@ -10,8 +11,20 @@ ShipAgentPlayer::ShipAgentPlayer( IShip* ship, PlayerManager* mgr, boost::shared
 
 void ShipAgentPlayer::Update()
 {
-	if ( PlayerShip->GetShield() < 1 )	return;	// 挂了
 
+	if ( PlayerShip->GetArmor() <= 0.0)
+	{
+		// 放置到原点
+		ExplosionMyself e(PlayerShip, PlayerShip->getAbsolutePosition());
+
+		e.Explode();
+		PlayerShip->setPosition( vector3df( 0.f, 0.f, 0.f ) );
+		PlayerShip->SetShield(1000.f);
+		PlayerShip->SetArmor(1000.f);
+		e.EndExplode();
+
+		return;
+	}
 	//SendMove( PlayerShip->getPosition() );
 
 	u32 time = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
