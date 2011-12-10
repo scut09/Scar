@@ -108,8 +108,9 @@ ISceneNodeAnimator* MySceneManager::createSelfDelFlyStraightAnimator( const core
 
 ISceneNodeAnimator* MySceneManager::createAutoTrackAnimator( ISceneNode* target )
 {
-	ISceneNodeAnimator* animator = new CSceneNodeAnimatorAutoTrack( smgr );
-	return animator;
+	//ISceneNodeAnimator* animator = new CSceneNodeAnimatorAutoTrack( smgr );
+	//return animator;
+	return 0;
 }
 
 ISceneNodeAnimator* MySceneManager::createScaleAnimator( u32 delay, u32 duration, vector3df scale, AS_MOVE_TYPE type /*= AS_MT_LINER*/, f32 factor /*= 0 */ )

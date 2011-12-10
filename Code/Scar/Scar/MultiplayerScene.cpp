@@ -25,6 +25,8 @@
 #include "UIManager.h"
 #include <iostream>
 #include "HumanPlayer.h"
+#include "MissleNode.h"
+#include "MissleFireAnimator.h"
 #include "MySceneManager.h"
 #include "GeneralCallBack.h"
 #include "PythonWrapper.h"
@@ -874,6 +876,17 @@ void MultiplayerScene::Run()
 				playerShip->addAnimator( fireAni );
 				fireAni->drop();
 
+				// 创建导弹
+				IMesh* missleMesh = smgr->getMesh( _T("../media/Weapon/missle.3ds") );
+				MissleNode* missle = new MissleNode( missleMesh, 0, smgr, -1, player->GetLockedShip(), player->GetShip() );
+				playerShip->AddMissles( missle );
+
+
+				// 创建导弹控制
+				auto misslefireAni = new MissleFireAnimator( client );
+				playerShip->addAnimator( misslefireAni );
+				misslefireAni->drop();
+
 				//飞船尾焰
 				SpriteFlame spf;
 				spf.SetOffset( vector3df( -6, 0, -22 ) );
@@ -1001,8 +1014,8 @@ void MultiplayerScene::Run()
 									float dis = sqrt( pow( ( temp.pos.X - CurPos.X), 2 ) + pow( ( temp.pos.Y - CurPos.Y ), 2 ) );
 									if ( dis < 20.f )
 									{
-										m_playerHelper->SetLockerShip( (*iter)->GetShip() );
-										player->SetLockerShip( (*iter)->GetShip() );
+										m_playerHelper->SetLockedShip( (*iter)->GetShip() );
+										player->SetLockedShip( (*iter)->GetShip() );
 										// 提示信息文字
 										m_playerHelper->AddInfoMsg( InfoAndWarn::PII_Lock );
 										//播放音效
@@ -1060,9 +1073,11 @@ void MultiplayerScene::Run()
 
 					return 0;
 				} );
+				
 
 				SubState = 2;
 			}
+			
 
 			// 根据飞船速度调整引擎轰鸣声
 			SoundThruster->setVolume( playerShip->GetVelocity() / playerShip->GetMaxSpeed() );

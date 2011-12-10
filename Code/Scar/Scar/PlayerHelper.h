@@ -52,7 +52,7 @@ public:
 		m_infoAndWarn.AddInfo( info );
 	}
 
-	void SetLockerShip ( IShip* lockership )
+	void SetLockedShip ( IShip* lockership )
 	{
 		LockedShip = lockership;
 	}

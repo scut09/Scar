@@ -333,6 +333,12 @@
     <ClCompile Include="InfoAndWarn.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="MissleFireAnimator.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="MissleNode.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventListener.h">
@@ -456,9 +462,6 @@
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="BulletNode.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="MissileNode.h">
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="CSceneNodeAnimatorCollisionResponse.h">
@@ -667,6 +670,12 @@
     </ClInclude>
     <ClInclude Include="ShipCrashWarnAnimator.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="MissleFireAnimator.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="MissleNode.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

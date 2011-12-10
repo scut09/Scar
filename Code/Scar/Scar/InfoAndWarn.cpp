@@ -37,7 +37,7 @@ void InfoAndWarn::AddWarn( PI_INFO warn )
 			return;
 	}
 	// 新增文字项
-	PIItem item;
+	PIItem item;	
 	item.msg = warn;
 	// 初始化状态
 	item.State = 0;

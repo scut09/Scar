@@ -214,7 +214,7 @@ void PlayerHelper::UpdateLock()
 	pos = pos - position2df( (f32)width * 0.5f, (f32)height * 0.5f );
 	if ( pos.getLength() > 293 )
 	{
-		SetLockerShip( NULL );
+		SetLockedShip( NULL );
 		lock1->SetVisible( false );
 		indicator1->SetVisible( false );
 		// ÌבÊ¾ÎÄ×Ö

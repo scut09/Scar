@@ -55,6 +55,7 @@ public:
 		DeathCount = 0;
 		Team = 0;
 		State = PS_Alive;
+		LockedShip = NULL;
 	}
 
 	virtual ~IPlayer()
@@ -122,9 +123,15 @@ public:
 	}
 
 	// 设置锁定飞船
-	virtual void SetLockerShip( IShip* lockedship )
+	virtual void SetLockedShip( IShip* lockedship )
 	{
 		LockedShip = lockedship;
+	}
+
+	// 获得锁定飞船
+	virtual IShip* GetLockedShip()
+	{
+		return LockedShip;
 	}
 
 	// 设置击杀数
