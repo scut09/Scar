@@ -14,55 +14,25 @@
 #include "irrlicht.h"
 #include <map>
 
+struct ScoreItem
+{
+	IUIObject* box;
+	UIStaticText* player;
+	UIStaticText* kills;
+	UIStaticText* deads;
+};
+
 struct ScoreNode;
 
 class ScoreBoard
 {
 private:
-	struct ScoreItem
-	{
-		IUIObject* box;
-		UIStaticText* player;
-		UIStaticText* kills;
-		UIStaticText* deads;
-	};
-
-	ScoreItem* CreateScoreItem( s32 team )
-	{
-		ScoreItem* item = new ScoreItem();
-		boost::shared_ptr<UIManager> uiMgr = MyIrrlichtEngine::GetEngine()->GetUIManager();
-		f32 offX;
-		if( team == 1 )
-			offX = -200;
-		else
-			offX = 200;
-		item->box = uiMgr->AddUIImage( 0, 0, 0 );
-		item->player = static_cast<UIStaticText*>(uiMgr->AddUIStaticText( item->box, 100, 20, L"ÐÂÍæ¼Ò", video::SColor(255, 255, 255, 255), 18U));
-		item->player->SetPosition( core::vector2df( offX - 120, 0 ) );
-		item->kills = static_cast<UIStaticText*>(uiMgr->AddUIStaticText( item->box, 100, 20, L"0", video::SColor(255, 255, 255, 255), 18U));
-		item->kills->SetPosition( core::vector2df( offX + 35, 0 ) );
-		item->deads = static_cast<UIStaticText*>(uiMgr->AddUIStaticText( item->box, 100, 20, L"0", video::SColor(255, 255, 255, 255), 18U));
-		item->deads->SetPosition( core::vector2df( offX + 156, 0 ) );
-
-		return item;
-	}
+	ScoreItem* CreateScoreItem( s32 team );
 
 public:
-	ScoreBoard( std::map<u32, ScoreNode>& scoreNodeMap )
-		: ScoreNodeMap(scoreNodeMap)
-	{
-		Init();
-	}
+	ScoreBoard( std::map<u32, ScoreNode>& scoreNodeMap );
 
-	void Init()
-	{
-		uiMgr = MyIrrlichtEngine::GetEngine()->GetUIManager();
-		Board = uiMgr->GetUIObjectByName( "ScoreBoard" );
-		IsVisible = false;
-		//test
-		ScoreItem* item = CreateScoreItem( 1 );
-		Board->AddChild( item->box );
-	}
+	void Init();
 
 	void Show()
 	{

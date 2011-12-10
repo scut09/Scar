@@ -146,6 +146,8 @@ void PlayerHelper::Update()
 	UpdateHarmAlert();
 	// 更新信息文字
 	m_infoAndWarn.Update();
+	// 更新记分板
+	scBoard->Upadate();
 }
 
 void PlayerHelper::UpdateLock()
