@@ -171,6 +171,11 @@ public:
 
 	void SetCallbackFunc( EngineRunCallbackFuncType func );
 
+	void CloneWeapon( const Network::PACKAGE& p );
+
+	IWeapon*	BulletFucker;
+	IWeapon*	MissileFucker;
+
 	// 添加节点到删除队列中
 	void AddToDeletionQueue( scene::ISceneNode* node );
 	void AddToDeletionQueue( IUIObject* node );

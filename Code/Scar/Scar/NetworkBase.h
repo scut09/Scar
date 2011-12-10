@@ -17,6 +17,9 @@
 #include "NetworkPacket.h"
 #include "INetwork.h"
 #include "CNetwork.h"
+#include <iostream>
+
+#define cerr cout
 
 namespace Network
 {

@@ -11,6 +11,10 @@
 #include <boost/thread.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include "PostProcessMotionBlur.h"
+#include "BulletNode.h"
+#include "MissleNode.h"
+#include "CSceneNodeAnimatorSelfDelFlyStraight.h"
+#include "GameBag.h"
 
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
@@ -75,6 +79,14 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 		m_pIrrlichtEngine->m_MySceneManager = new MySceneManager;	// 一定要在这个创建，因为MySceneManager会在构造时直接使用MyIrrlichtEngine
 
 		m_pIrrlichtEngine->m_runCallbackFunc = []( void* )->void* { return 0; };
+
+		// 紧急补丁，临时创建一些子弹供拷贝
+		m_pIrrlichtEngine->BulletFucker = new BulletNode( m_pIrrlichtEngine->m_pSmgr, m_pIrrlichtEngine->m_pSmgr->getRootSceneNode() );
+		m_pIrrlichtEngine->BulletFucker->setID( 4003 );
+		m_pIrrlichtEngine->BulletFucker->setMaterialTexture( 0, pDevice->getVideoDriver()->getTexture( "../media/Weapon/BulletFucker.png" ) );
+		m_pIrrlichtEngine->BulletFucker->SetVelocity( 1600 );
+		m_pIrrlichtEngine->BulletFucker->SetInterval( 60 );
+		m_pIrrlichtEngine->BulletFucker->drop();
 	}
 
 	return m_pIrrlichtEngine;
@@ -276,6 +288,39 @@ void MyIrrlichtEngine::DestoryEngine()
 		delete m_pIrrlichtEngine;
 		m_pIrrlichtEngine = NULL;
 	}
+}
+
+void MyIrrlichtEngine::CloneWeapon( const Network::PACKAGE& p )
+{
+	using namespace Network;
+
+	switch ( p.GetCMD() )
+	{
+	case BULLET_CREATE:
+		{
+			BulletCreateBag* bag;
+			bag = (BulletCreateBag*)p.GetData();
+
+
+			// 复制子弹
+			ISceneNode* newBullet = MyIrrlichtEngine::GetEngine()->BulletFucker->Clone( 0, 0 );
+
+			newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
+			newBullet->setMaterialFlag( EMF_LIGHTING, false );
+
+
+			// 直飞和自删除动画
+			auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( 
+				bag->start_point, bag->end_point, bag->life, MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() );
+			auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bag->life );
+
+			// 帮子弹附上动画并发射出去
+			newBullet->addAnimator( ani );
+			newBullet->addAnimator( del );
+			del->drop();
+			ani->drop();
+		}
+	}	
 }
 
 //AnimationManager* MyIrrlichtEngine::GetAnimationManager()

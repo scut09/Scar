@@ -224,25 +224,8 @@ void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
 
 	if ( bag->owner_index == m_index )	return;
 	
-	auto bullet = new BulletNode( MyIrrlichtEngine::GetEngine()->GetSceneManager() );
-	bullet->setVisible( true );
-	bullet->setMaterialTexture( 0, MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture( "../media/Weapon/bullet.png" ) );
-	bullet->SetVelocity( 1000 );
-	bullet->SetInterval( 100 );
+	MyIrrlichtEngine::GetEngine()->CloneWeapon( p );
 
-	// 直飞和自删除动画
-	auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( 
-		bag->start_point, bag->end_point, bag->life, MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() );
-	auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bag->life );
-
-	// 帮子弹附上动画并发射出去
-	bullet->addAnimator( ani );
-	bullet->addAnimator( del );
-	del->drop();
-	ani->drop();
-
-	bullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
-	bullet->setMaterialFlag( EMF_LIGHTING, false );
 }
 
 
