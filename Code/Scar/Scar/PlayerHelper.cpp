@@ -218,6 +218,7 @@ void PlayerHelper::UpdateLock()
 	if ( pos.getLength() > 293 )
 	{
 		SetLockedShip( NULL );
+		MyIrrlichtEngine::GetEngine()->GetCurrentPlayer()->SetLockedShip( NULL );
 		lock1->SetVisible( false );
 		indicator1->SetVisible( false );
 		// ÌבÊ¾ÎÄ×Ö
