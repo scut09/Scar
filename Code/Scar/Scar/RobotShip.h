@@ -29,7 +29,7 @@ public:
 private:
 	RobotState		State;
 	bool			fireOnce;
-	f32				TimePoint;
+	u32				TimePoint;
 
 };
 #endif // RobotShip_h__

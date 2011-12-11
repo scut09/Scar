@@ -166,11 +166,12 @@ void PlayerHelper::Update()
 
 			if (!IsJustDie)
 			{
-				ExplosionMyself e(playerShip, playerShip->getAbsolutePosition());
+				ExplosionMyself e(playerShip, playerShip->getPosition());
 				m_DieTimePoint = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 				ReConStr->SetVisible(true);
 				e.Explode();
 				e.EndExplode();
+				printf("explode \n");
 			}
 			Revive();
 			IsJustDie = true;
@@ -231,7 +232,7 @@ void PlayerHelper::Revive()
 		ReConStr->SetVisible(false);
 		playerShip->SetArmor(1000.f);
 		playerShip->SetShield(1000.f);
-		//playerShip->setPosition(vector3df(0.f, 0.f, 0.f));
+		playerShip->setPosition(vector3df(500.f, 500.f, 500.f));
 		printf("cccccccccccccccccccccccccc\n");
 		break;
 	}

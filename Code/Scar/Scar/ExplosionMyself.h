@@ -17,7 +17,6 @@ public:
 		m_pExplosiongBillBoard->setMaterialTexture(0, m_pDriver->getTexture("../media/Space/sun2.png"));
 		m_pExplosiongBillBoard->setMaterialType(EMT_TRANSPARENT_ADD_COLOR);
 		m_pExplosiongBillBoard->setMaterialFlag(EMF_LIGHTING, false);
-		m_pExplosiongBillBoard->setPosition(m_pNode->getAbsolutePosition());
 		m_pExplosiongBillBoard->setSize(dimension2df(100.f, 100.f));
 		m_pExplosiongBillBoard->setPosition(m_Pos);
 	}
@@ -46,6 +45,7 @@ public:
 	void EndExplode()
 	{
 		m_pNode->setScale(vector3df(1.0f));
+		
 	}
 
 private:

@@ -50,7 +50,7 @@ public:
 			if ( ChangeRate < 1.50f )
 			{
 				((IBillboardSceneNode*)node)->setSize(dimension2df(0.f, 0.f));
-				MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator(10);
+				node->addAnimator( MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator(1000) );
 				return;
 			}
 			break;
