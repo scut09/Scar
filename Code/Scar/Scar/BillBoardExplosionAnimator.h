@@ -5,6 +5,7 @@
 #include "ISceneNode.h"
 #include "MyIrrlichtEngine.h"
 #include "Toolkit.h"
+
 using namespace irr;
 
 class BillBoardExplosionAnimator : public ISceneNodeAnimator
@@ -49,6 +50,7 @@ public:
 			if ( ChangeRate < 1.50f )
 			{
 				((IBillboardSceneNode*)node)->setSize(dimension2df(0.f, 0.f));
+				MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator(10);
 				return;
 			}
 			break;

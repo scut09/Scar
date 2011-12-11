@@ -29,8 +29,7 @@ public:
 private:
 	RobotState		State;
 	bool			fireOnce;
-	f32				ArmThreshold;
-	f32				lastArm;
+	f32				TimePoint;
 
 };
 #endif // RobotShip_h__

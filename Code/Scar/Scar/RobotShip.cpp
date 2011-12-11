@@ -5,14 +5,14 @@
 using namespace Network;
 
 ShipAgentPlayer::ShipAgentPlayer( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
-	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true ), ArmThreshold(0.f)
+	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true ), TimePoint(0.f)
 {
-	lastArm = PlayerShip->GetArmor();
+	TimePoint = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 }
 
 void ShipAgentPlayer::Update()
 {
-
+	f32 PassedTime;
 	if ( PlayerShip->GetArmor() <= 0.0)
 	{
 		// 放置到原点
@@ -27,21 +27,23 @@ void ShipAgentPlayer::Update()
 		return;
 	}
 
-	if (PlayerShip->GetArmor() < 1000.f)
+	PassedTime = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() - TimePoint;
+
+	if (PassedTime >= 2000)
 	{
-		if (PlayerShip->GetArmor() == lastArm)
+		TimePoint =  MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+		if (PlayerShip->GetShield() < 1000.f)
 		{
-			ArmThreshold++;
+			PlayerShip->SetShield( PlayerShip->GetShield() + 10 );
 		}
-		if (ArmThreshold >= 50)
+
+		if (PlayerShip->GetShield() > 1000.f)
 		{
-			PlayerShip->SetArmor( PlayerShip->GetArmor() + 10 );
-			lastArm = PlayerShip->GetArmor();
-			ArmThreshold = 0.f;
+			PlayerShip->SetShield( 1000.f );
 		}
+
 	}
 
-	lastArm = PlayerShip->GetArmor();
 
 	//SendMove( PlayerShip->getPosition() );
 
