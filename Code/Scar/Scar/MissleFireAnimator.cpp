@@ -86,6 +86,8 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 		auto missleAni = new CSceneNodeAnimatorAutoTrack( static_cast< MissleNode* >( newMissle )->getTarget() );
 		newMissle->addAnimator( missleAni );
 		missleAni->drop();
+		auto autodelete = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->createDeleteAnimator( 5000 );
+		newMissle->addAnimator( autodelete );
 	}
 	/*CSceneNodeAnimatorMyCollisionResponse* coll = 
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
