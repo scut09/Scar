@@ -456,6 +456,6 @@ void Network::BoostClient::OnPlayerLock( unsigned long ip, const PACKAGE& p )
 	lockBag = *(PlayerLockBag*)p.GetData();
 	if ( lockBag.target_index == m_index )
 	{
-		
+		m_PlayerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
 	}
 }
