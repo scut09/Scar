@@ -1093,6 +1093,7 @@ void MultiplayerScene::Run()
 										m_pSoundEngine->play2D( "../sound/lock.wav" );
 										break;
 									}
+									client->SendLock( player->GetShip()->getID(), (*iter)->GetID() );
 								}
 							}
 							break;
