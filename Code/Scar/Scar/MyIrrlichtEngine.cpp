@@ -289,9 +289,9 @@ void MyIrrlichtEngine::ClearDeletionList()
 				break;
 			default:
 				CloneWeapon( m_CloneQueue.front() );
-				m_CloneQueue.pop();
 				break;
 			}
+			m_CloneQueue.pop();
 		}
 	}
 	
