@@ -1091,9 +1091,9 @@ void MultiplayerScene::Run()
 										m_playerHelper->AddInfoMsg( InfoAndWarn::PII_Lock );
 										//播放音效
 										m_pSoundEngine->play2D( "../sound/lock.wav" );
+										client->SendLock( player->GetShip()->getID(), (*iter)->GetID() );
 										break;
 									}
-									client->SendLock( player->GetShip()->getID(), (*iter)->GetID() );
 								}
 							}
 							break;
