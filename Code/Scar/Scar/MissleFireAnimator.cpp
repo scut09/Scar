@@ -101,21 +101,24 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 		auto ColAni = new MySceneNodeAnimatorCollisionResponse( 
 			MyIrrlichtEngine::GetEngine()->GetCollisionManager(), triSelector );
 
-		//ColAni->SetCollisionCallback( [this, missleAni](ISceneNode* node, const ISceneNode* ColNode, vector3df ColPos)
-		//{
-		//	//std::cout << "Ship hitted!\n";
-		//	IWeapon* weapon = dynamic_cast<IWeapon*>( node );
+		CSceneNodeAnimatorMyCollisionResponse* coll = 
+			new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
 
-		//	// 打中的是飞船
-		//	IShip *ship = dynamic_cast<IShip *>( target_node );
-		//	if (NULL != ship)
-		//	{
-		//		std::cout << "fuck Ship hitted!\n";
-		//		Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
-		//		newBullet->setVisible( false );
-		//	}
+		// 添加碰撞响应函数
+		coll->SetCollisionCallback( [this, newMissle]( ISceneNode* node, ISceneNode* target_node )	
+		{
+			//std::cout << "Ship hitted!\n";
+			IWeapon* weapon = dynamic_cast<IWeapon*>( node );
 
-		//} );
+			// 打中的是飞船
+			IShip *ship = dynamic_cast<IShip *>( target_node );
+			if (NULL != ship)
+			{
+				std::cout << "Missile Hit!\n";
+				Client->SendBulletHit( Client->GetID(), ship->getID(), 1 );
+				newMissle->setVisible( false );
+			}
+		} );
 
 	
 		auto autodelete = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->createDeleteAnimator( 5000 );

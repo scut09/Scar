@@ -284,7 +284,7 @@ void MyIrrlichtEngine::ClearDeletionList()
 			{
 			case Network::PLAYER_LOCK: 
 				{
-					dynamic_cast<MultiplayerScene*>( GetGameSceneManager()->GetCurrentGameScene() )->m_playerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
+					dynamic_cast<MultiplayerScene*>( GetGameSceneManager()->GetCurrentGameScene() )->m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerLock );
 				}
 				break;
 			default:
