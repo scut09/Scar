@@ -22,8 +22,6 @@ class MissleNode : public IWeapon
 public:
 	MissleNode( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
 		irr::scene::ISceneManager* mgr, s32 id,
-		ISceneNode* target,
-		IShip* host,
 		const core::vector3df& position = core::vector3df( 0, 0, 0 ),
 		const core::vector3df& rotation = core::vector3df( 0, 0, 0 ),
 		const core::vector3df& scale = core::vector3df( 1.f, 1.f, 1.f ) );
@@ -92,7 +90,6 @@ public:
 
 private:
 	f32 Length;
-	IShip* Host;
 	ISceneNode* Target;
 
 public:
@@ -103,7 +100,7 @@ public:
 		if (!newManager)
 			newManager = SceneManager;
 
-		MissleNode* nb = new MissleNode( Mesh, Parent, newManager, ID, Target, Host );
+		MissleNode* nb = new MissleNode( Mesh, Parent, newManager, ID );
 
 		nb->cloneMembers(this, newManager);
 

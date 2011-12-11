@@ -43,7 +43,7 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 	a_x.X = (f32)( asin ( missle_speed.X / missle_speed.getLength() ) * 180 / 3.1415);
 	a_x.Y = (f32)( asin ( missle_speed.Y / missle_speed.getLength() ) * 180 / 3.1415);
 	a_x.Z = (f32)( asin ( missle_speed.Z / missle_speed.getLength() ) *  180 / 3.1415);		
-	node->setRotation( a_x + vector3df( 90.f, 0.f, 0.f ) );  // + vector3df(0,-90,0) 由于将瓶子本身的三维坐标与世界坐标不对应
+	node->setRotation( a_x + vector3df( 0.f, 90.f, 0.f ) );  // + vector3df(0,-90,0) 由于将瓶子本身的三维坐标与世界坐标不对应
 
 	u32 t;
 	t = timeMs - lasttime;
@@ -63,8 +63,10 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 
 	if ( distance.getLength() <= max_yinbao )
 	{
+
 		std::cout << "bomb !" << std::endl;
 		node->setVisible( false );
+
 	}
 
 	if ( t_sum > max_t )

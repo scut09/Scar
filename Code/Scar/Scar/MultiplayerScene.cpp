@@ -991,7 +991,7 @@ void MultiplayerScene::Run()
 
 				// 创建导弹
 				IMesh* missleMesh = smgr->getMesh( _T("../media/Weapon/missle.3ds") );
-				MissleNode* missle = new MissleNode( missleMesh, 0, smgr, -1, player->GetLockedShip(), player->GetShip() );
+				MissleNode* missle = new MissleNode( missleMesh, 0, smgr, -1 );
 				playerShip->AddMissles( missle );
 
 

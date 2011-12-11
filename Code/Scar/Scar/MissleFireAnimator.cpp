@@ -79,7 +79,6 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 	{
 		ISceneNode* newMissle = missle->Clone( 0, 0 );
 		static_cast< MissleNode* >( newMissle )->setScale( vector3df( 8.f, 8.f, 8.f ) );
-		static_cast< MissleNode* >( newMissle )->setRotation( vector3df( -90.f, 0.f, 0.f ) );
 		MissleFlame mfe;
 		mfe.AddFlameToScene( newMissle, MyIrrlichtEngine::GetEngine()->GetSceneManager() );
 		static_cast< MissleNode* >( newMissle )->setTarget( player->GetLockedShip() );

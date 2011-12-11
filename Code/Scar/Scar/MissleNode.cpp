@@ -320,7 +320,7 @@ ISceneNode* MissleNode::clone(ISceneNode* newParent, ISceneManager* newManager)
 	if (!newManager) newManager = SceneManager;
 
 	MissleNode* nb = new MissleNode(Mesh, newParent,
-		newManager, ID, Target, Host, RelativeTranslation, RelativeRotation, RelativeScale);
+		newManager, ID, RelativeTranslation, RelativeRotation, RelativeScale);
 
 	nb->cloneMembers(this, newManager);
 	nb->ReadOnlyMaterials = ReadOnlyMaterials;
@@ -332,7 +332,7 @@ ISceneNode* MissleNode::clone(ISceneNode* newParent, ISceneManager* newManager)
 }
 
 MissleNode::MissleNode( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
-	irr::scene::ISceneManager* mgr, s32 id, ISceneNode* target, IShip* host,
+	irr::scene::ISceneManager* mgr, s32 id,
 	const core::vector3df& position /*= core::vector3df( 0, 0, 0 )*/,
 	const core::vector3df& rotation /*= core::vector3df( 0, 0, 0 )*/,
 	const core::vector3df& scale /*= core::vector3df( 1.f, 1.f, 1.f ) */ )
@@ -344,8 +344,6 @@ MissleNode::MissleNode( irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent,
 		drop();
 	}
 	Mesh = mesh;
-	Target = target;
-	Host = host;
 }
 
 void MissleNode::setTarget( ISceneNode* target )
