@@ -15,6 +15,8 @@
 #include <list>
 #include <irrlicht.h>
 
+class IShip;
+
 namespace Network
 {
 	
@@ -46,7 +48,7 @@ namespace Network
 		virtual void BroadcastMessage( int index, const wchar_t* msg ) {}
 
 		// 发送炮弹命中消息，所有的炮弹命中都是由发射人判断，命中就发送给服务端
-		virtual void SendBulletHit( int owner_index, int target_index, int bullet_type ) {}
+		virtual void SendBulletHit( int owner_index, int target_index, int bullet_type, IShip* ship = 0 ) {}
 		// 发送发射炮弹的消息
 		virtual void SendBullet( int index, int bullet_type,				
 			const irr::core::vector3df& start, 

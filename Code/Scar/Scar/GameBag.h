@@ -252,6 +252,9 @@ namespace Network
 		int				target_index;			// 被命中人的id
 
 		int				bullet_type;			// 炮弹类型
+
+		int				armor;					// 护甲
+		int				shield;					// 护盾
 	};
 
 	// 玩家被锁定， 第一个是锁定别人的玩家，第二个是被锁定的玩家

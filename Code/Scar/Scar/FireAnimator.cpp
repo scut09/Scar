@@ -173,7 +173,6 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 	newBullet->addAnimator( ColAni );
 	ColAni->drop();
 
-	
 	CSceneNodeAnimatorMyCollisionResponse* coll = 
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
 
@@ -187,8 +186,37 @@ void ShipFireAnimator::AddBulletToScene( IWeapon* bullet, const vector3df& start
 		IShip *ship = dynamic_cast<IShip *>( target_node );
 		if (NULL != ship)
 		{
-			std::cout << "fuck Ship hitted!\n";
-			Client->SendBulletHit( Client->GetID(), ship->getID(), 0 );
+			//std::cout << "fuck Ship hitted!\n";
+			int damage = 10;
+			IShip *ship = dynamic_cast<IShip *>( target_node );
+			if (NULL != ship)
+			{
+				if (ship->GetShield() > 0.0 )
+				{
+					// 计算护盾
+					ship->SetShield( ship->GetShield() - damage );
+					std::cout << "ship SetShield\n";
+				}
+				else if(ship->GetArmor() > 0.0 )
+				{
+					// 计算护甲
+					ship->SetArmor( ship->GetArmor() - damage );
+					std::cout << "ship SetArmor\n";
+				}
+
+				if ( ship->GetShield() < 0.0 )
+				{
+					ship->SetShield(0.0f);
+				}
+
+				if ( ship->GetArmor() < 0.0 )
+				{
+					ship->SetArmor(0.0f);
+				}
+			}
+
+			Client->SendBulletHit( Client->GetID(), ship->getID(), 0, ship );
+
 			newBullet->setVisible( false );
 		}
 	} );

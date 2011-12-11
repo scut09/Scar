@@ -1,8 +1,8 @@
 ﻿/********************************************************************
-    创建时间: 2011-10-25   20:26
-    文件名:   Client.cpp
-    作者:     华亮 Cedric Porter [ Stupid ET ]	
-    说明:     客户端
+创建时间: 2011-10-25   20:26
+文件名:   Client.cpp
+作者:     华亮 Cedric Porter [ Stupid ET ]	
+说明:     客户端
 
 *********************************************************************/
 
@@ -113,12 +113,14 @@ void Network::BoostClient::SendBullet( int index, int bullet_type,
 }
 
 
-void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int bullet_type )
+void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int bullet_type, IShip* ship )
 {
 	BulletHittedBag bag;
 	bag.owner_index = owner_index;
 	bag.target_index = target_index;
 	bag.bullet_type = bullet_type;
+	bag.armor = ship->GetArmor();
+	bag.shield = ship->GetShield();
 
 	PACKAGE p;
 	p.SetCMD( BULLET_HIT );
@@ -154,7 +156,7 @@ void Network::BoostClient::SaveLocalIPAddress()
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	
+
 }
 
 void Network::BoostClient::OnBroadcastRoom( unsigned long ip, const PACKAGE& p )
@@ -226,7 +228,7 @@ void Network::BoostClient::OnBulletCreate( unsigned long ip, const PACKAGE& p )
 
 	// 自己的包或者当自己是服务器是忽略机器人的包
 	if ( bag->owner_index == m_index || m_IsServer && bag->owner_index > 70 )	return;
-	
+
 	MyIrrlichtEngine::GetEngine()->AddToCloneQueue( p );
 
 }
@@ -258,7 +260,7 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 
 		ship->setPosition( core::vector3df( 123141, 12312, 1000000 ) );
 
-//		m_playerManager->AddPlayer( ship->getID(), ship );
+		//		m_playerManager->AddPlayer( ship->getID(), ship );
 		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
 		player->SetID( oneplayer.player_index );
 		player->SetName( oneplayer.player_name );
@@ -271,7 +273,7 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 	else
 	{
 		// 设置自己的id		
-	//	m_playerManager->m_playerHelper.PlayerShip->setID( m_index );
+		//	m_playerManager->m_playerHelper.PlayerShip->setID( m_index );
 	}
 }
 
@@ -343,49 +345,25 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 		// 获取命中的节点
 		ISceneNode* target_node = smgr->getSceneNodeFromId( bag->target_index );
 
-		int damage;
-		// 炮弹
-		if ( bag->bullet_type == 0 )
+		IShip* ship = dynamic_cast<IShip*>( target_node );
+		if ( ship )
 		{
-			damage = 10;
+			ship->SetArmor( bag->armor );
+			ship->SetShield( bag->shield );
 		}
-		// 导弹
-		else if ( bag->bullet_type == 1 )
-		{
-			damage = 100;
-		}
+		//int damage;
+		//// 炮弹
+		//if ( bag->bullet_type == 0 )
+		//{
+		//	damage = 10;
+		//}
+		//// 导弹
+		//else if ( bag->bullet_type == 1 )
+		//{
+		//	damage = 100;
+		//}
 
-		IShip *ship = dynamic_cast<IShip *>( target_node );
-		if (NULL != ship)
-		{
-			if (ship->GetShield() > 0.0 )
-			{
-				// 计算护盾
-				ship->SetShield( ship->GetShield() - damage );
-				std::cout << "ship SetShield\n";
-			}
-			else if(ship->GetArmor() > 0.0 )
-			{
-				// 计算护甲
-				ship->SetArmor( ship->GetArmor() - damage );
-				std::cout << "ship SetArmor\n";
-			}
-
-			if ( ship->GetShield() < 0.0 )
-			{
-				ship->SetShield(0.0f);
-			}
-
-			if ( ship->GetArmor() < 0.0 )
-			{
-				ship->SetArmor(0.0f);
-			}
-
-		}
 	}
-
-
-
 }
 
 void Network::BoostClient::OnMessage( unsigned long ip, const PACKAGE& p )
@@ -466,7 +444,7 @@ void Network::BoostClient::OnPlayerLock( unsigned long ip, const PACKAGE& p )
 	lockBag = *(PlayerLockBag*)p.GetData();
 	if ( lockBag.target_index == m_index )
 	{
-		//m_PlayerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
+		m_PlayerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
 
 		MyIrrlichtEngine::GetEngine()->AddToCloneQueue( p );
 	}
