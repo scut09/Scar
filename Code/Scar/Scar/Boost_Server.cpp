@@ -132,11 +132,13 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 
 	SpriteFlame spf;
 
+	int id = m_robotID--;
+
 	// Ìí¼Órobot
 	IShip* npc;
 	boost::shared_ptr<ShipAgentPlayer> robot;
 	// robot 1
-	npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj", 99 );
+	npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj", id );
 	npc->SetMaxSpeed( 2 );
 	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
 	spf.SetOffset( vector3df( -6, 0, -22 ) );
@@ -151,7 +153,7 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 	npc->AddGun( bullet );
 	bullet->drop();	
 	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*scene->m_playerManager, scene->server ) );
-	robot->SetID( m_robotID-- );
+	robot->SetID( id );
 	scene->m_playerManager->AddPlayer( robot );
 	GeneralCallBack* cb = new GeneralCallBack( npc );
 	shader.ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
