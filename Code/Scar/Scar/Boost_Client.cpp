@@ -343,7 +343,17 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 		// 获取命中的节点
 		ISceneNode* target_node = smgr->getSceneNodeFromId( bag->target_index );
 
-		int damage = 10;
+		int damage;
+		// 炮弹
+		if ( bag->bullet_type == 0 )
+		{
+			damage = 10;
+		}
+		// 导弹
+		else if ( bag->bullet_type == 1 )
+		{
+			damage = 100;
+		}
 
 		IShip *ship = dynamic_cast<IShip *>( target_node );
 		if (NULL != ship)
@@ -383,8 +393,8 @@ void Network::BoostClient::OnMessage( unsigned long ip, const PACKAGE& p )
 	BroadcastMessageBag* bag;
 	bag = (BroadcastMessageBag*)p.GetData();
 
-	bag->GetMsg();
-	bag->index;
+	//bag->GetMsg();
+	//bag->index;
 
 	if ( box == 0 )
 	{
@@ -456,6 +466,8 @@ void Network::BoostClient::OnPlayerLock( unsigned long ip, const PACKAGE& p )
 	lockBag = *(PlayerLockBag*)p.GetData();
 	if ( lockBag.target_index == m_index )
 	{
-		m_PlayerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
+		//m_PlayerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
+
+		MyIrrlichtEngine::GetEngine()->AddToCloneQueue( p );
 	}
 }

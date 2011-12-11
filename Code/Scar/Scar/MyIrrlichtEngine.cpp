@@ -15,6 +15,7 @@
 #include "MissleNode.h"
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "GameBag.h"
+#include "MultiplayerScene.h"
 
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
@@ -279,8 +280,18 @@ void MyIrrlichtEngine::ClearDeletionList()
 		// ¸´ÖÆ
 		while ( ! m_CloneQueue.empty() )
 		{
-			CloneWeapon( m_CloneQueue.front() );
-			m_CloneQueue.pop();
+			switch ( m_CloneQueue.front().GetCMD() )
+			{
+			case Network::PLAYER_LOCK: 
+				{
+					dynamic_cast<MultiplayerScene*>( GetGameSceneManager()->GetCurrentGameScene() )->m_playerHelper->AddInfoMsg( InfoAndWarn::PIW_PlayerLock );
+				}
+				break;
+			default:
+				CloneWeapon( m_CloneQueue.front() );
+				m_CloneQueue.pop();
+				break;
+			}
 		}
 	}
 	
