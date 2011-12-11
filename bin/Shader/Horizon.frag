@@ -7,7 +7,7 @@ void main()
 	//Çó½Ç¶È
 	vec2 dir = CameraDir.xz;
 	float PI = 3.1415926;
-	float DPI = 2*PI;
+	float DPI = 2.0*PI;
 	float rad;
 	float temp = dir.y / sqrt(pow(dir.x,2.0) + pow(dir.y,2.0));
 	temp = asin( temp );
