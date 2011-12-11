@@ -76,7 +76,12 @@ bool MissleFireAnimator::OnEvent( const SEvent& event )
 
 void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 {
+
 	boost::shared_ptr<IPlayer> player = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
+
+	//目标船的ID存在startpoint的第一位中
+	Client->SendBullet( Client->GetID(), 1, vector3df( player->GetLockedShip()->getID() , 0, 0), vector3df( 0, 0, 0), missle->GetLife() );
+
 	if ( player->GetLockedShip() )
 	{
 		// clone missle
@@ -101,28 +106,51 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 		auto ColAni = new MySceneNodeAnimatorCollisionResponse( 
 			MyIrrlichtEngine::GetEngine()->GetCollisionManager(), triSelector );
 
+		//CSceneNodeAnimatorMyCollisionResponse* coll = 
+		//	new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
+
+		//// 添加碰撞响应函数
+		//coll->SetCollisionCallback( [this, newMissle]( ISceneNode* node, ISceneNode* target_node )	
+		//{
+		//	//std::cout << "Ship hitted!\n";
+		//	IWeapon* weapon = dynamic_cast<IWeapon*>( node );
+
+		//	// 打中的是飞船
+		//	IShip *ship = dynamic_cast<IShip *>( target_node );
+		//	if (NULL != ship)
+		//	{
+		//		std::cout << "Missile Hit!\n";
+		//		Client->SendBulletHit( Client->GetID(), ship->getID(), 1 );
+		//		newMissle->setVisible( false );
+		//	}
+		//} );
+
 		CSceneNodeAnimatorMyCollisionResponse* coll = 
 			new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );
-
-		// 添加碰撞响应函数
-		coll->SetCollisionCallback( [this, newMissle]( ISceneNode* node, ISceneNode* target_node )	
+		coll->SetCollisionCallback( [ this, newMissle ]( ISceneNode* node, ISceneNode* target_node ) 
 		{
-			//std::cout << "Ship hitted!\n";
-			IWeapon* weapon = dynamic_cast<IWeapon*>( node );
-
-			// 打中的是飞船
-			IShip *ship = dynamic_cast<IShip *>( target_node );
-			if (NULL != ship)
+			IWeapon* weapon = dynamic_cast< IWeapon* >( node );
+			IShip* ship = dynamic_cast< IShip* >( target_node );
+			if ( NULL != ship )
 			{
-				std::cout << "Missile Hit!\n";
-				Client->SendBulletHit( Client->GetID(), ship->getID(), 1 );
+				int damage = 100;
+				if ( ship->GetShield() > 0.0 )
+					ship->SetShield( ship->GetShield() - damage );
+				else if ( ship->GetArmor() > 0.0 )
+					ship->SetArmor( ship->GetArmor() - damage );
+				if ( ship->GetShield() < 0.0 )
+					ship->SetShield( 0.0f );
+				if ( ship->GetArmor() < 0.0 )
+					ship->SetArmor( 0.0f );
+				Client->SendBulletHit( Client->GetID(), ship->getID(), 1, ship );
+
 				newMissle->setVisible( false );
 			}
-		} );
+		});
 
-	
-		auto autodelete = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->createDeleteAnimator( 5000 );
-		newMissle->addAnimator( autodelete );
+		newMissle->addAnimator( coll );
+		coll->drop();
+
 	}
 	/*CSceneNodeAnimatorMyCollisionResponse* coll = 
 		new CSceneNodeAnimatorMyCollisionResponse( MyIrrlichtEngine::GetEngine()->GetCollisionManager() );

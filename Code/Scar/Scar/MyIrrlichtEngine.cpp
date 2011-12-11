@@ -16,10 +16,11 @@
 #include "CSceneNodeAnimatorSelfDelFlyStraight.h"
 #include "GameBag.h"
 #include "MultiplayerScene.h"
-
+#include "MissleFlame.h"
 #include "GameBag.h"
 #include "ShipFactory.h"
 #include "HumanPlayer.h"
+#include "CSceneNodeAutoTrackAnimator.h"
 
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
@@ -92,6 +93,10 @@ MyIrrlichtEngine* MyIrrlichtEngine::GetEngine()
 			pDevice->getVideoDriver()->getTexture( "../media/Weapon/bullet.png" ) );
 		m_pIrrlichtEngine->BulletFucker->SetVelocity( 1600 );
 		m_pIrrlichtEngine->BulletFucker->SetInterval( 60 );
+
+		IMesh* missleMesh = m_pIrrlichtEngine->m_pSmgr->getMesh( _T("../media/Weapon/missle.3ds") ); 
+		m_pIrrlichtEngine->MissileFucker = new MissleNode( missleMesh, m_pIrrlichtEngine->m_pSmgr->getRootSceneNode(), m_pIrrlichtEngine->m_pSmgr, 8889 );
+
 	}
 
 	return m_pIrrlichtEngine;
@@ -352,25 +357,44 @@ void MyIrrlichtEngine::CloneWeapon( const Network::PACKAGE& p )
 		{
 			BulletCreateBag* bag;
 			bag = (BulletCreateBag*)p.GetData();
+			switch ( bag->type )
+			{
+			case 0:
+				{
+					// 复制子弹
+					ISceneNode* newBullet = MyIrrlichtEngine::GetEngine()->BulletFucker->Clone( 0, 0 );
+
+					newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
+					newBullet->setMaterialFlag( EMF_LIGHTING, false );
 
 
-			// 复制子弹
-			ISceneNode* newBullet = MyIrrlichtEngine::GetEngine()->BulletFucker->Clone( 0, 0 );
+					// 直飞和自删除动画
+					auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( 
+						bag->start_point, bag->end_point, bag->life, MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() );
+					auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bag->life );
 
-			newBullet->setMaterialType( EMT_TRANSPARENT_ALPHA_CHANNEL );
-			newBullet->setMaterialFlag( EMF_LIGHTING, false );
-
-
-			// 直飞和自删除动画
-			auto ani = new CSceneNodeAnimatorSelfDelFlyStraight( 
-				bag->start_point, bag->end_point, bag->life, MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() );
-			auto del = MyIrrlichtEngine::GetEngine()->GetSceneManager()->createDeleteAnimator( bag->life );
-
-			// 帮子弹附上动画并发射出去
-			newBullet->addAnimator( ani );
-			newBullet->addAnimator( del );
-			del->drop();
-			ani->drop();
+					// 帮子弹附上动画并发射出去
+					newBullet->addAnimator( ani );
+					newBullet->addAnimator( del );
+					del->drop();
+					ani->drop();
+				}
+				break;
+			case 1:
+				{
+					ISceneNode* newMissle = MyIrrlichtEngine::GetEngine()->MissileFucker->Clone( 0, 0 );
+					MissleFlame mfe;
+					mfe.AddFlameToScene( newMissle, MyIrrlichtEngine::GetEngine()->GetSceneManager() );
+					//目标船的ID存在startpoint的第一位中
+					auto missleAni = new CSceneNodeAnimatorAutoTrack( GetSceneManager()->getSceneNodeFromId( (int) bag->start_point.X ) );
+					newMissle->addAnimator( missleAni );
+					missleAni->drop();
+				}
+				break;
+			default:
+				break;
+			}
+			
 		}
 	}	
 }
