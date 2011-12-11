@@ -51,7 +51,7 @@ Network::BoostClient::BoostClient( boost::shared_ptr<PlayerManager>	playerManage
 	RegisterMessageHandler( MESSAGE_TO,
 		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
 	RegisterMessageHandler( SCORE_ARRIVAL,
-		[this]( unsigned long ip, const PACKAGE& p ){ OnMessage( ip, p ); });
+		[this]( unsigned long ip, const PACKAGE& p ){ OnScoreArrival( ip, p ); });
 	RegisterMessageHandler( PLAYER_LOCK,
 		[this]( unsigned long ip, const PACKAGE& p ){ OnPlayerLock( ip, p ); });
 }
@@ -328,7 +328,8 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 			pack.SetCMD( SCORE_ARRIVAL );			
 			pack.SetData( (char*)&score, sizeof( BulletCreateBag ) );			
 
-			m_network->SendTo( m_server_IP, pack );
+			TcpSendTo( m_server_IP, m_target_port, pack );
+			//m_network->SendTo( m_server_IP, pack );
 		}
 	}
 
