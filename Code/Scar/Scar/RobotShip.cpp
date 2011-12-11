@@ -1,11 +1,11 @@
 #include "RobotShip.h"
 #include "MyIrrlichtEngine.h"
 #include "ExplosionMyself.h"
-
+#include "MultiplayerScene.h"
 using namespace Network;
 
 ShipAgentPlayer::ShipAgentPlayer( IShip* ship, PlayerManager* mgr, boost::shared_ptr<NetworkBase> server )
-	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true ), TimePoint(0.f)
+	: IAgentPlayer( ship, mgr, server ), State( Idle ), fireOnce( true ), TimePoint(0)
 {
 	TimePoint = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 }
@@ -17,9 +17,28 @@ void ShipAgentPlayer::Update()
 	{
 		// 放置到原点
 		ExplosionMyself e(PlayerShip, PlayerShip->getAbsolutePosition());
+		vector3df Pos;
+		auto playerlist = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())->m_playerManager->GetPlayers();
+		bool canBreak = false;
+		while (1)
+		{
+			for (auto it = playerlist.begin(); it != playerlist.end(); it++)
+			{
+				if (Pos.getDistanceFrom((*it)->GetShip()->getPosition()) < 200)
+				{
+					Pos.Z += 200;
+					canBreak = false;
+				}
+			}
+			if (canBreak)
+			{
+				break;
+			}
+			canBreak = true;
+		}
 
 		e.Explode();
-		PlayerShip->setPosition( vector3df( 0.f, 0.f, 0.f ) );
+		PlayerShip->setPosition( Pos );
 		PlayerShip->SetShield(1000.f);
 		PlayerShip->SetArmor(1000.f);
 		e.EndExplode();
@@ -27,7 +46,7 @@ void ShipAgentPlayer::Update()
 		return;
 	}
 
-	PassedTime = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() - TimePoint;
+	PassedTime = (f32)(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() - TimePoint);
 
 	if (PassedTime >= 2000)
 	{

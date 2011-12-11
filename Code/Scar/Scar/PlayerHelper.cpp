@@ -232,8 +232,26 @@ void PlayerHelper::Revive()
 		ReConStr->SetVisible(false);
 		playerShip->SetArmor(1000.f);
 		playerShip->SetShield(1000.f);
-		playerShip->setPosition(vector3df(500.f, 500.f, 500.f));
-		printf("cccccccccccccccccccccccccc\n");
+		vector3df Pos;
+		auto playerlist = static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())->m_playerManager->GetPlayers();
+		bool canBreak = false;
+		while (1)
+		{
+			for (auto it = playerlist.begin(); it != playerlist.end(); it++)
+			{
+				if (Pos.getDistanceFrom((*it)->GetShip()->getPosition()) < 200)
+				{
+					Pos.Z += 200;
+					canBreak = false;
+				}
+			}
+			if (canBreak)
+			{
+				break;
+			}
+			canBreak = true;
+		}
+		playerShip->setPosition(Pos);
 		break;
 	}
 }
