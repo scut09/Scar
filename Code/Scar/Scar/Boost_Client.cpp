@@ -187,10 +187,10 @@ void Network::BoostClient::OnAllowJoinRoom( unsigned long ip, const PACKAGE& p )
 
 	m_server_IP = ip;
 
-	PlayerInfo player;
-	player = *(PlayerInfo*)p.GetData();
+	AllowJoinRoomBag allowBag( 0, 0, 0, 0 );
+	allowBag = *(AllowJoinRoomBag*)p.GetData();
 
-	m_index = player.index;
+	m_index = allowBag.index;
 }
 
 void Network::BoostClient::OnHeroMove( unsigned long ip, const PACKAGE& p )
