@@ -260,6 +260,8 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 
 //		m_playerManager->AddPlayer( ship->getID(), ship );
 		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
+		player->SetID( oneplayer.player_index );
+		player->SetName( oneplayer.player_name );
 		dynamic_cast<MultiplayerScene*>(
 			MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
 			)->m_playerManager->AddPlayer( player );
