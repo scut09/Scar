@@ -876,7 +876,7 @@ void MultiplayerScene::Run()
 								client->EnterRoom( "127.0.0.1" );
 							client->SetIsServer( true );
 						}
-						SubState = 203;
+						
 					}
 					else if ( pEngine->NetworkSetting == 1 )
 					{
@@ -887,6 +887,7 @@ void MultiplayerScene::Run()
 						else
 							client->EnterRoom( pEngine->ServerIP );
 					}
+					SubState = 203;
 					//Sleep( 2000 );
 					//client->Send( "192.168.1.121" );
 				}

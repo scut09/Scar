@@ -34,7 +34,11 @@ bool MyIrrlichtEngine::bFullScreen = true;
 std::stringstream MyIrrlichtEngine::Console_Buffer;	// »º´æ
 
 
-MyIrrlichtEngine::MyIrrlichtEngine() : m_lastUpdateTime( 0 ), m_bMotionBlur( false )
+MyIrrlichtEngine::MyIrrlichtEngine() :
+m_lastUpdateTime( 0 ),
+	m_bMotionBlur( false ),
+	IsServer( true ), 
+	NetworkSetting( 0 )
 {
 	m_gameSceneMgr = new GameSceneManager;
 }
