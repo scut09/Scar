@@ -26,7 +26,7 @@ void PlayerManager::Update()
 {
 	for ( PlayerListType::iterator iter = PlayerList.begin(); iter != PlayerList.end(); ++iter )
 	{
-		if ( (*iter)->IsRobot() )	// 机器人才需要更新
+		//if ( (*iter)->IsRobot() )	// 机器人才需要更新
 			(*iter)->Update();
 	}
 }

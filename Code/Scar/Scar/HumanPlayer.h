@@ -16,14 +16,30 @@ class HumanPlayer : public IPlayer
 public:
 	HumanPlayer( IShip* ship ) : IPlayer( ship )
 	{
-
+		TimePoint = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
 	}
 
 	virtual void Update()
 	{
-		// Do nothing, because human player will control the ship
-	}
+		f32 PassedTime = (f32)(MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() - TimePoint);
 
+		if (PassedTime >= 2000)
+		{
+			TimePoint =  MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+			if (PlayerShip->GetShield() < 1000.f)
+			{
+				PlayerShip->SetShield( PlayerShip->GetShield() + 10 );
+			}
+
+			if (PlayerShip->GetShield() > 1000.f)
+			{
+				PlayerShip->SetShield( 1000.f );
+			}
+
+		}
+	}
+private:
+	u32 TimePoint;
 
 };
 
