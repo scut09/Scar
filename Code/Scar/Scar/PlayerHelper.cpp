@@ -416,17 +416,19 @@ void PlayerHelper::UpdateHarmAlert()
 				AddWarnMsg( InfoAndWarn::PIW_LowArmor );
 			}
 		}
+
+		LastArmor = CurrentArmor;
 	}
 
 	// фад╩иа╨Л
-	if ( CurrentArmor / playerShip->GetMaxArmor() > 0.2f )
+	if ( CurrentArmor / playerShip->GetMaxArmor() > 0.25f )
 	{
 		RedMask->SetVisible( false );
 	}
 	else
 	{
 		RedMask->SetVisible( true );
-		f32 alpha = CurrentArmor / playerShip->GetMaxArmor() * 5;
+		f32 alpha = ( 1 - CurrentArmor / playerShip->GetMaxArmor() * 4 ) * 255;
 		RedMask->SetAlpha( alpha );
 	}
 
