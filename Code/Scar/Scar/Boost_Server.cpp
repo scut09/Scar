@@ -76,8 +76,8 @@ void Network::BoostServer::OnRequestEnterRoom( unsigned long ip, const PACKAGE& 
 		OnePlayerInfoBag oneplayer;
 		oneplayer.player_index = iter->index;
 		wcscpy( oneplayer.ship_name, iter->ship_name.c_str() );
-		wcscpy( oneplayer.ship_name, iter->gun_name.c_str() );
-		wcscpy( oneplayer.ship_name, iter->missle_name.c_str() );
+		wcscpy( oneplayer.gun_name, iter->gun_name.c_str() );
+		wcscpy( oneplayer.missle_name, iter->missle_name.c_str() );
 
 		pack.SetCMD( NEW_PLAYER_JOIN );
 		pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
