@@ -883,6 +883,7 @@ void MultiplayerScene::Run()
 						if ( pEngine->IsServer )
 						{
 							client->EnterRoom( "127.0.0.1" );
+							client->SetIsServer( true );
 						}
 						else
 							client->EnterRoom( pEngine->ServerIP );
