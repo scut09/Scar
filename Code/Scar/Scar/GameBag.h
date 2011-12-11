@@ -72,6 +72,11 @@ namespace Network
 	/* 房间信息                                                              */
 	/************************************************************************/
 
+	struct RequestEnterRoomBag
+	{
+		wchar_t shipname[ 16 ];
+	};
+
 	// 由服务端发回的允许加入的数据包
 	// 内容包括自己被分配的在游戏中的id，和初始坐标
 	struct AllowJoinRoomBag
@@ -80,6 +85,8 @@ namespace Network
 		float	x;
 		float	y;
 		float	z;
+
+		wchar_t ship_name[16];
 
 		AllowJoinRoomBag( int i = 0, float xx = 0, float yy = 0, float zz = 0 )
 			: index( i ), x( xx ), y( yy ), z( zz )
@@ -167,9 +174,9 @@ namespace Network
 		float		rot_x;
 		float		rot_y;
 
-		std::wstring ship_name;
-		std::wstring gun_name;
-		std::wstring missle_name;
+		wchar_t		ship_name[ 16 ];
+		wchar_t		gun_name[ 16 ];
+		wchar_t		missle_name[ 16 ];
 	};
 
 	// 广播用的所有玩家信息

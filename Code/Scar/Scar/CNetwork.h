@@ -23,6 +23,7 @@
 #include <hash_map>
 #include "network_header.h"
 #include "io_service_pool.h"
+#include <string>
 
 namespace Network
 {
@@ -38,8 +39,17 @@ namespace Network
 	{
 		int				index;
 		unsigned long	ip;
+		std::wstring	ship_name;
+		std::wstring	gun_name;
+		std::wstring	missle_name;
 
-		PlayerInfo( int i, unsigned long IP ) : ip( IP ), index( i ) {}
+		PlayerInfo( int i, unsigned long IP, const std::wstring& shipName )
+			: ip( IP ), index( i ), ship_name( shipName )
+		{
+			// 暂时武器只有这一种
+			gun_name = L"railgun";
+			missle_name = L"autotrack";
+		}
 		PlayerInfo() {}
 	};
 

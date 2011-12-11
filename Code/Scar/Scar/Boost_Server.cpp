@@ -44,6 +44,9 @@ void Network::BoostServer::OnRequestEnterRoom( unsigned long ip, const PACKAGE& 
 		// 失败
 	}
 
+	RequestEnterRoomBag enterRoomBag;
+	enterRoomBag = *(RequestEnterRoomBag*)p.GetData();
+
 	// 为新玩家分配id
 	int index = m_playerList.size();
 
@@ -62,7 +65,7 @@ void Network::BoostServer::OnRequestEnterRoom( unsigned long ip, const PACKAGE& 
 	TcpSendTo( ip, m_target_port, pack );
 
 	// 保存这个玩家信息
-	PlayerInfo player( index, ip );
+	PlayerInfo player( index, ip, enterRoomBag.shipname );
 	m_playerList.push_back( player );
 
 	//Sleep( 2000 );
@@ -72,6 +75,9 @@ void Network::BoostServer::OnRequestEnterRoom( unsigned long ip, const PACKAGE& 
 	{
 		OnePlayerInfoBag oneplayer;
 		oneplayer.player_index = iter->index;
+		wcscpy( oneplayer.ship_name, iter->ship_name.c_str() );
+		wcscpy( oneplayer.ship_name, iter->gun_name.c_str() );
+		wcscpy( oneplayer.ship_name, iter->missle_name.c_str() );
 
 		pack.SetCMD( NEW_PLAYER_JOIN );
 		pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
@@ -171,7 +177,7 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 	triSelector->drop();
 
 	// 添加玩家
-	PlayerInfo info( robot->GetID(), 0 );
+	PlayerInfo info( robot->GetID(), 0, L"gf1" );
 	m_playerList.push_back( info );
 }
 

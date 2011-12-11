@@ -67,6 +67,9 @@ void Network::BoostClient::EnterRoom( const std::string& ip )
 {
 	PACKAGE pack;
 	pack.SetCMD( REQUEST_ENTER_ROOM );
+	RequestEnterRoomBag bag;
+	wcscpy( bag.shipname, MyIrrlichtEngine::GetEngine()->GetCurrentPlayer()->GetShipName().c_str() );
+	pack.SetData( (char*)&bag, sizeof( RequestEnterRoomBag ) );
 	//m_network->SendTo( ip, pack );
 	TcpSendTo( boost::asio::ip::address().from_string( ip ).to_v4().to_ulong(), m_target_port, pack );
 }

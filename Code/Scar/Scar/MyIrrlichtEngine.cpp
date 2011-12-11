@@ -300,7 +300,7 @@ void MyIrrlichtEngine::ClearDeletionList()
 					
 					auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 					ShipFactory shipFactory;
-					IShip* ship = shipFactory.CreateShip( L"cf1" );
+					IShip* ship = shipFactory.CreateShip( oneplayer.player_name );
 					// 设置船的id
 					ship->setID( oneplayer.player_index );
 					// 保存玩家信息
