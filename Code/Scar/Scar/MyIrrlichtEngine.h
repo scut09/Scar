@@ -186,6 +186,7 @@ public:
 
 	std::queue<Network::PACKAGE>	m_CloneQueue;
 
+	int			NetworkSetting;		// 1为使用配置文件，0为自动发现
 	bool		IsServer;
 	std::string	ServerIP;
 	IWeapon*	BulletFucker;
