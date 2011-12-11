@@ -300,7 +300,7 @@ void MyIrrlichtEngine::ClearDeletionList()
 					
 					auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
 					ShipFactory shipFactory;
-					IShip* ship = shipFactory.CreateShip( oneplayer.player_name );
+					IShip* ship = shipFactory.CreateShip( oneplayer.ship_name );
 					// 设置船的id
 					ship->setID( oneplayer.player_index );
 					// 保存玩家信息
@@ -311,7 +311,7 @@ void MyIrrlichtEngine::ClearDeletionList()
 					// 加入玩家管理
 					boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
 					player->SetID( oneplayer.player_index );
-					player->SetName( oneplayer.player_name );
+					//player->SetName( oneplayer.player_name );
 					dynamic_cast<MultiplayerScene*>(
 						MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
 						)->m_playerManager->AddPlayer( player );
