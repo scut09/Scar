@@ -132,12 +132,14 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 
 	SpriteFlame spf;
 
+	// 分配id
 	int id = m_robotID--;
 
 	// 添加robot
 	IShip* npc;
 	boost::shared_ptr<ShipAgentPlayer> robot;
-	// robot 1
+	// robot 
+	// 加载模型
 	npc = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/gf1.obj", id );
 	npc->SetMaxSpeed( 2 );
 	npc->setPosition( vector3df( (f32)(rand() % 100), (f32)(rand() % 100), (f32)(1000 + rand() % 1000) ) );
@@ -145,6 +147,7 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 	spf.AddFlameToShip( npc, smgr );
 	spf.SetOffset( vector3df( 6, 0, -22 ) );
 	spf.AddFlameToShip( npc, smgr );
+	// 装载武器
 	auto bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
 	bullet->setMaterialTexture( 0, MyIrrlichtEngine::GetEngine()->GetVideoDriver()->getTexture( "../media/Weapon/bullet.png" ) );
 	bullet->setID( 4003 );
@@ -152,18 +155,22 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 	bullet->SetInterval( 100 );
 	npc->AddGun( bullet );
 	bullet->drop();	
+	// 添加玩家，加载模型到玩家中
 	robot = boost::shared_ptr<ShipAgentPlayer>( new ShipAgentPlayer( npc, &*scene->m_playerManager, scene->server ) );
 	robot->SetID( id );
 	scene->m_playerManager->AddPlayer( robot );
+	// 使用渲染
 	GeneralCallBack* cb = new GeneralCallBack( npc );
 	shader.ApplyShaderToSceneNode( npc, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
 	cb->drop();
 	npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 	auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
+	// 创建三角形选择器以支持碰撞
 	npc->setTriangleSelector( triSelector );
 	m_sceneSelector->addTriangleSelector( triSelector );
 	triSelector->drop();
 
+	// 添加玩家
 	PlayerInfo info( robot->GetID(), 0 );
 	m_playerList.push_back( info );
 }
