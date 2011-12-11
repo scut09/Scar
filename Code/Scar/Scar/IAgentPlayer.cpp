@@ -97,5 +97,6 @@ void IAgentPlayer::DoLeftButtonDown()
 void IAgentPlayer::SetID( int id )
 {
 	IPlayer::SetID( id );
+	PlayerShip->setID( id );
 	robotClient->SetID( id );
 }
