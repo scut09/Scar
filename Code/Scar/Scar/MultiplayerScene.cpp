@@ -831,6 +831,8 @@ void MultiplayerScene::Run()
 				server->Start( 1990, 2012 );
 				client->Start( 2012, 1990 );
 
+				client->SetPlayerHelp( m_playerHelper );
+
 				client->QueryRoom();
 
 				SubState = 202;
