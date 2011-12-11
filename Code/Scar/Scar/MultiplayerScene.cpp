@@ -70,9 +70,92 @@ void MultiplayerScene::Run()
 
 	switch ( State )
 	{
+	case Loading:
+		#pragma region Loading
+		{
+
+			server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
+			client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
+
+			// 初始化玩家与飞船
+			// 飞船为默认值，在玩家选船后更换模型
+			IShip* playerShip = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+			playerShip->setVisible( false );
+			boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( playerShip ) );
+			pEngine->SetCurrentPlayer( player );
+
+			// 加载UI界面
+			try
+			{
+				using namespace boost::python;
+
+				object UILoader = import( "MultiPlayIni" );
+				object GetRoot = UILoader.attr( "GetRoot" );
+				object root = GetRoot();	
+			}
+			catch ( ... )
+			{
+				PyErr_Print();
+			}
+
+			// 加载玩家管理类和玩家辅助类
+			m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
+			m_playerManager->AddPlayer( player );
+			m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
+			//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
+			m_playerHelper->LoadPlayer( player );
+			m_playerHelper->LoadPlayerManager( &*m_playerManager );
+
+
+			// 加载音效
+			m_pSoundEngine = createIrrKlangDevice();
+			m_pSoundEngine->setSoundVolume( 0.6f );
+			SoundMenuBG = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient005.ogg" );
+			SoundBG1 = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient041.ogg" );
+			SoundClick = m_pSoundEngine->addSoundSourceFromFile( "../sound/click.wav", irrklang::ESM_AUTO_DETECT, true );
+			//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
+			//std::cout<<"--------------------------------------"<<std::endl;
+
+
+			// 创建控制台
+			IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
+			IGUISkin* skin = gui->getSkin();
+			IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
+			if (font)
+				skin->setFont(font);
+			skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
+			console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
+			console->setVisible(false);
+
+			dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
+			{	
+				MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );
+
+				m_playerManager->OnEvent( event );
+
+				if ( event.KeyInput.PressedDown )
+				{
+					if ( event.KeyInput.Key == KEY_F1 )
+					{
+						console->setVisible( ! console->isVisible() );
+						if ( console->isVisible() )
+						{
+							UpdateConsole();
+							//gui->setFocus( console );
+						}
+					}
+				}
+
+				return 0;
+			} );
+
+			State = Select_Camp;
+		}
+		break;
+#pragma endregion Loading
 	case Select_Camp:
 		#pragma region SelectCamp
-{
+		{
 			// 如果是第一次运行，初始化
 			if ( bRunOnce )
 			{
@@ -126,13 +209,13 @@ void MultiplayerScene::Run()
 				bfGate = smgr->getSceneNodeFromName( "bfGate" );
 				bfGate->setID( 4004 );
 
-				// 显示选择阵营菜单
-				SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
-				SelectCampMenu->SetVisible( true );
-				SelectCampMenu->SetAlpha( 0 );
-				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
-				SelectCampMenu->AddAnimator( alpAni );
-				alpAni->drop();
+				//// 显示选择阵营菜单
+				//SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
+				//SelectCampMenu->SetVisible( true );
+				//SelectCampMenu->SetAlpha( 0 );
+				//IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 0, 255 );
+				//SelectCampMenu->AddAnimator( alpAni );
+				//alpAni->drop();
 
 				// 三角形选择器
 				m_sceneSelector = smgr->createMetaTriangleSelector();
@@ -145,9 +228,35 @@ void MultiplayerScene::Run()
 				SoundCurrentBG = m_pSoundEngine->play2D( SoundMenuBG, false, true );
 				SoundCurrentBG->setIsPaused( false );
 
-				//// 计分板
-				//ScoreBoard = uiManager->GetUIObjectByName( "ScoreBoard" );
-				//scBoard.Init();
+				SubState = 0;
+
+				//
+				//LoadingImg->SetVisible( false );
+			}
+			
+			if ( SubState == 0 )
+			{
+				//loading画面渐隐
+				IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 0, 1000, 255, 0 );
+				LoadingImg->AddAnimator( alpAni );
+				alpAni->drop();
+				SubState = 1;
+			}
+			else if ( SubState == 1 )
+			{
+				if ( LoadingImg->GetAlpha() == 0 )
+				{
+					LoadingImg->SetVisible( false );
+					// 显示选择阵营菜单
+					SelectCampMenu = uiManager->GetUIObjectByName( "scMenu" );
+					SelectCampMenu->SetVisible( true );
+					SelectCampMenu->SetAlpha( 0 );
+					IUIAnimator* alpAni = uiManager->CreateAnimatorAlphaChange( 1000, 1000, 0, 255 );
+					SelectCampMenu->AddAnimator( alpAni );
+					alpAni->drop();
+
+					SubState = 2;
+				}
 			}
 
 			// 在此处进行游戏逻辑
@@ -838,7 +947,8 @@ void MultiplayerScene::Run()
 		break;
 #pragma endregion Warp
 	case In_Battle:
-		{				
+		#pragma region InBattle
+{				
 			IShip* playerShip = player->GetShip();
 			if ( bRunOnce )
 			{
@@ -1040,6 +1150,7 @@ void MultiplayerScene::Run()
 
 			InBattle();
 		}
+#pragma endregion InBattle
 		break;
 	case Dead:
 		{
@@ -1070,95 +1181,23 @@ void MultiplayerScene::Init()
 {
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
 	IVideoDriver* driver = pEngine->GetVideoDriver();
+	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
 
-	//wftc = new WarpFlyTubeController();
+	//显示装载等待画面
+	LoadingImg = pEngine->GetUIManager()->AddUIImage( 0, 1366, 768 );
+	LoadingImg->SetPosition( vector2df( (f32)pEngine->GetVideoDriver()->getScreenSize().Width / 2.0f,
+		(f32)pEngine->GetVideoDriver()->getScreenSize().Height / 2.0f));
+	LoadingImg->LoadImage( "../media/UIResource/loading.jpg" );
 
 	// 初始化状态为选阵营  测试可以将此处改为想要的状态
-	State = Select_Camp;
-
-	server = boost::shared_ptr<Network::BoostServer>( new BoostServer );
-	client = boost::shared_ptr<Network::BoostClient>( new Network::BoostClient( m_playerManager ) );
-	
+	State = Loading;	
 
 	// 初始化摄像机
 	//m_pCamera = pEngine->GetSceneManager()->addCameraSceneNodeFPS(0, 50.f, 1e2);
 	m_pCamera = pEngine->GetSceneManager()->addCameraSceneNode();
 	m_pCamera->setFarValue( 1e7 );
 	m_pCamera->setFOV( 1 );
-	m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );
-
-	// 初始化玩家与飞船
-	// 飞船为默认值，在玩家选船后更换模型
-	IShip* playerShip = pEngine->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
-	playerShip->setVisible( false );
-	boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( playerShip ) );
-	pEngine->SetCurrentPlayer( player );
-
-	// 加载UI界面
-	pEngine->SetUIManager( boost::shared_ptr<UIManager>( new UIManager( pEngine->GetDevice()->getTimer() ) ) );
-	try
-	{
-		using namespace boost::python;
-
-		object UILoader = import( "MultiPlayIni" );
-		object GetRoot = UILoader.attr( "GetRoot" );
-		object root = GetRoot();	
-	}
-	catch ( ... )
-	{
-		PyErr_Print();
-	}
-
-	// 加载玩家管理类和玩家辅助类
-	m_playerManager = boost::shared_ptr<PlayerManager>( new PlayerManager );
-	m_playerManager->AddPlayer( player );
-	m_playerHelper = boost::shared_ptr<PlayerHelper>( new PlayerHelper );
-	//m_playerHelper->LoadHelperUI( pEngine->GetUIManager() );
-	m_playerHelper->LoadPlayer( player );
-	m_playerHelper->LoadPlayerManager( &*m_playerManager );
-
-
-	// 加载音效
-	m_pSoundEngine = createIrrKlangDevice();
-	m_pSoundEngine->setSoundVolume( 0.6f );
-	SoundMenuBG = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient005.ogg" );
-	SoundBG1 = m_pSoundEngine->addSoundSourceFromFile( "../sound/Ambient041.ogg" );
-	SoundClick = m_pSoundEngine->addSoundSourceFromFile( "../sound/click.wav", irrklang::ESM_AUTO_DETECT, true );
-	//std::cout<<SoundMenuBG->getDefaultVolume()<<std::endl;
-	//std::cout<<"--------------------------------------"<<std::endl;
-
-
-	// 创建控制台
-	IGUIEnvironment* gui = MyIrrlichtEngine::GetEngine()->GetDevice()->getGUIEnvironment();
-	IGUISkin* skin = gui->getSkin();
-	IGUIFont* font = gui->getFont("../media/fonthaettenschweiler.bmp");
-	if (font)
-		skin->setFont(font);
-	skin->setFont( gui->getBuiltInFont(), EGDF_TOOLTIP );
-	console = gui->addStaticText( _T(""), core::rect<s32>( 0, 20, 500, 600 ), true, true, 0, -1, true );
-	console->setVisible(false);
-
-	dynamic_cast<MyEventReceiver*>( MyIrrlichtEngine::pEventReceiver )->SetEventCallbackFunc( [this]( const SEvent& event )->void*
-	{	
-		MyIrrlichtEngine::GetEngine()->GetUIManager()->OnEvent( event );
-
-		m_playerManager->OnEvent( event );
-
-		if ( event.KeyInput.PressedDown )
-		{
-			if ( event.KeyInput.Key == KEY_F1 )
-			{
-				console->setVisible( ! console->isVisible() );
-				if ( console->isVisible() )
-				{
-					UpdateConsole();
-					//gui->setFocus( console );
-				}
-			}
-		}
-
-		return 0;
-	} );
+	m_pCamera->setAspectRatio( (f32)driver->getScreenSize().Width / (f32)driver->getScreenSize().Height );	
 }
 
 void MultiplayerScene::Release()
