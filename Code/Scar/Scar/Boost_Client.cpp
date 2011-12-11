@@ -122,8 +122,8 @@ void Network::BoostClient::SendBulletHit( int owner_index, int target_index, int
 	bag.owner_index = owner_index;
 	bag.target_index = target_index;
 	bag.bullet_type = bullet_type;
-	bag.armor = ship->GetArmor();
-	bag.shield = ship->GetShield();
+	bag.armor = (int)ship->GetArmor();
+	bag.shield = (int)ship->GetShield();
 
 	PACKAGE p;
 	p.SetCMD( BULLET_HIT );
@@ -352,8 +352,8 @@ void Network::BoostClient::OnBulletHit( unsigned long ip, const PACKAGE& p )
 		IShip* ship = dynamic_cast<IShip*>( target_node );
 		if ( ship )
 		{
-			ship->SetArmor( bag->armor );
-			ship->SetShield( bag->shield );
+			ship->SetArmor( (f32)bag->armor );
+			ship->SetShield( (f32)bag->shield );
 		}
 		//int damage;
 		//// 炮弹

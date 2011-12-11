@@ -30,6 +30,22 @@ void InitScene()
 	}
 }
 
+void LoadSetting()
+{
+	std::ifstream inf( "setting.cfg" );
+	if ( ! inf.is_open() )
+		return;
+
+	int bServer;
+	inf >> bServer;
+	MyIrrlichtEngine::GetEngine()->IsServer = bServer;
+
+	if ( ! bServer )
+	{
+		inf >> MyIrrlichtEngine::GetEngine()->ServerIP;
+	}
+}
+
 int main()
 {
 	Py_Initialize(); 
@@ -70,6 +86,8 @@ int main()
 	
 	InitScene();		// 构造场景跳转图
 
+	LoadSetting();		// 加载设置
+	
 	// 启动引擎
 	pEngine->Run();
 

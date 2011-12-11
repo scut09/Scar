@@ -186,7 +186,8 @@ public:
 
 	std::queue<Network::PACKAGE>	m_CloneQueue;
 
-
+	bool		IsServer;
+	std::string	ServerIP;
 	IWeapon*	BulletFucker;
 	IWeapon*	MissileFucker;
 
