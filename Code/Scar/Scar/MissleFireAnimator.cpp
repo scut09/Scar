@@ -78,12 +78,12 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 {
 
 	boost::shared_ptr<IPlayer> player = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
-
-	//目标船的ID存在startpoint的第一位中
-	Client->SendBullet( Client->GetID(), 1, vector3df( player->GetLockedShip()->getID() , 0, 0), vector3df( 0, 0, 0), missle->GetLife() );
-
+	
 	if ( player->GetLockedShip() )
 	{
+		//目标船的ID存在startpoint的第一位中
+		Client->SendBullet( Client->GetID(), 1, vector3df( player->GetLockedShip()->getID() , 0, 0), vector3df( 0, 0, 0), missle->GetLife() );
+
 		// clone missle
 		ISceneNode* newMissle = missle->Clone( 0, 0 );
 		static_cast< MissleNode* >( newMissle )->setScale( vector3df( 8.f, 8.f, 8.f ) );
