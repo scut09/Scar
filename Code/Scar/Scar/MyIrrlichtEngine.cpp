@@ -17,6 +17,10 @@
 #include "GameBag.h"
 #include "MultiplayerScene.h"
 
+#include "GameBag.h"
+#include "ShipFactory.h"
+#include "HumanPlayer.h"
+
 MyIrrlichtEngine* MyIrrlichtEngine::m_pIrrlichtEngine = NULL;
 IEventReceiver*	MyIrrlichtEngine::pEventReceiver = NULL;
 
@@ -277,14 +281,41 @@ void MyIrrlichtEngine::ClearDeletionList()
 
 	{
 		boost::mutex::scoped_lock lock( m_cloneMutex );
+		using namespace Network;
 		// 复制
 		while ( ! m_CloneQueue.empty() )
 		{
 			switch ( m_CloneQueue.front().GetCMD() )
 			{
-			case Network::PLAYER_LOCK: 
+			case PLAYER_LOCK: 
 				{
 					dynamic_cast<MultiplayerScene*>( GetGameSceneManager()->GetCurrentGameScene() )->m_playerHelper->AddWarnMsg( InfoAndWarn::PIW_PlayerLock );
+				}
+				break;
+			case NEW_PLAYER_JOIN:
+				{
+					OnePlayerInfoBag oneplayer;
+					PACKAGE p = static_cast<PACKAGE>(m_CloneQueue.front());
+					oneplayer = *(OnePlayerInfoBag*)p.GetData();
+					
+					auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+					ShipFactory shipFactory;
+					IShip* ship = shipFactory.CreateShip( L"cf1" );
+					// 设置船的id
+					ship->setID( oneplayer.player_index );
+					// 保存玩家信息
+					dynamic_cast<MultiplayerScene*>( GetGameSceneManager()->GetCurrentGameScene() )->client->m_players[ oneplayer.player_index ] = ship;;
+					ship->grab();	///!!!!!!!!!!一定要去drop,还没
+					// 蛋疼
+					ship->setPosition( core::vector3df( 123141, 12312, 1000000 ) );
+					// 加入玩家管理
+					boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
+					player->SetID( oneplayer.player_index );
+					player->SetName( oneplayer.player_name );
+					dynamic_cast<MultiplayerScene*>(
+						MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
+						)->m_playerManager->AddPlayer( player );
+					std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 				}
 				break;
 			default:

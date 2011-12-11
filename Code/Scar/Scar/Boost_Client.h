@@ -119,7 +119,8 @@ namespace Network
 	private:
 		void SaveLocalIPAddress();
 
-	private:
+	//private:
+	public:
 		// 管理其他玩家信息，到时需要分到其他类来处理，现在为了方便暂时放这里
 		std::hash_map<int, irr::scene::ISceneNode*>			m_players;
 

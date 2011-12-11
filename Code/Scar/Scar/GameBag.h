@@ -11,6 +11,7 @@
 #define GameBag_h__
 
 #include <irrlicht.h>
+#include <string>
 
 namespace Network
 {
@@ -165,6 +166,10 @@ namespace Network
 
 		float		rot_x;
 		float		rot_y;
+
+		std::wstring ship_name;
+		std::wstring gun_name;
+		std::wstring missle_name;
 	};
 
 	// 广播用的所有玩家信息

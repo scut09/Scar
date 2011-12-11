@@ -241,34 +241,35 @@ void Network::BoostClient::OnNewPlayerJoin( unsigned long ip, const PACKAGE& p )
 
 	if ( oneplayer.player_index != m_index )
 	{
-		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
-
-		// 加载飞船，需要根据玩家飞船信息组装飞船
-		//auto ship = new CFrigate( smgr->getMesh("../model/ship/cf1.obj"), 0, smgr, -1 );
-		auto ship = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
-		//GeneralCallBack* cb = new GeneralCallBack( ship );
-		//SceneNodeShader shader;
-		//shader.ApplyShaderToSceneNode( ship, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
-		//cb->drop();
-		//ship->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
-
-		// 设置船的id
-		ship->setID( oneplayer.player_index );
-		// 保存玩家信息
-		m_players[ oneplayer.player_index ] = ship;
-		ship->grab();	///!!!!!!!!!!一定要去drop,还没
-
-		ship->setPosition( core::vector3df( 123141, 12312, 1000000 ) );
-
-		//		m_playerManager->AddPlayer( ship->getID(), ship );
-		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
-		player->SetID( oneplayer.player_index );
-		player->SetName( oneplayer.player_name );
-		dynamic_cast<MultiplayerScene*>(
-			MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
-			)->m_playerManager->AddPlayer( player );
-
-		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
+		MyIrrlichtEngine::GetEngine()->AddToCloneQueue( p );
+//		auto smgr = MyIrrlichtEngine::GetEngine()->GetSceneManager();
+//
+//		// 加载飞船，需要根据玩家飞船信息组装飞船
+//		//auto ship = new CFrigate( smgr->getMesh("../model/ship/cf1.obj"), 0, smgr, -1 );
+//		auto ship = MyIrrlichtEngine::GetEngine()->GetMySceneManager()->addFrigateSceneNode( L"../model/ship/cf1.obj" );
+//		//GeneralCallBack* cb = new GeneralCallBack( ship );
+//		//SceneNodeShader shader;
+//		//shader.ApplyShaderToSceneNode( ship, cb, "Shader/cf_1V.vert", "Shader/cf_1F.frag" );
+//		//cb->drop();
+//		//ship->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
+//
+//		// 设置船的id
+//		ship->setID( oneplayer.player_index );
+//		// 保存玩家信息
+//		m_players[ oneplayer.player_index ] = ship;
+//		ship->grab();	///!!!!!!!!!!一定要去drop,还没
+//
+//		ship->setPosition( core::vector3df( 123141, 12312, 1000000 ) );
+//
+////		m_playerManager->AddPlayer( ship->getID(), ship );
+//		boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
+//		player->SetID( oneplayer.player_index );
+//		player->SetName( oneplayer.player_name );
+//		dynamic_cast<MultiplayerScene*>(
+//			MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
+//			)->m_playerManager->AddPlayer( player );
+//
+//		std::cout << "NEW_PLAYER_JOIN " << oneplayer.player_index << std::endl;
 	}
 	else
 	{
