@@ -38,12 +38,9 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 		missle_speed.setLength( maxspeed );	
 	}
 
-	//设置弹头方向与速度方向一致   这里需要将瓶子本身的三维坐标与世界坐标对应
-	//计算旋转角度 asin计算得到的是弧度，所以 * 180 / 3.1415  
-	a_x.X = (f32)( asin ( missle_speed.X / missle_speed.getLength() ) * 180 / 3.1415);
-	a_x.Y = (f32)( asin ( missle_speed.Y / missle_speed.getLength() ) * 180 / 3.1415);
-	a_x.Z = (f32)( asin ( missle_speed.Z / missle_speed.getLength() ) *  180 / 3.1415);		
-	node->setRotation( a_x + vector3df( 0.f, 90.f, 0.f ) );  // + vector3df(0,-90,0) 由于将瓶子本身的三维坐标与世界坐标不对应
+	vector3df RotAngle = Target->getAbsolutePosition() - node->getAbsolutePosition();
+	RotAngle.normalize();
+	node->setRotation( RotAngle.getHorizontalAngle() + vector3df( -90.f, 0.f, 0.f ) );
 
 	u32 t;
 	t = timeMs - lasttime;
@@ -60,19 +57,6 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 	vector3df distance;
 	distance = node->getPosition() - target_pos;
 
-
-	if ( distance.getLength() <= max_yinbao )
-	{
-
-		std::cout << "bomb !" << std::endl;
-		node->setVisible( false );
-
-	}
-
-	if ( t_sum > max_t )
-	{
-	}
-
 }
 
 CSceneNodeAnimatorAutoTrack::CSceneNodeAnimatorAutoTrack( ISceneNode* target )
@@ -80,7 +64,7 @@ CSceneNodeAnimatorAutoTrack::CSceneNodeAnimatorAutoTrack( ISceneNode* target )
 	isfirsttime = 1;
 	lasttime = 0;
 	t_sum = 0;
-	maxspeed = 0.6f;
+	maxspeed = 1.f;
 	inertia = 0.8f;
 	max_a = 0.3f;
 	max_range = 10000000.f;
