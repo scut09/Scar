@@ -487,5 +487,35 @@ def GetRoot():
     redMask.AddAnimator( ani )
     ani.drop()
     
+    #数字图片
+    Num1 = uiManager.AddUIImage( root, 50, 52 )
+    Num1.SetName("1s")
+    Num1.SetVisible( False )
+    Num1.LoadImage( "../media/UIResource/Game/1s.png" )
+    
+    Num2 = uiManager.AddUIImage( root, 50, 52 )
+    Num2.SetName("2s")
+    Num2.SetVisible( False )
+    Num2.LoadImage( "../media/UIResource/Game/2s.png" )
+    
+    Num3 = uiManager.AddUIImage( root, 50, 52 )
+    Num3.SetName("3s")
+    Num3.SetVisible( False )
+    Num3.LoadImage( "../media/UIResource/Game/3s.png" )
+    
+    Num4 = uiManager.AddUIImage( root, 50, 52 )
+    Num4.SetName("4s")
+    Num4.SetVisible( False )
+    Num4.LoadImage( "../media/UIResource/Game/4s.png" )
+    
+    Num5 = uiManager.AddUIImage( root, 50, 52 )
+    Num5.SetName("5s")
+    Num5.SetVisible( False )
+    Num5.LoadImage( "../media/UIResource/Game/5s.png" )
+    
+    ReconnectString = uiManager.AddUIImage( root, 222, 29 )
+    ReconnectString.SetName("ReconnectString")
+    ReconnectString.SetVisible( False )
+    ReconnectString.LoadImage( "../media/UIResource/Game/reconnectin.png" )
     return root
 

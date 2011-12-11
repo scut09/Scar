@@ -4,6 +4,7 @@
 #include <string>
 #include "VerticalCallBack.h"
 #include "MultiplayerScene.h"
+#include "ExplosionMyself.h"
 
 PlayerHelper::PlayerHelper()
 	: LockedShip( NULL )
@@ -14,6 +15,8 @@ PlayerHelper::PlayerHelper()
 
 	toolkit = boost::shared_ptr<Toolkit>( new Toolkit( Camera, Driver ) );
 
+	IsJustDie = false;
+	m_DieTimePoint = 0;
 //	LoadHelperUI();
 }
 
@@ -76,6 +79,7 @@ void PlayerHelper::Update()
 	f32 val;			// 数字
 	stringw str;		// 字符串
 	f32 h, w;			// 元件高和宽
+
 	// 绘制速度槽
 	w = Speed1->GetOriginSize().Width;
 	h = Speed1->GetOriginSize().Height;
@@ -89,6 +93,7 @@ void PlayerHelper::Update()
 	str += buffer;
 	str += L"m/s";
 	SpeedText->SetText( str );
+
 	// 绘制护盾槽
 	w = Shield1->GetOriginSize().Width;
 	h = Shield1->GetOriginSize().Height;
@@ -101,6 +106,7 @@ void PlayerHelper::Update()
 	sprintf_s( buffer, "%d", (s32)val );
 	str += buffer;
 	ShieldText->SetText( str );
+
 	// 绘制护甲槽
 	w = Armor1->GetOriginSize().Width;
 	h = Armor1->GetOriginSize().Height;
@@ -113,6 +119,7 @@ void PlayerHelper::Update()
 	sprintf_s( buffer, "%d", (s32)val );
 	str += buffer;
 	ArmorText->SetText( str );
+
 	// 绘制能量槽
 	w = Energy1->GetOriginSize().Width;
 	h = Energy1->GetOriginSize().Height;
@@ -149,6 +156,85 @@ void PlayerHelper::Update()
 	m_infoAndWarn.Update();
 	// 更新记分板
 	scBoard->Upadate();
+
+	// 显示复活倒计时
+	if (playerShip->GetArmor() <= 0.0f )
+	{
+		if ( static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())
+			->State == MultiplayerScene::In_Battle )
+		{
+
+			if (!IsJustDie)
+			{
+				ExplosionMyself e(playerShip, playerShip->getAbsolutePosition());
+				m_DieTimePoint = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime();
+				ReConStr->SetVisible(true);
+				e.Explode();
+				e.EndExplode();
+			}
+			Revive();
+			IsJustDie = true;
+		}
+		
+	}
+	else
+		IsJustDie = false;
+}
+void PlayerHelper::Revive()
+{
+	IShip* playerShip = Player->GetShip();
+	u32 duration = MyIrrlichtEngine::GetEngine()->GetDevice()->getTimer()->getTime() - m_DieTimePoint;
+	duration /= 1000;
+	switch(duration)
+	{
+	case 0:
+		Num1->SetVisible(false);
+		Num2->SetVisible(false);
+		Num3->SetVisible(false);
+		Num4->SetVisible(false);
+		Num5->SetVisible(true);
+		break;
+	case 1:
+		Num1->SetVisible(false);
+		Num2->SetVisible(false);
+		Num3->SetVisible(false);
+		Num4->SetVisible(true);
+		Num5->SetVisible(false);
+		break;
+	case 2:
+		Num1->SetVisible(false);
+		Num2->SetVisible(false);
+		Num3->SetVisible(true);
+		Num4->SetVisible(false);
+		Num5->SetVisible(false);
+		break;
+	case 3:
+		Num1->SetVisible(false);
+		Num2->SetVisible(true);
+		Num3->SetVisible(false);
+		Num4->SetVisible(false);
+		Num5->SetVisible(false);
+		break;
+	case 4:
+		Num1->SetVisible(true);
+		Num2->SetVisible(false);
+		Num3->SetVisible(false);
+		Num4->SetVisible(false);
+		Num5->SetVisible(false);
+		break;
+	default:
+		Num1->SetVisible(false);
+		Num2->SetVisible(false);
+		Num3->SetVisible(false);
+		Num4->SetVisible(false);
+		Num5->SetVisible(false);
+		ReConStr->SetVisible(false);
+		playerShip->SetArmor(1000.f);
+		playerShip->SetShield(1000.f);
+		//playerShip->setPosition(vector3df(0.f, 0.f, 0.f));
+		printf("cccccccccccccccccccccccccc\n");
+		break;
+	}
 }
 
 void PlayerHelper::UpdateLock()
@@ -333,6 +419,32 @@ void PlayerHelper::LoadHelperUI( boost::shared_ptr<UIManager> uiManager )
 
 	// 初始化记分板
 	scBoard = new ScoreBoard( m_ScoreList );
+
+	// 加入倒计时图片
+
+	const rect<s32> r = MyIrrlichtEngine::GetEngine()->GetDevice()->getVideoDriver()->getViewPort();
+
+	ReConStr = uiManager->GetUIObjectByName( "ReconnectString" );
+	ReConStr->SetPosition(vector2df((f32)(r.getWidth() - 150), (f32)(r.getHeight() - 150) ));
+
+	Num1 = uiManager->GetUIObjectByName( "1s" );
+	Num1->SetPosition(vector2df( (f32)(r.getWidth() - 50), (f32)(r.getHeight() - 100) ));
+
+	Num2 = uiManager->GetUIObjectByName( "2s" );
+	Num2->SetPosition(vector2df((f32)(r.getWidth() - 50), (f32)(r.getHeight() - 100) ));
+
+	Num3 = uiManager->GetUIObjectByName( "3s" );
+	Num3->SetPosition(vector2df((f32)(r.getWidth() - 50), (f32)(r.getHeight() - 100) ));
+
+	Num4 = uiManager->GetUIObjectByName( "4s" );
+	Num4->SetPosition(vector2df((f32)(r.getWidth() - 50), (f32)(r.getHeight() - 100) ));
+
+	Num5 = uiManager->GetUIObjectByName( "5s" );
+	Num5->SetPosition(vector2df((f32)(r.getWidth() - 50), (f32)(r.getHeight() - 100) ));
+
+
+
+
 }
 
 void PlayerHelper::UpdateRadar()

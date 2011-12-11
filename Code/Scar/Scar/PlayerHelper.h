@@ -56,6 +56,8 @@ public:
 		Player = player;
 	}
 
+	void Revive();
+
 	// 
 	void LoadHelperUI( boost::shared_ptr<UIManager> uiManager );
 
@@ -131,6 +133,12 @@ public:
 	IUIObject*		REnemy;		// 雷达圈上的敌人
 	IUIObject*		RFriend;	// 雷达圈上的友军
 	IUIObject*		RedMask;	// 屏幕红色遮罩
+	IUIObject*		ReConStr;	// 倒计时剩下5s
+	IUIObject*		Num1;		// 倒计时剩下1s
+	IUIObject*		Num2;		// 倒计时剩下2s
+	IUIObject*		Num3;		// 倒计时剩下3s
+	IUIObject*		Num4;		// 倒计时剩下4s
+	IUIObject*		Num5;		// 倒计时剩下5s
 
 	ISceneNode*		Horizon;	// 水平标尺
 	ISceneNode*		Vertical;	// 垂直标尺
@@ -161,6 +169,8 @@ private:
 
 	std::map<u32, ScoreNode>		m_ScoreList;	// 计分榜
 	ScoreBoard*						scBoard;
+	u32								m_DieTimePoint;
+	bool							IsJustDie;
 	
 };
 
