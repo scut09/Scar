@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "VerticalCallBack.h"
+#include "MultiplayerScene.h"
 
 PlayerHelper::PlayerHelper()
 	: LockedShip( NULL )
@@ -390,6 +391,9 @@ void PlayerHelper::UpdateRadar()
 
 void PlayerHelper::UpdateHarmAlert()
 {
+	if ( static_cast<MultiplayerScene*>(MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene())->State != MultiplayerScene::In_Battle )
+		return;
+
 	IShip* playerShip = Player->GetShip();
 	f32 CurrentShield = playerShip->GetShield();
 	f32 CurrentArmor = playerShip->GetArmor();

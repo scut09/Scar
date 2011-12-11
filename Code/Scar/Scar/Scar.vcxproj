@@ -279,6 +279,7 @@
     <ClInclude Include="Server.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShipCrashWarnAnimator.h" />
+    <ClInclude Include="ShipFactory.h" />
     <ClInclude Include="SpriteControlAnimatorl.h" />
     <ClInclude Include="SpriteFlame.h" />
     <ClInclude Include="SpriteShaderCallBack.h" />

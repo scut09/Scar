@@ -35,6 +35,7 @@
 //#include "InfoAndWarn.h"
 #include "MySceneNodeAnimatorCollisionResponse.h"
 #include "ShipCrashWarnAnimator.h"
+#include "ShipFactory.h"
 
 #define PRINT_POS( pos ) std::cout << #pos ## " " << pos.X << ' ' << pos.Y << ' ' << pos.Z << std::endl;
 
@@ -375,7 +376,7 @@ void MultiplayerScene::Run()
 				m_pSoundEngine->play2D( SoundClick );
 				// 为玩家赋予选定的船
 				IShip* ship;
-				if ( player->GetTeam() == 1 )
+				/*if ( player->GetTeam() == 1 )
 				{
 					if ( player->GetShipName() == L"cf1" )
 					{
@@ -402,7 +403,10 @@ void MultiplayerScene::Run()
 				cb->drop();
 				ship->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 				ship->setVisible( false );
-				ship->SetMaxSpeed( 5 );
+				ship->SetMaxSpeed( 5 );*/
+				ShipFactory shipFactory;
+				ship = shipFactory.CreateShip( player->GetShipName() );
+				ship->setVisible( false );
 				ship->SetTeam( player->GetTeam() );
 				/*auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(ship)->getMesh(), ship );
 				m_sceneSelector->addTriangleSelector( triSelector );*/
@@ -976,23 +980,23 @@ void MultiplayerScene::Run()
 				playerShip->addAnimator( ctrlAni );
 				ctrlAni->drop();
 
-				// 创建子弹
-				BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
-				bullet->setID( 4003 );
-				bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
-				bullet->SetVelocity( 1600 );
-				bullet->SetInterval( 60 );
-				playerShip->AddGun( bullet );
-				bullet->drop();
+				//// 创建子弹
+				//BulletNode* bullet = new BulletNode( smgr, smgr->getRootSceneNode() );
+				//bullet->setID( 4003 );
+				//bullet->setMaterialTexture( 0, driver->getTexture( "../media/Weapon/bullet.png" ) );
+				//bullet->SetVelocity( 1600 );
+				//bullet->SetInterval( 60 );
+				//playerShip->AddGun( bullet );
+				//bullet->drop();
 				// 创建火控
 				auto fireAni = new ShipFireAnimator( client, 4 );
 				playerShip->addAnimator( fireAni );
 				fireAni->drop();
 
-				// 创建导弹
-				IMesh* missleMesh = smgr->getMesh( _T("../media/Weapon/missle.3ds") );
-				MissleNode* missle = new MissleNode( missleMesh, 0, smgr, -1 );
-				playerShip->AddMissles( missle );
+				//// 创建导弹
+				//IMesh* missleMesh = smgr->getMesh( _T("../media/Weapon/missle.3ds") );
+				//MissleNode* missle = new MissleNode( missleMesh, 0, smgr, -1 );
+				//playerShip->AddMissles( missle );
 
 
 				// 创建导弹控制
@@ -1000,12 +1004,12 @@ void MultiplayerScene::Run()
 				playerShip->addAnimator( misslefireAni );
 				misslefireAni->drop();
 
-				//飞船尾焰
-				SpriteFlame spf;
-				spf.SetOffset( vector3df( -6, 0, -22 ) );
-				spf.AddFlameToShip( playerShip, smgr );
-				spf.SetOffset( vector3df( 6, 0, -22 ) );
-				spf.AddFlameToShip( playerShip, smgr );
+				////飞船尾焰
+				//SpriteFlame spf;
+				//spf.SetOffset( vector3df( -6, 0, -22 ) );
+				//spf.AddFlameToShip( playerShip, smgr );
+				//spf.SetOffset( vector3df( 6, 0, -22 ) );
+				//spf.AddFlameToShip( playerShip, smgr );
 
 				// 增加飞船碰撞预警
 				auto decColAni = new ShipCrashWarnAnimator( pEngine->GetCollisionManager(), m_sceneSelector, 500 );
