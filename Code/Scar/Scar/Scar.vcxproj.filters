@@ -85,11 +85,11 @@
     <Filter Include="FunnyThings">
       <UniqueIdentifier>{ff703503-82e6-455c-a061-ec7d5ea289ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\shaders\laser">
-      <UniqueIdentifier>{7a440699-d5a3-4b9d-8607-3b54f163ad49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ThreadsSupport">
       <UniqueIdentifier>{d5fe5bc3-0540-4688-817e-fbafddd230ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\shaders\missle">
+      <UniqueIdentifier>{7a440699-d5a3-4b9d-8607-3b54f163ad49}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -336,9 +336,6 @@
     <ClCompile Include="InfoAndWarn.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="MissleFireAnimator.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="MissleNode.cpp">
       <Filter>Models</Filter>
     </ClCompile>
@@ -353,6 +350,12 @@
     </ClCompile>
     <ClCompile Include="ScoreBoard.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MissleFlame.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="MissleFireAnimator.cpp">
+      <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -686,9 +689,6 @@
     <ClInclude Include="ShipCrashWarnAnimator.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="MissleFireAnimator.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="MissleNode.h">
       <Filter>Models</Filter>
     </ClInclude>
@@ -703,6 +703,12 @@
     </ClInclude>
     <ClInclude Include="CLoadCallback.h">
       <Filter>ThreadsSupport</Filter>
+    </ClInclude>
+    <ClInclude Include="MissleFlame.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="MissleFireAnimator.h">
+      <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -883,6 +889,8 @@
     <None Include="..\..\..\bin\Shader\BulletHit.frag">
       <Filter>Shader\shaders\others</Filter>
     </None>
-    <None Include="..\..\..\bin\Shader\missle.frag" />
+    <None Include="..\..\..\bin\Shader\missle.frag">
+      <Filter>Shader\shaders\missle</Filter>
+    </None>
   </ItemGroup>
 </Project>

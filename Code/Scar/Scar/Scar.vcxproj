@@ -125,6 +125,7 @@
     <ClCompile Include="IShip.cpp" />
     <ClCompile Include="IWeapon.cpp" />
     <ClCompile Include="MissleFireAnimator.cpp" />
+    <ClCompile Include="MissleFlame.cpp" />
     <ClCompile Include="MissleNode.cpp" />
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="MySceneManager.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="IWeapon.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="MissleFireAnimator.h" />
+    <ClInclude Include="MissleFlame.h" />
     <ClInclude Include="MissleNode.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MultiplayerScene.h" />

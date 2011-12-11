@@ -14,20 +14,7 @@ using namespace scene;
 class CSceneNodeAnimatorAutoTrack : public scene::ISceneNodeAnimator
 {
 public:
-	CSceneNodeAnimatorAutoTrack( ISceneNode* target )
-	{
-		isfirsttime = 1;
-		lasttime = 0;
-		t_sum = 0;
-		maxspeed = 0.6f;
-		inertia = 0.8f;
-		max_a = 0.3f;
-		max_range = 10000000.f;
-		max_t = 10000;
-		TimeForWay = 30;
-		missle_speed = core::vector3df( 1, 1, 1 );
-		Target = target;
-	}
+	CSceneNodeAnimatorAutoTrack( ISceneNode* target );
 
 	virtual void animateNode( scene::ISceneNode* node, u32 timeMs );
 

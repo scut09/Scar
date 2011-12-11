@@ -5,6 +5,7 @@
 #include "IShip.h"
 #include "GeneralCallBack.h"
 #include "SceneNodeShader.h"
+#include "MissleFlame.h"
 #include "MyIrrlichtEngine.h"
 #include <iostream>
 #include "CSceneNodeAutoTrackAnimator.h"
@@ -74,19 +75,14 @@ bool MissleFireAnimator::OnEvent( const SEvent& event )
 void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 {
 	boost::shared_ptr<IPlayer> player = MyIrrlichtEngine::GetEngine()->GetCurrentPlayer();
-	// ¸´ÖÆ×Óµ¯(×ó)
-	
-	ISceneNode* newMissle = missle->Clone( 0, 0 );
-	static_cast< MissleNode* >( newMissle )->setPosition( player->GetShip()->getAbsolutePosition() );
-	GeneralCallBack* misslecb = new GeneralCallBack( newMissle );
-	SceneNodeShader* shader = new SceneNodeShader();
-	shader->ApplyShaderToSceneNode( newMissle, misslecb, "", "Shader/missle.frag" );
-	misslecb->drop();
-	static_cast< MissleNode* >( newMissle )->setTarget( player->GetLockedShip() );
-	/*newMissle->setMaterialFlag( EMF_LIGHTING, false );*/
-
-	if ( static_cast< MissleNode* >( newMissle )->getTarget() )
+	if ( player->GetLockedShip() )
 	{
+		ISceneNode* newMissle = missle->Clone( 0, 0 );
+		static_cast< MissleNode* >( newMissle )->setScale( vector3df( 8.f, 8.f, 8.f ) );
+		static_cast< MissleNode* >( newMissle )->setRotation( vector3df( -90.f, 0.f, 0.f ) );
+		MissleFlame mfe;
+		mfe.AddFlameToScene( newMissle, MyIrrlichtEngine::GetEngine()->GetSceneManager() );
+		static_cast< MissleNode* >( newMissle )->setTarget( player->GetLockedShip() );
 		newMissle->setPosition( player->GetShip()->getPosition() );
 		auto missleAni = new CSceneNodeAnimatorAutoTrack( static_cast< MissleNode* >( newMissle )->getTarget() );
 		newMissle->addAnimator( missleAni );
