@@ -90,6 +90,7 @@ void Network::BoostServer::OnRequestEnterRoom( unsigned long ip, const PACKAGE& 
 
 	OnePlayerInfoBag oneplayer;
 	oneplayer.player_index = index;
+	wcscpy( oneplayer.ship_name, enterRoomBag.shipname );
 
 	pack.SetCMD( NEW_PLAYER_JOIN );
 	pack.SetData( (char*)&oneplayer, sizeof( OnePlayerInfoBag ) );
