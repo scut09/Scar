@@ -122,4 +122,7 @@ void ShipAgentPlayer::Update()
 		}
 		break;
 	}
+
+	SendMove( PlayerShip->getPosition() );
+	SendRotate( PlayerShip->getRotation() );
 }
