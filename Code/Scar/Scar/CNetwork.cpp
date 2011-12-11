@@ -253,7 +253,8 @@ void Network::CNetwork::TcpSendTo( unsigned long ip, int port, const PACKAGE& p 
 	boost::shared_ptr<ip::tcp::socket> sock;	
 
 	// 查找是否有已连接的tcp
-	TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.end();// 赶工，临时解决第二次连接// m_ip_socketMap.find( ip );
+	//TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.end();// 赶工，临时解决第二次连接// m_ip_socketMap.find( ip );
+	TCP_IP_Socket_MapType::iterator iter = m_ip_socketMap.find( ip );
 	if ( iter == m_ip_socketMap.end() )
 	{
 		sock = boost::shared_ptr<ip::tcp::socket>( new ip::tcp::socket( m_pool.get_io_service() ) );
