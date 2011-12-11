@@ -36,6 +36,8 @@ void LoadSetting()
 	if ( ! inf.is_open() )
 		return;
 
+	inf >> MyIrrlichtEngine::GetEngine()->NetworkSetting;
+
 	int bServer;
 	inf >> bServer;
 	MyIrrlichtEngine::GetEngine()->IsServer = bServer;

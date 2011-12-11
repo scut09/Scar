@@ -850,31 +850,43 @@ void MultiplayerScene::Run()
 					auto rooms = client->GetRooms();
 					auto localIP = client->GetLocalIP();
 
-					auto iter = rooms.begin();
-					for ( ; iter != rooms.end(); ++iter )
+					if ( pEngine->NetworkSetting == 0 )
 					{
-						std::cout << "Room " << iter->first << " ";
-						std::wcout << iter->second.room_name << std::endl;
 
-						if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
-						{       
-							std::cout << "enter " << iter->first << std::endl;
-							client->EnterRoom( iter->first );
-							client->SetIsServer( false );
-							break;
+						auto iter = rooms.begin();
+						for ( ; iter != rooms.end(); ++iter )
+						{
+							std::cout << "Room " << iter->first << " ";
+							std::wcout << iter->second.room_name << std::endl;
+
+							if ( rooms.size() > 1 && localIP.find( iter->first ) == localIP.end() )         // ·?±??úIP
+							{       
+								std::cout << "enter " << iter->first << std::endl;
+								client->EnterRoom( iter->first );
+								client->SetIsServer( false );
+								break;
+							}
 						}
-					}
 
-					if ( iter == rooms.end()  ) 
+						if ( iter == rooms.end()  ) 
+						{
+							if ( ! localIP.empty() )
+								client->EnterRoom( *localIP.begin() );          
+							else
+								client->EnterRoom( "127.0.0.1" );
+							client->SetIsServer( true );
+						}
+						SubState = 203;
+					}
+					else if ( pEngine->NetworkSetting == 1 )
 					{
-						if ( ! localIP.empty() )
-							client->EnterRoom( *localIP.begin() );          
-						else
+						if ( pEngine->IsServer )
+						{
 							client->EnterRoom( "127.0.0.1" );
-						client->SetIsServer( true );
+						}
+						else
+							client->EnterRoom( pEngine->ServerIP );
 					}
-					SubState = 203;
-
 					//Sleep( 2000 );
 					//client->Send( "192.168.1.121" );
 				}
