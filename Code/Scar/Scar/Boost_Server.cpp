@@ -172,10 +172,10 @@ void Network::BoostServer::AddRobotPlayer( int type /*= 0 */ )
 	cb->drop();
 	npc->setMaterialFlag( EMF_BACK_FACE_CULLING, false );
 	auto triSelector = smgr->createOctreeTriangleSelector( static_cast<IMeshSceneNode*>(npc)->getMesh(), npc );
-	// 创建三角形选择器以支持碰撞
-	npc->setTriangleSelector( triSelector );
-	m_sceneSelector->addTriangleSelector( triSelector );
-	triSelector->drop();
+	//// 创建三角形选择器以支持碰撞
+	//npc->setTriangleSelector( triSelector );
+	//m_sceneSelector->addTriangleSelector( triSelector );
+	//triSelector->drop();
 
 	// 添加玩家
 	PlayerInfo info( robot->GetID(), 0, L"gf1" );

@@ -1026,12 +1026,12 @@ void MultiplayerScene::Run()
 				//spf.AddFlameToShip( playerShip, smgr );
 
 				// 增加飞船碰撞预警
-				auto decColAni = new ShipCrashWarnAnimator( pEngine->GetCollisionManager(), m_sceneSelector, 500 );
+				auto decColAni = new ShipCrashWarnAnimator( pEngine->GetCollisionManager(), m_mapSelector, 500 );
 				m_pCamera->addAnimator( decColAni );
 				decColAni->drop();
 				// 增加飞船碰撞检测
 				auto colAni = new MySceneNodeAnimatorCollisionResponse(
-					pEngine->GetCollisionManager(), m_sceneSelector );
+					pEngine->GetCollisionManager(), m_mapSelector );
 				colAni->SetCollisionCallback( [this, playerShip](ISceneNode* node, const ISceneNode* ColNode, vector3df ColPos)
 				{
 					// 反穿墙
