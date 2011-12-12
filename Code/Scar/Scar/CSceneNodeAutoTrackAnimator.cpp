@@ -64,7 +64,7 @@ CSceneNodeAnimatorAutoTrack::CSceneNodeAnimatorAutoTrack( ISceneNode* target )
 	isfirsttime = 1;
 	lasttime = 0;
 	t_sum = 0;
-	maxspeed = 1.f;
+	maxspeed = 1.5f;
 	inertia = 0.8f;
 	max_a = 0.3f;
 	max_range = 10000000.f;

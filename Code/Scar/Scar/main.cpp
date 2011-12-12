@@ -75,7 +75,7 @@ int main()
 	MyIrrlichtEngine::pEventReceiver = &receiver;
 	MyIrrlichtEngine::screen_width = 1366;
 	MyIrrlichtEngine::screen_height = 768;
-	MyIrrlichtEngine::bFullScreen = false;
+	MyIrrlichtEngine::bFullScreen = true;
 
 	// 创建引擎，并获取引擎指针
 	MyIrrlichtEngine* pEngine = MyIrrlichtEngine::GetEngine();
