@@ -107,6 +107,7 @@ void Network::BoostClient::SendBullet( int index, int bullet_type,
 	bullet.start_point = start;
 	bullet.end_point = end;
 	bullet.life = life;
+	bullet.type = bullet_type;
 
 	PACKAGE pack;
 	pack.SetCMD( BULLET_CREATE );
