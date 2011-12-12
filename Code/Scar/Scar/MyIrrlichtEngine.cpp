@@ -320,6 +320,10 @@ void MyIrrlichtEngine::ClearDeletionList()
 					// 加入玩家管理
 					boost::shared_ptr<HumanPlayer> player = boost::shared_ptr<HumanPlayer>( new HumanPlayer( ship ) );
 					player->SetID( oneplayer.player_index );
+					if ( oneplayer.ship_name == L"cf1" || oneplayer.ship_name == L"cf2")
+						player->SetTeam( 1 );
+					else
+						player->SetTeam( 2 );
 					//player->SetName( oneplayer.player_name );
 					dynamic_cast<MultiplayerScene*>(
 						MyIrrlichtEngine::GetEngine()->GetGameSceneManager()->GetCurrentGameScene()
