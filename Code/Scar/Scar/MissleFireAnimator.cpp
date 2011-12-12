@@ -82,7 +82,7 @@ void MissleFireAnimator::AddMissleToScene( MissleNode* missle )
 	if ( player->GetLockedShip() )
 	{
 		//目标船的ID存在startpoint的第一位中
-		Client->SendBullet( Client->GetID(), 1, vector3df( player->GetLockedShip()->getID() , 0, 0), vector3df( 0, 0, 0), missle->GetLife() );
+		Client->SendBullet( Client->GetID(), 1, vector3df( (f32)player->GetLockedShip()->getID() , 0.0f, 0.0f), vector3df( 0.0f ), missle->GetLife() );
 
 		// clone missle
 		ISceneNode* newMissle = missle->Clone( 0, 0 );

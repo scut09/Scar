@@ -252,6 +252,8 @@ void PlayerHelper::Revive()
 			canBreak = true;
 		}
 		playerShip->setPosition(Pos);
+		playerShip->setTarget( playerShip->getPosition() + vector3df( 0, 0, 100 ) );
+		playerShip->setUpVector( vector3df( 0, 1, 0 ) );
 		break;
 	}
 }

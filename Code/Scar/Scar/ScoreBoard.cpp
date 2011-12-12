@@ -5,7 +5,6 @@ void ScoreBoard::Upadate()
 {
 	if (IsVisible)
 	{
-		s32 i, j;
 		f32 upperLine = -200;
 		for ( auto iter = ScoreNodeMap.begin(); iter != ScoreNodeMap.end(); ++iter )
 		{
