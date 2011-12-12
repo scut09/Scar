@@ -387,6 +387,7 @@ void MyIrrlichtEngine::CloneWeapon( const Network::PACKAGE& p )
 			case 1:
 				{
 					ISceneNode* newMissle = MyIrrlichtEngine::GetEngine()->MissileFucker->Clone( 0, 0 );
+					newMissle->setPosition( GetSceneManager()->getSceneNodeFromId( bag->owner_index )->getPosition() );
 					MissleFlame mfe;
 					mfe.AddFlameToScene( newMissle, MyIrrlichtEngine::GetEngine()->GetSceneManager() );
 					//目标船的ID存在startpoint的第一位中
