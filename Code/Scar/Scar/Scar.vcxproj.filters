@@ -710,6 +710,12 @@
     <ClInclude Include="MissleFireAnimator.h">
       <Filter>Control</Filter>
     </ClInclude>
+    <ClInclude Include="ShipFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ISceneNodeAnimator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Python\client.py">
@@ -892,5 +898,6 @@
     <None Include="..\..\..\bin\Shader\missle.frag">
       <Filter>Shader\shaders\missle</Filter>
     </None>
+    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
 </Project>

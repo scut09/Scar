@@ -184,6 +184,7 @@
     <ClCompile Include="UIStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\ISceneNodeAnimator.h" />
     <ClInclude Include="CLoadCallback.h" />
     <ClInclude Include="CLoadManager.h" />
     <ClInclude Include="CSceneNodeCameraTargetChange.h" />
@@ -360,6 +361,7 @@
     <None Include="..\..\..\bin\Shader\Vertical.frag" />
     <None Include="..\..\..\bin\Shader\Vertical.vert" />
     <None Include="..\..\..\bin\Shader\WarpTube.frag" />
+    <None Include="ClassDiagram11.cd" />
     <None Include="py++.py" />
     <None Include="py++forScene.py" />
     <None Include="py++forSceneManager.py" />
