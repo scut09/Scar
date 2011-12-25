@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Aircraft" Collapsed="true">
-    <Position X="52.5" Y="0.75" Width="1.5" />
+    <Position X="40" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABACBKQSAAAAAAAACBAAAAEBAkgEQAAAAgAAAAA=</HashCode>
       <FileName>Aircraft.h</FileName>
@@ -15,14 +15,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AnimationManager" Collapsed="true">
-    <Position X="54.25" Y="0.75" Width="1.5" />
+    <Position X="41.75" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAQAAAAQAAAAAAAIAAAAAAAgAI=</HashCode>
       <FileName>AnimationManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AnimationManagerWrapper" Collapsed="true">
-    <Position X="56" Y="0.75" Width="1.5" />
+    <Position X="43.5" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
@@ -36,7 +36,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CFlame" Collapsed="true">
-    <Position X="63" Y="0.75" Width="1.5" />
+    <Position X="50.5" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BIAIAAABAAAAAAAAGAAAAAAAAAAACAAAAAAgAAAgIAA=</HashCode>
       <FileName>Flame.h</FileName>
@@ -50,7 +50,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CHouseHelper" Collapsed="true">
-    <Position X="52.5" Y="1.75" Width="1.5" />
+    <Position X="40" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAABAAAAAAgAAAAACAAA=</HashCode>
       <FileName>HouseHelper.h</FileName>
@@ -85,7 +85,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CSceneNodeAnimatorAircraftFPS" Collapsed="true">
-    <Position X="54.25" Y="1.75" Width="1.5" />
+    <Position X="41.75" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAIAACQCAAAAAoAENIEQAQABVGAAAACAAQgAAAAAAE=</HashCode>
       <FileName>SceneNodeAnimatorAircraftFPS.h</FileName>
@@ -169,14 +169,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GameSceneManager" Collapsed="true">
-    <Position X="59.5" Y="1.75" Width="1.5" />
+    <Position X="47" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAASAAAAAqAAggAEAAAAAAAAAAAAAAAACgAAQAA=</HashCode>
       <FileName>GameSceneManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GeneralCallBack" Collapsed="true">
-    <Position X="61.25" Y="1.75" Width="1.5" />
+    <Position X="48.75" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAA=</HashCode>
       <FileName>GeneralCallBack.h</FileName>
@@ -197,7 +197,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="InfoAndWarn" Collapsed="true">
-    <Position X="52.5" Y="2.75" Width="1.5" />
+    <Position X="40" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACUAAACAhEAABQIAAhBQAEgRAAgAAAAAgABAIAIAAEA=</HashCode>
       <FileName>InfoAndWarn.h</FileName>
@@ -218,7 +218,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="io_service_pool" Collapsed="true">
-    <Position X="54.25" Y="2.75" Width="1.5" />
+    <Position X="41.75" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgCAAAAACAAAAAAAAQAAAAAhAAAAAAAAAAAAAEA=</HashCode>
       <FileName>io_service_pool.h</FileName>
@@ -274,28 +274,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerHelper" Collapsed="true">
-    <Position X="63" Y="2.75" Width="1.5" />
+    <Position X="50.5" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>kSQDiFYkAzAQAICA4RT2AQpBAEAAoAEgUIYAqRCBAGM=</HashCode>
       <FileName>PlayerHelper.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerManager" Collapsed="true">
-    <Position X="52.5" Y="3.75" Width="1.5" />
+    <Position X="40" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAICAgAAIAAAAAAFAAAAAAAAAAAAAAIAgAAAAAAAA=</HashCode>
       <FileName>PlayerManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PPE_MotionBlur_callback" Collapsed="true">
-    <Position X="54.25" Y="3.75" Width="1.5" />
+    <Position X="41.75" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAAAA=</HashCode>
       <FileName>PostProcessMotionBlur.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PythonManager" Collapsed="true">
-    <Position X="56" Y="3.75" Width="1.5" />
+    <Position X="43.5" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQEAAAAAAAAAAEAAAAAAAAAAAAIAACBAEAAQA=</HashCode>
       <FileName>PythonManager.h</FileName>
@@ -337,7 +337,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="RunWayCallBack" Collapsed="true">
-    <Position X="57.75" Y="3.75" Width="1.5" />
+    <Position X="45.25" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAACAAAAAAAAAAAAAIAAgAAAAAAEAAAAIAAAAAAAAA=</HashCode>
       <FileName>RunWay.h</FileName>
@@ -351,21 +351,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SceneNodeShader" Collapsed="true">
-    <Position X="59.5" Y="3.75" Width="1.5" />
+    <Position X="47" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAACAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>SceneNodeShader.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScoreBoard" Collapsed="true">
-    <Position X="61.25" Y="3.75" Width="1.5" />
+    <Position X="48.75" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAABgAAAAEAAQEAAAAAAAAACECAAAAQECACAAAAA=</HashCode>
       <FileName>ScoreBoard.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ShaderManager" Collapsed="true">
-    <Position X="63" Y="3.75" Width="1.5" />
+    <Position X="50.5" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAEAAAAA=</HashCode>
       <FileName>ShaderManager.h</FileName>
@@ -386,7 +386,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ShipFactory" Collapsed="true">
-    <Position X="52.5" Y="4.75" Width="1.5" />
+    <Position X="40" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAgAAAAAAIAAgAEAAAAAAAAAAAAAg=</HashCode>
       <FileName>ShipFactory.h</FileName>
@@ -407,14 +407,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SpriteFlame" Collapsed="true">
-    <Position X="54.25" Y="4.75" Width="1.5" />
+    <Position X="41.75" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAEAABAAAAgAAAABAAEBAAAACAAAgAgBAAgAA=</HashCode>
       <FileName>SpriteFlame.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpriteShaderCallBack" Collapsed="true">
-    <Position X="56" Y="4.75" Width="1.5" />
+    <Position X="43.5" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAQAAAAAAAAAAAAAAAAAACAAAgAAAAIAAAAAAAAA=</HashCode>
       <FileName>SpriteShaderCallBack.h</FileName>
@@ -435,7 +435,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SunFlareCallBack" Collapsed="true">
-    <Position X="57.75" Y="4.75" Width="1.5" />
+    <Position X="45.25" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAAEAAAA=</HashCode>
       <FileName>SunFlareCallBack.h</FileName>
@@ -456,14 +456,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TimerWrapper" Collapsed="true">
-    <Position X="59.5" Y="4.75" Width="1.5" />
+    <Position X="47" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAQ=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Toolkit" Collapsed="true">
-    <Position X="61.25" Y="4.75" Width="1.5" />
+    <Position X="48.75" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABGAAwACCAAAAAAAAAAAAAAQAEAAAAAAAAAEAA=</HashCode>
       <FileName>Toolkit.h</FileName>
@@ -491,7 +491,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="UIManager" Collapsed="true">
-    <Position X="63" Y="4.75" Width="1.5" />
+    <Position X="50.5" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AggAAEAAAAIEYAAgAEAQICAAABECAAAAAQAAAABEAAg=</HashCode>
       <FileName>UIManager.h</FileName>
@@ -505,7 +505,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="VerticalCallBack" Collapsed="true">
-    <Position X="52.5" Y="5.75" Width="1.5" />
+    <Position X="40" Y="17.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>VerticalCallBack.h</FileName>
@@ -519,14 +519,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WarpFlyTubeController" Collapsed="true">
-    <Position X="54.25" Y="5.75" Width="1.5" />
+    <Position X="41.75" Y="17.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIBAAAAgAABAAAAAACAAAAAAAAAAAIAAAlEAAAAA=</HashCode>
       <FileName>WarpFlyTubeContoller.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WarpTubeCallBack" Collapsed="true">
-    <Position X="56" Y="5.75" Width="1.5" />
+    <Position X="43.5" Y="17.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAABAAAAAACAAAAAAAAAAABAAAAEBAAIIAEBAAAAAA=</HashCode>
       <FileName>WarpFlyAnimator.h</FileName>
@@ -540,28 +540,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MyEngine" Collapsed="true">
-    <Position X="56" Y="2.75" Width="1.5" />
+    <Position X="43.5" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAABAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyEventReceiver" Collapsed="true">
-    <Position X="57.75" Y="2.75" Width="1.5" />
+    <Position X="45.25" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAEEAAAAAAAAAAAAAAAAAQBAACAA=</HashCode>
       <FileName>EventListener.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyIrrlichtEngine" Collapsed="true">
-    <Position X="59.5" Y="2.75" Width="1.5" />
+    <Position X="47" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAQCHHAhDgkCGJBJiBgAQYGQCAAABgqEAIIEAAFASIY=</HashCode>
       <FileName>MyIrrlichtEngine.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MySceneManager" Collapsed="true">
-    <Position X="61.25" Y="2.75" Width="1.5" />
+    <Position X="48.75" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAVIAAkBEAAgCgEAIQEAgECAgCAgyIhAAEAQAAgAQCg=</HashCode>
       <FileName>MySceneManager.h</FileName>
@@ -616,7 +616,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Network::Buffer&lt;T&gt;" Collapsed="true">
-    <Position X="57.75" Y="0.75" Width="1.5" />
+    <Position X="45.25" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAIABAAAAAAAAAAAAAACAAAAAAAAAIAAg=</HashCode>
       <FileName>Buffer.h</FileName>
@@ -658,7 +658,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="irr::scene::CBillboardSceneNode" Collapsed="true">
-    <Position X="59.5" Y="0.75" Width="1.5" />
+    <Position X="47" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QEAAQAAAAIAAwAgACCAAAAAAAUAQAAAAAAAAkgQYAAA=</HashCode>
       <FileName>CBillboardSceneNode.h</FileName>
@@ -672,7 +672,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="irr::scene::CCameraSceneNode" Collapsed="true">
-    <Position X="61.25" Y="0.75" Width="1.5" />
+    <Position X="48.75" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QEAQAyJgABgAQFABCGABECAACQJFoAAgGgABEhQQAAE=</HashCode>
       <FileName>CCameraSceneNode.h</FileName>
@@ -686,14 +686,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="irr::scene::CShadowVolumeSceneNode" Collapsed="true">
-    <Position X="56" Y="1.75" Width="1.5" />
+    <Position X="43.5" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAEBARAIAECAAACEAAwIIAAEAEADCAMAQBAA=</HashCode>
       <FileName>CShadowVolumeSceneNode.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="irr::scene::CSkinnedMesh" Collapsed="true">
-    <Position X="57.75" Y="1.75" Width="1.5" />
+    <Position X="45.25" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>DDAICBQPEAQIAMUWQ2ABQCANBKIJKABUYIBQjAQQgIE=</HashCode>
       <FileName>CSkinnedMesh.h</FileName>
@@ -712,7 +712,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="irr::scene::IDummyTransformationSceneNode" Collapsed="true">
-    <Position X="63" Y="1.75" Width="1.5" />
+    <Position X="50.5" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>h:\coding\vs 2010\opengl-scut\code\include\idummytransformationscenenode.h</FileName>
@@ -733,7 +733,7 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="IAnimatedMesh_wrapper" Collapsed="true">
-    <Position X="57.75" Y="8" Width="1.5" />
+    <Position X="29.5" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAICABAEAAAAAIAAAyABACAAAAAAAAAAAAAAAAAAAQE=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
@@ -747,56 +747,56 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="IAttributeExchangingObject_wrapper" Collapsed="true">
-    <Position X="59.5" Y="8" Width="1.5" />
+    <Position X="31.25" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAQAAAAAAAAACAAIAAAAIAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IAttributes_wrapper" Collapsed="true">
-    <Position X="61.25" Y="8" Width="1.5" />
+    <Position X="33" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QMBCoYACUCBBgwEJACAAE3AIAEAAUOgNSYQAAAEEAgg=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IBillboardSceneNode_wrapper" Collapsed="true">
-    <Position X="63" Y="8" Width="1.5" />
+    <Position X="34.75" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QoxuACsBIIwA4AiECDQIIAAOK0ECQARCAByckgZ8DEI=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ICameraSceneNode_wrapper" Collapsed="true">
-    <Position X="52.5" Y="9" Width="1.5" />
+    <Position X="24.25" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>Quh+AithIAwA4BCFDHQJIAAOK0lH4ARiAhycEhZUDEI=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ICollisionCallback_wrapper" Collapsed="true">
-    <Position X="54.25" Y="9" Width="1.5" />
+    <Position X="26" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IEventReceiver_wrapper" Collapsed="true">
-    <Position X="56" Y="9" Width="1.5" />
+    <Position X="27.75" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IMesh_wrapper" Collapsed="true">
-    <Position X="57.75" Y="9" Width="1.5" />
+    <Position X="29.5" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAACAAAEAAAAAIAAAiABAAAAEAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IMeshSceneNode_wrapper" Collapsed="true">
-    <Position X="59.5" Y="9" Width="1.5" />
+    <Position X="31.25" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QohuECsBIIwA4ACECTQIIAAOK0ECQARCABycEgZ0DEI=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
@@ -810,7 +810,7 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="IReferenceCounted_wrapper" Collapsed="true">
-    <Position X="63" Y="9" Width="1.5" />
+    <Position X="34.75" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
@@ -831,7 +831,7 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="ISceneNodeAnimatorCollisionResponse_wrapper" Collapsed="true">
-    <Position X="52.5" Y="10" Width="1.5" />
+    <Position X="24.25" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACACAAAACACAgAAIOEAKBgIiIQKAABWYBAEAEKQACAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
@@ -845,14 +845,14 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="ITexture_wrapper" Collapsed="true">
-    <Position X="54.25" Y="10" Width="1.5" />
+    <Position X="26" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAACAIAAEICAAAAAgABAIBAAAgBAAAAEKAEAQAAAAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ITimer_wrapper" Collapsed="true">
-    <Position X="56" Y="10" Width="1.5" />
+    <Position X="27.75" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAhCAAAAAIAAAAAgAAAAAAAAAAAwAAABABAAAAEQAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
@@ -873,238 +873,238 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="IVideoDriver_wrapper" Collapsed="true">
-    <Position X="57.75" Y="10" Width="1.5" />
+    <Position X="29.5" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>MQSOByAUCOXQMkFD0KOABiFgBG9HwGJQJShNJog1AIg=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="IWeaponCollisionCallback_wrapper" Collapsed="true">
-    <Position X="59.5" Y="10" Width="1.5" />
+    <Position X="31.25" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>PythonSceneMgr.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Node2DInfo" Collapsed="true">
-    <Position X="61.25" Y="10" Width="1.5" />
+    <Position X="33" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAQAAAAIAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Toolkit.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="PythonSceneNode" Collapsed="true">
-    <Position X="61.25" Y="11" Width="1.5" />
+    <Position X="33" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAACCQAAQAAAAABBAAAAAAAkgAAAAAAAAACAA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="PythonSColor" Collapsed="true">
-    <Position X="63" Y="11" Width="1.5" />
+    <Position X="34.75" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAAgA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="PythonSLight" Collapsed="true">
-    <Position X="52.5" Y="12" Width="1.5" />
+    <Position X="24.25" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAgAA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="PythonVector2df" Collapsed="true">
-    <Position X="54.25" Y="12" Width="1.5" />
+    <Position X="26" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAEA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="PythonVector3df" Collapsed="true">
-    <Position X="56" Y="12" Width="1.5" />
+    <Position X="27.75" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQAAACA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ScoreItem" Collapsed="true">
-    <Position X="63" Y="12" Width="1.5" />
+    <Position X="34.75" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAIAAAAAAAAAgAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>ScoreBoard.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ScoreNode" Collapsed="true">
-    <Position X="52.5" Y="13" Width="1.5" />
+    <Position X="24.25" Y="19" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAgAAAAAAA=</HashCode>
       <FileName>PlayerHelper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="SGUITTFace" Collapsed="true">
-    <Position X="54.25" Y="13" Width="1.5" />
+    <Position X="26" Y="19" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAgAAAAAAAAQAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>CGUITTFont.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="SLoadEvent" Collapsed="true">
-    <Position X="56" Y="13" Width="1.5" />
+    <Position X="27.75" Y="19" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>CLoadCallback.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="SpriteRowCol" Collapsed="true">
-    <Position X="57.75" Y="13" Width="1.5" />
+    <Position X="29.5" Y="19" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAQACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SpriteShaderCallBack.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AnimatorWrapper" Collapsed="true">
-    <Position X="54.25" Y="7" Width="1.5" />
+    <Position X="26" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAEEAAAAAAAAAAAA=</HashCode>
       <FileName>PythonWrapper.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Fuck&lt;T&gt;" Collapsed="true">
-    <Position X="52.5" Y="8" Width="1.5" />
+    <Position X="24.25" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAA=</HashCode>
       <FileName>MultiplayerScene.cpp</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::AllowJoinRoomBag" Collapsed="true">
-    <Position X="52.5" Y="7" Width="1.5" />
+    <Position X="24.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQQBAEA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::BroadcastMessageBag" Collapsed="true">
-    <Position X="56" Y="7" Width="1.5" />
+    <Position X="27.75" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAACAAAAAAAQABAAAAIAAEAQAAAAAAAAAAAABAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::BroadcastPlayerInfo" Collapsed="true">
-    <Position X="57.75" Y="7" Width="1.5" />
+    <Position X="29.5" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::BroadcastRoomBag" Collapsed="true">
-    <Position X="59.5" Y="7" Width="1.5" />
+    <Position X="31.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAIAAAAAAAAACAAAAAQAAAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::BulletCreateBag" Collapsed="true">
-    <Position X="61.25" Y="7" Width="1.5" />
+    <Position X="33" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAgAAAAAAAAAAAAAAAAAAABgAAAAAABAAIAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::BulletHittedBag" Collapsed="true">
-    <Position X="63" Y="7" Width="1.5" />
+    <Position X="34.75" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQBAAAAAAAAAAAAgAABAAAAABAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::HeroMove" Collapsed="true">
-    <Position X="54.25" Y="8" Width="1.5" />
+    <Position X="26" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAABgAQABAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::HeroRotate" Collapsed="true">
-    <Position X="56" Y="8" Width="1.5" />
+    <Position X="27.75" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQABAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::IP_Package" Collapsed="true">
-    <Position X="61.25" Y="9" Width="1.5" />
+    <Position X="33" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>CNetwork.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::OnePlayerInfoBag" Collapsed="true">
-    <Position X="63" Y="10" Width="1.5" />
+    <Position X="34.75" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAgAAAAAAAAAAAAAAAAAAAAAACAABgAQUAAEA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::PACKAGE" Collapsed="true">
-    <Position X="52.5" Y="11" Width="1.5" />
+    <Position X="24.25" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAIAAABEAAAAAAgBIQQgAAIAAgAAAAIAAAAAAAAAEA=</HashCode>
       <FileName>NetworkPacket.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::PlayerDeath" Collapsed="true">
-    <Position X="54.25" Y="11" Width="1.5" />
+    <Position X="26" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::PlayerInfo" Collapsed="true">
-    <Position X="56" Y="11" Width="1.5" />
+    <Position X="27.75" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAABAAAAAAAAAAAAAAAAAAAAAgAAEBAEA=</HashCode>
       <FileName>CNetwork.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::PlayerInfoBag" Collapsed="true">
-    <Position X="57.75" Y="11" Width="1.5" />
+    <Position X="29.5" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAQAAABAAAAAAAAAAAAAAAIAAAAAAgAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::PlayerLockBag" Collapsed="true">
-    <Position X="59.5" Y="11" Width="1.5" />
+    <Position X="31.25" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::RequestEnterRoomBag" Collapsed="true">
-    <Position X="57.75" Y="12" Width="1.5" />
+    <Position X="29.5" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::ScoreArrivalBag" Collapsed="true">
-    <Position X="59.5" Y="12" Width="1.5" />
+    <Position X="31.25" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Network::ScoreBoardBag" Collapsed="true">
-    <Position X="61.25" Y="12" Width="1.5" />
+    <Position X="33" Y="18" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAQAgBAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameBag.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="Network::GameCMD" Collapsed="true">
-    <Position X="52.5" Y="14.25" Width="1.5" />
+    <Position X="24.25" Y="20.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAICCAAACgAIAAQAAAAAAAABKAAAAACAAAAAJCAAA=</HashCode>
       <FileName>GameBag.h</FileName>
