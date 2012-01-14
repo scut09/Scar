@@ -12,6 +12,9 @@ void CSceneNodeAnimatorAutoTrack::animateNode( scene::ISceneNode* node, u32 time
 	
 	isfirsttime = 0;
 
+	if (!node || !Target)
+		return;
+
 	vector3df missle_pos = node->getPosition();
 	vector3df target_pos = Target->getPosition();
 	vector3df vector_a = target_pos - missle_pos;
